@@ -1,0 +1,6 @@
+scale,raw_score,score,ci_95,percentile,range,test,test_name,domain,subdomain,subdomain_narrow,domain_broad,domain_test,test_type,score_type,timed
+Math Computation,27,87,80 - 94,19,Low Average,wrat5,WRAT-5,Academic Skills,Math,Math Calculation,Academics,Math,npsych_test,standard_score,FALSE
+Spelling,25,82,74 - 90,12,Borderline,wrat5,WRAT-5,Academic Skills,Writing,Spelling,Academics,Spelling,npsych_test,standard_score,FALSE
+Word Reading,31,82,74 - 90,12,Borderline,wrat5,WRAT-5,Academic Skills,Reading,Reading Decoding,Academics,Reading,npsych_test,standard_score,FALSE
+Sentence Comprehension,21,94,86 - 102,34,Average,wrat5,WRAT-5,Academic Skills,Reading,Reading Comprehension,Academics,Reading,npsych_test,standard_score,FALSE
+Reading Composite,176,87,81 - 93,19,Low Average,wrat5,WRAT-5,Academic Skills,Reading,Broad Reading,Academics,Reading,npsych_test,standard_score,FALSE

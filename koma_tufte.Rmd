@@ -1,0 +1,64 @@
+---
+title: "Koma Tufte"
+subtitle: "KOMA-script articles with komadown"
+author:
+  - name: "Joey Trampush" 
+    affil: "Lund University"
+date: "2019-03-23"
+automark: yes
+colorlinks: yes
+fontpack-libertine: yes
+classoption:
+  - DIV=calc
+  - headsepline=true 
+header:
+  - pos: ro
+    next: komadown
+caption:
+  - labelfont=bf
+  - labelsep=period
+  - font=small
+setkomafont:
+  - element: descriptionlabel
+    commands: \normalfont\scshape\bfseries
+KOMAoptions:
+  - headings=standardclasses
+  - DIV=last
+output: komadown::komatufte
+latex_engine: xelatex
+---
+
+```{r, include = FALSE}
+knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
+
+# Fix subfigs for rmarkdown -> latex
+if (identical(knitr:::pandoc_to(), 'latex'))
+  knitr::knit_hooks$set(plot = knitr::hook_plot_tex)
+
+knitr::opts_chunk$set(
+  echo = TRUE,
+  dev = "pdf",
+  dev.args = list(pointsize = 8),
+  crop = TRUE,
+  fig.width = 5,
+  fig.height = 3
+)
+
+knitr::opts_knit$set(width = 50)
+
+options(digits = 3)
+```
+
+Section
+
+## Subsection
+
+### Sub-subsection
+
+# Heading 1
+
+## Heading 2
+
+And some text
+
+....
