@@ -134,7 +134,7 @@ ktea3 <- ktea3 %>%
       ktea3$scale == "Math Composite" ~ "Academic Skills",
       ktea3$scale == "Written Language Composite" ~ "Academic Skills",
       ktea3$scale == "Sound-Symbol Composite" ~ "Academic Skills",
-      ktea3$scale == "Phonological Processing" ~ "Verbal/Language",
+      ktea3$scale == "Phonological Processing" ~ "Academic Skills",
       ktea3$scale == "Decoding Composite" ~ "Academic Skills",
       ktea3$scale == "Reading Fluency Composite" ~ "Academic Skills",
       ktea3$scale == "Silent Reading Fluency" ~ "Academic Skills",
@@ -146,12 +146,12 @@ ktea3 <- ktea3 %>%
       ktea3$scale == "Listening Comprehension" ~ "Verbal/Language",
       ktea3$scale == "Oral Expression" ~ "Verbal/Language",
       ktea3$scale == "Oral Fluency Composite" ~ "Verbal/Language",
-      ktea3$scale == "Object Naming Facility" ~ "Verbal/Language",
+      ktea3$scale == "Object Naming Facility" ~ "Academic Skills",
       ktea3$scale == "Comprehension Composite" ~ "Verbal/Language",
       ktea3$scale == "Listening Comprehension" ~ "Verbal/Language",
       ktea3$scale == "Expression Composite" ~ "Verbal/Language",
-      ktea3$scale == "Letter Naming Facility" ~ "Verbal/Language",
-      ktea3$scale == "Orthographic Processing Composite" ~ "Verbal/Language",
+      ktea3$scale == "Letter Naming Facility" ~ "Academic Skills",
+      ktea3$scale == "Orthographic Processing Composite" ~ "Academic Skills",
       TRUE ~ as.character(domain)
     )
   ) %>%
@@ -270,7 +270,45 @@ ktea3 <- ktea3 %>%
       ktea3$scale == "Letter Naming Facility" ~ "TRUE",
       ktea3$scale == "Orthographic Processing Composite" ~ "FALSE",
       TRUE ~ as.character(timed)
-    )
+    ) %>%
+  mutate(
+    score_type = case_when(
+      ktea3$scale == "Nonsense Word Decoding" ~ "standard_score",
+      ktea3$scale == "Academic Fluency Composite" ~ "composite_score",
+      ktea3$scale == "Writing Fluency" ~ "standard_score",
+      ktea3$scale == "Math Fluency" ~ "standard_score",
+      ktea3$scale == "Decoding Fluency" ~ "standard_score",
+      ktea3$scale == "Academic Skills Battery (ASB) Composite" ~ "composite_score",
+      ktea3$scale == "Math Concepts & Applications" ~ "standard_score",
+      ktea3$scale == "Letter & Word Recognition" ~ "standard_score",
+      ktea3$scale == "Written Expression" ~ "standard_score",
+      ktea3$scale == "Math Computation" ~ "standard_score",
+      ktea3$scale == "Spelling" ~ "standard_score",
+      ktea3$scale == "Reading Comprehension" ~ "standard_score",
+      ktea3$scale == "Reading Composite" ~ "composite_score",
+      ktea3$scale == "Math Composite" ~ "composite_score",
+      ktea3$scale == "Written Language Composite" ~ "composite_score",
+      ktea3$scale == "Sound-Symbol Composite" ~ "composite_score",
+      ktea3$scale == "Phonological Processing" ~ "standard_score",
+      ktea3$scale == "Decoding Composite" ~ "composite_score",
+      ktea3$scale == "Reading Fluency Composite" ~ "TRUE",
+      ktea3$scale == "Silent Reading Fluency" ~ "standard_score",
+      ktea3$scale == "Word Recognition Fluency" ~ "standard_score",
+      ktea3$scale == "Reading Understanding Composite" ~ "composite_score",
+      ktea3$scale == "Reading Vocabulary" ~ "standard_score",
+      ktea3$scale == "Oral Language Composite" ~ "composite_score",
+      ktea3$scale == "Associational Fluency" ~ "standard_score",
+      ktea3$scale == "Listening Comprehension" ~ "standard_score",
+      ktea3$scale == "Oral Expression" ~ "standard_score",
+      ktea3$scale == "Oral Fluency Composite" ~ "composite_score",
+      ktea3$scale == "Object Naming Facility" ~ "standard_score",
+      ktea3$scale == "Comprehension Composite" ~ "composite_score",
+      ktea3$scale == "Listening Comprehension" ~ "standard_score",
+      ktea3$scale == "Expression Composite" ~ "composite_score",
+      ktea3$scale == "Letter Naming Facility" ~ "standard_score",
+      ktea3$scale == "Orthographic Processing Composite" ~ "composite_score",
+      TRUE ~ as.character(score_type)
+    ) 
   )
 
 ktea3 <- ktea3 %>% select(-sum_subtest, -category, -age_equiv, -gsv)
