@@ -1,3 +1,0 @@
-scale,raw_score,score,ci_95,percentile,range,test,test_name,domain,subdomain,subdomain_narrow,domain_broad,domain_test,test_type,score_type,timed
-Dominant Hand,101,21,,0.2,Abnormal,pegboard,Grooved Pegboard,Motor,Fine Motor,Motor Laterality,Cognitive,Fine Motor,npsych_test,t_score,TRUE
-Nondominant Hand,110,18,,0.1,Abnormal,pegboard,Grooved Pegboard,Motor,Fine Motor,Motor Laterality,Cognitive,Fine Motor,npsych_test,t_score,TRUE

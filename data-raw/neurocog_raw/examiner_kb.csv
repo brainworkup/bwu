@@ -1,5 +1,0 @@
-scale,raw_score,score,ci_95,percentile,range,test,test_name,domain,subdomain,subdomain_narrow,domain_broad,domain_test,test_type,score_type,timed,absort
-Dot Counting Total Score,10,47,39-57,39,Average,nih_examiner,EXAMINER,Attention/Executive,Working Memory,Nonverbal Working Memory,Cognitive,Working Memory,npsych_test,t_score,FALSE,EXAMINER_01
-Unstructured Task Composite Score,0.9,64,56-74,93,Superior,nih_examiner,EXAMINER,Attention/Executive,Concept Formation,Planning,Cognitive,Planning,npsych_test,t_score,TRUE,EXAMINER_02
-Set Shifting Task Shift Score,6.9,64,58-68,91,High Average,nih_examiner,EXAMINER,Attention/Executive,Cognitive Flexibility,Cognitive Flexibility,Cognitive,Cognitive Control,npsych_test,t_score,TRUE,EXAMINER_03
-Flanker Task Total Score,7.4,54,48-59,64,Average,nih_examiner,EXAMINER,Attention/Executive,Cognitive Control,Cognitive Control,Cognitive,Cognitive Control,npsych_test,t_score,TRUE,EXAMINER_04
