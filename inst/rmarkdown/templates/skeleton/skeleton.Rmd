@@ -255,12 +255,6 @@ knitr::knit_engines$set(marginfigure = function(options) {
     })
 ```
 
-```{r}
-# Source functions
-source(file = here::here("R/calc_age.R"))
-```
-
-
 (ref:wppsi4) Wechsler Preschool and Primary Scale of Intelligence, 4th ed
 (WPPSI-IV)
 
