@@ -5,4 +5,6 @@
 data-raw
 koma_tufte
 fish_shell_commmands.sh
-
+*.csv
+*.R
+.DS_Store

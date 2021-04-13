@@ -1,4 +1,6 @@
+local/
 library/
 lock/
 python/
 staging/
+.DS_Store
