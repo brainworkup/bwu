@@ -5,16 +5,12 @@ Version: 0.1.1
 Author: person("Joey", "Trampush", email = j.trampush@gmail.com, role = c("aut", "cre"))
 Maintainer: Joey Trampush <trampush@usc.edu>
 Description: This package stores the functions and normative datasets to use for neuropsychological evaluatioins at USC Keck School of Medicine. Hopefully it works.
-License: GPL-2
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Depends: 
     R (>= 3.10)
 RoxygenNote: 7.1.1.9001
-Imports: 
-    pagedown,
-    rmarkdown,
-    bookdown,
-    komadown,
-    tufte,
-    tidyverse
+Imports: rmarkdown, bookdown, pagedown, komadown, tufte, htmltools, knitr
+Suggests: ggplot2, xfun
+VignetteBuilder: knitr
