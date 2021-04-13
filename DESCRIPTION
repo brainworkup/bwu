@@ -13,4 +13,8 @@ Depends:
 RoxygenNote: 7.1.1.9001
 Imports: 
     pagedown,
-    rmarkdown
+    rmarkdown,
+    bookdown,
+    komadown,
+    tufte,
+    tidyverse

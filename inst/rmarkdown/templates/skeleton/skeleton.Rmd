@@ -1,0 +1,903 @@
+---
+title: "Confidential Neuropsychological Report"
+author:
+  - name: "**Smalls, Biggie**"
+date: January 1, 2021
+output:
+  komadown::komatufte:
+    latex_engine: pdflatex 
+    citation_package: biblatex
+    number_sections: false
+    keep_md: false
+    keep_tex: false
+site: bookdown::bookdown_site
+header-includes:
+- \usepackage{titling}
+- \pretitle{\begin{center}
+  \includegraphics[width=6in,height=2in]{logo.png}\LARGE\\}
+- \posttitle{\end{center}}
+- \usepackage{svg}
+toc: false
+highlight: yes
+bibliography: komadown.bib
+biblio-style: apa
+link-citations: yes
+colorlinks: yes
+graphics: yes
+fig-caption: true
+self-contained: yes
+fontpack-newtx: yes
+fontpack-libertine: yes
+automark: yes
+classoption:
+  - DIV=calc
+  - headsepline=true
+header:
+  - pos: ro
+    next: "`r params$lname`, `r params$fname`"
+caption:
+  - labelfont=bf
+  - labelsep=period
+  - font=small
+setkomafont:
+- element: descriptionlabel
+  commands: \normalfont\scshape\bfseries
+params:
+  fname:
+    label: 'First Name:'
+    value: Biggie
+    input: text
+  lname:
+    label: 'Last Name:'
+    value: Smalls
+    input: text
+  mrn:
+    label: 'Patient ID:'
+    value: '00000000'
+    input: numeric
+    min: 00000000
+    max: 99999999
+  dob:
+    label: 'Date of Birth:'
+    value: !r Sys.Date()
+    input: date
+  sex:
+    label: 'Sex/Gender:'
+    value: Male
+    input: radio
+    choices:
+    - Male
+    - Female
+    - Nonbinary
+    - Prefer not to answer
+  race:
+    label: 'Race/Ethnicity:'
+    value: White/Caucasian
+    input: radio
+    choices:
+    - American Indian/Alaska Native
+    - Asian-American
+    - Black/African-American
+    - Hispanic/Caucasian
+    - Multiracial
+    - Native Hawaiian
+    - Pacific Islander
+    - White/Caucasian
+    - Prefer not to answer
+    - Other
+  hand:
+    label: 'Handedness:'
+    value: Right
+    input: radio
+    width: 800px
+    choices:
+    - Right
+    - Left
+    - Ambidextrous
+  educ:
+    label: 'Current Grade:'
+    value: "Dropped outta high school"
+    input: select
+    multiple: no
+    choices:
+    - Dropped outta high school
+    - At home with relatives
+    - Daycare
+    - Preschool
+    - Transitional Kindergarten
+    - Kindergarten
+    - 1st grade
+    - 2nd grade
+    - 3rd grade
+    - 4th grade
+    - 5th grade
+    - 6th grade
+    - 7th grade
+    - 8th grade
+    - 9th grade
+    - 10th grade
+    - 11th grade
+    - 12th grade
+    - College freshman
+    - College sophomore
+    - College junior
+    - College senior
+    - Graduate student
+    - Post-doctoral student
+    - Other
+    - High school diploma
+    - College degree
+    - Master's degree
+    - Medical degree
+    - Doctoral degree
+  doe1:
+    label: 'DOE 1st visit (NSE):'
+    value: !r Sys.Date()
+    input: date
+  doe2:
+    label: 'DOE 2nd visit (NT1):'
+    value: !r Sys.Date()
+    input: date
+  doe3:
+    label: 'DOE 3rd visit (NT2):'
+    value: !r Sys.Date()
+    input: date
+  doe4:
+    label: 'DOE 4th visit (SIRF):'
+    value: !r Sys.Date()
+    input: date
+  he:
+    label: 'he/she Pronoun:'
+    value: he
+    input: radio
+    width: 800px
+    choices:
+    - he
+    - she
+  his:
+    label: 'his/her Pronoun:'
+    value: his
+    input: radio
+    width: 800px
+    choices:
+    - his
+    - her
+  him:
+    label: 'him/her Pronoun:'
+    value: him
+    input: radio
+    width: 800px
+    choices:
+    - him
+    - her
+  he2:
+    label: 'He/She Pronoun:'
+    value: He
+    input: radio
+    width: 800px
+    choices:
+    - He
+    - She
+  his2:
+    label: 'His/Her Pronoun:'
+    value: His
+    input: radio
+    width: 800px
+    choices:
+    - His
+    - Her
+  him2:
+    label: 'Him/Her Pronoun:'
+    value: Him
+    input: radio
+    width: 800px
+    choices:
+    - Him
+    - Her
+---
+
+```{r, setup, include = FALSE, results='hide', warning=FALSE}
+library(knitr)
+knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
+knitr::knit_hooks$set(optipng = knitr::hook_optipng)
+
+# Fix subfigs for rmarkdown -> latex
+if (identical(knitr:::pandoc_to(), 'latex'))
+  knitr::knit_hooks$set(plot = knitr::hook_plot_tex)
+
+knitr::opts_chunk$set(
+  echo = FALSE,
+  dev = c("CairoPNG", "CairoPDF"),
+  dev.args = list(pointsize = 8),
+  crop = TRUE,
+  par = TRUE,
+  fig.width = 5,
+  fig.height = 3,
+  dpi = 300,
+  fig.pos = '!ht',
+  root.dir = normalizePath('./'),
+  cache = FALSE,
+  cache.path = './cache/report-',
+  # Code block options
+  eval = TRUE,
+  include = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  results = 'asis',
+  error = TRUE
+)
+
+knitr::opts_knit$set(width = 50)
+
+options(digits = 3, warnPartialMatchArgs = FALSE)
+```
+
+```{r}
+# Source functions
+source(file = here::here("R/utils.R"))
+```
+
+```{r}
+# Source functions
+source(file = here::here("R/handout.R"))
+```
+
+```{r}
+# Source functions
+source(file = here::here("R/html.R"))
+```
+
+```{r}
+knitr::knit_engines$set(marginfigure = function(options) {
+        options$type = 'marginfigure'
+        eng_block = knitr::knit_engines$get('block')
+        eng_block(options)
+    })
+```
+
+```{r}
+# Source functions
+source(file = here::here("R/calc_age.R"))
+```
+
+
+(ref:wppsi4) Wechsler Preschool and Primary Scale of Intelligence, 4th ed
+(WPPSI-IV)
+
+(ref:wisc5) Wechsler Intelligence Scale for Children, 5th ed (WISC-V)
+
+(ref:wais4) Wechsler Adult Intelligence Scale, 4th ed (WAIS-IV)
+
+(ref:ktea3) Kaufman Test of Educational Achievement, 3rd ed (KTEA-3)
+
+(ref:wrat5) Wide Range Achievement Test, 5th ed (WRAT-5)
+
+(ref:wiat3) Wechsler Individual Achievement Test, 3rd ed (WIAT-III)
+
+(ref:wiat4) Wechsler Individual Achievement Test, 4th ed (WIAT-4)
+
+(ref:evt3) Expressive Vocabulary Test, 3rd ed (EVT-3)
+
+(ref:ppvt5) Peabody Picture Vocabulary Test, 5th ed (PPVT-5)
+
+(ref:nepsy2) NEPSY-II Developmental Neuropsychological Battery
+
+(ref:examiner) NIH Executive Abilities: Measures and Instruments for
+Neurobehavioral Evaluation and Research (NIH EXAMINER)
+
+(ref:cms) Children's Memory Scale (CMS)
+
+(ref:pegboard) Grooved Pegboard Test
+
+(ref:clock) Clock Drawing Test
+
+(ref:bicycle) Bicycle Drawing Task
+
+(ref:ravlt) Rey Auditory Verbal Learning Test (RAVLT)
+
+(ref:cvltc) California Verbal Learning Test, Child ed (CVLT-C)
+
+(ref:cvlt3) California Verbal Learning Test, 3rd ed (CVLT-3)
+
+(ref:dkefs) Delis-Kaplan Executive Function System (D-KEFS)
+
+(ref:tmt) Trail Making Test
+
+(ref:nab) Neuropsychological Assessment Battery (NAB)
+
+(ref:coca) Colorado Cognitive Assessment (CoCA)
+
+(ref:cog-est) Cognitive Estimation Test
+
+(ref:celf5) Clinical Evaluation of Language Fundamentals, 5th ed (CELF-5)
+
+(ref:tomm) Test of Memory Malingering (TOMM)
+
+(ref:acs-word-choice) Advanced Clinical Solutions (ACS) Word Choice Test
+
+(ref:basc3) Behavioral Assessment Scale for Children, 3rd ed (BASC-3)
+
+(ref:basc3-sdh) BASC-3 Structured Developmental History (SDH)
+
+(ref:basc3-prs) BASC-3 Parent Rating Scale (PRS)
+
+(ref:basc3-prs-preschool) BASC-3 Parent Rating Scale (PRS), Preschool
+
+(ref:basc3-prs-child) BASC-3 Parent Rating Scale (PRS), Child
+
+(ref:basc3-prs-adolescent) BASC-3 Parent Rating Scale (PRS), Adolescent
+
+(ref:basc3-srp) BASC-3 Self-Report of Personality (SRP)
+
+(ref:basc3-srp-child) BASC-3 Self-Report of Personality (SRP), Child
+
+(ref:basc3-srp-adolescent) BASC-3 Self-Report of Personality (SRP), Adolescent
+
+(ref:brown-efa) Brown Executive Function/Attention Scales (Brown EF/A)
+
+(ref:brown-efa-parent) Brown Executive Function/Attention (EF/A) Scales, Parent
+
+(ref:brown-efa-self) Brown Executive Function/Attention (EF/A) Scales, Self
+
+(ref:brown-efa-teacher) Brown Executive Function/Attention (EF/A) Scales,
+Teacher
+
+(ref:caadid) Conners' Adult ADHD Diagnostic Interview for DSM-IV (CAADID), Part
+I: History
+
+(ref:cars2) Childhood Autism Rating Scale, 2nd ed (CARS2)
+
+(ref:cars2-hf) CARS2 High-Functioning Version (CARS2-HF)
+
+(ref:cars2-qpc) CARS2 Questionnaire for Parents/Caregivers (CARS2-QPC)
+
+(ref:sent-comp) Children's Sentence Completion Test
+
+(ref:pai) Personality Assessment Inventory (PAI)
+
+(ref:iq) Intelligence
+
+(ref:academics) Academic Skills
+
+(ref:verbal) Verbal/Language
+
+(ref:spatial) Visual Perception/Construction
+
+(ref:memory) Memory
+
+(ref:executive) Attention/Executive
+
+(ref:motor) Motor
+
+(ref:social) Social Cognition
+
+(ref:standard-score) Score = Standard score (M = 100, SD = 15)
+
+(ref:scaled-score) Score = Scaled score (M = 10, SD = 3)
+
+(ref:t-score) Score = *T* score (M = 50, SD = 10)
+
+(ref:z-score) Score = *z*-score (M = 0, SD = 1)
+
+(ref:zplot) *z* = -1 (16th percentile), *z* = 0 (50th percentile), and *z* = 1
+(84th percentile)
+
+(ref:pct) A percentile score shows `r params$fname`'s standing relative to
+peers. For example, a percentile score of 75 means `r params$fname` performed as
+well as or better than 75% of children the same age.
+
+(ref:br) A base rate is the prevalence of score in the U.S. population. If a
+score is rare, defined as a base rate of less than 10%, it is considered
+clinically significant, and that area of functioning is probably causing
+problems in the real world.
+
+(ref:basc3-footnote) Score = *T* score (M = 50, SD = 10); *Note:* Adaptive
+Skills *T* scores are reversed
+
+(ref:basc3-fn-srp-adol) Score = *T* score (M = 50, SD = 10); *Note:* Personal
+Adjustment *T* scores are reversed
+
+(ref:g) *General intelligence* refers to an overall capacity to reason, to solve
+problems, and to learn useful information.
+
+(ref:gc) *Crystallized intelligence* refers to the ability to learn and use
+language to reason and understand how the world works.
+
+(ref:gf) *Fluid intelligence* refers to the ability to use logical reasoning to
+figure things out without being told exactly how things work, analyze and solve
+novel problems, identify patterns and relationships that underpin these
+problems, and apply logic.
+
+(ref:acad) *Reading ability* consists of three interrelated abilities: decoding,
+comprehension, and fluency. *Writing ability* can be described in terms of
+spelling, grammar, expression of ideas, and writing fluency. *Math ability* can
+be described in terms of calculation skills, applied problem solving, and math
+fluency.
+
+(ref:read) *Reading ability* can be described as consisting of three
+interrelated abilities: decoding (the ability to recognize and pronounce written
+words presented without context), comprehension (the ability not only to
+understand the facts presented in the text but also the ability to figure out
+things in the text that are not directly stated), and fluency (the ability to
+decode and understand simple written information in a rapid and fluent manner).
+
+(ref:write) *Writing ability* can be described in terms of spelling, grammar,
+expression of ideas, and writing fluency. Spelling ability and writing fluency
+help one write quickly and with quality. If these lower-level skills don't flow
+easily, they can take up attention and working memory space so that more
+important skills such as making good choices about words and meaning (i.e.,
+expression), and capitalizing on background grammar knowledge to construct good
+pieces of writing cannot be used as easily.
+
+(ref:math) *Math ability* can be described in terms of calculation skills,
+applied problem solving (e.g., word problems), and math fluency.
+
+(ref:vrb) *Verbal/language* refers to the ability to access and apply acquired
+word knowledge, to verbalize meaningful concepts, to understand complex
+multistep instructions, to think about verbal information, and to express
+oneself using words.
+
+(ref:spt) *Visuoperception, construction, and general visuospatial processing*
+refer to abilities such as mentally visualizing how objects should look from
+different angles, visualizing how to put objects together so that they fit
+correctly, and being able to accurately and efficiently copy and/or reproduce
+visual-spatial information onto paper.
+
+(ref:att-exe) *Attentional and executive functions* underlie most, if not all,
+domains of cognitive performance. These are behaviors and skills that allow
+individuals to successfully carry-out instrumental and social activities,
+academic work, engage with others effectively, problem solve, and successfully
+interact with the environment to get needs met.
+
+(ref:att) Attention is a basic function that underlies most, if not all, domains
+of neurocognitive functioning. If an individual has limited attentional
+capacity, an inability to sustain or divide attentional focus, or a reduced
+ability to selectively attend to competing stimuli, then they would likely be
+unable to interact with the environment to an adequate degree and, thus have
+limited functioning in other, higher-order areas.
+
+(ref:exe) Measures of executive functioning are used as proxies for behaviors
+and skills that allow individuals to successfully carry-out instrumental and
+social activities, such as planning, engaging with others effectively, problem
+solving, and successfully interacting with the environment to get needs met.
+
+(ref:wm) *Working memory* is the system responsible for the transient holding
+and processing of information in conscious awareness just long enough to use it
+for problem solving, and plays a critical role in reasoning, comprehension, and
+learning.
+
+(ref:ps) *Processing speed* refers to the rate at which the brain can
+repetitively process familiar and unfamiliar information during relatively easy
+tasks that almost everyone can do. Processing speed tests are good predictors of
+performance on tasks that are so well learned that they are nearly automatic,
+which can be critical to completing work efficiently.
+
+(ref:mem) *Learning and memory* refer to the rate and ease with which new
+information (e. g., facts, stories, lists, faces, names) can be encoded, stored,
+and later recalled from long-term memory.
+
+(ref:mtr) *Sensorimotor* tasks refer to the capacity to control hand movements
+quickly, smoothly, and with adequate precision, which are required to engage in
+activities such as writing and drawing.
+
+(ref:soccog) *Social cognition* measures are used to gauge aspects of
+social-emotional processing and social aptitude (sometimes referred to as
+emotional intelligence), which are important facets of how individuals process
+social information about other children, adults, groups, and social contexts.
+
+(ref:cc) *Cognitive control* guides behavior by controlling what, when, and how
+information is represented in the brain. Cognitive control is associated with a
+wide range of processes and is not restricted to a particular cognitive domain.
+Impairments in cognitive control functions are associated with specific deficits
+in attention, memory, language comprehension and emotional processing.
+
+(ref:adhd) *ADHD* is a neurodevelopmental disorder characterized by symptoms of
+inattention (not being able to keep focus), hyperactivity (excess movement that
+is not fitting to the setting) and impulsivity (hasty acts that occur in the
+moment without thought). Many ADHD symptoms, such as high activity levels,
+difficulty remaining still for long periods of time and limited attention spans,
+are common to children and adolescents in general, and even many adults. The
+difference in individuals with ADHD is that their hyperactivity and inattention
+are noticeably greater than expected for their age and cause distress and/or
+problems functioning at home, at school, at work, or with friends.
+
+(ref:dysgraphia) *Dysgraphia* is an impairment in writing, including problems
+with letter formation/legibility, letter spacing, spelling, fine motor
+coordination, rate of writing, grammar, and composition. DSM-5 categorizes
+writing impairment as a "specific learning disability with impairment in written
+expression" (spelling accuracy, grammar and punctuation accuracy, and clarity
+and organization of written expression) [@chungDisorderWrittenExpression2020].
+
+(ref:odd) *Oppositional defiant disorder (ODD)* is a tendency to oppose and
+defy. DSM-5 categorizes ODD under Disruptive, impulse-control, and conduct
+disorder. It is described as a pattern of persistent anger, hostility, and
+argumentative behavior that persists for more than six months.
+
+(ref:dyslexia) Dyslexia means an individual has a neurobiologically based
+cognitive processing problem that affects how easily and efficiently they can
+learn to read. Approximately 24% of individuals diagnosed with dyslexia are able
+to achieve reading skills commensurate with nondyslexic peers. A concept in the
+research literature is one of "compensated dyslexia"
+[@vanviersenHighReadingSkills2016], which is used to describe these individuals
+because they use strengths in other areas to compensate for deficits in reading.
+Dyslexia is underidentified in this population because the dyslexia can be
+masked by strengths in vocabulary and intelligence, making it especially
+difficult to identify in high-achieving individuals.
+
+
+# NEUROBEHAVIORAL STATUS EXAM
+
+(ref:patient) `r params$fname` `r params$lname`
+
+(ref:mrn) `r params$mrn`
+
+(ref:dob) `r params$dob`
+
+(ref:age) `r calc_age(params$dob, params$doe2)`
+
+(ref:sex) `r params$sex`
+
+(ref:race) `r params$race`
+
+(ref:hand) `r params$hand`
+
+(ref:educ) `r params$educ`
+
+(ref:doe) `r params$doe1`, `r params$doe2`, `r params$doe3`, `r params$doe4`
+
+```{marginfigure, echo=TRUE}
+**Name:** (ref:patient)\
+**MRN:** (ref:mrn)\
+**DOB:** (ref:dob)\
+**Age:** (ref:age)\
+**Gender:** (ref:sex)\
+**Handedness:** (ref:hand)\
+**Education:** (ref:educ)\
+**DOE:** (ref:doe)
+```
+
+## Reason for Referral
+
+`r params$fname` is a (ref:age)-year-old youngster who presents for neuropsychological
+evaluation to determine `r params$his` cognitive, academic, and emotional
+strengths and weaknesses. The purpose of the
+evaluation is to provide diagnostic clarification and to strategize how to best
+prepare `r params$fname` moving forward in middle school and high school. This
+report is based on a review of available medical records and information
+gathered across multiple days of evaluation. Results and recommendations were
+discussed with `r params$fname`'s parents, Dad and Mom, `r params$lname`, on the last of these evaluation dates during interactive
+feedback, and with `r params$fname` a week later.
+
+## Background
+
+## Relevant History
+
+### Developmental/Medical
+
+No birth complications. Normal developmental milestones.
+
+### Family
+
+`r params$fname` lives with `r params$his` parents Dad and Mom, and his
+sister (age x) and brother (age x) in Los Angeles, CA. Dr. `r params$lname`
+is a X and Mrs. `r params$lname` X. When asked about major changes in the family situation or family
+stressors over the past year, `r params$fname`'s parents reported no major
+stressors other than the pandemic. Unremarkable family medical history.
+
+### Academics
+
+### Behavioral/Emotional/Social
+
+\newpage
+
+# NEUROPSYCHOLOGICAL TESTING
+
+## Test Battery
+
+-   (ref:wisc5)
+-   (ref:wiat4)
+-   (ref:nepsy2)
+-   (ref:ravlt)
+-   (ref:tmt)
+-   (ref:examiner)
+-   (ref:coca)
+-   (ref:pegboard)
+-   (ref:bicycle)
+-   (ref:clock)
+-   (ref:tomm)
+-   (ref:sent-comp)
+-   (ref:cog-est)
+-   (ref:basc3-sdh)
+-   (ref:basc3-prs-adolescent)
+-   (ref:basc3-srp-adolescent)
+-   (ref:brown-efa-parent)
+
+## Behavioral Observations
+
+`r params$fname` was seen in-person at the USC Psychiatry and Behavioral Health
+Services (PBHS) clinic on the University Park Campus. `r params$he` attended the
+appointments with `r params$his` parents. `r params$he2` was evaluated across
+two 4-hour testing sessions scheduled a week apart in a physically-distanced
+testing environment. A number of precautionary safety measures were employed
+(e.g., masks, gloves, plexiglass dividers) while minimizing interference with
+standardized testing procedures.
+
+It was a pleasure to work with `r params$fname` and easy to establish rapport.
+`r params$his2` general level of expressivity was high and `r params$he` easily
+initiated spontaneous conversation topics and maintained reciprocal
+communication. `r params$he2` was pleasant and friendly with a good sense of
+humor. `r params$his2` affect was full in range and expression, and
+`r params$he` showed a full range of emotions. Eye contact was good and
+appropriate to situation. No gross behavioral apathy or disinhibition.
+`r params$fname` was cooperative and responded to questions in a polite and
+forthright manner to the best of `r params$his` abilities. `r params$he2`
+persisted on challenging items and put forth good effort (as supported by formal
+effort tests). The evaluation in its entirety is an accurate representation of
+`r params$his` functioning at this time, and the results presented herein are
+considered valid for interpretation.
+
+Finally, as detailed below, `r params$fname` evidenced marked test performance
+anxiety that negatively impacted his performance in several areas and appears to
+be a real world difficulty for him.
+
+\newpage
+
+## Test Results
+
+\autoref{fig:gauss-plot-narrow} can be used as a guide to help interpret
+individual test scores in terms of the degree of distance a score fell in
+relation to normative and developmental expectations (i.e., the mean).
+\autoref{fig:gauss-plot-broad} can be used to help interpret broad domains in
+terms of the degree of clinical severity. Test scores are easiest to interpret
+as percentiles[^3], which are provided in the tables below, and as *z*-scores (M
+= 0, SD = 1)[^4], which are used to plot the various test and domain scores
+below.
+
+[^3]: (ref:pct)
+
+[^4]: (ref:zplot)
+
+(ref:gauss-plot-narrow) Statistical classification of neuropsychological test
+scores in the general population [@guilmetteAmericanAcademyClinical2020].
+
+```{r gauss-plot-narrow, fig.cap='(ref:gauss-plot-narrow)', fig.width=6, fig.height=5, fig.pos = '!ht'}
+knitr::include_graphics("plot_narrow.png", auto_pdf = TRUE)
+```
+
+(ref:gauss-plot-broad) General clinical interpretation of performance for
+individual test scores and broader neuropsychological domains
+[@schoenbergReportingStandardsNeuropsychological2017].
+
+```{r gauss-plot-broad, fig.cap='(ref:gauss-plot-broad)', fig.width=6, fig.height=5, fig.pos = '!ht'}
+knitr::include_graphics("plot_broad.png", auto_pdf = TRUE)
+```
+
+
+\newpage
+
+### Verbal/Language
+
+All scores in this area were *average* to *above average*. An exception was
+`r params$his` phonemic word fluency score, which was *low-average* and a
+relative weakness. Phonemic fluency is a component of broader phonological
+awareness, which is a core building block to reading development in early
+childhood. This is perhaps a residual weakness related to his early nonspecific
+reading difficulties in kindergarten and current relative reading comprehension
+difficulties.
+
+(ref:fn-verbal) Score = Standard score (M = 100, SD = 15), *T* score (M = 50, SD
+= 10), or Scaled score (M = 10, SD = 3)
+
+\newpage
+
+### Visual Perception/Construction
+
+All scores in this area were *average* to *above average*. Notably, test scores
+were a full standard deviation higher when measures of spatial construction and
+simultaneous information processing/problem solving were secondarily rescored as
+correct if `r params$fname` completed them correctly if given twice as much time
+time (e.g., if an item had a 20" time limit and `r params$fname` got it correct
+within 40").
+
+(ref:fn-spatial) Score = Standard score (M = 100, SD = 15), *T* score (M = 50,
+SD = 10), or Scaled score (M = 10, SD = 3)
+
+\newpage
+
+### Attention/Executive
+
+Complex working memory and concept formation/inductive reasoning were areas of
+notable strength for `r params$fname`. Cognitive control and planning/problem
+solving were about average. Verbal and spatial processing speed were variable,
+but in general processing speed was one of `r params$fname`'s weakest areas on
+exam. Cognitive flexibility and rapid set-shifting were areas of relative
+weakness as well. Scores on timed tests varied, but tended to be weaker than on
+untimed tests.
+
+Parent reports fell in the moderately elevated range on areas of behavioral
+activation (organizing, prioritizing, and activating to work), focus (focusing,
+sustaining, and shifting attention to tasks), emotion regulation (managing
+frustration and modulating emotions), memory (utilizing working memory and
+accessing information from long-term recall), and overall executive and
+attentional functioning.
+
+
+
+\newpage
+
+### Memory
+
+Learning and recall of rote verbal information (word list) was *average*
+overall, and `r params$fname` showed a variable learning curve[^7]. Recall of
+the list after a brief delay was *average*. Recall after a longer delay was
+*low-average* secondary to his variable learning curve resulting in disorganized
+initial encoding of the words, which was his only memory score falling somewhat
+below age-expectations. Recall of more complex verbal information (short story)
+was *high-average* for immediate free recall. Recall of visual material
+(abstract shapes) was *high-average*. Recall after a long delay was *above
+average*. Reconstructing a complex/abstract visual design from memory after a
+brief delay was intact.
+
+[^7]: He had recalled as many as 14/15 words correctly during the learning
+    trials, but then retrieved 9/15 on the later recall trials.
+
+
+(ref:fn-memory) Score = *T* score (M = 50, SD = 10) or Scaled score (M = 10, SD
+= 3)
+
+
+\newpage
+
+### Motor
+
+All scores in this area were *average* to *exceptionally high*. Fine motor speed
+and dexterity were intact bilaterally. No evidence of atypical lateralization of
+fine or gross motor skills. No evidence of dyspraxia. Graphomotor speed and
+accuracy (i.e., graphomotor control) was *exceptionally high*; `r params$fname`
+completed the task with great precision and fluid pencil control. Gross motor
+functioning including balance and gait appeared intact on observation.
+
+
+(ref:fn-motor) Score = *T* score (M = 50, SD = 10) or Scaled score (M = 10, SD =
+3)
+
+
+\newpage
+
+### Emotional/Behavioral/Adaptive
+
+No clinical elevations were indicated on parent rating scales nor on
+`r params$fname`'s self-report rating scales.
+
+```{r}
+knitr::read_chunk("R/basc3_prs_adol_df.R")
+```
+
+```{r basc3-prs-adol-df, eval = T, double_escape = T, escape = F}
+```
+
+```{r}
+knitr::read_chunk("R/basc3_prs_adol_tb.R")
+```
+
+```{r basc3-prs-adol-tb, eval = T, double_escape = T, escape = F}
+```
+
+\newpage
+
+# SUMMARY/IMPRESSION
+
+(ref:domain) *Key Findings:* Academic and intellectual skills are
+`r params$fname`'s strengths. Processing speed and cognitive inflexibility are
+areas of relative weakness. Notably, even `r params$fname`'s average scores
+reflect performances that are below cognitive expectations for `r params$him`.
+His ability to consistently demonstrate these skills is sometimes limited by
+performance anxiety and overconcern with correctness, however. *Note:* *z* = 0
+(mean) ± 1 (sd)
+
+## Overall Evaluation Interpretation
+
+`r params$fname` is a (ref:age)-year-old student who is currently in the
+`r params$educ` at XX Elementary School. `r params$he2` was referred for testing
+by his parents to assess `r params$his` current cognitive, academic, and
+emotional functioning. Without question, `r params$fname` is an immensely
+talented and endearing youngster who presents with a multitude of intellectual
+and interpersonal strengths that will no doubt serve `r params$him` well in
+future academic and social endeavors. `r params$his2` general intellectual
+skills are in the high-average range for `r params$his` age, which means
+`r params$he` will be able to keep up with or outpace `r params$his` peers on a
+wide variety of cognitive and problem-solving tasks. Working memory is strong.
+His academic skills are even stronger, with several test scores ranging 1-2
+standard deviations above the norm for his age and grade level. His current
+achievement scores are markedly higher than the scores he obtained when he
+completed the middle school placement exams a few months ago. Verbal/language
+processing and nonverbal reasoning/problem solving are average to above average;
+relative weaknesses across tests from both domains are secondary to his
+performance anxiety rather than actual cognitive difficulties. Memory and motor
+functioning is intact.
+
+## Diagnostic Impression
+
+# RECOMMENDATIONS
+
+```{r eval=FALSE, results='asis'}
+cat("
+<style>
+li {
+-webkit-column-break-inside: avoid;
+page-break-inside: avoid;
+break-inside: avoid;
+}
+</style>
+")
+```
+
+## Recommendations for Medical/Health Care
+
+
+## Recommendations for School
+
+
+## Recommendations for Family/Home
+
+
+## Follow-Up Evaluation
+
+
+It was a pleasure to work with `r params$fname` and `r params$his` family.
+Please contact me with any questions or concerns regarding this patient.
+
+```{marginfigure, echo=TRUE}
+**CONTACT**\
+**Phone:**\
+(323) 442-4000\
+**Mailing Address:**\
+USC Clinical Sciences Center, Department of Psychiatry and Behavioral Sciences, 2250 Alcazar St., Suite 2200, Los Angeles, CA 90033\
+**Email:**\
+[trampush\@usc.edu](mailto:trampush@usc.edu){.email}\
+```
+
+Sincerely,
+
+```{r out.width='35%', fig.align='left'}
+knitr::include_graphics("jwtSig.png")
+```
+
+**Joey Trampush, PhD**\
+Della Martin Assistant Professor of Psychiatry\
+Department of Psychiatry and the Behavioral Sciences\
+University of Southern California Keck School of Medicine\
+CA License PSY29212 \newpage
+
+# APPENDIX
+
+## Test Selection Procedures
+
+Neuropsychological tests are intrinsically performance-based, and cognitive
+performance assessed during this neuropsychological evaluation is summarized
+above. Where appropriate, qualitative observations are included. Cultural
+considerations were made when selecting measures, interpreting results, and
+making diagnostic impressions and recommendations. Results from formal tests are
+reported in comparison to other individuals the same age, sex, and educational
+level as range of functioning (e.g., Below Average, Average, Above Average).
+Test score labels are intended solely to be descriptive, identifying positions
+of scores relative to a normal curve distribution, and should be interpreted
+within the context of the patient's individual presentation and history.
+Although standardized scores provide the clinician with an important and
+necessary understanding of the patient's test performance compared with a
+normative group, they do not on their own lead to accurate diagnosis or
+treatment recommendations.
+
+## Conversion of Test Scores
+
+(ref:ranges) Test Score Labels/Ranges
+
+| **Score range**    | **Standard score** | ***T*** **score** | **Scaled score** | ***z*****-score** | **Percentile (‰)** |
+|:-------------------|:------------------:|:-----------------:|:----------------:|:-----------------:|:------------------:|
+| Exceptionally High |       130 +        |       70 +        |       16 +       |        2 +        |        98 +        |
+| Above Average      |     120 -- 129     |     63 -- 69      |     14 -- 15     |    1.3 -- 1.9     |      91 -- 97      |
+| High-Average       |     110 -- 119     |     57 -- 62      |     12 -- 13     |    0.7 -- 1.2     |      75 -- 90      |
+| Average            |     90 -- 109      |     44 -- 56      |     9 -- 11      |    -0.7 -- 0.6    |      25 -- 74      |
+| Low-Average        |      80 -- 89      |     37 -- 43      |      7 -- 8      |   -1.3 -- -0.6    |      9 -- 24       |
+| Below Average      |      70 -- 79      |     30 -- 36      |      4 -- 6      |    -2 -- -1.4     |       2 -- 8       |
+| Exceptionally Low  |       \< 70        |       \< 30       |       \< 4       |       \< -2       |        \< 2        |
