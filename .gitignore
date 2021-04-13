@@ -8,3 +8,4 @@ fish_shell_commmands.sh
 *.csv
 *.R
 .DS_Store
+renv/.DS_Store
