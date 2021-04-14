@@ -834,7 +834,7 @@ iq <-
     pheno = "Intelligence"
   ) %>%
   dplyr::filter(!is.na(Score)) %>% 
-  dplyr::slice(c(1,2,3))
+  dplyr::slice(c(1,2,3,5,6))
 ```
 
 ```{r, iq, double_escape = T, escape = F, fig.fullwidth = TRUE}
@@ -856,11 +856,11 @@ kableExtra::kbl(
 ```
 
 ```{r, eval=F}
-# plot domain scores as z-scores; unique to `r params$fname`
-g1 <- neurocog %>% dplyr::filter(domain == "Intelligence") %>% dplyr::filter(!is.na(score)) 
-g2 <- neurocog %>% dplyr::filter(domain == "Visual Perception/Construction") %>% dplyr::filter(!is.na(score)) 
-g3 <- neurocog %>% dplyr::filter(domain == "Attention/Executive") %>% dplyr::filter(!is.na(score)) 
-g <- dplyr::bind_rows(g1,g2,g3) %>% dplyr::filter(!is.na(score)) %>% dplyr::arrange(test_name) %>% dplyr::slice(c(8,17,20:28))
+# plot domain scores as z-scores
+g <- 
+	neurocog %>% 
+	dplyr::filter(., domain == "Intelligence") %>% 
+	dplyr::slice(c(1,2,3,5,6))
 ```
 
 ```{r g, fig.cap = '(ref:g) (ref:gc) (ref:gf)', fig.path = 'figures/npsych2-'}
@@ -874,7 +874,74 @@ dotplot(
 
 \newpage
 
+### Academic Skills
+
+`r params$fname`'s academic skills were well above age- and grade-expected
+levels. Written expression was *exceptionally high*[^3]. Reading scores were
+*high-average* to *above average*, with strong word reading skills.
+`r params$fname`'s composite math score was *high-average*[^4], with
+particularly strong math problem solving/quantitative reasoning performance.
+
+```{r}
+slice.acad <- c(6,1:2,7,4:5,3)
+academics <-
+  make_tibble(
+  tibb = academics,
+  data = neurocog,
+  pheno = "Academic Skills"
+) %>% 
+  dplyr::filter(!is.na(Score)) %>%
+  dplyr::arrange(Test) %>% 
+  dplyr::slice(slice.acad)
+```
+
+```{r, academics, double_escape = T, escape = F, fig.fullwidth = TRUE}
+kableExtra::kbl(
+  academics[, 2:5],
+  caption = '(ref:academics)',
+  "latex",
+  longtable = FALSE,
+  booktabs = TRUE,
+  linesep = "",
+  align = c("lccc")
+) %>%
+  kableExtra::kable_paper(., lightable_options = 'basic') %>%
+  kableExtra::kable_styling(., latex_options = c("scale_down", "HOLD_position", "striped")) %>%
+  kableExtra::column_spec(., 1, width = "8cm") %>%
+  kableExtra::pack_rows(., index = table(academics$Test)) %>%
+  kableExtra::row_spec(., row = 0, bold = TRUE) %>%
+  kableExtra::row_spec(., row = 1, bold = TRUE) %>%
+  kableExtra::add_indent(., c(2:3)) %>%
+  kableExtra::row_spec(., row = 4, bold = TRUE) %>%
+  kableExtra::add_indent(., c(5:6)) %>%
+  kableExtra::footnote(., symbol = '(ref:standard-score)')
+```
+
+```{r}
+# plot domain scores as z-scores
+acad <- neurocog %>% 
+  dplyr::filter(., domain == "Academic Skills") %>% 
+  dplyr::filter(!is.na(score)) %>%
+  dplyr::arrange(test_name) %>% 
+  dplyr::slice(slice.acad)
+```
+
+```{r acad, fig.cap='(ref:acad)', fig.path = 'figures/npsych2-'}
+# plot domain scores as z-scores
+dotplot(
+  data = acad,
+  x = acad$z_mean_sub, # change these if necessary
+  y = acad$subdomain,
+  domain = "academics"
+)
+```
+
 \newpage
+
+[^3]: We could not complete the spelling subtest because we ran out of time.
+
+[^4]: `r params$fname` made simple inattentive/careless errors on two math
+    calculation problems, lowering his overall score.
 
 ### Verbal/Language
 
@@ -886,8 +953,71 @@ childhood. This is perhaps a residual weakness related to his early nonspecific
 reading difficulties in kindergarten and current relative reading comprehension
 difficulties.
 
+```{r}
+slice.vrb <- c(2,3,4,5,6)
+verbal <-
+  make_tibble(
+  tibb = verbal,
+  data = neurocog,
+  pheno = "Verbal/Language"
+) %>% 
+  dplyr::filter(!is.na(Score)) %>% 
+  dplyr::arrange(Test) %>% 
+  dplyr::slice(slice.vrb)
+```
+
 (ref:fn-verbal) Score = Standard score (M = 100, SD = 15), *T* score (M = 50, SD
 = 10), or Scaled score (M = 10, SD = 3)
+
+```{r, verbal, double_escape = T, escape = F, fig.fullwidth = TRUE}
+kableExtra::kbl(
+  verbal[, 2:5],
+  caption = '(ref:verbal)',
+  "latex",
+  longtable = FALSE,
+  booktabs = TRUE,
+  linesep = "",
+  align = c("lccc")
+) %>%
+  kableExtra::kable_paper(., lightable_options = 'basic') %>%
+  kableExtra::kable_styling(., latex_options = c("scale_down", "HOLD_position", "striped")) %>%
+  kableExtra::column_spec(., 1, width = "8cm") %>%
+  kableExtra::pack_rows(., index = table(verbal$Test)) %>%
+  kableExtra::row_spec(., row = 0, bold = TRUE) %>%
+  #kableExtra::row_spec(., row = 5, bold = TRUE) %>%
+  #kableExtra::add_indent(., c(6:7)) %>%
+  kableExtra::add_footnote('(ref:scaled-score)')
+```
+
+```{r vrb}
+# subset verbal test scores
+vrb <-
+  neurocog %>%
+  dplyr::filter(domain == "Verbal/Language") %>%
+  dplyr::filter(!is.na(score)) %>%
+  dplyr::arrange(test_name) %>% 
+  dplyr::slice(slice.vrb)
+```
+
+```{r vrb-sub, eval=F, fig.cap = '(ref:vrb)', fig.path = 'figures/npsych2-'}
+# plot verbal scores as z-scores
+dotplot(
+  data = vrb,
+  x = vrb$z_mean_sub,
+  y = vrb$subdomain,
+  domain = "verbal"
+)
+```
+
+```{r vrb-narrow, eval=T, fig.cap = '(ref:vrb)', fig.path = 'figures/npsych2-'}
+# plot verbal scores as z-scores
+dotplot(
+  data = vrb,
+  x = vrb$z_mean_narrow,
+  y = vrb$narrow,
+  domain = "verbal"
+)
+```
 
 \newpage
 
@@ -900,8 +1030,71 @@ correct if `r params$fname` completed them correctly if given twice as much time
 time (e.g., if an item had a 20" time limit and `r params$fname` got it correct
 within 40").
 
+```{r}
+slice.spt <- c(1,2,3,4,8,5,6,7)
+spatial <-
+  make_tibble(
+    tibb = spatial,
+    data = neurocog,
+    pheno = "Visual Perception/Construction"
+) %>%
+  dplyr::filter(!is.na(Score)) %>%
+  dplyr::arrange(Test) %>%
+  dplyr::slice(slice.spt)
+```
+
 (ref:fn-spatial) Score = Standard score (M = 100, SD = 15), *T* score (M = 50,
 SD = 10), or Scaled score (M = 10, SD = 3)
+
+```{r, spatial, double_escape = T, escape = F, fig.fullwidth = TRUE}
+kableExtra::kbl(
+  spatial[, 2:5],
+  "latex",
+  longtable = FALSE,
+  booktabs = TRUE,
+  linesep = "",
+  align = c("lccc"),
+  caption = '(ref:spatial)'
+) %>%
+  kableExtra::kable_paper(., lightable_options = 'basic') %>%
+  kableExtra::kable_styling(., latex_options = c("scale_down", "HOLD_position", "striped")) %>%
+  kableExtra::column_spec(., 1, width = "8cm") %>%
+  kableExtra::pack_rows(., index = table(spatial$Test)) %>%
+  kableExtra::row_spec(., row = 0, bold = TRUE) %>%
+  #kableExtra::row_spec(., row = 1, bold = TRUE) %>%
+  #kableExtra::add_indent(., c(3:4)) %>%
+  kableExtra::add_footnote('(ref:scaled-score)')
+```
+
+```{r}
+# plot domain scores as z-scores
+spt <- 
+  neurocog %>% 
+  dplyr::filter(domain == "Visual Perception/Construction") %>% 
+  dplyr::filter(!is.na(score)) %>%
+  dplyr::arrange(test_name) %>%
+  dplyr::slice(slice.spt)
+```
+
+```{r spt-sub, eval=T, fig.cap = '(ref:spt)', fig.path = 'figures/npsych2-'}
+# dotplot make
+dotplot(
+  data = spt,
+  x = spt$z_mean_sub,
+  y = spt$subdomain,
+  domain = "spatial"
+)
+```
+
+```{r spt-narrow, eval=F, fig.cap = '(ref:spt)', fig.path = 'figures/npsych2-'}
+# dotplot make
+dotplot(
+  data = spt,
+  x = spt$z_mean_narrow,
+  y = spt$narrow,
+  domain = "spatial"
+)
+```
 
 \newpage
 
@@ -922,12 +1115,119 @@ frustration and modulating emotions), memory (utilizing working memory and
 accessing information from long-term recall), and overall executive and
 attentional functioning.
 
+```{r}
+slice.exe <- c(5,7,9,11,13:14,15:16,17:18)
+executive <-
+  make_tibble(
+  tibb = executive,
+  data = neurocog,
+  pheno = "Attention/Executive"
+) %>% 
+  dplyr::filter(!is.na(Score)) %>% 
+  dplyr::arrange(Test) %>% 
+  dplyr::slice(slice.exe)
+```
+
+```{r}
+test <- "Brown EF/A Parent"
+brown_efa_parent <-
+  make_tibble(
+  tibb = brown_efa_parent,
+  data = neurobehav,
+  pheno = "Behavioral/Emotional/Social"
+) %>% 
+  dplyr::filter(Test == test)
+```
+
+```{r, eval=T}
+# combine
+executive <- dplyr::bind_rows(executive, brown_efa_parent) %>% dplyr::arrange(Test)
+```
+
+(ref:fn-exe) Score = *T* score (M = 50, SD = 10) or Scaled score (M = 10, SD =
+3)
+
+```{r, executive, double_escape = T, escape = F, fig.fullwidth = TRUE}
+kableExtra::kbl(
+  executive[, 2:5],
+  caption = '(ref:executive)',
+  "latex",
+  longtable = FALSE,
+  booktabs = TRUE,
+  linesep = "",
+  align = c("lccc")
+) %>%
+  kableExtra::kable_paper(., lightable_options = 'basic') %>%
+  kableExtra::kable_styling(., latex_options = c("scale_down", "HOLD_position", "striped")) %>%
+  kableExtra::column_spec(., 1, width = "8cm") %>%
+  kableExtra::row_spec(., row = 0, bold = TRUE) %>%
+  kableExtra::pack_rows(., index = table(executive$Test)) %>%
+  #kableExtra::row_spec(., row = c(4, 13), bold = TRUE) %>%
+  #kableExtra::row_spec(., row = c(18, 21), bold = TRUE) %>%
+  #kableExtra::add_indent(., c(5:12, 14:15)) %>%
+  #kableExtra::add_indent(., c(19:20, 22:23)) %>%
+  kableExtra::add_footnote('(ref:fn-exe)')
+```
+
+```{r exe}
+# plot domain scores as z-scores
+exe <- neurocog %>% 
+  dplyr::filter(domain == "Attention/Executive") %>% 
+  dplyr::filter(!is.na(score)) %>%
+  dplyr::arrange(test_name) %>% 
+  dplyr::slice(slice.exe)
+```
+
+```{r exe-sub, eval = T, fig.cap = '(ref:att-exe)', fig.path = 'figures/npsych2-'}
+# dotplot
+dotplot(
+  data = exe,
+  x = exe$z_mean_sub,
+  y = exe$subdomain,
+  domain = "executive"
+)
+```
+
+```{r exe-narrow, eval=F, fig.cap = '(ref:att-exe)', fig.path = 'figures/npsych2-'}
+# dotplot
+dotplot(
+  data = exe,
+  x = exe$z_mean_narrow,
+  y = exe$narrow,
+  domain = "executive"
+)
+```
+
+```{r, eval=F}
+# self
+brown_efa_self <-
+  make_tibble(
+  tibb = brown_efa_self,
+  data = neurocog,
+  pheno = "Behavioral/Emotional/Social"
+) %>%
+  dplyr::filter(Test == "Brown EF/A Self")
+# combine
+brown_efa <- dplyr::bind_rows(brown_efa_parent, brown_efa_self)
+```
+
+```{r brown-efa, eval=F, double_escape = T, escape = F, fig.fullwidth = TRUE}
+# Brown EF/A
+kableExtra::kbl(brown_efa[, 2:5], caption = "(ref:brown-efa)", "latex", longtable = FALSE, booktabs = TRUE, linesep = "", align = c("lccc")) %>%
+  kableExtra::kable_paper(., lightable_options = 'basic') %>%
+  kableExtra::kable_styling(., latex_options = c("scale_down", "HOLD_position", "striped")) %>%
+  kableExtra::column_spec(., 1, width = "8cm") %>%
+  kableExtra::row_spec(., row = 0, bold = TRUE) %>%
+  kableExtra::pack_rows(., index = table(brown_efa$Test)) %>%
+  kableExtra::add_footnote('(ref:t-score)')
+```
+
 \newpage
 
 ### Memory
 
 Learning and recall of rote verbal information (word list) was *average*
-overall, and `r params$fname` showed a variable learning curve[^3]. Recall of
+overall, and `r params$fname` showed a variable learning curve[^5]. Recall of
 the list after a brief delay was *average*. Recall after a longer delay was
 *low-average* secondary to his variable learning curve resulting in disorganized
 initial encoding of the words, which was his only memory score falling somewhat
@@ -942,8 +1242,68 @@ brief delay was intact.
 
 \newpage
 
-[^3]: He had recalled as many as 14/15 words correctly during the learning
+```{r}
+slice.mem <- c(1,3,4,7,10:12)
+memory <-
+  make_tibble(
+    tibb = memory,
+    data = neurocog,
+    pheno = "Memory"
+) %>% 
+  dplyr::filter(!is.na(Score)) %>%
+  dplyr::arrange(Test) %>% 
+  dplyr::slice(slice.mem)
+```
+
+```{r mem}
+# plot domain scores as z-scores
+mem <- neurocog %>% 
+  dplyr::filter(domain == "Memory") %>% 
+  dplyr::filter(!is.na(score)) %>%
+  dplyr::arrange(test_name) %>%
+  dplyr::slice(slice.mem)
+```
+
+```{r mtm-sub, eval=F, fig.cap = '(ref:mem)', fig.path = 'figures/npsych2-'}
+  # dotplot
+dotplot(
+  data = mem,
+  x = mem$z_mean_sub, # try narrow too
+  y = mem$subdomain,
+  domain = "memory"
+)
+```
+
+```{r mem-narrow, eval=T, fig.cap = '(ref:mem)', fig.path = 'figures/npsych2-'}
+dotplot(
+  data = mem,
+  x = mem$z_mean_narrow,
+  y = mem$narrow,
+  domain = "memory"
+)
+```
+
+[^5]: He had recalled as many as 14/15 words correctly during the learning
     trials, but then retrieved 9/15 on the later recall trials.
+
+    ```{r, memory, double_escape = T, escape = F, fig.fullwidth = TRUE}
+    kableExtra::kbl(
+      memory[, 2:5],
+      caption = "(ref:memory)",
+      "latex",
+      longtable = FALSE,
+      booktabs = TRUE,
+      linesep = "",
+      align = c("lccc")
+    ) %>%
+      kableExtra::kable_paper(., lightable_options = 'basic') %>%
+      kableExtra::kable_styling(., latex_options = c("scale_down", "HOLD_position", "striped")) %>%
+      kableExtra::column_spec(., 1, width = "8cm") %>%
+      kableExtra::pack_rows(., index = table(memory$Test)) %>%
+      kableExtra::row_spec(., row = 0, bold = TRUE) %>%
+      kableExtra::add_footnote('(ref:scaled-score)')
+      #kableExtra::add_footnote('(ref:fn-memory)')
+    ```
 
 ### Motor
 
@@ -954,8 +1314,62 @@ accuracy (i.e., graphomotor control) was *exceptionally high*; `r params$fname`
 completed the task with great precision and fluid pencil control. Gross motor
 functioning including balance and gait appeared intact on observation.
 
+```{r}
+#slice.mot <- c(1:NCOL(motor))
+slice.mtr <- c(1:2,3:6,10)
+motor <-
+  make_tibble(
+    tibb = motor,
+    data = neurocog,
+    pheno = "Motor"
+) %>% 
+  dplyr::filter(!is.na(Score)) %>%
+  dplyr::arrange(Test) %>% 
+  dplyr::slice(slice.mtr)
+```
+
 (ref:fn-motor) Score = *T* score (M = 50, SD = 10) or Scaled score (M = 10, SD =
 3)
+
+```{r, motor, double_escape = T, escape = F, fig.fullwidth = TRUE}
+kableExtra::kbl(motor[, 2:5], caption = "(ref:motor)", "latex", longtable = FALSE, booktabs = TRUE, linesep = "", align = c("lccc")) %>%
+  kableExtra::kable_paper(., lightable_options = 'basic') %>%
+  kableExtra::kable_styling(., latex_options = c("scale_down", "HOLD_position", "striped")) %>%
+  kableExtra::column_spec(., 1, width = "8cm") %>%
+  kableExtra::row_spec(., row = 0, bold = TRUE) %>%
+  kableExtra::pack_rows(., index = table(motor$Test)) %>%
+  kableExtra::add_footnote('(ref:fn-motor)')
+```
+
+```{r mtr, eval=T, fig.cap='(ref:mtr)'}
+# plot domain scores as z-scores
+mtr <- 
+  neurocog %>% 
+  dplyr::filter(domain == "Motor") %>%
+  dplyr::filter(!is.na(score)) %>%
+  dplyr::arrange(test_name) %>%
+  dplyr::slice(slice.mtr)
+```
+
+```{r mtr-sub, eval=F, fig.cap='(ref:mtr)', fig.path = 'figures/npsych2-'}
+# dotplots
+dotplot(
+  data = mtr,
+  x = mtr$z_mean_sub,
+  y = mtr$subdomain,
+  domain = "motor"
+)
+```
+
+```{r mtr-narrow, eval=T, fig.cap='(ref:mtr)', fig.path = 'figures/npsych2-'}
+# dotplots
+dotplot(
+  data = mtr,
+  x = mtr$z_mean_narrow,
+  y = mtr$narrow,
+  domain = "motor"
+)
+```
 
 \newpage
 
@@ -990,6 +1404,22 @@ His ability to consistently demonstrate these skills is sometimes limited by
 performance anxiety and overconcern with correctness, however. *Note:* *z* = 0
 (mean) ± 1 (sd)
 
+```{r}
+# subset cog data for plotting
+domain <-
+  neurocog %>%
+  dplyr::filter(test_type == "npsych_test") %>%
+  dplyr::filter(!is.na(domain)) 
+```
+
+```{r domain, fig.cap = '(ref:domain)', fig.path = 'figures/npsych2-'}
+dotplot(
+  data = domain,
+  x = domain$z_mean_dom,
+  y = domain$domain, 
+  domain = "domain")
+```
+
 ## Overall Evaluation Interpretation
 
 `r params$fname` is a (ref:age)-year-old student who is currently in the
@@ -1013,6 +1443,10 @@ functioning is intact.
 
 ## Diagnostic Impression
 
+-   F41.1 Generalized anxiety disorder
+-   F40.11 Social anxiety disorder (performance/test anxiety)
+-   R41.844 Frontal/executive function deficit
+
 # RECOMMENDATIONS
 
 ```{r eval=FALSE, results='asis'}
@@ -1029,11 +1463,54 @@ break-inside: avoid;
 
 ## Recommendations for Medical/Health Care
 
+1.  Cognitive behavioral therapy (CBT) for anxiety: CBT that relies primarily on
+    behavioral techniques such as Exposure and Response Prevention (ERP) will be
+    essential for helping `r params$fname` work through his challenges with
+    perfectionism and the secondary emotional outfall. Provider referrals are
+    below (links are clickable).
+
+    -   [Melissa Mose, PhD, LMFT](https://www.melissamosemft.com/)
+    -   [Dr. Jenny Yip](https://www.dryip.com/)
+
+2.  Medical. Consultation with a child & adolescent psychiatrist or his
+    pediatrician is warranted to treat `r params$fname`'s anxiety with
+    medication if necessary or if he does not seem to respond to therapy.
+    Selective serotonin reuptake inhibitors (SSRIs) are recommended as safe and
+    effective first-line treatments for generalized anxiety and OCD symptoms.
+    Provider referrals are below (links are clickable).
+
+    -   [Neevon Esmaili, MD](https://www.mentalfitnessclinic.com/pediatric/)
+    -   [Sahar Douek, MD](https://www.sunshinepsychiatry.com/)
+    -   [Gina Osterman, MD](https://www.sunshinepsychiatry.com/)
+
+3.  High quality sleep, balanced nutrition, and frequent, vigorous exercise are
+    critical to maximizing attention and focus, and lowering anxiety and stress.
+
+4.  `r params$fname` and his parents are encouraged to learn more about the
+    nature of perfectionism and performance/test anxiety, its symptoms, causes,
+    and available treatment options. Recommended sources of information include
+    these online resources (links are clickable):
+
+    -   [Child Mind
+        Institute:](https://childmind.org/article/how-to-help-kids-who-are-too-hard-on-themselves/)
+    -   [ADAA](https://adaa.org/webinar/consumer/helping-your-perfectionistic-child)
+    -   [Understood.org:](https://www.understood.org/en/friends-feelings/common-challenges/self-control/why-kids-overreact-to-criticism)
+    -   [NSAC:](https://bit.ly/2PNPYpQ)
+    -   [Child Anxiety Network:](http://www.childanxiety.net/)
+    -   [TeensHealth](https://kidshealth.org/en/teens/test-anxiety.html)
+
 ## Recommendations for School
 
 ## Recommendations for Family/Home
 
+5.  Extracurricular activities: Non-academic activities are highly encouraged
+    (yet carefully balanced with `r params$his` academic demands) to foster
+    continued positive socialization experiences.
+
 ## Follow-Up Evaluation
+
+1.  Follow up testing is not indicated at this time unless concerns arise that
+    need to be addressed.
 
 It was a pleasure to work with `r params$fname` and `r params$his` family.
 Please contact me with any questions or concerns regarding this patient.
