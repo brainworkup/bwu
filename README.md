@@ -1,7 +1,9 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# Neuropsychology Package npsych.data
+# npsych.data
+
+# Neuropsychological Testing Data Package
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -14,22 +16,17 @@ You can install the released version of npsych.data from
 [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
-library(devtools)
-#> Loading required package: usethis
 devtools::install_github("jtrampush/npsych.data")
-#> Downloading GitHub repo jtrampush/npsych.data@HEAD
-#> Skipping 4 packages ahead of CRAN: htmltools, markdown, bookdown, pagedown
-#>      checking for file ‘/private/var/folders/6l/57_kbxxx7bsgkdxp053b_yc40000gn/T/RtmpFHFMjQ/remotes12c44c52be82/jtrampush-npsych.data-b406a6a/DESCRIPTION’ ...  ✓  checking for file ‘/private/var/folders/6l/57_kbxxx7bsgkdxp053b_yc40000gn/T/RtmpFHFMjQ/remotes12c44c52be82/jtrampush-npsych.data-b406a6a/DESCRIPTION’
+#> 
+#>      checking for file ‘/private/var/folders/6l/57_kbxxx7bsgkdxp053b_yc40000gn/T/RtmpG5njZK/remotes130e57c429173/jtrampush-npsych.data-fd6871f/DESCRIPTION’ ...  ✓  checking for file ‘/private/var/folders/6l/57_kbxxx7bsgkdxp053b_yc40000gn/T/RtmpG5njZK/remotes130e57c429173/jtrampush-npsych.data-fd6871f/DESCRIPTION’
 #>   ─  preparing ‘npsych.data’:
-#>      checking DESCRIPTION meta-information ...  ✓  checking DESCRIPTION meta-information
+#>   ✓  checking DESCRIPTION meta-information
 #>   ─  checking for LF line-endings in source and make files and shell scripts
 #>   ─  checking for empty or unneeded directories
 #>      Removed empty directory ‘npsych.data/vignettes’
 #>   ─  building ‘npsych.data_0.1.1.tar.gz’
 #>      
 #> 
-#> Installing package into '/private/var/folders/6l/57_kbxxx7bsgkdxp053b_yc40000gn/T/RtmpuuXs08/temp_libpath1299c13e55cc8'
-#> (as 'lib' is unspecified)
 ```
 
 ## Example

@@ -13,7 +13,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Neuropsychology Package npsych.data
+# npsych.data
+
+# Neuropsychological Testing Data Package
 
 <!-- badges: start -->
 
@@ -26,8 +28,7 @@ The goal of npsych.data is to ...
 You can install the released version of npsych.data from
 [CRAN](https://CRAN.R-project.org) with:
 
-```{r}
-library(devtools)
+```{r, echo=T, message=F,warning=F}
 devtools::install_github("jtrampush/npsych.data")
 ```
 
@@ -61,3 +62,4 @@ plot(dots$age, dots$normValue)
 
 In that case, don't forget to commit and push the resulting figure files, so
 they display on GitHub and CRAN.
+
