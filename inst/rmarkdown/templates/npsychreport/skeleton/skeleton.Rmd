@@ -677,11 +677,204 @@ individual test scores and broader neuropsychological domains
 knitr::include_graphics("plot_broad.png", auto_pdf = TRUE)
 ```
 
-\newpage
+```{r, echo=FALSE, message=FALSE}
+## Import CSV files
+library(dplyr)
+library(readr)
+library(forcats)
+library(purrr)
+# path to files
+data_path <- here::here("csv")
+# get file names of .csv files
+files <- dir(data_path, pattern = "*.csv")
+# read into env
+neuropsych <- files %>%
+  purrr::set_names() %>%
+  purrr::map_df(~ readr::read_csv(file.path(data_path, .)),
+         na = c("", "NA", "--", "-"),
+         .id = "filename") %>%
+  dplyr::filter(!is.na(percentile)) %>%
+  dplyr::distinct() %>%
+  dplyr::mutate(z = qnorm(percentile/100)) %>%
+  dplyr::mutate(domain = forcats::as_factor(domain)) %>%
+  dplyr::mutate(subdomain = forcats::as_factor(subdomain)) %>%
+  dplyr::mutate(narrow = forcats::as_factor(narrow)) %>%
+  dplyr::mutate(domain_broad = forcats::as_factor(domain_broad)) %>%
+  dplyr::mutate(domain_test = forcats::as_factor(domain_test)) %>%
+  dplyr::mutate(verbal = forcats::as_factor(verbal)) %>% 
+  dplyr::mutate(pass = forcats::as_factor(pass))
+```
+
+```{r, make-factors-neurocog}
+# Subset neurocognitive data
+neurocog <- neuropsych %>% dplyr::filter(test_type == "npsych_test")
+## Create factors
+# domain
+neurocog <-
+  neurocog %>%
+  dplyr::group_by(domain, .add = TRUE) %>%
+  dplyr::filter(!is.na(score)) %>% 
+  dplyr::mutate(z_mean_dom = mean(z), z_sd_dom = sd(z)) %>%
+  dplyr::mutate(pct_mean_dom = mean(percentile), pct_sd_dom = sd(percentile)) %>%
+  dplyr::ungroup()
+# subdomain
+neurocog <-
+  neurocog %>%
+  dplyr::group_by(subdomain, .add = TRUE) %>%
+  dplyr::filter(!is.na(score)) %>%
+  dplyr::mutate(z_mean_sub = mean(z), z_sd_sub = sd(z)) %>%
+  dplyr::mutate(pct_mean_sub = mean(percentile), pct_sd_sub = sd(percentile)) %>%
+  dplyr::ungroup()
+# narrow
+neurocog <-
+  neurocog %>%
+  dplyr::group_by(narrow, .add = TRUE) %>%
+  dplyr::filter(!is.na(score)) %>%
+  dplyr::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) %>%
+  dplyr::mutate(pct_mean_narrow = mean(percentile), pct_sd_narrow = sd(percentile)) %>%
+  dplyr::ungroup()
+# verbal
+neurocog <-
+  neurocog %>%
+  dplyr::group_by(verbal, .add = TRUE) %>%
+  dplyr::filter(!is.na(score)) %>%
+  dplyr::mutate(z_mean_verbal = mean(z), z_sd_verbal = sd(z)) %>% 
+  dplyr::ungroup()
+# pass
+neurocog <-
+  neurocog %>%
+  dplyr::group_by(pass, .add = TRUE) %>%
+  dplyr::filter(!is.na(score)) %>%
+  dplyr::mutate(z_mean_pass = mean(z), z_sd_pass = sd(z)) %>% 
+  dplyr::ungroup()
+# timed
+neurocog <-
+  neurocog %>%
+  dplyr::group_by(timed, .add = TRUE) %>%
+  dplyr::filter(!is.na(score)) %>%
+  dplyr::mutate(z_mean_timed = mean(z), z_sd_timed = sd(z)) %>% 
+  dplyr::ungroup()
+```
+
+```{r, make-factors-neurobehav}
+# Subset neurocognitive data
+neurobehav <- neuropsych %>% dplyr::filter(test_type != "npsych_test")
+## Create factors
+# domain
+neurobehav <-
+  neurobehav %>%
+  dplyr::group_by(domain, .add = TRUE) %>%
+  dplyr::filter(!is.na(score)) %>% 
+  dplyr::mutate(z_mean_dom = mean(z), z_sd_dom = sd(z)) %>%
+  dplyr::mutate(pct_mean_dom = mean(percentile), pct_sd_dom = sd(percentile)) %>%
+  dplyr::ungroup()
+# subdomain
+neurobehav <-
+  neurobehav %>%
+  dplyr::group_by(subdomain, .add = TRUE) %>%
+  dplyr::filter(!is.na(score)) %>%
+  dplyr::mutate(z_mean_sub = mean(z), z_sd_sub = sd(z)) %>%
+  dplyr::mutate(pct_mean_sub = mean(percentile), pct_sd_sub = sd(percentile)) %>%
+  dplyr::ungroup()
+# narrow
+neurobehav <-
+  neurobehav %>%
+  dplyr::group_by(narrow, .add = TRUE) %>%
+  dplyr::filter(!is.na(score)) %>%
+  dplyr::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) %>%
+  dplyr::mutate(pct_mean_narrow = mean(percentile), pct_sd_narrow = sd(percentile)) %>%
+  dplyr::ungroup()
+# parent # finish
+neurobehav <-
+  neurobehav %>%
+  dplyr::group_by(verbal, .add = TRUE) %>%
+  dplyr::filter(!is.na(score)) %>%
+  dplyr::mutate(z_mean_verbal = mean(z), z_sd_verbal = sd(z)) %>% 
+  dplyr::ungroup()
+# child # finish
+neurobehav <-
+  neurobehav %>%
+  dplyr::group_by(pass, .add = TRUE) %>%
+  dplyr::filter(!is.na(score)) %>%
+  dplyr::mutate(z_mean_pass = mean(z), z_sd_pass = sd(z)) %>% 
+  dplyr::ungroup()
+```
+
+```{r, write-data}
+## Write data
+readr::write_csv(neuropsych, "neuropsych.csv")
+readr::write_csv(neurocog, "neurocog.csv")
+readr::write_csv(neurobehav, "neurobehav.csv")
+```
+
+```{r, read-data, echo=F, message=F}
+## Read data
+neuropsych <- readr::read_csv("neuropsych.csv")
+neurocog <- readr::read_csv("neurocog.csv")
+neurobehav <- readr::read_csv("neurobehav.csv")
+```
 
 [^1]: (ref:pct)
 
 [^2]: (ref:zplot)
+
+### Intelligence
+
+Overall intellectual scores were *high-average*. Index scores were *average* to
+*high-average*. However, when test results were rescored independent of timing
+constraints, `r params$fname` evidenced better performance by about a standard
+deviation in areas of fluid reasoning.
+
+```{r}
+iq <- 
+  neurocog %>% 
+  make_tibble(
+    tibb = iq,
+    data = neurocog,
+    pheno = "Intelligence"
+  ) %>%
+  dplyr::filter(!is.na(Score)) %>% 
+  dplyr::slice(c(1,2,3))
+```
+
+```{r, iq, double_escape = T, escape = F, fig.fullwidth = TRUE}
+kableExtra::kbl(
+  iq[, 2:5],
+  caption = '(ref:iq)',
+  "latex",
+  longtable = FALSE,
+  booktabs = TRUE,
+  linesep = "",
+  align = c("lccc")
+) %>%
+  kableExtra::kable_paper(., lightable_options = 'basic') %>%
+  kableExtra::kable_styling(., latex_options = c("scale_down", "HOLD_position", "striped")) %>%
+  kableExtra::column_spec(., 1, width = "8cm") %>%
+  kableExtra::row_spec(., row = 0, bold = TRUE) %>%
+  kableExtra::pack_rows(., index = table(iq$Test)) %>%
+  kableExtra::footnote(., symbol = '(ref:standard-score)')
+```
+
+```{r, eval=F}
+# plot domain scores as z-scores; unique to `r params$fname`
+g1 <- neurocog %>% dplyr::filter(domain == "Intelligence") %>% dplyr::filter(!is.na(score)) 
+g2 <- neurocog %>% dplyr::filter(domain == "Visual Perception/Construction") %>% dplyr::filter(!is.na(score)) 
+g3 <- neurocog %>% dplyr::filter(domain == "Attention/Executive") %>% dplyr::filter(!is.na(score)) 
+g <- dplyr::bind_rows(g1,g2,g3) %>% dplyr::filter(!is.na(score)) %>% dplyr::arrange(test_name) %>% dplyr::slice(c(8,17,20:28))
+```
+
+```{r g, fig.cap = '(ref:g) (ref:gc) (ref:gf)', fig.path = 'figures/npsych2-'}
+# make dotplot
+dotplot(
+  data = g,
+  x = g$z_mean_narrow,
+  y = g$narrow,
+  domain = "iq")
+```
+
+\newpage
+
+\newpage
 
 ### Verbal/Language
 
