@@ -255,6 +255,11 @@ knitr::knit_engines$set(marginfigure = function(options) {
     })
 ```
 
+```{r}
+# Source functions
+source(file = here::here("R/calc_age.R"))
+```
+
 (ref:wppsi4) Wechsler Preschool and Primary Scale of Intelligence, 4th ed
 (WPPSI-IV)
 
@@ -518,7 +523,6 @@ Dyslexia is underidentified in this population because the dyslexia can be
 masked by strengths in vocabulary and intelligence, making it especially
 difficult to identify in high-achieving individuals.
 
-
 # NEUROBEHAVIORAL STATUS EXAM
 
 (ref:patient) `r params$fname` `r params$lname`
@@ -552,15 +556,16 @@ difficult to identify in high-achieving individuals.
 
 ## Reason for Referral
 
-`r params$fname` is a (ref:age)-year-old youngster who presents for neuropsychological
-evaluation to determine `r params$his` cognitive, academic, and emotional
-strengths and weaknesses. The purpose of the
-evaluation is to provide diagnostic clarification and to strategize how to best
-prepare `r params$fname` moving forward in middle school and high school. This
-report is based on a review of available medical records and information
-gathered across multiple days of evaluation. Results and recommendations were
-discussed with `r params$fname`'s parents, Dad and Mom, `r params$lname`, on the last of these evaluation dates during interactive
-feedback, and with `r params$fname` a week later.
+`r params$fname` is a (ref:age)-year-old youngster who presents for
+neuropsychological evaluation to determine `r params$his` cognitive, academic,
+and emotional strengths and weaknesses. The purpose of the evaluation is to
+provide diagnostic clarification and to strategize how to best prepare
+`r params$fname` moving forward in middle school and high school. This report is
+based on a review of available medical records and information gathered across
+multiple days of evaluation. Results and recommendations were discussed with
+`r params$fname`'s parents, Dad and Mom, `r params$lname`, on the last of these
+evaluation dates during interactive feedback, and with `r params$fname` a week
+later.
 
 ## Background
 
@@ -572,11 +577,11 @@ No birth complications. Normal developmental milestones.
 
 ### Family
 
-`r params$fname` lives with `r params$his` parents Dad and Mom, and his
-sister (age x) and brother (age x) in Los Angeles, CA. Dr. `r params$lname`
-is a X and Mrs. `r params$lname` X. When asked about major changes in the family situation or family
-stressors over the past year, `r params$fname`'s parents reported no major
-stressors other than the pandemic. Unremarkable family medical history.
+`r params$fname` lives with `r params$his` parents Dad and Mom, and his sister
+(age x) and brother (age x) in Los Angeles, CA. Dr. `r params$lname` is a X and
+Mrs. `r params$lname` X. When asked about major changes in the family situation
+or family stressors over the past year, `r params$fname`'s parents reported no
+major stressors other than the pandemic. Unremarkable family medical history.
 
 ### Academics
 
@@ -643,13 +648,9 @@ individual test scores in terms of the degree of distance a score fell in
 relation to normative and developmental expectations (i.e., the mean).
 \autoref{fig:gauss-plot-broad} can be used to help interpret broad domains in
 terms of the degree of clinical severity. Test scores are easiest to interpret
-as percentiles[^3], which are provided in the tables below, and as *z*-scores (M
-= 0, SD = 1)[^4], which are used to plot the various test and domain scores
+as percentiles[^1], which are provided in the tables below, and as *z*-scores (M
+= 0, SD = 1)[^2], which are used to plot the various test and domain scores
 below.
-
-[^3]: (ref:pct)
-
-[^4]: (ref:zplot)
 
 (ref:gauss-plot-narrow) Statistical classification of neuropsychological test
 scores in the general population [@guilmetteAmericanAcademyClinical2020].
@@ -666,8 +667,11 @@ individual test scores and broader neuropsychological domains
 knitr::include_graphics("plot_broad.png", auto_pdf = TRUE)
 ```
 
-
 \newpage
+
+[^1]: (ref:pct)
+
+[^2]: (ref:zplot)
 
 ### Verbal/Language
 
@@ -715,14 +719,12 @@ frustration and modulating emotions), memory (utilizing working memory and
 accessing information from long-term recall), and overall executive and
 attentional functioning.
 
-
-
 \newpage
 
 ### Memory
 
 Learning and recall of rote verbal information (word list) was *average*
-overall, and `r params$fname` showed a variable learning curve[^7]. Recall of
+overall, and `r params$fname` showed a variable learning curve[^3]. Recall of
 the list after a brief delay was *average*. Recall after a longer delay was
 *low-average* secondary to his variable learning curve resulting in disorganized
 initial encoding of the words, which was his only memory score falling somewhat
@@ -732,15 +734,13 @@ was *high-average* for immediate free recall. Recall of visual material
 average*. Reconstructing a complex/abstract visual design from memory after a
 brief delay was intact.
 
-[^7]: He had recalled as many as 14/15 words correctly during the learning
-    trials, but then retrieved 9/15 on the later recall trials.
-
-
 (ref:fn-memory) Score = *T* score (M = 50, SD = 10) or Scaled score (M = 10, SD
 = 3)
 
-
 \newpage
+
+[^3]: He had recalled as many as 14/15 words correctly during the learning
+    trials, but then retrieved 9/15 on the later recall trials.
 
 ### Motor
 
@@ -751,10 +751,8 @@ accuracy (i.e., graphomotor control) was *exceptionally high*; `r params$fname`
 completed the task with great precision and fluid pencil control. Gross motor
 functioning including balance and gait appeared intact on observation.
 
-
 (ref:fn-motor) Score = *T* score (M = 50, SD = 10) or Scaled score (M = 10, SD =
 3)
-
 
 \newpage
 
@@ -828,15 +826,11 @@ break-inside: avoid;
 
 ## Recommendations for Medical/Health Care
 
-
 ## Recommendations for School
-
 
 ## Recommendations for Family/Home
 
-
 ## Follow-Up Evaluation
-
 
 It was a pleasure to work with `r params$fname` and `r params$his` family.
 Please contact me with any questions or concerns regarding this patient.
