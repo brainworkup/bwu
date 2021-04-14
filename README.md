@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# npsych.data
+# Neuropsychology Package npsych.data
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -14,7 +14,22 @@ You can install the released version of npsych.data from
 [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
-install.packages("npsych.data")
+library(devtools)
+#> Loading required package: usethis
+devtools::install_github("jtrampush/npsych.data")
+#> Downloading GitHub repo jtrampush/npsych.data@HEAD
+#> Skipping 4 packages ahead of CRAN: htmltools, markdown, bookdown, pagedown
+#>      checking for file ‘/private/var/folders/6l/57_kbxxx7bsgkdxp053b_yc40000gn/T/RtmpFHFMjQ/remotes12c44c52be82/jtrampush-npsych.data-b406a6a/DESCRIPTION’ ...  ✓  checking for file ‘/private/var/folders/6l/57_kbxxx7bsgkdxp053b_yc40000gn/T/RtmpFHFMjQ/remotes12c44c52be82/jtrampush-npsych.data-b406a6a/DESCRIPTION’
+#>   ─  preparing ‘npsych.data’:
+#>      checking DESCRIPTION meta-information ...  ✓  checking DESCRIPTION meta-information
+#>   ─  checking for LF line-endings in source and make files and shell scripts
+#>   ─  checking for empty or unneeded directories
+#>      Removed empty directory ‘npsych.data/vignettes’
+#>   ─  building ‘npsych.data_0.1.1.tar.gz’
+#>      
+#> 
+#> Installing package into '/private/var/folders/6l/57_kbxxx7bsgkdxp053b_yc40000gn/T/RtmpuuXs08/temp_libpath1299c13e55cc8'
+#> (as 'lib' is unspecified)
 ```
 
 ## Example
@@ -30,14 +45,21 @@ What is special about using `README.Rmd` instead of just `README.md`?
 You can include R chunks like so:
 
 ``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
+summary(dots)
+#>       raw             age          percentile             n        
+#>  Min.   : 1.00   Min.   : 3.50   Min.   :0.001355   Min.   :152.0  
+#>  1st Qu.:10.00   1st Qu.:11.30   1st Qu.:0.256329   1st Qu.:305.0  
+#>  Median :14.00   Median :29.00   Median :0.472222   Median :373.0  
+#>  Mean   :14.08   Mean   :37.59   Mean   :0.491065   Mean   :402.1  
+#>  3rd Qu.:18.00   3rd Qu.:63.80   3rd Qu.:0.740458   3rd Qu.:524.0  
+#>  Max.   :27.00   Max.   :94.20   Max.   :0.998750   Max.   :524.0  
+#>        m               md              sd          normValue    
+#>  Min.   :13.40   Min.   :13.00   Min.   :4.271   Min.   :20.01  
+#>  1st Qu.:13.40   1st Qu.:13.00   1st Qu.:4.806   1st Qu.:43.45  
+#>  Median :14.25   Median :14.00   Median :5.062   Median :49.30  
+#>  Mean   :14.25   Mean   :14.12   Mean   :4.920   Mean   :49.71  
+#>  3rd Qu.:14.73   3rd Qu.:15.00   3rd Qu.:5.062   3rd Qu.:56.45  
+#>  Max.   :17.16   Max.   :17.00   Max.   :5.124   Max.   :80.23
 ```
 
 You’ll still need to render `README.Rmd` regularly, to keep `README.md`
@@ -48,7 +70,7 @@ example workflow can be found here:
 
 You can also embed plots, for example:
 
-<img src="man/figures/README-pressure-1.png" width="100%" />
+<img src="man/figures/README-dots-plot-1.png" width="100%" />
 
 In that case, don’t forget to commit and push the resulting figure
 files, so they display on GitHub and CRAN.
