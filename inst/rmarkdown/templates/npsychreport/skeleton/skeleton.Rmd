@@ -265,6 +265,11 @@ source(file = here::here("R/calc_age.R"))
 source(file = here::here("R/dotplot.R"))
 ```
 
+```{r}
+# Source functions
+source(file = here::here("R/make_tibble.R"))
+```
+
 (ref:wppsi4) Wechsler Preschool and Primary Scale of Intelligence, 4th ed
 (WPPSI-IV)
 

@@ -21,7 +21,11 @@ Imports:
     knitr,
     lubridate,
     ggplot2,
-    ggthemes
+    ggthemes,
+    dplyr,
+    purrr,
+    magrittr,
+    tidyselect
 Suggests: 
     testthat (>= 3.0.0),
     xfun
