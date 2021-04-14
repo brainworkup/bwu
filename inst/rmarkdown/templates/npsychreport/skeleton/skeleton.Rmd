@@ -579,11 +579,25 @@ later.
 
 ## Background
 
+`r params$fname`'s parents are concerned that he has trouble focusing and
+interpreting information at times, and with abstract thinking and seeing the
+"bigger picture." `r params$he2` has trouble with reading comprehension and math
+word problems. If he finds the main idea of what he is reading, he has trouble
+finding the supporting ideas. `r params$he2` is not good with time management
+but is learning. He has a tendency toward procrastination, and a lack of focus
+and comprehension sometimes with his studies. Part of the impetus for the
+current evaluation is to determine, if possible, the reasons as to why
+`r params$fname` struggled on his ISEE middle school placement exams this year
+given his otherwise strong academic record. `r params$his2` parents noted via
+his tutor that he struggles with anything related to deep reading. These issues
+were not discovered by his teachers.
+
 ## Relevant History
 
 ### Developmental/Medical
 
-No birth complications. Normal developmental milestones.
+No birth complications. Normal developmental milestones. No surgical history. No
+major medical illness. No regular medications.
 
 ### Family
 
@@ -595,7 +609,30 @@ major stressors other than the pandemic. Unremarkable family medical history.
 
 ### Academics
 
+`r params$fname` attends sixth grade at XX Elementary School in Los Angeles and
+has since kindergarten, always doing reasonably well academically and socially.
+He briefly worked with a reading specialist in kindergarten at his teachers
+suggestion. XX returned to having students come to campus for in-person
+schooling, which was exciting for `r params$fname`. He took placement exams for
+middle school a few months ago and did not score as well as expected.
+`r params$he2` applied to three highly competitive middle school programs and
+recently received acceptance to the XX school.
+
 ### Behavioral/Emotional/Social
+
+`r params$fname` is a kind, compassionate, inclusive, and friendly child. He is
+athletic and a fierce competitor but humble. He is extremely sensitive and wears
+his heart on his sleeve. `r params$he2` is genuine and loyal and a friend to
+everyone. At times, he is not always assertive when he probably should be.
+`r params$he2` is shy and quiet in class and does not always participate or
+express himself. Parents worry he lacks self-confidence in himself and in his
+abilities. He gets easily frustrated when he can't do something or is
+overwhelmed. He is social and has a number of good, close friends.
+`r params$he2` enjoys playing basketball competitively with his peers, and
+recreationally at home with his father. He plays tennis, swims, plays piano, and
+plays video games for fun. `r params$he2` worked with a psychologist, XX XX,
+PhD, in 2019 to get rid of a his nail-biting habit. No other prior therapy or
+psychological testing was indicated.
 
 \newpage
 
@@ -877,13 +914,13 @@ dotplot(
 ### Academic Skills
 
 `r params$fname`'s academic skills were well above age- and grade-expected
-levels. Written expression was *exceptionally high*[^3]. Reading scores were
+levels. Written expression was *exceptionally high*. Reading scores were
 *high-average* to *above average*, with strong word reading skills.
-`r params$fname`'s composite math score was *high-average*[^4], with
-particularly strong math problem solving/quantitative reasoning performance.
+`r params$fname`'s composite math score was *high-average*, with particularly
+strong math problem solving/quantitative reasoning performance.
 
 ```{r}
-slice.acad <- c(6,1:2,7,4:5,3)
+#slice.acad <- c(6,1:2,7,4:5,3)
 academics <-
   make_tibble(
   tibb = academics,
@@ -892,7 +929,7 @@ academics <-
 ) %>% 
   dplyr::filter(!is.na(Score)) %>%
   dplyr::arrange(Test) %>% 
-  dplyr::slice(slice.acad)
+  #dplyr::slice(slice.acad)
 ```
 
 ```{r, academics, double_escape = T, escape = F, fig.fullwidth = TRUE}
@@ -923,7 +960,7 @@ acad <- neurocog %>%
   dplyr::filter(., domain == "Academic Skills") %>% 
   dplyr::filter(!is.na(score)) %>%
   dplyr::arrange(test_name) %>% 
-  dplyr::slice(slice.acad)
+  #dplyr::slice(slice.acad)
 ```
 
 ```{r acad, fig.cap='(ref:acad)', fig.path = 'figures/npsych2-'}
@@ -938,11 +975,6 @@ dotplot(
 
 \newpage
 
-[^3]: We could not complete the spelling subtest because we ran out of time.
-
-[^4]: `r params$fname` made simple inattentive/careless errors on two math
-    calculation problems, lowering his overall score.
-
 ### Verbal/Language
 
 All scores in this area were *average* to *above average*. An exception was
@@ -954,7 +986,7 @@ reading difficulties in kindergarten and current relative reading comprehension
 difficulties.
 
 ```{r}
-slice.vrb <- c(2,3,4,5,6)
+#slice.vrb <- c(2,3,4,5,6)
 verbal <-
   make_tibble(
   tibb = verbal,
@@ -963,7 +995,7 @@ verbal <-
 ) %>% 
   dplyr::filter(!is.na(Score)) %>% 
   dplyr::arrange(Test) %>% 
-  dplyr::slice(slice.vrb)
+  #dplyr::slice(slice.vrb)
 ```
 
 (ref:fn-verbal) Score = Standard score (M = 100, SD = 15), *T* score (M = 50, SD
@@ -996,7 +1028,7 @@ vrb <-
   dplyr::filter(domain == "Verbal/Language") %>%
   dplyr::filter(!is.na(score)) %>%
   dplyr::arrange(test_name) %>% 
-  dplyr::slice(slice.vrb)
+  #dplyr::slice(slice.vrb)
 ```
 
 ```{r vrb-sub, eval=F, fig.cap = '(ref:vrb)', fig.path = 'figures/npsych2-'}
@@ -1031,7 +1063,7 @@ time (e.g., if an item had a 20" time limit and `r params$fname` got it correct
 within 40").
 
 ```{r}
-slice.spt <- c(1,2,3,4,8,5,6,7)
+#slice.spt <- c(1,2,3,4,8,5,6,7)
 spatial <-
   make_tibble(
     tibb = spatial,
@@ -1040,7 +1072,7 @@ spatial <-
 ) %>%
   dplyr::filter(!is.na(Score)) %>%
   dplyr::arrange(Test) %>%
-  dplyr::slice(slice.spt)
+  #dplyr::slice(slice.spt)
 ```
 
 (ref:fn-spatial) Score = Standard score (M = 100, SD = 15), *T* score (M = 50,
@@ -1073,7 +1105,7 @@ spt <-
   dplyr::filter(domain == "Visual Perception/Construction") %>% 
   dplyr::filter(!is.na(score)) %>%
   dplyr::arrange(test_name) %>%
-  dplyr::slice(slice.spt)
+  #dplyr::slice(slice.spt)
 ```
 
 ```{r spt-sub, eval=T, fig.cap = '(ref:spt)', fig.path = 'figures/npsych2-'}
@@ -1116,7 +1148,7 @@ accessing information from long-term recall), and overall executive and
 attentional functioning.
 
 ```{r}
-slice.exe <- c(5,7,9,11,13:14,15:16,17:18)
+#slice.exe <- c(5,7,9,11,13:14,15:16,17:18)
 executive <-
   make_tibble(
   tibb = executive,
@@ -1125,10 +1157,10 @@ executive <-
 ) %>% 
   dplyr::filter(!is.na(Score)) %>% 
   dplyr::arrange(Test) %>% 
-  dplyr::slice(slice.exe)
+  #dplyr::slice(slice.exe)
 ```
 
-```{r}
+```{r, eval=F}
 test <- "Brown EF/A Parent"
 brown_efa_parent <-
   make_tibble(
@@ -1139,7 +1171,7 @@ brown_efa_parent <-
   dplyr::filter(Test == test)
 ```
 
-```{r, eval=T}
+```{r, eval=F}
 # combine
 executive <- dplyr::bind_rows(executive, brown_efa_parent) %>% dplyr::arrange(Test)
 ```
@@ -1175,7 +1207,7 @@ exe <- neurocog %>%
   dplyr::filter(domain == "Attention/Executive") %>% 
   dplyr::filter(!is.na(score)) %>%
   dplyr::arrange(test_name) %>% 
-  dplyr::slice(slice.exe)
+  #dplyr::slice(slice.exe)
 ```
 
 ```{r exe-sub, eval = T, fig.cap = '(ref:att-exe)', fig.path = 'figures/npsych2-'}
@@ -1208,7 +1240,7 @@ brown_efa_self <-
 ) %>%
   dplyr::filter(Test == "Brown EF/A Self")
 # combine
-brown_efa <- dplyr::bind_rows(brown_efa_parent, brown_efa_self)
+#brown_efa <- dplyr::bind_rows(brown_efa_parent, brown_efa_self)
 ```
 
 ```{r brown-efa, eval=F, double_escape = T, escape = F, fig.fullwidth = TRUE}
@@ -1227,8 +1259,8 @@ kableExtra::kbl(brown_efa[, 2:5], caption = "(ref:brown-efa)", "latex", longtabl
 ### Memory
 
 Learning and recall of rote verbal information (word list) was *average*
-overall, and `r params$fname` showed a variable learning curve[^5]. Recall of
-the list after a brief delay was *average*. Recall after a longer delay was
+overall, and `r params$fname` showed a variable learning curve. Recall of the
+list after a brief delay was *average*. Recall after a longer delay was
 *low-average* secondary to his variable learning curve resulting in disorganized
 initial encoding of the words, which was his only memory score falling somewhat
 below age-expectations. Recall of more complex verbal information (short story)
@@ -1240,10 +1272,8 @@ brief delay was intact.
 (ref:fn-memory) Score = *T* score (M = 50, SD = 10) or Scaled score (M = 10, SD
 = 3)
 
-\newpage
-
 ```{r}
-slice.mem <- c(1,3,4,7,10:12)
+#slice.mem <- c(1,3,4,7,10:12)
 memory <-
   make_tibble(
     tibb = memory,
@@ -1252,7 +1282,7 @@ memory <-
 ) %>% 
   dplyr::filter(!is.na(Score)) %>%
   dplyr::arrange(Test) %>% 
-  dplyr::slice(slice.mem)
+  #dplyr::slice(slice.mem)
 ```
 
 ```{r mem}
@@ -1261,7 +1291,7 @@ mem <- neurocog %>%
   dplyr::filter(domain == "Memory") %>% 
   dplyr::filter(!is.na(score)) %>%
   dplyr::arrange(test_name) %>%
-  dplyr::slice(slice.mem)
+  #dplyr::slice(slice.mem)
 ```
 
 ```{r mtm-sub, eval=F, fig.cap = '(ref:mem)', fig.path = 'figures/npsych2-'}
@@ -1283,27 +1313,26 @@ dotplot(
 )
 ```
 
-[^5]: He had recalled as many as 14/15 words correctly during the learning
-    trials, but then retrieved 9/15 on the later recall trials.
+```{r, memory, double_escape = T, escape = F, fig.fullwidth = TRUE}
+kableExtra::kbl(
+  memory[, 2:5],
+  caption = "(ref:memory)",
+  "latex",
+  longtable = FALSE,
+  booktabs = TRUE,
+  linesep = "",
+  align = c("lccc")
+) %>%
+  kableExtra::kable_paper(., lightable_options = 'basic') %>%
+  kableExtra::kable_styling(., latex_options = c("scale_down", "HOLD_position", "striped")) %>%
+  kableExtra::column_spec(., 1, width = "8cm") %>%
+  kableExtra::pack_rows(., index = table(memory$Test)) %>%
+  kableExtra::row_spec(., row = 0, bold = TRUE) %>%
+  kableExtra::add_footnote('(ref:scaled-score)')
+#kableExtra::add_footnote('(ref:fn-memory)')
+```
 
-    ```{r, memory, double_escape = T, escape = F, fig.fullwidth = TRUE}
-    kableExtra::kbl(
-      memory[, 2:5],
-      caption = "(ref:memory)",
-      "latex",
-      longtable = FALSE,
-      booktabs = TRUE,
-      linesep = "",
-      align = c("lccc")
-    ) %>%
-      kableExtra::kable_paper(., lightable_options = 'basic') %>%
-      kableExtra::kable_styling(., latex_options = c("scale_down", "HOLD_position", "striped")) %>%
-      kableExtra::column_spec(., 1, width = "8cm") %>%
-      kableExtra::pack_rows(., index = table(memory$Test)) %>%
-      kableExtra::row_spec(., row = 0, bold = TRUE) %>%
-      kableExtra::add_footnote('(ref:scaled-score)')
-      #kableExtra::add_footnote('(ref:fn-memory)')
-    ```
+\newpage
 
 ### Motor
 
@@ -1503,7 +1532,7 @@ break-inside: avoid;
 
 ## Recommendations for Family/Home
 
-5.  Extracurricular activities: Non-academic activities are highly encouraged
+1.  Extracurricular activities: Non-academic activities are highly encouraged
     (yet carefully balanced with `r params$his` academic demands) to foster
     continued positive socialization experiences.
 
