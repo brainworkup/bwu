@@ -11,10 +11,19 @@ LazyData: true
 Depends: 
     R (>= 3.10)
 RoxygenNote: 7.1.1.9001
-Imports: rmarkdown, bookdown, pagedown, komadown, tufte, htmltools, knitr, lubridate
+Imports: 
+    rmarkdown,
+    bookdown,
+    pagedown,
+    komadown,
+    tufte,
+    htmltools,
+    knitr,
+    lubridate,
+    ggplot2,
+    ggthemes
 Suggests: 
     testthat (>= 3.0.0),
-    ggplot2,
     xfun
 VignetteBuilder: knitr
 Config/testthat/edition: 3
