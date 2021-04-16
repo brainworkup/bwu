@@ -13,3 +13,4 @@
 ^npsych\.data\.Rproj$
 ^\.DS_Store$
 ^README\.Rmd$
+^data-raw$
