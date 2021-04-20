@@ -533,6 +533,78 @@ Dyslexia is underidentified in this population because the dyslexia can be
 masked by strengths in vocabulary and intelligence, making it especially
 difficult to identify in high-achieving individuals.
 
+```{r, echo=FALSE}
+## patient initials
+patient <- "patient"
+```
+
+```{r, echo=FALSE, eval=F}
+# Create directory
+dir_create(here::here(patient, "pre_csv"))
+dir_create(here::here(patient, "csv"))
+dir_create(here::here(patient, "pdf"))
+# Create link to directory
+out_dir_csv = here::here(patient, "pre_csv")
+out_dir_csv = here::here(patient, "csv")
+out_dir_pdf = here::here(patient, "pdf")
+```
+
+```{bash, engine.opts='-l', echo=F, eval=F}
+export patient=patient 
+ln -shfi ~/uscdbox/npsych_reports/2021/LNAME-FNAME/*.pdf ~/npsych.komatufte/$patient/pdf/.
+```
+
+```{bash, engine.opts='-l', echo=F, eval=F}
+export patient=patient 
+cp ~/uscdbox/npsych_reports/2021/LNAME-FNAME/*.csv ~/npsych.komatufte/$patient/pre_csv/.
+```
+
+```{bash, engine.opts='-l', echo=F, eval=F}
+export patient=patient
+cp ~/uscdbox/npsych_reports/2021/LNAME-FNAME/*.slk ~/npsych.komatufte/$patient/pre_csv/.
+```
+
+```{r, eval=F, echo=FALSE}
+## set file path
+path_pdf = here::here(patient, "pdf")
+file_names_pdf <- dir(path_pdf, pattern = ".pdf", full.names = TRUE)
+file_names_pdf
+```
+
+```{r, eval=F, echo=FALSE}
+## set file path # this might be useless
+path_csv = here::here(patient, "pre_csv")
+file_names_csv <- dir(path_csv, pattern = ".csv")
+file_names_csv
+```
+
+```{r, eval=F, echo=FALSE}
+## set file path # this might be useless
+path_slk = here::here(patient, "pre_csv")
+file_names_slk <- dir(path_csv, pattern = ".slk")
+file_names_slk
+```
+
+```{r, eval=F, echo=FALSE}
+# cognitive is first
+cognitive.pdf <- file_names_pdf[3]
+```
+
+```{r, eval=F, echo=FALSE}
+# cognitive is first
+cognitive.csv <- file_names_csv[1]
+```
+
+```{r, eval=F, echo=FALSE}
+# cognitive is first
+cognitive.slk <- file_names_slk[1]
+```
+
+```{r, eval=F, echo=FALSE}
+# cognitive is first
+pai.csv <- file_names_csv[3]
+```
+
 # NEUROBEHAVIORAL STATUS EXAM
 
 (ref:patient) `r params$fname` `r params$lname`
@@ -646,13 +718,10 @@ psychological testing was indicated.
 -   (ref:ravlt)
 -   (ref:tmt)
 -   (ref:examiner)
--   (ref:coca)
 -   (ref:pegboard)
 -   (ref:bicycle)
 -   (ref:clock)
 -   (ref:tomm)
--   (ref:sent-comp)
--   (ref:cog-est)
 -   (ref:basc3-sdh)
 -   (ref:basc3-prs-adolescent)
 -   (ref:basc3-srp-adolescent)
@@ -721,7 +790,7 @@ library(readr)
 library(forcats)
 library(purrr)
 # path to files
-data_path <- here::here("csv")
+data_path <- here::here(patient, "csv")
 # get file names of .csv files
 files <- dir(data_path, pattern = "*.csv")
 # read into env
@@ -739,18 +808,21 @@ neuropsych <- files %>%
   dplyr::mutate(domain_broad = forcats::as_factor(domain_broad)) %>%
   dplyr::mutate(domain_test = forcats::as_factor(domain_test)) %>%
   dplyr::mutate(verbal = forcats::as_factor(verbal)) %>% 
-  dplyr::mutate(pass = forcats::as_factor(pass))
+  dplyr::mutate(pass = forcats::as_factor(pass)) %>% 
+  dplyr::mutate(timed = forcats::as_factor(timed))
 ```
 
 ```{r, make-factors-neurocog}
 # Subset neurocognitive data
-neurocog <- neuropsych %>% dplyr::filter(test_type == "npsych_test")
+neurocog <- 
+  neuropsych %>% 
+  dplyr::filter(test_type == "npsych_test")
 ## Create factors
 # domain
 neurocog <-
   neurocog %>%
   dplyr::group_by(domain, .add = TRUE) %>%
-  dplyr::filter(!is.na(score)) %>% 
+  dplyr::filter(!is.na(percentile)) %>% 
   dplyr::mutate(z_mean_dom = mean(z), z_sd_dom = sd(z)) %>%
   dplyr::mutate(pct_mean_dom = mean(percentile), pct_sd_dom = sd(percentile)) %>%
   dplyr::ungroup()
@@ -758,7 +830,7 @@ neurocog <-
 neurocog <-
   neurocog %>%
   dplyr::group_by(subdomain, .add = TRUE) %>%
-  dplyr::filter(!is.na(score)) %>%
+  dplyr::filter(!is.na(percentile)) %>%
   dplyr::mutate(z_mean_sub = mean(z), z_sd_sub = sd(z)) %>%
   dplyr::mutate(pct_mean_sub = mean(percentile), pct_sd_sub = sd(percentile)) %>%
   dplyr::ungroup()
@@ -766,7 +838,7 @@ neurocog <-
 neurocog <-
   neurocog %>%
   dplyr::group_by(narrow, .add = TRUE) %>%
-  dplyr::filter(!is.na(score)) %>%
+  dplyr::filter(!is.na(percentile)) %>%
   dplyr::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) %>%
   dplyr::mutate(pct_mean_narrow = mean(percentile), pct_sd_narrow = sd(percentile)) %>%
   dplyr::ungroup()
@@ -774,28 +846,30 @@ neurocog <-
 neurocog <-
   neurocog %>%
   dplyr::group_by(verbal, .add = TRUE) %>%
-  dplyr::filter(!is.na(score)) %>%
+  dplyr::filter(!is.na(percentile)) %>%
   dplyr::mutate(z_mean_verbal = mean(z), z_sd_verbal = sd(z)) %>% 
   dplyr::ungroup()
 # pass
 neurocog <-
   neurocog %>%
   dplyr::group_by(pass, .add = TRUE) %>%
-  dplyr::filter(!is.na(score)) %>%
+  dplyr::filter(!is.na(percentile)) %>%
   dplyr::mutate(z_mean_pass = mean(z), z_sd_pass = sd(z)) %>% 
   dplyr::ungroup()
 # timed
 neurocog <-
   neurocog %>%
   dplyr::group_by(timed, .add = TRUE) %>%
-  dplyr::filter(!is.na(score)) %>%
+  dplyr::filter(!is.na(percentile)) %>%
   dplyr::mutate(z_mean_timed = mean(z), z_sd_timed = sd(z)) %>% 
   dplyr::ungroup()
 ```
 
 ```{r, make-factors-neurobehav}
 # Subset neurocognitive data
-neurobehav <- neuropsych %>% dplyr::filter(test_type != "npsych_test")
+neurobehav <- 
+  neuropsych %>% 
+  dplyr::filter(test_type != "npsych_test")
 ## Create factors
 # domain
 neurobehav <-
@@ -862,7 +936,23 @@ Overall intellectual scores were *high-average*. Index scores were *average* to
 constraints, `r params$fname` evidenced better performance by about a standard
 deviation in areas of fluid reasoning.
 
+```{r, eval=T}
+slice.iq <- c(4,2:3)
+knitr::read_chunk(here::here("R", "02_make_data.frame_iq.R"))
+```
+
+```{r make-df-iq, eval=T, double_escape = T, escape = F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "03_make_kable_iq.R"))
+```
+
+```{r make-kable-iq, eval=T, double_escape = T, escape = F}
+```
+
 ```{r}
+#slice.iq <- c(4,2:3)
 iq <- 
   neurocog %>% 
   make_tibble(
@@ -870,8 +960,8 @@ iq <-
     data = neurocog,
     pheno = "Intelligence"
   ) %>%
-  dplyr::filter(!is.na(Score)) %>% 
-  dplyr::slice(c(1,2,3,5,6))
+  dplyr::filter(!is.na(Score)) #%>% 
+  #dplyr::slice(slice.iq)
 ```
 
 ```{r, iq, double_escape = T, escape = F, fig.fullwidth = TRUE}
@@ -892,12 +982,12 @@ kableExtra::kbl(
   kableExtra::footnote(., symbol = '(ref:standard-score)')
 ```
 
-```{r, eval=F}
+```{r, eval=T}
 # plot domain scores as z-scores
 g <- 
 	neurocog %>% 
-	dplyr::filter(., domain == "Intelligence") %>% 
-	dplyr::slice(c(1,2,3,5,6))
+	dplyr::filter(., domain == "Intelligence") #%>% 
+	#dplyr::slice(slice.iq)
 ```
 
 ```{r g, fig.cap = '(ref:g) (ref:gc) (ref:gf)', fig.path = 'figures/npsych2-'}
@@ -928,7 +1018,7 @@ academics <-
   pheno = "Academic Skills"
 ) %>% 
   dplyr::filter(!is.na(Score)) %>%
-  dplyr::arrange(Test) %>% 
+  dplyr::arrange(Test) #%>% 
   #dplyr::slice(slice.acad)
 ```
 
@@ -957,9 +1047,9 @@ kableExtra::kbl(
 ```{r}
 # plot domain scores as z-scores
 acad <- neurocog %>% 
-  dplyr::filter(., domain == "Academic Skills") %>% 
+  dplyr::filter(domain == "Academic Skills") %>% 
   dplyr::filter(!is.na(score)) %>%
-  dplyr::arrange(test_name) %>% 
+  dplyr::arrange(test_name) #%>% 
   #dplyr::slice(slice.acad)
 ```
 
@@ -994,7 +1084,7 @@ verbal <-
   pheno = "Verbal/Language"
 ) %>% 
   dplyr::filter(!is.na(Score)) %>% 
-  dplyr::arrange(Test) %>% 
+  dplyr::arrange(Test) #%>% 
   #dplyr::slice(slice.vrb)
 ```
 
@@ -1027,7 +1117,7 @@ vrb <-
   neurocog %>%
   dplyr::filter(domain == "Verbal/Language") %>%
   dplyr::filter(!is.na(score)) %>%
-  dplyr::arrange(test_name) %>% 
+  dplyr::arrange(test_name) #%>% 
   #dplyr::slice(slice.vrb)
 ```
 
@@ -1071,7 +1161,7 @@ spatial <-
     pheno = "Visual Perception/Construction"
 ) %>%
   dplyr::filter(!is.na(Score)) %>%
-  dplyr::arrange(Test) %>%
+  dplyr::arrange(Test) #%>%
   #dplyr::slice(slice.spt)
 ```
 
@@ -1104,11 +1194,11 @@ spt <-
   neurocog %>% 
   dplyr::filter(domain == "Visual Perception/Construction") %>% 
   dplyr::filter(!is.na(score)) %>%
-  dplyr::arrange(test_name) %>%
+  dplyr::arrange(test_name) #%>%
   #dplyr::slice(slice.spt)
 ```
 
-```{r spt-sub, eval=T, fig.cap = '(ref:spt)', fig.path = 'figures/npsych2-'}
+```{r spt-sub, eval=F, fig.cap = '(ref:spt)', fig.path = 'figures/npsych2-'}
 # dotplot make
 dotplot(
   data = spt,
@@ -1118,7 +1208,7 @@ dotplot(
 )
 ```
 
-```{r spt-narrow, eval=F, fig.cap = '(ref:spt)', fig.path = 'figures/npsych2-'}
+```{r spt-narrow, eval=T, fig.cap = '(ref:spt)', fig.path = 'figures/npsych2-'}
 # dotplot make
 dotplot(
   data = spt,
@@ -1156,7 +1246,7 @@ executive <-
   pheno = "Attention/Executive"
 ) %>% 
   dplyr::filter(!is.na(Score)) %>% 
-  dplyr::arrange(Test) %>% 
+  dplyr::arrange(Test) #%>% 
   #dplyr::slice(slice.exe)
 ```
 
@@ -1206,11 +1296,11 @@ kableExtra::kbl(
 exe <- neurocog %>% 
   dplyr::filter(domain == "Attention/Executive") %>% 
   dplyr::filter(!is.na(score)) %>%
-  dplyr::arrange(test_name) %>% 
+  dplyr::arrange(test_name) #%>% 
   #dplyr::slice(slice.exe)
 ```
 
-```{r exe-sub, eval = T, fig.cap = '(ref:att-exe)', fig.path = 'figures/npsych2-'}
+```{r exe-sub, eval=T, fig.cap = '(ref:att-exe)', fig.path = 'figures/npsych2-'}
 # dotplot
 dotplot(
   data = exe,
@@ -1269,9 +1359,6 @@ was *high-average* for immediate free recall. Recall of visual material
 average*. Reconstructing a complex/abstract visual design from memory after a
 brief delay was intact.
 
-(ref:fn-memory) Score = *T* score (M = 50, SD = 10) or Scaled score (M = 10, SD
-= 3)
-
 ```{r}
 #slice.mem <- c(1,3,4,7,10:12)
 memory <-
@@ -1281,8 +1368,29 @@ memory <-
     pheno = "Memory"
 ) %>% 
   dplyr::filter(!is.na(Score)) %>%
-  dplyr::arrange(Test) %>% 
+  dplyr::arrange(Test) #%>% 
   #dplyr::slice(slice.mem)
+```
+
+(ref:fn-memory) Score = *T* score (M = 50, SD = 10) or Scaled score (M = 10, SD
+= 3)
+
+```{r, memory, double_escape = T, escape = F, fig.fullwidth = TRUE}
+kableExtra::kbl(
+  memory[, 2:5],
+  caption = "(ref:memory)",
+  "latex",
+  longtable = FALSE,
+  booktabs = TRUE,
+  linesep = "",
+  align = c("lccc")
+) %>%
+  kableExtra::kable_paper(., lightable_options = 'basic') %>%
+  kableExtra::kable_styling(., latex_options = c("scale_down", "HOLD_position", "striped")) %>%
+  kableExtra::column_spec(., 1, width = "8cm") %>%
+  kableExtra::pack_rows(., index = table(memory$Test)) %>%
+  kableExtra::row_spec(., row = 0, bold = TRUE) %>%
+  kableExtra::add_footnote('(ref:fn-memory)')
 ```
 
 ```{r mem}
@@ -1294,7 +1402,7 @@ mem <- neurocog %>%
   #dplyr::slice(slice.mem)
 ```
 
-```{r mtm-sub, eval=F, fig.cap = '(ref:mem)', fig.path = 'figures/npsych2-'}
+```{r mem-sub, eval=F, fig.cap = '(ref:mem)', fig.path = 'figures/npsych2-'}
   # dotplot
 dotplot(
   data = mem,
@@ -1313,25 +1421,6 @@ dotplot(
 )
 ```
 
-```{r, memory, double_escape = T, escape = F, fig.fullwidth = TRUE}
-kableExtra::kbl(
-  memory[, 2:5],
-  caption = "(ref:memory)",
-  "latex",
-  longtable = FALSE,
-  booktabs = TRUE,
-  linesep = "",
-  align = c("lccc")
-) %>%
-  kableExtra::kable_paper(., lightable_options = 'basic') %>%
-  kableExtra::kable_styling(., latex_options = c("scale_down", "HOLD_position", "striped")) %>%
-  kableExtra::column_spec(., 1, width = "8cm") %>%
-  kableExtra::pack_rows(., index = table(memory$Test)) %>%
-  kableExtra::row_spec(., row = 0, bold = TRUE) %>%
-  kableExtra::add_footnote('(ref:scaled-score)')
-#kableExtra::add_footnote('(ref:fn-memory)')
-```
-
 \newpage
 
 ### Motor
@@ -1344,8 +1433,7 @@ completed the task with great precision and fluid pencil control. Gross motor
 functioning including balance and gait appeared intact on observation.
 
 ```{r}
-#slice.mot <- c(1:NCOL(motor))
-slice.mtr <- c(1:2,3:6,10)
+#slice.mtr <- c(1:2,3:6,10)
 motor <-
   make_tibble(
     tibb = motor,
@@ -1353,8 +1441,8 @@ motor <-
     pheno = "Motor"
 ) %>% 
   dplyr::filter(!is.na(Score)) %>%
-  dplyr::arrange(Test) %>% 
-  dplyr::slice(slice.mtr)
+  dplyr::arrange(Test) #%>% 
+  #dplyr::slice(slice.mtr)
 ```
 
 (ref:fn-motor) Score = *T* score (M = 50, SD = 10) or Scaled score (M = 10, SD =
@@ -1376,8 +1464,8 @@ mtr <-
   neurocog %>% 
   dplyr::filter(domain == "Motor") %>%
   dplyr::filter(!is.na(score)) %>%
-  dplyr::arrange(test_name) %>%
-  dplyr::slice(slice.mtr)
+  dplyr::arrange(test_name) #%>%
+  #dplyr::slice(slice.mtr)
 ```
 
 ```{r mtr-sub, eval=F, fig.cap='(ref:mtr)', fig.path = 'figures/npsych2-'}
