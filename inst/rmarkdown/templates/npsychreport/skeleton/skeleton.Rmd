@@ -8,7 +8,7 @@ output:
     latex_engine: pdflatex 
     citation_package: biblatex
     number_sections: false
-    keep_md: false
+    keep_md: true
     keep_tex: false
 site: bookdown::bookdown_site
 header-includes:
@@ -17,6 +17,7 @@ header-includes:
   \includegraphics[width=6in,height=2in]{logo.png}\LARGE\\}
 - \posttitle{\end{center}}
 - \usepackage{svg}
+- \usepackage{wasysym}
 toc: false
 highlight: yes
 bibliography: komadown.bib
@@ -118,11 +119,13 @@ params:
     - 10th grade
     - 11th grade
     - 12th grade
+    - Some college
     - College freshman
     - College sophomore
     - College junior
     - College senior
     - Graduate student
+    - Medical student
     - Post-doctoral student
     - Other
     - High school diploma
@@ -314,6 +317,8 @@ Neurobehavioral Evaluation and Research (NIH EXAMINER)
 
 (ref:nab) Neuropsychological Assessment Battery (NAB)
 
+(ref:nabs) Neuropsychological Assessment Battery Screener (NAB-S)
+
 (ref:coca) Colorado Cognitive Assessment (CoCA)
 
 (ref:cog-est) Cognitive Estimation Test
@@ -392,13 +397,13 @@ I: History
 (84th percentile)
 
 (ref:pct) A percentile score shows `r params$fname`'s standing relative to
-peers. For example, a percentile score of 75 means `r params$fname` performed as
-well as or better than 75% of children the same age.
+peers. For example, a percentile score of 70 means `r params$fname` performed as
+well as or better than 70% of individuals the same age.
 
-(ref:br) A base rate is the prevalence of score in the U.S. population. If a
+(ref:br) A base rate is the prevalence of score in the general population. If a
 score is rare, defined as a base rate of less than 10%, it is considered
 clinically significant, and that area of functioning is probably causing
-problems in the real world.
+problems in daily functioning.
 
 (ref:basc3-footnote) Score = *T* score (M = 50, SD = 10); *Note:* Adaptive
 Skills *T* scores are reversed
@@ -446,7 +451,7 @@ word knowledge, to verbalize meaningful concepts, to understand complex
 multistep instructions, to think about verbal information, and to express
 oneself using words.
 
-(ref:spt) *Visuoperception, construction, and general visuospatial processing*
+(ref:spt) *Visuoperception, visuoconstruction, and visuospatial processing*
 refer to abilities such as mentally visualizing how objects should look from
 different angles, visualizing how to put objects together so that they fit
 correctly, and being able to accurately and efficiently copy and/or reproduce
@@ -458,8 +463,8 @@ individuals to successfully carry-out instrumental and social activities,
 academic work, engage with others effectively, problem solve, and successfully
 interact with the environment to get needs met.
 
-(ref:att) Attention is a basic function that underlies most, if not all, domains
-of neurocognitive functioning. If an individual has limited attentional
+(ref:att) *Attention* is a basic function that underlies most, if not all,
+domains of neurocognitive functioning. If an individual has limited attentional
 capacity, an inability to sustain or divide attentional focus, or a reduced
 ability to selectively attend to competing stimuli, then they would likely be
 unable to interact with the environment to an adequate degree and, thus have
@@ -522,7 +527,7 @@ defy. DSM-5 categorizes ODD under Disruptive, impulse-control, and conduct
 disorder. It is described as a pattern of persistent anger, hostility, and
 argumentative behavior that persists for more than six months.
 
-(ref:dyslexia) Dyslexia means an individual has a neurobiologically based
+(ref:dyslexia) *Dyslexia* means an individual has a neurobiologically based
 cognitive processing problem that affects how easily and efficiently they can
 learn to read. Approximately 24% of individuals diagnosed with dyslexia are able
 to achieve reading skills commensurate with nondyslexic peers. A concept in the
@@ -534,8 +539,8 @@ masked by strengths in vocabulary and intelligence, making it especially
 difficult to identify in high-achieving individuals.
 
 ```{r, echo=FALSE}
-## patient initials
-patient <- "patient"
+## patient initials or first/last name, whatever was used to create subdirectory
+patient <- "biggie"
 ```
 
 ```{r, echo=FALSE, eval=F}
@@ -544,7 +549,7 @@ dir_create(here::here(patient, "pre_csv"))
 dir_create(here::here(patient, "csv"))
 dir_create(here::here(patient, "pdf"))
 # Create link to directory
-out_dir_csv = here::here(patient, "pre_csv")
+out_dir_pre_csv = here::here(patient, "pre_csv")
 out_dir_csv = here::here(patient, "csv")
 out_dir_pdf = here::here(patient, "pdf")
 ```
@@ -592,7 +597,12 @@ cognitive.pdf <- file_names_pdf[3]
 
 ```{r, eval=F, echo=FALSE}
 # cognitive is first
-cognitive.csv <- file_names_csv[1]
+nabs.pdf <- file_names_pdf[2]
+```
+
+```{r, eval=F, echo=FALSE}
+# cognitive is first
+cognitive.csv <- file_names_csv[1] # not sure if I need this
 ```
 
 ```{r, eval=F, echo=FALSE}
@@ -602,7 +612,7 @@ cognitive.slk <- file_names_slk[1]
 
 ```{r, eval=F, echo=FALSE}
 # cognitive is first
-pai.csv <- file_names_csv[3]
+pai.csv <- file_names_csv[1]
 ```
 
 # NEUROBEHAVIORAL STATUS EXAM
@@ -638,31 +648,18 @@ pai.csv <- file_names_csv[3]
 
 ## Reason for Referral
 
-`r params$fname` is a (ref:age)-year-old youngster who presents for
+`r params$fname` is a (ref:age)-year-old youngster/man/woman who presents for
 neuropsychological evaluation to determine `r params$his` cognitive, academic,
 and emotional strengths and weaknesses. The purpose of the evaluation is to
-provide diagnostic clarification and to strategize how to best prepare
-`r params$fname` moving forward in middle school and high school. This report is
-based on a review of available medical records and information gathered across
-multiple days of evaluation. Results and recommendations were discussed with
-`r params$fname`'s parents, Dad and Mom, `r params$lname`, on the last of these
-evaluation dates during interactive feedback, and with `r params$fname` a week
-later.
+provide diagnostic clarification, and to develop a targeted treatment and
+educational plan. This report is based on a review of available medical records
+and information gathered across multiple days of evaluation. Results and
+recommendations were discussed with `r params$fname` on the last of these
+evaluation dates during interactive feedback.
 
 ## Background
 
-`r params$fname`'s parents are concerned that he has trouble focusing and
-interpreting information at times, and with abstract thinking and seeing the
-"bigger picture." `r params$he2` has trouble with reading comprehension and math
-word problems. If he finds the main idea of what he is reading, he has trouble
-finding the supporting ideas. `r params$he2` is not good with time management
-but is learning. He has a tendency toward procrastination, and a lack of focus
-and comprehension sometimes with his studies. Part of the impetus for the
-current evaluation is to determine, if possible, the reasons as to why
-`r params$fname` struggled on his ISEE middle school placement exams this year
-given his otherwise strong academic record. `r params$his2` parents noted via
-his tutor that he struggles with anything related to deep reading. These issues
-were not discovered by his teachers.
+`r params$fname`' presents with a history of XX.
 
 ## Relevant History
 
@@ -673,38 +670,32 @@ major medical illness. No regular medications.
 
 ### Family
 
-`r params$fname` lives with `r params$his` parents Dad and Mom, and his sister
-(age x) and brother (age x) in Los Angeles, CA. Dr. `r params$lname` is a X and
-Mrs. `r params$lname` X. When asked about major changes in the family situation
-or family stressors over the past year, `r params$fname`'s parents reported no
-major stressors other than the pandemic. Unremarkable family medical history.
+`r params$fname` lives with `r params$his` parents/Dad and Mom/wife/husband, and
+`r params$his` sister (age x) and brother (age x) in Los Angeles, CA. Mr.
+`r params$lname` is a X and Mrs. `r params$lname` is a X. When asked about major
+changes in the family situation or family stressors over the past year,
+`r params$fname`'s parents reported no major stressors. Unremarkable family
+medical history.
 
 ### Academics
 
-`r params$fname` attends sixth grade at XX Elementary School in Los Angeles and
-has since kindergarten, always doing reasonably well academically and socially.
-He briefly worked with a reading specialist in kindergarten at his teachers
-suggestion. XX returned to having students come to campus for in-person
-schooling, which was exciting for `r params$fname`. He took placement exams for
-middle school a few months ago and did not score as well as expected.
-`r params$he2` applied to three highly competitive middle school programs and
-recently received acceptance to the XX school.
+`r params$fname` attends `r params$educ` at XX School in Los Angeles.
+`r params$he2` has always done reasonably well academically and socially.
+`r params$he2` worked with a reading specialist in kindergarten at
+`r params$his` teachers suggestion. `r params$he2` graduated with `r params$his`
+diploma.
 
 ### Behavioral/Emotional/Social
 
-`r params$fname` is a kind, compassionate, inclusive, and friendly child. He is
-athletic and a fierce competitor but humble. He is extremely sensitive and wears
-his heart on his sleeve. `r params$he2` is genuine and loyal and a friend to
-everyone. At times, he is not always assertive when he probably should be.
-`r params$he2` is shy and quiet in class and does not always participate or
-express himself. Parents worry he lacks self-confidence in himself and in his
-abilities. He gets easily frustrated when he can't do something or is
-overwhelmed. He is social and has a number of good, close friends.
-`r params$he2` enjoys playing basketball competitively with his peers, and
-recreationally at home with his father. He plays tennis, swims, plays piano, and
-plays video games for fun. `r params$he2` worked with a psychologist, XX XX,
-PhD, in 2019 to get rid of a his nail-biting habit. No other prior therapy or
-psychological testing was indicated.
+`r params$fname` has no history of behavioral problems. `r params$he2` is
+extremely sensitive and wears `r params$his` heart on `r params$his` sleeve.
+`r params$he2` is genuine and loyal and a friend to everyone. No history of
+depression, anxiety. History of therapy. `r params$he2` is social and has a
+number of good, close friends. `r params$he2` enjoys playing basketball
+competitively with `r params$his` peers, and recreationally at home with
+`r params$his` father. `r params$he2` plays tennis, swims, plays piano, and
+plays video games for fun. `r params$he2` worked with a psychologist, XX XX, for
+XX. No prior psychological testing was indicated.
 
 \newpage
 
@@ -723,8 +714,6 @@ psychological testing was indicated.
 -   (ref:clock)
 -   (ref:tomm)
 -   (ref:basc3-sdh)
--   (ref:basc3-prs-adolescent)
--   (ref:basc3-srp-adolescent)
 -   (ref:brown-efa-parent)
 
 ## Behavioral Observations
@@ -738,22 +727,21 @@ testing environment. A number of precautionary safety measures were employed
 standardized testing procedures.
 
 It was a pleasure to work with `r params$fname` and easy to establish rapport.
-`r params$his2` general level of expressivity was high and `r params$he` easily
+`r params$his2` general level of expressivity was good and `r params$he` easily
 initiated spontaneous conversation topics and maintained reciprocal
-communication. `r params$he2` was pleasant and friendly with a good sense of
-humor. `r params$his2` affect was full in range and expression, and
-`r params$he` showed a full range of emotions. Eye contact was good and
-appropriate to situation. No gross behavioral apathy or disinhibition.
+communication. `r params$he2` was friendly but reserved. `r params$his2` affect
+was somewhat restricted in range and expression but positive, and `r params$he`
+showed a full range of emotions. Eye contact was good and appropriate to
+situation. No gross behavioral apathy or disinhibition. Formal motor testing
+could not be completed due to the patient's neurological history and motor
+limitations. `r params$he2` sat comfortably in a wheelchair during exam.
+
 `r params$fname` was cooperative and responded to questions in a polite and
 forthright manner to the best of `r params$his` abilities. `r params$he2`
 persisted on challenging items and put forth good effort (as supported by formal
 effort tests). The evaluation in its entirety is an accurate representation of
 `r params$his` functioning at this time, and the results presented herein are
 considered valid for interpretation.
-
-Finally, as detailed below, `r params$fname` evidenced marked test performance
-anxiety that negatively impacted his performance in several areas and appears to
-be a real world difficulty for him.
 
 \newpage
 
@@ -794,7 +782,8 @@ data_path <- here::here(patient, "csv")
 # get file names of .csv files
 files <- dir(data_path, pattern = "*.csv")
 # read into env
-neuropsych <- files %>%
+neuropsych <- 
+  files %>%
   purrr::set_names() %>%
   purrr::map_df(~ readr::read_csv(file.path(data_path, .)),
          na = c("", "NA", "--", "-"),
@@ -928,9 +917,11 @@ neurobehav <- readr::read_csv(here::here(patient, "neurobehav.csv"))
 ### Intelligence
 
 Overall intellectual scores were *High-Average*. Index scores were *Average* to
-*High-Hverage*. However, when test results were rescored independent of timing
-constraints, `r params$fname` evidenced better performance by about a standard
-deviation in areas of fluid reasoning.
+*High-Average*. `r params$fname` evidenced strong verbal reasoning skills and
+acquired knowledge. By contrast, `r params$his` nonverbal/fluid reasoning skills
+were an area of clinically significant relative weakness. General cognitive
+functions were low overall secondary to the patient's neurological history and
+difficulties with visual-spatial-motor integration and processing speed.
 
 ```{r, eval=F, results='asis'}
 library(tidyverse)
@@ -959,7 +950,7 @@ lst(person, range, scale) %>%
 ```
 
 ```{r, eval=T, results='asis'}
-slice.iq <- c(4,2:3)
+#slice.iq <- c(4,2:3)
 knitr::read_chunk(here::here("R", "02_make_data.frame_iq.R"))
 ```
 
@@ -994,11 +985,11 @@ dotplot(
 
 ### Academic Skills
 
-`r params$fname`'s academic skills were well above age- and grade-expected
-levels. Written expression was *Exceptionally High*. Reading scores were
-*high-average* to *above average*, with strong word reading skills.
-`r params$fname`'s composite math score was *high-average*, with particularly
-strong math problem solving/quantitative reasoning performance.
+`r params$fname`'s academic skills were within age- and grade-expected levels.
+Reading scores were *Low-Average* to *High-Average*, with strong word reading
+skills. Spelling and written expression were *Low-Average* to *High-Average*.
+`r params$fname`'s composite math score was *Average*, with strong math problem
+solving/quantitative reasoning performance.
 
 ```{r, eval=F, results='asis'}
 person <- "Biggie"
@@ -1080,13 +1071,11 @@ dotplot(
 
 ### Verbal/Language
 
-All scores in this area were *average* to *above average*. An exception was
-`r params$his` phonemic word fluency score, which was *low-average* and a
+All scores in this area were *Average* to *Above Average*. An exception was
+`r params$his` phonemic word fluency score, which was *Low-Average* and a
 relative weakness. Phonemic fluency is a component of broader phonological
 awareness, which is a core building block to reading development in early
-childhood. This is perhaps a residual weakness related to his early nonspecific
-reading difficulties in kindergarten and current relative reading comprehension
-difficulties.
+childhood.
 
 ```{r, eval=F, results='asis'}
 person <- "Biggie"
@@ -1140,7 +1129,7 @@ kableExtra::kbl(
   kableExtra::column_spec(., 1, width = "8cm") %>%
   kableExtra::pack_rows(., index = table(verbal$Test)) %>%
   kableExtra::row_spec(., row = 0, bold = TRUE) %>%
-  #kableExtra::row_spec(., row = 5, bold = TRUE) %>%
+  #kableExtra::row_spec(., row = 1, bold = TRUE) %>%
   #kableExtra::add_indent(., c(6:7)) %>%
   kableExtra::add_footnote('(ref:fn-verbal)')
 ```
@@ -1172,8 +1161,8 @@ dotplot(
 Visuospatial processing was an overall relative weakness, with performance
 falling in the *Exceptionally Low* range. Simultaneous visual processing, visual
 discrimination, complex spatial construction, and visuomotor integration were
-*Below Average* to *Exceptionally Low*. Douglas' history of math difficulties
-relates to this broader impairment in nonverbal problem solving.
+*Below Average* to *Exceptionally Low*. `r params$fname`'s history of math
+difficulties relates to this broader impairment in nonverbal problem solving.
 
 ```{r, eval=F, results='asis'}
 person <- "Biggie"
@@ -1302,8 +1291,8 @@ executive <-
   #dplyr::slice(slice.exe)
 ```
 
-(ref:fn-exe) Score = *T* score (M = 50, SD = 10) or Scaled score (M = 10, SD =
-3)
+(ref:fn-exe) Score = Standard score (M = 100, SD = 15), *T* score (M = 50, SD =
+10), or Scaled score (M = 10, SD = 3)
 
 ```{r, executive, double_escape = T, escape = F, fig.fullwidth = TRUE}
 kableExtra::kbl(
@@ -1390,16 +1379,16 @@ executive <- dplyr::bind_rows(executive, brown_efa_parent) %>% dplyr::arrange(Te
 
 ### Memory
 
-Learning and recall of rote verbal information (word list) was *average*
+Learning and recall of rote verbal information (word list) was *Average*
 overall, and `r params$fname` showed a variable learning curve. Recall of the
-list after a brief delay was *average*. Recall after a longer delay was
-*low-average* secondary to his variable learning curve resulting in disorganized
-initial encoding of the words, which was his only memory score falling somewhat
-below age-expectations. Recall of more complex verbal information (short story)
-was *high-average* for immediate free recall. Recall of visual material
-(abstract shapes) was *high-average*. Recall after a long delay was *above
-average*. Reconstructing a complex/abstract visual design from memory after a
-brief delay was intact.
+list after a brief delay was *Average*. Recall after a longer delay was
+*Low-Average* secondary to `r params$his` variable learning curve resulting in
+disorganized initial encoding of the words, which was `r params$his` only memory
+score falling somewhat below age-expectations. Recall of more complex verbal
+information (short story) was *High-Average* for immediate free recall. Recall
+of visual material (abstract shapes) was *High-Average*. Recall after a long
+delay was *Above Average*. Reconstructing a complex/abstract visual design from
+memory after a brief delay was intact.
 
 ```{r, eval=F, results='asis'}
 person <- "Biggie"
@@ -1478,10 +1467,10 @@ dotplot(
 
 ### Motor
 
-All scores in this area were *average* to *exceptionally high*. Fine motor speed
+All scores in this area were *Average* to *Exceptionally High*. Fine motor speed
 and dexterity were intact bilaterally. No evidence of atypical lateralization of
 fine or gross motor skills. No evidence of dyspraxia. Graphomotor speed and
-accuracy (i.e., graphomotor control) was *exceptionally high*; `r params$fname`
+accuracy (i.e., graphomotor control) was *Exceptionally High*; `r params$fname`
 completed the task with great precision and fluid pencil control. Gross motor
 functioning including balance and gait appeared intact on observation.
 
@@ -1556,8 +1545,21 @@ dotplot(
 
 ### Emotional/Behavioral/Adaptive
 
-No clinical elevations were indicated on parent rating scales nor on
-`r params$fname`'s self-report rating scales.
+`r params$fname` completed an objective self-report inventory of personality and
+emotional functioning. `r params$his2` clinical profile was marked by a
+*Clinically Significant* elevation on the Depression scale. `r params$he2`
+reported a number of difficulties consistent with a significant depressive
+experience, primarily marked by cognitive features such as negative expectancies
+and low self-esteem. `r params$he2` is quite pessimistic and plagued by thoughts
+of low self-worth, hopelessness, and personal failure. `r params$he2` indicated
+concerns about physical functioning and health matters in general such as pain,
+GI problems, ill health, and fatigue, which are often accompanied by depression
+and anxiety. `r params$he2` is worried and concerned about current issues to the
+degree that `r params$his` ability to concentrate and attend are significantly
+compromised, and reported overconcern regarding issues and events over which he
+has no control. `r params$he2` can be rather impatient and easily irritated, but
+does not report any specific aggressive behaviors that are recurrent problems
+for him. No suicidal thoughts or intentions indicated.
 
 ```{r, eval=F, results='asis'}
 person <- "Biggie"
@@ -1582,10 +1584,10 @@ pai.out <- lst(person, range, scale) %>%
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "02_make_data.frame_pai.R"))
+knitr::read_chunk(here::here("R", "02_make_dataframe_pai.R"))
 ```
 
-```{r make-df-pai, eval=T, double_escape = T, escape = F}
+```{r make-dataframe-pai, eval=T, double_escape = T, escape = F}
 ```
 
 ```{r, eval=T}
@@ -1613,20 +1615,6 @@ dotplot(
 )
 ```
 
-```{r}
-knitr::read_chunk("R/basc3_prs_adol_df.R")
-```
-
-```{r basc3-prs-adol-df, eval = T, double_escape = T, escape = F}
-```
-
-```{r}
-knitr::read_chunk("R/basc3_prs_adol_tb.R")
-```
-
-```{r basc3-prs-adol-tb, eval = T, double_escape = T, escape = F}
-```
-
 \newpage
 
 # SUMMARY/IMPRESSION
@@ -1635,9 +1623,9 @@ knitr::read_chunk("R/basc3_prs_adol_tb.R")
 `r params$fname`'s strengths. Processing speed and cognitive inflexibility are
 areas of relative weakness. Notably, even `r params$fname`'s average scores
 reflect performances that are below cognitive expectations for `r params$him`.
-His ability to consistently demonstrate these skills is sometimes limited by
-performance anxiety and overconcern with correctness, however. *Note:* *z* = 0
-(mean) ± 1 (sd)
+`r params$his2` ability to consistently demonstrate these skills is sometimes
+limited by performance anxiety and overconcern with correctness, however.
+*Note:* *z* = 0 (mean) ± 1 (sd)
 
 ```{r}
 # subset cog data for plotting
@@ -1657,30 +1645,79 @@ dotplot(
 
 ## Overall Evaluation Interpretation
 
-`r params$fname` is a (ref:age)-year-old student who is currently in the
-`r params$educ` at XX Elementary School. `r params$he2` was referred for testing
-by his parents to assess `r params$his` current cognitive, academic, and
-emotional functioning. Without question, `r params$fname` is an immensely
-talented and endearing youngster who presents with a multitude of intellectual
-and interpersonal strengths that will no doubt serve `r params$him` well in
-future academic and social endeavors. `r params$his2` general intellectual
-skills are in the high-average range for `r params$his` age, which means
-`r params$he` will be able to keep up with or outpace `r params$his` peers on a
-wide variety of cognitive and problem-solving tasks. Working memory is strong.
-His academic skills are even stronger, with several test scores ranging 1-2
-standard deviations above the norm for his age and grade level. His current
-achievement scores are markedly higher than the scores he obtained when he
-completed the middle school placement exams a few months ago. Verbal/language
-processing and nonverbal reasoning/problem solving are average to above average;
-relative weaknesses across tests from both domains are secondary to his
+`r params$fname` is a (ref:age)-year-old student/man/woman with a history of X.
+`r params$he2` was referred for testing by `r params$his` parents to assess
+`r params$his` current cognitive, academic, and emotional functioning. Without
+question, `r params$fname` is an immensely talented youngster who presents with
+a multitude of intellectual and interpersonal strengths that will no doubt serve
+`r params$him` well in future academic and social endeavors. `r params$his2`
+general intellectual skills are in the high-average range for `r params$his`
+age, which means `r params$he` will be able to keep up with or outpace
+`r params$his` peers on a wide variety of cognitive and problem-solving tasks.
+Working memory is strong. `r params$his2` academic skills are even stronger,
+with several test scores ranging 1-2 standard deviations above the norm for
+`r params$his` age and grade level. `r params$his2` current achievement scores
+are markedly higher than the scores he obtained when he completed the middle
+school placement exams a few months ago. Verbal/language processing and
+nonverbal reasoning/problem solving are average to above average; relative
+weaknesses across tests from both domains are secondary to `r params$his`
 performance anxiety rather than actual cognitive difficulties. Memory and motor
 functioning is intact.
+
+By contrast, `r params$fname` mathematics scores are significantly lower than
+predicted by `r params$his` crystallized/verbal intelligence. `r params$his2`
+general fluid/visuospatial skills are impaired when juxtaposed with
+`r params$his` verbal skills, the latter of which underlie `r params$his` math
+difficulties. `r params$he2` evidences secondary neurocognitive deficits in
+visual attention, complex working memory and processing speed, and
+`r params$his` nonverbal/spatial memory is impaired secondary to `r params$his`
+executive dysfunction in these areas. Relative weaknesses across tests across
+all domains are secondary to `r params$his` congenital cerebral palsy, which
+disrupted subtle brain structure and function during early critical periods of
+neurodevelopment. History of cerebral palsy is consistently linked to
+impairments in visual-spatial and mathematics abilities in the research
+literature. CP is associated with extensive difficulties with visual perception;
+visual short-term memory; visual reasoning; and mental rotation, all of which
+are associated with mathematical abilities. This is consistent with a
+*specific-learning disorder (SLD) with impairment in mathematics*. ***The
+community college board to which `r params$fname` reapplies is encouraged to
+allow him to bypass `r params$his` math class requirements given `r params$his`
+learning disability and broader neurocognitive difficulties with visuospatial
+processing and processing speed.***
+
+In terms of emotional functioning, `r params$fname` is prone to be self-critical
+and pessimistic, dwelling on past failures and lost opportunities with
+considerable uncertainty and indecision about `r params$his` plans and goals for
+the future. Given this self-doubt, `r params$he` tends to blame himself for
+setbacks. `r params$he2` has become withdrawn and introverted, and likely
+appears to others as if `r params$he` has little interest in socializing.
+`r params$he2` is also wary and sensitive in interpersonal relationships,
+developing somewhat of a "shell" to protect `r params$his` feelings.
+`r params$he2` feels uncertain and indecisive about many major life issues and
+has an unclear sense of direction in `r params$his` life as it currently stands.
+Many of these thoughts, feelings, and behaviors stem from having been
+misdiagnosed and mistreated in the past, especially during early elementary
+school and high school. In general, `r params$he` has been given a level of
+social support much lower than that of the average adult. `r params$his2`
+depression symptoms are diagnostically consistent with *dysthymia*, along with
+some avoidant personality features. In speaking with `r params$fname` during
+feedback, I voiced my concern about `r params$his` untreated depression.
+`r params$he2` is open to working with a therapist again and retrying
+antidepressant medications. `r params$fname` does report a number of strengths
+that are positive indications for a relatively smooth treatment process, if
+`r params$he` were willing to make a commitment to treatment.
 
 ## Diagnostic Impression
 
 -   F41.1 Generalized anxiety disorder
 -   F40.11 Social anxiety disorder (performance/test anxiety)
 -   R41.844 Frontal/executive function deficit
+-   R41.842 Visuospatial deficit
+-   F81.2 Mathematics Disorder
+-   R41.843 Psychomotor deficit
+-   F34.1 Persistent depressive disorder (dysthymia)
+-   Rule out Major depressive disorder, single episode, unspecified
+-   Rule out Avoidant personality disorder
 
 # RECOMMENDATIONS
 
@@ -1700,19 +1737,19 @@ break-inside: avoid;
 
 1.  Cognitive behavioral therapy (CBT) for anxiety: CBT that relies primarily on
     behavioral techniques such as Exposure and Response Prevention (ERP) will be
-    essential for helping `r params$fname` work through his challenges with
-    perfectionism and the secondary emotional outfall. Provider referrals are
-    below (links are clickable).
+    essential for helping `r params$fname` work through `r params$his`
+    challenges with perfectionism and the secondary emotional outfall. Provider
+    referrals are below (links are clickable).
 
     -   [Melissa Mose, PhD, LMFT](https://www.melissamosemft.com/)
     -   [Dr. Jenny Yip](https://www.dryip.com/)
 
-2.  Medical. Consultation with a child & adolescent psychiatrist or his
-    pediatrician is warranted to treat `r params$fname`'s anxiety with
-    medication if necessary or if he does not seem to respond to therapy.
-    Selective serotonin reuptake inhibitors (SSRIs) are recommended as safe and
-    effective first-line treatments for generalized anxiety and OCD symptoms.
-    Provider referrals are below (links are clickable).
+2.  Medical. Consultation with a child & adolescent psychiatrist or
+    `r params$his` pediatrician is warranted to treat `r params$fname`'s anxiety
+    with medication if necessary or if `r params$he` does not seem to respond to
+    therapy. Selective serotonin reuptake inhibitors (SSRIs) are recommended as
+    safe and effective first-line treatments for generalized anxiety and OCD
+    symptoms. Provider referrals are below (links are clickable).
 
     -   [Neevon Esmaili, MD](https://www.mentalfitnessclinic.com/pediatric/)
     -   [Sahar Douek, MD](https://www.sunshinepsychiatry.com/)
@@ -1721,10 +1758,10 @@ break-inside: avoid;
 3.  High quality sleep, balanced nutrition, and frequent, vigorous exercise are
     critical to maximizing attention and focus, and lowering anxiety and stress.
 
-4.  `r params$fname` and his parents are encouraged to learn more about the
-    nature of perfectionism and performance/test anxiety, its symptoms, causes,
-    and available treatment options. Recommended sources of information include
-    these online resources (links are clickable):
+4.  `r params$fname` and `r params$his` parents are encouraged to learn more
+    about the nature of perfectionism and performance/test anxiety, its
+    symptoms, causes, and available treatment options. Recommended sources of
+    information include these online resources (links are clickable):
 
     -   [Child Mind
         Institute:](https://childmind.org/article/how-to-help-kids-who-are-too-hard-on-themselves/)
@@ -1736,33 +1773,52 @@ break-inside: avoid;
 
 ## Recommendations for School
 
+1.  `r params$fname` ability to make inferences is better than `r params$his`
+    actual performance on such tasks. This is related to XX. Thus, it is
+    unreasonable to expect `r params$him` to complete math courses
+    satisfactorily. If provided a course waiver in math and related areas,
+    `r params$he` would be able to finish XX.
+2.  Extended testing time: Double time would be appropriate for `r params$fname`
+    during both school and standardized examinations given `r params$his`
+    impairment in processing speed and visuospatial processing. Extended time
+    accommodations are apt to more readily enable `r params$fname` to
+    demonstrate his competencies in a more effective and consistent manner.
+
 ## Recommendations for Family/Home
 
-1.  Extracurricular activities: Non-academic activities are highly encouraged
-    (yet carefully balanced with `r params$his` academic demands) to foster
-    continued positive socialization experiences.
+1.  Organizations supporting Cerebral Palsy:
+
+    -   [Cerebral Palsy Foundation](https://yourcpf.org/)
+    -   [Pedal with Pete for research on Cerebral
+        Palsy](http://pedal-with-pete.org/)
+    -   [Reaching for the Stars, Inc (RFTS,
+        Inc)](http://reachingforthestars.org/)
+    -   [United Cerebral Palsy (UCP)](https://www.ucp.org/)
+
+2.  Extracurricular/social activities are highly encouraged (yet carefully
+    balanced with `r params$his` academic demands) to foster continued positive
+    socialization experiences.
 
 ## Follow-Up Evaluation
 
-1.  Follow up testing is not indicated at this time unless concerns arise that
-    need to be addressed.
+Follow up testing is not indicated at this time unless concerns arise that need
+to be addressed.
 
 It was a pleasure to work with `r params$fname` and `r params$his` family.
 Please contact me with any questions or concerns regarding this patient.
 
 ```{marginfigure, echo=TRUE}
 **CONTACT**\
-**Phone:**\
+Department of Psychiatry and Behavioral Sciences\
+2250 Alcazar St., Suite 2200\
+Los Angeles, CA 90033\
 (323) 442-4000\
-**Mailing Address:**\
-USC Clinical Sciences Center, Department of Psychiatry and Behavioral Sciences, 2250 Alcazar St., Suite 2200, Los Angeles, CA 90033\
-**Email:**\
 [trampush\@usc.edu](mailto:trampush@usc.edu){.email}\
 ```
 
 Sincerely,
 
-```{r out.width='35%', fig.align='left'}
+```{r out.width='25%', fig.align='left'}
 knitr::include_graphics("jwtSig.png")
 ```
 
