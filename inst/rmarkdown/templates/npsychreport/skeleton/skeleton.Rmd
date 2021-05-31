@@ -292,6 +292,8 @@ source(file = here::here("R/make_tibble.R"))
 
 (ref:ppvt5) Peabody Picture Vocabulary Test, 5th ed (PPVT-5)
 
+(ref:tiwre) Test of Irregular Word Reading Efficiency (TIWRE)
+
 (ref:nepsy2) NEPSY-II Developmental Neuropsychological Battery
 
 (ref:examiner) NIH Executive Abilities: Measures and Instruments for
@@ -318,6 +320,9 @@ Neurobehavioral Evaluation and Research (NIH EXAMINER)
 (ref:nab) Neuropsychological Assessment Battery (NAB)
 
 (ref:nabs) Neuropsychological Assessment Battery Screener (NAB-S)
+
+(ref:rbans) Repeatable Repeatable Battery for the Assessment of
+Neuropsychological Status Update (RBANS)
 
 (ref:coca) Colorado Cognitive Assessment (CoCA)
 
@@ -349,15 +354,20 @@ Neurobehavioral Evaluation and Research (NIH EXAMINER)
 
 (ref:brown-efa) Brown Executive Function/Attention Scales (Brown EF/A)
 
-(ref:brown-efa-parent) Brown Executive Function/Attention (EF/A) Scales, Parent
+(ref:brown-efa-parent) Brown Executive Function/Attention Scales, (EF/A), Parent
+Report
 
-(ref:brown-efa-self) Brown Executive Function/Attention (EF/A) Scales, Self
+(ref:brown-efa-self) Brown Executive Function/Attention Scale (EF/A),
+Self-Report
 
-(ref:brown-efa-teacher) Brown Executive Function/Attention (EF/A) Scales,
-Teacher
+(ref:brown-efa-teacher) Brown Executive Function/Attention Scales (EF/A), Teacher Report
 
 (ref:caadid) Conners' Adult ADHD Diagnostic Interview for DSM-IV (CAADID), Part
 I: History
+
+(ref:caars-self) Conners' Adult ADHD Rating Scale (CAARS), Self-Report
+
+(ref:caars-obs) Conners' Adult ADHD Rating Scale (CAARS), Observer Report
 
 (ref:cars2) Childhood Autism Rating Scale, 2nd ed (CARS2)
 
@@ -470,7 +480,7 @@ ability to selectively attend to competing stimuli, then they would likely be
 unable to interact with the environment to an adequate degree and, thus have
 limited functioning in other, higher-order areas.
 
-(ref:exe) Measures of executive functioning are used as proxies for behaviors
+(ref:exe) Measures of *executive functioning* are used as proxies for behaviors
 and skills that allow individuals to successfully carry-out instrumental and
 social activities, such as planning, engaging with others effectively, problem
 solving, and successfully interacting with the environment to get needs met.
