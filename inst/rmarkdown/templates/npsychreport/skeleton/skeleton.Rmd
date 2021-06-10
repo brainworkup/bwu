@@ -235,17 +235,17 @@ options(digits = 3, warnPartialMatchArgs = FALSE)
 
 ```{r}
 # Source functions
-source(file = here::here("R/utils.R"))
+source(file = here::here("R/utils.R"), local = knitr::knit_global())
 ```
 
 ```{r}
 # Source functions
-source(file = here::here("R/handout.R"))
+source(file = here::here("R/handout.R"), local = knitr::knit_global())
 ```
 
 ```{r}
 # Source functions
-source(file = here::here("R/html.R"))
+source(file = here::here("R/html.R"), local = knitr::knit_global())
 ```
 
 ```{r}
@@ -258,17 +258,17 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 ```{r}
 # Source functions
-source(file = here::here("R/calc_age.R"))
+source(file = here::here("R/calc_age.R"), local = knitr::knit_global())
 ```
 
 ```{r}
 # Source functions
-source(file = here::here("R/dotplot.R"))
+source(file = here::here("R/dotplot.R"), local = knitr::knit_global())
 ```
 
 ```{r}
 # Source functions
-source(file = here::here("R/make_tibble.R"))
+source(file = here::here("R/make_tibble.R"), local = knitr::knit_global())
 ```
 
 ```{r, echo=FALSE}
@@ -344,8 +344,8 @@ cognitive.slk <- file_names_slk[1]
 ```
 
 ```{r, eval=F, echo=FALSE}
-# pai
-pai.csv <- file_names_csv[1]
+# add any other pdfs you need
+file.pdf <- file_names_csv[1]
 ```
 
 (ref:wppsi4) Wechsler Preschool and Primary Scale of Intelligence, 4th ed

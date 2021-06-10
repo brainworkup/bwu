@@ -326,6 +326,7 @@ $if(natbib)$
 \renewcommand{\bibpreamble}{\begin{multicols}{2}\small}
 \renewcommand{\bibpostamble}{\end{multicols}}
 $endif$
+
 $if(biblatex)$
 \usepackage[$if(biblio-style)$style=$biblio-style$,$endif$$for(biblatexoptions)$$biblatexoptions$$sep$,$endfor$]{biblatex}
 $for(bibliography)$
@@ -469,7 +470,7 @@ $if(subtitle)$
 \subtitle{$subtitle$}
 $endif$
 
-% Subfigs
+% Subfigs; uncommented this 6.1.21
 %\usepackage[margin=1em]{subfig}
 
 % Authors
@@ -487,7 +488,6 @@ $endfor$
 
 $if(date)$
 \date{} % clear date
-%\date{$date$}
 $endif$
 
 % Headers and footers
@@ -528,11 +528,11 @@ $endfor$
   \end{flushleft}
 }
 \preauthor{\begin{flushleft}\Large\scshape}
-\postauthor{\end{flushleft}\normalfont}
+\postauthor{\end{flushleft}\normalfont\vspace{-1em}} % Added this to reduce space June 2021
 \predate{}
 \postdate{}
-%\predate{\begin{flushleft}\large\itshape}
-%\postdate{\end{flushleft}}
+%\predate{\begin{flushleft}\normal\itshape} % changed
+%\postdate{\end{flushleft}} % changed 6/2021
 
 % Captions
 \usepackage[font=footnotesize]{subcaption}
