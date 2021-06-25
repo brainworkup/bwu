@@ -8,10 +8,10 @@ Description: This package stores the functions and normative datasets to use for
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Depends: 
+Depends:
     R (>= 3.10)
 RoxygenNote: 7.1.1.9001
-Imports: 
+Imports:
     rmarkdown,
     bookdown,
     pagedown,
@@ -26,7 +26,7 @@ Imports:
     purrr,
     magrittr,
     tidyselect
-Suggests: 
+Suggests:
     testthat (>= 3.0.0),
     xfun
 VignetteBuilder: knitr

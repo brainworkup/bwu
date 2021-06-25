@@ -2,8 +2,15 @@
 .Rhistory
 .RData
 .Ruserdata
-data-raw
+data-raw/
 fish_shell_commmands.sh
 .DS_Store
 renv/.DS_Store
 .vscode
+npsych.data.code-workspace
+journal/
+renv/.DS_Store
+.gitignore
+renv/.DS_Store
+renv/.DS_Store
+renv/.DS_Store
