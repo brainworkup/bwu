@@ -1,69 +1,37 @@
 ## Reason for Referral
 
-(ref:fname) (ref:lname) is a (ref:age)-year-old (ref:hand)-handed (ref:sex) with
-a reported history of disorder and disorder. (ref:he2) was referred by referdoc,
-for evaluation of his neurocognitive functioning to update his intervention
-plan. This report is based on a review of available medical records and
-information gathered on the following dates: (ref:doe1), (ref:doe2), (ref:doe3).
-Intervention planning was discussed with (ref:fname) and (ref:his) (ref:family)
-on the last of these dates.
+(ref:fname) (ref:lname) is a (ref:age)-year-old, (ref:hand)-handed (ref:sex) with a reported history of (ref:dx1) and (ref:dx1). (ref:he2) was previously seen through our service in Month 20XX. (ref:he2) was referred by (ref:refdoc), for evaluation of (ref:his) neurocognitive functioning to update (ref:his) intervention plan. This report is based on a review of available medical records and information gathered on the following dates: (ref:doe1), (ref:doe2), (ref:doe3), (ref:doe4). Intervention planning was discussed with (ref:fname) and (ref:his)(ref:family) on the last of these dates.
 
 ## Background
 
-(ref:fname) believes she has bipolar disorder and are insistent she should be
-treated with a mood stabilizing medication. However, the patient disagrees with
-her family about the diagnosis and reports having had severe side effects in the
-past from lamotrigine (Lamictal) including dizziness and falling spells. She
-currently takes paroxetine (Paxil) to treat nonspecific symptoms of depression
-and anxiousness. (ref:his2) husband, has stated in prior communications that he
-wants her "mood stabilized" because "whenever relapse happens" and it is
-"difficult for him" until her mood is stable again. There are broader family
-conflicts as well, including reported discord between (ref:fname) and her three
-adult children and longstanding marital problems.
+(ref:fname) began experiencing symptoms of x, y, and z in 200X.
 
 ## Relevant History
 
 ### Developmental/Medical
 
-(ref:fname) believes she was born full-term and does not recall her mother
-having complications during pregnancy. She denied subsequent developmental
-delays in the areas of walking, talking, and toilet training.
+(ref:fname) was born full-term following an uncomplicated pregnancy, labor, and delivery. Major developmental delays were achieved within expected timeframes.
 
-Medical history includes carotid artery disease, cataract, type 2 diabetes
-mellitus with hyperglycemia, unstable angina, xerosis of skin, hyperlipidemia,
-osteopenia of left femoral neck, recurrent falls. Family medical history
-includes diabetes and heart disease. She has improved her self-care and diabetes
-management lately, per chart. Surgical history includes cataract surgery,
-coronary bypass surgery, and removal of intra-aortic balloon pump.
+Medical history includes x, y, and z. Family medical history
+includes x, y, and z. Surgical history includes x, y, and z.
+
+(ref:his2) medical history also includes attention problems, which were longstanding but first treated after (ref:his) 20XX concussion. (ref:he2) now takes Concerta. However, (ref:his) mother reported ongoing difficulties with focus/concentration and forgetfulness. (ref:he2) said (ref:he) struggles to remember tasks (ref:he) needs to do and forgets to complete and turn in homework. (ref:he2) also reported that it has been difficult to get (ref:fname) to take (ref:his) medications if she is not there to remind (ref:him). (ref:he2) has told (ref:his) that (ref:he) would like to stop taking all medication. Previous medication includes Ritalin (stopped because of low appetite). There are no current concerns with hearing, vision, sleep, appetite or growth. (ref:he2) also denies current headaches or pain.
 
 ### Academics
 
-(ref:fname) recalls early learning difficulties in school related to reading and
-being a "slow learner." She completed high school in India but did not attend
-college.
+(ref:fname) recently completed (ref:educ) at Local High School. (ref:he2) earned C’s, D’s, and F’s in (ref:his) classes. (ref:he2) is now taking English (online course) in summer school. (ref:his2) mother reported that (ref:he) is frustrated with (ref:his) grades, as (ref:he) has been an A/B student in the past. (ref:he2) said that (ref:he) has trouble with daily work as well as quizzes/tests. (ref:his2) teachers have reported poor participation in class.
 
 ### Behavioral/Emotional/Social
 
-(ref:fname) reported that she has struggled with depression over the years. She
-and her husband were in marital therapy before COVID-19; she attended 6-7
-sessions and her husband attended one session). Her family has variously
-reported the following concerns regarding her behavior: "she will go through
-cycles from elevated mood to depressed mood (e.g., sleeping, not eating); she
-will have pressured speech, paranoia in the past, nonstop talking, verbal
-aggression."
+(ref:fname)’s mother reported that (ref:he) has struggled with depression over the years. (ref:he2) was especially upset at no longer being allowed to play sports after (ref:his) previous concussions. (ref:he2) noted that (ref:his) mood has been better and (ref:he) has not been as withdrawn since increasing (ref:his) dose of Effexor XR. (ref:he2) denied concerns about (ref:him) harming himself or others. (ref:he2) expressed concern about (ref:his) coping skills. (ref:he2) also said that (ref:he) has always tended to want things a certain way, in a certain order. However, this has not caused problems in daily life. (ref:he2) denied any other anxiety.
+
+(ref:fname) has many friends. (ref:he2) enjoys pick-up basketball and watching basketball games. (ref:his2) mother reported that (ref:he) recently got (ref:his) driver’s license and is looking for a job.
 
 ### Family
 
-(ref:fname) was born in ["\${1\|city}"]. She was emotionally healthy child until
-her biological mother committed suicide when (ref:fname) was 8-years-old, which
-reportedly followed the death of an infant son. She and her younger brother were
-particularly close to their mother. As was custom in her culture, her father was
-remarried to a woman with 10 children of her own. They had more children, until
-his 2nd wife also died. He then raised his 10 surviving children (of 14 total).
-(ref:fname) spent her remaining childhood and adolescence in India with her
-father and stepmother, and her various full- and step-siblings.
+(ref:fname) lives with (ref:his) parents, grandmother, and older brother and sister in City, State. Both parents graduated high school. Recent stressors include a family member’s illness. Family mental health history includes depression.
 
 ### Prior Testing
 
-None reported.
+(ref:fname) had a previous neuropsychological evaluation (Month 20XX), shortly following (ref:his) 20XX concussion. Results at that time indicated age-appropriate intelligence, but weaknesses in attention, executive skills, memory, fine motor speed, and word-finding. Of note, on the day of that prior testing (ref:he) had not taken stimulant medication and reported continuous headache.
 

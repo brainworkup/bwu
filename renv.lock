@@ -184,10 +184,10 @@
     },
     "broom": {
       "Package": "broom",
-      "Version": "0.7.6",
+      "Version": "0.7.8",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "06015476250468fc013c30022118ce3a"
+      "Hash": "c6dddf90a1e38665c211932696ddbfde"
     },
     "cachem": {
       "Package": "cachem",
@@ -219,15 +219,13 @@
     },
     "cli": {
       "Package": "cli",
-      "Version": "2.5.0.9000",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteUsername": "r-lib",
-      "RemoteRepo": "cli",
-      "RemoteRef": "master",
-      "RemoteSha": "87c6d5ba762aaafc0f16e5e3e2b510b43e0931e3",
-      "Hash": "0b35d7c710abecc932186a8dbfcfc646"
+      "Version": "3.0.0.9000",
+      "Source": "Repository",
+      "Repository": "https://r-lib.r-universe.dev",
+      "RemoteUrl": "https://github.com/r-lib/cli",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "b5e6f1ee7b4643e910de8ea1e765b0e8f1d493d4",
+      "Hash": "f8f062a14c1c6e997f11b367094aa494"
     },
     "clipr": {
       "Package": "clipr",
@@ -259,10 +257,10 @@
     },
     "colorspace": {
       "Package": "colorspace",
-      "Version": "2.0-1",
+      "Version": "2.0-2",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "6cab523af06ac301e7a40c5529d45882"
+      "Hash": "6baccb763ee83c0bd313460fdb8b8a84"
     },
     "commonmark": {
       "Package": "commonmark",
@@ -273,10 +271,13 @@
     },
     "cpp11": {
       "Package": "cpp11",
-      "Version": "0.2.7.9000",
+      "Version": "0.3.1.9000",
       "Source": "Repository",
-      "Repository": "rlib",
-      "Hash": "88728ce23f52a27611f8cf35133d987f"
+      "Repository": "https://r-lib.r-universe.dev",
+      "RemoteUrl": "https://github.com/r-lib/cpp11",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "097669f111cb4ee3146a91aad99bd3d0bcdce652",
+      "Hash": "aceacae584424aee540c0b46dde1e172"
     },
     "crayon": {
       "Package": "crayon",
@@ -301,10 +302,10 @@
     },
     "curl": {
       "Package": "curl",
-      "Version": "4.3.1",
+      "Version": "4.3.2",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "c5e68405893f030f139f6d6675eac675"
+      "Hash": "022c42d49c28e95d69ca60446dbabf88"
     },
     "cyclocomp": {
       "Package": "cyclocomp",
@@ -336,10 +337,10 @@
     },
     "devtools": {
       "Package": "devtools",
-      "Version": "2.4.1.9000",
+      "Version": "2.4.2",
       "Source": "Repository",
-      "Repository": "rlib",
-      "Hash": "3fdb22f0fa7f739236cfdcc7a9ff4b0e"
+      "Repository": "CRAN",
+      "Hash": "048d0b914d2cea61f440d35dd3cbddac"
     },
     "diffobj": {
       "Package": "diffobj",
@@ -357,10 +358,17 @@
     },
     "dplyr": {
       "Package": "dplyr",
-      "Version": "1.0.6",
+      "Version": "1.0.7",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "19e84500b64bc7e589cb1e2550e25832"
+      "Hash": "36f1ae62f026c8ba9f9b5c9a08c03297"
+    },
+    "drat": {
+      "Package": "drat",
+      "Version": "0.2.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "c963dd0d272e06f20cdbc929f5ae95c2"
     },
     "dtplyr": {
       "Package": "dtplyr",
@@ -442,17 +450,17 @@
     },
     "gert": {
       "Package": "gert",
-      "Version": "1.3.0",
+      "Version": "1.3.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "56f398846cd40937be6b435a66bd3f37"
+      "Hash": "8612346a70ca2b2bebb0ef008d5c0e30"
     },
     "ggplot2": {
       "Package": "ggplot2",
-      "Version": "3.3.3",
+      "Version": "3.3.5",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "3eb6477d01eb5bbdc03f7d5f70f2733e"
+      "Hash": "d7566c471c7b17e095dd023b9ef155ad"
     },
     "ggthemes": {
       "Package": "ggthemes",
@@ -617,10 +625,13 @@
     },
     "knitr": {
       "Package": "knitr",
-      "Version": "1.33.4",
+      "Version": "1.33.7",
       "Source": "Repository",
-      "Repository": "yihui",
-      "Hash": "fcd8d3f53450feb23fec56bfac659f17"
+      "Repository": "https://yihui.r-universe.dev",
+      "RemoteUrl": "https://github.com/yihui/knitr",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "cab26efb9df00b9612d67f0d88b82a767b6177e8",
+      "Hash": "120d1fc46da0089fa1094c3885b09851"
     },
     "komadown": {
       "Package": "komadown",
@@ -647,6 +658,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "04c5fd96fbc4df0c2917c85d73e5a9de"
+    },
+    "languageserversetup": {
+      "Package": "languageserversetup",
+      "Version": "0.1.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "685295c74137b0891525d75ade10154f"
     },
     "later": {
       "Package": "later",
@@ -720,10 +738,13 @@
     },
     "mime": {
       "Package": "mime",
-      "Version": "0.10",
+      "Version": "0.11.1",
       "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "26fa77e707223e1ce042b2b5d09993dc"
+      "Repository": "https://yihui.r-universe.dev",
+      "RemoteUrl": "https://github.com/yihui/mime",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "7658e0d7b7ceb95e30893715d49f689c702c62e2",
+      "Hash": "cfe924887ecd4388de8c4ca3caa06297"
     },
     "modelr": {
       "Package": "modelr",
@@ -769,10 +790,10 @@
     },
     "pagedown": {
       "Package": "pagedown",
-      "Version": "0.14",
+      "Version": "0.15",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "773ffdf73cccffaee9623adf91461521"
+      "Hash": "705a85bb415655b45a9b5c5b1b7773f8"
     },
     "pillar": {
       "Package": "pillar",
@@ -805,10 +826,13 @@
     },
     "plotly": {
       "Package": "plotly",
-      "Version": "4.9.3.9000",
+      "Version": "4.9.4.9000",
       "Source": "Repository",
-      "Repository": "ropensci",
-      "Hash": "91b9a5bb0242cbc18d9787b0bf05d243"
+      "Repository": "https://ropensci.r-universe.dev",
+      "RemoteUrl": "https://github.com/ropensci/plotly",
+      "RemoteRef": "master",
+      "RemoteSha": "e2afc47753f89a401668de18caf883876b1abcbc",
+      "Hash": "9c29fee4abba6cb16cb58cdd44e28bba"
     },
     "praise": {
       "Package": "praise",
@@ -910,10 +934,13 @@
     },
     "remotes": {
       "Package": "remotes",
-      "Version": "2.3.0.9000",
+      "Version": "2.4.0.9000",
       "Source": "Repository",
-      "Repository": "rlib",
-      "Hash": "95bca44b87bf1f4ac59713bdf7ab5be2"
+      "Repository": "https://r-lib.r-universe.dev",
+      "RemoteUrl": "https://github.com/r-lib/remotes",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "920e4a310641116a58895433a745aee02d9d9525",
+      "Hash": "f62ed3c1069e01dd9a209694c9d70121"
     },
     "renv": {
       "Package": "renv",
@@ -973,10 +1000,10 @@
     },
     "rmarkdown": {
       "Package": "rmarkdown",
-      "Version": "2.8",
+      "Version": "2.9",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "f518ba47713f92d0d603eec7c6888faf"
+      "Hash": "912c09266d5470516df4df7a303cde92"
     },
     "roxygen2": {
       "Package": "roxygen2",
@@ -1062,6 +1089,13 @@
       "Repository": "CRAN",
       "Hash": "a7341b0231ca84a0323982d5ae5a4300"
     },
+    "startup": {
+      "Package": "startup",
+      "Version": "0.15.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "083bd0b279a4e54a788eea455b76d7a0"
+    },
     "stringi": {
       "Package": "stringi",
       "Version": "1.6.2",
@@ -1106,10 +1140,13 @@
     },
     "testthat": {
       "Package": "testthat",
-      "Version": "3.0.2.9000",
+      "Version": "3.0.4.9000",
       "Source": "Repository",
-      "Repository": "rlib",
-      "Hash": "86e6acd62bfe32717462265b01fa73e3"
+      "Repository": "https://r-lib.r-universe.dev",
+      "RemoteUrl": "https://github.com/r-lib/testthat",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "f3ad40b324239d2b91e51f33700eb6465372d23c",
+      "Hash": "eb2e56bbbcd3112eb633d7509ecb38df"
     },
     "tibble": {
       "Package": "tibble",
@@ -1141,10 +1178,13 @@
     },
     "tinytex": {
       "Package": "tinytex",
-      "Version": "0.32.1",
+      "Version": "0.32.2",
       "Source": "Repository",
-      "Repository": "yihui",
-      "Hash": "ca9c8ea42df84ab04e3b847897c93aa8"
+      "Repository": "https://yihui.r-universe.dev",
+      "RemoteUrl": "https://github.com/yihui/tinytex",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "09b9e42405fefc678d032d0289cfd4957c27cda5",
+      "Hash": "17da146f722a374dcbeff7e6c1599618"
     },
     "tufte": {
       "Package": "tufte",
@@ -1198,10 +1238,14 @@
     },
     "vroom": {
       "Package": "vroom",
-      "Version": "1.4.0.9000",
+      "Version": "1.5.1.9000",
       "Source": "Repository",
-      "Repository": "rlib",
-      "Hash": "5acf6b63c562fcca63d92362dc0e8d1b"
+      "Repository": "https://r-lib.r-universe.dev",
+      "Remotes": "r-lib/archive",
+      "RemoteUrl": "https://github.com/r-lib/vroom",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "7f9a51e8163227852602aab4bf48b10d07c776a3",
+      "Hash": "4c023945ef2d76e78ff5b5a76b388bf0"
     },
     "waldo": {
       "Package": "waldo",
@@ -1240,17 +1284,23 @@
     },
     "xaringan": {
       "Package": "xaringan",
-      "Version": "0.21.1",
+      "Version": "0.22.1",
       "Source": "Repository",
-      "Repository": "yihui",
-      "Hash": "74d51244fe52e729f426ed50314f53b9"
+      "Repository": "https://yihui.r-universe.dev",
+      "RemoteUrl": "https://github.com/yihui/xaringan",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "cea0773a8cfd5e593e4985e87665f513a7fe2d3f",
+      "Hash": "9e60836e76cac5e19cfbafad968945c2"
     },
     "xfun": {
       "Package": "xfun",
-      "Version": "0.23.1",
+      "Version": "0.24.2",
       "Source": "Repository",
-      "Repository": "yihui",
-      "Hash": "33ab908e44043102c6e10a5907d1cd57"
+      "Repository": "https://yihui.r-universe.dev",
+      "RemoteUrl": "https://github.com/yihui/xfun",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "1507dbf9d1e33ee389d950cb15773f0079e2f313",
+      "Hash": "1d2900831bfd5df3b0716c19da22cbe2"
     },
     "xml2": {
       "Package": "xml2",

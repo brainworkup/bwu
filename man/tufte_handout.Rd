@@ -74,8 +74,10 @@ the page width is too narrow (by default it is a circled plus sign)}
 
 \item{fig_height}{Default height (in inches) for figures}
 
-\item{fig_crop}{\code{TRUE} to automatically apply the \code{pdfcrop} utility
-(if available) to pdf figures}
+\item{fig_crop}{Whether to crop PDF figures with the command
+\command{pdfcrop}. This requires the tools \command{pdfcrop} and
+\command{ghostscript} to be installed. By default, \code{fig_crop = TRUE}
+if these two tools are available.}
 
 \item{dev}{Graphics device to use for figure output (defaults to pdf)}
 
