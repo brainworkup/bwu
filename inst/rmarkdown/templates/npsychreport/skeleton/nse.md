@@ -1,6 +1,6 @@
 ## Reason for Referral
 
-(ref:fname) (ref:lname) is a (ref:age)-year-old, (ref:hand)-handed (ref:sex) with a reported history of (ref:dx1) and (ref:dx1). (ref:he2) was previously seen through our service in Month 20XX. (ref:he2) was referred by (ref:refdoc), for evaluation of (ref:his) neurocognitive functioning to update (ref:his) intervention plan. This report is based on a review of available medical records and information gathered on the following dates: (ref:doe1), (ref:doe2), (ref:doe3), (ref:doe4). Intervention planning was discussed with (ref:fname) and (ref:his)(ref:family) on the last of these dates.
+(ref:fname) (ref:lname) is a (ref:age)-year-old, (ref:hand)-handed (ref:sex) with a reported history of (ref:dx1) and (ref:dx1). (ref:he2) was previously seen through our service in Month 20XX. (ref:he2) was referred by (ref:refdoc), for evaluation of (ref:his) neurocognitive functioning to update (ref:his) intervention plan. This report is based on a review of available medical records and information gathered on the following dates: (ref:doe1), (ref:doe2), (ref:doe3), (ref:doe4). Intervention planning was discussed with (ref:fname) and (ref:his) (ref:family) on the last of these dates.
 
 ## Background
 
