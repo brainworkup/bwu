@@ -328,24 +328,30 @@ dir_create(here::here(patient, "pre_csv"))
 dir_create(here::here(patient, "csv"))
 dir_create(here::here(patient, "pdf"))
 # Create link to directory
-out_dir_pre_csv = here::here(patient, "pre_csv")
-out_dir_csv = here::here(patient, "csv")
-out_dir_pdf = here::here(patient, "pdf")
+out_dir_pre_csv <- here::here(patient, "pre_csv")
+out_dir_csv <- here::here(patient, "csv")
+out_dir_pdf <- here::here(patient, "pdf")
 ```
 
-```{bash, engine.opts='-l', echo=F, eval=F}
+```{bash, engine.opts='-l', eval=F}
 export patient=patient
-ln -shfi ~/uscdbox/npsych_reports/2021/LASTNAME-FIRSTNAME/*.pdf ~/npsych-reports/$patient/pdf/.
+export lastname=lastname
+export firstname=firstname
+ln -shfi ~/uscdbox/npsych_reports/2021/$lastname-$firstname/*.pdf ~/npsych-reports/$patient/pdf/.
 ```
 
-```{bash, engine.opts='-l', echo=F, eval=F}
+```{bash, engine.opts='-l', eval=F}
 export patient=patient
-cp ~/uscdbox/npsych_reports/2021/LASTNAME-FIRSTNAME/*.csv ~/npsych-reports/$patient/pre_csv/.
+export lastname=lastname
+export firstname=firstname
+cp ~/uscdbox/npsych_reports/2021/$lastname-$firstname/*.csv ~/npsych-reports/$patient/pre_csv/.
 ```
 
-```{bash, engine.opts='-l', echo=F, eval=F}
+```{bash, engine.opts='-l', eval=F}
 export patient=patient
-cp ~/uscdbox/npsych_reports/2021/LASTNAME-FIRSTNAME/*.slk ~/npsych-reports/$patient/pre_csv/.
+export lastname=lastname
+export firstname=firstname
+cp ~/uscdbox/npsych_reports/2021/$lastname-$firstname/*.slk ~/npsych-reports/$patient/pre_csv/.
 ```
 
 ```{r, eval=F, echo=FALSE}
@@ -383,7 +389,7 @@ cognitive.pdf <- file_names_pdf[3]
 
 ```{r, eval=F, echo=FALSE}
 # other pdfs if applicable
-nabs.pdf <- file_names_pdf[2]
+cog1.pdf <- file_names_pdf[2]
 ```
 
 ```{r, eval=F, echo=FALSE}
@@ -1042,7 +1048,6 @@ knitr::read_chunk(here::here("R", "nt-academics.R"))
 ```{r 05-plot-acad-narrow, eval=T, double_escape = T, escape = F, fig.cap = '(ref:academics)', fig.path = 'figures/npsych2-'}
 ```
 
-
 \newpage
 
 ### Verbal/Language
@@ -1175,13 +1180,7 @@ notable strength for `r params$fname`. Cognitive control and planning/problem
 solving were about average. Verbal and spatial processing speed were variable,
 but in general processing speed was one of `r params$fname`'s weakest areas on
 exam. Cognitive flexibility and rapid set-shifting were areas of relative
-weakness as well. Scores on timed tests varied, but tended to be weaker than on
-untimed tests.
-
-Brief attention/working memory, directed attention, sustained attention, and
-impulse control were all average. His performance on tasks of complex problem
-solving and mental flexibility was average to high-average. Scores on timed
-tests varied, but tended to be a bit weaker than on untimed tests.
+weakness.
 
 Of note, attention and executive functioning deficits may not show up on tests
 or in a structured testing office and yet be evident in real-world settings.
@@ -1529,20 +1528,13 @@ Sincerely,
 knitr::include_graphics("jwtSig.png")
 ```
 
-| **Joey Trampush, PhD**
-| Della Martin Assistant Professor of Psychiatry
-|
-|
-|
-| Department of Psychiatry and the Behavioral Sciences
-|
-|
-|
-| University of Southern California Keck School of Medicine
-|
-|
-|
-| CA License PSY29212 \newpage
+| **Joey Trampush, PhD**\
+| Della Martin Assistant Professor of Psychiatry\
+| Department of Psychiatry and the Behavioral Sciences\
+| University of Southern California Keck School of Medicine\
+| CA License PSY29212\
+
+\newpage
 
 # APPENDIX
 

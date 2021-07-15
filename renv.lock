@@ -63,6 +63,34 @@
       "Repository": "CRAN",
       "Hash": "4ed05e9c9726267e4a5872e09c04587c"
     },
+    "R.cache": {
+      "Package": "R.cache",
+      "Version": "0.15.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "e92a8ea8388c47c82ed8aa435ed3be50"
+    },
+    "R.methodsS3": {
+      "Package": "R.methodsS3",
+      "Version": "1.8.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "4bf6453323755202d5909697b6f7c109"
+    },
+    "R.oo": {
+      "Package": "R.oo",
+      "Version": "1.24.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "5709328352717e2f0a9c012be8a97554"
+    },
+    "R.utils": {
+      "Package": "R.utils",
+      "Version": "2.10.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "a9e316277ff12a43997266f2f6567780"
+    },
     "R6": {
       "Package": "R6",
       "Version": "2.5.0.9000",
@@ -79,10 +107,10 @@
     },
     "Rcpp": {
       "Package": "Rcpp",
-      "Version": "1.0.6",
+      "Version": "1.0.7",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "dbb5e436998a7eba5a9d682060533338"
+      "Hash": "dab19adae4440ae55aa8a9d238b246bb"
     },
     "TTR": {
       "Package": "TTR",
@@ -191,10 +219,13 @@
     },
     "cachem": {
       "Package": "cachem",
-      "Version": "1.0.5",
+      "Version": "1.0.5.9000",
       "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "5346f76a33eb7417812c270b04a5581b"
+      "Repository": "https://r-lib.r-universe.dev",
+      "RemoteUrl": "https://github.com/r-lib/cachem",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "cfb26725bcd997864f8cdb091e6c273fe7f5a44b",
+      "Hash": "65fbcb041f44a987d170824f37734b26"
     },
     "callr": {
       "Package": "callr",
@@ -365,10 +396,10 @@
     },
     "drat": {
       "Package": "drat",
-      "Version": "0.2.0",
+      "Version": "0.2.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "c963dd0d272e06f20cdbc929f5ae95c2"
+      "Hash": "abc6fbcb235c8101fe23de7451599bdf"
     },
     "dtplyr": {
       "Package": "dtplyr",
@@ -435,11 +466,13 @@
     },
     "gargle": {
       "Package": "gargle",
-      "Version": "1.1.0.9000",
+      "Version": "1.2.0.9000",
       "Source": "Repository",
-      "Repository": "rlib",
-      "Remotes": "r-lib/cli",
-      "Hash": "2088f2d5dd4759fc075629f99913fdf1"
+      "Repository": "https://r-lib.r-universe.dev",
+      "RemoteUrl": "https://github.com/r-lib/gargle",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "d39acd84ff46bdfad69fe256142fd50ee0b3b617",
+      "Hash": "33f0e1006b596f72faa709f0f5141bc0"
     },
     "generics": {
       "Package": "generics",
@@ -499,10 +532,10 @@
     },
     "googledrive": {
       "Package": "googledrive",
-      "Version": "1.0.1",
+      "Version": "2.0.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "79ba5d18133290a69b7c135dc3dfef1a"
+      "Hash": "c3a25adbbfbb03f12e6f88c5fb1f3024"
     },
     "googlesheets4": {
       "Package": "googlesheets4",
@@ -934,13 +967,13 @@
     },
     "remotes": {
       "Package": "remotes",
-      "Version": "2.4.0.9000",
+      "Version": "2.4.0.9001",
       "Source": "Repository",
       "Repository": "https://r-lib.r-universe.dev",
       "RemoteUrl": "https://github.com/r-lib/remotes",
       "RemoteRef": "HEAD",
-      "RemoteSha": "920e4a310641116a58895433a745aee02d9d9525",
-      "Hash": "f62ed3c1069e01dd9a209694c9d70121"
+      "RemoteSha": "37f5c96f442a8b7696e024dd6badfa83048067fd",
+      "Hash": "0bbb7715db7352abf6d2dd3499e5633c"
     },
     "renv": {
       "Package": "renv",
@@ -986,10 +1019,13 @@
     },
     "rlang": {
       "Package": "rlang",
-      "Version": "0.4.11.9000",
+      "Version": "0.4.11.9001",
       "Source": "Repository",
-      "Repository": "rlib",
-      "Hash": "3662a22acc3dd6a6459ac136b12333f2"
+      "Repository": "https://r-lib.r-universe.dev",
+      "RemoteUrl": "https://github.com/r-lib/rlang",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "01dca15b4003162fbd04593e2f0be4b1e07d86c9",
+      "Hash": "36d06f39d21bc34a601dd0fffadf0631"
     },
     "rlist": {
       "Package": "rlist",
@@ -1109,6 +1145,16 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "0759e6b6c0957edb1311028a49a35e76"
+    },
+    "styler": {
+      "Package": "styler",
+      "Version": "1.5.1.9000",
+      "Source": "Repository",
+      "Repository": "https://r-lib.r-universe.dev",
+      "RemoteUrl": "https://github.com/r-lib/styler",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "d31ee93a7d33501f33ae4fc25f6d4b1594008cf1",
+      "Hash": "06c89f5a262527bd693681a09091e0ee"
     },
     "survival": {
       "Package": "survival",
@@ -1238,14 +1284,13 @@
     },
     "vroom": {
       "Package": "vroom",
-      "Version": "1.5.1.9000",
+      "Version": "1.5.2.9000",
       "Source": "Repository",
       "Repository": "https://r-lib.r-universe.dev",
-      "Remotes": "r-lib/archive",
       "RemoteUrl": "https://github.com/r-lib/vroom",
       "RemoteRef": "HEAD",
-      "RemoteSha": "7f9a51e8163227852602aab4bf48b10d07c776a3",
-      "Hash": "4c023945ef2d76e78ff5b5a76b388bf0"
+      "RemoteSha": "1dccc4430df1a48561b06f88245011854e5ac4f3",
+      "Hash": "0f52f12045098775916ffb29be06b440"
     },
     "waldo": {
       "Package": "waldo",
@@ -1308,6 +1353,16 @@
       "Source": "Repository",
       "Repository": "rlib",
       "Hash": "59b3418c7386e177ba94d2ad5d2bd670"
+    },
+    "xmlparsedata": {
+      "Package": "xmlparsedata",
+      "Version": "1.0.5.9000",
+      "Source": "Repository",
+      "Repository": "https://r-lib.r-universe.dev",
+      "RemoteUrl": "https://github.com/r-lib/xmlparsedata",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "9c696592d15d17115cc73a67f80b929b5a88886c",
+      "Hash": "62f3df11697dc7e811d27458d51985b9"
     },
     "xopen": {
       "Package": "xopen",
