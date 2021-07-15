@@ -743,7 +743,7 @@ cat(readLines("nse.md"), sep = "\n")
 -   (ref:basc3-sdh)
 -   (ref:brown-efa-parent)
 
-```{r, nse, results='asis'}
+```{r, bobs, results='asis'}
 cat(readLines("bobs.md"), sep = "\n")
 ```
 
