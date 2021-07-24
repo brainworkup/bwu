@@ -12,3 +12,5 @@ npsych.data.code-workspace
 journal/
 .gitignore
 README.Rmd
+renv/.DS_Store
+daily-note-2021-07-23.md
