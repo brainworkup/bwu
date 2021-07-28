@@ -35,3 +35,25 @@ includes x, y, and z. Surgical history includes x, y, and z.
 
 (ref:fname) had a previous neuropsychological evaluation (Month 20XX), shortly following (ref:his) 20XX concussion. Results at that time indicated age-appropriate intelligence, but weaknesses in attention, executive skills, memory, fine motor speed, and word-finding. Of note, on the day of that prior testing (ref:he) had not taken stimulant medication and reported continuous headache.
 
+## Mental Status & Behavioral Observations During Interview
+
+Pt arrived on time to the interview. He was alert, oriented to the situation, and appeared to understand the questions that were being asked of him. He was articulate, demonstrated a clear and logical thought process, and his speech was normal in rate, pitch and prosody. His affect was normal in range and expression.
+
+## Summary/Impression
+
+Pt is a xx-year-old with a history of x, y, and z. He is motivated to complete the evaluation and to use the information gained to develop tailored plans for psychiatric intervention and school accommodations.
+
+### Diagnostic Considerations
+
+- ADHD, combined type
+- Generalized anxiety disorder
+- Major depression
+
+## Recommendations/Plan
+
+1. Proceed with comprehensive neuropsychological, psychoeducational, and personality assessments
+2. Develop targeted intervention plan and academic plan based on results of testing.
+
+*Note:* Evaluation is ongoing. Full report and recommendations to follow.
+
+Please contact me with any questions or concerns regarding this patient.

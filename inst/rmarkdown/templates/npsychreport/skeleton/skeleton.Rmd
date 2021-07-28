@@ -464,9 +464,15 @@ Neuropsychological Status Update (RBANS)
 
 (ref:celf5) Clinical Evaluation of Language Fundamentals, 5th ed (CELF-5)
 
+(ref:rist) Reynolds' Intellectual Screening Test (RIST)
+
 (ref:tomm) Test of Memory Malingering (TOMM)
 
-(ref:acs-word-choice) Advanced Clinical Solutions (ACS) Word Choice Test
+(ref:acs-word-choice) Advanced Clinical Solutions (ACS), Word Choice Test
+
+(ref:acs-soc-cog) Advanced Clinical Solutions (ACS), Social Cognition Battery
+
+(ref:acs-topf) Advanced Clinical Solutions (ACS), Test of Premorbid Functioning (TOPF)
 
 (ref:basc3) Behavioral Assessment Scale for Children, 3rd ed (BASC-3)
 
@@ -521,6 +527,8 @@ I: History
 (ref:sent-comp) Children's Sentence Completion Test
 
 (ref:pai) Personality Assessment Inventory (PAI)
+
+(ref:mmpi) Minnesota Multiphasic Personality Inventory-2-Restructured Form (MMPI-2-RF)
 
 (ref:iq) Intelligence
 
