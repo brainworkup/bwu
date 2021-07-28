@@ -37,11 +37,11 @@ includes x, y, and z. Surgical history includes x, y, and z.
 
 ## Mental Status & Behavioral Observations During Interview
 
-Pt arrived on time to the interview. He was alert, oriented to the situation, and appeared to understand the questions that were being asked of him. He was articulate, demonstrated a clear and logical thought process, and his speech was normal in rate, pitch and prosody. His affect was normal in range and expression.
+(ref:fname) arrived on time to the interview. He was alert, oriented to the situation, and appeared to understand the questions that were being asked of him. He was articulate, demonstrated a clear and logical thought process, and his speech was normal in rate, pitch and prosody. His affect was normal in range and expression.
 
 ## Summary/Impression
 
-Pt is a xx-year-old with a history of x, y, and z. He is motivated to complete the evaluation and to use the information gained to develop tailored plans for psychiatric intervention and school accommodations.
+(ref:fname) is a xx-year-old with a history of x, y, and z. He is motivated to complete the evaluation and to use the information gained to develop tailored plans for psychiatric intervention and school accommodations.
 
 ### Diagnostic Considerations
 
