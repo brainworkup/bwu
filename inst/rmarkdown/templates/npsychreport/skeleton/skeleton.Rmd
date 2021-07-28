@@ -963,6 +963,7 @@ lst(person, range, scale) %>%
     range = trait$range,
     scale = trait$scale
   ) %>%
+  stringr::str_to_sentence() %>%
   purrr::modify(lift(paste0)) %>%
   cat()
 ```
@@ -971,28 +972,28 @@ lst(person, range, scale) %>%
 knitr::read_chunk(here::here("R", "nt-iq.R"))
 ```
 
-```{r 02-make-dataframe-iq, eval=T, double_escape = T, escape = F}
+```{r 02-make-dataframe-iq, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-iq.R"))
 ```
 
-```{r 03-make-kable-iq, eval=T, double_escape = T, escape = F, fig.fullwidth = TRUE}
+```{r 03-make-kable-iq, eval=T, double_escape=T, escape=F, fig.fullwidth=T}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-iq.R"))
 ```
 
-```{r 04-make-dataframe-g, eval=T, double_escape = T, escape = F}
+```{r 04-make-dataframe-g, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-iq.R"))
 ```
 
-```{r 05-plot-iq-narrow, eval=T, double_escape = T, escape = F, fig.cap = '(ref:g) (ref:gc) (ref:gf)', fig.path = 'figures/npsych2-'}
+```{r 05-plot-iq-narrow, eval=T, double_escape=T, escape=F, fig.cap = '(ref:g) (ref:gc) (ref:gf)', fig.path='figures/npsych2-'}
 ```
 
 \newpage
@@ -1034,28 +1035,28 @@ lst(person, range, scale) %>%
 knitr::read_chunk(here::here("R", "nt-academics.R"))
 ```
 
-```{r 02-make-dataframe-academics, eval=T, double_escape = T, escape = F}
+```{r 02-make-dataframe-academics, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-academics.R"))
 ```
 
-```{r 03-make-kable-academics, eval=T, double_escape = T, escape = F, fig.fullwidth = TRUE}
+```{r 03-make-kable-academics, eval=T, double_escape=T, escape=F, fig.fullwidth=T}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-academics.R"))
 ```
 
-```{r 04-make-dataframe-acad, eval=T, double_escape = T, escape = F}
+```{r 04-make-dataframe-acad, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-academics.R"))
 ```
 
-```{r 05-plot-acad-narrow, eval=T, double_escape = T, escape = F, fig.cap = '(ref:academics)', fig.path = 'figures/npsych2-'}
+```{r 05-plot-acad-narrow, eval=T, double_escape=T, escape=F, fig.cap = '(ref:academics)', fig.path='figures/npsych2-'}
 ```
 
 \newpage
@@ -1089,6 +1090,7 @@ lst(person, range, scale) %>%
     range = trait$range,
     scale = trait$scale
   ) %>%
+  stringr::str_to_sentence() %>%
   purrr::modify(lift(paste0)) %>%
   cat()
 ```
@@ -1097,28 +1099,28 @@ lst(person, range, scale) %>%
 knitr::read_chunk(here::here("R", "nt-verbal.R"))
 ```
 
-```{r 02-make-dataframe-verbal, eval=T, double_escape = T, escape = F}
+```{r 02-make-dataframe-verbal, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-verbal.R"))
 ```
 
-```{r 03-make-kable-verbal, eval=T, double_escape = T, escape = F}
+```{r 03-make-kable-verbal, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-verbal.R"))
 ```
 
-```{r 04-make-dataframe-vrb, eval=T, double_escape = T, escape = F}
+```{r 04-make-dataframe-vrb, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-verbal.R"))
 ```
 
-```{r 05-plot-vrb-narrow, eval = TRUE, fig.cap = '(ref:vrb)', double_escape = T, escape = F}
+```{r 05-plot-vrb-narrow, eval=T, fig.cap = '(ref:vrb)', double_escape=T, escape=F}
 ```
 
 \newpage
@@ -1148,6 +1150,7 @@ lst(person, range, scale) %>%
     range = trait$range,
     scale = trait$scale
   ) %>%
+  stringr::str_to_sentence() %>%
   purrr::modify(lift(paste0)) %>%
   cat()
 ```
@@ -1157,28 +1160,28 @@ lst(person, range, scale) %>%
 knitr::read_chunk(here::here("R", "nt-spatial.R"))
 ```
 
-```{r 02-make-dataframe-spatial, eval=T, double_escape = T, escape = F}
+```{r 02-make-dataframe-spatial, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-spatial.R"))
 ```
 
-```{r 03-make-kable-spatial, eval=T, double_escape = T, escape = F}
+```{r 03-make-kable-spatial, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-spatial.R"))
 ```
 
-```{r 04-make-dataframe-spt, eval=T, double_escape = T, escape = F}
+```{r 04-make-dataframe-spt, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-spatial.R"))
 ```
 
-```{r 05-plot-spt-narrow, eval=T, fig.cap = '(ref:spt)', double_escape = T, escape = F}
+```{r 05-plot-spt-narrow, eval=T, fig.cap = '(ref:spt)', double_escape=T, escape=F}
 ```
 
 \newpage
@@ -1220,6 +1223,7 @@ lst(person, range, scale) %>%
     range = trait$range,
     scale = trait$scale
   ) %>%
+  stringr::str_to_sentence() %>%
   purrr::modify(lift(paste0)) %>%
   cat()
 ```
@@ -1228,28 +1232,28 @@ lst(person, range, scale) %>%
 knitr::read_chunk(here::here("R", "nt-executive.R"))
 ```
 
-```{r 02-make-dataframe-executive, eval=T, double_escape = T, escape = F}
+```{r 02-make-dataframe-executive, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-executive.R"))
 ```
 
-```{r 03-make-kable-executive, eval=T, double_escape = T, escape = F}
+```{r 03-make-kable-executive, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-executive.R"))
 ```
 
-```{r 04-make-dataframe-exe, eval=T, double_escape = T, escape = F}
+```{r 04-make-dataframe-exe, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-executive.R"))
 ```
 
-```{r 05-plot-exe-sub, eval=T, fig.cap = '(ref:att-exe)', double_escape = T, escape = F}
+```{r 05-plot-exe-sub, eval=T, fig.cap = '(ref:att-exe)', double_escape=T, escape=F}
 ```
 
 ```{r, eval=F}
@@ -1276,7 +1280,7 @@ brown_efa_self <-
 #brown_efa <- dplyr::bind_rows(brown_efa_parent, brown_efa_self)
 ```
 
-```{r brown-efa, eval=F, double_escape = T, escape = F, fig.fullwidth = TRUE}
+```{r brown-efa, eval=F, double_escape=T, escape=F, fig.fullwidth=T}
 # Brown EF/A
 kableExtra::kbl(brown_efa[, 2:5], caption = "(ref:brown-efa)", "latex", longtable = FALSE, booktabs = TRUE, linesep = "", align = c("lccc")) %>%
   kableExtra::kable_paper(., lightable_options = 'basic') %>%
@@ -1326,6 +1330,7 @@ lst(person, range, scale) %>%
     range = trait$range,
     scale = trait$scale
   ) %>%
+  stringr::str_to_sentence() %>%
   purrr::modify(lift(paste0)) %>%
   cat()
 ```
@@ -1334,28 +1339,28 @@ lst(person, range, scale) %>%
 knitr::read_chunk(here::here("R", "nt-memory.R"))
 ```
 
-```{r 02-make-dataframe-memory, eval=T, double_escape = T, escape = F}
+```{r 02-make-dataframe-memory, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-memory.R"))
 ```
 
-```{r 03-make-kable-memory, eval=T, double_escape = T, escape = F}
+```{r 03-make-kable-memory, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-memory.R"))
 ```
 
-```{r 04-make-dataframe-exe, eval=T, double_escape = T, escape = F}
+```{r 04-make-dataframe-exe, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-memory.R"))
 ```
 
-```{r 05-plot-mem-narrow, eval=T, fig.cap = '(ref:mem)', double_escape = T, escape = F}
+```{r 05-plot-mem-narrow, eval=T, fig.cap = '(ref:mem)', double_escape=T, escape=F}
 ```
 
 \newpage
@@ -1387,6 +1392,7 @@ lst(person, range, scale) %>%
     range = trait$range,
     scale = trait$scale
   ) %>%
+  stringr::str_to_sentence() %>%
   purrr::modify(lift(paste0)) %>%
   cat()
 ```
@@ -1395,28 +1401,28 @@ lst(person, range, scale) %>%
 knitr::read_chunk(here::here("R", "nt-motor.R"))
 ```
 
-```{r 02-make-dataframe-motor, eval=T, double_escape = T, escape = F}
+```{r 02-make-dataframe-motor, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-motor.R"))
 ```
 
-```{r 03-make-kable-motor, eval=T, double_escape = T, escape = F}
+```{r 03-make-kable-motor, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-motor.R"))
 ```
 
-```{r 04-make-dataframe-mtr, eval=T, double_escape = T, escape = F}
+```{r 04-make-dataframe-mtr, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-motor.R"))
 ```
 
-```{r 05-plot-mtr-narrow, eval=T, fig.cap = '(ref:mtr)', double_escape = T, escape = F}
+```{r 05-plot-mtr-narrow, eval=T, fig.cap = '(ref:mtr)', double_escape=T, escape=F}
 ```
 
 \newpage
@@ -1451,6 +1457,7 @@ pai.out <- lst(person, range, scale) %>%
     range = trait$range,
     scale = trait$scale
   ) %>%
+  stringr::str_to_sentence() %>%
   purrr::modify(lift(paste0)) %>%
   cat()
 ```
@@ -1476,16 +1483,14 @@ dotplot(
 knitr::read_chunk(here::here("R", "02_make_dataframe_pai.R"))
 ```
 
-```{r make-dataframe-pai, eval=T, double_escape = T, escape = F}
-
+```{r make-dataframe-pai, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "03_make_kable_pai.R"))
 ```
 
-```{r make-kable-pai, eval=T, double_escape = T, escape = F}
-
+```{r make-kable-pai, eval=T, double_escape=T, escape=F}
 ```
 
 \newpage
