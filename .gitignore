@@ -14,3 +14,6 @@ journal/
 README.Rmd
 renv/.DS_Store
 daily-note-2021-07-23.md
+renv/.DS_Store
+renv/activate.R
+.gitignore

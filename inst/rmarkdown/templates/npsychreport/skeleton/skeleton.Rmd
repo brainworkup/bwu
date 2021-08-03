@@ -464,6 +464,9 @@ Neuropsychological Status Update (RBANS)
 
 (ref:celf5) Clinical Evaluation of Language Fundamentals, 5th ed (CELF-5)
 
+(ref:celf5-ors) Clinical Evaluation of Language Fundamentals, 5th ed (CELF-5),
+Observational Rating Scale
+
 (ref:rist) Reynolds' Intellectual Screening Test (RIST)
 
 (ref:tomm) Test of Memory Malingering (TOMM)
@@ -1367,7 +1370,7 @@ knitr::read_chunk(here::here("R", "nt-memory.R"))
 
 ### Motor
 
-All scores in this area were *Average* to *Exceptionally High*. Fine motor speed
+All scores in this area were *Average* to *high-average*. Fine motor speed
 and dexterity were intact bilaterally. No evidence of atypical lateralization of
 fine nor gross motor skills. No evidence of dyspraxia. Graphomotor speed and
 accuracy (i.e., graphomotor control) was *Average*. Gross motor functioning
@@ -1423,6 +1426,68 @@ knitr::read_chunk(here::here("R", "nt-motor.R"))
 ```
 
 ```{r 05-plot-mtr-narrow, eval=T, fig.cap = '(ref:mtr)', double_escape=T, escape=F}
+```
+
+\newpage
+
+### Social Cognition
+
+'r param$fname` had to execute a series of behavioral responses requiring her to recognize and interpret the emotional state (happy, sad, angry, afraid, surprised, disgusted, and neutral) of a series of children's faces, on which she performed
+*above average* overall. She performed in the *high-average* range on a measure
+of pragmatic language and the ability to comprehend others perspectives,
+intentions, and beliefs (i.e., theory of mind).
+
+(ref:fn-scog) Scaled score (M = 10, SD = 3)
+
+```{r, eval=F, results='asis'}
+
+person <- "Biggie"
+dom <- "Social Cognition"
+
+eq <- neurocog %>%
+  dplyr::filter(domain == dom) %>%
+  dplyr::arrange(desc(percentile)) %>%
+  dplyr::distinct(.keep_all = FALSE)
+
+trait <- eq
+
+lst(person, range, scale) %>%
+  glue::glue_data(
+    '{person} performed in the *{range}* range on {scale}.',
+    range = trait$range,
+    scale = trait$scale
+  ) %>%
+  stringr::str_to_sentence() %>%
+  purrr::modify(lift(paste0)) %>%
+  cat()
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-soccog.R"))
+```
+
+```{r 02-make-dataframe-soccog, eval=T, double_escape = T, escape = F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-soccog.R"))
+```
+
+```{r 03-make-kable-soccog, eval=T, double_escape = T, escape = F, fig.fullwidth = TRUE}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-soccog.R"))
+```
+
+```{r 04-make-dataframe-eq, eval=T, double_escape = T, escape = F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-scog.R"))
+```
+
+```{r 05-plot-eq-narrow, eval=T, double_escape = T, escape = F, fig.cap = '(ref:social)', fig.path = 'figures/npsych2-'}
 ```
 
 \newpage
@@ -1578,7 +1643,7 @@ treatment recommendations.
 
 (ref:ranges) Test Score Labels/Ranges
 
-| **Score range**    | **Standard score** | ***T*** **score** | **Scaled score** | **\*z\*\*\***-score\*\* | **Percentile (‰)** |
+| **Score range**    | **Standard score** | ***T*** **score** | **Scaled score** | ***z***-**score** | **Percentile (‰)** |
 |:-------------------|:------------------:|:-----------------:|:----------------:|:-----------------------:|:------------------:|
 | Exceptionally High |       130 +        |       70 +        |       16 +       |           2 +           |        98 +        |
 | Above Average      |     120 -- 129     |     63 -- 69      |     14 -- 15     |       1.3 -- 1.9        |      91 -- 97      |
