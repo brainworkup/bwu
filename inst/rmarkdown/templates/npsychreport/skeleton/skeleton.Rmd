@@ -1059,7 +1059,7 @@ knitr::read_chunk(here::here("R", "nt-academics.R"))
 knitr::read_chunk(here::here("R", "nt-academics.R"))
 ```
 
-```{r 05-plot-acad-narrow, eval=T, double_escape=T, escape=F, fig.cap = '(ref:academics)', fig.path='figures/npsych2-'}
+```{r 05-plot-acad-narrow, eval=T, double_escape=T, escape=F, fig.cap = '(ref:acad)', fig.path='figures/npsych2-'}
 ```
 
 \newpage
@@ -1200,11 +1200,11 @@ weakness.
 
 Of note, attention and executive functioning deficits may not show up on tests
 or in a structured testing office and yet be evident in real-world settings.
-This seems to be the case for John, as parent ratings indicated significant
-attention problems, even with medication. Both parent ratings and John's own
+This seems to be the case for `r params$fname`, as parent ratings indicated significant
+attention problems, even with medication. Both parent ratings and `r params$fname`'s own
 ratings of his executive skills indicated difficulties with working memory and
 planning/organization. Parent ratings also indicated mild concerns for
-self-monitoring.
+self-monitoring. Teacher ratings indicated poor attention.
 
 (ref:fn-exe) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or
 Scaled (M = 10, SD = 3) scores
@@ -1376,7 +1376,7 @@ fine nor gross motor skills. No evidence of dyspraxia. Graphomotor speed and
 accuracy (i.e., graphomotor control) was *Average*. Gross motor functioning
 including balance and gait appeared intact on observation.
 
-(ref:fn-motor) Score = *T* (M = 50, SD = 10) or Scaled (M = 10, SD = 3) scores
+(ref:fn-motor) Score = *T* (M = 50, SD = 10) or Scaled (M = 10, SD = 3)
 
 ```{r, eval=F, results='asis'}
 person <- "Biggie"
@@ -1432,8 +1432,7 @@ knitr::read_chunk(here::here("R", "nt-motor.R"))
 
 ### Social Cognition
 
-'r param$fname` had to execute a series of behavioral responses requiring her to recognize and interpret the emotional state (happy, sad, angry, afraid, surprised, disgusted, and neutral) of a series of children's faces, on which she performed
-*above average* overall. She performed in the *high-average* range on a measure
+`r params$fname` had to execute a series of behavioral responses requiring her to recognize and interpret the emotional state (happy, sad, angry, afraid, surprised, disgusted, and neutral) of a series of children's faces, on which `r params$he` performed *above average* overall. `r params$he2` performed in the *high-average* range on a measure
 of pragmatic language and the ability to comprehend others perspectives,
 intentions, and beliefs (i.e., theory of mind).
 
@@ -1466,28 +1465,28 @@ lst(person, range, scale) %>%
 knitr::read_chunk(here::here("R", "nt-soccog.R"))
 ```
 
-```{r 02-make-dataframe-soccog, eval=T, double_escape = T, escape = F}
+```{r 02-make-dataframe-soccog, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-soccog.R"))
 ```
 
-```{r 03-make-kable-soccog, eval=T, double_escape = T, escape = F, fig.fullwidth = TRUE}
+```{r 03-make-kable-soccog, eval=T, double_escape=T, escape=F, fig.fullwidth=TRUE}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-soccog.R"))
 ```
 
-```{r 04-make-dataframe-eq, eval=T, double_escape = T, escape = F}
+```{r 04-make-dataframe-eq, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-scog.R"))
 ```
 
-```{r 05-plot-eq-narrow, eval=T, double_escape = T, escape = F, fig.cap = '(ref:social)', fig.path = 'figures/npsych2-'}
+```{r 05-plot-eq-narrow, eval=T, double_escape=T, escape=F, fig.cap='(ref:soccog)', fig.path='figures/npsych2-'}
 ```
 
 \newpage
@@ -1497,7 +1496,7 @@ knitr::read_chunk(here::here("R", "nt-scog.R"))
 In addition to the attention and executive concerns noted above, parent ratings
 indicated difficulties with everyday communication as well as mild-to-moderate
 concerns with physical complaints, social skills, leadership, and activities of
-daily living. His mother also noted mild concerns with depression. Teacher
+daily living. `r params$his2` mother also noted mild concerns with depression. Teacher
 rating forms were not returned at the time of this report.
 
 ```{r, pai, results='asis'}
