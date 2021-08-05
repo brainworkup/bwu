@@ -16,4 +16,4 @@
 ^data-raw$
 ^npsych\.data\.code-workspace$
 ^\.vscode$
-
+^journal$
