@@ -62,10 +62,10 @@ params:
     input: text
   mrn:
     label: "Patient ID:"
-    value: "00000000"
+    value: "000000000"
     input: numeric
-    min: 00000000
-    max: 99999999
+    min: 000000000
+    max: 999999999
   dob:
     label: "Date of Birth:"
     value: !r Sys.Date()
@@ -157,7 +157,7 @@ params:
     label: "DOE 4th visit (SIRF):"
     value: !r Sys.Date()
     input: date
-  he:
+  he-she:
     label: "he/she Pronoun:"
     value: he
     input: radio
@@ -165,7 +165,7 @@ params:
     choices:
       - he
       - she
-  his:
+  his-her:
     label: "his/her Pronoun:"
     value: his
     input: radio
@@ -173,7 +173,7 @@ params:
     choices:
       - his
       - her
-  him:
+  him-her:
     label: "him/her Pronoun:"
     value: him
     input: radio
@@ -181,7 +181,7 @@ params:
     choices:
       - him
       - her
-  he2:
+  He-She:
     label: "He/She Pronoun:"
     value: He
     input: radio
@@ -189,7 +189,7 @@ params:
     choices:
       - He
       - She
-  his2:
+  His-Her:
     label: "His/Her Pronoun:"
     value: His
     input: radio
@@ -197,7 +197,7 @@ params:
     choices:
       - His
       - Her
-  him2:
+  Him-Her:
     label: "Him/Her Pronoun:"
     value: Him
     input: radio
@@ -207,7 +207,7 @@ params:
       - Her
   dx1:
     label: "Diagnosis/Disorder 1:"
-    value: NULL
+    value: ADHD
     input: radio
     choices:
       - ADHD
@@ -216,7 +216,7 @@ params:
       - anxiety
   dx2:
     label: "Diagnosis/Disorder 2:"
-    value: NULL
+    value: depression
     input: radio
     width: 800px
     choices:
@@ -354,57 +354,57 @@ export firstname=firstname
 cp ~/uscdbox/npsych_reports/2021/$lastname-$firstname/*.slk ~/npsych-reports/$patient/pre_csv/.
 ```
 
-```{r, eval=F, echo=FALSE}
+```{r, eval=F, echo=F}
 ## set file path
 path_pdf = here::here(patient, "pdf")
 file_names_pdf <- dir(path_pdf, pattern = ".pdf", full.names = TRUE)
 file_names_pdf
 ```
 
-```{r, eval=F, echo=FALSE}
+```{r, eval=F, echo=F}
 ## set file path # this might be useless
 path_csv = here::here(patient, "pre_csv")
 file_names_csv <- dir(path_csv, pattern = ".csv")
 file_names_csv
 ```
 
-```{r, eval=F, echo=FALSE}
+```{r, eval=F, echo=F}
 ## set file path # this might be useless
 path_slk = here::here(patient, "pre_csv")
 file_names_slk <- dir(path_csv, pattern = ".slk")
 file_names_slk
 ```
 
-```{r, eval=F, echo=FALSE}
+```{r, eval=F, echo=F}
 ## set file path # this might be useless
 path_txt = here::here(patient, "pre_csv")
 file_names_txt <- dir(path_txt, pattern = ".txt")
 file_names_txt
 ```
 
-```{r, eval=F, echo=FALSE}
+```{r, eval=F, echo=F}
 # cognitive: change to specific file
-cognitive.pdf <- file_names_pdf[3]
+cognitive_pdf <- file_names_pdf[3]
 ```
 
-```{r, eval=F, echo=FALSE}
+```{r, eval=F, echo=F}
 # other pdfs if applicable
-cog1.pdf <- file_names_pdf[2]
+cog1_pdf <- file_names_pdf[2]
 ```
 
-```{r, eval=F, echo=FALSE}
+```{r, eval=F, echo=F}
 # cognitive csv file
-cognitive.csv <- file_names_csv[1] # not sure if I need this
+cognitive_csv <- file_names_csv[1] # not sure if I need this
 ```
 
-```{r, eval=F, echo=FALSE}
+```{r, eval=F, echo=F}
 # cognitive slk file
-cognitive.slk <- file_names_slk[1]
+cognitive_slk <- file_names_slk[1]
 ```
 
-```{r, eval=F, echo=FALSE}
+```{r, eval=F, echo=F}
 # add any other pdfs/csv/etc files needed
-file.csv <- file_names_csv[1]
+file_csv <- file_names_csv[1]
 ```
 
 (ref:wppsi4) Wechsler Preschool and Primary Scale of Intelligence, 4th ed
@@ -566,7 +566,7 @@ as or better than 70% of individuals the same age.
 
 (ref:br) A *base rate* is the prevalence of score in the general population. If
 a score is rare, defined as a base rate of less than 10%, it is considered
-clinically significant, and that area of functioning is probably causing
+*clinically significant*, and that area of functioning is probably causing
 problems in daily functioning.
 
 (ref:basc3-footnote) Score = *T* score (M = 50, SD = 10); *Note:* Adaptive
@@ -693,10 +693,16 @@ argumentative behavior that persists for more than six months.
 
 (ref:dyslexia) *Dyslexia* means an individual has a neurobiologically based
 cognitive processing problem that affects how easily and efficiently they can
-learn to read. Approximately 24% of individuals diagnosed with dyslexia are able
-to achieve reading skills commensurate with nondyslexic peers. A concept in the
-research literature is one of "compensated dyslexia"
-[@vanviersenHighReadingSkills2016], which is used to describe these individuals
+learn to read. Dyslexia is a common condition: some experts believe 5-10% of
+people have it; others say as many as 17% of people show signs of reading
+challenges. Dyslexia is formally classified as a specific learning disability in
+reading. People with dyslexia have trouble reading at a good pace and without
+mistakes. They may also have a hard time with reading comprehension, spelling,
+and writing. Importantly, these challenges are not a problem with intelligence.
+
+(ref:comp-dyslexia) *Dyslexia* means an individual has a neurobiologically based
+cognitive processing problem that affects how easily and efficiently they can
+learn to read. Approximately 24% of individuals diagnosed with dyslexia are able to achieve reading skills commensurate with nondyslexic peers. A concept in the research literature is one of "compensated dyslexia"[@vanviersenHighReadingSkills2016], which is used to describe these individuals
 because they use strengths in other areas to compensate for deficits in reading.
 Dyslexia is underidentified in this population because the dyslexia can be
 masked by strengths in vocabulary and intelligence, making it especially
@@ -734,7 +740,7 @@ difficult to identify in high-achieving individuals.
 ```
 
 ```{r, nse, results='asis'}
-cat(readLines("nse.md"), sep = "\n")
+cat(readLines("nse2.md"), sep = "\n")
 ```
 
 \newpage
@@ -942,7 +948,7 @@ Overall intellectual scores were *Average*. Most index scores were *Average* to
 knowledge. Nonverbal/fluid reasoning was a *Clinically Significant* weakness.
 
 (ref:fn-iq) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or
-Scaled (M = 10, SD = 3) scores
+Scaled (M = 10, SD = 3)
 
 ```{r, eval=F, results='asis'}
 library(tidyverse)
