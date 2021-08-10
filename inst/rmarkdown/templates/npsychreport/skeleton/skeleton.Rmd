@@ -157,7 +157,7 @@ params:
     label: "DOE 4th visit (SIRF):"
     value: !r Sys.Date()
     input: date
-  he-she:
+  heshe:
     label: "he/she Pronoun:"
     value: he
     input: radio
@@ -165,7 +165,7 @@ params:
     choices:
       - he
       - she
-  his-her:
+  hisher:
     label: "his/her Pronoun:"
     value: his
     input: radio
@@ -173,7 +173,7 @@ params:
     choices:
       - his
       - her
-  him-her:
+  himher:
     label: "him/her Pronoun:"
     value: him
     input: radio
@@ -181,7 +181,7 @@ params:
     choices:
       - him
       - her
-  He-She:
+  HeShe:
     label: "He/She Pronoun:"
     value: He
     input: radio
@@ -189,7 +189,7 @@ params:
     choices:
       - He
       - She
-  His-Her:
+  HisHer:
     label: "His/Her Pronoun:"
     value: His
     input: radio
@@ -197,7 +197,7 @@ params:
     choices:
       - His
       - Her
-  Him-Her:
+  HimHer:
     label: "Him/Her Pronoun:"
     value: Him
     input: radio
@@ -413,6 +413,8 @@ file_csv <- file_names_csv[1]
 (ref:wisc5) Wechsler Intelligence Scale for Children, 5th ed (WISC-V)
 
 (ref:wais4) Wechsler Adult Intelligence Scale, 4th ed (WAIS-IV)
+
+(ref:wasi2) Wechsler Abbreviated Scale of Intelligence, 2nd ed (WASI-2)
 
 (ref:ktea3) Kaufman Test of Educational Achievement, 3rd ed (KTEA-3)
 
@@ -709,6 +711,22 @@ masked by strengths in vocabulary and intelligence, making it especially
 difficult to identify in high-achieving individuals.
 
 # NEUROBEHAVIORAL STATUS EXAM
+
+(ref:fname) `r params$fname`
+
+(ref:lname) `r params$lname`
+
+(ref:heshe) `r params$heshe`
+
+(ref:hisher) `r params$hisher`
+
+(ref:himher) `r params$himher`
+
+(ref:HeShe) `r params$HeShe`
+
+(ref:HisHer) `r params$HisHer`
+
+(ref:HimHer) `r params$HimHer`
 
 (ref:patient) `r params$fname` `r params$lname`
 

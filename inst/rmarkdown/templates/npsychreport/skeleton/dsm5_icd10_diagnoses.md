@@ -171,6 +171,25 @@ ___.__ (___.__) Panic Attack Specifier
 309.89 (F43.8) Other Specified Trauma- and Stressor-Related Disorder
 309.9 (F43.9) Unspecified Trauma- and Stressor-Related Disorder
 
+## Personality Disorders
+Cluster A Personality Disorders
+301.0 (F60.0) Paranoid Personality Disorder
+301.20 (F60.1) Schizoid Personality Disorder
+301.22 (F21) Schizotypal Personality Disorder
+Cluster B Personality Disorders
+301.7 (F60.2) Antisocial Personality Disorder
+301.83 (F60.3) Borderline Personality Disorder
+301.50 (F60.4) Histrionic Personality Disorder
+301.81 (F60.81) Narcissistic Personality Disorder
+Cluster C Personality Disorders
+301.82 (F60.6) Avoidant Personality Disorder
+301.6 (F60.7) Dependent Personality Disorder
+301.4 (F60.5) Obsessive-Compulsive Personality Disorder
+Other Personality Disorders
+310.1 (F07.0) Personality Change Due to Another Medical Condition (Labile type, Disinhibited type, Aggressive type, Apathetic type, Paranoid type, Other type, Combined type, Unspecified type)
+301.89 (F60.89) Other Specified Personality Disorder
+301.9 (F60.9) Unspecified Personality Disorder
+
 ## Dissociative Disorders
 300.14 (F44.81) Dissociative Identity Disorder
 300.12 (F44.0) Dissociative Amnesia
@@ -228,58 +247,30 @@ ___.__ (___.__) Panic Attack Specifier
 327.21 (G47.31) Central Sleep Apnea, Idiopathic central sleep apnea
 786.04 (R06.3) Central Sleep Apnea, Cheyne-Stokes breathing
 780.57 (G47.37) Central sleep apnea comorbid with opioid use
-
 Sleep-Related Hypoventilation
-Specify whether:
-327.24 (G47.34) Idiopathic hypoventilation
-327.25 (G47.35) Congenital central alveolar hypoventilation
-327.26 (G47.36) Comorbid sleep-related hypoventilation
-Specify current severity
-___.__ (___.__)
+327.24 (G47.34) Sleep-Related Hypoventilation, Idiopathic hypoventilation
+327.25 (G47.35) Sleep-Related Hypoventilation, Congenital central alveolar hypoventilation
+327.26 (G47.36) Sleep-Related Hypoventilation, Comorbid sleep-related hypoventilation
 Circadian Rhythm Sleep-Wake Disorders
-Specify whether:
 307.45 (G47.21) Circadian Rhythm Sleep-Wake Disorders, Delayed sleep phase type
-Specify if: Familial, Overlapping with non-24-hour sleep-wake type
 307.45 (G47.22) Circadian Rhythm Sleep-Wake Disorders, Advanced sleep phase type
-Specify if: Familial
 307.45 (G47.23) Circadian Rhythm Sleep-Wake Disorders, Irregular sleep-wake type
 307.45 (G47.24) Circadian Rhythm Sleep-Wake Disorders, Non-24-hour sleep-wake type
 307.45 (G47.26) Circadian Rhythm Sleep-Wake Disorders, Shift work type
 307.45 (G47.20) Circadian Rhythm Sleep-Wake Disorders, Unspecified type
-
 Parasomnias
-___.__ (__.__)
-Non–Rapid Eye Movement Sleep Arousal Disorders
-Specify whether:
-307.46 (F51.3)
-Sleepwalking type
-Specify if: With sleep-related eating, With sleep-related sexual behavior (sexsomnia)
-307.46 (F51.4)
-Sleep terror type
-307.47 (F51.5)
-Nightmare Disorderb, c
-Specify if: During sleep onset
-Specify if: With associated non–sleep disorder, With associated other medical condition, With associated other sleep disorder
+307.46 (F51.3) Non–Rapid Eye Movement Sleep Arousal Disorder, Sleepwalking type, With sleep-related eating
+307.46 (F51.3) Non–Rapid Eye Movement Sleep Arousal Disorder, Sleepwalking type, With sleep-related sexual behavior (sexsomnia)
+307.46 (F51.4) Non–Rapid Eye Movement Sleep Arousal Disorder, Sleep terror type
+307.47 (F51.5) Non–Rapid Eye Movement Sleep Arousal Disorder, Nightmare Disorder
 327.42 (G47.52) Rapid Eye Movement Sleep Behavior Disorder
 333.94 (G25.81) Restless Legs Syndrome
-
-___.__ (___.__)
-Substance/Medication-Induced Sleep Disorder
-Note: See the criteria set and corresponding recording procedures for substance-specific codes and ICD-9-CM and ICD-10-CM coding.
-Specify whether: Insomnia type, Daytime sleepiness type, Parasomnia type, Mixed type
-Specify if: With onset during intoxication, With onset during discontinuation/withdrawal
-780.52 (G47.09)
-Other Specified Insomnia Disorder
-780.52 (G47.00)
-Unspecified Insomnia Disorder
-780.54 (G47.19)
-Other Specified Hypersomnolence Disorder
-780.54 (G47.10)
-Unspecified Hypersomnolence Disorder
-780.59 (G47.8)
-Other Specified Sleep-Wake Disorder
-780.59 (G47.9)
-Unspecified Sleep-Wake Disorder
+780.52 (G47.09) Other Specified Insomnia Disorder
+780.52 (G47.00) Unspecified Insomnia Disorder
+780.54 (G47.19) Other Specified Hypersomnolence Disorder
+780.54 (G47.10) Unspecified Hypersomnolence Disorder
+780.59 (G47.8) Other Specified Sleep-Wake Disorder
+780.59 (G47.9) Unspecified Sleep-Wake Disorder
 
 ## Sexual Dysfunctions
 The following specifiers apply to Sexual Dysfunctions where indicated:
@@ -310,7 +301,6 @@ Specify if: With a disorder of sex development
 302.6 (F64.9) Unspecified Gender Dysphoria
 
 ## Substance-Related and Addictive Disorders
-### Alcohol-Related Disorders
 Alcohol Use Disorder
 305.00 (F10.10) Alcohol Use Disorder, Mild
 305.00 (F10.11) Alcohol Use Disorder, Mild, In early remission
@@ -330,14 +320,11 @@ Alcohol Withdrawal
 291.81 (F10.232) Alcohol Withdrawal, With perceptual disturbances
 ___.__ (___.__) Other Alcohol-Induced Disorders
 291.9 (F10.99) Unspecified Alcohol-Related Disorder
-
-### Caffeine-Related Disorders
+Caffeine-Related Disorders
 305.90 (F15.929) Caffeine Intoxication
 292.0 (F15.93) Caffeine Withdrawal
 ___.__ (___.__) Other Caffeine-Induced Disorders
 292.9 (F15.99) Unspecified Caffeine-Related Disorder
-
-### Cannabis-Related Disorders
 Cannabis Use Disorder
 305.20 (F12.10) Cannabis Use Disorder, Mild
 305.20 (F12.11) Cannabis Use Disorder, Mild, In early remission
@@ -363,228 +350,121 @@ ___.__ (___.__) Other Cannabis-Induced Disorders
 292.9 (F12.99) Unspecified Cannabis-Related Disorder
 
 ### Hallucinogen-Related Disorders
-___.__ (___.__)
-Phencyclidine Use Disorderb
-Specify current severity/remission:
-305.90 (F16.10)
-Mild
-(F16.11)
-Mild, In early remission
-(F16.11)
-Mild, In sustained remission
-304.60 (F16.20)
-Moderate
-(F16.21)
-Moderate, In early remission
-(F16.21)
-Moderate, In sustained remission
-304.60 (F16.20)
-Severe
-(F16.21)
-Severe, In early remission
-(F16.21)
-Severe, In sustained remission
-___.__ (___.__)
-Other Hallucinogen Use Disorderb
-Specify the particular hallucinogen
-Specify current severity/remission:
-305.30 (F16.10)
-Mild
-(F16.11)
-Mild, In early remission
-(F16.11)
-Mild, In sustained remission
-304.50 (F16.20)
-Moderate
-(F16.21)
-Moderate, In early remission
-(F16.21)
-Moderate, In sustained remission
-304.50 (F16.20)
-Severe
-(F16.21)
-Severe, In early remission
-(F16.21)
-Severe, In sustained remission
-292.89 (___.__)
+Phencyclidine Use Disorder
+305.90 (F16.10) Phencyclidine Use Disorder, Mild
+305.90 (F16.11) Phencyclidine Use Disorder, Mild, In early remission
+305.90 (F16.11) Phencyclidine Use Disorder, Mild, In sustained remission
+304.60 (F16.20) Phencyclidine Use Disorder, Moderate
+304.60 (F16.21) Phencyclidine Use Disorder, Moderate, In early remission
+304.60 (F16.21) Phencyclidine Use Disorder, Moderate, In sustained remission
+304.60 (F16.20) Phencyclidine Use Disorder, Severe
+304.60 (F16.21) Phencyclidine Use Disorder, Severe, In early remission
+304.60 (F16.21) Phencyclidine Use Disorder, Severe, In sustained remission
+Other Hallucinogen Use Disorder
+305.30 (F16.10) Other Hallucinogen Use Disorder, Mild
+305.30 (F16.11) Other Hallucinogen Use Disorder, Mild, In early remission
+305.30 (F16.11) Other Hallucinogen Use Disorder, Mild, In sustained remission
+304.50 (F16.20) Other Hallucinogen Use Disorder, Moderate
+304.50 (F16.21) Other Hallucinogen Use Disorder, Moderate, In early remission
+304.50 (F16.21) Other Hallucinogen Use Disorder, Moderate, In sustained remission
+304.50 (F16.20) Other Hallucinogen Use Disorder, Severe
+304.50 (F16.21) Other Hallucinogen Use Disorder, Severe, In early remission
+304.50 (F16.21) Other Hallucinogen Use Disorder, Severe, In sustained remission
 Phencyclidine Intoxication
-(F16.129)
-With use disorder, mild
-(F16.229)
-With use disorder, moderate or severe
-(F16.929)
-Without use disorder
-292.89 (___.__)
+292.89 (F16.129) Phencyclidine Intoxication, With use disorder, mild
+292.89 (F16.229) Phencyclidine Intoxication, With use disorder, moderate or severe
+292.89 (F16.929) Phencyclidine Intoxication, Without use disorder
 Other Hallucinogen Intoxication
-(F16.129)
-With use disorder, mild
-(F16.229)
-With use disorder, moderate or severe
-(F16.929)
-Without use disorder
-292.89 (F16.983)
-Hallucinogen Persisting Perception Disorder
-___.__ (___.__)
-Other Phencyclidine-Induced Disorders
-___.__ (___.__)
-Other Hallucinogen-Induced Disorders
-292.9 (F16.99)
-Unspecified Phencyclidine-Related Disorder
-292.9 (F16.99)
-Unspecified Hallucinogen-Related Disorder
+292.89 (F16.129) Other Hallucinogen Intoxication, With use disorder, mild
+292.89 (F16.229) Other Hallucinogen Intoxication, With use disorder, moderate or severe
+292.89 (F16.929) Other Hallucinogen Intoxication, Without use disorder
+292.89 (F16.983) Other Hallucinogen Intoxication, Hallucinogen Persisting
+Perception Disorder
+___.__ (___.__) Other Phencyclidine-Induced Disorders
+___.__ (___.__) Other Hallucinogen-Induced Disorders
+292.9 (F16.99) Unspecified Phencyclidine-Related Disorder
+292.9 (F16.99) Unspecified Hallucinogen-Related Disorder
 
 ## Inhalant-Related Disorders
-___.__ (___.__)
-Inhalant Use Disorderb
-Specify the particular inhalant
-Specify current severity/remission:
-305.90 (F18.10)
-Mild
-(F18.11)
-Mild, In early remission
-(F18.11)
-Mild, In sustained remission
-304.60 (F18.20)
-Moderate
-(F18.21)
-Moderate, In early remission
-(F18.21)
-Moderate, In sustained remission
-304.60 (F18.20)
-Severe
-(F18.21)
-Severe, In early remission
-(F18.21)
-Severe, In sustained remission
-292.89 (___.__)
+Inhalant Use Disorder
+305.90 (F18.10) Inhalant Use Disorder, Mild
+305.90 (F18.11) Inhalant Use Disorder, Mild, In early remission
+305.90 (F18.11) Inhalant Use Disorder, Mild, In sustained remission
+304.60 (F18.20) Inhalant Use Disorder, Moderate
+304.60 (F18.21) Inhalant Use Disorder, Moderate, In early remission
+304.60 (F18.21) Inhalant Use Disorder, Moderate, In sustained remission
+304.60 (F18.20) Inhalant Use Disorder, Severe
+304.60 (F18.21) Inhalant Use Disorder, Severe, In early remission
+304.60 (F18.21) Inhalant Use Disorder, Severe, In sustained remission
 Inhalant Intoxication
-(F18.129)
-With use disorder, mild
-(F18.229)
-With use disorder, moderate or severe
-(F18.929)
-Without use disorder
-___.__ (___.__)
-Other Inhalant-Induced Disorders
-292.9 (F18.99)
-Unspecified Inhalant-Related Disorder
+292.89 (F18.129) Inhalant Intoxication, With use disorder, mild
+292.89 (F18.229) Inhalant Intoxication, With use disorder, moderate or severe
+292.89 (F18.929) Inhalant Intoxication, Without use disorder
+___.__ (___.__) Other Inhalant-Induced Disorders
+292.9 (F18.99) Unspecified Inhalant-Related Disorder
 
 ## Opioid-Related Disorders
-___.__ (___.__)
 Opioid Use Disorder
-Specify if: On maintenance therapy, In a controlled environment
-Specify current severity/remission:
-305.50 (F11.10)
-Mild
-(F11.11)
-Mild, In early remission
-(F11.11)
-Mild, In sustained remission
-304.00 (F11.20)
-Moderate
-(F11.21)
-Moderate, In early remission
-(F11.21)
-Moderate, In sustained remission
-304.00 (F11.20)
-Severe
-(F11.21)
-Severe, In early remission
-(F11.21)
-Severe, In sustained remission
-292.89 (___.__)
-Opioid Intoxicationc
-Without perceptual disturbances
-(F11.129)
-With use disorder, mild
-(F11.229)
-With use disorder, moderate or severe
-(F11.929)
-Without use disorder
-With perceptual disturbances
-(F11.122)
-With use disorder, mild
-(F11.222)
-With use disorder, moderate or severe
-(F11.922)
-Without use disorder
-292.0 (___.__)
+305.50 (F11.10) Opioid Use Disorder, Mild
+305.50 (F11.11) Opioid Use Disorder, Mild, In early remission
+305.50 (F11.11) Opioid Use Disorder, Mild, In sustained remission
+304.00 (F11.20) Opioid Use Disorder, Moderate
+304.00 (F11.21) Opioid Use Disorder, Moderate, In early remission
+304.00 (F11.21) Opioid Use Disorder, Moderate, In sustained remission
+304.00 (F11.20) Opioid Use Disorder, Severe
+304.00 (F11.21) Opioid Use Disorder, Severe, In early remission
+304.00 (F11.21) Opioid Use Disorder, Severe, In sustained remission
+Opioid Intoxication, Without perceptual disturbances
+292.89 (F11.129) Opioid Intoxication, With use disorder, mild
+292.89 (F11.229) Opioid Intoxication, With use disorder, moderate or severe
+292.89 (F11.929) Opioid Intoxication, Without use disorder
+Opioid Intoxication, With perceptual disturbances
+292.89 (F11.122) Opioid Intoxication, With use disorder, mild
+292.89 (F11.222) Opioid Intoxication, With use disorder, moderate or severe
+292.89 (F11.922) Opioid Intoxication, Without use disorder
 Opioid Withdrawal
-(F11.23)
-With use disorder, moderate or severe
-(F11.93)
-Without use disorder
-___.__ (___.__)
-Other Opioid-Induced Disorders
-292.9 (F11.99)
-Unspecified Opioid-Related Disorder
-Sedative-, Hypnotic-, or Anxiolytic-Related Disorders
-___.__ (___.__)
-Sedative, Hypnotic, or Anxiolytic Use Disorderb
-Specify current severity/remission:
-305.40 (F13.10)
-Mild
-(F13.11)
-Mild, In early remission
-(F13.11)
-Mild, In sustained remission
-304.10 (F13.20)
-Moderate
-(F13.21)
-Moderate, In early remission
-(F13.21)
-Moderate, In sustained remission
-304.10 (F13.20)
-Severe
-(F13.21)
-Severe, In early remission
-(F13.21)
-Severe, In sustained remission
-292.89 (___.__)
+292.0 (F11.23) Opioid Withdrawal, With use disorder, moderate or severe
+292.0 (F11.93) Opioid Withdrawal, Without use disorder
+___.__ (___.__) Other Opioid-Induced Disorders
+292.9 (F11.99) Unspecified Opioid-Related Disorder
+
+### Sedative-, Hypnotic-, or Anxiolytic-Related Disorders
+Sedative, Hypnotic, or Anxiolytic Use Disorder
+305.40 (F13.10) Sedative, Hypnotic, or Anxiolytic Use Disorder, Mild
+305.40 (F13.11) Sedative, Hypnotic, or Anxiolytic Use Disorder, Mild, In early remission
+305.40 (F13.11) Sedative, Hypnotic, or Anxiolytic Use Disorder, Mild, In sustained remission
+304.10 (F13.20) Sedative, Hypnotic, or Anxiolytic Use Disorder, Moderate
+304.10 (F13.21) Sedative, Hypnotic, or Anxiolytic Use Disorder, Moderate, In early remission
+304.10 (F13.21) Sedative, Hypnotic, or Anxiolytic Use Disorder, Moderate, In sustained remission
+304.10 (F13.20) Sedative, Hypnotic, or Anxiolytic Use Disorder, Severe
+304.10 (F13.21) Sedative, Hypnotic, or Anxiolytic Use Disorder, Severe, In early remission
+304.10 (F13.21) Sedative, Hypnotic, or Anxiolytic Use Disorder, Severe, In sustained remission
+
 Sedative, Hypnotic, or Anxiolytic Intoxication
-(F13.129)
-With use disorder, mild
-(F13.229)
-With use disorder, moderate or severe
-(F13.929)
-Without use disorder
-292.0 (___.__)
-Sedative, Hypnotic, or Anxiolytic Withdrawalc
-Without perceptual disturbances
-(F13.239)
-With use disorder, moderate or severe
-(F13.939)
-Without use disorder
-With perceptual disturbances
-(F13.232)
-With use disorder, moderate or severe
-(F13.932)
-Without use disorder
-___.__ (___.__)
-Other Sedative-, Hypnotic-, or Anxiolytic-Induced Disorders
-292.9 (F13.99)
-Unspecified Sedative-, Hypnotic-, or Anxiolytic-Related Disorder
+292.89 (F13.129) Sedative, Hypnotic, or Anxiolytic Intoxication, With use disorder, mild
+292.89 (F13.229) Sedative, Hypnotic, or Anxiolytic Intoxication, With use disorder, moderate or severe
+292.89 (F13.929) Sedative, Hypnotic, or Anxiolytic Intoxication, Without use disorder
+
+Sedative, Hypnotic, or Anxiolytic Withdrawal, Without perceptual disturbances
+292.0 (F13.239) Sedative, Hypnotic, or Anxiolytic Withdrawal, With use disorder, moderate or severe
+292.0 (F13.939) Sedative, Hypnotic, or Anxiolytic Withdrawal, Without use disorder
+
+Sedative, Hypnotic, or Anxiolytic Withdrawal, With perceptual disturbances
+292.0 (F13.232) Sedative, Hypnotic, or Anxiolytic Withdrawal, With perceptual disturbances, With use disorder, moderate or severe
+292.0 (F13.932) Sedative, Hypnotic, or Anxiolytic Withdrawal, With perceptual disturbances, Without use disorder
+___.__ (___.__) Other Sedative-, Hypnotic-, or Anxiolytic-Induced Disorders
+292.9 (F13.99) Unspecified Sedative-, Hypnotic-, or Anxiolytic-Related Disorder
 
 ## Stimulant-Related Disorders
-___.__ (___.__)
-Stimulant Use Disorderb
-Specify current severity/remission:
-___.__ (___.__)
-Mild
-305.70 (F15.10)
-Amphetamine-type substance
-305.60 (F14.10)
-Cocaine
-305.70 (F15.10)
-Other or unspecified stimulant
-(___.__)
-Mild, In early remission
-(F15.11)
-Amphetamine-type substance
-(F14.11)
-Cocaine
-(F15.11)
-Other or unspecified stimulant
+Stimulant Use Disorder
+___.__ (___.__) Stimulant Use Disorder, Mild
+305.70 (F15.10) Stimulant Use Disorder, Amphetamine-type substance
+305.60 (F14.10) Stimulant Use Disorder, Cocaine
+305.70 (F15.10) Stimulant Use Disorder, Other or unspecified stimulant
+(___.__) (___.__) Stimulant Use Disorder, Mild, In early remission
+305.70 (F15.11) Stimulant Use Disorder, Mild, In early remission, Amphetamine-type substance
+305.60 (F14.11) Stimulant Use Disorder, Mild, In early remission, Cocaine
+305.70 (F15.11) Stimulant Use Disorder, Mild, In early remission, Other or unspecified stimulant
 (___.__)
 Mild, In sustained remission
 (F15.11)
@@ -642,6 +522,7 @@ Cocaine
 (F15.21)
 Other or unspecified stimulant
 292.89 (___.__)
+
 Stimulant Intoxicationc
 Specify the specific intoxicant
 292.89 (___.__)
@@ -782,11 +663,6 @@ Specify if: Hyperactive, Hypoactive, Mixed level of activity
 780.09 (R41.0) Unspecified Delirium
 
 ## Major and Mild Neurocognitive Disorders
-Specify whether due to: Alzheimer’s disease, Frontotemporal lobar degeneration, Lewy body disease, Vascular disease, Traumatic brain injury, Substance/medication use, HIV infection, Prion disease, Parkinson’s disease, Huntington’s disease, Another medical condition, Multiple etiologies, Unspecified
-aSpecify: Without behavioral disturbance, With behavioral disturbance. For mild neurocognitive disorder, behavioral disturbance cannot be coded but should still be indicated in writing.
-bSpecify current severity: Mild, Moderate, Severe. This specifier applies only to major neurocognitive disorders (including probable and possible).
-Note: As indicated for each subtype, an additional medical code is needed for major neurocognitive disorders, including those due to probable and possible medical etiologies. The medical etiology should be coded first before the code for the major neurocognitive disorder. An additional medical code should not be used for mild neurocognitive disorder.
-
 Major or Mild Neurocognitive Disorder Due to Alzheimer’s Disease
 ___.__ (___.__)
 Major Neurocognitive Disorder Due to Probable Alzheimer’s Diseaseb
@@ -943,28 +819,7 @@ Note: Code first all the etiological medical conditions (with the exception of v
 Unspecified Neurocognitive Disorder
 799.59 (R41.9) Unspecified Neurocognitive Disorder
 
-## Personality Disorders
-Cluster A Personality Disorders
-301.0 (F60.0) Paranoid Personality Disorder
-301.20 (F60.1) Schizoid Personality Disorder
-301.22 (F21) Schizotypal Personality Disorder
-Cluster B Personality Disorders
-301.7 (F60.2) Antisocial Personality Disorder
-301.83 (F60.3) Borderline Personality Disorder
-301.50 (F60.4) Histrionic Personality Disorder
-301.81 (F60.81) Narcissistic Personality Disorder
-Cluster C Personality Disorders
-301.82 (F60.6) Avoidant Personality Disorder
-301.6 (F60.7) Dependent Personality Disorder
-301.4 (F60.5) Obsessive-Compulsive Personality Disorder
-Other Personality Disorders
-310.1 (F07.0) Personality Change Due to Another Medical Condition (Labile type, Disinhibited type, Aggressive type, Apathetic type, Paranoid type, Other type, Combined type, Unspecified type)
-301.89 (F60.89) Other Specified Personality Disorder
-301.9 (F60.9) Unspecified Personality Disorder
-
 ## Paraphilic Disorders
-The following specifier applies to Paraphilic Disorders where indicated:
-aSpecify if: In a controlled environment, In full remission
 302.82 (F65.3) Voyeuristic Disorder
 302.4 (F65.2) Exhibitionistic Disorder
 302.89 (F65.81) Frotteuristic Disorder
