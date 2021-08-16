@@ -43,7 +43,7 @@ classoption:
   - headsepline=true
 header:
   - pos: ro
-    next: "`r params$lname`, `r params$fname`"
+    next: "`r params$last_name`, `r params$first_name`"
 caption:
   - labelfont=bf
   - labelsep=period
@@ -341,7 +341,7 @@ cp ~/uscdbox/npsych_reports/2021/$lastname-$firstname/*.slk ~/npsych.reports/$pa
 
 ```{r, eval=F}
 ## set file path
-path_pdf = here::here(patient, "pdf")
+path_pdf <- here::here(patient, "pdf")
 file_names_pdf <- dir(path_pdf, pattern = ".pdf", full.names = TRUE)
 file_names_pdf
 ```
@@ -353,7 +353,7 @@ cognitive_pdf <- file_names_pdf[3]
 
 ```{r, eval=F}
 ## set file path # this might be useless
-path_csv = here::here(patient, "pre_csv")
+path_csv <- here::here(patient, "pre_csv")
 file_names_csv <- dir(path_csv, pattern = ".csv")
 file_names_csv
 ```
@@ -365,7 +365,7 @@ cognitive_csv <- file_names_csv[1] # not sure if I need this
 
 ```{r, eval=F, echo=F}
 ## set file path # this might be useless
-path_slk = here::here(patient, "pre_csv")
+path_slk <- here::here(patient, "pre_csv")
 file_names_slk <- dir(path_csv, pattern = ".slk")
 file_names_slk
 ```
@@ -728,7 +728,7 @@ difficult to identify in high-achieving individuals.
 ```
 
 ```{r, nse, results='asis'}
-cat(readLines("nse2.md"), sep = "\n")
+cat(readLines("nse.1.md"), sep = "\n")
 ```
 
 \newpage
@@ -786,12 +786,9 @@ individual test scores and broader neuropsychological domains
 knitr::include_graphics("plot_broad.png", auto_pdf = TRUE)
 ```
 
-```{r, echo=FALSE, message=FALSE}
+```{r, echo = F, message = F}
 ## Import CSV files
-library(dplyr)
-library(readr)
-library(forcats)
-library(purrr)
+library(tidyverse)
 # path to files
 data_path <- here::here(patient, "csv")
 # get file names of .csv files
@@ -809,8 +806,6 @@ neuropsych <-
   dplyr::mutate(domain = forcats::as_factor(domain)) %>%
   dplyr::mutate(subdomain = forcats::as_factor(subdomain)) %>%
   dplyr::mutate(narrow = forcats::as_factor(narrow)) %>%
-  dplyr::mutate(domain_broad = forcats::as_factor(domain_broad)) %>%
-  dplyr::mutate(domain_test = forcats::as_factor(domain_test)) %>%
   dplyr::mutate(verbal = forcats::as_factor(verbal)) %>%
   dplyr::mutate(pass = forcats::as_factor(pass)) %>%
   dplyr::mutate(timed = forcats::as_factor(timed))
@@ -820,24 +815,24 @@ neuropsych <-
 # Subset neurocognitive data
 neurocog <-
   neuropsych %>%
-  dplyr::filter(test_type == "npsych_test")
+  filter(test_type == "npsych_test")
 ## Create factors
 # domain
 neurocog <-
   neurocog %>%
-  dplyr::group_by(domain, .add = TRUE) %>%
-  dplyr::filter(!is.na(percentile)) %>%
-  dplyr::mutate(z_mean_dom = mean(z), z_sd_dom = sd(z)) %>%
-  dplyr::mutate(pct_mean_dom = mean(percentile), pct_sd_dom = sd(percentile)) %>%
-  dplyr::ungroup()
+  group_by(domain, .add = TRUE) %>%
+  filter(!is.na(percentile)) %>%
+  mutate(z_mean_dom = mean(z), z_sd_dom = sd(z)) %>%
+  mutate(pct_mean_dom = mean(percentile), pct_sd_dom = sd(percentile)) %>%
+  ungroup()
 # subdomain
 neurocog <-
   neurocog %>%
-  dplyr::group_by(subdomain, .add = TRUE) %>%
-  dplyr::filter(!is.na(percentile)) %>%
-  dplyr::mutate(z_mean_sub = mean(z), z_sd_sub = sd(z)) %>%
-  dplyr::mutate(pct_mean_sub = mean(percentile), pct_sd_sub = sd(percentile)) %>%
-  dplyr::ungroup()
+  group_by(subdomain, .add = TRUE) %>%
+  filter(!is.na(percentile)) %>%
+  mutate(z_mean_sub = mean(z), z_sd_sub = sd(z)) %>%
+  mutate(pct_mean_sub = mean(percentile), pct_sd_sub = sd(percentile)) %>%
+  ungroup()
 # narrow
 neurocog <-
   neurocog %>%
@@ -899,34 +894,20 @@ neurobehav <-
   dplyr::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) %>%
   dplyr::mutate(pct_mean_narrow = mean(percentile), pct_sd_narrow = sd(percentile)) %>%
   dplyr::ungroup()
-# parent # finish
-neurobehav <-
-  neurobehav %>%
-  dplyr::group_by(verbal, .add = TRUE) %>%
-  dplyr::filter(!is.na(score)) %>%
-  dplyr::mutate(z_mean_verbal = mean(z), z_sd_verbal = sd(z)) %>%
-  dplyr::ungroup()
-# child # finish
-neurobehav <-
-  neurobehav %>%
-  dplyr::group_by(pass, .add = TRUE) %>%
-  dplyr::filter(!is.na(score)) %>%
-  dplyr::mutate(z_mean_pass = mean(z), z_sd_pass = sd(z)) %>%
-  dplyr::ungroup()
 ```
 
 ```{r, write-data}
 ## Write data
-readr::write_csv(neuropsych, here::here(patient, "neuropsych.csv"))
-readr::write_csv(neurocog, here::here(patient, "neurocog.csv"))
-readr::write_csv(neurobehav, here::here(patient, "neurobehav.csv"))
+write_csv(neuropsych, here::here(patient, "neuropsych.csv"))
+write_csv(neurocog, here::here(patient, "neurocog.csv"))
+write_csv(neurobehav, here::here(patient, "neurobehav.csv"))
 ```
 
 ```{r, read-data, echo=F, message=F}
 ## Read data
-neuropsych <- readr::read_csv(here::here(patient, "neuropsych.csv"))
-neurocog <- readr::read_csv(here::here(patient, "neurocog.csv"))
-neurobehav <- readr::read_csv(here::here(patient, "neurobehav.csv"))
+neuropsych <- read_csv(here::here(patient, "neuropsych.csv"))
+neurocog <- read_csv(here::here(patient, "neurocog.csv"))
+neurobehav <- read_csv(here::here(patient, "neurobehav.csv"))
 ```
 
 ### Intelligence
@@ -939,10 +920,8 @@ knowledge. Nonverbal/fluid reasoning was a *Clinically Significant* weakness.
 Scaled (M = 10, SD = 3)
 
 ```{r, eval=F, results='asis'}
-library(tidyverse)
 library(glue)
 library(gluedown)
-library(purrr)
 
 person <- "Biggie"
 dom <- "Intelligence"
@@ -954,11 +933,12 @@ g <- neurocog %>%
 
 trait <- g
 
-lst(person, range, scale) %>%
+lst(person, range, scale, description) %>%
   glue::glue_data(
-    '{person} performed in the *{range}* range on {scale}.',
+    '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
     range = trait$range,
-    scale = trait$scale
+    scale = trait$scale,
+    description = trait$description
   ) %>%
   stringr::str_to_sentence() %>%
   purrr::modify(lift(paste0)) %>%
@@ -969,7 +949,7 @@ lst(person, range, scale) %>%
 knitr::read_chunk(here::here("R", "nt-iq.R"))
 ```
 
-```{r 02-make-dataframe-iq, eval=T, double_escape=T, escape=F}
+```{r 02-make-df-iq, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
@@ -983,24 +963,27 @@ knitr::read_chunk(here::here("R", "nt-iq.R"))
 knitr::read_chunk(here::here("R", "nt-iq.R"))
 ```
 
-```{r 04-make-dataframe-g, eval=T, double_escape=T, escape=F}
+```{r 04-make-df-g, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-iq.R"))
 ```
 
-```{r 05-plot-iq-narrow, eval=T, double_escape=T, escape=F, fig.cap = '(ref:g) (ref:gc) (ref:gf)', fig.path='figures/npsych2-'}
+```{r 05-plot-iq-subdomain, eval=T, double_escape=T, escape=F, fig.cap = '(ref:g) (ref:gc) (ref:gf)', fig.path='figures/npsych2-'}
+```
+
+```{r 06-plot-iq-narrow, eval=F, double_escape=T, escape=F, fig.cap = '(ref:g) (ref:gc) (ref:gf)', fig.path='figures/npsych2-'}
 ```
 
 \newpage
 
 ### Academic Skills
 
-`r params$fname`'s academic skills were at or above age-expected levels. Reading
+`r params$first_name`'s academic skills were at or above age-expected levels. Reading
 scores were *Low-Average* to *High-Average*, with strong word reading skills.
 Spelling and written expression were *Low-Average* to *High-Average*.
-`r params$fname`'s composite math score was *Average*, with strong math problem
+`r params$first_name`'s composite math score was *Average*, with strong math problem
 solving/quantitative reasoning performance.
 
 (ref:fn-acad) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or
@@ -1019,9 +1002,10 @@ trait <- acad
 
 lst(person, range, scale) %>%
   glue::glue_data(
-    '{person} performed in the *{range}* range on {scale}.',
+    '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
     range = trait$range,
-    scale = trait$scale
+    scale = trait$scale,
+    description = trait$description
   ) %>%
   stringr::str_to_sentence() %>%
   purrr::modify(lift(paste0)) %>%
@@ -1060,8 +1044,8 @@ knitr::read_chunk(here::here("R", "nt-academics.R"))
 
 ### Verbal/Language
 
-All scores in this area were *Average* to *Above Average*. An exception was
-`r params$his` phonemic word fluency score, which was *Low-Average* and a
+All scores in this area were *average* to *above average*. An exception was
+`r params$his_her` phonemic word fluency score, which was *low-average* and a
 relative weakness.[^3]
 
 [^3]: Phonemic fluency is a component of broader phonological awareness and a
@@ -1083,9 +1067,10 @@ trait <- vrb
 
 lst(person, range, scale) %>%
   glue::glue_data(
-    '{person} performed in the *{range}* range on {scale}.',
+    '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
     range = trait$range,
-    scale = trait$scale
+    scale = trait$scale,
+    description = trait$description
   ) %>%
   stringr::str_to_sentence() %>%
   purrr::modify(lift(paste0)) %>%
@@ -1096,7 +1081,7 @@ lst(person, range, scale) %>%
 knitr::read_chunk(here::here("R", "nt-verbal.R"))
 ```
 
-```{r 02-make-dataframe-verbal, eval=T, double_escape=T, escape=F}
+```{r 02-make-df-verbal, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
@@ -1110,14 +1095,17 @@ knitr::read_chunk(here::here("R", "nt-verbal.R"))
 knitr::read_chunk(here::here("R", "nt-verbal.R"))
 ```
 
-```{r 04-make-dataframe-vrb, eval=T, double_escape=T, escape=F}
+```{r 04-make-df-vrb, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-verbal.R"))
 ```
 
-```{r 05-plot-vrb-narrow, eval=T, fig.cap = '(ref:vrb)', double_escape=T, escape=F}
+```{r 05-plot-vrb-subdomain, eval=F, fig.cap = '(ref:vrb)', double_escape=T, escape=F}
+```
+
+```{r 06-plot-vrb-narrow, eval=T, fig.cap = '(ref:vrb)', double_escape=T, escape=F}
 ```
 
 \newpage
@@ -1143,15 +1131,15 @@ trait <- spt
 
 lst(person, range, scale) %>%
   glue::glue_data(
-    '{person} performed in the *{range}* range on {scale}.',
+    '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
     range = trait$range,
-    scale = trait$scale
+    scale = trait$scale,
+    description = trait$description
   ) %>%
   stringr::str_to_sentence() %>%
   purrr::modify(lift(paste0)) %>%
   cat()
 ```
-
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-spatial.R"))
@@ -1185,24 +1173,6 @@ knitr::read_chunk(here::here("R", "nt-spatial.R"))
 
 ### Attention/Executive
 
-Complex working memory and concept formation/inductive reasoning were areas of
-notable strength for `r params$fname`. Cognitive control and planning/problem
-solving were about average. Verbal and spatial processing speed were variable,
-but in general processing speed was one of `r params$fname`'s weakest areas on
-exam. Cognitive flexibility and rapid set-shifting were areas of relative
-weakness.
-
-Of note, attention and executive functioning deficits may not show up on tests
-or in a structured testing office and yet be evident in real-world settings.
-This seems to be the case for `r params$fname`, as parent ratings indicated significant
-attention problems, even with medication. Both parent ratings and `r params$fname`'s own
-ratings of his executive skills indicated difficulties with working memory and
-planning/organization. Parent ratings also indicated mild concerns for
-self-monitoring. Teacher ratings indicated poor attention.
-
-(ref:fn-exe) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or
-Scaled (M = 10, SD = 3) scores
-
 ```{r, eval=F, results='asis'}
 person <- "Biggie"
 dom <- "Attention/Executive"
@@ -1216,14 +1186,22 @@ trait <- exe
 
 lst(person, range, scale) %>%
   glue::glue_data(
-    "{person} performed in the *{range}* range on {scale}.",
+    '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
     range = trait$range,
-    scale = trait$scale
+    scale = trait$scale,
+    description = trait$description
   ) %>%
   stringr::str_to_sentence() %>%
   purrr::modify(lift(paste0)) %>%
   cat()
 ```
+
+```{r, exe, results='asis'}
+cat(readLines("exe.md"), sep = "\n")
+```
+
+(ref:fn-exe) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or
+Scaled (M = 10, SD = 3)
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-executive.R"))
@@ -1252,6 +1230,209 @@ knitr::read_chunk(here::here("R", "nt-executive.R"))
 
 ```{r 05-plot-exe-sub, eval=T, fig.cap = '(ref:att-exe)', double_escape=T, escape=F}
 ```
+
+\newpage
+
+### Memory
+
+Learning and recall of rote verbal information (word list) was *average*
+overall, and `r params$first_name` showed a good learning curve. Recall of the list
+after a brief delay was *average*. Recall after a longer delay was *Low-Average*
+secondary to `r params$his_her` variable learning curve resulting in disorganized
+initial encoding of the words, which was `r params$his_her` only memory score
+falling somewhat below age-expectations. Recall of more complex verbal
+information (short story) was *High-Average* for immediate free recall. Recall
+of visual material (abstract shapes) was *High-Average*. Recall after a long
+delay was *Above Average*. Reconstructing a complex/abstract visual design from
+memory after a brief delay was intact.
+
+(ref:fn-memory) Score = *T* (M = 50, SD = 10) or Scaled (M = 10, SD = 3) scores
+
+```{r, eval=F, results='asis'}
+person <- "Biggie"
+dom <- "Memory"
+
+mem <- neurocog %>%
+  dplyr::filter(domain == dom) %>%
+  dplyr::arrange(desc(percentile)) %>%
+  dplyr::distinct(.keep_all = FALSE)
+
+trait <- mem
+
+lst(person, range, scale) %>%
+  glue::glue_data(
+    '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
+    range = trait$range,
+    scale = trait$scale,
+    description = trait$description
+  ) %>%
+  stringr::str_to_sentence() %>%
+  purrr::modify(lift(paste0)) %>%
+  cat()
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-memory.R"))
+```
+
+```{r 02-make-dataframe-memory, eval=T, double_escape=T, escape=F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-memory.R"))
+```
+
+```{r 03-make-kable-memory, eval=T, double_escape=T, escape=F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-memory.R"))
+```
+
+```{r 04-make-dataframe-exe, eval=T, double_escape=T, escape=F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-memory.R"))
+```
+
+```{r 05-plot-mem-narrow, eval=T, fig.cap = '(ref:mem)', double_escape=T, escape=F}
+```
+
+\newpage
+
+### Motor
+
+All scores in this area were *average* to *high-average*. Fine motor speed
+and dexterity were intact bilaterally. No evidence of atypical lateralization of
+fine nor gross motor skills. No evidence of dyspraxia. Graphomotor speed and
+accuracy (i.e., graphomotor control) was *average*. Gross motor functioning
+including balance and gait appeared intact on observation.
+
+(ref:fn-motor) Score = *T* (M = 50, SD = 10) or Scaled (M = 10, SD = 3)
+
+```{r, eval=F, results='asis'}
+person <- "Biggie"
+dom <- "Motor"
+
+mtr <- neurocog %>%
+  dplyr::filter(domain == dom) %>%
+  dplyr::arrange(desc(percentile)) %>%
+  dplyr::distinct(.keep_all = FALSE)
+
+trait <- mtr
+
+lst(person, range, scale) %>%
+  glue::glue_data(
+    '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
+    range = trait$range,
+    scale = trait$scale,
+    description = trait$description
+  ) %>%
+  stringr::str_to_sentence() %>%
+  purrr::modify(lift(paste0)) %>%
+  cat()
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-motor.R"))
+```
+
+```{r 02-make-dataframe-motor, eval=T, double_escape=T, escape=F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-motor.R"))
+```
+
+```{r 03-make-kable-motor, eval=T, double_escape=T, escape=F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-motor.R"))
+```
+
+```{r 04-make-dataframe-mtr, eval=T, double_escape=T, escape=F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-motor.R"))
+```
+
+```{r 05-plot-mtr-narrow, eval=T, fig.cap = '(ref:mtr)', double_escape=T, escape=F}
+```
+
+\newpage
+
+### Social Cognition
+
+`r params$first_name` had to execute a series of behavioral responses requiring her to recognize and interpret the emotional state (happy, sad, angry, afraid, surprised, disgusted, and neutral) of a series of children's faces, on which `r params$he_she` performed *above average* overall. `r params$he_she_cap` performed in the *high-average* range on a measure
+of pragmatic language and the ability to comprehend others perspectives,
+intentions, and beliefs (i.e., theory of mind).
+
+(ref:fn-scog) Scaled score (M = 10, SD = 3)
+
+```{r, eval=F, results='asis'}
+
+person <- "Biggie"
+dom <- "Social Cognition"
+
+eq <- neurocog %>%
+  dplyr::filter(domain == dom) %>%
+  dplyr::arrange(desc(percentile)) %>%
+  dplyr::distinct(.keep_all = FALSE)
+
+trait <- eq
+
+lst(person, range, scale) %>%
+  glue::glue_data(
+    '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
+    range = trait$range,
+    scale = trait$scale,
+    description = trait$description
+  ) %>%
+  stringr::str_to_sentence() %>%
+  purrr::modify(lift(paste0)) %>%
+  cat()
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-soccog.R"))
+```
+
+```{r 02-make-dataframe-soccog, eval=T, double_escape=T, escape=F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-soccog.R"))
+```
+
+```{r 03-make-kable-soccog, eval=T, double_escape=T, escape=F, fig.fullwidth=TRUE}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-soccog.R"))
+```
+
+```{r 04-make-dataframe-eq, eval=T, double_escape=T, escape=F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-scog.R"))
+```
+
+```{r 05-plot-eq-narrow, eval=T, double_escape=T, escape=F, fig.cap='(ref:soccog)', fig.path='figures/npsych2-'}
+```
+
+\newpage
+
+### Emotional/Behavioral/Adaptive
+
+Of note, attention and executive functioning deficits may not show up on tests
+or in a structured testing office and yet be evident in real-world settings.
+This seems to be the case for `r params$first_name`, as parent ratings indicated significant attention problems, even with medication. Both parent ratings and `r params$first_name`'s own ratings of his executive skills indicated difficulties with working memory and
+planning/organization. Parent ratings also indicated mild concerns for
+self-monitoring. Teacher ratings indicated poor attention.
 
 ```{r, eval=F}
 test <- "Brown EF/A Parent"
@@ -1293,204 +1474,11 @@ kableExtra::kbl(brown_efa[, 2:5], caption = "(ref:brown-efa)", "latex", longtabl
 executive <- dplyr::bind_rows(executive, brown_efa_parent) %>% dplyr::arrange(Test)
 ```
 
-\newpage
-
-### Memory
-
-Learning and recall of rote verbal information (word list) was *Average*
-overall, and `r params$fname` showed a good learning curve. Recall of the list
-after a brief delay was *Average*. Recall after a longer delay was *Low-Average*
-secondary to `r params$his` variable learning curve resulting in disorganized
-initial encoding of the words, which was `r params$his` only memory score
-falling somewhat below age-expectations. Recall of more complex verbal
-information (short story) was *High-Average* for immediate free recall. Recall
-of visual material (abstract shapes) was *High-Average*. Recall after a long
-delay was *Above Average*. Reconstructing a complex/abstract visual design from
-memory after a brief delay was intact.
-
-(ref:fn-memory) Score = *T* (M = 50, SD = 10) or Scaled (M = 10, SD = 3) scores
-
-```{r, eval=F, results='asis'}
-person <- "Biggie"
-dom <- "Memory"
-
-mem <- neurocog %>%
-  dplyr::filter(domain == dom) %>%
-  dplyr::arrange(desc(percentile)) %>%
-  dplyr::distinct(.keep_all = FALSE)
-
-trait <- mem
-
-lst(person, range, scale) %>%
-  glue::glue_data(
-    "{person} performed in the *{range}* range on {scale}.",
-    range = trait$range,
-    scale = trait$scale
-  ) %>%
-  stringr::str_to_sentence() %>%
-  purrr::modify(lift(paste0)) %>%
-  cat()
-```
-
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-memory.R"))
-```
-
-```{r 02-make-dataframe-memory, eval=T, double_escape=T, escape=F}
-```
-
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-memory.R"))
-```
-
-```{r 03-make-kable-memory, eval=T, double_escape=T, escape=F}
-```
-
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-memory.R"))
-```
-
-```{r 04-make-dataframe-exe, eval=T, double_escape=T, escape=F}
-```
-
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-memory.R"))
-```
-
-```{r 05-plot-mem-narrow, eval=T, fig.cap = '(ref:mem)', double_escape=T, escape=F}
-```
-
-\newpage
-
-### Motor
-
-All scores in this area were *Average* to *high-average*. Fine motor speed
-and dexterity were intact bilaterally. No evidence of atypical lateralization of
-fine nor gross motor skills. No evidence of dyspraxia. Graphomotor speed and
-accuracy (i.e., graphomotor control) was *Average*. Gross motor functioning
-including balance and gait appeared intact on observation.
-
-(ref:fn-motor) Score = *T* (M = 50, SD = 10) or Scaled (M = 10, SD = 3)
-
-```{r, eval=F, results='asis'}
-person <- "Biggie"
-dom <- "Motor"
-
-mtr <- neurocog %>%
-  dplyr::filter(domain == dom) %>%
-  dplyr::arrange(desc(percentile)) %>%
-  dplyr::distinct(.keep_all = FALSE)
-
-trait <- mtr
-
-lst(person, range, scale) %>%
-  glue::glue_data(
-    "{person} performed in the *{range}* range on {scale}.",
-    range = trait$range,
-    scale = trait$scale
-  ) %>%
-  stringr::str_to_sentence() %>%
-  purrr::modify(lift(paste0)) %>%
-  cat()
-```
-
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-motor.R"))
-```
-
-```{r 02-make-dataframe-motor, eval=T, double_escape=T, escape=F}
-```
-
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-motor.R"))
-```
-
-```{r 03-make-kable-motor, eval=T, double_escape=T, escape=F}
-```
-
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-motor.R"))
-```
-
-```{r 04-make-dataframe-mtr, eval=T, double_escape=T, escape=F}
-```
-
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-motor.R"))
-```
-
-```{r 05-plot-mtr-narrow, eval=T, fig.cap = '(ref:mtr)', double_escape=T, escape=F}
-```
-
-\newpage
-
-### Social Cognition
-
-`r params$fname` had to execute a series of behavioral responses requiring her to recognize and interpret the emotional state (happy, sad, angry, afraid, surprised, disgusted, and neutral) of a series of children's faces, on which `r params$he` performed *above average* overall. `r params$he2` performed in the *high-average* range on a measure
-of pragmatic language and the ability to comprehend others perspectives,
-intentions, and beliefs (i.e., theory of mind).
-
-(ref:fn-scog) Scaled score (M = 10, SD = 3)
-
-```{r, eval=F, results='asis'}
-
-person <- "Biggie"
-dom <- "Social Cognition"
-
-eq <- neurocog %>%
-  dplyr::filter(domain == dom) %>%
-  dplyr::arrange(desc(percentile)) %>%
-  dplyr::distinct(.keep_all = FALSE)
-
-trait <- eq
-
-lst(person, range, scale) %>%
-  glue::glue_data(
-    '{person} performed in the *{range}* range on {scale}.',
-    range = trait$range,
-    scale = trait$scale
-  ) %>%
-  stringr::str_to_sentence() %>%
-  purrr::modify(lift(paste0)) %>%
-  cat()
-```
-
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-soccog.R"))
-```
-
-```{r 02-make-dataframe-soccog, eval=T, double_escape=T, escape=F}
-```
-
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-soccog.R"))
-```
-
-```{r 03-make-kable-soccog, eval=T, double_escape=T, escape=F, fig.fullwidth=TRUE}
-```
-
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-soccog.R"))
-```
-
-```{r 04-make-dataframe-eq, eval=T, double_escape=T, escape=F}
-```
-
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-scog.R"))
-```
-
-```{r 05-plot-eq-narrow, eval=T, double_escape=T, escape=F, fig.cap='(ref:soccog)', fig.path='figures/npsych2-'}
-```
-
-\newpage
-
-### Emotional/Behavioral/Adaptive
 
 In addition to the attention and executive concerns noted above, parent ratings
 indicated difficulties with everyday communication as well as mild-to-moderate
 concerns with physical complaints, social skills, leadership, and activities of
-daily living. `r params$his2` mother also noted mild concerns with depression. Teacher
+daily living. `r params$his_her_cap` mother also noted mild concerns with depression. Teacher
 rating forms were not returned at the time of this report.
 
 ```{r, pai, results='asis'}
@@ -1509,11 +1497,12 @@ pai <- neurobehav %>%
 
 trait <- pai
 
-pai.out <- lst(person, range, scale) %>%
+lst(person, range, scale) %>%
   glue::glue_data(
-    "{person} performed in the *{range}* range on {scale}.",
+    '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
     range = trait$range,
-    scale = trait$scale
+    scale = trait$scale,
+    description = trait$description
   ) %>%
   stringr::str_to_sentence() %>%
   purrr::modify(lift(paste0)) %>%
@@ -1556,10 +1545,10 @@ knitr::read_chunk(here::here("R", "03_make_kable_pai.R"))
 # SUMMARY/IMPRESSION
 
 (ref:domain) *Key Findings:* Academic and intellectual skills are
-`r params$fname`'s strengths. Processing speed and cognitive inflexibility are
-areas of relative weakness. Notably, even `r params$fname`'s average scores
+`r params$first_name`'s strengths. Processing speed and cognitive inflexibility are
+areas of relative weakness. Notably, even `r params$first_name`'s average scores
 reflect performances that are below cognitive expectations for `r params$him`.
-`r params$his2` ability to consistently demonstrate these skills is sometimes
+`r params$his_her_cap` ability to consistently demonstrate these skills is sometimes
 limited by performance anxiety and overconcern with correctness, however.
 *Note:* *z* = 0 (mean) ± 1 (sd)
 
@@ -1583,7 +1572,7 @@ dotplot(
 cat(readLines("sirf.md"), sep = "\n")
 ```
 
-It was a pleasure to work with `r params$fname` and `r params$his` family.
+It was a pleasure to work with `r params$first_name` and `r params$his_her` family.
 Please contact me with any questions or concerns regarding this patient.
 
 ```{marginfigure, echo=TRUE}
@@ -1598,7 +1587,7 @@ Los Angeles, CA 90033\
 Sincerely,
 
 ```{r out.width='33%', fig.align='left'}
-knitr::include_graphics("jwtSig.png")
+knitr::include_graphics("../jwtSig.png")
 ```
 
 | **Joey Trampush, PhD**\
@@ -1638,11 +1627,11 @@ treatment recommendations.
 
 | **Score range**    | **Standard score** | ***T*** **score** | **Scaled score** | ***z***-**score** | **Percentile (‰)** |
 |:-------------------|:------------------:|:-----------------:|:----------------:|:-----------------------:|:------------------:|
-| Exceptionally High |       130 +        |       70 +        |       16 +       |           2 +           |        98 +        |
-| Above Average      |     120 -- 129     |     63 -- 69      |     14 -- 15     |       1.3 -- 1.9        |      91 -- 97      |
-| High-Average       |     110 -- 119     |     57 -- 62      |     12 -- 13     |       0.7 -- 1.2        |      75 -- 90      |
-| Average            |     90 -- 109      |     44 -- 56      |     9 -- 11      |       -0.7 -- 0.6       |      25 -- 74      |
-| Low-Average        |      80 -- 89      |     37 -- 43      |      7 -- 8      |      -1.3 -- -0.6       |      9 -- 24       |
-| Below Average      |      70 -- 79      |     30 -- 36      |      4 -- 6      |       -2 -- -1.4        |       2 -- 8       |
-| Exceptionally Low  |       \< 70        |       \< 30       |       \< 4       |          \< -2          |        \< 2        |
+| Exceptionally High Score |       130 +        |       70 +        |       16 +       |           2 +           |        98 +        |
+| Above Average Score     |     120 -- 129     |     63 -- 69      |     14 -- 15     |       1.3 -- 1.9        |      91 -- 97      |
+| High-Average Score       |     110 -- 119     |     57 -- 62      |     12 -- 13     |       0.7 -- 1.2        |      75 -- 90      |
+| Average Score           |     90 -- 109      |     44 -- 56      |     9 -- 11      |       -0.7 -- 0.6       |      25 -- 74      |
+| Low-Average Score       |      80 -- 89      |     37 -- 43      |      7 -- 8      |      -1.3 -- -0.6       |      9 -- 24       |
+| Below Average Score     |      70 -- 79      |     30 -- 36      |      4 -- 6      |       -2 -- -1.4        |       2 -- 8       |
+| Exceptionally Low Score  |       \< 70        |       \< 30       |       \< 4       |          \< -2          |        \< 2        |
 
