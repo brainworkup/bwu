@@ -1184,14 +1184,14 @@ exe <- neurocog %>%
 
 trait <- exe
 
-lst(person, range, scale, description) %>%
+lst(person, range, scale) %>%
   glue::glue_data(
     '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
     range = trait$range,
     scale = trait$scale,
     description = trait$description
   ) %>%
-  stringr::str_to_sentence() %>%
+  #stringr::str_to_sentence() %>%
   purrr::modify(lift(paste0)) %>%
   cat()
 ```
@@ -1262,7 +1262,7 @@ mem <- neurocog %>%
 
 trait <- mem
 
-lst(person, range, scale, description) %>%
+lst(person, range, scale) %>%
   glue::glue_data(
     '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
     range = trait$range,
@@ -1328,7 +1328,7 @@ mtr <- neurocog %>%
 
 trait <- mtr
 
-lst(person, range, scale, description) %>%
+lst(person, range, scale) %>%
   glue::glue_data(
     '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
     range = trait$range,
@@ -1390,7 +1390,7 @@ eq <- neurocog %>%
 
 trait <- eq
 
-lst(person, range, scale, description) %>%
+lst(person, range, scale) %>%
   glue::glue_data(
     '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
     range = trait$range,
@@ -1434,116 +1434,108 @@ knitr::read_chunk(here::here("R", "nt-scog.R"))
 
 ### Emotional/Behavioral/Adaptive
 
-Of note, attention and executive functioning deficits may not show up on tests
-or in a structured testing office and yet be evident in real-world settings.
-This seems to be the case for `r params$first_name`, as parent ratings indicated significant attention problems, even with medication. Both parent ratings and `r params$first_name`'s own ratings of his executive skills indicated difficulties with working memory and
-planning/organization. Parent ratings also indicated mild concerns for
-self-monitoring. Teacher ratings indicated poor attention.
-
-```{r, eval=F}
-test <- "Brown EF/A Parent"
-brown_efa_parent <-
-  make_tibble(
-  tibb = brown_efa_parent,
-  data = neurobehav,
-  pheno = "Behavioral/Emotional/Social"
-) %>%
-  dplyr::filter(Test == test)
-```
-
-```{r, eval=F}
-# self
-brown_efa_self <-
-  make_tibble(
-  tibb = brown_efa_self,
-  data = neurocog,
-  pheno = "Behavioral/Emotional/Social"
-) %>%
-  dplyr::filter(Test == "Brown EF/A Self")
-# combine
-#brown_efa <- dplyr::bind_rows(brown_efa_parent, brown_efa_self)
-```
-
-```{r brown-efa, eval=F, double_escape=T, escape=F, fig.fullwidth=T}
-# Brown EF/A
-kableExtra::kbl(brown_efa[, 2:5], caption = "(ref:brown-efa)", "latex", longtable = FALSE, booktabs = TRUE, linesep = "", align = c("lccc")) %>%
-  kableExtra::kable_paper(., lightable_options = 'basic') %>%
-  kableExtra::kable_styling(., latex_options = c("scale_down", "HOLD_position", "striped")) %>%
-  kableExtra::column_spec(., 1, width = "8cm") %>%
-  kableExtra::row_spec(., row = 0, bold = TRUE) %>%
-  kableExtra::pack_rows(., index = table(brown_efa$Test)) %>%
-  kableExtra::add_footnote('(ref:t-score)')
-```
-
-```{r, eval=F}
-# combine
-executive <- dplyr::bind_rows(executive, brown_efa_parent) %>% dplyr::arrange(Test)
-```
-
-
 In addition to the attention and executive concerns noted above, parent ratings
 indicated difficulties with everyday communication as well as mild-to-moderate
 concerns with physical complaints, social skills, leadership, and activities of
-daily living. `r params$his_her_cap` mother also noted mild concerns with depression. Teacher
-rating forms were not returned at the time of this report.
+daily living. `r params$his_her_cap` mother also noted mild concerns with depression. Teacher rating forms were not returned at the time of this report.
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-brown_efa_self.R"))
+```
+
+```{r 01-glue-brown-efa-self, eval=T, double_escape=T, escape=F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-brown_efa_self.R"))
+```
+
+```{r 02-make-df-brown-efa-self, eval=T, double_escape=T, escape=F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-brown_efa_self.R"))
+```
+
+```{r 03-make-kable-brown-efa-self, eval=T, double_escape=T, escape=F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-brown_efa_self.R"))
+```
+
+```{r 04-make-df-brown-efa-self, eval=T, double_escape=T, escape=F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-brown_efa_self.R"))
+```
+
+```{r 05-plot-brown-efa-self-subdomain, eval=F, fig.cap = 'Self-reported executive and attentional functioning related to ADHD in everyday life.', double_escape=T, escape=F}
+```
+
+```{r 06-plot-brown-efa-self-narrow, eval=T, fig.cap = 'Self-reported executive and attentional functioning related to ADHD in everyday life.', double_escape=T, escape=F}
+```
+
+\newpage
 
 ```{r, pai, results='asis'}
 cat(readLines("pai.md"), sep = "\n")
 ```
 
-```{r, eval=F, results='asis'}
-person <- "Biggie"
-dom <- "Behavioral/Emotional/Social" # domain
-sub <- "Personality" # subdomain
-
-pai <- neurobehav %>%
-  dplyr::filter(subdomain == sub) %>%
-  dplyr::arrange(desc(percentile)) %>%
-  dplyr::distinct(.keep_all = FALSE)
-
-trait <- pai
-
-lst(person, range, scale, description) %>%
-  glue::glue_data(
-    '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
-    range = trait$range,
-    scale = trait$scale,
-    description = trait$description
-  ) %>%
-  stringr::str_to_sentence() %>%
-  purrr::modify(lift(paste0)) %>%
-  cat()
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-pai.R"))
 ```
 
-```{r pai1}
+```{r 01-glue-pai, eval=T, double_escape=T, escape=F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-pai.R"))
+```
+
+```{r 02-make-df-pai, eval=T, double_escape=T, escape=F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-pai.R"))
+```
+
+```{r 03-make-kable-pai, eval=T, double_escape=T, escape=F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-pai.R"))
+```
+
+```{r 04-make-df-pai, eval=T, double_escape=T, escape=F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-pai.R"))
+```
+
+```{r 05-plot-pai-subdomain, eval=F, fig.cap = '(ref:pai)', double_escape=T, escape=F}
+```
+
+```{r 06-plot-pai-narrow, eval=F, fig.cap = '(ref:pai)', double_escape=T, escape=F}
+```
+
+```{r df-pai}
 # plot domain scores as z-scores
-pai1 <- neurobehav %>%
+df_pai <- neurobehav %>%
   dplyr::filter(test == "pai") %>%
   dplyr::slice(1:41)
 ```
 
-```{r pai-plot, eval=T, fig.margin=TRUE, fig.env='marginfigure', fig.cap='PAI Clinical Domains. No marked elevations that would indicate the presence of clinical psychopathology.', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
+```{r pai-plot, eval=T, fig.margin=TRUE, fig.env='marginfigure', fig.cap='**PAI Clinical Domains**. Marked elevations were seen on several scales indicating the presence of clinical psychopathology.', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
 # fig.pos = '!H'
 dotplot(
-  data = pai1,
-  x = pai1$z_mean_narrow,
-  y = pai1$narrow,
+  data = df_pai,
+  x = df_pai$z_mean_narrow,
+  y = df_pai$narrow,
   domain = "personality"
 )
-```
-
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "02_make_dataframe_pai.R"))
-```
-
-```{r make-dataframe-pai, eval=T, double_escape=T, escape=F}
-```
-
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "03_make_kable_pai.R"))
-```
-
-```{r make-kable-pai, eval=T, double_escape=T, escape=F}
 ```
 
 \newpage
@@ -1578,8 +1570,7 @@ dotplot(
 cat(readLines("sirf.md"), sep = "\n")
 ```
 
-It was a pleasure to work with `r params$first_name` and `r params$his_her` family.
-Please contact me with any questions or concerns regarding this patient.
+It was a pleasure to work with `r params$first_name`. Please contact me with any questions or concerns regarding this patient.
 
 ```{marginfigure, echo=TRUE}
 **CONTACT**\
