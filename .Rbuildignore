@@ -17,3 +17,4 @@
 ^npsych\.data\.code-workspace$
 ^\.vscode$
 ^journal$
+^\.DS\_Store$
