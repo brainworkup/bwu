@@ -1000,7 +1000,7 @@ acad <- neurocog %>%
 
 trait <- acad
 
-lst(person, range, scale) %>%
+lst(person, range, scale, description) %>%
   glue::glue_data(
     '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
     range = trait$range,
@@ -1065,7 +1065,7 @@ vrb <- neurocog %>%
 
 trait <- vrb
 
-lst(person, range, scale) %>%
+lst(person, range, scale, description) %>%
   glue::glue_data(
     '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
     range = trait$range,
@@ -1129,7 +1129,7 @@ spt <- neurocog %>%
 
 trait <- spt
 
-lst(person, range, scale) %>%
+lst(person, range, scale, description) %>%
   glue::glue_data(
     '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
     range = trait$range,
@@ -1184,7 +1184,7 @@ exe <- neurocog %>%
 
 trait <- exe
 
-lst(person, range, scale) %>%
+lst(person, range, scale, description) %>%
   glue::glue_data(
     '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
     range = trait$range,
@@ -1207,7 +1207,7 @@ Scaled (M = 10, SD = 3)
 knitr::read_chunk(here::here("R", "nt-executive.R"))
 ```
 
-```{r 02-make-dataframe-executive, eval=T, double_escape=T, escape=F}
+```{r 02-make-df-executive, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
@@ -1221,14 +1221,17 @@ knitr::read_chunk(here::here("R", "nt-executive.R"))
 knitr::read_chunk(here::here("R", "nt-executive.R"))
 ```
 
-```{r 04-make-dataframe-exe, eval=T, double_escape=T, escape=F}
+```{r 04-make-df-executive, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-executive.R"))
 ```
 
-```{r 05-plot-exe-sub, eval=T, fig.cap = '(ref:att-exe)', double_escape=T, escape=F}
+```{r 05-plot-executive-subdomain, eval=T, fig.cap = '(ref:att-exe)', double_escape=T, escape=F}
+```
+
+```{r 06-plot-executive-narrow, eval=F, fig.cap = '(ref:att-exe)', double_escape=T, escape=F}
 ```
 
 \newpage
@@ -1259,7 +1262,7 @@ mem <- neurocog %>%
 
 trait <- mem
 
-lst(person, range, scale) %>%
+lst(person, range, scale, description) %>%
   glue::glue_data(
     '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
     range = trait$range,
@@ -1275,7 +1278,7 @@ lst(person, range, scale) %>%
 knitr::read_chunk(here::here("R", "nt-memory.R"))
 ```
 
-```{r 02-make-dataframe-memory, eval=T, double_escape=T, escape=F}
+```{r 02-make-df-memory, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
@@ -1289,14 +1292,17 @@ knitr::read_chunk(here::here("R", "nt-memory.R"))
 knitr::read_chunk(here::here("R", "nt-memory.R"))
 ```
 
-```{r 04-make-dataframe-exe, eval=T, double_escape=T, escape=F}
+```{r 04-make-df-memory, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-memory.R"))
 ```
 
-```{r 05-plot-mem-narrow, eval=T, fig.cap = '(ref:mem)', double_escape=T, escape=F}
+```{r 05-plot-memory-subdomain, eval=F, fig.cap = '(ref:mem)', double_escape=T, escape=F}
+```
+
+```{r 06-plot-memory-narrow, eval=T, fig.cap = '(ref:mem)', double_escape=T, escape=F}
 ```
 
 \newpage
@@ -1322,7 +1328,7 @@ mtr <- neurocog %>%
 
 trait <- mtr
 
-lst(person, range, scale) %>%
+lst(person, range, scale, description) %>%
   glue::glue_data(
     '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
     range = trait$range,
@@ -1384,7 +1390,7 @@ eq <- neurocog %>%
 
 trait <- eq
 
-lst(person, range, scale) %>%
+lst(person, range, scale, description) %>%
   glue::glue_data(
     '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
     range = trait$range,
@@ -1497,7 +1503,7 @@ pai <- neurobehav %>%
 
 trait <- pai
 
-lst(person, range, scale) %>%
+lst(person, range, scale, description) %>%
   glue::glue_data(
     '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
     range = trait$range,
