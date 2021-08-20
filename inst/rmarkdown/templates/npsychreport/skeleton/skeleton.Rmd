@@ -523,7 +523,7 @@ I: History
 
 (ref:mmpi) Minnesota Multiphasic Personality Inventory-2-Restructured Form (MMPI-2-RF)
 
-(ref:iq) Intelligence
+(ref:iq) Intelligence/General Ability
 
 (ref:academics) Academic Skills
 
@@ -539,13 +539,13 @@ I: History
 
 (ref:social) Social Cognition
 
-(ref:standard-score) Score = Standard score (M = 100, SD = 15)
+(ref:standard-score) Score = Standard (M = 100, SD = 15)
 
-(ref:scaled-score) Score = Scaled score (M = 10, SD = 3)
+(ref:scaled-score) Score = Scaled (M = 10, SD = 3)
 
-(ref:t-score) Score = *T* score (M = 50, SD = 10)
+(ref:t-score) Score = *T* (M = 50, SD = 10)
 
-(ref:z-score) Score = *z*-score (M = 0, SD = 1)
+(ref:z-score) Score = *z* (M = 0, SD = 1)
 
 (ref:zplot) *z* = -1 (16th percentile), *z* = 0 (50th percentile), and *z* = 1
 (84th percentile)
@@ -557,10 +557,10 @@ a score is rare, defined as a base rate of less than 10%, it is considered
 *clinically significant*, and that area of functioning is probably causing
 problems in daily functioning.
 
-(ref:basc3-footnote) Score = *T* score (M = 50, SD = 10); *Note:* Adaptive
+(ref:basc3-footnote) Score = *T* (M = 50, SD = 10); *Note:* Adaptive
 Skills *T* scores are reversed
 
-(ref:basc3-fn-srp-adol) Score = *T* score (M = 50, SD = 10); *Note:* Personal
+(ref:basc3-fn-srp-adol) Score = *T* (M = 50, SD = 10); *Note:* Personal
 Adjustment *T* scores are reversed
 
 (ref:g) *General intelligence* refers to an overall capacity to reason, to solve
@@ -573,6 +573,9 @@ language to reason and understand how the world works.
 figure things out without being told exactly how things work, analyze and solve
 novel problems, identify patterns and relationships that underpin these
 problems, and apply logic.
+
+(ref:gcf) *General cognitive functioning* refers to an overall capacity to
+reason, to solve problems, and to learn useful information.
 
 (ref:acad) *Reading ability* consists of three interrelated abilities: decoding,
 comprehension, and fluency. *Writing ability* can be described in terms of
@@ -737,6 +740,17 @@ cat(readLines("nse.1.md"), sep = "\n")
 
 ## Test Battery
 
+-   (ref:acs-topf)
+-   (ref:wais4): Selected subtests
+-   (ref:nabs)
+-   (ref:rbans): Form A
+-   (ref:cog-est)
+-   (ref:pegboard)
+-   (ref:acs-word-choice)
+-   (ref:brown-efa-self)
+-   (ref:bai)
+-   (ref:bdi2)
+-   (ref:pai)
 -   (ref:wisc5)
 -   (ref:wiat4)
 -   (ref:nepsy2)
@@ -786,7 +800,7 @@ individual test scores and broader neuropsychological domains
 knitr::include_graphics("plot_broad.png", auto_pdf = TRUE)
 ```
 
-```{r, echo = F, message = F}
+```{r, echo=F, message=F}
 ## Import CSV files
 library(tidyverse)
 # path to files
@@ -910,39 +924,20 @@ neurocog <- read_csv(here::here(patient, "neurocog.csv"))
 neurobehav <- read_csv(here::here(patient, "neurobehav.csv"))
 ```
 
-### Intelligence
+### Intelligence/General Ability
 
-Overall intellectual scores were *Average*. Most index scores were *Average* to
+An estimate of premorbid verbal ability fell within the *Average* range. Overall intellectual scores were *Average*. Most index scores were *Average* to
 *High-Average*, with a slight strength in verbal reasoning and acquired
 knowledge. Nonverbal/fluid reasoning was a *Clinically Significant* weakness.
 
 (ref:fn-iq) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or
 Scaled (M = 10, SD = 3)
 
-```{r, eval=F, results='asis'}
-library(glue)
-library(gluedown)
+```{r, eval=F}
+knitr::read_chunk(here::here("R", "nt-iq.R"))
+```
 
-person <- "Biggie"
-dom <- "Intelligence"
-
-g <- neurocog %>%
-  dplyr::filter(domain == dom) %>%
-  dplyr::arrange(desc(percentile)) %>%
-  dplyr::distinct(.keep_all = FALSE)
-
-trait <- g
-
-lst(person, range, scale, description) %>%
-  glue::glue_data(
-    '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
-    range = trait$range,
-    scale = trait$scale,
-    description = trait$description
-  ) %>%
-  stringr::str_to_sentence() %>%
-  purrr::modify(lift(paste0)) %>%
-  cat()
+```{r 01-glue-iq, eval=F, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
@@ -1000,7 +995,7 @@ acad <- neurocog %>%
 
 trait <- acad
 
-lst(person, range, scale, description) %>%
+lst(person, range, scale) %>%
   glue::glue_data(
     '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
     range = trait$range,
@@ -1044,15 +1039,12 @@ knitr::read_chunk(here::here("R", "nt-academics.R"))
 
 ### Verbal/Language
 
-All scores in this area were *average* to *above average*. An exception was
-`r params$his_her` phonemic word fluency score, which was *low-average* and a
-relative weakness.[^3]
-
-[^3]: Phonemic fluency is a component of broader phonological awareness and a
-    core building block to reading development in early childhood.
+All scores in this area were *Average* to *Above average*. An exception was
+`r params$his_her` phonemic word fluency score, which was *Low-average* and a
+relative weakness.
 
 (ref:fn-verbal) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or
-Scaled (M = 10, SD = 3) scores
+Scaled (M = 10, SD = 3)
 
 ```{r, eval=F, results='asis'}
 person <- "Biggie"
@@ -1116,7 +1108,6 @@ All scores in this area were *Low-Average* to *Above Average*, without a clear
 pattern of strengths or weaknesses.
 
 (ref:fn-spatial) Score = Standard (M = 100, SD = 15) or Scaled (M = 10, SD = 3)
-scores
 
 ```{r, eval=F, results='asis'}
 person <- "Biggie"
@@ -1173,35 +1164,19 @@ knitr::read_chunk(here::here("R", "nt-spatial.R"))
 
 ### Attention/Executive
 
-```{r, eval=F, results='asis'}
-person <- "Biggie"
-dom <- "Attention/Executive"
-
-exe <- neurocog %>%
-  dplyr::filter(domain == dom) %>%
-  dplyr::arrange(desc(percentile)) %>%
-  dplyr::distinct(.keep_all = FALSE)
-
-trait <- exe
-
-lst(person, range, scale) %>%
-  glue::glue_data(
-    '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
-    range = trait$range,
-    scale = trait$scale,
-    description = trait$description
-  ) %>%
-  #stringr::str_to_sentence() %>%
-  purrr::modify(lift(paste0)) %>%
-  cat()
-```
-
 ```{r, exe, results='asis'}
 cat(readLines("exe.md"), sep = "\n")
 ```
 
 (ref:fn-exe) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or
 Scaled (M = 10, SD = 3)
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-executive.R"))
+```
+
+```{r 01-glue-executive, eval=T, double_escape=T, escape=F}
+```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-executive.R"))
@@ -1238,40 +1213,18 @@ knitr::read_chunk(here::here("R", "nt-executive.R"))
 
 ### Memory
 
-Learning and recall of rote verbal information (word list) was *average*
-overall, and `r params$first_name` showed a good learning curve. Recall of the list
-after a brief delay was *average*. Recall after a longer delay was *Low-Average*
-secondary to `r params$his_her` variable learning curve resulting in disorganized
-initial encoding of the words, which was `r params$his_her` only memory score
-falling somewhat below age-expectations. Recall of more complex verbal
-information (short story) was *High-Average* for immediate free recall. Recall
-of visual material (abstract shapes) was *High-Average*. Recall after a long
-delay was *Above Average*. Reconstructing a complex/abstract visual design from
-memory after a brief delay was intact.
+```{r, mem, results='asis'}
+cat(readLines("mem.md"), sep = "\n")
+```
 
-(ref:fn-memory) Score = *T* (M = 50, SD = 10) or Scaled (M = 10, SD = 3) scores
+(ref:fn-memory) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or
+Scaled (M = 10, SD = 3)
 
-```{r, eval=F, results='asis'}
-person <- "Biggie"
-dom <- "Memory"
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-memory.R"))
+```
 
-mem <- neurocog %>%
-  dplyr::filter(domain == dom) %>%
-  dplyr::arrange(desc(percentile)) %>%
-  dplyr::distinct(.keep_all = FALSE)
-
-trait <- mem
-
-lst(person, range, scale) %>%
-  glue::glue_data(
-    '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
-    range = trait$range,
-    scale = trait$scale,
-    description = trait$description
-  ) %>%
-  stringr::str_to_sentence() %>%
-  purrr::modify(lift(paste0)) %>%
-  cat()
+```{r 01-glue-memory, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
@@ -1379,20 +1332,16 @@ intentions, and beliefs (i.e., theory of mind).
 (ref:fn-scog) Scaled score (M = 10, SD = 3)
 
 ```{r, eval=F, results='asis'}
-
 person <- "Biggie"
 dom <- "Social Cognition"
-
 eq <- neurocog %>%
   dplyr::filter(domain == dom) %>%
   dplyr::arrange(desc(percentile)) %>%
   dplyr::distinct(.keep_all = FALSE)
-
 trait <- eq
-
 lst(person, range, scale) %>%
   glue::glue_data(
-    '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
+    '{person} performed in the *{range}* range on a measure of {description}.',
     range = trait$range,
     scale = trait$scale,
     description = trait$description
@@ -1433,6 +1382,17 @@ knitr::read_chunk(here::here("R", "nt-scog.R"))
 \newpage
 
 ### Emotional/Behavioral/Adaptive
+
+On a self-reported rating scale of attention and executive functioning, Alyssa's
+score on *Memory* fell in the *Clinically Significant* range. Alyssa reports
+that (ref:he-she) has difficulty utilizing working memory and accessing recall.
+Her score on *Focus* fell in the *Clinically Significant* range, reporting that
+(ref:he-she) has difficulty focusing, sustaining, and shifting attention to
+tasks. Alyssa's score on *Effort* fell in the *At-Risk* range. Alyssa reports
+that (ref:he-she) has difficulty regulating alertness, sustaining effort, and
+adjusting processing speed. Her score on *Activation* fell in the *At-Risk*
+range, noting that she has difficulty organizing, prioritizing, and activating
+to work.
 
 In addition to the attention and executive concerns noted above, parent ratings
 indicated difficulties with everyday communication as well as mild-to-moderate
@@ -1515,21 +1475,21 @@ knitr::read_chunk(here::here("R", "nt-pai.R"))
 knitr::read_chunk(here::here("R", "nt-pai.R"))
 ```
 
-```{r 05-plot-pai-subdomain, eval=F, fig.cap = '(ref:pai)', double_escape=T, escape=F}
+```{r 05-plot-pai-subdomain, eval=T, fig.margin=TRUE, fig.env='marginfigure', fig.cap='PAI Clinical Domains. Marked elevations were seen on several scales indicating the presence of clinical psychopathology.', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
 ```
 
-```{r 06-plot-pai-narrow, eval=F, fig.cap = '(ref:pai)', double_escape=T, escape=F}
+```{r 06-plot-pai-subdomain, eval=F, fig.margin=TRUE, fig.env='marginfigure', fig.cap='PAI Clinical Domains. Marked elevations were seen on several scales indicating the presence of clinical psychopathology.', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
 ```
 
 ```{r df-pai}
 # plot domain scores as z-scores
 df_pai <- neurobehav %>%
-  dplyr::filter(test == "pai") %>%
-  dplyr::slice(1:41)
+  filter(test == "pai") %>%
+  slice(1:41)
 ```
 
-```{r pai-plot, eval=T, fig.margin=TRUE, fig.env='marginfigure', fig.cap='**PAI Clinical Domains**. Marked elevations were seen on several scales indicating the presence of clinical psychopathology.', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
-# fig.pos = '!H'
+```{r pai-plot, eval=F, fig.margin=TRUE, fig.env='marginfigure', fig.cap='PAI Clinical Domains. Marked elevations were seen on several scales indicating the presence of clinical psychopathology.', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
+
 dotplot(
   data = df_pai,
   x = df_pai$z_mean_narrow,
@@ -1542,13 +1502,11 @@ dotplot(
 
 # SUMMARY/IMPRESSION
 
-(ref:domain) *Key Findings:* Academic and intellectual skills are
-`r params$first_name`'s strengths. Processing speed and cognitive inflexibility are
-areas of relative weakness. Notably, even `r params$first_name`'s average scores
-reflect performances that are below cognitive expectations for `r params$him`.
-`r params$his_her_cap` ability to consistently demonstrate these skills is sometimes
-limited by performance anxiety and overconcern with correctness, however.
-*Note:* *z* = 0 (mean) ± 1 (sd)
+(ref:domain) *Key Findings:* Verbal skills are significantly stronger than
+nonverbal/spatial processing skills. Attentional fluency (i.e., working memory
+and processing speed) and abstract reasoning are areas of weakness. Memory
+continues to evidence a decline from premorbid levels. *Note:* *z* = 0 (mean) ±
+1 (sd)
 
 ```{r}
 # subset cog data for plotting
@@ -1558,7 +1516,7 @@ domain <-
   dplyr::filter(!is.na(domain))
 ```
 
-```{r domain, fig.cap = '(ref:domain)', fig.path = 'figures/npsych2-'}
+```{r domain, fig.cap = '(ref:domain)'}
 dotplot(
   data = domain,
   x = domain$z_mean_dom,
@@ -1622,13 +1580,13 @@ treatment recommendations.
 
 (ref:ranges) Test Score Labels/Ranges
 
-| **Score range**    | **Standard score** | ***T*** **score** | **Scaled score** | ***z***-**score** | **Percentile (‰)** |
+| **Score Range**    | **Standard Score** | ***T*** **Score** | **Scaled Score** | ***z***-**Score** | **Percentile (‰)** |
 |:-------------------|:------------------:|:-----------------:|:----------------:|:-----------------------:|:------------------:|
-| Exceptionally High Score |       130 +        |       70 +        |       16 +       |           2 +           |        98 +        |
-| Above Average Score     |     120 -- 129     |     63 -- 69      |     14 -- 15     |       1.3 -- 1.9        |      91 -- 97      |
-| High-Average Score       |     110 -- 119     |     57 -- 62      |     12 -- 13     |       0.7 -- 1.2        |      75 -- 90      |
-| Average Score           |     90 -- 109      |     44 -- 56      |     9 -- 11      |       -0.7 -- 0.6       |      25 -- 74      |
-| Low-Average Score       |      80 -- 89      |     37 -- 43      |      7 -- 8      |      -1.3 -- -0.6       |      9 -- 24       |
-| Below Average Score     |      70 -- 79      |     30 -- 36      |      4 -- 6      |       -2 -- -1.4        |       2 -- 8       |
-| Exceptionally Low Score  |       \< 70        |       \< 30       |       \< 4       |          \< -2          |        \< 2        |
+| Exceptionally high score |       130 +        |       70 +        |       16 +       |           2 +           |        98 +        |
+| Above average score     |     120 -- 129     |     63 -- 69      |     14 -- 15     |       1.3 -- 1.9        |      91 -- 97      |
+| High-average score       |     110 -- 119     |     57 -- 62      |     12 -- 13     |       0.7 -- 1.2        |      75 -- 90      |
+| Average score           |     90 -- 109      |     44 -- 56      |     9 -- 11      |       -0.7 -- 0.6       |      25 -- 74      |
+| Low-average score       |      80 -- 89      |     37 -- 43      |      7 -- 8      |      -1.3 -- -0.6       |      9 -- 24       |
+| Below average score     |      70 -- 79      |     30 -- 36      |      4 -- 6      |       -2 -- -1.4        |       2 -- 8       |
+| Exceptionally low score  |       \< 70        |       \< 30       |       \< 4       |          \< -2          |        \< 2        |
 
