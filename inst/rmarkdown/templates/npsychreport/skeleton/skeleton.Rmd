@@ -1394,11 +1394,6 @@ adjusting processing speed. Her score on *Activation* fell in the *At-Risk*
 range, noting that she has difficulty organizing, prioritizing, and activating
 to work.
 
-In addition to the attention and executive concerns noted above, parent ratings
-indicated difficulties with everyday communication as well as mild-to-moderate
-concerns with physical complaints, social skills, leadership, and activities of
-daily living. `r params$his_her_cap` mother also noted mild concerns with depression. Teacher rating forms were not returned at the time of this report.
-
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-brown_efa_self.R"))
 ```
@@ -1475,27 +1470,10 @@ knitr::read_chunk(here::here("R", "nt-pai.R"))
 knitr::read_chunk(here::here("R", "nt-pai.R"))
 ```
 
-```{r 05-plot-pai-subdomain, eval=T, fig.margin=TRUE, fig.env='marginfigure', fig.cap='PAI Clinical Domains. Marked elevations were seen on several scales indicating the presence of clinical psychopathology.', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
+```{r 05-plot-pai-subdomain, eval=T, fig.margin=TRUE, fig.env='marginfigure', fig.cap='PAI Clinical Domains. Depression and somatic/health complaints are elevated to a clinically signficant degree and need to be prioritized as part of the treatment plan.', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
 ```
 
-```{r 06-plot-pai-subdomain, eval=F, fig.margin=TRUE, fig.env='marginfigure', fig.cap='PAI Clinical Domains. Marked elevations were seen on several scales indicating the presence of clinical psychopathology.', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
-```
-
-```{r df-pai}
-# plot domain scores as z-scores
-df_pai <- neurobehav %>%
-  filter(test == "pai") %>%
-  slice(1:41)
-```
-
-```{r pai-plot, eval=F, fig.margin=TRUE, fig.env='marginfigure', fig.cap='PAI Clinical Domains. Marked elevations were seen on several scales indicating the presence of clinical psychopathology.', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
-
-dotplot(
-  data = df_pai,
-  x = df_pai$z_mean_narrow,
-  y = df_pai$narrow,
-  domain = "personality"
-)
+```{r 06-plot-pai-narrow, eval=F, fig.margin=TRUE, fig.env='marginfigure', fig.cap='PAI Clinical Domains. Depression and somatic/health complaints are elevated to a clinically signficant degree and need to be prioritized as part of the treatment plan.', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
 ```
 
 \newpage
