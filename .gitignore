@@ -25,6 +25,7 @@ renv/activate.R
 
 # User-specific files
 .Ruserdata
+<<<<<<< Updated upstream
 
 # Example code in package build process
 *-Ex.R
@@ -68,3 +69,14 @@ po/*~
 
 # End of https://www.toptal.com/developers/gitignore/api/r
 renv/.DS_Store
+=======
+data-raw
+koma_tufte
+fish_shell_commmands.sh
+*.csv
+*.R
+.DS_Store
+renv/.DS_Store
+R/.DS_Store
+.DS_Store
+>>>>>>> Stashed changes
