@@ -47,13 +47,6 @@
 307.20 (F95.8) Other Specified Tic Disorder
 307.20 (F95.9) Unspecified Tic Disorder
 
-## Other Neurodevelopmental Disorders
-
----
-
-315.8 (F88) Other Specified Neurodevelopmental Disorder
-315.9 (F89) Unspecified Neurodevelopmental Disorder
-
 ## Neurodevelopmental Disorders
 
 ---
@@ -64,6 +57,29 @@
 318.2 (F73) Intellectual Disability (Intellectual Developmental Disorder), Profound
 315.8 (F88) Global Developmental Delay
 319 (F79) Unspecified Intellectual Disability (Intellectual Developmental Disorder)
+
+## Other Neurodevelopmental Disorders
+
+---
+
+315.8 (F88) Other Specified Neurodevelopmental Disorder
+315.9 (F89) Unspecified Neurodevelopmental Disorder
+
+## Unspecified Neurocognitive Disorder
+
+---
+
+799.59 (R41.9) Unspecified Neurocognitive Disorder
+
+## Other Mental Disorders and Additional Codes
+
+---
+
+294.8 (F06.8) Other Specified Mental Disorder Due to Another Medical Condition
+294.9 (F09) Unspecified Mental Disorder Due to Another Medical Condition
+300.9 (F99) Other Specified Mental Disorder
+300.9 (F99) Unspecified Mental Disorder
+V71.09 (Z03.89) No Diagnosis or Condition
 
 ## Disruptive, Impulse-Control, and Conduct Disorders
 
@@ -344,6 +360,8 @@ XXX.XX (F06.34) Bipolar and Related Disorder Due to Another Medical Condition, W
 
 ### Alcohol-Related Disorders
 
+---
+
 #### Alcohol Use Disorder
 
 305.00 (F10.10) Alcohol Use Disorder, Mild
@@ -492,17 +510,12 @@ Specify current severity/remission: -->
 
 #### Opioid Intoxication
 
-##### Without perceptual disturbances
-
-292.89 (F11.129) Opioid Intoxication, With use disorder, mild
-292.89 (F11.229) Opioid Intoxication, With use disorder, moderate or severe
-292.89 (F11.929) Opioid Intoxication, Without use disorder
-
-##### With perceptual disturbances
-
-292.89 (F11.122) Opioid Intoxication, With use disorder, mild
-292.89 (F11.222) Opioid Intoxication, With use disorder, moderate or severe
-292.89 (F11.922) Opioid Intoxication, Without use disorder
+292.89 (F11.129) Opioid Intoxication, Without perceptual disturbances, With use disorder, mild
+292.89 (F11.229) Opioid Intoxication, Without perceptual disturbances, With use disorder, moderate or severe
+292.89 (F11.929) Opioid Intoxication, Without perceptual disturbances, Without use disorder
+292.89 (F11.122) Opioid Intoxication, With perceptual disturbances, With use disorder, mild
+292.89 (F11.222) Opioid Intoxication, With perceptual disturbances, With use disorder, moderate or severe
+292.89 (F11.922) Opioid Intoxication, With perceptual disturbances, Without use disorder
 
 #### Opioid Withdrawal
 
@@ -565,20 +578,21 @@ Specify current severity/remission: -->
 304.40 (F15.20) Stimulant Use Disorder, Moderate, Amphetamine-type substance
 304.20 (F14.20) Stimulant Use Disorder, Moderate, Cocaine
 304.40 (F15.20) Stimulant Use Disorder, Moderate, Other or unspecified stimulant
-(F15.21) Stimulant Use Disorder, Moderate, In early remission, Amphetamine-type substance
-(F14.21) Stimulant Use Disorder, Moderate, In early remission, Cocaine
-(F15.21) Stimulant Use Disorder, Moderate, In early remission, Other or unspecified stimulant
-(F15.21) Stimulant Use Disorder, Moderate, In sustained remission, Amphetamine-type substance(F14.21) Stimulant Use Disorder, Moderate, In sustained remission, Cocaine
-(F15.21) Stimulant Use Disorder, Moderate, In sustained remission, Other or unspecified stimulant
+304.40 (F15.21) Stimulant Use Disorder, Moderate, In early remission, Amphetamine-type substance
+304.20 (F14.21) Stimulant Use Disorder, Moderate, In early remission, Cocaine
+304.40 (F15.21) Stimulant Use Disorder, Moderate, In early remission, Other or unspecified stimulant
+304.40 (F15.21) Stimulant Use Disorder, Moderate, In sustained remission, Amphetamine-type substance
+304.20 (F14.21) Stimulant Use Disorder, Moderate, In sustained remission, Cocaine
+304.40 (F15.21) Stimulant Use Disorder, Moderate, In sustained remission, Other or unspecified stimulant
 304.40 (F15.20) Stimulant Use Disorder, Severe, Amphetamine-type substance
 304.20 (F14.20) Stimulant Use Disorder, Severe, Cocaine
 304.40 (F15.20) Stimulant Use Disorder, Severe, Other or unspecified stimulant
-(F15.21) Stimulant Use Disorder, Severe, In early remission, Amphetamine-type substance
-(F14.21) Stimulant Use Disorder, Severe, In early remission, Cocaine
-(F15.21) Stimulant Use Disorder, Severe, In early remission, Other or unspecified stimulant
-(F15.21) Stimulant Use Disorder, Severe, In sustained remission, Amphetamine-type substance
-(F14.21) Stimulant Use Disorder, Severe, In sustained remission, Cocaine
-(F15.21) Stimulant Use Disorder, Severe, In sustained remission, Other or unspecified stimulant
+304.40 (F15.21) Stimulant Use Disorder, Severe, In early remission, Amphetamine-type substance
+304.20 (F14.21) Stimulant Use Disorder, Severe, In early remission, Cocaine
+304.40 (F15.21) Stimulant Use Disorder, Severe, In early remission, Other or unspecified stimulant
+304.40 (F15.21) Stimulant Use Disorder, Severe, In sustained remission, Amphetamine-type substance
+304.20 (F14.21) Stimulant Use Disorder, Severe, In sustained remission, Cocaine
+304.40 (F15.21) Stimulant Use Disorder, Severe, In sustained remission, Other or unspecified stimulant
 
 #### Stimulant Intoxication
 
@@ -668,241 +682,177 @@ Specify current severity/remission: -->
 
 312.31 (F63.0) Gambling Disorder, Specify if: Episodic, Persistent, Specify current severity: Mild, Moderate, Severe
 
-## Neurocognitive Disorders
-
 ---
 
-**\_.** (**\_.**)
-Delirium
-aNote: See the criteria set and corresponding recording procedures for substance-specific codes and ICD-9-CM and ICD-10-CM coding.
-Specify whether:
-**\_.** (**\_.**) Substance intoxication deliriuma
-**\_.** (**\_.**) Substance withdrawal deliriuma
-292.81 (**\_.**) Medication-induced deliriuma
+## Delirium
+
+**\_.** (**\_.**) Substance intoxication delirium
+**\_.** (**\_.**) Substance withdrawal delirium
+292.81 (**\_.**) Medication-induced delirium
 293.0 (F05) Delirium due to another medical condition
 293.0 (F05) Delirium due to multiple etiologies
-Specify if: Acute, Persistent
-Specify if: Hyperactive, Hypoactive, Mixed level of activity
 780.09 (R41.0) Other Specified Delirium
 780.09 (R41.0) Unspecified Delirium
 
+<!-- Specify if: Acute, Persistent -->
+<!-- Specify if: Hyperactive, Hypoactive, Mixed level of activity -->
+
 ## Major and Mild Neurocognitive Disorders
 
-Specify whether due to: Alzheimer’s disease, Frontotemporal lobar degeneration, Lewy body disease, Vascular disease, Traumatic brain injury, Substance/medication use, HIV infection, Prion disease, Parkinson’s disease, Huntington’s disease, Another medical condition, Multiple etiologies, Unspecified
-aSpecify: Without behavioral disturbance, With behavioral disturbance. For mild neurocognitive disorder, behavioral disturbance cannot be coded but should still be indicated in writing.
-bSpecify current severity: Mild, Moderate, Severe. This specifier applies only to major neurocognitive disorders (including probable and possible).
-Note: As indicated for each subtype, an additional medical code is needed for major neurocognitive disorders, including those due to probable and possible medical etiologies. The medical etiology should be coded first before the code for the major neurocognitive disorder. An additional medical code should not be used for mild neurocognitive disorder.
+---
 
-## Major or Mild Neurocognitive Disorder Due to Alzheimer’s Disease
+### Major or Mild Neurocognitive Disorder Due to Alzheimer’s Disease
 
-**\_.** (**\_.**)
-Major Neurocognitive Disorder Due to Probable Alzheimer’s Diseaseb
-Note: Code first 331.0 (G30.9) Alzheimer’s disease.
-294.11 (F02.81)
-With behavioral disturbance
-294.10 (F02.80)
-Without behavioral disturbance
-**\_.** (**\_.**)
-Major Neurocognitive Disorder Due to Possible Alzheimer’s Diseaseb
-Note: Code first 331.0 (G30.9) Alzheimer’s disease.
-294.11 (F02.81)
-With behavioral disturbance
-294.10 (F02.80)
-Without behavioral disturbance
+_Note: Code first 331.0 (G30.9) Alzheimer’s disease._
+
+294.11 (F02.81) Major Neurocognitive Disorder Due to Probable Alzheimer’s Disease, With behavioral disturbance
+294.10 (F02.80) Major Neurocognitive Disorder Due to Probable Alzheimer’s Disease, Without behavioral disturbance
+294.11 (F02.81) Major Neurocognitive Disorder Due to Possible Alzheimer’s Disease, With behavioral disturbance
+294.10 (F02.80)Major Neurocognitive Disorder Due to Possible Alzheimer’s Disease, Without behavioral disturbance
 331.83 (G31.84) Mild Neurocognitive Disorder Due to Alzheimer’s Disease
 
-## Major or Mild Frontotemporal Neurocognitive Disorder
+### Major or Mild Frontotemporal Neurocognitive Disorder
 
-**\_.** (**\_.**)
-Major Neurocognitive Disorder Due to Probable Frontotemporal Lobar Degenerationb
-Note: Code first 331.19 (G31.09) frontotemporal disease.
-294.11 (F02.81)
-With behavioral disturbance
-294.10 (F02.80)
-Without behavioral disturbance
-**\_.** (**\_.**)
-Major Neurocognitive Disorder Due to Possible Frontotemporal Lobar Degenerationb
-Note: Code first 331.19 (G31.09) frontotemporal disease.
-294.11 (F02.81)
-With behavioral disturbance
-294.10 (F02.80)
-Without behavioral disturbance
-331.83 (G31.84)
-Mild Neurocognitive Disorder Due to Frontotemporal Lobar Degenerationa
+_Note: Code first 331.19 (G31.09) frontotemporal disease._
 
-Major or Mild Neurocognitive Disorder With Lewy Bodies
-**\_.** (**\_.**)
-Major Neurocognitive Disorder With Probable Lewy Bodiesb
-Note: Code first 331.82 (G31.83) Lewy body disease.
-294.11 (F02.81)
-With behavioral disturbance
-294.10 (F02.80)
-Without behavioral disturbance
-**\_.** (**\_.**)
-Major Neurocognitive Disorder With Possible Lewy Bodiesb
-Note: Code first 331.82 (G31.83) Lewy body disease.
-294.11 (F02.81)
-With behavioral disturbance
-294.10 (F02.80)
-Without behavioral disturbance
-331.83 (G31.84)
-Mild Neurocognitive Disorder With Lewy Bodiesa
+294.11 (F02.81) Major Neurocognitive Disorder Due to Probable Frontotemporal Lobar Degeneration, With behavioral disturbance
+294.10 (F02.80) Major Neurocognitive Disorder Due to Probable Frontotemporal Lobar Degeneration, Without behavioral disturbance
+294.11 (F02.81) Major Neurocognitive Disorder Due to Possible Frontotemporal Lobar Degeneration, With behavioral disturbance
+294.10 (F02.80) Major Neurocognitive Disorder Due to Possible Frontotemporal Lobar Degeneration, Without behavioral disturbance
+331.83 (G31.84) Mild Neurocognitive Disorder Due to Frontotemporal Lobar Degeneration
 
-Major or Mild Vascular Neurocognitive Disorder
-**\_.** (**\_.**)
-Major Neurocognitive Disorder Probably Due to Vascular Diseaseb
-Note: No additional medical code for vascular disease.
-290.40 (F01.51)
-With behavioral disturbance
-290.40 (F01.50)
-Without behavioral disturbance
-**\_.** (**\_.**)
-Major Neurocognitive Disorder Possibly Due to Vascular Diseaseb
-Note: No additional medical code for vascular disease.
-290.40 (F01.51)
-With behavioral disturbance
-290.40 (F01.50)
-Without behavioral disturbance
-331.83 (G31.84)
-Mild Vascular Neurocognitive Disordera
+### Major or Mild Neurocognitive Disorder With Lewy Bodies
 
-Major or Mild Neurocognitive Disorder Due to Traumatic Brain Injury
-**\_.** (**\_.**)
-Major Neurocognitive Disorder Due to Traumatic Brain Injuryb
-Note: For ICD-9-CM, code first 907.0 late effect of intracranial injury without skull fracture. For ICD-10-CM, code first S06.2X9S diffuse traumatic brain injury with loss of consciousness of unspecified duration, sequela.
-294.11 (F02.81)
-With behavioral disturbance
-294.10 (F02.80)
+_Note: Code first 331.82 (G31.83) Lewy body disease._
+
+#### Major Neurocognitive Disorder With Probable Lewy Bodies
+
+294.11 (F02.81) Major Neurocognitive Disorder With Probable Lewy Bodies, With behavioral disturbance
+294.10 (F02.80) Major Neurocognitive Disorder With Probable Lewy Bodies, Without behavioral disturbance
+294.11 (F02.81) Major Neurocognitive Disorder With Possible Lewy Bodies, With behavioral disturbance
+294.10 (F02.80) Major Neurocognitive Disorder With Possible Lewy Bodies, Without behavioral disturbance
+331.83 (G31.84) Mild Neurocognitive Disorder With Lewy Bodies
+
+### Major or Mild Vascular Neurocognitive Disorder
+
+290.40 (F01.51) Major Neurocognitive Disorder Probably Due to Vascular Disease, With behavioral disturbance
+290.40 (F01.50) Major Neurocognitive Disorder Probably Due to Vascular Disease, Without behavioral disturbance
+290.40 (F01.51) Major Neurocognitive Disorder Possibly Due to Vascular Disease, With behavioral disturbance
+290.40 (F01.50) Major Neurocognitive Disorder Possibly Due to Vascular Disease, Without behavioral disturbance
+331.83 (G31.84) Mild Vascular Neurocognitive Disorder
+
+### Major or Mild Neurocognitive Disorder Due to Traumatic Brain Injury
+
+<!-- Note: For ICD-9-CM, code first 907.0 late effect of intracranial injury without skull fracture. For ICD-10-CM, code first S06.2X9S diffuse traumatic brain injury with loss of consciousness of unspecified duration, sequela. -->
+
+294.11 (F02.81) Major Neurocognitive Disorder Due to Traumatic Brain Injury, With behavioral disturbance
+294.10 (F02.80) Major Neurocognitive Disorder Due to Traumatic Brain Injury,
 Without behavioral disturbance
-331.83 (G31.84)
-Mild Neurocognitive Disorder Due to Traumatic Brain Injurya
-Substance/Medication-Induced Major or Mild Neurocognitive Disordera
+331.83 (G31.84) Mild Neurocognitive Disorder Due to Traumatic Brain Injury
+
+### Substance/Medication-Induced Major or Mild Neurocognitive Disorder
+
 Note: No additional medical code. See the criteria set and corresponding recording procedures for substance-specific codes and ICD-9-CM and ICD-10-CM coding.
 Specify if: Persistent
 
-Major or Mild Neurocognitive Disorder Due to HIV Infection
-**\_.** (**\_.**)
-Major Neurocognitive Disorder Due to HIV Infectionb
-Note: Code first 042 (B20) HIV infection.
-294.11 (F02.81)
-With behavioral disturbance
-294.10 (F02.80)
-Without behavioral disturbance
-331.83 (G31.84)
-Mild Neurocognitive Disorder Due to HIV Infectiona
+### Major or Mild Neurocognitive Disorder Due to HIV Infection
 
-Major or Mild Neurocognitive Disorder Due to Prion Disease
-**\_.** (**\_.**)
-Major Neurocognitive Disorder Due to Prion Diseaseb
-Note: Code first 046.79 (A81.9) prion disease.
-294.11 (F02.81)
-With behavioral disturbance
-294.10 (F02.80)
-Without behavioral disturbance
-331.83 (G31.84)
-Mild Neurocognitive Disorder Due to Prion Diseasea
+_Note: Code first 042 (B20) HIV infection._
 
-Major or Mild Neurocognitive Disorder Due to Parkinson’s Disease
-**\_.** (**\_.**)
-Major Neurocognitive Disorder Probably Due to Parkinson’s Diseaseb
-Note: Code first 332.0 (G20) Parkinson’s disease.
-294.11 (F02.81)
-With behavioral disturbance
-294.10 (F02.80)
-Without behavioral disturbance
-**\_.** (**\_.**)
-Major Neurocognitive Disorder Possibly Due to Parkinson’s Diseaseb
-Note: Code first 332.0 (G20) Parkinson’s disease.
-294.11 (F02.81)
-With behavioral disturbance
-294.10 (F02.80)
-Without behavioral disturbance
+294.11 (F02.81) Major Neurocognitive Disorder Due to HIV Infection, With behavioral disturbance
+294.10 (F02.80) Major Neurocognitive Disorder Due to HIV Infection, Without behavioral disturbance
+331.83 (G31.84) Mild Neurocognitive Disorder Due to HIV Infection
+
+### Major or Mild Neurocognitive Disorder Due to Prion Disease
+
+_Note: Code first 046.79 (A81.9) prion disease._
+
+294.11 (F02.81) Major Neurocognitive Disorder Due to Prion Disease, With behavioral disturbance
+294.10 (F02.80) Major Neurocognitive Disorder Due to Prion Disease, Without behavioral disturbance
+331.83 (G31.84) Mild Neurocognitive Disorder Due to Prion Disease
+
+### Major or Mild Neurocognitive Disorder Due to Parkinson’s Disease
+
+_Note: Code first 332.0 (G20) Parkinson’s disease._
+
+294.11 (F02.81) Major Neurocognitive Disorder Probably Due to Parkinson’s Disease, With behavioral disturbance
+294.10 (F02.80) Major Neurocognitive Disorder Probably Due to Parkinson’s Disease, Without behavioral disturbance
+294.11 (F02.81) Major Neurocognitive Disorder Possibly Due to Parkinson’s Disease, With behavioral disturbance
+294.10 (F02.80) Major Neurocognitive Disorder Possibly Due to Parkinson’s Disease, Without behavioral disturbance
 331.83 (G31.84) Mild Neurocognitive Disorder Due to Parkinson’s Disease
 
-Major or Mild Neurocognitive Disorder Due to Huntington’s Disease
-**\_.** (**\_.**)
-Major Neurocognitive Disorder Due to Huntington’s Diseaseb
-Note: Code first 333.4 (G10) Huntington’s disease.
-294.11 (F02.81)
+### Major or Mild Neurocognitive Disorder Due to Huntington’s Disease
+
+_Note: Code first 333.4 (G10) Huntington’s disease._
+
+294.11 (F02.81) Major Neurocognitive Disorder Due to Huntington’s Disease,
 With behavioral disturbance
-294.10 (F02.80)
-Without behavioral disturbance
+294.10 (F02.80) Major Neurocognitive Disorder Due to Huntington’s Disease, Without behavioral disturbance
 331.83 (G31.84) Mild Neurocognitive Disorder Due to Huntington’s Disease
 
 ## Major or Mild Neurocognitive Disorder Due to Another Medical Condition
 
-**\_.** (**\_.**)
-Major Neurocognitive Disorder Due to Another Medical Conditionb
-Note: Code first the other medical condition.
-294.11 (F02.81)
-With behavioral disturbance
-294.10 (F02.80)
-Without behavioral disturbance
+_Note: Code first the other medical condition._
+
+294.11 (F02.81) Major Neurocognitive Disorder Due to Another Medical Condition, With behavioral disturbance
+294.10 (F02.80) Major Neurocognitive Disorder Due to Another Medical Condition, Without behavioral disturbance
 331.83 (G31.84) Mild Neurocognitive Disorder Due to Another Medical Condition
 
 ## Major or Mild Neurocognitive Disorder Due to Multiple Etiologies
 
-**\_.** (**\_.**)
-Major Neurocognitive Disorder Due to Multiple Etiologies
-Note: Code first all the etiological medical conditions (with the exception of vascular disease).
+_Note: Code first all the etiological medical conditions (with the exception of vascular disease)._
+
 294.11 (F02.81) Major Neurocognitive Disorder Due to Multiple Etiologies, With behavioral disturbance
 294.10 (F02.80) Major Neurocognitive Disorder Due to Multiple Etiologies, Without behavioral disturbance
 331.83 (G31.84) Mild Neurocognitive Disorder Due to Multiple Etiologies
 
-## Unspecified Neurocognitive Disorder
-
-799.59 (R41.9) Unspecified Neurocognitive Disorder
-
 ## Personality Disorders
 
-Cluster A Personality Disorders
+---
+
+### Cluster A Personality Disorders
+
 301.0 (F60.0) Paranoid Personality Disorder
 301.20 (F60.1) Schizoid Personality Disorder
 301.22 (F21) Schizotypal Personality Disorder
-Cluster B Personality Disorders
+
+### Cluster B Personality Disorders
+
 301.7 (F60.2) Antisocial Personality Disorder
 301.83 (F60.3) Borderline Personality Disorder
 301.50 (F60.4) Histrionic Personality Disorder
 301.81 (F60.81) Narcissistic Personality Disorder
-Cluster C Personality Disorders
+
+### Cluster C Personality Disorders
+
 301.82 (F60.6) Avoidant Personality Disorder
 301.6 (F60.7) Dependent Personality Disorder
 301.4 (F60.5) Obsessive-Compulsive Personality Disorder
-Other Personality Disorders
+
+### Other Personality Disorders
+
 310.1 (F07.0) Personality Change Due to Another Medical Condition (Labile type, Disinhibited type, Aggressive type, Apathetic type, Paranoid type, Other type, Combined type, Unspecified type)
 301.89 (F60.89) Other Specified Personality Disorder
 301.9 (F60.9) Unspecified Personality Disorder
 
 ## Paraphilic Disorders
 
-The following specifier applies to Paraphilic Disorders where indicated:
-aSpecify if: In a controlled environment, In full remission
+---
+
 302.82 (F65.3) Voyeuristic Disorder
 302.4 (F65.2) Exhibitionistic Disorder
 302.89 (F65.81) Frotteuristic Disorder
-302.83 (F65.51) Sexual Masochism Disorder
-Specify if: With asphyxiophilia
+302.83 (F65.51) Sexual Masochism Disorder, Specify if: With asphyxiophilia
 302.84 (F65.52) Sexual Sadism Disorder
 302.2 (F65.4) Pedophilic Disorder
-Specify whether: Exclusive type, Nonexclusive type
-Specify if: Sexually attracted to males, Sexually attracted to females, Sexually attracted to both
-Specify if: Limited to incest
 302.81 (F65.0) Fetishistic Disorder
-Specify: Body part(s), Nonliving object(s), Other
 302.3 (F65.1) Transvestic Disorder
-Specify if: With fetishism, With autogynephilia
 302.89 (F65.89) Other Specified Paraphilic Disorder
 302.9 (F65.9) Unspecified Paraphilic Disorder
 
-## Other Mental Disorders and Additional Codes
-
-294.8 (F06.8) Other Specified Mental Disorder Due to Another Medical Condition
-294.9 (F09) Unspecified Mental Disorder Due to Another Medical Condition
-300.9 (F99) Other Specified Mental Disorder
-300.9 (F99) Unspecified Mental Disorder
-V71.09 (Z03.89) No Diagnosis or Condition
-
 ## Medication-Induced Movement Disorders and Other Adverse Effects of Medication
+
+---
 
 332.1 (G21.11) Neuroleptic-Induced Parkinsonism
 332.1 (G21.19) Other Medication-Induced Parkinsonism
@@ -913,37 +863,27 @@ V71.09 (Z03.89) No Diagnosis or Condition
 333.72 (G24.09) Tardive Dystonia
 333.99 (G25.71) Tardive Akathisia
 333.1 (G25.1) Medication-Induced Postural Tremor
-333.99 (G25.79)
-Other Medication-Induced Movement Disorder
-**\_.** (**\_.**)
-
-### Antidepressant Discontinuation Syndrome
-
-995.29 (T43.205A)
-Initial encounter
-995.29 (T43.205D)
-Subsequent encounter
-995.29 (T43.205S)
-Sequelae
-**\_.** (**\_.**)
-
-Other Adverse Effect of Medication
-995.20 (T50.905A)
-Initial encounter
-995.20 (T50.905D)
-Subsequent encounter
-995.20 (T50.905S)
-Sequelae
+333.99 (G25.79) Other Medication-Induced Movement Disorder
+995.29 (T43.205A) Antidepressant Discontinuation Syndrome, Initial encounter
+995.29 (T43.205D) Antidepressant Discontinuation Syndrome, Subsequent encounter
+995.29 (T43.205S) Antidepressant Discontinuation Syndrome, Sequelae
+995.20 (T50.905A) Other Adverse Effect of Medication, Initial encounter
+995.20 (T50.905D) Other Adverse Effect of Medication, Subsequent encounter
+995.20 (T50.905S) Other Adverse Effect of Medication, Sequelae
 
 ## Other Conditions That May Be a Focus of Clinical Attention
 
-Relational Problems
-Problems Related to Family Upbringing
+---
+
+### Relational Problems Related to Family Upbringing
+
 V61.20 (Z62.820) Parent-Child Relational Problem
 V61.8 (Z62.891) Sibling Relational Problem
 V61.8 (Z62.29) Upbringing Away From Parents
 V61.29 (Z62.898) Child Affected by Parental Relationship Distress
-Other Problems Related to Primary Support Group
+
+### Other Problems Related to Primary Support Group
+
 V61.10 (Z63.0) Relationship Distress With Spouse or Intimate Partner
 V61.03 (Z63.5) Disruption of Family by Separation or Divorce
 V61.8 (Z63.8) High Expressed Emotion Level Within Family
@@ -951,64 +891,40 @@ V62.82 (Z63.4) Uncomplicated Bereavement
 
 ## Abuse and Neglect
 
-Child Maltreatment and Neglect Problems
-Child Physical Abuse
-Child Physical Abuse, Confirmed
-995.54 (T74.12XA)
-Initial encounter
-995.54 (T74.12XD)
-Subsequent encounter
-Child Physical Abuse, Suspected
-995.54 (T76.12XA)
-Initial encounter
-995.54 (T76.12XD)
-Subsequent encounter
-Other Circumstances Related to Child Physical Abuse
-V61.21 (Z69.010)
-Encounter for mental health services for victim of child abuse by parent
-V61.21 (Z69.020)
-Encounter for mental health services for victim of nonparental child abuse
-V15.41 (Z62.810)
-Personal history (past history) of physical abuse in childhood
-V61.22 (Z69.011)
-Encounter for mental health services for perpetrator of parental child abuse
-V62.83 (Z69.021)
-Encounter for mental health services for perpetrator of nonparental child abuse
-Child Sexual Abuse
-Child Sexual Abuse, Confirmed
-995.53 (T74.22XA)
-Initial encounter
-995.53 (T74.22XD)
-Subsequent encounter
-Child Sexual Abuse, Suspected
-995.53 (T76.22XA)
-I nitial encounter
-995.53 (T76.22XD)
-Subsequent encounter
-Other Circumstances Related to Child Sexual Abuse
-V61.21 (Z69.010)
-Encounter for mental health services for victim of child sexual abuse by parent
-V61.21 (Z69.020)
-Encounter for mental health services for victim of nonparental child sexual abuse
-V15.41 (Z62.810)
-Personal history (past history) of sexual abuse in childhood
-V61.22 (Z69.011)
-Encounter for mental health services for perpetrator of parental child sexual abuse
-V62.83 (Z69.021)
-Encounter for mental health services for perpetrator of nonparental child sexual abuse
+---
 
-## Child Neglect
+### Child Maltreatment and Neglect Problems
 
-Child Neglect, Confirmed
-995.52 (T74.02XA)
-Initial encounter
-995.52 (T74.02XD)
-Subsequent encounter
-Child Neglect, Suspected
-995.52 (T76.02XA)
-Initial encounter
-995.52 (T76.02XD)
-Subsequent encounter
+#### Child Physical Abuse
+
+995.54 (T74.12XA) Child Physical Abuse, Confirmed, Initial encounter
+995.54 (T74.12XD) Child Physical Abuse, Confirmed, Subsequent encounter
+995.54 (T76.12XA) Child Physical Abuse, Suspected, Initial encounter
+995.54 (T76.12XD) Child Physical Abuse, Suspected, Subsequent encounter
+V61.21 (Z69.010) Other Circumstances Related to Child Physical Abuse, Encounter for mental health services for victim of child abuse by parent
+V61.21 (Z69.020) Other Circumstances Related to Child Physical Abuse, Encounter for mental health services for victim of nonparental child abuse
+V15.41 (Z62.810) Other Circumstances Related to Child Physical Abuse, Personal history (past history) of physical abuse in childhood
+V61.22 (Z69.011) Other Circumstances Related to Child Physical Abuse, Encounter for mental health services for perpetrator of parental child abuse
+V62.83 (Z69.021) Other Circumstances Related to Child Physical Abuse, Encounter for mental health services for perpetrator of nonparental child abuse
+
+#### Child Sexual Abuse
+
+995.53 (T74.22XA) Child Sexual Abuse, Confirmed, Initial encounter
+995.53 (T74.22XD) Child Sexual Abuse, Confirmed, Subsequent encounter
+995.53 (T76.22XA) Child Sexual Abuse, Suspected, Initial encounter
+995.53 (T76.22XD) Child Sexual Abuse, Suspected, Subsequent encounter
+V61.21 (Z69.010) Other Circumstances Related to Child Sexual Abuse, Encounter for mental health services for victim of child sexual abuse by parent
+V61.21 (Z69.020) Other Circumstances Related to Child Sexual Abuse, Encounter for mental health services for victim of nonparental child sexual abuse
+V15.41 (Z62.810) Other Circumstances Related to Child Sexual Abuse, Personal history (past history) of sexual abuse in childhood
+V61.22 (Z69.011) Other Circumstances Related to Child Sexual Abuse, Encounter for mental health services for perpetrator of parental child sexual abuse
+V62.83 (Z69.021) Other Circumstances Related to Child Sexual Abuse, Encounter for mental health services for perpetrator of nonparental child sexual abuse
+
+#### Child Neglect
+
+995.52 (T74.02XA) Child Neglect, Confirmed, Initial encounter
+995.52 (T74.02XD) Child Neglect, Confirmed, Subsequent encounter
+995.52 (T76.02XA) Child Neglect, Suspected, Initial encounter
+995.52 (T76.02XD) Child Neglect, Suspected, Subsequent encounter
 Other Circumstances Related to Child Neglect
 V61.21 (Z69.010)
 Encounter for mental health services for victim of child neglect by parent
@@ -1021,7 +937,7 @@ Encounter for mental health services for perpetrator of parental child neglect
 V62.83 (Z69.021)
 Encounter for mental health services for perpetrator of nonparental child neglect
 
-## Child Psychological Abuse
+#### Child Psychological Abuse
 
 Child Psychological Abuse, Confirmed
 995.51 (T74.32XA) Child Psychological Abuse, Confirmed Initial encounter
@@ -1042,8 +958,13 @@ V61.22 (Z69.011)
 Encounter for mental health services for perpetrator of parental child psychological abuse
 V62.83 (Z69.021)
 Encounter for mental health services for perpetrator of nonparental child psychological abuse
-Adult Maltreatment and Neglect Problems
-Spouse or Partner Violence, Physical
+
+### Adult Maltreatment and Neglect Problems
+
+---
+
+#### Spouse or Partner Violence, Physical
+
 Spouse or Partner Violence, Physical, Confirmed
 995.81 (T74.11XA)
 Initial encounter
@@ -1062,7 +983,7 @@ Personal history (past history) of spouse or partner violence, physical
 V61.12 (Z69.12)
 Encounter for mental health services for perpetrator of spouse or partner violence, physical
 
-## Spouse or Partner Violence, Sexual
+#### Spouse or Partner Violence, Sexual
 
 Spouse or Partner Violence, Sexual, Confirmed
 995.83 (T74.21XA)
@@ -1079,99 +1000,80 @@ V61.11 (Z69.81) Encounter for mental health services for victim of spouse or par
 V15.41 (Z91.410) Personal history (past history) of spouse or partner violence, sexual
 V61.12 (Z69.12) Encounter for mental health services for perpetrator of spouse or partner violence, sexual
 
-## Spouse or Partner, Neglect
+#### Spouse or Partner, Neglect
 
-Spouse or Partner Neglect, Confirmed
-995.85 (T74.01XA)
-Initial encounter
-995.85 (T74.01XD)
-Subsequent encounter
-Spouse or Partner Neglect, Suspected
-995.85 (T76.01XA)
-Initial encounter
-995.85 (T76.01XD)
-Subsequent encounter
+995.85 (T74.01XA) Spouse or Partner Neglect, Confirmed, Initial encounter
+995.85 (T74.01XD) Spouse or Partner Neglect, Confirmed, Subsequent encounter
+995.85 (T76.01XA) Spouse or Partner Neglect, Suspected, Initial encounter
+995.85 (T76.01XD) Spouse or Partner Neglect, Suspected, Subsequent encounter
 Other Circumstances Related to Spouse or Partner Neglect
-V61.11 (Z69.11)
-Encounter for mental health services for victim of spouse or partner neglect
-V15.42 (Z91.412)
-Personal history (past history) of spouse or partner neglect
-V61.12 (Z69.12)
-Encounter for mental health services for perpetrator of spouse or partner neglect
+V61.11 (Z69.11) Encounter for mental health services for victim of spouse or partner neglect
+V15.42 (Z91.412) Personal history (past history) of spouse or partner neglect
+V61.12 (Z69.12) Encounter for mental health services for perpetrator of spouse or partner neglect
 
-## Spouse or Partner Abuse, Psychological
+#### Spouse or Partner Abuse, Psychological
 
 Spouse or Partner Abuse, Psychological, Confirmed
-995.82 (T74.31XA)
-Initial encounter
-995.82 (T74.31XD)
-Subsequent encounter
+995.82 (T74.31XA) Initial encounter
+995.82 (T74.31XD) Subsequent encounter
 Spouse or Partner Abuse, Psychological, Suspected
-995.82 (T76.31XA)
-Initial encounter
-995.82 (T76.31XD)
-Subsequent encounter
+995.82 (T76.31XA) Initial encounter
+995.82 (T76.31XD) Subsequent encounter
 Other Circumstances Related to Spouse or Partner Abuse, Psychological
-V61.11 (Z69.11)
-Encounter for mental health services for victim of spouse or partner psychological abuse
-V15.42 (Z91.411)
-Personal history (past history) of spouse or partner psychological abuse
+V61.11 (Z69.11) Encounter for mental health services for victim of spouse or partner psychological abuse
+V15.42 (Z91.411) Personal history (past history) of spouse or partner psychological abuse
 V61.12 (Z69.12) Encounter for mental health services for perpetrator of spouse or partner psychological abuse
 
-## Adult Abuse by Nonspouse or Nonpartner
+#### Adult Abuse by Nonspouse or Nonpartner
 
 Adult Physical Abuse by Nonspouse or Nonpartner, Confirmed
-995.81 (T74.11XA)
-Initial encounter
-995.81 (T74.11XD)
-Subsequent encounter
+995.81 (T74.11XA) Initial encounter
+995.81 (T74.11XD) Subsequent encounter
 Adult Physical Abuse by Nonspouse or Nonpartner, Suspected
-995.81 (T76.11XA)
-Initial encounter
-995.81 (T76.11XD)
-Subsequent encounter
+995.81 (T76.11XA) Initial encounter
+995.81 (T76.11XD) Subsequent encounter
 Adult Sexual Abuse by Nonspouse or Nonpartner, Confirmed
-995.83 (T74.21XA)
-Initial encounter
-995.83 (T74.21XD)
-Subsequent encounter
+995.83 (T74.21XA) Initial encounter
+995.83 (T74.21XD) Subsequent encounter
 Adult Sexual Abuse by Nonspouse or Nonpartner, Suspected
-995.83 (T76.21XA)
-Initial encounter
-995.83 (T76.21XD)
-Subsequent encounter
+995.83 (T76.21XA) Initial encounter
+995.83 (T76.21XD) Subsequent encounter
 Adult Psychological Abuse by Nonspouse or Nonpartner, Confirmed
-995.82 (T74.31XA)
-Initial encounter
-995.82 (T74.31XD)
-Subsequent encounter
+995.82 (T74.31XA) Initial encounter
+995.82 (T74.31XD) Subsequent encounter
 Adult Psychological Abuse by Nonspouse or Nonpartner, Suspected
-995.82 (T76.31XA)
-Initial encounter
-995.82 (T76.31XD)
-Subsequent encounter
+995.82 (T76.31XA) Initial encounter
+995.82 (T76.31XD) Subsequent encounter
 Other Circumstances Related to Adult Abuse by Nonspouse or Nonpartner
-V65.49 (Z69.81)
-Encounter for mental health services for victim of nonspousal adult abuse
-V62.83 (Z69.82)
-Encounter for mental health services for perpetrator of nonspousal adult abuse
+V65.49 (Z69.81) Encounter for mental health services for victim of nonspousal adult abuse
+V62.83 (Z69.82) Encounter for mental health services for perpetrator of nonspousal adult abuse
 
 ## Educational and Occupational Problems
 
-Educational Problems
+---
+
+### Educational Problems
+
 V62.3 (Z55.9) Academic or Educational Problem
-Occupational Problems
+
+### Occupational Problems
+
 V62.21 (Z56.82) Problem Related to Current Military Deployment Status
 V62.29 (Z56.9) Other Problem Related to Employment
 
 ## Housing and Economic Problems
 
-Housing Problems
+---
+
+### Housing Problems
+
 V60.0 (Z59.0) Homelessness
 V60.1 (Z59.1) Inadequate Housing
 V60.89 (Z59.2) Discord With Neighbor, Lodger, or Landlord
 V60.6 (Z59.3) Problem Related to Living in a Residential Institution
-Economic Problems
+
+### Economic Problems
+
 V60.2 (Z59.4) Lack of Adequate Food or Safe Drinking Water
 V60.2 (Z59.5) Extreme Poverty
 V60.2 (Z59.6) Low Income
@@ -1179,6 +1081,8 @@ V60.2 (Z59.7) Insufficient Social Insurance or Welfare Support
 V60.9 (Z59.9) Unspecified Housing or Economic Problem
 
 ## Other Problems Related to the Social Environment
+
+---
 
 V62.89 (Z60.0) Phase of Life Problem
 V60.3 (Z60.2) Problem Related to Living Alone
@@ -1188,6 +1092,8 @@ V62.4 (Z60.5) Target of (Perceived) Adverse Discrimination or Persecution
 V62.9 (Z60.9) Unspecified Problem Related to Social Environment
 
 ## Problems Related to Crime or Interaction With the Legal System
+
+---
 
 V62.89 (Z65.4) Victim of Crime
 V62.5 (Z65.0) Conviction in Civil or Criminal Proceedings Without Imprisonment
@@ -1200,6 +1106,8 @@ V65.40 (Z71.9) Other Counseling or Consultation
 
 ## Problems Related to Other Psychosocial, Personal, and Environmental Circumstances
 
+---
+
 V62.89 (Z65.8) Religious or Spiritual Problem
 V61.7 (Z64.0) Problems Related to Unwanted Pregnancy
 V61.5 (Z64.1) Problems Related to Multiparity
@@ -1209,9 +1117,12 @@ V62.22 (Z65.5) Exposure to Disaster, War, or Other Hostilities
 V62.89 (Z65.8) Other Problem Related to Psychosocial Circumstances
 V62.9 (Z65.9) ??
 
-# Unspecified Problem Related to Unspecified Psychosocial Circumstances
+## Unspecified Problem Related to Unspecified Psychosocial Circumstances
 
-Other Circumstances of Personal History
+---
+
+### Other Circumstances of Personal History
+
 V15.49 (Z91.49) Other Personal History of Psychological Trauma
 V15.59 (Z91.5) Personal History of Self-Harm
 V62.22 (Z91.82) Personal History of Military Deployment
@@ -1219,10 +1130,14 @@ V15.89 (Z91.89) Other Personal Risk Factors
 V69.9 (Z72.9) Problem Related to Lifestyle
 V71.01 (Z72.811) Adult Antisocial Behavior
 V71.02 (Z72.810) Child or Adolescent Antisocial Behavior
-Problems Related to Access to Medical and Other Health Care
+
+### Problems Related to Access to Medical and Other Health Care
+
 V63.9 (Z75.3) Unavailability or Inaccessibility of Health Care Facilities
 V63.8 (Z75.4) Unavailability or Inaccessibility of Other Helping Agencies
-Nonadherence to Medical Treatment
+
+### Nonadherence to Medical Treatment
+
 V15.81 (Z91.19) Nonadherence to Medical Treatment
 278.00 (E66.9) Overweight or Obesity
 V65.2 (Z76.5) Malingering
