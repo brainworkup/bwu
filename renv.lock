@@ -177,17 +177,17 @@
     },
     "blogdown": {
       "Package": "blogdown",
-      "Version": "1.4",
+      "Version": "1.5",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "6bd14b113999113c89ee250590011a5b"
+      "Hash": "573a81bab1652544c2673e48486cc51f"
     },
     "bookdown": {
       "Package": "bookdown",
-      "Version": "0.23",
+      "Version": "0.24",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "bc07f4b5b93bbf21075429e0c7e090f8"
+      "Hash": "3837766a1e1b527af25fa3e2d12a2800"
     },
     "boot": {
       "Package": "boot",
@@ -219,10 +219,13 @@
     },
     "cachem": {
       "Package": "cachem",
-      "Version": "1.0.6",
+      "Version": "1.0.6.9000",
       "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "648c5b3d71e6a37e3043617489a0a0e9"
+      "Repository": "https://r-lib.r-universe.dev",
+      "RemoteUrl": "https://github.com/r-lib/cachem",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "dc280fa9c6a47334f0f1c5fe65b6211724a4608f",
+      "Hash": "fed514e5286893742a1d112c7f8f1912"
     },
     "callr": {
       "Package": "callr",
@@ -480,10 +483,13 @@
     },
     "gert": {
       "Package": "gert",
-      "Version": "1.3.2",
+      "Version": "1.4.0",
       "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "72b34cde959b806e86cb99fc12d1ba58"
+      "Repository": "https://r-lib.r-universe.dev",
+      "RemoteUrl": "https://github.com/r-lib/gert",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "61644ae597f6d9a0e7c70dd599c2f60550d4648a",
+      "Hash": "4c26313703f752337ba9b553baf0e0b2"
     },
     "ggplot2": {
       "Package": "ggplot2",
@@ -585,24 +591,24 @@
     },
     "htmltools": {
       "Package": "htmltools",
-      "Version": "0.5.1.1",
+      "Version": "0.5.2",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "af2c2531e55df5cf230c4b5444fc973c"
+      "Hash": "526c484233f42522278ab06fb185cb26"
     },
     "htmlwidgets": {
       "Package": "htmlwidgets",
-      "Version": "1.5.3",
+      "Version": "1.5.4",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "6fdaa86d0700f8b3e92ee3c445a5a10d"
+      "Hash": "76147821cd3fcd8c4b04e1ef0498e7fb"
     },
     "httpuv": {
       "Package": "httpuv",
-      "Version": "1.6.2",
+      "Version": "1.6.3",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "a42959b003aad9fc351b10250c5a6b77"
+      "Hash": "65e865802fe6dd1bafef1dae5b80a844"
     },
     "httr": {
       "Package": "httr",
@@ -662,13 +668,13 @@
     },
     "knitr": {
       "Package": "knitr",
-      "Version": "1.33.8",
+      "Version": "1.34.1",
       "Source": "Repository",
       "Repository": "https://yihui.r-universe.dev",
       "RemoteUrl": "https://github.com/yihui/knitr",
       "RemoteRef": "HEAD",
-      "RemoteSha": "d65b9239804163b693cbfa4b774980f3b7d1fecd",
-      "Hash": "56895230f15807003ad9bdd5433e3f5a"
+      "RemoteSha": "0c902287fccf21750d13a2c73fea7279d06010fa",
+      "Hash": "ced58a86ea2f53dbabd9363c126c18d3"
     },
     "komadown": {
       "Package": "komadown",
@@ -802,10 +808,10 @@
     },
     "nlme": {
       "Package": "nlme",
-      "Version": "3.1-152",
+      "Version": "3.1-153",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "35de1ce639f20b5e10f7f46260730c65"
+      "Hash": "2d632e0d963a653a0329756ce701ecdd"
     },
     "nnet": {
       "Package": "nnet",
@@ -816,10 +822,10 @@
     },
     "openssl": {
       "Package": "openssl",
-      "Version": "1.4.4",
+      "Version": "1.4.5",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "f4dbc5a47fd93d3415249884d31d6791"
+      "Hash": "5406fd37ef0bf9b88c8a4f264d6ec220"
     },
     "packrat": {
       "Package": "packrat",
@@ -861,10 +867,10 @@
     },
     "pkgload": {
       "Package": "pkgload",
-      "Version": "1.2.1.9000",
+      "Version": "1.2.2",
       "Source": "Repository",
-      "Repository": "rlib",
-      "Hash": "dc2e23d0f8cce3d4d3d57a0ba59f13dc"
+      "Repository": "CRAN",
+      "Hash": "53139eedf68b98eecd5289664969c3f2"
     },
     "plotly": {
       "Package": "plotly",
@@ -1038,24 +1044,24 @@
     },
     "rlist": {
       "Package": "rlist",
-      "Version": "0.4.6.1",
+      "Version": "0.4.6.2",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "75886cbfe663d94199639f442d43836a"
+      "Hash": "290c8ea0700d2e7258082d0025386e68"
     },
     "rmarkdown": {
       "Package": "rmarkdown",
-      "Version": "2.10",
+      "Version": "2.11",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "1fb097f233ee98968f8e5d0bcd42df6d"
+      "Hash": "320017b52d05a943981272b295750388"
     },
     "roxygen2": {
       "Package": "roxygen2",
-      "Version": "7.1.1.9001",
+      "Version": "7.1.2",
       "Source": "Repository",
-      "Repository": "rlib",
-      "Hash": "07c140344eab26d37581b92e84bada36"
+      "Repository": "CRAN",
+      "Hash": "eb9849556c4250305106e82edae35b72"
     },
     "rpart": {
       "Package": "rpart",
@@ -1146,10 +1152,10 @@
     },
     "stringi": {
       "Package": "stringi",
-      "Version": "1.7.3",
+      "Version": "1.7.4",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "7943cfae120c77a255025e5f63856532"
+      "Hash": "ebaccb577da50829a3bb1b8296f318a5"
     },
     "stringr": {
       "Package": "stringr",
@@ -1170,10 +1176,10 @@
     },
     "survival": {
       "Package": "survival",
-      "Version": "3.2-12",
+      "Version": "3.2-13",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "dcdc241a75d17656fec8d02cd8215c39"
+      "Hash": "6f0a0fadc63bc6570fe172770f15bbc4"
     },
     "svglite": {
       "Package": "svglite",
@@ -1208,10 +1214,10 @@
     },
     "tibble": {
       "Package": "tibble",
-      "Version": "3.1.3",
+      "Version": "3.1.4",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "038455513fde65e79c25e724e0c84ca2"
+      "Hash": "5e8ad5621e5c94b24ec07b88eee13df8"
     },
     "tidyr": {
       "Package": "tidyr",
@@ -1302,23 +1308,23 @@
     },
     "vroom": {
       "Package": "vroom",
-      "Version": "1.5.4.9000",
+      "Version": "1.5.5.9000",
       "Source": "Repository",
       "Repository": "https://r-lib.r-universe.dev",
       "RemoteUrl": "https://github.com/r-lib/vroom",
       "RemoteRef": "HEAD",
-      "RemoteSha": "9b64101a25075849bef95ebe1b42ad6065d50b36",
-      "Hash": "c619eafcab708e1bbf9c1ccef4f69852"
+      "RemoteSha": "46679319d7e25f0b332d8e6f6f5831c270c26a9d",
+      "Hash": "55b9468fccfb6a171a6c4a5f4c508892"
     },
     "waldo": {
       "Package": "waldo",
-      "Version": "0.3.0",
+      "Version": "0.3.1.9000",
       "Source": "Repository",
       "Repository": "https://r-lib.r-universe.dev",
       "RemoteUrl": "https://github.com/r-lib/waldo",
       "RemoteRef": "HEAD",
-      "RemoteSha": "d5e1a9ac1d84eb515f4bdc3808796eedf418dc88",
-      "Hash": "312b264fae22fdba83b7a74187a24da8"
+      "RemoteSha": "7731ca7a272017492c9ac1c8821c40018c73a429",
+      "Hash": "e30f4bfede32bb9e945e9b6a17acd3fb"
     },
     "webshot": {
       "Package": "webshot",
@@ -1360,13 +1366,13 @@
     },
     "xfun": {
       "Package": "xfun",
-      "Version": "0.25.3",
+      "Version": "0.26.1",
       "Source": "Repository",
       "Repository": "https://yihui.r-universe.dev",
       "RemoteUrl": "https://github.com/yihui/xfun",
       "RemoteRef": "HEAD",
-      "RemoteSha": "730d16c89996d0cd1bfa6a4038ef13fad47ae5ea",
-      "Hash": "703ab664874c685c047b3088f948aac0"
+      "RemoteSha": "416fba3d5f497fcd03278c5ec8f5abc3abda2f43",
+      "Hash": "83595ab1925d625cdd2958a6132af059"
     },
     "xml2": {
       "Package": "xml2",
