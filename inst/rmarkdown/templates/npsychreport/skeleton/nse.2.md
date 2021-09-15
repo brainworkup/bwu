@@ -1,13 +1,3 @@
-# NEUROBEHAVIORAL STATUS EXAM
-
-## Identifying Information
-
-**Patient:** Smalls, Biggie\
-**MRN:** 009999999\
-**Gender:** Male\
-**Date of Birth:** MM/DD/YYYY\
-**Date of Evaluation:** MM/DD/YYYY
-
 ## Reason for Referral
 
 Biggie Smalls is a (ref:age)-year-old, (ref:hand)-handed (ref:sex) with a history of (ref:dx1) and (ref:dx1). (ref:He-She) was previously seen through our service in Month 20XX. (ref:He-She) was referred by (ref:refdoc), for evaluation of (ref:his-her) neurocognitive functioning to update (ref:his-her) intervention plan. This report is based on a review of available medical records and information gathered on the following dates: (ref:doe1), (ref:doe2), (ref:doe3), and (ref:doe4). Intervention planning was discussed with Biggie and (ref:his-her) (ref:family) on the last of these dates.
@@ -43,26 +33,3 @@ Biggie lives with (ref:his-her) parents, grandmother, and older brother and sist
 
 Biggie had a previous neuropsychological evaluation (Month 20XX), shortly following (ref:his-her) 20XX concussion. Results at that time indicated age-appropriate intelligence, but weaknesses in attention, executive skills, memory, fine motor speed, and word-finding. Of note, on the day of that prior testing (ref:he-she) had not taken stimulant medication and reported continuous headache.
 
-## Mental Status & Behavioral Observations During Interview
-
-Biggie arrived on time to the interview. He was alert, oriented to the situation, and appeared to understand the questions that were being asked of him. He was articulate, demonstrated a clear and logical thought process, and his speech was normal in rate, pitch and prosody. His affect was normal in range and expression.
-
-## Summary/Impression
-
-Biggie Smalls is a (ref:age)-year-old, (ref:hand)-handed (ref:sex) with a history of (ref:dx1) and (ref:dx1). He is motivated to complete the evaluation and to use the information gained to develop tailored plans for psychiatric intervention and school accommodations.
-
-### Diagnostic Considerations
-
-- 296.40 (F31.9) Bipolar I Disorder, Unspecified
-- 300.3 (F42.2) Obsessive-Compulsive Disorder
-- 799.59 (R41.9) Unspecified Neurocognitive Disorder
-- 327.23 (G47.33) Obstructive Sleep Apnea/Hypopnea
-
-## Recommendations/Plan
-
-1. Proceed with comprehensive neuropsychological, psychoeducational, and personality assessments
-2. Develop targeted intervention plan and academic plan based on results of testing.
-
-*Note:* Evaluation is ongoing. Full report and recommendations to follow.
-
-Please contact me with any questions or concerns regarding this patient.

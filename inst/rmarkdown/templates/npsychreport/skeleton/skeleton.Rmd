@@ -570,10 +570,10 @@ Adjustment *T* scores are reversed
 (ref:g) *General intelligence* refers to an overall capacity to reason, to solve
 problems, and to learn useful information.
 
-(ref:gc) *Crystallized intelligence* refers to the ability to learn and use
+(ref:gc) *Crystallized/verbal intelligence* refers to the ability to learn and use
 language to reason and understand how the world works.
 
-(ref:gf) *Fluid intelligence* refers to the ability to use logical reasoning to
+(ref:gf) *Fluid/nonverbal intelligence* refers to the ability to use logical reasoning to
 figure things out without being told exactly how things work, analyze and solve
 novel problems, identify patterns and relationships that underpin these
 problems, and apply logic.
@@ -738,7 +738,7 @@ difficult to identify in high-achieving individuals.
 ```
 
 ```{r, nse, results='asis'}
-cat(readLines("nse.1.md"), sep = "\n")
+cat(readLines("nse.2.md"), sep = "\n")
 ```
 
 \newpage
@@ -933,19 +933,14 @@ neurobehav <- read_csv(here::here(patient, "neurobehav.csv"))
 
 ### Intelligence/General Ability
 
-An estimate of premorbid verbal ability fell within the *Average* range. Overall
-intellectual scores were *Average*. Most index scores were *Average* to
-*High-Average*, with a slight strength in verbal reasoning and acquired
-knowledge. Nonverbal/fluid reasoning was a *Clinically Significant* weakness.
-
 (ref:fn-iq) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or
 Scaled (M = 10, SD = 3)
 
-```{r, eval=F}
+```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-iq.R"))
 ```
 
-```{r 01-glue-iq, eval=F, double_escape=T, escape=F}
+```{r 01-glue-iq, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
@@ -966,53 +961,35 @@ knitr::read_chunk(here::here("R", "nt-iq.R"))
 knitr::read_chunk(here::here("R", "nt-iq.R"))
 ```
 
-```{r 04-make-df-g, eval=T, double_escape=T, escape=F}
+```{r 04-make-df-iq, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-iq.R"))
 ```
 
-```{r 05-plot-iq-subdomain, eval=T, double_escape=T, escape=F, fig.cap = '(ref:g) (ref:gc) (ref:gf)', fig.path='figures/npsych2-'}
+```{r 05-plot-iq-subdomain, eval=T, double_escape=T, escape=F, fig.cap = '(ref:g) (ref:gc) (ref:gf)'}
 ```
 
-```{r 06-plot-iq-narrow, eval=F, double_escape=T, escape=F, fig.cap = '(ref:g) (ref:gc) (ref:gf)', fig.path='figures/npsych2-'}
+```{r 06-plot-iq-narrow, eval=F, double_escape=T, escape=F, fig.cap = '(ref:g) (ref:gc) (ref:gf)'}
 ```
 
 \newpage
 
 ### Academic Skills
 
-`r params$first_name`'s academic skills were at or above age-expected levels.
-Reading scores were *Low-Average* to *High-Average*, with strong word reading
-skills. Spelling and written expression were *Low-Average* to *High-Average*.
-`r params$first_name`'s composite math score was *Average*, with strong math
-problem solving/quantitative reasoning performance.
+```{r, acad, results='asis'}
+cat(readLines("acad.md"), sep = "\n")
+```
 
 (ref:fn-acad) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or
-Scaled (M = 10, SD = 3) scores
+Scaled (M = 10, SD = 3)
 
-```{r, eval=F, results='asis'}
-person <- "Biggie"
-dom <- "Academic Skills"
-# make df
-acad <- neurocog %>%
-  dplyr::filter(domain == dom) %>%
-  dplyr::arrange(desc(percentile)) %>%
-  dplyr::distinct(.keep_all = FALSE)
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-academics.R"))
+```
 
-trait <- acad
-
-lst(person, range, scale) %>%
-  glue::glue_data(
-    '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
-    range = trait$range,
-    scale = trait$scale,
-    description = trait$description
-  ) %>%
-  stringr::str_to_sentence() %>%
-  purrr::modify(lift(paste0)) %>%
-  cat()
+```{r 01-glue-academics, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
@@ -1033,51 +1010,35 @@ knitr::read_chunk(here::here("R", "nt-academics.R"))
 knitr::read_chunk(here::here("R", "nt-academics.R"))
 ```
 
-```{r 04-make-dataframe-acad, eval=T, double_escape=T, escape=F}
+```{r 04-make-df-academics, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-academics.R"))
 ```
 
-```{r 05-plot-acad-subdomain, eval=T, double_escape=T, escape=F, fig.cap = '(ref:acad)', fig.path='figures/npsych2-'}
+```{r 05-plot-academics-subdomain, eval=T, double_escape=T, escape=F, fig.cap = '(ref:acad)'}
 ```
 
-```{r 06-plot-acad-narrow, eval=T, double_escape=T, escape=F, fig.cap = '(ref:acad)', fig.path='figures/npsych2-'}
+```{r 06-plot-academics-narrow, eval=F, double_escape=T, escape=F, fig.cap = '(ref:acad)'}
 ```
 
 \newpage
 
 ### Verbal/Language
 
-All scores in this area were *Average* to *Above average*. An exception was
-`r params$his_her` phonemic word fluency score, which was *Low-average* and a
-relative weakness.
+```{r, vrb, results='asis'}
+cat(readLines("vrb.md"), sep = "\n")
+```
 
 (ref:fn-verbal) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or
 Scaled (M = 10, SD = 3)
 
-```{r, eval=F, results='asis'}
-person <- "Biggie"
-dom <- "Verbal/Language"
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-verbal.R"))
+```
 
-vrb <- neurocog %>%
-  dplyr::filter(domain == dom) %>%
-  dplyr::arrange(desc(percentile)) %>%
-  dplyr::distinct(.keep_all = FALSE)
-
-trait <- vrb
-
-lst(person, range, scale, description) %>%
-  glue::glue_data(
-    '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
-    range = trait$range,
-    scale = trait$scale,
-    description = trait$description
-  ) %>%
-  stringr::str_to_sentence() %>%
-  purrr::modify(lift(paste0)) %>%
-  cat()
+```{r 01-glue-verbal, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
@@ -1098,56 +1059,41 @@ knitr::read_chunk(here::here("R", "nt-verbal.R"))
 knitr::read_chunk(here::here("R", "nt-verbal.R"))
 ```
 
-```{r 04-make-df-vrb, eval=T, double_escape=T, escape=F}
+```{r 04-make-df-verbal, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-verbal.R"))
 ```
 
-```{r 05-plot-vrb-subdomain, eval=F, fig.cap = '(ref:vrb)', double_escape=T, escape=F}
+```{r 05-plot-verbal-subdomain, eval=F, fig.cap = '(ref:vrb)', double_escape=T, escape=F}
 ```
 
-```{r 06-plot-vrb-narrow, eval=T, fig.cap = '(ref:vrb)', double_escape=T, escape=F}
+```{r 06-plot-verbal-narrow, eval=T, fig.cap = '(ref:vrb)', double_escape=T, escape=F}
 ```
 
 \newpage
 
 ### Visual Perception/Construction
 
-All scores in this area were *Low-Average* to *Above Average*, without a clear
-pattern of strengths or weaknesses.
+```{r, spt, results='asis'}
+cat(readLines("spt.md"), sep = "\n")
+```
 
 (ref:fn-spatial) Score = Standard (M = 100, SD = 15) or Scaled (M = 10, SD = 3)
 
-```{r, eval=F, results='asis'}
-person <- "Biggie"
-dom <- "Visual Perception/Construction"
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-spatial.R"))
+```
 
-spt <- neurocog %>%
-  dplyr::filter(domain == dom) %>%
-  dplyr::arrange(desc(percentile)) %>%
-  dplyr::distinct(.keep_all = FALSE)
-
-trait <- spt
-
-lst(person, range, scale, description) %>%
-  glue::glue_data(
-    '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
-    range = trait$range,
-    scale = trait$scale,
-    description = trait$description
-  ) %>%
-  stringr::str_to_sentence() %>%
-  purrr::modify(lift(paste0)) %>%
-  cat()
+```{r 01-glue-spatial, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-spatial.R"))
 ```
 
-```{r 02-make-dataframe-spatial, eval=T, double_escape=T, escape=F}
+```{r 02-make-df-spatial, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
@@ -1161,14 +1107,17 @@ knitr::read_chunk(here::here("R", "nt-spatial.R"))
 knitr::read_chunk(here::here("R", "nt-spatial.R"))
 ```
 
-```{r 04-make-dataframe-spt, eval=T, double_escape=T, escape=F}
+```{r 04-make-df-spatial, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-spatial.R"))
 ```
 
-```{r 05-plot-spt-narrow, eval=T, fig.cap = '(ref:spt)', double_escape=T, escape=F}
+```{r 05-plot-spatial-subdomain, eval=F, fig.cap = '(ref:spt)', double_escape=T, escape=F}
+```
+
+```{r 06-plot-spatial-narrow, eval=T, fig.cap = '(ref:spt)', double_escape=T, escape=F}
 ```
 
 \newpage

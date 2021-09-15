@@ -1,0 +1,5 @@
+`r params$first_name`'s academic skills were at or above age-expected levels.
+Reading scores were *Low-Average* to *High-Average*, with strong word reading
+skills. Spelling and written expression were *Low-Average* to *High-Average*.
+`r params$first_name`'s composite math score was *Average*, with strong math
+problem solving/quantitative reasoning performance.
