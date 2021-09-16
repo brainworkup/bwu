@@ -391,6 +391,8 @@ cognitive_slk <- file_names_slk[1]
 
 (ref:him-her-cap) `r params$him_her_cap`
 
+(ref:refdoc) `r params$refdoc`
+
 (ref:wppsi4) Wechsler Preschool and Primary Scale of Intelligence, 4th ed
 (WPPSI-IV)
 
@@ -748,23 +750,20 @@ cat(readLines("nse.2.md"), sep = "\n")
 ## Test Battery
 
 -   (ref:acs-topf)
--   (ref:wais4): Selected subtests
+-   (ref:wais4)
 -   (ref:nabs)
 -   (ref:rbans): Form A
 -   (ref:cog-est)
 -   (ref:pegboard)
 -   (ref:acs-word-choice)
 -   (ref:brown-efa-self)
--   (ref:bai)
--   (ref:bdi2)
 -   (ref:pai)
 -   (ref:wisc5)
 -   (ref:wiat4)
 -   (ref:nepsy2)
--   (ref:ravlt)
+-   (ref:cvltc)
 -   (ref:tmt)
 -   (ref:examiner)
--   (ref:pegboard)
 -   (ref:bicycle)
 -   (ref:clock)
 -   (ref:tomm)
@@ -817,19 +816,19 @@ files <- dir(data_path, pattern = "*.csv")
 # read into env
 neuropsych <-
   files %>%
-  purrr::set_names() %>%
-  purrr::map_df(~ readr::read_csv(file.path(data_path, .)),
+  set_names() %>%
+  map_df(~ readr::read_csv(file.path(data_path, .)),
          na = c("", "NA", "--", "-"),
          .id = "filename") %>%
-  dplyr::filter(!is.na(percentile)) %>%
-  dplyr::distinct() %>%
-  dplyr::mutate(z = qnorm(percentile/100)) %>%
-  dplyr::mutate(domain = forcats::as_factor(domain)) %>%
-  dplyr::mutate(subdomain = forcats::as_factor(subdomain)) %>%
-  dplyr::mutate(narrow = forcats::as_factor(narrow)) %>%
-  dplyr::mutate(verbal = forcats::as_factor(verbal)) %>%
-  dplyr::mutate(pass = forcats::as_factor(pass)) %>%
-  dplyr::mutate(timed = forcats::as_factor(timed))
+  filter(!is.na(percentile)) %>%
+  distinct() %>%
+  mutate(z = qnorm(percentile/100)) %>%
+  mutate(domain = forcats::as_factor(domain)) %>%
+  mutate(subdomain = forcats::as_factor(subdomain)) %>%
+  mutate(narrow = forcats::as_factor(narrow)) %>%
+  mutate(verbal = forcats::as_factor(verbal)) %>%
+  mutate(pass = forcats::as_factor(pass)) %>%
+  mutate(timed = forcats::as_factor(timed))
 ```
 
 ```{r, make-factors-neurocog}
@@ -857,64 +856,64 @@ neurocog <-
 # narrow
 neurocog <-
   neurocog %>%
-  dplyr::group_by(narrow, .add = TRUE) %>%
-  dplyr::filter(!is.na(percentile)) %>%
-  dplyr::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) %>%
-  dplyr::mutate(pct_mean_narrow = mean(percentile), pct_sd_narrow = sd(percentile)) %>%
-  dplyr::ungroup()
+  group_by(narrow, .add = TRUE) %>%
+  filter(!is.na(percentile)) %>%
+  mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) %>%
+  mutate(pct_mean_narrow = mean(percentile), pct_sd_narrow = sd(percentile)) %>%
+  ungroup()
 # verbal
 neurocog <-
   neurocog %>%
-  dplyr::group_by(verbal, .add = TRUE) %>%
-  dplyr::filter(!is.na(percentile)) %>%
-  dplyr::mutate(z_mean_verbal = mean(z), z_sd_verbal = sd(z)) %>%
-  dplyr::ungroup()
+  group_by(verbal, .add = TRUE) %>%
+  filter(!is.na(percentile)) %>%
+  mutate(z_mean_verbal = mean(z), z_sd_verbal = sd(z)) %>%
+  ungroup()
 # pass
 neurocog <-
   neurocog %>%
-  dplyr::group_by(pass, .add = TRUE) %>%
-  dplyr::filter(!is.na(percentile)) %>%
-  dplyr::mutate(z_mean_pass = mean(z), z_sd_pass = sd(z)) %>%
-  dplyr::ungroup()
+  group_by(pass, .add = TRUE) %>%
+  filter(!is.na(percentile)) %>%
+  mutate(z_mean_pass = mean(z), z_sd_pass = sd(z)) %>%
+  ungroup()
 # timed
 neurocog <-
   neurocog %>%
-  dplyr::group_by(timed, .add = TRUE) %>%
-  dplyr::filter(!is.na(percentile)) %>%
-  dplyr::mutate(z_mean_timed = mean(z), z_sd_timed = sd(z)) %>%
-  dplyr::ungroup()
+  group_by(timed, .add = TRUE) %>%
+  filter(!is.na(percentile)) %>%
+  mutate(z_mean_timed = mean(z), z_sd_timed = sd(z)) %>%
+  ungroup()
 ```
 
 ```{r, make-factors-neurobehav}
 # Subset neurocognitive data
 neurobehav <-
   neuropsych %>%
-  dplyr::filter(test_type != "npsych_test")
+  filter(test_type != "npsych_test")
 ## Create factors
 # domain
 neurobehav <-
   neurobehav %>%
-  dplyr::group_by(domain, .add = TRUE) %>%
-  dplyr::filter(!is.na(score)) %>%
-  dplyr::mutate(z_mean_dom = mean(z), z_sd_dom = sd(z)) %>%
-  dplyr::mutate(pct_mean_dom = mean(percentile), pct_sd_dom = sd(percentile)) %>%
-  dplyr::ungroup()
+  group_by(domain, .add = TRUE) %>%
+  filter(!is.na(score)) %>%
+  mutate(z_mean_dom = mean(z), z_sd_dom = sd(z)) %>%
+  mutate(pct_mean_dom = mean(percentile), pct_sd_dom = sd(percentile)) %>%
+  ungroup()
 # subdomain
 neurobehav <-
   neurobehav %>%
-  dplyr::group_by(subdomain, .add = TRUE) %>%
-  dplyr::filter(!is.na(score)) %>%
-  dplyr::mutate(z_mean_sub = mean(z), z_sd_sub = sd(z)) %>%
-  dplyr::mutate(pct_mean_sub = mean(percentile), pct_sd_sub = sd(percentile)) %>%
-  dplyr::ungroup()
+  group_by(subdomain, .add = TRUE) %>%
+  filter(!is.na(score)) %>%
+  mutate(z_mean_sub = mean(z), z_sd_sub = sd(z)) %>%
+  mutate(pct_mean_sub = mean(percentile), pct_sd_sub = sd(percentile)) %>%
+  ungroup()
 # narrow
 neurobehav <-
   neurobehav %>%
-  dplyr::group_by(narrow, .add = TRUE) %>%
-  dplyr::filter(!is.na(score)) %>%
-  dplyr::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) %>%
-  dplyr::mutate(pct_mean_narrow = mean(percentile), pct_sd_narrow = sd(percentile)) %>%
-  dplyr::ungroup()
+  group_by(narrow, .add = TRUE) %>%
+  filter(!is.na(score)) %>%
+  mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) %>%
+  mutate(pct_mean_narrow = mean(percentile), pct_sd_narrow = sd(percentile)) %>%
+  ungroup()
 ```
 
 ```{r, write-data}
@@ -1235,9 +1234,9 @@ person <- "Biggie"
 dom <- "Motor"
 
 mtr <- neurocog %>%
-  dplyr::filter(domain == dom) %>%
-  dplyr::arrange(desc(percentile)) %>%
-  dplyr::distinct(.keep_all = FALSE)
+  filter(domain == dom) %>%
+  arrange(desc(percentile)) %>%
+  distinct(.keep_all = FALSE)
 
 trait <- mtr
 
@@ -1293,15 +1292,15 @@ performed in the *high-average* range on a measure of pragmatic language and the
 ability to comprehend others perspectives, intentions, and beliefs (i.e., theory
 of mind).
 
-(ref:fn-scog) Scaled score (M = 10, SD = 3)
+(ref:fn-scog) Scaled (M = 10, SD = 3)
 
 ```{r, eval=F, results='asis'}
 person <- "Biggie"
 dom <- "Social Cognition"
 eq <- neurocog %>%
-  dplyr::filter(domain == dom) %>%
-  dplyr::arrange(desc(percentile)) %>%
-  dplyr::distinct(.keep_all = FALSE)
+  filter(domain == dom) %>%
+  arrange(desc(percentile)) %>%
+  distinct(.keep_all = FALSE)
 trait <- eq
 lst(person, range, scale) %>%
   glue::glue_data(
@@ -1451,11 +1450,10 @@ continues to evidence a decline from premorbid levels. *Note:* *z* = 0 (mean) ±
 1 (sd)
 
 ```{r}
-# subset cog data for plotting
 domain <-
   neurocog %>%
-  dplyr::filter(test_type == "npsych_test") %>%
-  dplyr::filter(!is.na(domain))
+  filter(test_type == "npsych_test") %>%
+  filter(!is.na(domain))
 ```
 
 ```{r domain, fig.cap = '(ref:domain)'}
