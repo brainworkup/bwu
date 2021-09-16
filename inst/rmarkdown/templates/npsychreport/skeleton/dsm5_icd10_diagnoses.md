@@ -1,4 +1,4 @@
-# DSM-5 Classifications
+# DSM-5 (ICD-10) Classifications
 
 ## Communication Disorders
 
@@ -21,19 +21,19 @@
 
 ---
 
-- 314.01 (F90.2) Attention-Deficit/Hyperactivity Disorder, Combined - presentation
-- 314.00 (F90.0) Attention-Deficit/Hyperactivity Disorder, - Predominantly inattentive presentation
-- 314.01 (F90.1) Attention-Deficit/Hyperactivity Disorder, - Predominantly hyperactive/impulsive presentation
-- 314.01 (F90.8) Other Specified Attention-Deficit/Hyperactivity - Disorder
+- 314.01 (F90.2) Attention-Deficit/Hyperactivity Disorder, Combined presentation
+- 314.00 (F90.0) Attention-Deficit/Hyperactivity Disorder, Predominantly inattentive presentation
+- 314.01 (F90.1) Attention-Deficit/Hyperactivity Disorder, Predominantly hyperactive/impulsive presentation
+- 314.01 (F90.8) Other Specified Attention-Deficit/Hyperactivity Disorder
 - 314.01 (F90.9) Unspecified Attention-Deficit/Hyperactivity Disorder
 
 ## Specific Learning Disorder
 
 ---
 
-- 315.00 (F81.0) Specific Learning Disorder, With impairment in reading - (word reading accuracy, reading rate or fluency, reading - comprehension)
-- 315.2 (F81.81) Specific Learning Disorder, With impairment in written - expression (spelling accuracy, grammar and punctuation accuracy, - clarity or organization of written expression)
-- 315.1 (F81.2) Specific Learning Disorder, With impairment in - mathematics (number sense, memorization of arithmetic facts, accurate - or fluent calculation, accurate math reasoning)
+- 315.00 (F81.0) Specific Learning Disorder, With impairment in reading (word reading accuracy, reading rate or fluency, reading comprehension)
+- 315.2 (F81.81) Specific Learning Disorder, With impairment in written expression (spelling accuracy, grammar and punctuation accuracy, clarity or organization of written expression)
+- 315.1 (F81.2) Specific Learning Disorder, With impairment in mathematics (number sense, memorization of arithmetic facts, accurate or fluent calculation, accurate math reasoning)
 
 ## Motor Disorders
 
@@ -51,12 +51,12 @@
 
 ---
 
-- 317 (F70) Intellectual Disability (Intellectual Developmental - Disorder), Mild
-- 318.0 (F71) Intellectual Disability (Intellectual Developmental - Disorder), Moderate
-- 318.1 (F72) Intellectual Disability (Intellectual Developmental - Disorder), Severe
-- 318.2 (F73) Intellectual Disability (Intellectual Developmental - Disorder), Profound
+- 317 (F70) Intellectual Disability (Intellectual Developmental Disorder), Mild
+- 318.0 (F71) Intellectual Disability (Intellectual Developmental Disorder), Moderate
+- 318.1 (F72) Intellectual Disability (Intellectual Developmental Disorder), Severe
+- 318.2 (F73) Intellectual Disability (Intellectual Developmental Disorder), Profound
 - 315.8 (F88) Global Developmental Delay
-- 319 (F79) Unspecified Intellectual Disability (Intellectual - Developmental Disorder)
+- 319 (F79) Unspecified Intellectual Disability (Intellectual Developmental Disorder)
 
 ## Other Neurodevelopmental Disorders
 
@@ -75,8 +75,8 @@
 
 ---
 
-- 294.8 (F06.8) Other Specified Mental Disorder Due to Another Medical - Condition
-- 294.9 (F09) Unspecified Mental Disorder Due to Another Medical - Condition
+- 294.8 (F06.8) Other Specified Mental Disorder Due to Another Medical Condition
+- 294.9 (F09) Unspecified Mental Disorder Due to Another Medical Condition
 - 300.9 (F99) Other Specified Mental Disorder
 - 300.9 (F99) Unspecified Mental Disorder
 - V71.09 (Z03.89) No Diagnosis or Condition
@@ -93,8 +93,8 @@
 - 301.7 (F60.2) Antisocial Personality Disorder
 - 312.33 (F63.1) Pyromania
 - 312.32 (F63.2) Kleptomania
-- 312.89 (F91.8) Other Specified Disruptive, Impulse-Control, and - Conduct Disorder
-- 312.9 (F91.9) Unspecified Disruptive, Impulse-Control, and Conduct - Disorder
+- 312.89 (F91.8) Other Specified Disruptive, Impulse-Control, and Conduct Disorder
+- 312.9 (F91.9) Unspecified Disruptive, Impulse-Control, and Conduct Disorder
 
 ## Schizophrenia Spectrum and Other Psychotic Disorders
 
@@ -107,13 +107,13 @@
 - 295.90 (F20.9) Schizophrenia
 - 295.70 (F25.0) Schizoaffective Disorder, Bipolar type
 - 295.70 (F25.1) Schizoaffective Disorder, Depressive type
-- 293.81 (F06.2) Psychotic Disorder Due to Another Medical Condition, - With delusions
-- 293.82 (F06.0) Psychotic Disorder Due to Another Medical Condition, - With hallucinations
-- 293.89 (F06.1) Catatonia Associated With Another Mental Disorder - (Catatonia Specifier)
+- 293.81 (F06.2) Psychotic Disorder Due to Another Medical Condition, With delusions
+- 293.82 (F06.0) Psychotic Disorder Due to Another Medical Condition, With hallucinations
+- 293.89 (F06.1) Catatonia Associated With Another Mental Disorder (Catatonia Specifier)
 - 293.89 (F06.1) Catatonic Disorder Due to Another Medical Condition
 - 293.89 (F06.1) Unspecified Catatonia
-- 298.8 (F28) Other Specified Schizophrenia Spectrum and Other - Psychotic Disorder
-- 298.9 (F29) Unspecified Schizophrenia Spectrum and Other Psychotic - Disorder
+- 298.8 (F28) Other Specified Schizophrenia Spectrum and Other Psychotic Disorder
+- 298.9 (F29) Unspecified Schizophrenia Spectrum and Other Psychotic Disorder
 
 ## Bipolar and Related Disorders
 
@@ -128,7 +128,7 @@
 - 296.45 (F31.73) Bipolar I Disorder, In partial remission
 - 296.46 (F31.74) Bipolar I Disorder, In full remission
 - 296.40 (F31.9) Bipolar I Disorder, Unspecified
-- 296.40 (F31.0) Bipolar I Disorder, Current or most recent episode - hypomanic
+- 296.40 (F31.0) Bipolar I Disorder, Current or most recent episode hypomanic
 - 296.45 (F31.71) Bipolar I Disorder, In partial remission
 - 296.46 (F31.72) Bipolar I Disorder, In full remission
 
@@ -193,7 +193,7 @@
 - 300.29 (F40.248) Specific Phobia, Situational
 - 300.29 (F40.298) Specific Phobia, Other
 - 300.23 (F40.10) Social Anxiety Disorder (Social Phobia)
-- 300.23 (F40.10) Social Anxiety Disorder (Social Phobia), Performance - only
+- 300.23 (F40.10) Social Anxiety Disorder (Social Phobia), Performance only
 - 300.01 (F41.0) Panic Disorder
 - 300.01 (**\_.**) Panic Attack Specifier
 - 300.22 (F40.00) Agoraphobia
@@ -505,9 +505,6 @@
 - 304.00 (F11.21) Opioid Use Disorder, Severe, In early remission
 - 304.00 (F11.21) Opioid Use Disorder, Severe, In sustained remission
 
-<!-- Specify if: On maintenance therapy, In a controlled environment
-Specify current severity/remission: -->
-
 #### Opioid Intoxication
 
 - 292.89 (F11.129) Opioid Intoxication, Without perceptual disturbances, With use disorder, mild
@@ -740,7 +737,7 @@ _Note: Code first 331.82 (G31.83) Lewy body disease._
 
 ### Major or Mild Neurocognitive Disorder Due to Traumatic Brain Injury
 
-<!-- Note: For ICD-9-CM, code first 907.0 late effect of intracranial injury without skull fracture. For ICD-10-CM, code first S06.2X9S diffuse traumatic brain injury with loss of consciousness of unspecified duration, sequela. -->
+<!-- Note: For ICD-9-CM, code first 907.0 late effect of intracranial injury without skull fracture. For ICD-10-CM, code first S06.2X9S diffuse traumatic brain injury with loss of consciousness of unspecified duration, sequela. --->
 
 - 294.11 (F02.81) Major Neurocognitive Disorder Due to Traumatic Brain Injury, With behavioral disturbance
 - 294.10 (F02.80) Major Neurocognitive Disorder Due to Traumatic Brain Injury, Without behavioral disturbance
@@ -947,13 +944,10 @@ _Note: Code first all the etiological medical conditions (with the exception of 
 
 #### Spouse or Partner Violence, Physical
 
-Spouse or Partner Violence, Physical, Confirmed
-
-- 995.81 (T74.11XA) Initial encounter
-- 995.81 (T74.11XD) Subsequent encounter
-  Spouse or Partner Violence, Physical, Suspected
-- 995.81 (T76.11XA) Initial encounter
-- 995.81 (T76.11XD) Subsequent encounter
+- 995.81 (T74.11XA) Spouse or Partner Violence, Physical, Confirmed, Initial encounter
+- 995.81 (T74.11XD) Spouse or Partner Violence, Physical, Confirmed, Subsequent encounter
+- 995.81 (T76.11XA) Spouse or Partner Violence, Physical, Suspected, Initial encounter
+- 995.81 (T76.11XD) Spouse or Partner Violence, Physical, Suspected, Subsequent encounter
   Other Circumstances Related to Spouse or Partner Violence, Physical
 - V61.11 (Z69.11) Encounter for mental health services for victim of spouse or partner violence, physical
 - V15.41 (Z91.410) Personal history (past history) of spouse or partner violence, physical
@@ -983,30 +977,23 @@ Spouse or Partner Violence, Physical, Confirmed
 
 #### Spouse or Partner Abuse, Psychological
 
-Spouse or Partner Abuse, Psychological, Confirmed
-
-- 995.82 (T74.31XA) Initial encounter
-- 995.82 (T74.31XD) Subsequent encounter
-  Spouse or Partner Abuse, Psychological, Suspected
-- 995.82 (T76.31XA) Initial encounter
-- 995.82 (T76.31XD) Subsequent encounter
+- 995.82 (T74.31XA) Spouse or Partner Abuse, Psychological, Confirmed, Initial encounter
+- 995.82 (T74.31XD) Spouse or Partner Abuse, Psychological, Confirmed, Subsequent encounter
+- 995.82 (T76.31XA) Spouse or Partner Abuse, Psychological, Suspected, Initial encounter
+- 995.82 (T76.31XD) Spouse or Partner Abuse, Psychological, Suspected, Subsequent encounter
   Other Circumstances Related to Spouse or Partner Abuse, Psychological
-  -V61.11 (Z69.11) Encounter for mental health services for victim of spouse or partner psychological abuse
-  -V15.42 (Z91.411) Personal history (past history) of spouse or partner psychological abuse
-  -V61.12 (Z69.12) Encounter for mental health services for perpetrator of spouse or partner psychological abuse
+- V61.11 (Z69.11) Encounter for mental health services for victim of spouse or partner psychological abuse
+- V15.42 (Z91.411) Personal history (past history) of spouse or partner psychological abuse
+- V61.12 (Z69.12) Encounter for mental health services for perpetrator of spouse or partner psychological abuse
 
 #### Adult Abuse by Nonspouse or Nonpartner
 
-Adult Physical Abuse by Nonspouse or Nonpartner, Confirmed
-
-- 995.81 (T74.11XA) Initial encounter
-- 995.81 (T74.11XD) Subsequent encounter
-  Adult Physical Abuse by Nonspouse or Nonpartner, Suspected
-- 995.81 (T76.11XA) Initial encounter
-- 995.81 (T76.11XD) Subsequent encounter
-  Adult Sexual Abuse by Nonspouse or Nonpartner, Confirmed
-- 995.83 (T74.21XA) Initial encounter
-- 995.83 (T74.21XD) Subsequent encounter
+- 995.81 (T74.11XA) Adult Physical Abuse by Nonspouse or Nonpartner, Confirmed, Initial encounter
+- 995.81 (T74.11XD) Adult Physical Abuse by Nonspouse or Nonpartner, Confirmed, Subsequent encounter
+- 995.81 (T76.11XA) Adult Physical Abuse by Nonspouse or Nonpartner, Suspected, Initial encounter
+- 995.81 (T76.11XD) Adult Physical Abuse by Nonspouse or Nonpartner, Suspected, Subsequent encounter
+- 995.83 (T74.21XA) Adult Sexual Abuse by Nonspouse or Nonpartner, Confirmed, Initial encounter
+- 995.83 (T74.21XD) Adult Sexual Abuse by Nonspouse or Nonpartner, Confirmed, Subsequent encounter
   Adult Sexual Abuse by Nonspouse or Nonpartner, Suspected
 - 995.83 (T76.21XA) Initial encounter
 - 995.83 (T76.21XD) Subsequent encounter
@@ -1072,7 +1059,6 @@ Adult Physical Abuse by Nonspouse or Nonpartner, Confirmed
 - V62.5 (Z65.1) Imprisonment or Other Incarceration
 - V62.5 (Z65.2) Problems Related to Release From Prison
 - V62.5 (Z65.3) Problems Related to Other Legal Circumstances
-  Other Health Service Encounters for Counseling and Medical Advice
 - V65.49 (Z70.9) Sex Counseling
 - V65.40 (Z71.9) Other Counseling or Consultation
 
