@@ -69,3 +69,4 @@ po/*~
 # End of https://www.toptal.com/developers/gitignore/api/r
 renv/.DS_Store
 inst/rmarkdown/templates/npsychreport/skeleton/dsm5_icd10_diagnoses.pdf
+renv/.DS_Store
