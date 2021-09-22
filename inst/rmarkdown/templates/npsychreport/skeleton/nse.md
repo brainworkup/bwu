@@ -3,10 +3,10 @@
 ## Identifying Information
 
 **Patient:** (ref:last-name), (ref:first-name)\
-**MRN:** 009999999\
+**MRN:** (ref:mrn)\
 **Gender:** (ref:sex)\
-**Date of Birth:** MM/DD/YYYY\
-**Date of Evaluation:** MM/DD/YYYY
+**Date of Birth:** (ref:dob)\
+**Date of Evaluation:** (ref:doe1)
 
 ## Reason for Referral
 
@@ -51,51 +51,43 @@ Family medical history includes x, y, and z. Surgical history includes x, y, and
 
 ### Behavioral/Emotional/Social
 
-(ref:first-name)'s mother reported that (ref:he-she) has struggled with depression over
-the years. (ref:he-she-cap) was especially upset at no longer being allowed to
-play sports after (ref:his-her) previous concussions. (ref:he-she-cap) noted
-that (ref:his-her) mood has been better and (ref:he-she) has not been as
-withdrawn since increasing (ref:his-her) dose of Effexor XR. (ref:he-she-cap)
-denied concerns about (ref:him-her) harming (ref:him-her)self or others.
+(ref:first-name)'s mother reported that (ref:he-she) has struggled with depression over the years.
+(ref:he-she-cap) was especially upset at no longer being allowed to play sports after (ref:his-her) previous concussions.
+(ref:he-she-cap) noted that (ref:his-her) mood has been better and (ref:he-she) has not been as withdrawn since increasing (ref:his-her) dose of Effexor XR.
+(ref:he-she-cap) denied concerns about (ref:him-her) harming (ref:him-her)self or others.
 (ref:he-she-cap) expressed concern about (ref:his-her) coping skills.
-(ref:he-she-cap) also said that (ref:he-she) has always tended to want things a
-certain way, in a certain order. However, this has not caused problems in daily
-life. (ref:he-she-cap) denied any other anxiety.
+(ref:he-she-cap) also said that (ref:he-she) has always tended to want things a certain way, in a certain order.
+However, this has not caused problems in daily life.
+(ref:he-she-cap) denied any other anxiety.
 
-(ref:first-name) has many friends. (ref:he-she-cap) enjoys pick-up basketball and watching
-basketball games. (ref:his-her-cap) mother reported that (ref:he-she) recently got
-(ref:his-her) driver's license and is looking for a job.
+(ref:first-name) has many friends.
+(ref:he-she-cap) enjoys pick-up basketball and watching basketball games.
+(ref:his-her-cap) mother reported that (ref:he-she) recently got (ref:his-her) driver's license and is looking for a job.
 
 ### Family
 
-(ref:first-name) lives with (ref:his-her) parents, grandmother, and older brother and
-sister in City, State. Both parents graduated from high school. Recent stressors
-include a family member's illness. Family mental health history includes
-depression.
+(ref:first-name) lives with (ref:his-her) parents, grandmother, and older brother and sister in City, State.
+Both parents graduated from high school.
+Recent stressors include a family member's illness.
+Family mental health history includes depression.
 
 ### Prior Testing
 
-(ref:first-name) had a previous neuropsychological evaluation (Month 20XX), shortly
-following (ref:his-her) 20XX concussion. Results at that time indicated
-age-appropriate intelligence, but weaknesses in attention, executive skills,
-memory, fine motor speed, and word-finding. Of note, on the day of that prior
-testing (ref:he-she) had not taken stimulant medication and reported continuous
-headache.
+(ref:first-name) had a previous neuropsychological evaluation (Month 20XX), shortly following (ref:his-her) 20XX concussion.
+Results at that time indicated age-appropriate intelligence, but weaknesses in attention, executive skills, memory, fine motor speed, and word-finding.
+Of note, on the day of that prior testing (ref:he-she) had not taken stimulant medication and reported continuous headache.
 
 ## Mental Status & Behavioral Observations During Interview
 
-(ref:first-name) arrived on time to the interview. (ref:he-she-cap) was alert, oriented to
-the situation, and appeared to understand the questions that were being asked of
-(ref:him-her). (ref:he-she-cap) was articulate, demonstrated a clear and logical
-thought process, and (ref:his-her) speech was normal in rate, pitch and prosody.
+(ref:first-name) arrived on time to the interview.
+(ref:he-she-cap) was alert, oriented to the situation, and appeared to understand the questions that were being asked of (ref:him-her).
+(ref:he-she-cap) was articulate, demonstrated a clear and logical thought process, and (ref:his-her) speech was normal in rate, pitch and prosody.
 (ref:his-her-cap) affect was normal in range and expression.
 
 ## Summary/Impression
 
-(ref:first-name) (ref:last-name) is a (ref:age)-year-old, (ref:hand)-handed (ref:sex) with a
-history of (ref:dx1) and (ref:dx1). (ref:he-she-cap) is motivated to complete
-the evaluation and to use the information gained to develop tailored plans for
-psychiatric intervention and school accommodations.
+(ref:first-name) (ref:last-name) is a (ref:age)-year-old, (ref:hand)-handed (ref:sex) with a history of (ref:dx1) and (ref:dx1).
+(ref:he-she-cap) is motivated to complete the evaluation and to use the information gained to develop tailored plans for psychiatric intervention and school accommodations.
 
 ### Diagnostic Considerations
 
@@ -111,3 +103,9 @@ psychiatric intervention and school accommodations.
 _Note:_ Evaluation is ongoing. Full report and recommendations to follow.
 
 Please contact me with any questions or concerns regarding this patient.
+
+TRAMPUSH PH.D., JOEY W
+
+### Telemedicine Statement
+
+*I connected with the Patient by a video enabled telemedicine application and verified that I am speaking with the correct person using two identifiers. I discussed the limitations of evaluation and management by telemedicine and the availability of in-person appointments. The patient expressed understanding and agreed to proceed. I have verified this to be the correct patient and obtained verbal consent from the patient to perform this voluntary telemedicine visit and evaluation (including obtaining history from the patient). The patient has the right to refuse this evaluation. I have explained risks (including potential loss of confidentiality), benefits, alternatives, and the potential need for subsequent face-to-face care. The patient understands that there is a risk of medical inaccuracies given that our recommendations will be made based on reported data (and we must therefore assume this information is accurate). Knowing that there is a risk that this information is not reported accurately, and that the telemedicine video, audio, or data feed may be incomplete, the patient agrees to proceed with evaluation and holds Keck Medicine of USC harmless knowing these risks. I have notified the patient that other healthcare professionals (including students, residents, and technical personnel) may be involved in this audio-video evaluation. All laws concerning medical records apply to telemedicine. The patient has received the Keck Medicine of USC Notice of Privacy Practices.*
