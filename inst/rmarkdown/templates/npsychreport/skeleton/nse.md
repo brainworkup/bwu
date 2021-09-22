@@ -10,14 +10,11 @@
 
 ## Reason for Referral
 
-(ref:first-name) (ref:last-name) is a (ref:age)-year-old, (ref:hand)-handed (ref:sex) with a
-history of (ref:dx1) and (ref:dx1). (ref:he-she-cap) was previously seen through
-our service in Month 20XX. (ref:he-she-cap) was referred by (ref:refdoc), for
-evaluation of (ref:his-her) neurocognitive functioning to update (ref:his-her)
-intervention plan. This report is based on a review of available medical records
-and information gathered on the following dates: (ref:doe1), (ref:doe2),
-(ref:doe3), and (ref:doe4). Intervention planning was discussed with (ref:first-name) and
-(ref:his-her) (ref:family) on the last of these dates.
+(ref:first-name) (ref:last-name) is a (ref:age)-year-old, (ref:hand)-handed (ref:sex) with a history of (ref:dx1) and (ref:dx1).
+(ref:he-she-cap) was previously seen through our service in Month 20XX.
+(ref:he-she-cap) was referred by (ref:refdoc), for evaluation of (ref:his-her) neurocognitive functioning to update (ref:his-her) intervention plan.
+This report is based on a review of available medical records and information gathered on the following dates: (ref:doe1), (ref:doe2), (ref:doe3), and (ref:doe4).
+Intervention planning was discussed with (ref:first-name) and (ref:his-her) (ref:family) on the last of these dates.
 
 ## Background
 
@@ -29,33 +26,29 @@ and information gathered on the following dates: (ref:doe1), (ref:doe2),
 
 ### Developmental/Medical
 
-(ref:first-name) was born full-term following an uncomplicated pregnancy, labor, and
-delivery. Major developmental delays were achieved within expected timeframes.
+(ref:first-name) was born full-term following an uncomplicated pregnancy, labor, and delivery.
+Major developmental delays were achieved within expected timeframes.
 
-Medical history includes x, y, and z. (ref:his-her-cap) medical history also
-includes attention problems, which were longstanding but first treated after
-(ref:his-her) 20XX concussion. (ref:his-her-cap) now takes Concerta. However,
-(ref:his-her) mother reported ongoing difficulties with focus/concentration and
-forgetfulness. (ref:he-she-cap) said (ref:he-she) struggles to remember tasks
-(ref:he-she) needs to do and forgets to complete and turn in homework.
-(ref:he-she-cap) also reported that it has been difficult to get (ref:first-name) to take
-(ref:his-her) medications if (ref:he-she) is not there to remind (ref:him-her).
-(ref:he-she-cap) has told (ref:his-her) that (ref:he-she) would like to stop
-taking all medication. Previous medication includes Ritalin (stopped because of
-low appetite). There are no current concerns with hearing, vision, sleep,
-appetite or growth. (ref:he-she-cap) also denies current headaches or pain.
-Family medical history includes x, y, and z. Surgical history includes x, y, and
-z.
+Medical history includes x, y, and z.
+(ref:his-her-cap) medical history also includes attention problems, which were longstanding but first treated after (ref:his-her) 20XX concussion.
+(ref:his-her-cap) now takes Concerta.
+However, (ref:his-her) mother reported ongoing difficulties with focus/concentration and forgetfulness.
+(ref:he-she-cap) said (ref:he-she) struggles to remember tasks (ref:he-she) needs to do and forgets to complete and turn in homework.
+(ref:he-she-cap) also reported that it has been difficult to get(ref:first-name) to take (ref:his-her) medications if (ref:he-she) is not there to remind (ref:him-her).
+(ref:he-she-cap) has told (ref:his-her) that (ref:he-she) would like to stop taking all medication.
+Previous medication includes Ritalin (stopped because of low appetite).
+There are no current concerns with hearing, vision, sleep, appetite or growth.
+(ref:he-she-cap) also denies current headaches or pain.
+Family medical history includes x, y, and z. Surgical history includes x, y, and z.
 
 ### Academics
 
-(ref:first-name) recently completed (ref:educ) at Local High School. (ref:he-she-cap)
-earned C's, D's, and F's in (ref:his-her) classes. (ref:he-she-cap) is now
-taking English (online course) in summer school. (ref:his-her-cap) mother reported
-that (ref:he-she) is frustrated with (ref:his-her) grades, as (ref:he-she) has
-been an A/B student in the past. (ref:he-she-cap) said that (ref:he-she) has
-trouble with daily work as well as quizzes/tests. (ref:his-her-cap) teachers
-have reported poor participation in class.
+(ref:first-name) recently completed (ref:educ) at Local High School.
+(ref:he-she-cap) earned C's, D's, and F's in (ref:his-her) classes.
+(ref:he-she-cap) is now taking English (online course) in summer school.
+(ref:his-her-cap) mother reported that (ref:he-she) is frustrated with (ref:his-her) grades, as (ref:he-she) has been an A/B student in the past.
+(ref:he-she-cap) said that (ref:he-she) has trouble with daily work as well as quizzes/tests.
+(ref:his-her-cap) teachers have reported poor participation in class.
 
 ### Behavioral/Emotional/Social
 
