@@ -26,7 +26,7 @@ This report is based on a review of available medical records and information ga
 ### Developmental/Medical
 
 (ref:first-name) was born full-term following an uncomplicated pregnancy, labor, and delivery.
-Major developmental delays were achieved within expected timeframes.
+Major developmental milestones were achieved within expected timeframes.
 
 Medical history includes x, y, and z.
 (ref:his-her-cap) medical history also includes attention problems, which were longstanding but first treated after (ref:his-her) 20XX concussion.
@@ -38,7 +38,8 @@ However, (ref:his-her) mother reported ongoing difficulties with focus/concentra
 Previous medication includes Ritalin (stopped because of low appetite).
 There are no current concerns with hearing, vision, sleep, appetite or growth.
 (ref:he-she-cap) also denies current headaches or pain.
-Family medical history includes x, y, and z. Surgical history includes x, y, and z.
+Family medical history includes x, y, and z. 
+Surgical history includes x, y, and z.
 
 ### Academics
 
