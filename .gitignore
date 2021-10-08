@@ -70,3 +70,4 @@ po/*~
 renv/.DS_Store
 inst/rmarkdown/templates/npsychreport/skeleton/dsm5_icd10_diagnoses.pdf
 .DS_Store
+renv/.DS_Store
