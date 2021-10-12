@@ -393,6 +393,20 @@ cognitive_slk <- file_names_slk[1]
 
 (ref:refdoc) `r params$refdoc`
 
+(ref:doe1) `r params$doe1`
+
+(ref:doe2) `r params$doe2`
+
+(ref:doe3) `r params$doe3`
+
+(ref:doe4) `r params$doe4`
+
+(ref:dx1) `r params$dx1`
+
+(ref:dx2) `r params$dx2`
+
+(ref:family) `r params$family`
+
 (ref:wppsi4) Wechsler Preschool and Primary Scale of Intelligence, 4th ed
 (WPPSI-IV)
 
@@ -1486,11 +1500,11 @@ Sincerely,
 knitr::include_graphics("../jwtSig.png")
 ```
 
-| **Joey Trampush, PhD**\\
-| Della Martin Assistant Professor of Psychiatry\\
-| Department of Psychiatry and the Behavioral Sciences\\
-| University of Southern California Keck School of Medicine\\
-| CA License PSY29212\\
+| **Joey Trampush, PhD**
+| Della Martin Assistant Professor of Psychiatry
+| Department of Psychiatry and the Behavioral Sciences
+| University of Southern California Keck School of Medicine
+| CA License PSY29212
 
 \newpage
 
@@ -1516,6 +1530,8 @@ Although standardized scores provide the clinician with an important and
 necessary understanding of the patient's test performance compared with a
 normative group, they do not on their own lead to accurate diagnosis or
 treatment recommendations.
+
+\newpage
 
 ## Conversion of Test Scores
 
