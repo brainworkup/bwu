@@ -58,10 +58,13 @@
     },
     "Matrix": {
       "Package": "Matrix",
-      "Version": "1.3-4",
+      "Version": "1.4-0",
       "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "4ed05e9c9726267e4a5872e09c04587c"
+      "Repository": "https://r-forge.r-universe.dev",
+      "RemoteUrl": "https://github.com/r-forge/matrix",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "0ba32c4fcbd1f63a527ba8fb14e2d957e1dff6d6",
+      "Hash": "130c0caba175739d98f2963c6a407cf6"
     },
     "R.cache": {
       "Package": "R.cache",
@@ -483,10 +486,13 @@
     },
     "gert": {
       "Package": "gert",
-      "Version": "1.4.1",
+      "Version": "1.4.1.9000",
       "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "8e54ffecc152da9e1e366ff1a4012bb1"
+      "Repository": "https://r-lib.r-universe.dev",
+      "RemoteUrl": "https://github.com/r-lib/gert",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "246384c202f598f71b8bb9aa6a31dac020188903",
+      "Hash": "24ff6c2e9af6cf1ad835a460819b988d"
     },
     "ggplot2": {
       "Package": "ggplot2",
@@ -749,10 +755,10 @@
     },
     "lubridate": {
       "Package": "lubridate",
-      "Version": "1.7.10",
+      "Version": "1.8.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "1ebfdc8a3cfe8fe19184f5481972b092"
+      "Hash": "2ff5eedb6ee38fb1b81205c73be1be5a"
     },
     "magrittr": {
       "Package": "magrittr",
@@ -874,13 +880,10 @@
     },
     "plotly": {
       "Package": "plotly",
-      "Version": "4.9.4.9000",
+      "Version": "4.10.0",
       "Source": "Repository",
-      "Repository": "https://ropensci.r-universe.dev",
-      "RemoteUrl": "https://github.com/ropensci/plotly",
-      "RemoteRef": "master",
-      "RemoteSha": "e2afc47753f89a401668de18caf883876b1abcbc",
-      "Hash": "9c29fee4abba6cb16cb58cdd44e28bba"
+      "Repository": "CRAN",
+      "Hash": "fbb11e44d057996ca5fe40d959cacfb0"
     },
     "praise": {
       "Package": "praise",
@@ -1037,13 +1040,13 @@
     },
     "rlang": {
       "Package": "rlang",
-      "Version": "0.4.11.9001",
+      "Version": "0.99.0.9000",
       "Source": "Repository",
       "Repository": "https://r-lib.r-universe.dev",
       "RemoteUrl": "https://github.com/r-lib/rlang",
       "RemoteRef": "HEAD",
-      "RemoteSha": "01dca15b4003162fbd04593e2f0be4b1e07d86c9",
-      "Hash": "36d06f39d21bc34a601dd0fffadf0631"
+      "RemoteSha": "d316df7a640c6a6bcae5ea95a8502c62b70aae29",
+      "Hash": "61b338d0a503c8074a990423b94b61e0"
     },
     "rlist": {
       "Package": "rlist",
@@ -1369,13 +1372,13 @@
     },
     "xfun": {
       "Package": "xfun",
-      "Version": "0.26.1",
+      "Version": "0.26.3",
       "Source": "Repository",
       "Repository": "https://yihui.r-universe.dev",
       "RemoteUrl": "https://github.com/yihui/xfun",
       "RemoteRef": "HEAD",
-      "RemoteSha": "416fba3d5f497fcd03278c5ec8f5abc3abda2f43",
-      "Hash": "83595ab1925d625cdd2958a6132af059"
+      "RemoteSha": "ca981bf7873b679d58873921069214ab37e13047",
+      "Hash": "d554c7f02a42cf734e96e25c53fb47a3"
     },
     "xml2": {
       "Package": "xml2",
