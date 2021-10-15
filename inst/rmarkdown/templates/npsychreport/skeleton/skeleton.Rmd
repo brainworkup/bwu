@@ -318,9 +318,9 @@ patient <- "biggie"
 
 ```{r, eval=F}
 # Create directory
-dir_create(here::here(patient, "pre_csv"))
-dir_create(here::here(patient, "csv"))
-dir_create(here::here(patient, "pdf"))
+xfun::dir_create(here::here(patient, "pre_csv"))
+xfun::dir_create(here::here(patient, "csv"))
+xfun::dir_create(here::here(patient, "pdf"))
 # Create link to directory
 out_dir_pre_csv <- here::here(patient, "pre_csv")
 out_dir_csv <- here::here(patient, "csv")
@@ -407,8 +407,7 @@ cognitive_slk <- file_names_slk[1]
 
 (ref:family) `r params$family`
 
-(ref:wppsi4) Wechsler Preschool and Primary Scale of Intelligence, 4th ed
-(WPPSI-IV)
+(ref:wppsi4) Wechsler Preschool and Primary Scale of Intelligence, 4th ed (WPPSI-IV)
 
 (ref:wisc5) Wechsler Intelligence Scale for Children, 5th ed (WISC-V)
 
@@ -432,8 +431,7 @@ cognitive_slk <- file_names_slk[1]
 
 (ref:nepsy2) NEPSY-II Developmental Neuropsychological Battery
 
-(ref:examiner) NIH Executive Abilities: Measures and Instruments for
-Neurobehavioral Evaluation and Research (NIH EXAMINER)
+(ref:examiner) NIH Executive Abilities: Measures and Instruments for Neurobehavioral Evaluation and Research (NIH EXAMINER)
 
 (ref:cms) Children's Memory Scale (CMS)
 
@@ -457,8 +455,7 @@ Neurobehavioral Evaluation and Research (NIH EXAMINER)
 
 (ref:nabs) Neuropsychological Assessment Battery (NAB), Screener
 
-(ref:rbans) Repeatable Repeatable Battery for the Assessment of
-Neuropsychological Status Update (RBANS)
+(ref:rbans) Repeatable Repeatable Battery for the Assessment of Neuropsychological Status Update (RBANS)
 
 (ref:coca) Colorado Cognitive Assessment (CoCA)
 
@@ -466,8 +463,7 @@ Neuropsychological Status Update (RBANS)
 
 (ref:celf5) Clinical Evaluation of Language Fundamentals, 5th ed (CELF-5)
 
-(ref:celf5-ors) Clinical Evaluation of Language Fundamentals, 5th ed (CELF-5),
-Observational Rating Scale
+(ref:celf5-ors) Clinical Evaluation of Language Fundamentals, 5th ed (CELF-5), Observational Rating Scale
 
 (ref:rist) Reynolds' Intellectual Screening Test (RIST)
 
@@ -477,8 +473,7 @@ Observational Rating Scale
 
 (ref:acs-soc-cog) Advanced Clinical Solutions (ACS), Social Cognition Battery
 
-(ref:acs-topf) Advanced Clinical Solutions (ACS), Test of Premorbid Functioning
-(TOPF)
+(ref:acs-topf) Advanced Clinical Solutions (ACS), Test of Premorbid Functioning (TOPF)
 
 (ref:basc3) Behavioral Assessment Scale for Children, 3rd ed (BASC-3)
 
@@ -502,21 +497,17 @@ Observational Rating Scale
 
 (ref:brown-efa) Brown Executive Function/Attention Scales (Brown EF/A)
 
-(ref:brown-efa-parent) Brown Executive Function/Attention Scales, (EF/A), Parent
-Report
+(ref:brown-efa-parent) Brown Executive Function/Attention Scales, (EF/A), Parent Report
 
-(ref:brown-efa-self) Brown Executive Function/Attention Scale (EF/A),
-Self-Report
+(ref:brown-efa-self) Brown Executive Function/Attention Scale (EF/A), Self-Report
 
-(ref:brown-efa-teacher) Brown Executive Function/Attention Scales (EF/A),
-Teacher Report
+(ref:brown-efa-teacher) Brown Executive Function/Attention Scales (EF/A), Teacher Report
 
 (ref:abas-parent) Adaptive Behavior Assessment System, 3rd ed (ABAS-3), Parent
 
 (ref:abas-teacher) Adaptive Behavior Assessment System, 3rd ed (ABAS-3), Teacher
 
-(ref:caadid) Conners' Adult ADHD Diagnostic Interview for DSM-IV (CAADID), Part
-I: History
+(ref:caadid) Conners' Adult ADHD Diagnostic Interview for DSM-IV (CAADID), Part I: History
 
 (ref:caars-self) Conners' Adult ADHD Rating Scale (CAARS), Self-Report
 
@@ -538,8 +529,7 @@ I: History
 
 (ref:pai) Personality Assessment Inventory (PAI)
 
-(ref:mmpi) Minnesota Multiphasic Personality Inventory-2-Restructured Form
-(MMPI-2-RF)
+(ref:mmpi) Minnesota Multiphasic Personality Inventory-2-Restructured Form (MMPI-2-RF)
 
 (ref:iq) Intelligence/General Ability
 
@@ -565,162 +555,63 @@ I: History
 
 (ref:z-score) Score = *z* (M = 0, SD = 1)
 
-(ref:zplot) *z* = -1 (16th percentile), *z* = 0 (50th percentile), and *z* = 1
-(84th percentile)
+(ref:zplot) *z* = -1 (16th percentile), *z* = 0 (50th percentile), and *z* = 1 (84th percentile)
 
-(ref:pct) A *percentile* shows `r params$first_name`'s standing relative to
-peers. For example, a percentile score of 70 means `r params$first_name`
-performed as well as or better than 70% of individuals the same age.
+(ref:pct) A *percentile* shows `r params$first_name`'s standing relative to peers. For example, a percentile score of 70 means `r params$first_name` performed as well as or better than 70% of individuals the same age.
 
-(ref:br) A *base rate* is the prevalence of score in the general population. If
-a score is rare, defined as a base rate of less than 10%, it is considered
-*clinically significant*, and that area of functioning is probably causing
-problems in daily functioning.
+(ref:br) A *base rate* is the prevalence of score in the general population. If a score is rare, defined as a base rate of less than 10%, it is considered *clinically significant*, and that area of functioning is probably causing problems in daily functioning.
 
-(ref:basc3-footnote) Score = *T* (M = 50, SD = 10); *Note:* Adaptive Skills *T*
-scores are reversed
+(ref:basc3-footnote) Score = *T* (M = 50, SD = 10); *Note:* Adaptive Skills *T* scores are reversed
 
-(ref:basc3-fn-srp-adol) Score = *T* (M = 50, SD = 10); *Note:* Personal
-Adjustment *T* scores are reversed
+(ref:basc3-fn-srp-adol) Score = *T* (M = 50, SD = 10); *Note:* Personal Adjustment *T* scores are reversed
 
-(ref:g) *General intelligence* refers to an overall capacity to reason, to solve
-problems, and to learn useful information.
+(ref:g) *General intelligence* refers to an overall capacity to reason, to solve problems, and to learn useful information.
 
-(ref:gc) *Crystallized/verbal intelligence* refers to the ability to learn and use
-language to reason and understand how the world works.
+(ref:gc) *Crystallized/verbal intelligence* refers to the ability to learn and use language to reason and understand how the world works.
 
-(ref:gf) *Fluid/nonverbal intelligence* refers to the ability to use logical reasoning to
-figure things out without being told exactly how things work, analyze and solve
-novel problems, identify patterns and relationships that underpin these
-problems, and apply logic.
+(ref:gf) *Fluid/nonverbal intelligence* refers to the ability to use logical reasoning to figure things out without being told exactly how things work, analyze and solve novel problems, identify patterns and relationships that underpin these problems, and apply logic.
 
-(ref:gcf) *General cognitive functioning* refers to an overall capacity to
-reason, to solve problems, and to learn useful information.
+(ref:gcf) *General cognitive functioning* refers to an overall capacity to reason, to solve problems, and to learn useful information.
 
-(ref:acad) *Reading ability* consists of three interrelated abilities: decoding,
-comprehension, and fluency. *Writing ability* can be described in terms of
-spelling, grammar, expression of ideas, and writing fluency. *Math ability* can
-be described in terms of calculation skills, applied problem solving, and math
-fluency.
+(ref:acad) *Reading ability* consists of three interrelated abilities: decoding, comprehension, and fluency. *Writing ability* can be described in terms of spelling, grammar, expression of ideas, and writing fluency. *Math ability* can be described in terms of calculation skills, applied problem solving, and math fluency.
 
-(ref:read) *Reading ability* can be described as consisting of three
-interrelated abilities: decoding (the ability to recognize and pronounce written
-words presented without context), comprehension (the ability not only to
-understand the facts presented in the text but also the ability to figure out
-things in the text that are not directly stated), and fluency (the ability to
-decode and understand simple written information in a rapid and fluent manner).
+(ref:read) *Reading ability* can be described as consisting of three interrelated abilities: decoding (the ability to recognize and pronounce written words presented without context), comprehension (the ability not only to understand the facts presented in the text but also the ability to figure out things in the text that are not directly stated), and fluency (the ability to decode and understand simple written information in a rapid and fluent manner).
 
-(ref:write) *Writing ability* can be described in terms of spelling, grammar,
-expression of ideas, and writing fluency. Spelling ability and writing fluency
-help one write quickly and with quality. If these lower-level skills don't flow
-easily, they can take up attention and working memory space so that more
-important skills such as making good choices about words and meaning (i.e.,
-expression), and capitalizing on background grammar knowledge to construct good
-pieces of writing cannot be used as easily.
+(ref:write) *Writing ability* can be described in terms of spelling, grammar, expression of ideas, and writing fluency. Spelling ability and writing fluency help one write quickly and with quality. If these lower-level skills don't flow easily, they can take up attention and working memory space so that more important skills such as making good choices about words and meaning (i.e., expression), and capitalizing on background grammar knowledge to construct good pieces of writing cannot be used as easily.
 
-(ref:math) *Math ability* can be described in terms of calculation skills,
-applied problem solving (e.g., word problems), and math fluency.
+(ref:math) *Math ability* can be described in terms of calculation skills, applied problem solving (e.g., word problems), and math fluency.
 
-(ref:vrb) *Verbal/language* refers to the ability to access and apply acquired
-word knowledge, to verbalize meaningful concepts, to understand complex
-multistep instructions, to think about verbal information, and to express
-oneself using words.
+(ref:vrb) *Verbal/language* refers to the ability to access and apply acquired word knowledge, to verbalize meaningful concepts, to understand complex multistep instructions, to think about verbal information, and to express oneself using words.
 
-(ref:spt) *Visuoperception, visuoconstruction, and visuospatial processing*
-refer to abilities such as mentally visualizing how objects should look from
-different angles, visualizing how to put objects together so that they fit
-correctly, and being able to accurately and efficiently copy and/or reproduce
-visual-spatial information onto paper.
+(ref:spt) *Visuoperception, visuoconstruction, and visuospatial processing* refer to abilities such as mentally visualizing how objects should look from different angles, visualizing how to put objects together so that they fit correctly, and being able to accurately and efficiently copy and/or reproduce visual-spatial information onto paper.
 
-(ref:att-exe) *Attentional* and *executive functions* underlie most, if not all,
-domains of cognitive performance. These are behaviors and skills that allow
-individuals to successfully carry-out instrumental and social activities,
-academic work, engage with others effectively, problem solve, and successfully
-interact with the environment to get needs met.
+(ref:att-exe) *Attentional* and *executive functions* underlie most, if not all, domains of cognitive performance. These are behaviors and skills that allow individuals to successfully carry-out instrumental and social activities, academic work, engage with others effectively, problem solve, and successfully interact with the environment to get needs met.
 
-(ref:att) *Attention* is a basic function that underlies most, if not all,
-domains of neurocognitive functioning. If an individual has limited attentional
-capacity, an inability to sustain or divide attentional focus, or a reduced
-ability to selectively attend to competing stimuli, then they would likely be
-unable to interact with the environment to an adequate degree and, thus have
-limited functioning in other, higher-order areas.
+(ref:att) *Attention* is a basic function that underlies most, if not all, domains of neurocognitive functioning. If an individual has limited attentional capacity, an inability to sustain or divide attentional focus, or a reduced ability to selectively attend to competing stimuli, then they would likely be unable to interact with the environment to an adequate degree and, thus have limited functioning in other, higher-order areas.
 
-(ref:exe) Measures of *executive functioning* are used as proxies for behaviors
-and skills that allow individuals to successfully carry-out instrumental and
-social activities, such as planning, engaging with others effectively, problem
-solving, and successfully interacting with the environment to get needs met.
+(ref:exe) Measures of *executive functioning* are used as proxies for behaviors and skills that allow individuals to successfully carry-out instrumental and social activities, such as planning, engaging with others effectively, problem solving, and successfully interacting with the environment to get needs met.
 
-(ref:wm) *Working memory* is the system responsible for the transient holding
-and processing of information in conscious awareness just long enough to use it
-for problem solving, and plays a critical role in reasoning, comprehension, and
-learning.
+(ref:wm) *Working memory* is the system responsible for the transient holding and processing of information in conscious awareness just long enough to use it for problem solving, and plays a critical role in reasoning, comprehension, and learning.
 
-(ref:ps) *Processing speed* refers to the rate at which the brain can
-repetitively process familiar and unfamiliar information during relatively easy
-tasks that almost everyone can do. Processing speed tests are good predictors of
-performance on tasks that are so well learned that they are nearly automatic,
-which can be critical to completing work efficiently.
+(ref:ps) *Processing speed* refers to the rate at which the brain can repetitively process familiar and unfamiliar information during relatively easy tasks that almost everyone can do. Processing speed tests are good predictors of performance on tasks that are so well learned that they are nearly automatic, which can be critical to completing work efficiently.
 
-(ref:mem) *Learning and memory* refer to the rate and ease with which new
-information (e. g., facts, stories, lists, faces, names) can be encoded, stored,
-and later recalled from long-term memory.
+(ref:mem) *Learning and memory* refer to the rate and ease with which new information (e. g., facts, stories, lists, faces, names) can be encoded, stored, and later recalled from long-term memory.
 
-(ref:mtr) *Sensorimotor* tasks refer to the capacity to control hand movements
-quickly, smoothly, and with adequate precision, which are required to engage in
-activities such as writing and drawing.
+(ref:mtr) *Sensorimotor* tasks refer to the capacity to control hand movements quickly, smoothly, and with adequate precision, which are required to engage in activities such as writing and drawing.
 
-(ref:soccog) *Social cognition* measures are used to gauge aspects of
-social-emotional processing and social aptitude (sometimes referred to as
-emotional intelligence), which are important facets of how individuals process
-social information about other children, adults, groups, and social contexts.
+(ref:soccog) *Social cognition* measures are used to gauge aspects of social-emotional processing and social aptitude (sometimes referred to as emotional intelligence), which are important facets of how individuals process social information about other children, adults, groups, and social contexts.
 
-(ref:cc) *Cognitive control* guides behavior by controlling what, when, and how
-information is represented in the brain. Cognitive control is associated with a
-wide range of processes and is not restricted to a particular cognitive domain.
-Impairments in cognitive control functions are associated with specific deficits
-in attention, memory, language comprehension and emotional processing.
+(ref:cc) *Cognitive control* guides behavior by controlling what, when, and how information is represented in the brain. Cognitive control is associated with a wide range of processes and is not restricted to a particular cognitive domain. Impairments in cognitive control functions are associated with specific deficits in attention, memory, language comprehension and emotional processing.
 
-(ref:adhd) *ADHD* is a neurodevelopmental disorder characterized by symptoms of
-inattention (not being able to keep focus), hyperactivity (excess movement that
-is not fitting to the setting) and impulsivity (hasty acts that occur in the
-moment without thought). Many ADHD symptoms, such as high activity levels,
-difficulty remaining still for long periods of time and limited attention spans,
-are common to children and adolescents in general, and even many adults. The
-difference in individuals with ADHD is that their hyperactivity and inattention
-are noticeably greater than expected for their age and cause distress and/or
-problems functioning at home, at school, at work, or with friends.
+(ref:adhd) *ADHD* is a neurodevelopmental disorder characterized by symptoms of inattention (not being able to keep focus), hyperactivity (excess movement that is not fitting to the setting) and impulsivity (hasty acts that occur in the moment without thought). Many ADHD symptoms, such as high activity levels, difficulty remaining still for long periods of time and limited attention spans, are common to children and adolescents in general, and even many adults. The difference in individuals with ADHD is that their hyperactivity and inattention are noticeably greater than expected for their age and cause distress and/or problems functioning at home, at school, at work, or with friends.
 
-(ref:dysgraphia) *Dysgraphia* is an impairment in writing, including problems
-with letter formation/legibility, letter spacing, spelling, fine motor
-coordination, rate of writing, grammar, and composition. DSM-5 categorizes
-writing impairment as a "specific learning disability with impairment in written
-expression" (spelling accuracy, grammar and punctuation accuracy, and clarity
-and organization of written expression) [@chungDisorderWrittenExpression2020].
+(ref:dysgraphia) *Dysgraphia* is an impairment in writing, including problems with letter formation/legibility, letter spacing, spelling, fine motor coordination, rate of writing, grammar, and composition. DSM-5 categorizes writing impairment as a "specific learning disability with impairment in written expression" (spelling accuracy, grammar and punctuation accuracy, and clarity and organization of written expression) [@chungDisorderWrittenExpression2020].
 
-(ref:odd) *Oppositional defiant disorder (ODD)* is a tendency to oppose and
-defy. DSM-5 categorizes ODD under Disruptive, impulse-control, and conduct
-disorder. It is described as a pattern of persistent anger, hostility, and
-argumentative behavior that persists for more than six months.
+(ref:odd) *Oppositional defiant disorder (ODD)* is a tendency to oppose and defy. DSM-5 categorizes ODD under Disruptive, impulse-control, and conduct disorder. It is described as a pattern of persistent anger, hostility, and argumentative behavior that persists for more than six months.
 
-(ref:dyslexia) *Dyslexia* means an individual has a neurobiologically based
-cognitive processing problem that affects how easily and efficiently they can
-learn to read. Dyslexia is a common condition: some experts believe 5-10% of
-people have it; others say as many as 17% of people show signs of reading
-challenges. Dyslexia is formally classified as a specific learning disability in
-reading. People with dyslexia have trouble reading at a good pace and without
-mistakes. They may also have a hard time with reading comprehension, spelling,
-and writing. Importantly, these challenges are not a problem with intelligence.
+(ref:dyslexia) *Dyslexia* means an individual has a neurobiologically based cognitive processing problem that affects how easily and efficiently they can learn to read. Dyslexia is a common condition: some experts believe 5-10% of people have it; others say as many as 17% of people show signs of reading challenges. Dyslexia is formally classified as a specific learning disability in reading. People with dyslexia have trouble reading at a good pace and without mistakes. They may also have a hard time with reading comprehension, spelling, and writing. Importantly, these challenges are not a problem with intelligence.
 
-(ref:comp-dyslexia) *Dyslexia* means an individual has a neurobiologically based
-cognitive processing problem that affects how easily and efficiently they can
-learn to read. Approximately 24% of individuals diagnosed with dyslexia are able
-to achieve reading skills commensurate with nondyslexic peers. A concept in the
-research literature is one of "compensated
-dyslexia"[@vanviersenHighReadingSkills2016], which is used to describe these
-individuals because they use strengths in other areas to compensate for deficits
-in reading. Dyslexia is underidentified in this population because the dyslexia
-can be masked by strengths in vocabulary and intelligence, making it especially
-difficult to identify in high-achieving individuals.
+(ref:comp-dyslexia) *Dyslexia* means an individual has a neurobiologically based cognitive processing problem that affects how easily and efficiently they can learn to read. Approximately 24% of individuals diagnosed with dyslexia are able to achieve reading skills commensurate with nondyslexic peers. A concept in the research literature is one of "compensated dyslexia"[@vanviersenHighReadingSkills2016], which is used to describe these individuals because they use strengths in other areas to compensate for deficits in reading. Dyslexia is underidentified in this population because the dyslexia can be masked by strengths in vocabulary and intelligence, making it especially difficult to identify in high-achieving individuals.
 
 # NEUROBEHAVIORAL STATUS EXAM
 
@@ -792,29 +683,18 @@ cat(readLines("bobs.md"), sep = "\n")
 
 ## Test Results
 
-\autoref{fig:gauss-plot-narrow} can be used as a guide to help interpret
-individual test scores in terms of the degree of distance a score fell in
-relation to normative and developmental expectations (i.e., the mean).
-\autoref{fig:gauss-plot-broad} can be used to help interpret broad domains in
-terms of the degree of clinical severity. Test scores are easiest to interpret
-as percentiles[^1], which are provided in the tables below, and as *z*-scores (M
-= 0, SD = 1)[^2], which are used to plot the various test and domain scores
-below .
+\autoref{fig:gauss-plot-narrow} can be used as a guide to help interpret individual test scores in terms of the degree of distance a score fell in relation to normative and developmental expectations (i.e., the mean).
+\autoref{fig:gauss-plot-broad} can be used to help interpret broad domains in terms of the degree of clinical severity.
+Test scores are easiest to interpret as percentiles[^1], which are provided in the tables below, and as *z*-scores (M = 0, SD = 1)[^2], which are used to plot the various test and domain scores below
+.
 
-[^1]: (ref:pct)
-
-[^2]: (ref:zplot)
-
-(ref:gauss-plot-narrow) Statistical classification of neuropsychological test
-scores in the general population [@guilmetteAmericanAcademyClinical2020].
+(ref:gauss-plot-narrow) Statistical classification of neuropsychological test scores in the general population [@guilmetteAmericanAcademyClinical2020].
 
 ```{r gauss-plot-narrow, fig.cap='(ref:gauss-plot-narrow)', fig.width=6, fig.height=5, fig.pos = '!ht'}
 knitr::include_graphics("plot_narrow.png", auto_pdf = TRUE)
 ```
 
-(ref:gauss-plot-broad) General clinical interpretation of performance for
-individual test scores and broader neuropsychological domains
-[@schoenbergReportingStandardsNeuropsychological2017].
+(ref:gauss-plot-broad) General clinical interpretation of performance for individual test scores and broader neuropsychological domains [@schoenbergReportingStandardsNeuropsychological2017].
 
 ```{r gauss-plot-broad, fig.cap='(ref:gauss-plot-broad)', fig.width=6, fig.height=5, fig.pos = '!ht'}
 knitr::include_graphics("plot_broad.png", auto_pdf = TRUE)
@@ -946,8 +826,7 @@ neurobehav <- read_csv(here::here(patient, "neurobehav.csv"))
 
 ### Intelligence/General Ability
 
-(ref:fn-iq) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or
-Scaled (M = 10, SD = 3)
+(ref:fn-iq) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M = 10, SD = 3)
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-iq.R"))
@@ -995,8 +874,7 @@ knitr::read_chunk(here::here("R", "nt-iq.R"))
 cat(readLines("acad.md"), sep = "\n")
 ```
 
-(ref:fn-acad) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or
-Scaled (M = 10, SD = 3)
+(ref:fn-acad) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M = 10, SD = 3)
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-academics.R"))
@@ -1044,8 +922,7 @@ knitr::read_chunk(here::here("R", "nt-academics.R"))
 cat(readLines("vrb.md"), sep = "\n")
 ```
 
-(ref:fn-verbal) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or
-Scaled (M = 10, SD = 3)
+(ref:fn-verbal) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M = 10, SD = 3)
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-verbal.R"))
@@ -1141,8 +1018,7 @@ knitr::read_chunk(here::here("R", "nt-spatial.R"))
 cat(readLines("exe.md"), sep = "\n")
 ```
 
-(ref:fn-exe) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or
-Scaled (M = 10, SD = 3)
+(ref:fn-exe) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M = 10, SD = 3)
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-executive.R"))
@@ -1190,8 +1066,7 @@ knitr::read_chunk(here::here("R", "nt-executive.R"))
 cat(readLines("mem.md"), sep = "\n")
 ```
 
-(ref:fn-memory) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or
-Scaled (M = 10, SD = 3)
+(ref:fn-memory) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M = 10, SD = 3)
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-memory.R"))
@@ -1235,11 +1110,12 @@ knitr::read_chunk(here::here("R", "nt-memory.R"))
 
 ### Motor
 
-All scores in this area were *average* to *high-average*. Fine motor speed and
-dexterity were intact bilaterally. No evidence of atypical lateralization of
-fine nor gross motor skills. No evidence of dyspraxia. Graphomotor speed and
-accuracy (i.e., graphomotor control) was *average*. Gross motor functioning
-including balance and gait appeared intact on observation.
+All scores in this area were *average* to *high-average*.
+Fine motor speed and dexterity were intact bilaterally.
+No evidence of atypical lateralization of fine nor gross motor skills.
+No evidence of dyspraxia.
+Graphomotor speed and accuracy (i.e., graphomotor control) was *average*.
+Gross motor functioning including balance and gait appeared intact on observation.
 
 (ref:fn-motor) Score = *T* (M = 50, SD = 10) or Scaled (M = 10, SD = 3)
 
@@ -1298,13 +1174,8 @@ knitr::read_chunk(here::here("R", "nt-motor.R"))
 
 ### Social Cognition
 
-`r params$first_name` had to execute a series of behavioral responses requiring
-her to recognize and interpret the emotional state (happy, sad, angry, afraid,
-surprised, disgusted, and neutral) of a series of children's faces, on which
-`r params$he_she` performed *above average* overall. `r params$he_she_cap`
-performed in the *high-average* range on a measure of pragmatic language and the
-ability to comprehend others perspectives, intentions, and beliefs (i.e., theory
-of mind).
+`r params$first_name` had to execute a series of behavioral responses requiring her to recognize and interpret the emotional state (happy, sad, angry, afraid, surprised, disgusted, and neutral) of a series of children's faces, on which `r params$he_she` performed *above average* overall.
+`r params$he_she_cap` performed in the *high-average* range on a measure of pragmatic language and the ability to comprehend others perspectives, intentions, and beliefs (i.e., theory of mind).
 
 (ref:fn-scog) Scaled (M = 10, SD = 3)
 
@@ -1360,16 +1231,12 @@ knitr::read_chunk(here::here("R", "nt-scog.R"))
 
 ### Emotional/Behavioral/Adaptive
 
-On a self-reported rating scale of attention and executive functioning, Alyssa's
-score on *Memory* fell in the *Clinically Significant* range. Alyssa reports
-that (ref:he-she) has difficulty utilizing working memory and accessing recall.
-Her score on *Focus* fell in the *Clinically Significant* range, reporting that
-(ref:he-she) has difficulty focusing, sustaining, and shifting attention to
-tasks. Alyssa's score on *Effort* fell in the *At-Risk* range. Alyssa reports
-that (ref:he-she) has difficulty regulating alertness, sustaining effort, and
-adjusting processing speed. Her score on *Activation* fell in the *At-Risk*
-range, noting that she has difficulty organizing, prioritizing, and activating
-to work.
+On a self-reported rating scale of attention and executive functioning, Alyssa's score on *Memory* fell in the *Clinically Significant* range.
+Alyssa reports that (ref:he-she) has difficulty utilizing working memory and accessing recall.
+Her score on *Focus* fell in the *Clinically Significant* range, reporting that (ref:he-she) has difficulty focusing, sustaining, and shifting attention to tasks.
+Alyssa's score on *Effort* fell in the *At-Risk* range.
+Alyssa reports that (ref:he-she) has difficulty regulating alertness, sustaining effort, and adjusting processing speed.
+Her score on *Activation* fell in the *At-Risk* range, noting that she has difficulty organizing, prioritizing, and activating to work.
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-brown_efa_self.R"))
@@ -1457,11 +1324,7 @@ knitr::read_chunk(here::here("R", "nt-pai.R"))
 
 # SUMMARY/IMPRESSION
 
-(ref:domain) *Key Findings:* Verbal skills are significantly stronger than
-nonverbal/spatial processing skills. Attentional fluency (i.e., working memory
-and processing speed) and abstract reasoning are areas of weakness. Memory
-continues to evidence a decline from premorbid levels. *Note:* *z* = 0 (mean) ±
-1 (sd)
+(ref:domain) *Key Findings:* Verbal skills are significantly stronger than nonverbal/spatial processing skills. Attentional fluency (i.e., working memory and processing speed) and abstract reasoning are areas of weakness. Memory continues to evidence a decline from premorbid levels. *Note:* *z* = 0 (mean) ± 1 (sd)
 
 ```{r}
 domain <-
@@ -1482,8 +1345,8 @@ dotplot(
 cat(readLines("sirf.md"), sep = "\n")
 ```
 
-It was a pleasure to work with `r params$first_name`. Please contact me with any
-questions or concerns regarding this patient.
+It was a pleasure to work with `r params$first_name`.
+Please contact me with any questions or concerns regarding this patient.
 
 ```{marginfigure, echo=TRUE}
 **CONTACT**\
@@ -1502,9 +1365,13 @@ knitr::include_graphics("../jwtSig.png")
 
 | **Joey Trampush, PhD**
 | Della Martin Assistant Professor of Psychiatry
+| 
 | Department of Psychiatry and the Behavioral Sciences
+| 
 | University of Southern California Keck School of Medicine
+| 
 | CA License PSY29212
+| 
 
 \newpage
 
@@ -1516,20 +1383,12 @@ cat(readLines('telehealth_statement.md'), sep = '\n')
 
 ## Test Selection Procedures
 
-Neuropsychological tests are intrinsically performance-based, and cognitive
-performance assessed during this neuropsychological evaluation is summarized
-above. Where appropriate, qualitative observations are included. Cultural
-considerations were made when selecting measures, interpreting results, and
-making diagnostic impressions and recommendations. Results from formal tests are
-reported in comparison to other individuals the same age, sex, and educational
-level as range of functioning (e.g., below average, average, above average).
-Test score labels are intended solely to be descriptive, identifying positions
-of scores relative to a normal curve distribution, and should be interpreted
-within the context of the patient's individual presentation and history.
-Although standardized scores provide the clinician with an important and
-necessary understanding of the patient's test performance compared with a
-normative group, they do not on their own lead to accurate diagnosis or
-treatment recommendations.
+Neuropsychological tests are intrinsically performance-based, and cognitive performance assessed during this neuropsychological evaluation is summarized above.
+Where appropriate, qualitative observations are included.
+Cultural considerations were made when selecting measures, interpreting results, and making diagnostic impressions and recommendations.
+Results from formal tests are reported in comparison to other individuals the same age, sex, and educational level as range of functioning (e.g., below average, average, above average).
+Test score labels are intended solely to be descriptive, identifying positions of scores relative to a normal curve distribution, and should be interpreted within the context of the patient's individual presentation and history.
+Although standardized scores provide the clinician with an important and necessary understanding of the patient's test performance compared with a normative group, they do not on their own lead to accurate diagnosis or treatment recommendations.
 
 \newpage
 
@@ -1546,3 +1405,7 @@ treatment recommendations.
 | Low-average score        |      80 -- 89      |     37 -- 43      |      7 -- 8      |   -1.3 -- -0.6    |      9 -- 24       |
 | Below average score      |      70 -- 79      |     30 -- 36      |      4 -- 6      |    -2 -- -1.4     |       2 -- 8       |
 | Exceptionally low score  |       \< 70        |       \< 30       |       \< 4       |       \< -2       |        \< 2        |
+
+[^1]: (ref:pct)
+
+[^2]: (ref:zplot)
