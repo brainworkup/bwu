@@ -1153,12 +1153,9 @@ knitr::read_chunk(here::here("R", "nt-social.R"))
 
 ### Emotional/Behavioral/Adaptive
 
-On a self-reported rating scale of attention and executive functioning, Alyssa's score on *Memory* fell in the *Clinically Significant* range.
-Alyssa reports that (ref:he-she) has difficulty utilizing working memory and accessing recall.
-Her score on *Focus* fell in the *Clinically Significant* range, reporting that (ref:he-she) has difficulty focusing, sustaining, and shifting attention to tasks.
-Alyssa's score on *Effort* fell in the *At-Risk* range.
-Alyssa reports that (ref:he-she) has difficulty regulating alertness, sustaining effort, and adjusting processing speed.
-Her score on *Activation* fell in the *At-Risk* range, noting that she has difficulty organizing, prioritizing, and activating to work.
+```{r, brown, results='asis'}
+cat(readLines("02.2.brown.md"), sep = "\n")
+```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-brown_efa_self.R"))
@@ -1200,8 +1197,52 @@ knitr::read_chunk(here::here("R", "nt-brown_efa_self.R"))
 
 \newpage
 
+```{r, basc, results='asis'}
+cat(readLines("02.2.basc.md"), sep = "\n")
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-basc3_prs_preschool.R"))
+```
+
+```{r 01-glue-basc3-prs-preschool, eval=T, double_escape=T, escape=F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-basc3_prs_preschool.R"))
+```
+
+```{r 02-make-df-basc3-prs-preschool, eval=T, double_escape=T, escape=F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-basc3_prs_preschool.R"))
+```
+
+```{r 03-make-kable-basc3-prs-preschool, eval=T, double_escape=T, escape=F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-basc3_prs_preschool.R"))
+```
+
+```{r 04-make-df-basc3-prs-preschool, eval=T, double_escape=T, escape=F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-basc3_prs_preschool.R"))
+```
+
+```{r 05-plot-basc3-prs-preschool-subdomain, eval=F, fig.cap = 'Self-reported executive and attentional functioning related to ADHD in everyday life.', double_escape=T, escape=F}
+```
+
+```{r 06-plot-basc3-prs-preschool-narrow, eval=T, fig.cap = 'Self-reported executive and attentional functioning related to ADHD in everyday life.', double_escape=T, escape=F}
+```
+
+\newpage
+
 ```{r, pai, results='asis'}
-cat(readLines("pai.md"), sep = "\n")
+cat(readLines("02.2.pai.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
@@ -1248,14 +1289,14 @@ knitr::read_chunk(here::here("R", "nt-pai.R"))
 
 (ref:domain) *Key Findings:* Verbal skills are significantly stronger than nonverbal/spatial processing skills. Attentional fluency (i.e., working memory and processing speed) and abstract reasoning are areas of weakness. Memory continues to evidence a decline from premorbid levels. *Note:* *z* = 0 (mean) ± 1 (sd)
 
-```{r}
+```{r domain-df}
 domain <-
   neurocog %>%
   filter(test_type == "npsych_test") %>%
   filter(!is.na(domain))
 ```
 
-```{r domain, fig.cap = '(ref:domain)'}
+```{r domain-plot, fig.cap = '(ref:domain)'}
 dotplot(
   data = domain,
   x = domain$z_mean_dom,
@@ -1265,7 +1306,7 @@ dotplot(
 ```
 
 ```{r, sirf, results='asis'}
-cat(readLines("sirf.md"), sep = "\n")
+cat(readLines("03.0.sirf.md"), sep = "\n")
 ```
 
 It was a pleasure to work with `r params$first_name`.
@@ -1282,26 +1323,22 @@ Los Angeles, CA 90033\
 
 Sincerely,
 
-```{r out.width='33%', fig.align='left'}
+```{r sig, out.width='33%', fig.align='left'}
 knitr::include_graphics("../jwtSig.png")
 ```
 
 | **Joey Trampush, PhD**
 | Della Martin Assistant Professor of Psychiatry
-| 
 | Department of Psychiatry and the Behavioral Sciences
-| 
 | University of Southern California Keck School of Medicine
-| 
-| CA License PSY29212
-| 
+| CA License PSY29212 
 
 \newpage
 
 # APPENDIX
 
 ```{r results='asis'}
-cat(readLines("telehealth_statement.md"), sep = "\n")
+cat(readLines("03.2.telehealth_statement.md"), sep = "\n")
 ```
 
 ## Test Selection Procedures
