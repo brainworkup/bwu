@@ -251,8 +251,9 @@ knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
 knitr::knit_hooks$set(optipng = knitr::hook_optipng)
 
 # Fix subfigs for rmarkdown -> latex
-if (identical(knitr:::pandoc_to(), 'latex'))
+if (identical(knitr:::pandoc_to(), "latex")) {
   knitr::knit_hooks$set(plot = knitr::hook_plot_tex)
+}
 
 knitr::opts_chunk$set(
   echo = FALSE,
@@ -263,16 +264,16 @@ knitr::opts_chunk$set(
   fig.width = 5,
   fig.height = 3,
   dpi = 300,
-  fig.pos = '!ht',
-  root.dir = normalizePath('./'),
+  fig.pos = "!ht",
+  root.dir = normalizePath("./"),
   cache = FALSE,
-  cache.path = './cache/report-',
+  cache.path = "./cache/report-",
   # Code block options
   eval = TRUE,
   include = TRUE,
   message = FALSE,
   warning = FALSE,
-  results = 'asis',
+  results = "asis",
   error = TRUE
 )
 knitr::opts_knit$set(width = 50)
@@ -293,10 +294,10 @@ source(file = here::here("R/html.R"), local = knitr::knit_global())
 
 ```{r}
 knitr::knit_engines$set(marginfigure = function(options) {
-        options$type = 'marginfigure'
-        eng_block = knitr::knit_engines$get('block')
-        eng_block(options)
-    })
+  options$type <- "marginfigure"
+  eng_block <- knitr::knit_engines$get("block")
+  eng_block(options)
+})
 ```
 
 ```{r}
@@ -312,11 +313,10 @@ source(file = here::here("R/make_tibble.R"), local = knitr::knit_global())
 ```
 
 ```{r}
-## patient initials or first/last name, whatever was used to create subdirectory
-patient <- "biggie"
+patient <- "BS"
 ```
 
-```{r, eval=F}
+```{r, eval=T}
 # Create directory
 xfun::dir_create(here::here(patient, "pre_csv"))
 xfun::dir_create(here::here(patient, "csv"))
@@ -327,85 +327,6 @@ out_dir_csv <- here::here(patient, "csv")
 out_dir_pdf <- here::here(patient, "pdf")
 ```
 
-```{bash, engine.opts='-l', eval=F}
-export patient=patient
-export lastname=lastname
-export firstname=firstname
-# pdf
-ln -shfi ~/uscdbox/npsych_reports/2021/$lastname-$firstname/*.pdf ~/npsych.reports/$patient/pdf/.
-# csv
-cp ~/uscdbox/npsych_reports/2021/$lastname-$firstname/*.csv ~/npsych.reports/$patient/pre_csv/.
-# slk
-cp ~/uscdbox/npsych_reports/2021/$lastname-$firstname/*.slk ~/npsych.reports/$patient/pre_csv/.
-```
-
-```{r, eval=F}
-## set file path
-path_pdf <- here::here(patient, "pdf")
-file_names_pdf <- dir(path_pdf, pattern = ".pdf", full.names = TRUE)
-file_names_pdf
-```
-
-```{r, eval=F}
-# cognitive: change to specific file
-cognitive_pdf <- file_names_pdf[3]
-```
-
-```{r, eval=F}
-## set file path # this might be useless
-path_csv <- here::here(patient, "pre_csv")
-file_names_csv <- dir(path_csv, pattern = ".csv")
-file_names_csv
-```
-
-```{r, eval=F}
-# cognitive csv file
-cognitive_csv <- file_names_csv[1] # not sure if I need this
-```
-
-```{r, eval=F, echo=F}
-## set file path # this might be useless
-path_slk <- here::here(patient, "pre_csv")
-file_names_slk <- dir(path_csv, pattern = ".slk")
-file_names_slk
-```
-
-```{r, eval=F}
-# cognitive slk file
-cognitive_slk <- file_names_slk[1]
-```
-
-(ref:first-name) `r params$first_name`
-
-(ref:last-name) `r params$last_name`
-
-(ref:he-she) `r params$he_she`
-
-(ref:his-her) `r params$his_her`
-
-(ref:him-her) `r params$him_her`
-
-(ref:he-she-cap) `r params$he_she_cap`
-
-(ref:his-her-cap) `r params$his_her_cap`
-
-(ref:him-her-cap) `r params$him_her_cap`
-
-(ref:refdoc) `r params$refdoc`
-
-(ref:doe1) `r params$doe1`
-
-(ref:doe2) `r params$doe2`
-
-(ref:doe3) `r params$doe3`
-
-(ref:doe4) `r params$doe4`
-
-(ref:dx1) `r params$dx1`
-
-(ref:dx2) `r params$dx2`
-
-(ref:family) `r params$family`
 
 (ref:wppsi4) Wechsler Preschool and Primary Scale of Intelligence, 4th ed (WPPSI-IV)
 
@@ -599,7 +520,7 @@ cognitive_slk <- file_names_slk[1]
 
 (ref:mtr) *Sensorimotor* tasks refer to the capacity to control hand movements quickly, smoothly, and with adequate precision, which are required to engage in activities such as writing and drawing.
 
-(ref:soccog) *Social cognition* measures are used to gauge aspects of social-emotional processing and social aptitude (sometimes referred to as emotional intelligence), which are important facets of how individuals process social information about other children, adults, groups, and social contexts.
+(ref:social) *Social cognition* measures are used to gauge aspects of social-emotional processing and social aptitude (sometimes referred to as emotional intelligence), which are important facets of how individuals process social information about other children, adults, groups, and social contexts.
 
 (ref:cc) *Cognitive control* guides behavior by controlling what, when, and how information is represented in the brain. Cognitive control is associated with a wide range of processes and is not restricted to a particular cognitive domain. Impairments in cognitive control functions are associated with specific deficits in attention, memory, language comprehension and emotional processing.
 
@@ -612,6 +533,38 @@ cognitive_slk <- file_names_slk[1]
 (ref:dyslexia) *Dyslexia* means an individual has a neurobiologically based cognitive processing problem that affects how easily and efficiently they can learn to read. Dyslexia is a common condition: some experts believe 5-10% of people have it; others say as many as 17% of people show signs of reading challenges. Dyslexia is formally classified as a specific learning disability in reading. People with dyslexia have trouble reading at a good pace and without mistakes. They may also have a hard time with reading comprehension, spelling, and writing. Importantly, these challenges are not a problem with intelligence.
 
 (ref:comp-dyslexia) *Dyslexia* means an individual has a neurobiologically based cognitive processing problem that affects how easily and efficiently they can learn to read. Approximately 24% of individuals diagnosed with dyslexia are able to achieve reading skills commensurate with nondyslexic peers. A concept in the research literature is one of "compensated dyslexia"[@vanviersenHighReadingSkills2016], which is used to describe these individuals because they use strengths in other areas to compensate for deficits in reading. Dyslexia is underidentified in this population because the dyslexia can be masked by strengths in vocabulary and intelligence, making it especially difficult to identify in high-achieving individuals.
+
+(ref:first-name) `r params$first_name`
+
+(ref:last-name) `r params$last_name`
+
+(ref:he-she) `r params$he_she`
+
+(ref:his-her) `r params$his_her`
+
+(ref:him-her) `r params$him_her`
+
+(ref:he-she-cap) `r params$he_she_cap`
+
+(ref:his-her-cap) `r params$his_her_cap`
+
+(ref:him-her-cap) `r params$him_her_cap`
+
+(ref:refdoc) `r params$refdoc`
+
+(ref:doe1) `r params$doe1`
+
+(ref:doe2) `r params$doe2`
+
+(ref:doe3) `r params$doe3`
+
+(ref:doe4) `r params$doe4`
+
+(ref:dx1) `r params$dx1`
+
+(ref:dx2) `r params$dx2`
+
+(ref:family) `r params$family`
 
 # NEUROBEHAVIORAL STATUS EXAM
 
@@ -645,7 +598,7 @@ cognitive_slk <- file_names_slk[1]
 ```
 
 ```{r, nse, results='asis'}
-cat(readLines("nse.2.md"), sep = "\n")
+cat(readLines("01.2.nse.md"), sep = "\n")
 ```
 
 \newpage
@@ -655,28 +608,30 @@ cat(readLines("nse.2.md"), sep = "\n")
 ## Test Battery
 
 -   (ref:acs-topf)
--   (ref:wais4)
--   (ref:nabs)
--   (ref:rbans): Form A
--   (ref:cog-est)
--   (ref:pegboard)
 -   (ref:acs-word-choice)
--   (ref:brown-efa-self)
--   (ref:pai)
+-   (ref:tomm)
+-   (ref:wais4)
 -   (ref:wisc5)
 -   (ref:wiat4)
+-   (ref:ktea3)
+-   (ref:wrat5)
+-   (ref:nabs): Form A/B
+-   (ref:rbans): Form A/B/C/D
 -   (ref:nepsy2)
 -   (ref:cvltc)
 -   (ref:tmt)
 -   (ref:examiner)
 -   (ref:bicycle)
 -   (ref:clock)
--   (ref:tomm)
+-   (ref:cog-est)
+-   (ref:pegboard)
 -   (ref:basc3-sdh)
 -   (ref:brown-efa-parent)
+-   (ref:brown-efa-self)
+-   (ref:pai)
 
 ```{r, bobs, results='asis'}
-cat(readLines("bobs.md"), sep = "\n")
+cat(readLines("02.0.bobs.md"), sep = "\n")
 ```
 
 \newpage
@@ -700,7 +655,7 @@ knitr::include_graphics("plot_narrow.png", auto_pdf = TRUE)
 knitr::include_graphics("plot_broad.png", auto_pdf = TRUE)
 ```
 
-```{r, echo=F, message=F}
+```{r read-csv}
 ## Import CSV files
 library(tidyverse)
 # path to files
@@ -712,11 +667,12 @@ neuropsych <-
   files %>%
   set_names() %>%
   map_df(~ readr::read_csv(file.path(data_path, .)),
-         na = c("", "NA", "--", "-"),
-         .id = "filename") %>%
+    na = c("", "NA", "--", "-"),
+    .id = "filename"
+  ) %>%
   filter(!is.na(percentile)) %>%
   distinct() %>%
-  mutate(z = qnorm(percentile/100)) %>%
+  mutate(z = qnorm(percentile / 100)) %>%
   mutate(domain = forcats::as_factor(domain)) %>%
   mutate(subdomain = forcats::as_factor(subdomain)) %>%
   mutate(narrow = forcats::as_factor(narrow)) %>%
@@ -817,7 +773,7 @@ write_csv(neurocog, here::here(patient, "neurocog.csv"))
 write_csv(neurobehav, here::here(patient, "neurobehav.csv"))
 ```
 
-```{r, read-data, echo=F, message=F}
+```{r, read-data}
 ## Read data
 neuropsych <- read_csv(here::here(patient, "neuropsych.csv"))
 neurocog <- read_csv(here::here(patient, "neurocog.csv"))
@@ -826,7 +782,11 @@ neurobehav <- read_csv(here::here(patient, "neurobehav.csv"))
 
 ### Intelligence/General Ability
 
-(ref:fn-iq) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M = 10, SD = 3)
+(ref:fn-iq) Score = Standard (M = 100, SD = 15)
+
+```{r, iq, results='asis'}
+cat(readLines("02.1.1.iq.md"), sep = "\n")
+```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-iq.R"))
@@ -870,11 +830,11 @@ knitr::read_chunk(here::here("R", "nt-iq.R"))
 
 ### Academic Skills
 
-```{r, acad, results='asis'}
-cat(readLines("acad.md"), sep = "\n")
-```
+(ref:fn-acad) Score = Standard (M = 100, SD = 15)
 
-(ref:fn-acad) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M = 10, SD = 3)
+```{r, acad, results='asis'}
+cat(readLines("02.1.2.acad.md"), sep = "\n")
+```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-academics.R"))
@@ -887,7 +847,7 @@ knitr::read_chunk(here::here("R", "nt-academics.R"))
 knitr::read_chunk(here::here("R", "nt-academics.R"))
 ```
 
-```{r 02-make-dataframe-academics, eval=T, double_escape=T, escape=F}
+```{r 02-make-df-academics, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
@@ -918,11 +878,11 @@ knitr::read_chunk(here::here("R", "nt-academics.R"))
 
 ### Verbal/Language
 
-```{r, vrb, results='asis'}
-cat(readLines("vrb.md"), sep = "\n")
-```
-
 (ref:fn-verbal) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M = 10, SD = 3)
+
+```{r, vrb, results='asis'}
+cat(readLines("02.1.3.vrb.md"), sep = "\n")
+```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-verbal.R"))
@@ -966,11 +926,11 @@ knitr::read_chunk(here::here("R", "nt-verbal.R"))
 
 ### Visual Perception/Construction
 
-```{r, spt, results='asis'}
-cat(readLines("spt.md"), sep = "\n")
-```
-
 (ref:fn-spatial) Score = Standard (M = 100, SD = 15) or Scaled (M = 10, SD = 3)
+
+```{r, spt, results='asis'}
+cat(readLines("02.1.4.spt.md"), sep = "\n")
+```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-spatial.R"))
@@ -1014,11 +974,12 @@ knitr::read_chunk(here::here("R", "nt-spatial.R"))
 
 ### Attention/Executive
 
-```{r, exe, results='asis'}
-cat(readLines("exe.md"), sep = "\n")
-```
+(ref:fn-exe) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M 
+= 10, SD = 3)
 
-(ref:fn-exe) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M = 10, SD = 3)
+```{r, exe, results='asis'}
+cat(readLines("02.1.5.exe.md"), sep = "\n")
+```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-executive.R"))
@@ -1062,11 +1023,11 @@ knitr::read_chunk(here::here("R", "nt-executive.R"))
 
 ### Memory
 
-```{r, mem, results='asis'}
-cat(readLines("mem.md"), sep = "\n")
-```
-
 (ref:fn-memory) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M = 10, SD = 3)
+
+```{r, mem, results='asis'}
+cat(readLines("02.1.6.mem.md"), sep = "\n")
+```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-memory.R"))
@@ -1110,43 +1071,17 @@ knitr::read_chunk(here::here("R", "nt-memory.R"))
 
 ### Motor
 
-All scores in this area were *average* to *high-average*.
-Fine motor speed and dexterity were intact bilaterally.
-No evidence of atypical lateralization of fine nor gross motor skills.
-No evidence of dyspraxia.
-Graphomotor speed and accuracy (i.e., graphomotor control) was *average*.
-Gross motor functioning including balance and gait appeared intact on observation.
-
 (ref:fn-motor) Score = *T* (M = 50, SD = 10) or Scaled (M = 10, SD = 3)
 
-```{r, eval=F, results='asis'}
-person <- "Biggie"
-dom <- "Motor"
-
-mtr <- neurocog %>%
-  filter(domain == dom) %>%
-  arrange(desc(percentile)) %>%
-  distinct(.keep_all = FALSE)
-
-trait <- mtr
-
-lst(person, range, scale) %>%
-  glue::glue_data(
-    '{person} performed in the *{range}* range on {scale}, a measure of {description}.',
-    range = trait$range,
-    scale = trait$scale,
-    description = trait$description
-  ) %>%
-  stringr::str_to_sentence() %>%
-  purrr::modify(lift(paste0)) %>%
-  cat()
+```{r, mtr, results='asis'}
+cat(readLines("02.1.7.mtr.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-motor.R"))
 ```
 
-```{r 02-make-dataframe-motor, eval=T, double_escape=T, escape=F}
+```{r 02-make-df-motor, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
@@ -1160,71 +1095,58 @@ knitr::read_chunk(here::here("R", "nt-motor.R"))
 knitr::read_chunk(here::here("R", "nt-motor.R"))
 ```
 
-```{r 04-make-dataframe-mtr, eval=T, double_escape=T, escape=F}
+```{r 04-make-df-motor, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here("R", "nt-motor.R"))
 ```
 
-```{r 05-plot-mtr-narrow, eval=T, fig.cap = '(ref:mtr)', double_escape=T, escape=F}
+```{r 05-plot-motor-subdomain, eval=F, fig.cap = '(ref:mtr)', double_escape=T, escape=F}
+```
+
+```{r 06-plot-motor-narrow, eval=T, fig.cap = '(ref:mtr)', double_escape=T, escape=F}
 ```
 
 \newpage
 
 ### Social Cognition
 
-`r params$first_name` had to execute a series of behavioral responses requiring her to recognize and interpret the emotional state (happy, sad, angry, afraid, surprised, disgusted, and neutral) of a series of children's faces, on which `r params$he_she` performed *above average* overall.
-`r params$he_she_cap` performed in the *high-average* range on a measure of pragmatic language and the ability to comprehend others perspectives, intentions, and beliefs (i.e., theory of mind).
+(ref:fn-soc) Scaled (M = 10, SD = 3)
 
-(ref:fn-scog) Scaled (M = 10, SD = 3)
-
-```{r, eval=F, results='asis'}
-person <- "Biggie"
-dom <- "Social Cognition"
-eq <- neurocog %>%
-  filter(domain == dom) %>%
-  arrange(desc(percentile)) %>%
-  distinct(.keep_all = FALSE)
-trait <- eq
-lst(person, range, scale) %>%
-  glue::glue_data(
-    '{person} performed in the *{range}* range on a measure of {description}.',
-    range = trait$range,
-    scale = trait$scale,
-    description = trait$description
-  ) %>%
-  stringr::str_to_sentence() %>%
-  purrr::modify(lift(paste0)) %>%
-  cat()
+```{r, soc, results='asis'}
+cat(readLines("02.1.8.soc.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-soccog.R"))
+knitr::read_chunk(here::here("R", "nt-social.R"))
 ```
 
-```{r 02-make-dataframe-soccog, eval=T, double_escape=T, escape=F}
-```
-
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-soccog.R"))
-```
-
-```{r 03-make-kable-soccog, eval=T, double_escape=T, escape=F, fig.fullwidth=TRUE}
+```{r 02-make-df-social, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-soccog.R"))
+knitr::read_chunk(here::here("R", "nt-social.R"))
 ```
 
-```{r 04-make-dataframe-eq, eval=T, double_escape=T, escape=F}
+```{r 03-make-kable-social, eval=T, double_escape=T, escape=F, fig.fullwidth=TRUE}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-scog.R"))
+knitr::read_chunk(here::here("R", "nt-social.R"))
 ```
 
-```{r 05-plot-eq-narrow, eval=T, double_escape=T, escape=F, fig.cap='(ref:soccog)', fig.path='figures/npsych2-'}
+```{r 04-make-df-social, eval=T, double_escape=T, escape=F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt-social.R"))
+```
+
+```{r 05-plot-social-subdomain, eval=T, double_escape=T, escape=F, fig.cap='(ref:social)'}
+```
+
+```{r 06-plot-social-narrow, eval=T, double_escape=T, escape=F, fig.cap='(ref:social)'}
 ```
 
 \newpage
@@ -1338,7 +1260,8 @@ dotplot(
   data = domain,
   x = domain$z_mean_dom,
   y = domain$domain,
-  domain = "domain")
+  domain = "domain"
+)
 ```
 
 ```{r, sirf, results='asis'}
@@ -1378,7 +1301,7 @@ knitr::include_graphics("../jwtSig.png")
 # APPENDIX
 
 ```{r results='asis'}
-cat(readLines('telehealth_statement.md'), sep = '\n')
+cat(readLines("telehealth_statement.md"), sep = "\n")
 ```
 
 ## Test Selection Procedures
