@@ -783,35 +783,35 @@ cat(readLines("02.1.1.iq.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-iq.R"))
+knitr::read_chunk(here::here("R", "nt_iq.R"))
 ```
 
 ```{r 01-glue-iq, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-iq.R"))
+knitr::read_chunk(here::here("R", "nt_iq.R"))
 ```
 
 ```{r 02-make-df-iq, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-iq.R"))
+knitr::read_chunk(here::here("R", "nt_iq.R"))
 ```
 
 ```{r 03-make-kable-iq, eval=T, double_escape=T, escape=F, fig.fullwidth=T}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-iq.R"))
+knitr::read_chunk(here::here("R", "nt_iq.R"))
 ```
 
 ```{r 04-make-df-iq, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-iq.R"))
+knitr::read_chunk(here::here("R", "nt_iq.R"))
 ```
 
 ```{r 05-plot-iq-subdomain, eval=T, double_escape=T, escape=F, fig.cap = '(ref:g) (ref:gc) (ref:gf)'}
@@ -831,35 +831,35 @@ cat(readLines("02.1.2.acad.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-academics.R"))
+knitr::read_chunk(here::here("R", "nt_academics.R"))
 ```
 
 ```{r 01-glue-academics, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-academics.R"))
+knitr::read_chunk(here::here("R", "nt_academics.R"))
 ```
 
 ```{r 02-make-df-academics, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-academics.R"))
+knitr::read_chunk(here::here("R", "nt_academics.R"))
 ```
 
 ```{r 03-make-kable-academics, eval=T, double_escape=T, escape=F, fig.fullwidth=T}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-academics.R"))
+knitr::read_chunk(here::here("R", "nt_academics.R"))
 ```
 
 ```{r 04-make-df-academics, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-academics.R"))
+knitr::read_chunk(here::here("R", "nt_academics.R"))
 ```
 
 ```{r 05-plot-academics-subdomain, eval=T, double_escape=T, escape=F, fig.cap = '(ref:acad)'}
@@ -879,35 +879,35 @@ cat(readLines("02.1.3.vrb.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-verbal.R"))
+knitr::read_chunk(here::here("R", "nt_verbal.R"))
 ```
 
 ```{r 01-glue-verbal, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-verbal.R"))
+knitr::read_chunk(here::here("R", "nt_verbal.R"))
 ```
 
 ```{r 02-make-df-verbal, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-verbal.R"))
+knitr::read_chunk(here::here("R", "nt_verbal.R"))
 ```
 
 ```{r 03-make-kable-verbal, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-verbal.R"))
+knitr::read_chunk(here::here("R", "nt_verbal.R"))
 ```
 
 ```{r 04-make-df-verbal, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-verbal.R"))
+knitr::read_chunk(here::here("R", "nt_verbal.R"))
 ```
 
 ```{r 05-plot-verbal-subdomain, eval=F, fig.cap = '(ref:vrb)', double_escape=T, escape=F}
@@ -927,35 +927,35 @@ cat(readLines("02.1.4.spt.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-spatial.R"))
+knitr::read_chunk(here::here("R", "nt_spatial.R"))
 ```
 
 ```{r 01-glue-spatial, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-spatial.R"))
+knitr::read_chunk(here::here("R", "nt_spatial.R"))
 ```
 
 ```{r 02-make-df-spatial, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-spatial.R"))
+knitr::read_chunk(here::here("R", "nt_spatial.R"))
 ```
 
 ```{r 03-make-kable-spatial, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-spatial.R"))
+knitr::read_chunk(here::here("R", "nt_spatial.R"))
 ```
 
 ```{r 04-make-df-spatial, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-spatial.R"))
+knitr::read_chunk(here::here("R", "nt_spatial.R"))
 ```
 
 ```{r 05-plot-spatial-subdomain, eval=F, fig.cap = '(ref:spt)', double_escape=T, escape=F}
@@ -976,35 +976,35 @@ cat(readLines("02.1.5.exe.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-executive.R"))
+knitr::read_chunk(here::here("R", "nt_executive.R"))
 ```
 
 ```{r 01-glue-executive, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-executive.R"))
+knitr::read_chunk(here::here("R", "nt_executive.R"))
 ```
 
 ```{r 02-make-df-executive, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-executive.R"))
+knitr::read_chunk(here::here("R", "nt_executive.R"))
 ```
 
 ```{r 03-make-kable-executive, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-executive.R"))
+knitr::read_chunk(here::here("R", "nt_executive.R"))
 ```
 
 ```{r 04-make-df-executive, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-executive.R"))
+knitr::read_chunk(here::here("R", "nt_executive.R"))
 ```
 
 ```{r 05-plot-executive-subdomain, eval=T, fig.cap = '(ref:att-exe)', double_escape=T, escape=F}
@@ -1024,35 +1024,35 @@ cat(readLines("02.1.6.mem.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-memory.R"))
+knitr::read_chunk(here::here("R", "nt_memory.R"))
 ```
 
 ```{r 01-glue-memory, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-memory.R"))
+knitr::read_chunk(here::here("R", "nt_memory.R"))
 ```
 
 ```{r 02-make-df-memory, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-memory.R"))
+knitr::read_chunk(here::here("R", "nt_memory.R"))
 ```
 
 ```{r 03-make-kable-memory, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-memory.R"))
+knitr::read_chunk(here::here("R", "nt_memory.R"))
 ```
 
 ```{r 04-make-df-memory, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-memory.R"))
+knitr::read_chunk(here::here("R", "nt_memory.R"))
 ```
 
 ```{r 05-plot-memory-subdomain, eval=F, fig.cap = '(ref:mem)', double_escape=T, escape=F}
@@ -1152,35 +1152,35 @@ cat(readLines("02.2.brown.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-brown_efa_self.R"))
+knitr::read_chunk(here::here("R", "nt_brown_efa_self.R"))
 ```
 
 ```{r 01-glue-brown-efa-self, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-brown_efa_self.R"))
+knitr::read_chunk(here::here("R", "nt_brown_efa_self.R"))
 ```
 
 ```{r 02-make-df-brown-efa-self, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-brown_efa_self.R"))
+knitr::read_chunk(here::here("R", "nt_brown_efa_self.R"))
 ```
 
 ```{r 03-make-kable-brown-efa-self, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-brown_efa_self.R"))
+knitr::read_chunk(here::here("R", "nt_brown_efa_self.R"))
 ```
 
 ```{r 04-make-df-brown-efa-self, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-brown_efa_self.R"))
+knitr::read_chunk(here::here("R", "nt_brown_efa_self.R"))
 ```
 
 ```{r 05-plot-brown-efa-self-subdomain, eval=F, fig.cap = 'Self-reported executive and attentional functioning related to ADHD in everyday life.', double_escape=T, escape=F}
@@ -1240,35 +1240,35 @@ cat(readLines("02.2.basc.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-basc3_prs_preschool.R"))
+knitr::read_chunk(here::here("R", "nt_basc3_prs_preschool.R"))
 ```
 
 ```{r 01-glue-basc3-prs-preschool, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-basc3_prs_preschool.R"))
+knitr::read_chunk(here::here("R", "nt_basc3_prs_preschool.R"))
 ```
 
 ```{r 02-make-df-basc3-prs-preschool, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-basc3_prs_preschool.R"))
+knitr::read_chunk(here::here("R", "nt_basc3_prs_preschool.R"))
 ```
 
 ```{r 03-make-kable-basc3-prs-preschool, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-basc3_prs_preschool.R"))
+knitr::read_chunk(here::here("R", "nt_basc3_prs_preschool.R"))
 ```
 
 ```{r 04-make-df-basc3-prs-preschool, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-basc3_prs_preschool.R"))
+knitr::read_chunk(here::here("R", "nt_basc3_prs_preschool.R"))
 ```
 
 ```{r 05-plot-basc3-prs-preschool-subdomain, eval=F, fig.cap = 'Self-reported executive and attentional functioning related to ADHD in everyday life.', double_escape=T, escape=F}
@@ -1284,35 +1284,35 @@ cat(readLines("02.2.pai.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-pai.R"))
+knitr::read_chunk(here::here("R", "nt_pai.R"))
 ```
 
 ```{r 01-glue-pai, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-pai.R"))
+knitr::read_chunk(here::here("R", "nt_pai.R"))
 ```
 
 ```{r 02-make-df-pai, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-pai.R"))
+knitr::read_chunk(here::here("R", "nt_pai.R"))
 ```
 
 ```{r 03-make-kable-pai, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-pai.R"))
+knitr::read_chunk(here::here("R", "nt_pai.R"))
 ```
 
 ```{r 04-make-df-pai, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-pai.R"))
+knitr::read_chunk(here::here("R", "nt_pai.R"))
 ```
 
 ```{r 05-plot-pai-subdomain, eval=T, fig.margin=TRUE, fig.env='marginfigure', fig.cap='PAI Clinical Domains. Depression and somatic/health complaints are elevated to a clinically signficant degree and need to be prioritized as part of the treatment plan.', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
