@@ -597,7 +597,7 @@ out_dir_pdf <- here::here(patient, "pdf")
 **DOE:** (ref:doe)
 ```
 
-```{r, nse, results='asis'}
+```{r nse, results='asis'}
 cat(readLines("01.2.nse.md"), sep = "\n")
 ```
 
@@ -630,7 +630,7 @@ cat(readLines("01.2.nse.md"), sep = "\n")
 -   (ref:brown-efa-self)
 -   (ref:pai)
 
-```{r, bobs, results='asis'}
+```{r bobs, results='asis'}
 cat(readLines("02.0.bobs.md"), sep = "\n")
 ```
 
