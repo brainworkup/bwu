@@ -418,11 +418,11 @@ out_dir_pdf <- here::here(patient, "pdf")
 
 (ref:brown-efa) Brown Executive Function/Attention Scales (Brown EF/A)
 
-(ref:brown-efa-parent) Brown Executive Function/Attention Scales, (EF/A), Parent Report
+(ref:brown-efa-parent) Brown Executive Function/Attention Scales, (EF/A), Parent
 
-(ref:brown-efa-self) Brown Executive Function/Attention Scale (EF/A), Self-Report
+(ref:brown-efa-self) Brown Executive Function/Attention Scale (EF/A), Self
 
-(ref:brown-efa-teacher) Brown Executive Function/Attention Scales (EF/A), Teacher Report
+(ref:brown-efa-teacher) Brown Executive Function/Attention Scales (EF/A), Teacher
 
 (ref:abas-parent) Adaptive Behavior Assessment System, 3rd ed (ABAS-3), Parent
 
@@ -430,9 +430,9 @@ out_dir_pdf <- here::here(patient, "pdf")
 
 (ref:caadid) Conners' Adult ADHD Diagnostic Interview for DSM-IV (CAADID), Part I: History
 
-(ref:caars-self) Conners' Adult ADHD Rating Scale (CAARS), Self-Report
+(ref:caars-self) Conners' Adult ADHD Rating Scale (CAARS), Self
 
-(ref:caars-obs) Conners' Adult ADHD Rating Scale (CAARS), Observer Report
+(ref:caars-obs) Conners' Adult ADHD Rating Scale (CAARS), Observer
 
 (ref:swan) SWAN ADHD Rating Scale
 
@@ -488,9 +488,9 @@ out_dir_pdf <- here::here(patient, "pdf")
 
 (ref:g) *General intelligence* refers to an overall capacity to reason, to solve problems, and to learn useful information.
 
-(ref:gc) *Crystallized/verbal intelligence* refers to the ability to learn and use language to reason and understand how the world works.
+(ref:gc) *Crystallized intelligence* refers to the ability to learn and use language to reason and understand how the world works.
 
-(ref:gf) *Fluid/nonverbal intelligence* refers to the ability to use logical reasoning to figure things out without being told exactly how things work, analyze and solve novel problems, identify patterns and relationships that underpin these problems, and apply logic.
+(ref:gf) *Fluid intelligence* refers to the ability to use logical reasoning to figure things out without being told exactly how things work, analyze and solve novel problems, identify patterns and relationships that underpin these problems, and apply logic.
 
 (ref:gcf) *General cognitive functioning* refers to an overall capacity to reason, to solve problems, and to learn useful information.
 
@@ -656,13 +656,9 @@ knitr::include_graphics("plot_broad.png", auto_pdf = TRUE)
 ```
 
 ```{r read-csv}
-## Import CSV files
 library(tidyverse)
-# path to files
 data_path <- here::here(patient, "csv")
-# get file names of .csv files
 files <- dir(data_path, pattern = "*.csv")
-# read into env
 neuropsych <-
   files %>%
   set_names() %>%
@@ -686,7 +682,6 @@ neuropsych <-
 neurocog <-
   neuropsych %>%
   filter(test_type == "npsych_test")
-## Create factors
 # domain
 neurocog <-
   neurocog %>%
@@ -711,19 +706,19 @@ neurocog <-
   mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) %>%
   mutate(pct_mean_narrow = mean(percentile), pct_sd_narrow = sd(percentile)) %>%
   ungroup()
-# verbal
-neurocog <-
-  neurocog %>%
-  group_by(verbal, .add = TRUE) %>%
-  filter(!is.na(percentile)) %>%
-  mutate(z_mean_verbal = mean(z), z_sd_verbal = sd(z)) %>%
-  ungroup()
 # pass
 neurocog <-
   neurocog %>%
   group_by(pass, .add = TRUE) %>%
   filter(!is.na(percentile)) %>%
   mutate(z_mean_pass = mean(z), z_sd_pass = sd(z)) %>%
+  ungroup()
+# verbal
+neurocog <-
+  neurocog %>%
+  group_by(verbal, .add = TRUE) %>%
+  filter(!is.na(percentile)) %>%
+  mutate(z_mean_verbal = mean(z), z_sd_verbal = sd(z)) %>%
   ungroup()
 # timed
 neurocog <-
@@ -735,11 +730,10 @@ neurocog <-
 ```
 
 ```{r, make-factors-neurobehav}
-# Subset neurocognitive data
+# Subset neurobehavioral data
 neurobehav <-
   neuropsych %>%
   filter(test_type != "npsych_test")
-## Create factors
 # domain
 neurobehav <-
   neurobehav %>%
@@ -1078,28 +1072,28 @@ cat(readLines("02.1.7.mtr.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-motor.R"))
+knitr::read_chunk(here::here("R", "nt_motor.R"))
 ```
 
 ```{r 02-make-df-motor, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-motor.R"))
+knitr::read_chunk(here::here("R", "nt_motor.R"))
 ```
 
 ```{r 03-make-kable-motor, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-motor.R"))
+knitr::read_chunk(here::here("R", "nt_motor.R"))
 ```
 
 ```{r 04-make-df-motor, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-motor.R"))
+knitr::read_chunk(here::here("R", "nt_motor.R"))
 ```
 
 ```{r 05-plot-motor-subdomain, eval=F, fig.cap = '(ref:mtr)', double_escape=T, escape=F}
@@ -1119,28 +1113,28 @@ cat(readLines("02.1.8.soc.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-social.R"))
+knitr::read_chunk(here::here("R", "nt_social.R"))
 ```
 
 ```{r 02-make-df-social, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-social.R"))
+knitr::read_chunk(here::here("R", "nt_social.R"))
 ```
 
 ```{r 03-make-kable-social, eval=T, double_escape=T, escape=F, fig.fullwidth=TRUE}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-social.R"))
+knitr::read_chunk(here::here("R", "nt_social.R"))
 ```
 
 ```{r 04-make-df-social, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt-social.R"))
+knitr::read_chunk(here::here("R", "nt_social.R"))
 ```
 
 ```{r 05-plot-social-subdomain, eval=T, double_escape=T, escape=F, fig.cap='(ref:social)'}
@@ -1193,6 +1187,50 @@ knitr::read_chunk(here::here("R", "nt-brown_efa_self.R"))
 ```
 
 ```{r 06-plot-brown-efa-self-narrow, eval=T, fig.cap = 'Self-reported executive and attentional functioning related to ADHD in everyday life.', double_escape=T, escape=F}
+```
+
+\newpage
+
+```{r, caars, results='asis'}
+cat(readLines("02.2.caars.md"), sep = "\n")
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt_caars_self.R"))
+```
+
+```{r 01-glue-caars-self, eval=T, double_escape=T, escape=F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt_caars_self.R"))
+```
+
+```{r 02-make-df-caars-self, eval=T, double_escape=T, escape=F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt_caars_self.R"))
+```
+
+```{r 03-make-kable-caars-self, eval=T, double_escape=T, escape=F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt_caars_self.R"))
+```
+
+```{r 04-make-df-caars-self, eval=T, double_escape=T, escape=F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt_caars_self.R"))
+```
+
+```{r 05-plot-caars-self-subdomain, eval=F, fig.cap = 'Self-reported executive and attentional functioning related to ADHD in everyday life.', double_escape=T, escape=F}
+```
+
+```{r 06-plot-caars-self-narrow, eval=T, fig.cap = 'Self-reported executive and attentional functioning related to ADHD in everyday life.', double_escape=T, escape=F}
 ```
 
 \newpage
