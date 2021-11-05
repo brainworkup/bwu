@@ -781,9 +781,9 @@ neurobehav <- read_csv(here::here(patient, "neurobehav.csv"))
 
 ### Intelligence/General Ability
 
-(ref:fn-iq) Score = Standard (M = 100, SD = 15)
+(ref:fn-iq) Standard Score (M = 100, SD = 15)
 
-```{r, iq, results='asis'}
+```{r, iq, results='asis', eval=T}
 cat(readLines("02.1.1.iq.md"), sep = "\n")
 ```
 
@@ -829,9 +829,9 @@ knitr::read_chunk(here::here("R", "nt_iq.R"))
 
 ### Academic Skills
 
-(ref:fn-acad) Score = Standard (M = 100, SD = 15)
+(ref:fn-acad) Standard Score (M = 100, SD = 15)
 
-```{r, acad, results='asis'}
+```{r, acad, results='asis', eval=T}
 cat(readLines("02.1.2.acad.md"), sep = "\n")
 ```
 
@@ -879,7 +879,7 @@ knitr::read_chunk(here::here("R", "nt_academics.R"))
 
 (ref:fn-verbal) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M = 10, SD = 3)
 
-```{r, vrb, results='asis'}
+```{r, vrb, results='asis', eval=T}
 cat(readLines("02.1.3.vrb.md"), sep = "\n")
 ```
 
@@ -927,7 +927,7 @@ knitr::read_chunk(here::here("R", "nt_verbal.R"))
 
 (ref:fn-spatial) Score = Standard (M = 100, SD = 15) or Scaled (M = 10, SD = 3)
 
-```{r, spt, results='asis'}
+```{r, spt, results='asis', eval=T}
 cat(readLines("02.1.4.spt.md"), sep = "\n")
 ```
 
@@ -976,7 +976,7 @@ knitr::read_chunk(here::here("R", "nt_spatial.R"))
 (ref:fn-exe) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M 
 = 10, SD = 3)
 
-```{r, exe, results='asis'}
+```{r, exe, results='asis', eval=T}
 cat(readLines("02.1.5.exe.md"), sep = "\n")
 ```
 
@@ -1024,7 +1024,7 @@ knitr::read_chunk(here::here("R", "nt_executive.R"))
 
 (ref:fn-memory) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M = 10, SD = 3)
 
-```{r, mem, results='asis'}
+```{r, mem, results='asis', eval=T}
 cat(readLines("02.1.6.mem.md"), sep = "\n")
 ```
 
@@ -1072,7 +1072,7 @@ knitr::read_chunk(here::here("R", "nt_memory.R"))
 
 (ref:fn-motor) Score = *T* (M = 50, SD = 10) or Scaled (M = 10, SD = 3)
 
-```{r, mtr, results='asis'}
+```{r, mtr, results='asis', eval=T}
 cat(readLines("02.1.7.mtr.md"), sep = "\n")
 ```
 
@@ -1113,7 +1113,7 @@ knitr::read_chunk(here::here("R", "nt_motor.R"))
 
 (ref:fn-soc) Scaled (M = 10, SD = 3)
 
-```{r, soc, results='asis'}
+```{r, soc, results='asis', eval=T}
 cat(readLines("02.1.8.soc.md"), sep = "\n")
 ```
 
@@ -1152,7 +1152,7 @@ knitr::read_chunk(here::here("R", "nt_social.R"))
 
 ### Emotional/Behavioral/Adaptive
 
-```{r, brown, results='asis'}
+```{r, brown, results='asis', eval=T}
 cat(readLines("02.2.brown.md"), sep = "\n")
 ```
 
@@ -1196,7 +1196,7 @@ knitr::read_chunk(here::here("R", "nt_brown_efa_self.R"))
 
 \newpage
 
-```{r, caars, results='asis'}
+```{r, caars, results='asis', eval=T}
 cat(readLines("02.2.caars.md"), sep = "\n")
 ```
 
@@ -1240,7 +1240,7 @@ knitr::read_chunk(here::here("R", "nt_caars_self.R"))
 
 \newpage
 
-```{r, basc, results='asis'}
+```{r, basc, results='asis', eval=T}
 cat(readLines("02.2.basc.md"), sep = "\n")
 ```
 
@@ -1284,7 +1284,7 @@ knitr::read_chunk(here::here("R", "nt_basc3_prs_preschool.R"))
 
 \newpage
 
-```{r, pai, results='asis'}
+```{r, pai, results='asis', eval=T}
 cat(readLines("02.2.pai.md"), sep = "\n")
 ```
 
