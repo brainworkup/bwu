@@ -520,9 +520,9 @@ out_dir_pdf <- here::here(patient, "pdf")
 
 (ref:mtr) *Sensorimotor* tasks refer to the capacity to control hand movements quickly, smoothly, and with adequate precision, which are required to engage in activities such as writing and drawing.
 
-(ref:social) *Social cognition* measures are used to gauge aspects of social-emotional processing and social aptitude (sometimes referred to as emotional intelligence), which are important facets of how individuals process social information about other children, adults, groups, and social contexts.
+(ref:soc-cogl) *Social cognition* measures are used to gauge aspects of social-emotional processing and social aptitude (sometimes referred to as emotional intelligence), which are important facets of how individuals process social information about other children, adults, groups, and social contexts.
 
-(ref:cc) *Cognitive control* guides behavior by controlling what, when, and how information is represented in the brain. Cognitive control is associated with a wide range of processes and is not restricted to a particular cognitive domain. Impairments in cognitive control functions are associated with specific deficits in attention, memory, language comprehension and emotional processing.
+(ref:cog-ctrl) *Cognitive control* guides behavior by controlling what, when, and how information is represented in the brain. Cognitive control is associated with a wide range of processes and is not restricted to a particular cognitive domain. Impairments in cognitive control functions are associated with specific deficits in attention, memory, language comprehension and emotional processing.
 
 (ref:adhd) *ADHD* is a neurodevelopmental disorder characterized by symptoms of inattention (not being able to keep focus), hyperactivity (excess movement that is not fitting to the setting) and impulsivity (hasty acts that occur in the moment without thought). Many ADHD symptoms, such as high activity levels, difficulty remaining still for long periods of time and limited attention spans, are common to children and adolescents in general, and even many adults. The difference in individuals with ADHD is that their hyperactivity and inattention are noticeably greater than expected for their age and cause distress and/or problems functioning at home, at school, at work, or with friends.
 
@@ -615,10 +615,13 @@ cat(readLines("01.2.nse.md"), sep = "\n")
 -   (ref:wiat4)
 -   (ref:ktea3)
 -   (ref:wrat5)
+-   (ref:nab): Form A/B
 -   (ref:nabs): Form A/B
 -   (ref:rbans): Form A/B/C/D
 -   (ref:nepsy2)
 -   (ref:cvltc)
+-   (ref:cvlt3)
+-   (ref:dkefs)
 -   (ref:tmt)
 -   (ref:examiner)
 -   (ref:bicycle)
@@ -628,6 +631,8 @@ cat(readLines("01.2.nse.md"), sep = "\n")
 -   (ref:basc3-sdh)
 -   (ref:brown-efa-parent)
 -   (ref:brown-efa-self)
+-   (ref:caars-self)
+-   (ref:caars-obs)
 -   (ref:pai)
 
 ```{r bobs, results='asis'}
