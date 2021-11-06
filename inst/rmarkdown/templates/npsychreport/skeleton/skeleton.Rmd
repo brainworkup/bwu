@@ -468,19 +468,19 @@ out_dir_pdf <- here::here(patient, "pdf")
 
 (ref:social) Social Cognition
 
-(ref:standard-score) Score = Standard (M = 100, SD = 15)
+(ref:standard-score) Standard score (M = 100, SD = 15)
 
-(ref:scaled-score) Score = Scaled (M = 10, SD = 3)
+(ref:scaled-score) Scaled score (M = 10, SD = 3)
 
-(ref:t-score) Score = *T* (M = 50, SD = 10)
+(ref:t-score) *T* score (M = 50, SD = 10)
 
-(ref:z-score) Score = *z* (M = 0, SD = 1)
+(ref:z-score) *z*-score (M = 0, SD = 1)
 
 (ref:zplot) *z* = -1 (16th percentile), *z* = 0 (50th percentile), and *z* = 1 (84th percentile)
 
 (ref:pct) A *percentile* shows `r params$first_name`'s standing relative to peers. For example, a percentile score of 70 means `r params$first_name` performed as well as or better than 70% of individuals the same age.
 
-(ref:br) A *base rate* is the prevalence of score in the general population. If a score is rare, defined as a base rate of less than 10%, it is considered *clinically significant*, and that area of functioning is probably causing problems in daily functioning.
+(ref:br) A *base rate* is the prevalence of score in the general population. If a score is rare, defined as a base rate of less than 10%, it is considered *clinically significant*, and that area of functioning is probably causing problems in daily life.
 
 (ref:basc3-footnote) Score = *T* (M = 50, SD = 10); *Note:* Adaptive Skills *T* scores are reversed
 
@@ -520,7 +520,7 @@ out_dir_pdf <- here::here(patient, "pdf")
 
 (ref:mtr) *Sensorimotor* tasks refer to the capacity to control hand movements quickly, smoothly, and with adequate precision, which are required to engage in activities such as writing and drawing.
 
-(ref:soc-cogl) *Social cognition* measures are used to gauge aspects of social-emotional processing and social aptitude (sometimes referred to as emotional intelligence), which are important facets of how individuals process social information about other children, adults, groups, and social contexts.
+(ref:soc-cog) *Social cognition* measures are used to gauge aspects of social-emotional processing and social aptitude (sometimes referred to as emotional intelligence), which are important facets of how individuals process social information about other children, adults, groups, and social contexts.
 
 (ref:cog-ctrl) *Cognitive control* guides behavior by controlling what, when, and how information is represented in the brain. Cognitive control is associated with a wide range of processes and is not restricted to a particular cognitive domain. Impairments in cognitive control functions are associated with specific deficits in attention, memory, language comprehension and emotional processing.
 
@@ -598,7 +598,7 @@ out_dir_pdf <- here::here(patient, "pdf")
 ```
 
 ```{r nse, results='asis'}
-cat(readLines("01.2.nse.md"), sep = "\n")
+cat(readLines("nt_nse.md"), sep = "\n")
 ```
 
 \newpage
@@ -766,14 +766,12 @@ neurobehav <-
 ```
 
 ```{r, write-data}
-## Write data
 write_csv(neuropsych, here::here(patient, "neuropsych.csv"))
 write_csv(neurocog, here::here(patient, "neurocog.csv"))
 write_csv(neurobehav, here::here(patient, "neurobehav.csv"))
 ```
 
 ```{r, read-data}
-## Read data
 neuropsych <- read_csv(here::here(patient, "neuropsych.csv"))
 neurocog <- read_csv(here::here(patient, "neurocog.csv"))
 neurobehav <- read_csv(here::here(patient, "neurobehav.csv"))
@@ -784,7 +782,7 @@ neurobehav <- read_csv(here::here(patient, "neurobehav.csv"))
 (ref:fn-iq) Standard Score (M = 100, SD = 15)
 
 ```{r, iq, results='asis', eval=T}
-cat(readLines("02.1.1.iq.md"), sep = "\n")
+cat(readLines("nt_iq.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
@@ -829,10 +827,10 @@ knitr::read_chunk(here::here("R", "nt_iq.R"))
 
 ### Academic Skills
 
-(ref:fn-acad) Standard Score (M = 100, SD = 15)
+(ref:fn-academics) Standard Score (M = 100, SD = 15)
 
-```{r, acad, results='asis', eval=T}
-cat(readLines("02.1.2.acad.md"), sep = "\n")
+```{r, academics, results='asis', eval=T}
+cat(readLines("nt_academics.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
@@ -877,10 +875,10 @@ knitr::read_chunk(here::here("R", "nt_academics.R"))
 
 ### Verbal/Language
 
-(ref:fn-verbal) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M = 10, SD = 3)
+(ref:fn-verbal) Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M = 10, SD = 3) scores
 
-```{r, vrb, results='asis', eval=T}
-cat(readLines("02.1.3.vrb.md"), sep = "\n")
+```{r, verbal, results='asis', eval=T}
+cat(readLines("nt_verbal.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
@@ -927,8 +925,8 @@ knitr::read_chunk(here::here("R", "nt_verbal.R"))
 
 (ref:fn-spatial) Score = Standard (M = 100, SD = 15) or Scaled (M = 10, SD = 3)
 
-```{r, spt, results='asis', eval=T}
-cat(readLines("02.1.4.spt.md"), sep = "\n")
+```{r, spatial, results='asis', eval=T}
+cat(readLines("nb_spatial.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
@@ -976,8 +974,8 @@ knitr::read_chunk(here::here("R", "nt_spatial.R"))
 (ref:fn-exe) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M 
 = 10, SD = 3)
 
-```{r, exe, results='asis', eval=T}
-cat(readLines("02.1.5.exe.md"), sep = "\n")
+```{r, executive, results='asis', eval=T}
+cat(readLines("nt_executive.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
@@ -1022,10 +1020,10 @@ knitr::read_chunk(here::here("R", "nt_executive.R"))
 
 ### Memory
 
-(ref:fn-memory) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M = 10, SD = 3)
+(ref:fn-memory) Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M = 10, SD = 3) scores
 
-```{r, mem, results='asis', eval=T}
-cat(readLines("02.1.6.mem.md"), sep = "\n")
+```{r, memory, results='asis', eval=T}
+cat(readLines("nt_memory.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
@@ -1070,10 +1068,10 @@ knitr::read_chunk(here::here("R", "nt_memory.R"))
 
 ### Motor
 
-(ref:fn-motor) Score = *T* (M = 50, SD = 10) or Scaled (M = 10, SD = 3)
+(ref:fn-motor) *T* (M = 50, SD = 10) or Scaled (M = 10, SD = 3) scores
 
-```{r, mtr, results='asis', eval=T}
-cat(readLines("02.1.7.mtr.md"), sep = "\n")
+```{r, motor, results='asis', eval=T}
+cat(readLines("nt_motor.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
@@ -1111,10 +1109,10 @@ knitr::read_chunk(here::here("R", "nt_motor.R"))
 
 ### Social Cognition
 
-(ref:fn-soc) Scaled (M = 10, SD = 3)
+(ref:fn-soc) Scaled Score (M = 10, SD = 3)
 
-```{r, soc, results='asis', eval=T}
-cat(readLines("02.1.8.soc.md"), sep = "\n")
+```{r, social, results='asis', eval=T}
+cat(readLines("nt_social.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
@@ -1142,10 +1140,10 @@ knitr::read_chunk(here::here("R", "nt_social.R"))
 knitr::read_chunk(here::here("R", "nt_social.R"))
 ```
 
-```{r 05-plot-social-subdomain, eval=T, double_escape=T, escape=F, fig.cap='(ref:social)'}
+```{r 05-plot-social-subdomain, eval=T, double_escape=T, escape=F, fig.cap='(ref:soc-cog)'}
 ```
 
-```{r 06-plot-social-narrow, eval=T, double_escape=T, escape=F, fig.cap='(ref:social)'}
+```{r 06-plot-social-narrow, eval=T, double_escape=T, escape=F, fig.cap='(ref:soc-cog)'}
 ```
 
 \newpage
@@ -1153,7 +1151,7 @@ knitr::read_chunk(here::here("R", "nt_social.R"))
 ### Emotional/Behavioral/Adaptive
 
 ```{r, brown, results='asis', eval=T}
-cat(readLines("02.2.brown.md"), sep = "\n")
+cat(readLines("brown.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
@@ -1197,7 +1195,7 @@ knitr::read_chunk(here::here("R", "nt_brown_efa_self.R"))
 \newpage
 
 ```{r, caars, results='asis', eval=T}
-cat(readLines("02.2.caars.md"), sep = "\n")
+cat(readLines("caars.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
@@ -1241,7 +1239,7 @@ knitr::read_chunk(here::here("R", "nt_caars_self.R"))
 \newpage
 
 ```{r, basc, results='asis', eval=T}
-cat(readLines("02.2.basc.md"), sep = "\n")
+cat(readLines("basc.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
@@ -1276,16 +1274,16 @@ knitr::read_chunk(here::here("R", "nt_basc3_prs_preschool.R"))
 knitr::read_chunk(here::here("R", "nt_basc3_prs_preschool.R"))
 ```
 
-```{r 05-plot-basc3-prs-preschool-subdomain, eval=F, fig.cap = 'Self-reported executive and attentional functioning related to ADHD in everyday life.', double_escape=T, escape=F}
+```{r 05-plot-basc3-prs-preschool-subdomain, eval=F, fig.cap = '(ref:basc3)', double_escape=T, escape=F}
 ```
 
-```{r 06-plot-basc3-prs-preschool-narrow, eval=T, fig.cap = 'Self-reported executive and attentional functioning related to ADHD in everyday life.', double_escape=T, escape=F}
+```{r 06-plot-basc3-prs-preschool-narrow, eval=T, fig.cap = '(ref:basc3)', double_escape=T, escape=F}
 ```
 
 \newpage
 
 ```{r, pai, results='asis', eval=T}
-cat(readLines("02.2.pai.md"), sep = "\n")
+cat(readLines("pai.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
@@ -1320,7 +1318,7 @@ knitr::read_chunk(here::here("R", "nt_pai.R"))
 knitr::read_chunk(here::here("R", "nt_pai.R"))
 ```
 
-```{r 05-plot-pai-subdomain, eval=T, fig.margin=TRUE, fig.env='marginfigure', fig.cap='PAI Clinical Domains. Depression and somatic/health complaints are elevated to a clinically signficant degree and need to be prioritized as part of the treatment plan.', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
+```{r 05-plot-pai-subdomain, eval=F, fig.margin=TRUE, fig.env='marginfigure', fig.cap='PAI Clinical Domains. Depression and somatic/health complaints are elevated to a clinically signficant degree and need to be prioritized as part of the treatment plan.', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
 ```
 
 ```{r 06-plot-pai-narrow, eval=F, fig.margin=TRUE, fig.env='marginfigure', fig.cap='PAI Clinical Domains. Depression and somatic/health complaints are elevated to a clinically signficant degree and need to be prioritized as part of the treatment plan.', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
@@ -1349,7 +1347,7 @@ dotplot(
 ```
 
 ```{r, sirf, results='asis'}
-cat(readLines("03.0.sirf.md"), sep = "\n")
+cat(readLines("sirf.md"), sep = "\n")
 ```
 
 It was a pleasure to work with `r params$first_name`.
@@ -1381,7 +1379,7 @@ knitr::include_graphics("../jwtSig.png")
 # APPENDIX
 
 ```{r results='asis'}
-cat(readLines("03.2.telehealth_statement.md"), sep = "\n")
+cat(readLines("telehealth_statement.md"), sep = "\n")
 ```
 
 ## Test Selection Procedures
