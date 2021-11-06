@@ -245,6 +245,21 @@ params:
       - none/self
 ---
 
+```{r}
+patient <- "BS"
+```
+
+```{r, eval=T}
+# Create directory
+xfun::dir_create(here::here(patient, "pre_csv"))
+xfun::dir_create(here::here(patient, "csv"))
+xfun::dir_create(here::here(patient, "pdf"))
+# Create link to directory
+out_dir_pre_csv <- here::here(patient, "pre_csv")
+out_dir_csv <- here::here(patient, "csv")
+out_dir_pdf <- here::here(patient, "pdf")
+```
+
 ```{r, setup, include = FALSE, results='hide', warning=FALSE}
 library(knitr)
 knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
@@ -311,22 +326,6 @@ source(file = here::here("R/dotplot.R"), local = knitr::knit_global())
 ```{r}
 source(file = here::here("R/make_tibble.R"), local = knitr::knit_global())
 ```
-
-```{r}
-patient <- "BS"
-```
-
-```{r, eval=T}
-# Create directory
-xfun::dir_create(here::here(patient, "pre_csv"))
-xfun::dir_create(here::here(patient, "csv"))
-xfun::dir_create(here::here(patient, "pdf"))
-# Create link to directory
-out_dir_pre_csv <- here::here(patient, "pre_csv")
-out_dir_csv <- here::here(patient, "csv")
-out_dir_pdf <- here::here(patient, "pdf")
-```
-
 
 (ref:wppsi4) Wechsler Preschool and Primary Scale of Intelligence, 4th ed (WPPSI-IV)
 
@@ -971,8 +970,7 @@ knitr::read_chunk(here::here("R", "nt_spatial.R"))
 
 ### Attention/Executive
 
-(ref:fn-exe) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M 
-= 10, SD = 3)
+(ref:fn-exe) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M = 10, SD = 3)
 
 ```{r, executive, results='asis', eval=T}
 cat(readLines("nt_executive.md"), sep = "\n")
@@ -1070,7 +1068,7 @@ knitr::read_chunk(here::here("R", "nt_memory.R"))
 
 (ref:fn-motor) *T* (M = 50, SD = 10) or Scaled (M = 10, SD = 3) scores
 
-```{r, motor, results='asis', eval=T}
+```{r, motor, results='asis'}
 cat(readLines("nt_motor.md"), sep = "\n")
 ```
 
@@ -1118,7 +1116,7 @@ knitr::read_chunk(here::here("R", "nt_motor.R"))
 
 (ref:fn-soc) Scaled Score (M = 10, SD = 3)
 
-```{r, social, results='asis', eval=T}
+```{r, social, results='asis'}
 cat(readLines("nt_social.md"), sep = "\n")
 ```
 
@@ -1147,7 +1145,7 @@ knitr::read_chunk(here::here("R", "nt_social.R"))
 knitr::read_chunk(here::here("R", "nt_social.R"))
 ```
 
-```{r 05-plot-social-subdomain, eval=T, double_escape=T, escape=F, fig.cap='(ref:soc-cog)'}
+```{r 05-plot-social-subdomain, eval=F, double_escape=T, escape=F, fig.cap='(ref:soc-cog)'}
 ```
 
 ```{r 06-plot-social-narrow, eval=T, double_escape=T, escape=F, fig.cap='(ref:soc-cog)'}
@@ -1157,7 +1155,7 @@ knitr::read_chunk(here::here("R", "nt_social.R"))
 
 ### Emotional/Behavioral/Adaptive
 
-```{r, brown, results='asis', eval=T}
+```{r, brown, results='asis'}
 cat(readLines("brown.md"), sep = "\n")
 ```
 
@@ -1201,7 +1199,7 @@ knitr::read_chunk(here::here("R", "nt_brown_efa_self.R"))
 
 \newpage
 
-```{r, caars, results='asis', eval=T}
+```{r, caars, results='asis'}
 cat(readLines("caars.md"), sep = "\n")
 ```
 
@@ -1245,7 +1243,7 @@ knitr::read_chunk(here::here("R", "nt_caars_self.R"))
 
 \newpage
 
-```{r, basc, results='asis', eval=T}
+```{r, basc, results='asis'}
 cat(readLines("basc.md"), sep = "\n")
 ```
 
@@ -1289,7 +1287,7 @@ knitr::read_chunk(here::here("R", "nt_basc3_prs_preschool.R"))
 
 \newpage
 
-```{r, pai, results='asis', eval=T}
+```{r, pai, results='asis'}
 cat(readLines("pai.md"), sep = "\n")
 ```
 
@@ -1325,17 +1323,17 @@ knitr::read_chunk(here::here("R", "nt_pai.R"))
 knitr::read_chunk(here::here("R", "nt_pai.R"))
 ```
 
-```{r 05-plot-pai-subdomain, eval=F, fig.margin=TRUE, fig.env='marginfigure', fig.cap='PAI Clinical Domains. Depression and somatic/health complaints are elevated to a clinically signficant degree and need to be prioritized as part of the treatment plan.', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
+```{r 05-plot-pai-subdomain, eval=F, fig.margin=TRUE, fig.env='marginfigure', fig.cap='PAI Clinical Domains.', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
 ```
 
-```{r 06-plot-pai-narrow, eval=F, fig.margin=TRUE, fig.env='marginfigure', fig.cap='PAI Clinical Domains. Depression and somatic/health complaints are elevated to a clinically signficant degree and need to be prioritized as part of the treatment plan.', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
+```{r 06-plot-pai-narrow, eval=F, fig.margin=TRUE, fig.env='marginfigure', fig.cap='PAI Clinical Domains.', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
 ```
 
 \newpage
 
 # SUMMARY/IMPRESSION
 
-(ref:domain) *Key Findings:* Verbal skills are significantly stronger than nonverbal/spatial processing skills. Attentional fluency (i.e., working memory and processing speed) and abstract reasoning are areas of weakness. Memory continues to evidence a decline from premorbid levels. *Note:* *z* = 0 (mean) ± 1 (sd)
+(ref:domain) *Key Findings:* Verbal skills are significantly stronger than nonverbal/spatial processing skills. Attentional fluency (i.e., working memory and processing speed) and abstract reasoning are areas of weakness. Notably, even (ref:first-name)'s normatively average scores reflect performances that are well below cognitive expectations for (ref:him-her). *Note:* *z* = 0 (mean) ± 1 (sd)
 
 ```{r domain-df}
 domain <-
@@ -1377,9 +1375,17 @@ knitr::include_graphics("../jwtSig.png")
 
 | **Joey Trampush, PhD**
 | Della Martin Assistant Professor of Psychiatry
+| 
+| 
 | Department of Psychiatry and the Behavioral Sciences
+| 
+| 
 | University of Southern California Keck School of Medicine
-| CA License PSY29212 
+| 
+| 
+| CA License PSY29212
+| 
+| 
 
 \newpage
 
@@ -1417,3 +1423,4 @@ Although standardized scores provide the clinician with an important and necessa
 [^1]: (ref:pct)
 
 [^2]: (ref:zplot)
+
