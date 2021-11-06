@@ -1078,6 +1078,13 @@ cat(readLines("nt_motor.md"), sep = "\n")
 knitr::read_chunk(here::here("R", "nt_motor.R"))
 ```
 
+```{r 01-glue-motor, eval=T, double_escape=T, escape=F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here("R", "nt_motor.R"))
+```
+
 ```{r 02-make-df-motor, eval=T, double_escape=T, escape=F}
 ```
 
