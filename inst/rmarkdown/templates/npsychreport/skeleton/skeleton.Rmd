@@ -609,8 +609,9 @@ cat(readLines("nt_nse.md"), sep = "\n")
 -   (ref:acs-topf)
 -   (ref:acs-word-choice)
 -   (ref:tomm)
+- (ref:wppsi4)
+- (ref:wisc5)
 -   (ref:wais4)
--   (ref:wisc5)
 -   (ref:wiat4)
 -   (ref:ktea3)
 -   (ref:wrat5)
@@ -635,7 +636,7 @@ cat(readLines("nt_nse.md"), sep = "\n")
 -   (ref:pai)
 
 ```{r bobs, results='asis'}
-cat(readLines("02.0.bobs.md"), sep = "\n")
+cat(readLines("bobs.md"), sep = "\n")
 ```
 
 \newpage
@@ -676,8 +677,8 @@ neuropsych <-
   mutate(domain = forcats::as_factor(domain)) %>%
   mutate(subdomain = forcats::as_factor(subdomain)) %>%
   mutate(narrow = forcats::as_factor(narrow)) %>%
-  mutate(verbal = forcats::as_factor(verbal)) %>%
   mutate(pass = forcats::as_factor(pass)) %>%
+  mutate(verbal = forcats::as_factor(verbal)) %>%
   mutate(timed = forcats::as_factor(timed))
 ```
 
@@ -780,7 +781,7 @@ neurobehav <- read_csv(here::here(patient, "neurobehav.csv"))
 
 (ref:fn-iq) Standard Score (M = 100, SD = 15)
 
-```{r, iq, results='asis', eval=T}
+```{r, iq, results='asis'}
 cat(readLines("nt_iq.md"), sep = "\n")
 ```
 
@@ -828,7 +829,7 @@ knitr::read_chunk(here::here("R", "nt_iq.R"))
 
 (ref:fn-academics) Standard Score (M = 100, SD = 15)
 
-```{r, academics, results='asis', eval=T}
+```{r, academics, results='asis'}
 cat(readLines("nt_academics.md"), sep = "\n")
 ```
 
@@ -876,7 +877,7 @@ knitr::read_chunk(here::here("R", "nt_academics.R"))
 
 (ref:fn-verbal) Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M = 10, SD = 3) scores
 
-```{r, verbal, results='asis', eval=T}
+```{r, verbal, results='asis'}
 cat(readLines("nt_verbal.md"), sep = "\n")
 ```
 
@@ -924,8 +925,8 @@ knitr::read_chunk(here::here("R", "nt_verbal.R"))
 
 (ref:fn-spatial) Score = Standard (M = 100, SD = 15) or Scaled (M = 10, SD = 3)
 
-```{r, spatial, results='asis', eval=T}
-cat(readLines("nb_spatial.md"), sep = "\n")
+```{r, spatial, results='asis'}
+cat(readLines("nt_spatial.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
@@ -972,7 +973,7 @@ knitr::read_chunk(here::here("R", "nt_spatial.R"))
 
 (ref:fn-exe) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M = 10, SD = 3)
 
-```{r, executive, results='asis', eval=T}
+```{r, executive, results='asis'}
 cat(readLines("nt_executive.md"), sep = "\n")
 ```
 
@@ -1018,9 +1019,9 @@ knitr::read_chunk(here::here("R", "nt_executive.R"))
 
 ### Memory
 
-(ref:fn-memory) Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M = 10, SD = 3) scores
+(ref:fn-memory) Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M = 10, SD = 3) score
 
-```{r, memory, results='asis', eval=T}
+```{r, memory, results='asis'}
 cat(readLines("nt_memory.md"), sep = "\n")
 ```
 
@@ -1375,18 +1376,10 @@ knitr::include_graphics("../jwtSig.png")
 
 | **Joey Trampush, PhD**
 | Della Martin Assistant Professor of Psychiatry
-| 
-| 
 | Department of Psychiatry and the Behavioral Sciences
-| 
-| 
 | University of Southern California Keck School of Medicine
-| 
-| 
 | CA License PSY29212
-| 
-| 
-
+ 
 \newpage
 
 # APPENDIX
@@ -1423,4 +1416,3 @@ Although standardized scores provide the clinician with an important and necessa
 [^1]: (ref:pct)
 
 [^2]: (ref:zplot)
-
