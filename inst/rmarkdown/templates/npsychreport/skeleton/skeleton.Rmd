@@ -609,8 +609,8 @@ cat(readLines("nt_nse.md"), sep = "\n")
 -   (ref:acs-topf)
 -   (ref:acs-word-choice)
 -   (ref:tomm)
-- (ref:wppsi4)
-- (ref:wisc5)
+-   (ref:wppsi4)
+-   (ref:wisc5)
 -   (ref:wais4)
 -   (ref:wiat4)
 -   (ref:ktea3)
@@ -875,7 +875,7 @@ knitr::read_chunk(here::here("R", "nt_academics.R"))
 
 ### Verbal/Language
 
-(ref:fn-verbal) Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M = 10, SD = 3) scores
+(ref:fn-verbal) Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M = 10, SD = 3) score
 
 ```{r, verbal, results='asis'}
 cat(readLines("nt_verbal.md"), sep = "\n")
@@ -923,7 +923,7 @@ knitr::read_chunk(here::here("R", "nt_verbal.R"))
 
 ### Visual Perception/Construction
 
-(ref:fn-spatial) Score = Standard (M = 100, SD = 15) or Scaled (M = 10, SD = 3)
+(ref:fn-spatial) Standard (M = 100, SD = 15) or Scaled (M = 10, SD = 3) score
 
 ```{r, spatial, results='asis'}
 cat(readLines("nt_spatial.md"), sep = "\n")
@@ -971,7 +971,7 @@ knitr::read_chunk(here::here("R", "nt_spatial.R"))
 
 ### Attention/Executive
 
-(ref:fn-exe) Score = Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M = 10, SD = 3)
+(ref:fn-exe) Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M = 10, SD = 3) score
 
 ```{r, executive, results='asis'}
 cat(readLines("nt_executive.md"), sep = "\n")
@@ -1067,7 +1067,7 @@ knitr::read_chunk(here::here("R", "nt_memory.R"))
 
 ### Motor
 
-(ref:fn-motor) *T* (M = 50, SD = 10) or Scaled (M = 10, SD = 3) scores
+(ref:fn-motor) *T* (M = 50, SD = 10) or Scaled (M = 10, SD = 3) score
 
 ```{r, motor, results='asis'}
 cat(readLines("nt_motor.md"), sep = "\n")
@@ -1352,6 +1352,61 @@ dotplot(
 )
 ```
 
+(ref:pass) Planning, Attention, Sequential, and Simultaneous Processing
+
+```{r pass-df}
+pass <-
+  neurocog %>%
+  filter(test_type == "npsych_test") %>%
+  filter(!is.na(pass))
+```
+
+```{r pass-plot, fig.cap = '(ref:pass)'}
+dotplot(
+  data = pass,
+  x = pass$z_mean_pass,
+  y = pass$pass,
+  domain = "pass"
+)
+```
+
+(ref:nonverbal) Verbal vs Nonverbal Tasks
+
+```{r nonverbal-df}
+nonverbal <-
+  neurocog %>%
+  filter(test_type == "npsych_test") %>%
+  filter(!is.na(verbal))
+```
+
+```{r nonverbal-plot, fig.cap = '(ref:nonverbal)'}
+dotplot(
+  data = nonverbal,
+  x = nonverbal$z_mean_verbal,
+  y = nonverbal$verbal,
+  domain = "nonverbal"
+)
+```
+
+(ref:timed) Timed vs untimed tasks
+
+```{r timed-df}
+timed <-
+  neurocog %>%
+  filter(test_type == "npsych_test") %>%
+  filter(!is.na(timed))
+```
+
+```{r timed-plot, fig.cap = '(ref:timed)'}
+dotplot(
+  data = timed,
+  x = timed$z_mean_timed,
+  y = timed$timed,
+  domain = "timed"
+)
+```
+
+
 ```{r, sirf, results='asis'}
 cat(readLines("sirf.md"), sep = "\n")
 ```
@@ -1374,11 +1429,11 @@ Sincerely,
 knitr::include_graphics("../jwtSig.png")
 ```
 
-| **Joey Trampush, PhD**
-| Della Martin Assistant Professor of Psychiatry
-| Department of Psychiatry and the Behavioral Sciences
-| University of Southern California Keck School of Medicine
-| CA License PSY29212
+| **Joey Trampush, PhD**\r
+| Della Martin Assistant Professor of Psychiatry\r
+| Department of Psychiatry and the Behavioral Sciences\r
+| University of Southern California Keck School of Medicine\r
+| CA License PSY29212\r
  
 \newpage
 
