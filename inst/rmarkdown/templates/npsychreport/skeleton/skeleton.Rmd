@@ -429,6 +429,8 @@ source(file = here::here("R/make_tibble.R"), local = knitr::knit_global())
 
 (ref:caadid) Conners' Adult ADHD Diagnostic Interview for DSM-IV (CAADID), Part I: History
 
+(ref:caars) Conners' Adult ADHD Rating Scale (CAARS)
+
 (ref:caars-self) Conners' Adult ADHD Rating Scale (CAARS), Self
 
 (ref:caars-obs) Conners' Adult ADHD Rating Scale (CAARS), Observer
