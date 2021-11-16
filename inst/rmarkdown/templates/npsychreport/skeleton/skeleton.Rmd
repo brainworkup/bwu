@@ -367,6 +367,8 @@ source(file = here::here("R/make_tibble.R"), local = knitr::knit_global())
 
 (ref:cvlt3) California Verbal Learning Test, 3rd ed (CVLT-3)
 
+(ref:wms4) Wechsler Memory Scale, 4th ed (WMS-IV)
+
 (ref:dkefs) Delis-Kaplan Executive Function System (D-KEFS)
 
 (ref:tmt) Trail Making Test
