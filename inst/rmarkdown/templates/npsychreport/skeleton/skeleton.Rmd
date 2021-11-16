@@ -395,6 +395,12 @@ source(file = here::here("R/make_tibble.R"), local = knitr::knit_global())
 
 (ref:acs-topf) Advanced Clinical Solutions (ACS), Test of Premorbid Functioning (TOPF)
 
+(ref:abas3) Adaptive Behavior Assessment System, 3rd ed (ABAS-3)
+
+(ref:abas3-parent) Adaptive Behavior Assessment System, 3rd ed (ABAS-3), Parent Report
+
+(ref:abas3-teacher) Adaptive Behavior Assessment System, 3rd ed (ABAS-3), Teacher Report
+
 (ref:basc3) Behavioral Assessment Scale for Children, 3rd ed (BASC-3)
 
 (ref:basc3-sdh) BASC-3 Structured Developmental History (SDH)
@@ -417,15 +423,17 @@ source(file = here::here("R/make_tibble.R"), local = knitr::knit_global())
 
 (ref:brown-efa) Brown Executive Function/Attention Scales (Brown EF/A)
 
-(ref:brown-efa-parent) Brown Executive Function/Attention Scales, (EF/A), Parent
+(ref:brown-efa-parent) Brown Executive Function/Attention Scales, (EF/A), Parent Report
 
-(ref:brown-efa-self) Brown Executive Function/Attention Scale (EF/A), Self
+(ref:brown-efa-self) Brown Executive Function/Attention Scale (EF/A), Self Report
 
-(ref:brown-efa-teacher) Brown Executive Function/Attention Scales (EF/A), Teacher
+(ref:brown-efa-teacher) Brown Executive Function/Attention Scales (EF/A), Teacher Report
 
-(ref:abas-parent) Adaptive Behavior Assessment System, 3rd ed (ABAS-3), Parent
+(ref:cefi) Comprehensive Executive Function Inventory (CEFI)
 
-(ref:abas-teacher) Adaptive Behavior Assessment System, 3rd ed (ABAS-3), Teacher
+(ref:cefi-self) Comprehensive Executive Function Inventory Adult (CEFI Adult), Self Report
+
+(ref:cefi-obs) Comprehensive Executive Function Inventory Adult (CEFI Adult), Observer Form
 
 (ref:caadid) Conners' Adult ADHD Diagnostic Interview for DSM-IV (CAADID), Part I: History
 
