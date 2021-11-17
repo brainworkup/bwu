@@ -3,10 +3,18 @@
 ## Identifying Information
 
 | **Patient:** (ref:last-name), (ref:first-name)\n
-| **MRN:** (ref:mrn)\n 
-| **Gender:** (ref:sex)\n 
+| **MRN:** (ref:mrn)\n
+| **Gender:** (ref:sex)\n
 | **Date of Birth:** (ref:dob)\n
 | **Date of Evaluation:** (ref:doe1)\n
+
+## Measures Administered
+
+- Conners' Adult ADHD Diagnostic Interview for DSM-IV (CAADID), Part I: History
+- Conners' Adult ADHD Rating Scales–Self-Report: Long Version (CAARS–S:L)
+- Conners' Adult ADHD Rating Scales–Observer Report: Long Version (CAARS–O:L)
+- Comprehensive Executive Function Inventory Adult (CEFI Adult) Self-Report Form
+- Comprehensive Executive Function Inventory Adult (CEFI Adult) Observer Form
 
 ## Reason for Referral
 
@@ -79,7 +87,7 @@ However, this has not caused problems in daily life.
 1.  Proceed with comprehensive neuropsychological, psychoeducational, and personality assessments
 2.  Develop targeted intervention plan and academic plan based on results of testing.
 
-*Note:* Evaluation is ongoing.
+_Note:_ Evaluation is ongoing.
 Full report and recommendations to follow.
 
 Please contact me with any questions or concerns regarding this patient.
@@ -88,4 +96,4 @@ TRAMPUSH PH.D., JOEY W
 
 ### Telemedicine Statement
 
-*I connected with the Patient by a video enabled telemedicine application and verified that I am speaking with the correct person using two identifiers. I discussed the limitations of evaluation and management by telemedicine and the availability of in-person appointments. The patient expressed understanding and agreed to proceed. I have verified this to be the correct patient and obtained verbal consent from the patient to perform this voluntary telemedicine visit and evaluation (including obtaining history from the patient). The patient has the right to refuse this evaluation. I have explained risks (including potential loss of confidentiality), benefits, alternatives, and the potential need for subsequent face-to-face care. The patient understands that there is a risk of medical inaccuracies given that our recommendations will be made based on reported data (and we must therefore assume this information is accurate). Knowing that there is a risk that this information is not reported accurately, and that the telemedicine video, audio, or data feed may be incomplete, the patient agrees to proceed with evaluation and holds Keck Medicine of USC harmless knowing these risks. I have notified the patient that other healthcare professionals (including students, residents, and technical personnel) may be involved in this audio-video evaluation. All laws concerning medical records apply to telemedicine. The patient has received the Keck Medicine of USC Notice of Privacy Practices.*
+_I connected with the Patient by a video enabled telemedicine application and verified that I am speaking with the correct person using two identifiers. I discussed the limitations of evaluation and management by telemedicine and the availability of in-person appointments. The patient expressed understanding and agreed to proceed. I have verified this to be the correct patient and obtained verbal consent from the patient to perform this voluntary telemedicine visit and evaluation (including obtaining history from the patient). The patient has the right to refuse this evaluation. I have explained risks (including potential loss of confidentiality), benefits, alternatives, and the potential need for subsequent face-to-face care. The patient understands that there is a risk of medical inaccuracies given that our recommendations will be made based on reported data (and we must therefore assume this information is accurate). Knowing that there is a risk that this information is not reported accurately, and that the telemedicine video, audio, or data feed may be incomplete, the patient agrees to proceed with evaluation and holds Keck Medicine of USC harmless knowing these risks. I have notified the patient that other healthcare professionals (including students, residents, and technical personnel) may be involved in this audio-video evaluation. All laws concerning medical records apply to telemedicine. The patient has received the Keck Medicine of USC Notice of Privacy Practices._
