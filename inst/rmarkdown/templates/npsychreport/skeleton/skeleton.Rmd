@@ -1441,11 +1441,11 @@ Sincerely,
 knitr::include_graphics("../jwtSig.png")
 ```
 
-| **Joey Trampush, PhD**\r
-| Della Martin Assistant Professor of Psychiatry\r
-| Department of Psychiatry and the Behavioral Sciences\r
-| University of Southern California Keck School of Medicine\r
-| CA License PSY29212\r
+**Joey Trampush, PhD**  
+Della Martin Assistant Professor of Psychiatry  
+Department of Psychiatry and the Behavioral Sciences  
+University of Southern California Keck School of Medicine  
+CA License PSY29212  
  
 \newpage
 
