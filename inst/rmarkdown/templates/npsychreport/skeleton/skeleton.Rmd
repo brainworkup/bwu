@@ -292,7 +292,8 @@ knitr::opts_chunk$set(
   error = TRUE
 )
 knitr::opts_knit$set(width = 50)
-options(digits = 3, warnPartialMatchArgs = FALSE)
+options(digits = 1, warnPartialMatchArgs = FALSE)
+options(knitr.kable.NA = "--")
 ```
 
 ```{r}
