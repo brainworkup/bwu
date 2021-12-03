@@ -245,8 +245,8 @@ params:
       - none/self
 ---
 
-```{r}
-patient <- "BS"
+```{r include=F}
+patient <- ""
 ```
 
 ```{r, eval=T}
