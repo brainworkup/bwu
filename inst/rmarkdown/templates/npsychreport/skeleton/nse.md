@@ -66,13 +66,13 @@ However, this has not caused problems in daily life.
 
 (ref:first-name) lives with (ref:his-her) parents, grandmother, and older brother and sister in City, State. Both parents graduated from high school. Recent stressors include a family member's illness. Family mental health history includes depression.
 
-### Prior Testing
+## Prior Testing
 
 (ref:first-name) had a previous neuropsychological evaluation (Month 20XX), shortly following (ref:his-her) 20XX concussion. Results at that time indicated age-appropriate intelligence, but weaknesses in attention, executive skills, memory, fine motor speed, and word-finding. Of note, on the day of that prior testing (ref:he-she) had not taken stimulant medication and reported continuous headache.
 
 ## Mental Status & Behavioral Observations During Interview
 
-(ref:first-name) arrived on time to the interview. (ref:he-she-cap) was alert, oriented to the situation, and appeared to understand the questions that were being asked of (ref:him-her). (ref:he-she-cap) was articulate, demonstrated a clear and logical thought process, and (ref:his-her) speech was normal in rate, pitch and prosody. (ref:his-her-cap) affect was normal in range and expression.
+(ref:first-name) arrived on time to the interview. (ref:he-she-cap) was alert, oriented to the situation, and appeared to understand the questions that were being asked of (ref:him-her). (ref:he-she-cap) was articulate, demonstrated a clear and logical thought process, and (ref:his-her) speech was normal in rate, pitch, and prosody. (ref:his-her-cap) affect was normal in range and expression.
 
 ## Summary/Impression
 
@@ -80,12 +80,12 @@ However, this has not caused problems in daily life.
 
 ### Diagnostic Considerations
 
-\[\[Diagnostic Codes\|dsm5_icd10_diagnoses\]\]
+[[Diagnostic Codes|dsm5_icd10_diagnoses]]
 
 ## Recommendations/Plan
 
-1.  Proceed with comprehensive neuropsychological, psychoeducational, and personality assessments
-2.  Develop targeted intervention plan and academic plan based on results of testing.
+1. Proceed with comprehensive neuropsychological, psychoeducational, and personality assessments;
+2. Develop targeted intervention plan and academic plan based on results of testing.
 
 _Note:_ Evaluation is ongoing.
 Full report and recommendations to follow.

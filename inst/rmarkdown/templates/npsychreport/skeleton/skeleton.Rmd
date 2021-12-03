@@ -385,6 +385,8 @@ source(file = here::here("R/make_tibble.R"), local = knitr::knit_global())
 
 (ref:celf5) Clinical Evaluation of Language Fundamentals, 5th ed (CELF-5)
 
+(ref:celf3) Clinical Evaluation of Language Fundamentals, Preschool, 3rd ed (CELF Preschool-3)
+
 (ref:celf5-ors) Clinical Evaluation of Language Fundamentals, 5th ed (CELF-5), Observational Rating Scale
 
 (ref:rist) Reynolds' Intellectual Screening Test (RIST)
@@ -791,7 +793,7 @@ neurobehav <- read_csv(here::here(patient, "neurobehav.csv"))
 
 ### Intelligence/General Ability
 
-(ref:fn-iq) Standard Score (M = 100, SD = 15)
+(ref:fn-iq) Standard score (M = 100, SD = 15)
 
 ```{r, iq, results='asis'}
 cat(readLines("nt_iq.md"), sep = "\n")
@@ -839,7 +841,7 @@ knitr::read_chunk(here::here("R", "nt_iq.R"))
 
 ### Academic Skills
 
-(ref:fn-academics) Standard Score (M = 100, SD = 15)
+(ref:fn-academics) Standard score (M = 100, SD = 15)
 
 ```{r, academics, results='asis'}
 cat(readLines("nt_academics.md"), sep = "\n")
@@ -887,7 +889,7 @@ knitr::read_chunk(here::here("R", "nt_academics.R"))
 
 ### Verbal/Language
 
-(ref:fn-verbal) Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M = 10, SD = 3) score
+(ref:fn-verbal) Standard score (M = 100, SD = 15), *T* score (M = 50, SD = 10), or Scaled score (M = 10, SD = 3)
 
 ```{r, verbal, results='asis'}
 cat(readLines("nt_verbal.md"), sep = "\n")
@@ -935,7 +937,7 @@ knitr::read_chunk(here::here("R", "nt_verbal.R"))
 
 ### Visual Perception/Construction
 
-(ref:fn-spatial) Standard (M = 100, SD = 15) or Scaled (M = 10, SD = 3) score
+(ref:fn-spatial) Standard score (M = 100, SD = 15), *T* score (M = 50, SD = 10), or Scaled score (M = 10, SD = 3)
 
 ```{r, spatial, results='asis'}
 cat(readLines("nt_spatial.md"), sep = "\n")
@@ -983,7 +985,7 @@ knitr::read_chunk(here::here("R", "nt_spatial.R"))
 
 ### Attention/Executive
 
-(ref:fn-exe) Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M = 10, SD = 3) score
+(ref:fn-exe) Standard score (M = 100, SD = 15), *T* score (M = 50, SD = 10), or Scaled score (M = 10, SD = 3)
 
 ```{r, executive, results='asis'}
 cat(readLines("nt_executive.md"), sep = "\n")
@@ -1031,7 +1033,7 @@ knitr::read_chunk(here::here("R", "nt_executive.R"))
 
 ### Memory
 
-(ref:fn-memory) Standard (M = 100, SD = 15), *T* (M = 50, SD = 10), or Scaled (M = 10, SD = 3) score
+(ref:fn-memory) Standard score (M = 100, SD = 15), *T* score (M = 50, SD = 10), or Scaled score (M = 10, SD = 3)
 
 ```{r, memory, results='asis'}
 cat(readLines("nt_memory.md"), sep = "\n")
@@ -1079,7 +1081,7 @@ knitr::read_chunk(here::here("R", "nt_memory.R"))
 
 ### Motor
 
-(ref:fn-motor) *T* (M = 50, SD = 10) or Scaled (M = 10, SD = 3) score
+(ref:fn-motor) *T* score (M = 50, SD = 10) or Scaled score (M = 10, SD = 3)
 
 ```{r, motor, results='asis'}
 cat(readLines("nt_motor.md"), sep = "\n")
