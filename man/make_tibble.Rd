@@ -5,14 +5,14 @@
 \title{Make tibble for npsych report tables}
 \usage{
 make_tibble(
-  tibb = tibb,
-  data = data,
-  pheno = pheno,
-  domain = domain,
-  columns = c("test_name", "scale", "score", "percentile", "range", "subdomain"),
-  percentile = percentile,
+  tibb,
+  data,
+  pheno = NULL,
+  domain = NULL,
+  columns = c("scale", "score", "percentile", "range", "subdomain", "test_name"),
+  percentile = NULL,
   digits = 0,
-  names = c("Test", "Scale", "Score", "&#8240 Rank", "Range", "Subdomain"),
+  names = c("Scale", "Score", "&#8240 Rank", "Range", "Subdomain", "Test"),
   ...
 )
 }
