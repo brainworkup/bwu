@@ -4,7 +4,7 @@
 \alias{dotplot}
 \title{Make a dotplot for cognitive domains}
 \usage{
-dotplot(data = data, x = x, y = y, ...)
+dotplot(data, x, y, ...)
 }
 \arguments{
 \item{data}{dataset}

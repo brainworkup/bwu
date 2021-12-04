@@ -9,10 +9,7 @@
 #' @export
 #' @examples
 #' dotplot(iris, iris$Sepal.Length, iris$Species)
-dotplot <- function(data = data,
-                    x = x,
-                    y = y,
-                    ...) {
+dotplot <- function(data, x, y, ...) {
   ggplot2::ggplot() +
     ggplot2::geom_segment(
       data = data,
@@ -36,6 +33,4 @@ dotplot <- function(data = data,
     ggplot2::theme(panel.background = ggplot2::element_rect(fill = "white")) +
     ggplot2::theme(plot.background = ggplot2::element_rect(fill = "white")) +
     ggplot2::theme(panel.border = ggplot2::element_rect(colour = "white"))
-
-
 }
