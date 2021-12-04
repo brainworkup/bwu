@@ -3,7 +3,7 @@
 (ref:first-name) (ref:last-name) is a (ref:age)-year-old (ref:sex) with a history of (ref:dx1) and (ref:dx1).
 (ref:he-she-cap) was previously seen through our service in Month 20XX.
 (ref:he-she-cap) was referred by (ref:refdoc), for evaluation of (ref:his-her) neurocognitive functioning to update (ref:his-her) intervention plan.
-This report is based on a review of available medical records and information gathered on the following dates: (ref:doe1), (ref:doe2), (ref:doe3), and (ref:doe4).
+This report is based on a review of available medical records and information gathered on the following dates: (ref:doe).
 Intervention planning was discussed with (ref:first-name) and (ref:his-her) (ref:family) on the last of these dates.
 
 ## Background

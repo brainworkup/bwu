@@ -496,9 +496,9 @@ source(file = here::here("R/make_tibble.R"), local = knitr::knit_global())
 
 (ref:br) A *base rate* is the prevalence of score in the general population. If a score is rare, defined as a base rate of less than 10%, it is considered *clinically significant*, and that area of functioning is probably causing problems in daily life.
 
-(ref:basc3-footnote) Score = *T* (M = 50, SD = 10); *Note:* Adaptive Skills *T* scores are reversed
+(ref:basc3-footnote) *T* Score (M = 50, SD = 10); *Note:* Adaptive Skills *T* scores are reversed
 
-(ref:basc3-fn-srp-adol) Score = *T* (M = 50, SD = 10); *Note:* Personal Adjustment *T* scores are reversed
+(ref:basc3-fn-srp-adol) *T* Score (M = 50, SD = 10); *Note:* Personal Adjustment *T* scores are reversed
 
 (ref:g) *General intelligence* refers to an overall capacity to reason, to solve problems, and to learn useful information.
 
@@ -598,7 +598,7 @@ source(file = here::here("R/make_tibble.R"), local = knitr::knit_global())
 
 (ref:educ) `r params$educ`
 
-(ref:doe) `r params$doe1`, `r params$doe2`, `r params$doe3`
+(ref:doe) `r params$doe1`, `r params$doe2`, `r params$doe3`, and `r params$doe4`
 
 ```{marginfigure, echo=TRUE}
 **Name:** (ref:patient)\
@@ -607,8 +607,7 @@ source(file = here::here("R/make_tibble.R"), local = knitr::knit_global())
 **Age:** (ref:age)\
 **Gender:** (ref:sex)\
 **Handedness:** (ref:hand)\
-**Education:** (ref:educ)\
-**DOE:** (ref:doe)
+**Education:** (ref:educ)
 ```
 
 ```{r nse, results='asis'}
