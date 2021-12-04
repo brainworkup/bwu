@@ -1348,7 +1348,7 @@ knitr::read_chunk(here::here("R", "nt_pai.R"))
 
 # SUMMARY/IMPRESSION
 
-(ref:domain) *Key Findings:* Verbal skills are significantly stronger than nonverbal/spatial processing skills. Attentional fluency (i.e., working memory and processing speed) and abstract reasoning are areas of weakness. Notably, even (ref:first-name)'s normatively average scores reflect performances that are well below cognitive expectations for (ref:him-her). *Note:* *z* = 0 (mean) ± 1 (sd)
+(ref:domain) **Key Findings** Verbal skills are significantly stronger than nonverbal/spatial processing skills. Attentional fluency (i.e., working memory and processing speed) and abstract reasoning are areas of weakness. Notably, even (ref:first-name)'s normatively average scores reflect performances that are well below cognitive expectations for (ref:him-her). *Note:* *z* = 0 (mean) ± 1 (sd)
 
 ```{r domain-df}
 domain <-
@@ -1357,7 +1357,7 @@ domain <-
   filter(!is.na(domain))
 ```
 
-```{r domain-plot, fig.cap = '(ref:domain)'}
+```{r domain-plot, fig.cap = '(ref:domain)', fig.height = 3.5}
 dotplot(
   data = domain,
   x = domain$z_mean_dom,
