@@ -3,9 +3,10 @@
 ## Identifying Information
 
 | **Patient:** (ref:last-name), (ref:first-name)\n
+| **Date of Birth:** (ref:dob)\n
 | **MRN:** (ref:mrn)\n
 | **Gender:** (ref:sex)\n
-| **Date of Birth:** (ref:dob)\n
+| **Age:** (ref:age)\n
 | **Date of Evaluation:** (ref:doe1)\n
 
 ## Measures Administered
@@ -18,7 +19,10 @@
 
 ## Reason for Referral
 
-(ref:first-name) (ref:last-name) is a (ref:age)-year-old, (ref:hand)-handed (ref:sex) with a history of (ref:dx1) and (ref:dx1). (ref:he-she-cap) was previously seen through our service in Month 20XX. (ref:he-she-cap) was referred by (ref:refdoc), for evaluation of (ref:his-her) neurocognitive functioning to update (ref:his-her) intervention plan. This report is based on a review of available medical records and information gathered across a 1+ hour neurobehavioral exam conducted with the patient via telemedicine on (ref:doe1).
+(ref:first-name) (ref:last-name) is a (ref:age)-year-old, (ref:hand)-handed (ref:sex) with a history of (ref:dx1) and (ref:dx1).
+(ref:he-she-cap) was previously seen through our service in Month 20XX.
+(ref:he-she-cap) was referred by (ref:refdoc), for evaluation of (ref:his-her) neurocognitive functioning to update (ref:his-her) intervention plan.
+This report is based on a review of available medical records and information gathered across a 1+ hour neurobehavioral exam conducted with the patient via telemedicine on (ref:doe1).
 
 ## Background
 
@@ -30,7 +34,8 @@
 
 ### Developmental/Medical
 
-(ref:first-name) was born full-term following an uncomplicated pregnancy, labor, and delivery. Major developmental milestones were achieved within expected timeframes.
+(ref:first-name) was born full-term following an uncomplicated pregnancy, labor, and delivery.
+Major developmental milestones were achieved within expected timeframes.
 
 Medical history includes x, y, and z.
 (ref:his-her-cap) medical history also includes attention problems, which were longstanding but first treated after (ref:his-her) 20XX concussion.
@@ -47,7 +52,12 @@ Surgical history includes x, y, and z.
 
 ### Academics
 
-(ref:first-name) recently completed (ref:educ) at Local High School. (ref:he-she-cap) earned C's, D's, and F's in (ref:his-her) classes. (ref:he-she-cap) is now taking English (online course) in summer school. (ref:his-her-cap) mother reported that (ref:he-she) is frustrated with (ref:his-her) grades, as (ref:he-she) has been an A/B student in the past. (ref:he-she-cap) said that (ref:he-she) has trouble with daily work as well as quizzes/tests. (ref:his-her-cap) teachers have reported poor participation in class.
+(ref:first-name) recently completed (ref:educ) at Local High School.
+(ref:he-she-cap) earned C's, D's, and F's in (ref:his-her) classes.
+(ref:he-she-cap) is now taking English (online course) in summer school.
+(ref:his-her-cap) mother reported that (ref:he-she) is frustrated with (ref:his-her) grades, as (ref:he-she) has been an A/B student in the past.
+(ref:he-she-cap) said that (ref:he-she) has trouble with daily work as well as quizzes/tests.
+(ref:his-her-cap) teachers have reported poor participation in class.
 
 ### Behavioral/Emotional/Social
 
@@ -64,19 +74,27 @@ However, this has not caused problems in daily life.
 
 ### Family
 
-(ref:first-name) lives with (ref:his-her) parents, grandmother, and older brother and sister in City, State. Both parents graduated from high school. Recent stressors include a family member's illness. Family mental health history includes depression.
+(ref:first-name) lives with (ref:his-her) parents, grandmother, and older brother and sister in City, State.
+Both parents graduated from high school. Recent stressors include a family member's illness.
+Family mental health history includes depression.
 
 ## Prior Testing
 
-(ref:first-name) had a previous neuropsychological evaluation (Month 20XX), shortly following (ref:his-her) 20XX concussion. Results at that time indicated age-appropriate intelligence, but weaknesses in attention, executive skills, memory, fine motor speed, and word-finding. Of note, on the day of that prior testing (ref:he-she) had not taken stimulant medication and reported continuous headache.
+(ref:first-name) had a previous neuropsychological evaluation (Month 20XX), shortly following (ref:his-her) 20XX concussion.
+Results at that time indicated age-appropriate intelligence, but weaknesses in attention, executive skills, memory, fine motor speed, and word-finding.
+Of note, on the day of that prior testing (ref:he-she) had not taken stimulant medication and reported continuous headache.
 
 ## Mental Status & Behavioral Observations During Interview
 
-(ref:first-name) arrived on time to the interview. (ref:he-she-cap) was alert, oriented to the situation, and appeared to understand the questions that were being asked of (ref:him-her). (ref:he-she-cap) was articulate, demonstrated a clear and logical thought process, and (ref:his-her) speech was normal in rate, pitch, and prosody. (ref:his-her-cap) affect was normal in range and expression.
+(ref:first-name) arrived on time to the interview.
+(ref:he-she-cap) was alert, oriented to the situation, and appeared to understand the questions that were being asked of (ref:him-her).
+(ref:he-she-cap) was articulate, demonstrated a clear and logical thought process, and (ref:his-her) speech was normal in rate, pitch, and prosody.
+(ref:his-her-cap) affect was normal in range and expression.
 
 ## Summary/Impression
 
-(ref:first-name) (ref:last-name) is a (ref:age)-year-old, (ref:hand)-handed (ref:sex) with a history of (ref:dx1) and (ref:dx1). (ref:he-she-cap) is motivated to complete the evaluation and to use the information gained to develop tailored plans for psychiatric intervention and school accommodations.
+(ref:first-name) (ref:last-name) is a (ref:age)-year-old, (ref:hand)-handed (ref:sex) with a history of (ref:dx1) and (ref:dx1). 
+(ref:he-she-cap) is motivated to complete the evaluation and to use the information gained to develop tailored plans for psychiatric intervention and school accommodations.
 
 ### Diagnostic Considerations
 
