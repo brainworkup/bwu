@@ -246,7 +246,7 @@ params:
 ---
 
 ```{r include=F}
-patient <- ""
+patient <- "BS"
 ```
 
 ```{r, eval=T}
@@ -488,13 +488,13 @@ source(file = here::here("R/make_tibble.R"), local = knitr::knit_global())
 
 (ref:t-score) *T* Score (M = 50, SD = 10)
 
-(ref:z-score) *z*-score (M = 0, SD = 1)
+(ref:z-score) *z*-Score (M = 0, SD = 1)
 
 (ref:zplot) *z* = -1 (16th percentile), *z* = 0 (50th percentile), and *z* = 1 (84th percentile)
 
-(ref:pct) A *percentile* shows `r params$first_name`'s standing relative to peers. For example, a percentile score of 70 means `r params$first_name` performed as well as or better than 70% of individuals the same age.
+(ref:pct) A *percentile* shows `r params$first_name`'s standing relative to peers. For example, a percentile rank (PR) of 70 means `r params$first_name` performed as well as or better than 70% of individuals the same age.
 
-(ref:br) A *base rate* is the prevalence of score in the general population. If a score is rare, defined as a base rate of less than 10%, it is considered *clinically significant*, and that area of functioning is probably causing problems in daily life.
+(ref:br) A *base rate* is the prevalence of score in the general population. If a score is rare, defined as a base rate (BR) of less than 10%, it is considered *clinically significant*, and that area of functioning is probably causing problems in daily life.
 
 (ref:basc3-footnote) *T* Score (M = 50, SD = 10); *Note:* Adaptive Skills *T* scores are reversed
 
@@ -816,41 +816,48 @@ cat(readLines("nt_iq.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_iq.R"))
+knitr::read_chunk(here::here(patient, "nt_iq.R"))
 ```
 
-```{r 01-glue-iq, eval=T, double_escape=T, escape=F}
-```
-
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_iq.R"))
-```
-
-```{r 02-make-df-iq, eval=T, double_escape=T, escape=F}
+```{r 01-filter-iq, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_iq.R"))
+knitr::read_chunk(here::here(patient, "nt_iq.R"))
 ```
 
-```{r 03-make-kable-iq, eval=T, double_escape=T, escape=F, fig.fullwidth=T}
-```
-
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_iq.R"))
-```
-
-```{r 04-make-df-iq, eval=T, double_escape=T, escape=F}
+```{r 02-glue-iq, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_iq.R"))
+knitr::read_chunk(here::here(patient, "nt_iq.R"))
 ```
 
-```{r 05-plot-iq-subdomain, eval=T, double_escape=T, escape=F, fig.cap = '(ref:g) (ref:gc) (ref:gf)'}
+```{r 03-table-iq, eval=T, double_escape=T, escape=F}
 ```
 
-```{r 06-plot-iq-narrow, eval=F, double_escape=T, escape=F, fig.cap = '(ref:g) (ref:gc) (ref:gf)'}
+```{r, eval=T}
+knitr::read_chunk(here::here(patient, "nt_iq.R"))
+```
+
+```{r 04-kable-iq, eval=T, double_escape=T, escape=F, fig.fullwidth=T}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here(patient, "nt_iq.R"))
+```
+
+```{r 05-df-iq, eval=T, double_escape=T, escape=F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here(patient, "nt_iq.R"))
+```
+
+```{r 06-plot-subdomain-iq, eval=T, double_escape=T, escape=F, fig.cap = '(ref:g) (ref:gc) (ref:gf)'}
+```
+
+```{r 07-plot-narrow-iq, eval=F, double_escape=T, escape=F, fig.cap = '(ref:g) (ref:gc) (ref:gf)'}
 ```
 
 \newpage

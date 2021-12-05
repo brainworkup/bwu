@@ -1,23 +1,4 @@
-## ---- 01-glue ----
-dom <- "Domain"
-domain <- neurocog %>%
-  filter(domain == dom) %>%
-  arrange(desc(percentile)) %>%
-  distinct(.keep_all = FALSE)
-trait <- domain
-lst(person, range, scale) %>%
-  glue::glue_data(
-    "(ref:first-name)'s score on *{description}* fell in the *{range}* range.",
-    range = trait$range,
-    scale = trait$scale,
-    score = trait$score,
-    percentile = trait$percentile,
-    description = trait$description
-  ) %>%
-  purrr::modify(lift(paste0)) %>%
-  cat()
-
-## ---- 02-make-df ----
+## ---- 01-filter ----
 filter_domain <- c(
   # ACS TOPF
   "Test of Premorbid Functioning",
@@ -78,14 +59,35 @@ filter_domain <- c(
   "Word Generation Semantic",
   "Word Generation Initial Letter"
 )
-domain <-
-  make_tibble(tibb = domain,
-              data = neurocog,
-              pheno = "Domain") %>%
-  filter(Scale %in% filter_domain) %>%
-  arrange(Test)
 
-## ---- 03-make-kable ----
+## ---- 02-glue ----
+dt <-
+  neurocog %>%
+  dplyr::filter(scale %in% filter_domain) %>%
+  dplyr::arrange(desc(percentile)) %>%
+  dplyr::distinct(.keep_all = FALSE)
+
+dt %>%
+  glue::glue_data() %>%
+  purrr::modify(lift(paste0)) %>%
+  cat(dt$result,
+      # will change the file name
+      file = "nt_iq.md",
+      fill = TRUE,
+      append = TRUE
+  )
+
+## ---- 03-table ----
+domain <-
+  npsych.data::make_tibble(
+    tibb = domain,
+    data = neurocog,
+    pheno = "Domain"
+  ) %>%
+  dplyr::filter(Scale %in% filter_domain) %>%
+  dplyr::arrange(Test)
+
+## ---- 04-kable ----
 kableExtra::kbl(
   domain[, 2:5],
   "latex",
@@ -96,34 +98,36 @@ kableExtra::kbl(
   caption = "(ref:domain)"
 ) %>%
   kableExtra::kable_paper(., lightable_options = "basic") %>%
-  kableExtra::kable_styling(., latex_options = c("scale_down",
-                                                 "HOLD_position",
-                                                 "striped")) %>%
+  kableExtra::kable_styling(., latex_options = c(
+    "scale_down",
+    "HOLD_position",
+    "striped"
+  )) %>%
   kableExtra::column_spec(., 1, width = "8cm") %>%
   kableExtra::pack_rows(., index = table(domain$Test)) %>%
   kableExtra::row_spec(., row = 0, bold = TRUE) %>%
   kableExtra::row_spec(., row = 1, bold = TRUE) %>%
   kableExtra::add_indent(., c(2:3)) %>%
-  kableExtra::add_footnote("(ref:fn-domain)")
+  kableExtra::footnote(., symbol = "(ref:fn-domain)")
 
-## ---- 04-make-df ----
+## ---- 05-df ----
 df <-
   neurocog %>%
-  filter(domain == "Domain") %>%
-  filter(!is.na(percentile)) %>%
-  arrange(test_name) %>%
-  filter(scale %in% filter_domain)
+  dplyr::filter(domain == "Domain") %>%
+  dplyr::filter(!is.na(percentile)) %>%
+  dplyr::arrange(test_name) %>%
+  dplyr::filter(scale %in% filter_domain)
 
-## ---- 05-plot-subdomain ----
-dotplot(
+## ---- 06-plot-subdomain ----
+npsych.data::dotplot(
   data = df,
   x = df$z_mean_sub,
   y = df$subdomain,
   domain = "domain"
 )
 
-## ---- 06-plot-narrow ----
-dotplot(
+## ---- 07-plot-narrow ----
+npsych.data::dotplot(
   data = df,
   x = df$z_mean_narrow,
   y = df$narrow,

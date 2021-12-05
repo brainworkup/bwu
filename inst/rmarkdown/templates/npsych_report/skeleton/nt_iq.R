@@ -1,24 +1,5 @@
-## ---- 01-glue-iq -------------
-dom <- "Intelligence/General Ability"
-iq <- neurocog %>%
-  filter(domain == dom) %>%
-  arrange(desc(percentile)) %>%
-  distinct(.keep_all = FALSE)
-trait <- iq
-lst(person, range, scale) %>%
-  glue::glue_data(
-    "(ref:first-name)'s score on {scale}, a measure of {description}, fell in the *{range}* range.",
-    range = trait$range,
-    scale = trait$scale,
-    score = trait$score,
-    percentile = trait$percentile,
-    description = trait$description
-  ) %>%
-  purrr::modify(lift(paste0)) %>%
-  cat()
-
-## ---- 02-make-df-iq ------------
-filter_intelligence <- c(
+## ---- 01-filter-iq -------------
+filter_domain <- c(
   # ACS TOPF
   "Test of Premorbid Functioning",
   # NAB
@@ -36,16 +17,34 @@ filter_intelligence <- c(
   "Vocabulary Acquisition (VAI)",
   "Nonverbal (NVI)"
 )
+
+## ---- 02-glue-iq ------------
+dt <-
+  neurocog %>%
+  dplyr::filter(scale %in% filter_domain) %>%
+  dplyr::arrange(desc(percentile)) %>%
+  dplyr::distinct(.keep_all = FALSE)
+
+dt %>%
+  glue::glue_data() %>%
+  purrr::modify(lift(paste0)) %>%
+  cat(dt$result,
+    file = "nt_iq.md",
+    fill = TRUE,
+    append = TRUE
+  )
+
+## ---- 03-table-iq ------------
 iq <-
   make_tibble(
     tibb = iq,
     data = neurocog,
     pheno = "Intelligence/General Ability"
   ) %>%
-  filter(Scale %in% filter_intelligence) %>%
+  filter(Scale %in% filter_domain) %>%
   arrange(Test)
 
-## ---- 03-make-kable-iq ------------------
+## ---- 04-kable-iq ------------------
 kableExtra::kbl(
   iq[, 2:5],
   "latex",
@@ -68,17 +67,17 @@ kableExtra::kbl(
   # kableExtra::add_indent(., c(2:3)) %>%
   kableExtra::add_footnote("(ref:fn-iq)")
 
-## ---- 04-make-df-iq ------------
+## ---- 05-df-iq ------------
 g <-
   neurocog %>%
   filter(domain == "Intelligence/General Ability") %>%
   filter(!is.na(percentile)) %>%
   arrange(test_name) %>%
-  filter(scale %in% filter_intelligence) %>%
+  filter(scale %in% filter_domain) %>%
   filter(scale != "Cognitive Proficiency (CPI)") %>%
   filter(scale != "General Ability (GAI)")
 
-## ---- 05-plot-iq-subdomain --------------------
+## ---- 06-plot-subdomain-iq --------------------
 dotplot(
   data = g,
   x = g$z_mean_sub,
@@ -86,7 +85,7 @@ dotplot(
   domain = "iq"
 )
 
-## ---- 06-plot-iq-narrow -------------------
+## ---- 07-plot-narrow-iq -------------------
 dotplot(
   data = g,
   x = g$z_mean_narrow,
