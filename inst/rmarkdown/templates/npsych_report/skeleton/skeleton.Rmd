@@ -621,7 +621,7 @@ source(file = here::here("R/make_tibble.R"), local = knitr::knit_global())
 ```
 
 ```{r nse, results='asis'}
-cat(readLines("nt_nse.md"), sep = "\n")
+cat(readLines("2_nse.md"), sep = "\n")
 ```
 
 \newpage
@@ -639,8 +639,8 @@ cat(readLines("nt_nse.md"), sep = "\n")
 -   (ref:wiat4)
 -   (ref:ktea3)
 -   (ref:wrat5)
--   (ref:nab): Form A/B
--   (ref:nabs): Form A/B
+-   (ref:nab): Form 1/2
+-   (ref:nabs): Form 1/2
 -   (ref:rbans): Form A/B/C/D
 -   (ref:nepsy2)
 -   (ref:cvltc)
@@ -653,14 +653,19 @@ cat(readLines("nt_nse.md"), sep = "\n")
 -   (ref:cog-est)
 -   (ref:pegboard)
 -   (ref:basc3-sdh)
+-   (ref:basc3-prs-child)
+-   (ref:basc3-trs-child)
 -   (ref:brown-efa-parent)
 -   (ref:brown-efa-self)
+-   (ref:caadid)
 -   (ref:caars-self)
 -   (ref:caars-obs)
+-   (ref:cefi-self)
+-   (ref:cefi-obs)
 -   (ref:pai)
 
 ```{r bobs, results='asis'}
-cat(readLines("bobs.md"), sep = "\n")
+cat(readLines("2_       bobs.md"), sep = "\n")
 ```
 
 \newpage
@@ -822,7 +827,7 @@ neurobehav <- read_csv(here::here(patient, "neurobehav.csv"))
 (ref:fn-iq) Standard Score (M = 100, SD = 15)
 
 ```{r, iq, results='asis'}
-cat(readLines("nt_iq.md"), sep = "\n")
+cat(readLines("2_iq.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
@@ -877,7 +882,7 @@ knitr::read_chunk(here::here(patient, "nt_iq.R"))
 (ref:fn-academics) Standard Score (M = 100, SD = 15)
 
 ```{r, academics, results='asis'}
-cat(readLines("nt_academics.md"), sep = "\n")
+cat(readLines("2_academics.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
@@ -925,7 +930,7 @@ knitr::read_chunk(here::here("R", "nt_academics.R"))
 (ref:fn-verbal) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
 ```{r, verbal, results='asis'}
-cat(readLines("nt_verbal.md"), sep = "\n")
+cat(readLines("2_verbal.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
@@ -973,7 +978,7 @@ knitr::read_chunk(here::here("R", "nt_verbal.R"))
 (ref:fn-spatial) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
 ```{r, spatial, results='asis'}
-cat(readLines("nt_spatial.md"), sep = "\n")
+cat(readLines("2_spatial.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
@@ -1021,7 +1026,7 @@ knitr::read_chunk(here::here("R", "nt_spatial.R"))
 (ref:fn-exe) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
 ```{r, executive, results='asis'}
-cat(readLines("nt_executive.md"), sep = "\n")
+cat(readLines("2_executive.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
@@ -1069,7 +1074,7 @@ knitr::read_chunk(here::here("R", "nt_executive.R"))
 (ref:fn-memory) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
 ```{r, memory, results='asis'}
-cat(readLines("nt_memory.md"), sep = "\n")
+cat(readLines("2_memory.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
@@ -1117,7 +1122,7 @@ knitr::read_chunk(here::here("R", "nt_memory.R"))
 (ref:fn-motor) *T* Score (M = 50, SD = 10) or Scaled Score (M = 10, SD = 3)
 
 ```{r, motor, results='asis'}
-cat(readLines("nt_motor.md"), sep = "\n")
+cat(readLines("2_motor.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
@@ -1165,7 +1170,7 @@ knitr::read_chunk(here::here("R", "nt_motor.R"))
 (ref:fn-soc) Scaled Score (M = 10, SD = 3)
 
 ```{r, social, results='asis'}
-cat(readLines("nt_social.md"), sep = "\n")
+cat(readLines("2_social.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
@@ -1204,7 +1209,7 @@ knitr::read_chunk(here::here("R", "nt_social.R"))
 ### Emotional/Behavioral/Adaptive
 
 ```{r, brown, results='asis'}
-cat(readLines("brown.md"), sep = "\n")
+cat(readLines("2_brown.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
@@ -1248,7 +1253,7 @@ knitr::read_chunk(here::here("R", "nt_brown_efa_self.R"))
 \newpage
 
 ```{r, caars, results='asis'}
-cat(readLines("caars.md"), sep = "\n")
+cat(readLines("2_caars.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
@@ -1292,7 +1297,7 @@ knitr::read_chunk(here::here("R", "nt_caars_self.R"))
 \newpage
 
 ```{r, basc, results='asis'}
-cat(readLines("basc.md"), sep = "\n")
+cat(readLines("2_basc.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
@@ -1336,7 +1341,7 @@ knitr::read_chunk(here::here("R", "nt_basc3_prs_preschool.R"))
 \newpage
 
 ```{r, pai, results='asis'}
-cat(readLines("pai.md"), sep = "\n")
+cat(readLines("2_pai.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
@@ -1455,7 +1460,7 @@ dotplot(
 
 
 ```{r, sirf, results='asis'}
-cat(readLines("sirf.md"), sep = "\n")
+cat(readLines("3_sirf.md"), sep = "\n")
 ```
 
 It was a pleasure to work with `r params$first_name`.
