@@ -29,15 +29,15 @@ dt %>%
   glue::glue_data() %>%
   purrr::modify(lift(paste0)) %>%
   cat(dt$result,
-    file = "nt_iq.md",
+    file = "2_iq.md",
     fill = TRUE,
     append = TRUE
   )
 
 ## ---- 03-table-iq ------------
-iq <-
+tb <-
   make_tibble(
-    tibb = iq,
+    tibb = tb,
     data = neurocog,
     pheno = "Intelligence/General Ability"
   ) %>%
@@ -46,7 +46,7 @@ iq <-
 
 ## ---- 04-kable-iq ------------------
 kableExtra::kbl(
-  iq[, 2:5],
+  tb[, 2:5],
   "latex",
   longtable = FALSE,
   booktabs = TRUE,
@@ -61,14 +61,12 @@ kableExtra::kbl(
     "striped"
   )) %>%
   kableExtra::column_spec(., 1, width = "8cm") %>%
-  kableExtra::pack_rows(., index = table(iq$Test)) %>%
+  kableExtra::pack_rows(., index = table(tb$Test)) %>%
   kableExtra::row_spec(., row = 0, bold = TRUE) %>%
-  # kableExtra::row_spec(., row = 1, bold = TRUE) %>%
-  # kableExtra::add_indent(., c(2:3)) %>%
   kableExtra::add_footnote("(ref:fn-iq)")
 
 ## ---- 05-df-iq ------------
-g <-
+df <-
   neurocog %>%
   filter(domain == "Intelligence/General Ability") %>%
   filter(!is.na(percentile)) %>%
@@ -79,16 +77,16 @@ g <-
 
 ## ---- 06-plot-subdomain-iq --------------------
 dotplot(
-  data = g,
-  x = g$z_mean_sub,
-  y = g$subdomain,
+  data = df,
+  x = df$z_mean_sub,
+  y = df$subdomain,
   domain = "iq"
 )
 
 ## ---- 07-plot-narrow-iq -------------------
 dotplot(
-  data = g,
-  x = g$z_mean_narrow,
-  y = g$narrow,
+  data = df,
+  x = df$z_mean_narrow,
+  y = df$narrow,
   domain = "iq"
 )
