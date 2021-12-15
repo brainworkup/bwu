@@ -1,6 +1,23 @@
 ## ---- 01-filter-motor -------------
 filter_domain <- c(
-  # Domain
+  # Grooved Pegboard
+  "Right-Hand Time",
+  "Left-Hand Time",
+  "Dominant Hand",
+  "Nondominant Hand",
+  # NEPSY-2
+  "Fingertip Tapping-Dominant Hand",
+  "Fingertip Tapping-Nondominant Hand",
+  "Fingertip Tapping-Repetitions",
+  "Fingertip Tapping-Sequences",
+  "FT Dominant Hand vs. Nondominant Hand",
+  "Imitating Hand Positions",
+  "Imitating Hand Positions-Dominant",
+  "Imitating Hand Positions-Nondominant",
+  "Visuomotor Precision"
+  # "Visuomotor Precision Time",
+  # "Visuomotor Precision Errors",
+  # "Visuomotor Precision Pencil Lifts"
 )
 
 ## ---- 02-glue-motor ------------

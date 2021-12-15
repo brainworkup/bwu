@@ -105,7 +105,7 @@ tb <-
   make_tibble(
     tibb = executive,
     data = neurocog,
-    pheno = "Domain"
+    pheno = "Attention/Executive"
   ) %>%
   filter(Scale %in% filter_domain) %>%
   arrange(Test)
@@ -134,7 +134,7 @@ kableExtra::kbl(
 ## ---- 05-df-executive ------------
 df <-
   neurocog %>%
-  filter(domain == "Domain") %>%
+  filter(domain == "Attention/Executive") %>%
   filter(!is.na(percentile)) %>%
   arrange(test_name) %>%
   filter(scale %in% filter_domain)
