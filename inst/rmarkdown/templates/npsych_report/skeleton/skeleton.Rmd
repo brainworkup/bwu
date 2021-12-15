@@ -923,42 +923,53 @@ knitr::read_chunk(here::here("R", "nt_academics.R"))
 cat(readLines("2_verbal.md"), sep = "\n")
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_verbal.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_verbal.R"))
 ```
 
-```{r 01-glue-verbal, eval=T, double_escape=T, escape=F}
+```{r 01-filter-verbal, eval=T, double_escape=T, escape=F}
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_verbal.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_verbal.R"))
 ```
 
-```{r 02-make-df-verbal, eval=T, double_escape=T, escape=F}
+```{r 02-glue-verbal, eval=T, double_escape=T, escape=F}
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_verbal.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_verbal.R"))
 ```
 
-```{r 03-make-kable-verbal, eval=T, double_escape=T, escape=F}
+```{r 03-table-verbal, eval=T, double_escape=T, escape=F}
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_verbal.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_verbal.R"))
 ```
 
-```{r 04-make-df-verbal, eval=T, double_escape=T, escape=F}
+```{r 04-kable-verbal, eval=T, double_escape=T, escape=F}
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_verbal.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_verbal.R"))
 ```
 
-```{r 05-plot-verbal-subdomain, eval=F, fig.cap = '(ref:vrb)', double_escape=T, escape=F}
+```{r 05-df-verbal, eval=T, double_escape=T, escape=F}
 ```
 
-```{r 06-plot-verbal-narrow, eval=T, fig.cap = '(ref:vrb)', double_escape=T, escape=F}
+```{r}
+knitr::read_chunk(here::here(patient, "2_verbal.R"))
+```
+
+```{r 06-plot-subdomain-verbal, eval=F, fig.cap = '(ref:vrb)', double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_verbal.R"))
+```
+
+```{r 07-plot-narrow-verbal, eval=T, fig.cap = '(ref:vrb)', double_escape=T, escape=F}
 ```
 
 \newpage
@@ -972,41 +983,52 @@ cat(readLines("2_spatial.md"), sep = "\n")
 ```
 
 ```{r}
-knitr::read_chunk(here::here("R", "nt_spatial.R"))
+knitr::read_chunk(here::here(patient, "2_spatial.R"))
 ```
 
-```{r 01-glue-spatial, eval=T, double_escape=T, escape=F}
-```
-
-```{r}
-knitr::read_chunk(here::here("R", "nt_spatial.R"))
-```
-
-```{r 02-make-df-spatial, eval=T, double_escape=T, escape=F}
+```{r 01-filter-spatial, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r}
-knitr::read_chunk(here::here("R", "nt_spatial.R"))
+knitr::read_chunk(here::here(patient, "2_spatial.R"))
 ```
 
-```{r 03-make-kable-spatial, eval=T, double_escape=T, escape=F}
-```
-
-```{r}
-knitr::read_chunk(here::here("R", "nt_spatial.R"))
-```
-
-```{r 04-make-df-spatial, eval=T, double_escape=T, escape=F}
+```{r 02-glue-spatial, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r}
-knitr::read_chunk(here::here("R", "nt_spatial.R"))
+knitr::read_chunk(here::here(patient, "2_spatial.R"))
 ```
 
-```{r 05-plot-spatial-subdomain, eval=F, fig.cap = '(ref:spt)', double_escape=T, escape=F}
+```{r 03-table-spatial, eval=T, double_escape=T, escape=F}
 ```
 
-```{r 06-plot-spatial-narrow, eval=T, fig.cap = '(ref:spt)', double_escape=T, escape=F}
+```{r}
+knitr::read_chunk(here::here(patient, "2_spatial.R"))
+```
+
+```{r 04-kable-spatial, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_spatial.R"))
+```
+
+```{r 05-df-spatial, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_spatial.R"))
+```
+
+```{r 06-plot-subdomain-spatial, eval=F, fig.cap = '(ref:spt)', double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_spatial.R"))
+```
+
+```{r 07-plot-narrow-spatial, eval=T, fig.cap = '(ref:spt)', double_escape=T, escape=F}
 ```
 
 \newpage
@@ -1019,42 +1041,53 @@ knitr::read_chunk(here::here("R", "nt_spatial.R"))
 cat(readLines("2_executive.md"), sep = "\n")
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_executive.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_executive.R"))
 ```
 
-```{r 01-glue-executive, eval=T, double_escape=T, escape=F}
+```{r 01-filter-executive, eval=T, double_escape=T, escape=F}
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_executive.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_executive.R"))
 ```
 
-```{r 02-make-df-executive, eval=T, double_escape=T, escape=F}
+```{r 02-glue-executive, eval=T, double_escape=T, escape=F}
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_executive.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_executive.R"))
 ```
 
-```{r 03-make-kable-executive, eval=T, double_escape=T, escape=F}
+```{r 03-table-executive, eval=T, double_escape=T, escape=F}
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_executive.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_executive.R"))
 ```
 
-```{r 04-make-df-executive, eval=T, double_escape=T, escape=F}
+```{r 04-kable-executive, eval=T, double_escape=T, escape=F}
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_executive.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_executive.R"))
 ```
 
-```{r 05-plot-executive-subdomain, eval=T, fig.cap = '(ref:att-exe)', double_escape=T, escape=F}
+```{r 05-df-executive, eval=T, double_escape=T, escape=F}
 ```
 
-```{r 06-plot-executive-narrow, eval=F, fig.cap = '(ref:att-exe)', double_escape=T, escape=F}
+```{r}
+knitr::read_chunk(here::here(patient, "2_executive.R"))
+```
+
+```{r 06-plot-subdomain-executive, eval=F, fig.cap = '(ref:exe)', double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_executive.R"))
+```
+
+```{r 07-plot-narrow-executive, eval=T, fig.cap = '(ref:exe)', double_escape=T, escape=F}
 ```
 
 \newpage
@@ -1067,42 +1100,53 @@ knitr::read_chunk(here::here("R", "nt_executive.R"))
 cat(readLines("2_memory.md"), sep = "\n")
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_memory.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_memory.R"))
 ```
 
-```{r 01-glue-memory, eval=T, double_escape=T, escape=F}
+```{r 01-filter-memory, eval=T, double_escape=T, escape=F}
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_memory.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_memory.R"))
 ```
 
-```{r 02-make-df-memory, eval=T, double_escape=T, escape=F}
+```{r 02-glue-memory, eval=T, double_escape=T, escape=F}
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_memory.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_memory.R"))
 ```
 
-```{r 03-make-kable-memory, eval=T, double_escape=T, escape=F}
+```{r 03-table-memory, eval=T, double_escape=T, escape=F}
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_memory.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_memory.R"))
 ```
 
-```{r 04-make-df-memory, eval=T, double_escape=T, escape=F}
+```{r 04-kable-memory, eval=T, double_escape=T, escape=F}
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_memory.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_memory.R"))
 ```
 
-```{r 05-plot-memory-subdomain, eval=F, fig.cap = '(ref:mem)', double_escape=T, escape=F}
+```{r 05-df-memory, eval=T, double_escape=T, escape=F}
 ```
 
-```{r 06-plot-memory-narrow, eval=T, fig.cap = '(ref:mem)', double_escape=T, escape=F}
+```{r}
+knitr::read_chunk(here::here(patient, "2_memory.R"))
+```
+
+```{r 06-plot-subdomain-memory, eval=F, fig.cap = '(ref:mem)', double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_memory.R"))
+```
+
+```{r 07-plot-narrow-memory, eval=T, fig.cap = '(ref:mem)', double_escape=T, escape=F}
 ```
 
 \newpage

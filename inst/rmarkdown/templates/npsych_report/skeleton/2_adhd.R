@@ -32,7 +32,7 @@ filter_domain <- list(
 
 ## ---- 02-glue-adhd ------------
 dt <-
-  neurocog %>%
+  neurobehav %>%
   dplyr::filter(scale %in% filter_domain) %>%
   dplyr::arrange(desc(percentile)) %>%
   dplyr::distinct(.keep_all = FALSE)

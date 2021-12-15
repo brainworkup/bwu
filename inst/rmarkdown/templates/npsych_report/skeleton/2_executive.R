@@ -1,0 +1,156 @@
+## ---- 01-filter-executive -------------
+filter_domain <- c(
+  # NAB
+  "NAB Attention Index",
+  "Attention Domain",
+  "Digits Forward",
+  "Digits Backward",
+  # "Numbers & Letters Part A Speed",
+  # "Numbers & Letters Part A Errors",
+  "Numbers & Letters Part A Efficiency",
+  "Numbers & Letters Part B Efficiency",
+  "Numbers & Letters Part C Efficiency",
+  "Numbers & Letters Part D Efficiency",
+  # "Numbers & Letters Part D Disruption",
+  "NAB Executive Functions Index",
+  "Executive Functions Domain",
+  "Mazes",
+  "Categories",
+  "Word Generation",
+  "Judgment",
+  # RBANS
+  "Attention Index",
+  # CONCEPT FORMATION
+  "Comprehension",
+  "Similarities",
+  "Matrix Reasoning",
+  # CET
+  "Total Deviation Score",
+  # WAIS/WISCI
+  # WORKING MEMORY
+  "Working Memory (WMI)",
+  "Auditory Working Memory (AWMI)",
+  "Arithmetic",
+  "Digit Span",
+  "Digit Span Forward",
+  "Digit Span Backward",
+  "Digit Span Sequencing",
+  "Longest Digit Span Forward",
+  "Longest Digit Span Backward",
+  "Longest Digit Span Sequence",
+  "Letter-Number Sequencing",
+  "Longest Letter-Number Sequence",
+  "Symbol Span",
+  "Spatial Span",
+  "Picture Span",
+  # WPPSI-IV
+  "Picture Memory",
+  "Zoo Locations",
+  # PROCESSING SPEED
+  "Processing Speed (PSI)",
+  "Coding",
+  "Cancellation",
+  # "Cancellation Random",
+  # "Cancellation Structured",
+  "Symbol Search",
+  "Bug Search",
+  "Animal Coding",
+  # TMT
+  "TMT, Part A",
+  "TMT, Part B",
+  # NEPSY
+  "Animal Sorting",
+  "Auditory Attention",
+  "Response Set",
+  "Naming",
+  "Inhibition",
+  "Switching",
+  "Statue",
+  # "Statue-Body Movement",
+  # "Statue-Eye Opening",
+  # "Statue-Vocalization",
+  "Clocks",
+  # "Inhibition Total Errors", # this is duplicate with dkefs
+  # "Word Generation Semantic",
+  # "Word Generation-Semantic",
+  # "Word Generation Initial Letter",
+  # DKEFS
+  "Inhibition",
+  "Inhibition/Switching",
+  # "Inhibition Total Errors",
+  # "Inhibition/Switching Total Errors",
+  # CVLT
+  "Total Intrusions",
+  "Total Repetitions"
+)
+
+## ---- 02-glue-executive ------------
+dt <-
+  neurocog %>%
+  dplyr::filter(scale %in% filter_domain) %>%
+  dplyr::arrange(desc(percentile)) %>%
+  dplyr::distinct(.keep_all = FALSE)
+
+dt %>%
+  glue::glue_data() %>%
+  purrr::modify(lift(paste0)) %>%
+  cat(dt$result,
+    file = "2_executive.md",
+    fill = TRUE,
+    append = TRUE
+  )
+
+## ---- 03-table-executive ------------
+tb <-
+  make_tibble(
+    tibb = executive,
+    data = neurocog,
+    pheno = "Domain"
+  ) %>%
+  filter(Scale %in% filter_domain) %>%
+  arrange(Test)
+
+## ---- 04-kable-executive ------------------
+kableExtra::kbl(
+  tb[, 2:5],
+  "latex",
+  longtable = FALSE,
+  booktabs = TRUE,
+  linesep = "",
+  align = c("lccc"),
+  caption = "(ref:executive)"
+) %>%
+  kableExtra::kable_paper(., lightable_options = "basic") %>%
+  kableExtra::kable_styling(., latex_options = c(
+    "scale_down",
+    "HOLD_position",
+    "striped"
+  )) %>%
+  kableExtra::column_spec(., 1, width = "8cm") %>%
+  kableExtra::pack_rows(., index = table(tb$Test)) %>%
+  kableExtra::row_spec(., row = 0, bold = TRUE) %>%
+  kableExtra::add_footnote("(ref:fn-exe)")
+
+## ---- 05-df-executive ------------
+df <-
+  neurocog %>%
+  filter(domain == "Domain") %>%
+  filter(!is.na(percentile)) %>%
+  arrange(test_name) %>%
+  filter(scale %in% filter_domain)
+
+## ---- 06-plot-subdomain-executive -----------------
+dotplot(
+  data = df,
+  x = df$z_mean_sub,
+  y = df$subdomain,
+  domain = "executive"
+)
+
+## ---- 07-plot-narrow-executive -------------------
+dotplot(
+  data = df,
+  x = df$z_mean_narrow,
+  y = df$narrow,
+  domain = "executive"
+)
