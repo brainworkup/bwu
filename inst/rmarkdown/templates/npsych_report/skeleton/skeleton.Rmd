@@ -862,6 +862,10 @@ knitr::read_chunk(here::here(patient, "2_iq.R"))
 ```{r 06-plot-subdomain-iq, eval=T, double_escape=T, escape=F, fig.cap = '(ref:g) (ref:gc) (ref:gf)'}
 ```
 
+```{r}
+knitr::read_chunk(here::here(patient, "2_iq.R"))
+```
+
 ```{r 07-plot-narrow-iq, eval=F, double_escape=T, escape=F, fig.cap = '(ref:g) (ref:gc) (ref:gf)'}
 ```
 
@@ -876,41 +880,52 @@ cat(readLines("2_academics.md"), sep = "\n")
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_academics.R"))
+knitr::read_chunk(here::here(patient, "2_academics.R"))
 ```
 
-```{r 01-glue-academics, eval=T, double_escape=T, escape=F}
-```
-
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_academics.R"))
-```
-
-```{r 02-make-df-academics, eval=T, double_escape=T, escape=F}
+```{r 01-filter-academics, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_academics.R"))
+knitr::read_chunk(here::here(patient, "2_academics.R"))
 ```
 
-```{r 03-make-kable-academics, eval=T, double_escape=T, escape=F, fig.fullwidth=T}
-```
-
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_academics.R"))
-```
-
-```{r 04-make-df-academics, eval=T, double_escape=T, escape=F}
+```{r 02-glue-academics, eval=F, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_academics.R"))
+knitr::read_chunk(here::here(patient, "2_academics.R"))
 ```
 
-```{r 05-plot-academics-subdomain, eval=T, double_escape=T, escape=F, fig.cap = '(ref:acad)'}
+```{r 03-table-academics, eval=T, double_escape=T, escape=F, fig.fullwidth=T}
 ```
 
-```{r 06-plot-academics-narrow, eval=F, double_escape=T, escape=F, fig.cap = '(ref:acad)'}
+```{r}
+knitr::read_chunk(here::here(patient, "2_academics.R"))
+```
+
+```{r 04-kable-academics, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_academics.R"))
+```
+
+```{r 05-df-academics, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_academics.R"))
+```
+
+```{r 06-plot-subdomain-academics, eval=T, double_escape=T, escape=F, fig.cap = '(ref:acad)'}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_academics.R"))
+```
+
+```{r 07-plot-narrow-academics, eval=F, double_escape=T, escape=F, fig.cap = '(ref:acad)'}
 ```
 
 \newpage
@@ -1159,42 +1174,53 @@ knitr::read_chunk(here::here(patient, "2_memory.R"))
 cat(readLines("2_motor.md"), sep = "\n")
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_motor.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_motor.R"))
 ```
 
-```{r 01-glue-motor, eval=T, double_escape=T, escape=F}
+```{r 01-filter-motor, eval=T, double_escape=T, escape=F}
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_motor.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_motor.R"))
 ```
 
-```{r 02-make-df-motor, eval=T, double_escape=T, escape=F}
+```{r 02-glue-motor, eval=T, double_escape=T, escape=F}
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_motor.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_motor.R"))
 ```
 
-```{r 03-make-kable-motor, eval=T, double_escape=T, escape=F}
+```{r 03-table-motor, eval=T, double_escape=T, escape=F}
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_motor.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_motor.R"))
 ```
 
-```{r 04-make-df-motor, eval=T, double_escape=T, escape=F}
+```{r 04-kable-motor, eval=T, double_escape=T, escape=F}
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_motor.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_motor.R"))
 ```
 
-```{r 05-plot-motor-subdomain, eval=F, fig.cap = '(ref:mtr)', double_escape=T, escape=F}
+```{r 05-df-motor, eval=T, double_escape=T, escape=F}
 ```
 
-```{r 06-plot-motor-narrow, eval=T, fig.cap = '(ref:mtr)', double_escape=T, escape=F}
+```{r}
+knitr::read_chunk(here::here(patient, "2_motor.R"))
+```
+
+```{r 06-plot-subdomain-motor, eval=F, fig.cap = '(ref:mtr)', double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_motor.R"))
+```
+
+```{r 07-plot-narrow-motor, eval=T, fig.cap = '(ref:mtr)', double_escape=T, escape=F}
 ```
 
 \newpage
@@ -1207,35 +1233,53 @@ knitr::read_chunk(here::here("R", "nt_motor.R"))
 cat(readLines("2_social.md"), sep = "\n")
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_social.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_social.R"))
 ```
 
-```{r 02-make-df-social, eval=T, double_escape=T, escape=F}
+```{r 01-filter-social, eval=T, double_escape=T, escape=F}
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_social.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_social.R"))
 ```
 
-```{r 03-make-kable-social, eval=T, double_escape=T, escape=F, fig.fullwidth=TRUE}
+```{r 02-glue-social, eval=T, double_escape=T, escape=F}
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_social.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_social.R"))
 ```
 
-```{r 04-make-df-social, eval=T, double_escape=T, escape=F}
+```{r 03-table-social, eval=T, double_escape=T, escape=F}
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_social.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_social.R"))
 ```
 
-```{r 05-plot-social-subdomain, eval=F, double_escape=T, escape=F, fig.cap='(ref:soc-cog)'}
+```{r 04-kable-social, eval=T, double_escape=T, escape=F}
 ```
 
-```{r 06-plot-social-narrow, eval=T, double_escape=T, escape=F, fig.cap='(ref:soc-cog)'}
+```{r}
+knitr::read_chunk(here::here(patient, "2_social.R"))
+```
+
+```{r 05-df-social, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_social.R"))
+```
+
+```{r 06-plot-subdomain-social, eval=F, fig.cap = '(ref:mtr)', double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_social.R"))
+```
+
+```{r 07-plot-narrow-social, eval=T, fig.cap = '(ref:mtr)', double_escape=T, escape=F}
 ```
 
 \newpage
@@ -1290,6 +1334,10 @@ knitr::read_chunk(here::here(patient, "2_adhd.R"))
 ```{r 06-plot-subdomain-adhd, eval=F, double_escape=T, escape=F, fig.cap = 'Ratings of executive and attentional functioning related to ADHD in everyday life.'}
 ```
 
+```{r}
+knitr::read_chunk(here::here(patient, "2_adhd.R"))
+```
+
 ```{r 07-plot-narrow-adhd, eval=T, double_escape=T, escape=F, fig.cap = 'Ratings of executive and attentional functioning related to ADHD in everyday life.'}
 ```
 
@@ -1297,90 +1345,61 @@ knitr::read_chunk(here::here(patient, "2_adhd.R"))
 
 ### Emotional/Behavioral/Adaptive
 
-```{r, basc, results='asis'}
-cat(readLines("2_basc.md"), sep = "\n")
+(ref:emotion) Write something about emotion and personality.
+
+(ref:fn-emo) *T* Score (M = 50, SD = 10)
+
+```{r, emotion, results='asis'}
+cat(readLines("2_emotion.md"), sep = "\n")
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_basc3_prs_preschool.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_emotion.R"))
 ```
 
-```{r 01-glue-basc3-prs-preschool, eval=T, double_escape=T, escape=F}
+```{r 01-filter-emotion, eval=T, double_escape=T, escape=F}
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_basc3_prs_preschool.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_emotion.R"))
 ```
 
-```{r 02-make-df-basc3-prs-preschool, eval=T, double_escape=T, escape=F}
+```{r 02-glue-emotion, eval=T, double_escape=T, escape=F}
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_basc3_prs_preschool.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_emotion.R"))
 ```
 
-```{r 03-make-kable-basc3-prs-preschool, eval=T, double_escape=T, escape=F}
+```{r 03-table-emotion, eval=T, double_escape=T, escape=F}
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_basc3_prs_preschool.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_emotion.R"))
 ```
 
-```{r 04-make-df-basc3-prs-preschool, eval=T, double_escape=T, escape=F}
+```{r 04-kable-emotion, eval=T, double_escape=T, escape=F, fig.fullwidth=T}
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_basc3_prs_preschool.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_emotion.R"))
 ```
 
-```{r 05-plot-basc3-prs-preschool-subdomain, eval=F, fig.cap = '(ref:basc3)', double_escape=T, escape=F}
+```{r 05-df-emotion, eval=T, double_escape=T, escape=F}
 ```
 
-```{r 06-plot-basc3-prs-preschool-narrow, eval=T, fig.cap = '(ref:basc3)', double_escape=T, escape=F}
+```{r}
+knitr::read_chunk(here::here(patient, "2_emotion.R"))
 ```
 
-\newpage
-
-```{r, pai, results='asis'}
-cat(readLines("2_pai.md"), sep = "\n")
+```{r 06-plot-subdomain-emotion, eval=F, double_escape=T, escape=F, fig.cap = '(ref:emotion)'}
 ```
 
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_pai.R"))
+```{r}
+knitr::read_chunk(here::here(patient, "2_emotion.R"))
 ```
 
-```{r 01-glue-pai, eval=T, double_escape=T, escape=F}
-```
-
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_pai.R"))
-```
-
-```{r 02-make-df-pai, eval=T, double_escape=T, escape=F}
-```
-
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_pai.R"))
-```
-
-```{r 03-make-kable-pai, eval=T, double_escape=T, escape=F}
-```
-
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_pai.R"))
-```
-
-```{r 04-make-df-pai, eval=T, double_escape=T, escape=F}
-```
-
-```{r, eval=T}
-knitr::read_chunk(here::here("R", "nt_pai.R"))
-```
-
-```{r 05-plot-pai-subdomain, eval=F, fig.margin=TRUE, fig.env='marginfigure', fig.cap='PAI Clinical Domains.', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
-```
-
-```{r 06-plot-pai-narrow, eval=F, fig.margin=TRUE, fig.env='marginfigure', fig.cap='PAI Clinical Domains.', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
+```{r 07-plot-narrow-emotion, eval=T, double_escape=T, escape=F, fig.cap = '(ref:emotion)'}
 ```
 
 \newpage
