@@ -1341,7 +1341,7 @@ knitr::read_chunk(here::here(patient, "2_adhd.R"))
 knitr::read_chunk(here::here(patient, "2_adhd.R"))
 ```
 
-```{r 07-plot-narrow-adhd, eval=T, double_escape=T, escape=F, fig.cap = 'Ratings of executive and attentional functioning related to ADHD in everyday life.'}
+```{r 07-plot-narrow-adhd, eval=F, double_escape=T, escape=F, fig.cap = 'Ratings of executive and attentional functioning related to ADHD in everyday life.'}
 ```
 
 \newpage
@@ -1402,7 +1402,7 @@ knitr::read_chunk(here::here(patient, "2_emotion.R"))
 knitr::read_chunk(here::here(patient, "2_emotion.R"))
 ```
 
-```{r 07-plot-narrow-emotion, eval=T, double_escape=T, escape=F, fig.cap = '(ref:emotion)'}
+```{r 07-plot-narrow-emotion, eval=F, double_escape=T, escape=F, fig.cap = '(ref:emotion)'}
 ```
 
 \newpage
