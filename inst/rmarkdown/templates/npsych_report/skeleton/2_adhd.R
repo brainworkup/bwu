@@ -18,7 +18,7 @@ filter_domain <- list(
   "DSM-IV ADHD Symptoms Total",
   "ADHD Index",
   # CEFI
-  "Full Scale",
+  "CEFI Full Scale",
   "Attention",
   "Emotion Regulation",
   "Flexibility",

@@ -350,6 +350,8 @@ source(file = here::here("R/make_tibble.R"), local = knitr::knit_global())
 
 (ref:bicycle) Bicycle Drawing Task
 
+(ref:rocf) Rey-Osterrieth Complex Figure Test (ROCF)
+
 (ref:ravlt) Rey Auditory Verbal Learning Test (RAVLT)
 
 (ref:cvltc) California Verbal Learning Test, Child ed (CVLT-C)
@@ -619,40 +621,41 @@ cat(readLines("2_nse.md"), sep = "\n")
 
 ## Test Battery
 
--   (ref:acs-topf)
--   (ref:acs-word-choice)
--   (ref:tomm)
--   (ref:wppsi4)
--   (ref:wisc5)
--   (ref:wais4)
--   (ref:wiat4)
--   (ref:ktea3)
--   (ref:wrat5)
--   (ref:nab): Form 1/2
--   (ref:nabs): Form 1/2
--   (ref:rbans): Form A/B/C/D
--   (ref:nepsy2)
--   (ref:cvltc)
--   (ref:cvlt3)
--   (ref:dkefs)
--   (ref:tmt)
--   (ref:examiner)
--   (ref:bicycle)
--   (ref:clock)
--   (ref:cog-est)
--   (ref:pegboard)
--   (ref:basc3-sdh)
--   (ref:basc3-prs-child)
--   (ref:basc3-trs-child)
--   (ref:brown-pr)
--   (ref:brown-sr)
--   (ref:brown-tr)
--   (ref:caadid)
--   (ref:caars-sr)
--   (ref:caars-or)
--   (ref:cefi-sr)
--   (ref:cefi-or)
--   (ref:pai)
+- (ref:acs-topf)
+- (ref:acs-word-choice)
+- (ref:tomm)
+- (ref:wppsi4)
+- (ref:wisc5)
+- (ref:wais4)
+- (ref:wiat4)
+- (ref:ktea3)
+- (ref:wrat5)
+- (ref:nab): Form 1/2
+- (ref:nabs): Form 1/2
+- (ref:rbans): Form A/B/C/D
+- (ref:nepsy2)
+- (ref:cvltc)
+- (ref:cvlt3)
+- (ref:dkefs)
+- (ref:tmt)
+- (ref:examiner)
+- (ref:rocf)
+- (ref:bicycle)
+- (ref:clock)
+- (ref:cog-est)
+- (ref:pegboard)
+- (ref:basc3-sdh)
+- (ref:basc3-prs-child)
+- (ref:basc3-trs-child)
+- (ref:brown-pr)
+- (ref:brown-sr)
+- (ref:brown-tr)
+- (ref:caadid)
+- (ref:caars-sr)
+- (ref:caars-or)
+- (ref:cefi-sr)
+- (ref:cefi-or)
+- (ref:pai)
 
 ```{r bobs, results='asis'}
 cat(readLines("2_bobs.md"), sep = "\n")
@@ -758,7 +761,7 @@ neurocog <-
     result = glue::glue(
       "{patient}'s score on {scale},
        a measure of {description},
-        fell in the *{}range}* range (PR = {percentile})."))
+        fell in the *{range}* range (PR = {percentile})."))
 ```
 
 ```{r, make-factors-neurobehav}
@@ -797,7 +800,7 @@ neurobehav <-
     result = glue::glue(
       "{patient}'s score on {scale},
        a measure of {description},
-        fell in the *{}range}* range (PR = {percentile})."))
+        fell in the *{range}* range (PR = {percentile})."))
 ```
 
 ```{r, write-data}
