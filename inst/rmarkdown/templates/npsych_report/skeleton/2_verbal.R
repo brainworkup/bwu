@@ -99,7 +99,7 @@ kableExtra::kbl(
   kableExtra::column_spec(., 1, width = "8cm") %>%
   kableExtra::pack_rows(., index = table(tb$Test)) %>%
   kableExtra::row_spec(., row = 0, bold = TRUE) %>%
-  kableExtra::add_footnote("(ref:fn-verbal)")
+  kableExtra::add_footnote("(ref:fn-vrb)")
 
 ## ---- 05-df-verbal -----------------------------
 df <-

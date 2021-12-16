@@ -1,4 +1,4 @@
-## ---- 01-filter-trait -------------
+## ---- 01-filter-memory -------------
 filter_domain <- c(
   # RCFT
   "RCFT Memory",
@@ -67,7 +67,7 @@ filter_domain <- c(
   "Visual Reproduction II"
 )
 
-## ---- 02-glue-trait ------------
+## ---- 02-glue-memory ------------
 dt <-
   neurocog %>%
   dplyr::filter(scale %in% filter_domain) %>%
@@ -83,17 +83,17 @@ dt %>%
     append = TRUE
   )
 
-## ---- 03-table-trait ------------
+## ---- 03-table-memory ------------
 tb <-
   make_tibble(
-    tibb = trait,
+    tibb = memory,
     data = neurocog,
-    pheno = "Trait"
+    pheno = "Memory"
   ) %>%
   filter(Scale %in% filter_domain) %>%
   arrange(Test)
 
-## ---- 04-kable-trait ------------------
+## ---- 04-kable-memory ------------------
 kableExtra::kbl(
   tb[, 2:5],
   "latex",
@@ -101,7 +101,7 @@ kableExtra::kbl(
   booktabs = TRUE,
   linesep = "",
   align = c("lccc"),
-  caption = "(ref:trait)"
+  caption = "(ref:memory)"
 ) %>%
   kableExtra::kable_paper(., lightable_options = "basic") %>%
   kableExtra::kable_styling(., latex_options = c(
@@ -112,28 +112,28 @@ kableExtra::kbl(
   kableExtra::column_spec(., 1, width = "8cm") %>%
   kableExtra::pack_rows(., index = table(tb$Test)) %>%
   kableExtra::row_spec(., row = 0, bold = TRUE) %>%
-  kableExtra::add_footnote("(ref:fn-trait)")
+  kableExtra::add_footnote("(ref:fn-memory)")
 
-## ---- 05-df-trait ------------
+## ---- 05-df-memory ------------
 df <-
   neurocog %>%
-  filter(domain == "Trait") %>%
+  filter(domain == "Memory") %>%
   filter(!is.na(percentile)) %>%
   arrange(test_name) %>%
   filter(scale %in% filter_domain)
 
-## ---- 06-plot-subdomain-trait -----------------
+## ---- 06-plot-subdomain-memory -----------------
 dotplot(
   data = df,
   x = df$z_mean_sub,
   y = df$subdomain,
-  domain = "trait"
+  domain = "memory"
 )
 
-## ---- 07-plot-narrow-trait -------------------
+## ---- 07-plot-narrow-memory -------------------
 dotplot(
   data = df,
   x = df$z_mean_narrow,
   y = df$narrow,
-  domain = "trait"
+  domain = "memory"
 )

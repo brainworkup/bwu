@@ -876,7 +876,7 @@ knitr::read_chunk(here::here(patient, "2_iq.R"))
 
 ### Academic Skills
 
-(ref:fn-academics) Standard Score (M = 100, SD = 15)
+(ref:fn-acad) Standard Score (M = 100, SD = 15)
 
 ```{r, academics, results='asis'}
 cat(readLines("2_academics.md"), sep = "\n")
@@ -893,21 +893,21 @@ knitr::read_chunk(here::here(patient, "2_academics.R"))
 knitr::read_chunk(here::here(patient, "2_academics.R"))
 ```
 
-```{r 02-glue-academics, eval=F, double_escape=T, escape=F}
+```{r 02-glue-academics, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r, eval=T}
 knitr::read_chunk(here::here(patient, "2_academics.R"))
 ```
 
-```{r 03-table-academics, eval=T, double_escape=T, escape=F, fig.fullwidth=T}
+```{r 03-table-academics, eval=T, double_escape=T, escape=F}
 ```
 
 ```{r}
 knitr::read_chunk(here::here(patient, "2_academics.R"))
 ```
 
-```{r 04-kable-academics, eval=T, double_escape=T, escape=F}
+```{r 04-kable-academics, eval=T, double_escape=T, escape=F, fig.fullwidth=T}
 ```
 
 ```{r}
@@ -935,7 +935,7 @@ knitr::read_chunk(here::here(patient, "2_academics.R"))
 
 ### Verbal/Language
 
-(ref:fn-verbal) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
+(ref:fn-vrb) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
 ```{r, verbal, results='asis'}
 cat(readLines("2_verbal.md"), sep = "\n")
@@ -994,7 +994,7 @@ knitr::read_chunk(here::here(patient, "2_verbal.R"))
 
 ### Visual Perception/Construction
 
-(ref:fn-spatial) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
+(ref:fn-spt) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
 ```{r, spatial, results='asis'}
 cat(readLines("2_spatial.md"), sep = "\n")

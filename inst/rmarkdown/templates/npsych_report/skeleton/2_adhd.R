@@ -18,7 +18,7 @@ filter_domain <- list(
   "DSM-IV ADHD Symptoms Total",
   "ADHD Index",
   # CEFI
-  "CEFI Full Scale",
+  "Full Scale",
   "Attention",
   "Emotion Regulation",
   "Flexibility",
@@ -41,9 +41,9 @@ dt %>%
   glue::glue_data() %>%
   purrr::modify(lift(paste0)) %>%
   cat(dt$result,
-      file = "2_adhd.md",
-      fill = TRUE,
-      append = TRUE
+    file = "2_adhd.md",
+    fill = TRUE,
+    append = TRUE
   )
 
 ## ---- 03-table-adhd ------------
