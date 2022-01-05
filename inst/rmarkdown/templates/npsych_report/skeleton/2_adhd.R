@@ -49,7 +49,7 @@ dt %>%
 ## ---- 03-table-adhd ------------
 tb <-
   make_tibble(
-    tibb = tb,
+    tibb = adhd,
     data = neurobehav,
     pheno = "Behavioral/Emotional/Social"
   ) %>%
@@ -80,6 +80,7 @@ kableExtra::kbl(
 ## ---- 05-df-adhd -----------------------------------
 df <-
   neurobehav %>%
+  filter(test_name == "Brown EF/A Parent-Report") %>%
   filter(test_name == "Brown EF/A Self-Report") %>%
   filter(test_name == "Brown EF/A Observer-Report") %>%
   filter(test_name == "CAARS Self-Report") %>%

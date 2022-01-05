@@ -1,8 +1,8 @@
 Package: npsych.data
 Type: Package
 Title: USC NPSYCH Data Repository
-Version: 0.0.1.9000
-Author: person("Joey", "Trampush", email = j.trampush@gmail.com, role = c("aut", "cre"))
+Version: 0.1.1.9000
+Author: person("Joey", "Trampush", email = trampush@usc.edu, role = c("aut", "cre"))
 Maintainer: Joey Trampush <trampush@usc.edu>
 Description: This package stores the functions and normative datasets to use for neuropsychological evaluatioins at USC Keck School of Medicine. Hopefully it works.
 License: GPL-3
@@ -19,15 +19,17 @@ Imports:
     tufte,
     htmltools,
     knitr,
-    lubridate,
     ggplot2,
     ggthemes,
     dplyr,
     purrr,
     magrittr,
-    tidyselect
+    tidyselect,
+    highcharter,
+    xaringan
 Suggests:
     testthat (>= 3.0.0),
-    xfun
+    xfun,
+    lubridate
 VignetteBuilder: knitr
 Config/testthat/edition: 3

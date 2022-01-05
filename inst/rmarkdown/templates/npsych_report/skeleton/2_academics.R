@@ -50,8 +50,7 @@ dt <-
   neurocog %>%
   dplyr::filter(scale %in% filter_domain) %>%
   dplyr::arrange(desc(percentile)) %>%
-  dplyr::distinct(.keep_all = FALSE) %>%
-  dplyr::slice(1:3)
+  dplyr::distinct(.keep_all = FALSE)
 
 dt %>%
   glue::glue_data() %>%
@@ -90,6 +89,7 @@ kableExtra::kbl(
   )) %>%
   kableExtra::column_spec(., 1, width = "8cm") %>%
   kableExtra::pack_rows(., index = table(tb$Test)) %>%
+  kableExtra::pack_rows(., index = table(tb$Subdomain)) %>%
   kableExtra::row_spec(., row = 0, bold = TRUE) %>%
   kableExtra::add_footnote("(ref:fn-acad)")
 

@@ -1,6 +1,8 @@
 ## ---- 01-filter-memory -------------
 filter_domain <- c(
   # RCFT
+  "ROCF Delayed Recall",
+  "ROCF Memory",
   "RCFT Memory",
   # NAB-S
   "Memory Domain",
@@ -19,11 +21,11 @@ filter_domain <- c(
   "Figure Recall",
   # NEPSY-2
   "Memory for Designs",
-  "MD Content",
-  "MD Spatial",
+  "Memory for Designs Content",
+  "Memory for Designs Spatial",
   "Memory for Designs Delayed",
-  "MDD Content",
-  "MDD Spatial",
+  "Memory for Designs Delayed Content",
+  "Memory for Designs Delayed Spatial",
   "Narrative Memory Free Recall",
   "Narrative Memory Recall",
   "Narrative Memory Free and Cued Recall",
@@ -31,9 +33,9 @@ filter_domain <- c(
   "Sentence Repetition",
   # CVLT-C
   "Trials 1-5 Free Recall Total Correct",
-  "Trial 1 Free Recall Total Correct",
-  "Trial 5 Free Recall Total Correct",
-  "List B Free Recall Total Correct",
+  # "Trial 1 Free Recall Total Correct",
+  # "Trial 5 Free Recall Total Correct",
+  # "List B Free Recall Total Correct",
   "Short-Delay Free Recall Total Correct",
   "Short-Delay Cued Recall Total Correct",
   "Long-Delay Free Recall Total Correct",
@@ -78,7 +80,7 @@ dt %>%
   glue::glue_data() %>%
   purrr::modify(lift(paste0)) %>%
   cat(dt$result,
-    file = "2_trait.md",
+    file = "2_memory.md",
     fill = TRUE,
     append = TRUE
   )
@@ -86,12 +88,13 @@ dt %>%
 ## ---- 03-table-memory ------------
 tb <-
   make_tibble(
-    tibb = memory,
+    tibb = tb,
     data = neurocog,
     pheno = "Memory"
   ) %>%
   filter(Scale %in% filter_domain) %>%
   arrange(Test)
+tb$Score <- round(tb$Score, 0L)
 
 ## ---- 04-kable-memory ------------------
 kableExtra::kbl(
@@ -120,7 +123,9 @@ df <-
   filter(domain == "Memory") %>%
   filter(!is.na(percentile)) %>%
   arrange(test_name) %>%
-  filter(scale %in% filter_domain)
+  filter(scale %in% filter_domain) %>%
+  filter(scale != "Total Intrusions") %>%
+  filter(scale != "Total Repetitions")
 
 ## ---- 06-plot-subdomain-memory -----------------
 dotplot(

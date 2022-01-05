@@ -224,10 +224,10 @@
     },
     "broom": {
       "Package": "broom",
-      "Version": "0.7.10",
+      "Version": "0.7.11",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "ddf8bc55ea050f984835dd2d23cd6828"
+      "Hash": "e4487657db580ae1fe0f85237a88ff1f"
     },
     "cachem": {
       "Package": "cachem",
@@ -510,13 +510,13 @@
     },
     "gert": {
       "Package": "gert",
-      "Version": "1.4.9000",
+      "Version": "1.5.0",
       "Source": "Repository",
       "Repository": "https://r-lib.r-universe.dev",
       "RemoteUrl": "https://github.com/r-lib/gert",
       "RemoteRef": "HEAD",
-      "RemoteSha": "4c12abdbb8759cf5afb3b5bfcb64605ac5868c6c",
-      "Hash": "928b13c70c74de78dad88bb70ba5104a"
+      "RemoteSha": "b9dcd4c00449702cf70e782dc28eabf80c8d5971",
+      "Hash": "8fddce7cbd59467106266a6e93e253b4"
     },
     "ggplot2": {
       "Package": "ggplot2",
@@ -597,10 +597,10 @@
     },
     "highcharter": {
       "Package": "highcharter",
-      "Version": "0.8.2",
+      "Version": "0.9.4",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "0058e6db360b4131c268f8148df229c9"
+      "Hash": "e9851999ff5a7d33d6b17a68b2cb7f59"
     },
     "highr": {
       "Package": "highr",

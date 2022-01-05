@@ -8,15 +8,20 @@ filter_domain <- c(
   # WAIS/WISC/WPPSI
   "Block Design",
   "Block Design No Time Bonus",
+  "Block Design Partial Score",
   "Matrix Reasoning",
   "Figure Weights",
   "Visual Puzzles",
   "Object Assembly",
   "Picture Concepts",
   # RCFT
+  "ROCF Copy",
   "RCFT Copy",
   # NEPSY
   "Design Copying",
+  "Design Copying General",
+  "Design Copying Process",
+  "Design Copying Motor",
   "Arrows",
   "Geometric Puzzles"
 )
@@ -40,7 +45,7 @@ dt %>%
 ## ---- 03-table-spatial ------------
 tb <-
   make_tibble(
-    tibb = spatial,
+    tibb = tb,
     data = neurocog,
     pheno = "Visual Perception/Construction"
   ) %>%

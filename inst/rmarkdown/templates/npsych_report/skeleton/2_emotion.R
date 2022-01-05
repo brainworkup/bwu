@@ -1,6 +1,6 @@
 ## ---- 01-filter-emotion ---------
 filter_domain <- list(
-  # BASC3
+  # BASC-3
   "Externalizing Problems",
   "Hyperactivity",
   "Aggression",
@@ -22,25 +22,19 @@ filter_domain <- list(
   "Personal Adjustment",
   "School Problems",
   "Inattention/Hyperactivity",
-  "School Problems",
-  "Internalizing Problems",
-  "Inattention/Hyperactivity",
   "Emotional Symptoms Index",
   "Personal Adjustment",
   "Attitude to School",
   "Attitude to Teachers",
-  "Atypicality",
   "Locus of Control",
   "Social Stress",
-  "Anxiety",
-  "Depression",
   "Sense of Inadequacy",
-  "Attention Problems",
-  "Hyperactivity",
   "Relations with Parents",
   "Interpersonal Relations",
   "Self-Esteem",
   "Self-Reliance",
+  "Sensation Seeking",
+  "Somatization",
   # PAI
   "Somatic Complaints",
   "Conversion",
@@ -148,7 +142,8 @@ kableExtra::kbl(
 df <-
   neurobehav %>%
   filter(test_name == "PAI") %>%
-  filter(test_name == "BASC-3 SRP") %>%
+  filter(test_name == "BASC-3 SRP Adolescent") %>%
+  filter(test_name == "BASC-3 PRS Adolescent") %>%
   filter(test_name == "BDI-2") %>%
   filter(test_name == "BAI-2") %>%
   filter(!is.na(percentile)) %>%

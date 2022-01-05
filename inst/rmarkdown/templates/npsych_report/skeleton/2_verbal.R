@@ -25,7 +25,9 @@ filter_domain <- c(
   "Color Naming",
   "Word Reading",
   # NEPSY
+  "Comprehension of Instructions",
   "Word Generation-Semantic",
+  "Word Generation-Initial Letter",
   "Body Part Naming",
   "Body Part Identification",
   # "Naming vs Identification",

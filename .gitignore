@@ -70,6 +70,7 @@ po/*~
 renv/.DS_Store
 inst/rmarkdown/templates/npsychreport/skeleton/dsm5_icd10_diagnoses.pdf
 .DS_Store
-renv/.DS_Store
-renv/.DS_Store
-renv/.DS_Store
+
+# New 1/4/22
+.Rbuildignore
+.Rprofile
