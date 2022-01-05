@@ -40,17 +40,17 @@ dt %>%
 
 ## ---- 03-table-motor ------------
 tb <-
-  make_tibble(
+  npsych.data::make_tibble(
     tibb = motor,
     data = neurocog,
     pheno = "Motor"
   ) %>%
-  filter(Scale %in% filter_domain) %>%
-  arrange(Test)
+  dplyr::filter(Scale %in% filter_domain) %>%
+  dplyr::arrange(Test)
 
 ## ---- 04-kable-motor ------------------
 kableExtra::kbl(
-  tb[, 2:5],
+  tb[, 1:4],
   "latex",
   longtable = FALSE,
   booktabs = TRUE,
@@ -72,10 +72,10 @@ kableExtra::kbl(
 ## ---- 05-df-motor ------------
 df <-
   neurocog %>%
-  filter(domain == "Motor") %>%
-  filter(!is.na(percentile)) %>%
-  arrange(test_name) %>%
-  filter(scale %in% filter_domain)
+  dplyr::filter(domain == "Motor") %>%
+  dplyr::filter(!is.na(percentile)) %>%
+  dplyr::arrange(test_name) %>%
+  dplyr::filter(scale %in% filter_domain)
 
 ## ---- 06-plot-subdomain-motor -----------------
 dotplot(

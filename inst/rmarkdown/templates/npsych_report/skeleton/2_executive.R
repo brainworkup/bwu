@@ -115,7 +115,7 @@ dt %>%
 
 ## ---- 03-table-executive ------------
 tb <-
-  make_tibble(
+  npsych.data::make_tibble(
     tibb = executive,
     data = neurocog,
     pheno = "Attention/Executive"
@@ -125,7 +125,7 @@ tb <-
 
 ## ---- 04-kable-executive ------------------
 kableExtra::kbl(
-  tb[, 2:5],
+  tb[, 1:4],
   "latex",
   longtable = FALSE,
   booktabs = TRUE,

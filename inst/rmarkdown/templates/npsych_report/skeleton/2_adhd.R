@@ -48,7 +48,7 @@ dt %>%
 
 ## ---- 03-table-adhd ------------
 tb <-
-  make_tibble(
+  npsych.data::make_tibble(
     tibb = adhd,
     data = neurobehav,
     pheno = "Behavioral/Emotional/Social"
@@ -58,7 +58,7 @@ tb <-
 
 ## ---- 04-kable-adhd ------------------
 kableExtra::kbl(
-  tb[, 2:5],
+  tb[, 1:4],
   caption = "(ref:adhd)",
   "latex",
   longtable = FALSE,

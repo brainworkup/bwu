@@ -87,7 +87,7 @@ dt %>%
 
 ## ---- 03-table-memory ------------
 tb <-
-  make_tibble(
+  npsych.data::make_tibble(
     tibb = tb,
     data = neurocog,
     pheno = "Memory"
@@ -98,7 +98,7 @@ tb$Score <- round(tb$Score, 0L)
 
 ## ---- 04-kable-memory ------------------
 kableExtra::kbl(
-  tb[, 2:5],
+  tb[, 1:4],
   "latex",
   longtable = FALSE,
   booktabs = TRUE,

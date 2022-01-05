@@ -32,7 +32,7 @@ dt %>%
 
 ## ---- 03-table-social ------------
 tb <-
-  make_tibble(
+  npsych.data::make_tibble(
     tibb = social,
     data = neurocog,
     pheno = "Social Cognition"
@@ -42,7 +42,7 @@ tb <-
 
 ## ---- 04-kable-social ------------------
 kableExtra::kbl(
-  tb[, 2:5],
+  tb[, 1:4],
   "latex",
   longtable = FALSE,
   booktabs = TRUE,

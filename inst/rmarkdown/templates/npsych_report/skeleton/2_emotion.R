@@ -109,17 +109,17 @@ dt %>%
 
 ## ---- 03-table-emotion ------------
 tb <-
-  make_tibble(
+  npsych.data::make_tibble(
     tibb = tb,
     data = neurobehav,
     pheno = "Behavioral/Emotional/Social"
   ) %>%
-  filter(Scale %in% filter_domain) %>%
-  arrange(Test)
+  dplyr::filter(Scale %in% filter_domain) %>%
+  dplyr::arrange(Test)
 
 ## ---- 04-kable-emotion ------------------
 kableExtra::kbl(
-  tb[, 2:5],
+  tb[, 1:4],
   caption = "(ref:emotion)",
   "latex",
   longtable = FALSE,

@@ -74,7 +74,7 @@ dt %>%
 
 ## ---- 03-table-verbal ------------
 tb <-
-  make_tibble(
+  npsych.data::make_tibble(
     tibb = verbal,
     data = neurocog,
     pheno = "Verbal/Language"
@@ -84,7 +84,7 @@ tb <-
 
 ## ---- 04-kable-verbal -----------------
 kableExtra::kbl(
-  tb[, 2:5],
+  tb[, 1:4],
   "latex",
   longtable = FALSE,
   booktabs = TRUE,

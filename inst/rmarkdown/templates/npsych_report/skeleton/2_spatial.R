@@ -44,7 +44,7 @@ dt %>%
 
 ## ---- 03-table-spatial ------------
 tb <-
-  make_tibble(
+  npsych.data::make_tibble(
     tibb = tb,
     data = neurocog,
     pheno = "Visual Perception/Construction"
@@ -54,7 +54,7 @@ tb <-
 
 ## ---- 04-kable-spatial -----------------
 kableExtra::kbl(
-  tb[, 2:5],
+  tb[, 1:4],
   "latex",
   longtable = FALSE,
   booktabs = TRUE,

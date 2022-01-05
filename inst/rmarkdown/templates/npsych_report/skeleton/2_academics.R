@@ -63,7 +63,7 @@ dt %>%
 
 ## ---- 03-table-academics ------------
 tb <-
-  make_tibble(
+  npsych.data::make_tibble(
     tibb = academics,
     data = neurocog,
     pheno = "Academic Skills"
@@ -73,7 +73,7 @@ tb <-
 
 ## ---- 04-kable-academics ------------------
 kableExtra::kbl(
-  tb[, 2:5],
+  tb[, 1:4],
   "latex",
   longtable = FALSE,
   booktabs = TRUE,

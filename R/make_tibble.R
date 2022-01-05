@@ -17,7 +17,7 @@
 #' require(magrittr)
 #' make_tibble(tibb = iq, data = neurocog, pheno = "Intelligence")
 make_tibble <- function(tibb,
-                        data,
+                        data = c("neurocog", "neurobehav"),
                         pheno = NULL,
                         domain = NULL,
                         columns = c(
