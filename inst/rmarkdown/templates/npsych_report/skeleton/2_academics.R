@@ -41,8 +41,18 @@ filter_domain <- c(
   "Writing Fluency",
   "Math Fluency",
   # WAIS
-  "Arithmetic"
+  #"Arithmetic"
   # WIAT4
+  "Decoding",
+  "Pseudoword Decoding",
+  "Word Reading",
+  "Mathematics",
+  "Math Problem Solving",
+  "Numerical Operations",
+  "Math Fluency",
+  "Math Fluency-Addition",
+  "Math Fluency-Subtraction",
+  "Math Fluency-Multiplication"
 )
 
 ## ---- 02-glue-academics ------------
