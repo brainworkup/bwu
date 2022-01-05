@@ -41,8 +41,8 @@ tb <-
     data = neurocog,
     pheno = "Intelligence/General Ability"
   ) %>%
-  filter(Scale %in% filter_domain) %>%
-  arrange(Test)
+  dplyr::filter(Scale %in% filter_domain) %>%
+  dplyr::arrange(Test)
 
 ## ---- 04-kable-iq ------------------
 kableExtra::kbl(

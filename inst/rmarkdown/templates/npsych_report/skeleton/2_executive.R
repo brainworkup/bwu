@@ -21,9 +21,9 @@ filter_domain <- c(
   # RBANS
   "Attention Index",
   # CONCEPT FORMATION
-  "Comprehension",
-  "Similarities",
-  "Matrix Reasoning",
+  #"Comprehension",
+  #"Similarities",
+  #"Matrix Reasoning",
   # CET
   "Total Deviation Score",
   # WAIS/WISCI

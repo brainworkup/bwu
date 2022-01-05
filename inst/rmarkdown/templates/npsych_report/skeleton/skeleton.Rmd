@@ -608,7 +608,7 @@ source(file = here::here("R/make_tibble.R"), local = knitr::knit_global())
 **Gender:** (ref:sex)\
 **Handedness:** (ref:hand)\
 **Education:** (ref:educ)\
-**Dates of Evaluation:** (ref:doe)
+**Evaluation Dates:** (ref:doe)
 ```
 
 ```{r nse, results='asis'}
@@ -621,41 +621,41 @@ cat(readLines("2_nse.md"), sep = "\n")
 
 ## Test Battery
 
-- (ref:acs-topf)
-- (ref:acs-word-choice)
-- (ref:tomm)
-- (ref:wppsi4)
-- (ref:wisc5)
-- (ref:wais4)
-- (ref:wiat4)
-- (ref:ktea3)
-- (ref:wrat5)
-- (ref:nab): Form 1/2
-- (ref:nabs): Form 1/2
-- (ref:rbans): Form A/B/C/D
-- (ref:nepsy2)
-- (ref:cvltc)
-- (ref:cvlt3)
-- (ref:dkefs)
-- (ref:tmt)
-- (ref:examiner)
-- (ref:rocf)
-- (ref:bicycle)
-- (ref:clock)
-- (ref:cog-est)
-- (ref:pegboard)
-- (ref:basc3-sdh)
-- (ref:basc3-prs-child)
-- (ref:basc3-trs-child)
-- (ref:brown-pr)
-- (ref:brown-sr)
-- (ref:brown-tr)
-- (ref:caadid)
-- (ref:caars-sr)
-- (ref:caars-or)
-- (ref:cefi-sr)
-- (ref:cefi-or)
-- (ref:pai)
+-   (ref:acs-topf)
+-   (ref:acs-word-choice)
+-   (ref:tomm)
+-   (ref:wppsi4)
+-   (ref:wisc5)
+-   (ref:wais4)
+-   (ref:wiat4)
+-   (ref:ktea3)
+-   (ref:wrat5)
+-   (ref:nab): Form 1/2
+-   (ref:nabs): Form 1/2
+-   (ref:rbans): Form A/B/C/D
+-   (ref:nepsy2)
+-   (ref:cvltc)
+-   (ref:cvlt3)
+-   (ref:dkefs)
+-   (ref:tmt)
+-   (ref:examiner)
+-   (ref:rocf)
+-   (ref:bicycle)
+-   (ref:clock)
+-   (ref:cog-est)
+-   (ref:pegboard)
+-   (ref:basc3-sdh)
+-   (ref:basc3-prs-child)
+-   (ref:basc3-trs-child)
+-   (ref:brown-pr)
+-   (ref:brown-sr)
+-   (ref:brown-tr)
+-   (ref:caadid)
+-   (ref:caars-sr)
+-   (ref:caars-or)
+-   (ref:cefi-sr)
+-   (ref:cefi-or)
+-   (ref:pai)
 
 ```{r bobs, results='asis'}
 cat(readLines("2_bobs.md"), sep = "\n")
@@ -688,20 +688,21 @@ data_path <- here::here(patient, "csv")
 files <- dir(data_path, pattern = "*.csv")
 neuropsych <-
   files %>%
-  set_names() %>%
-  map_df(~ readr::read_csv(file.path(data_path, .)),
+  purrr::set_names() %>%
+  purrr::map_df(
+    ~ readr::read_csv(file.path(data_path, .), show_col_types = FALSE),
     na = c("", "NA", "--", "-"),
     .id = "filename"
   ) %>%
-  filter(!is.na(percentile)) %>%
-  distinct() %>%
-  mutate(z = qnorm(percentile / 100)) %>%
-  mutate(domain = forcats::as_factor(domain)) %>%
-  mutate(subdomain = forcats::as_factor(subdomain)) %>%
-  mutate(narrow = forcats::as_factor(narrow)) %>%
-  mutate(pass = forcats::as_factor(pass)) %>%
-  mutate(verbal = forcats::as_factor(verbal)) %>%
-  mutate(timed = forcats::as_factor(timed))
+  dplyr::filter(!is.na(percentile)) %>%
+  dplyr::distinct() %>%
+  dplyr::mutate(z = qnorm(percentile / 100)) %>%
+  dplyr::mutate(domain = forcats::as_factor(domain)) %>%
+  dplyr::mutate(subdomain = forcats::as_factor(subdomain)) %>%
+  dplyr::mutate(narrow = forcats::as_factor(narrow)) %>%
+  dplyr::mutate(pass = forcats::as_factor(pass)) %>%
+  dplyr::mutate(verbal = forcats::as_factor(verbal)) %>%
+  dplyr::mutate(timed = forcats::as_factor(timed))
 ```
 
 ```{r, make-factors-neurocog}
@@ -715,7 +716,8 @@ neurocog <-
   dplyr::group_by(domain, .add = TRUE) %>%
   dplyr::filter(!is.na(percentile)) %>%
   dplyr::mutate(z_mean_dom = mean(z), z_sd_dom = sd(z)) %>%
-  dplyr::mutate(pct_mean_dom = mean(percentile), pct_sd_dom = sd(percentile)) %>%
+  dplyr::mutate(pct_mean_dom = mean(percentile),
+                pct_sd_dom = sd(percentile)) %>%
   dplyr::ungroup()
 # subdomain
 neurocog <-
@@ -723,7 +725,8 @@ neurocog <-
   dplyr::group_by(subdomain, .add = TRUE) %>%
   dplyr::filter(!is.na(percentile)) %>%
   dplyr::mutate(z_mean_sub = mean(z), z_sd_sub = sd(z)) %>%
-  dplyr::mutate(pct_mean_sub = mean(percentile), pct_sd_sub = sd(percentile)) %>%
+  dplyr::mutate(pct_mean_sub = mean(percentile),
+                pct_sd_sub = sd(percentile)) %>%
   dplyr::ungroup()
 # narrow
 neurocog <-
@@ -731,7 +734,8 @@ neurocog <-
   dplyr::group_by(narrow, .add = TRUE) %>%
   dplyr::filter(!is.na(percentile)) %>%
   dplyr::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) %>%
-  dplyr::mutate(pct_mean_narrow = mean(percentile), pct_sd_narrow = sd(percentile)) %>%
+  dplyr::mutate(pct_mean_narrow = mean(percentile),
+                pct_sd_narrow = sd(percentile)) %>%
   dplyr::ungroup()
 # pass
 neurocog <-
@@ -759,8 +763,9 @@ neurocog <-
   neurocog %>%
   dplyr::mutate(
     result = glue::glue(
-      "{patient}'s score on {scale}, a measure of {description}, fell in the *{range}* range (PR = {percentile}).")
-      )
+      "{patient}'s score on {scale}, a measure of {description}, fell in the *{range}* range (PR = {percentile})."
+    )
+  )
 ```
 
 ```{r, make-factors-neurobehav}
@@ -774,7 +779,8 @@ neurobehav <-
   dplyr::group_by(domain, .add = TRUE) %>%
   dplyr::filter(!is.na(score)) %>%
   dplyr::mutate(z_mean_dom = mean(z), z_sd_dom = sd(z)) %>%
-  dplyr::mutate(pct_mean_dom = mean(percentile), pct_sd_dom = sd(percentile)) %>%
+  dplyr::mutate(pct_mean_dom = mean(percentile),
+                pct_sd_dom = sd(percentile)) %>%
   dplyr::ungroup()
 # subdomain
 neurobehav <-
@@ -782,7 +788,8 @@ neurobehav <-
   dplyr::group_by(subdomain, .add = TRUE) %>%
   dplyr::filter(!is.na(score)) %>%
   dplyr::mutate(z_mean_sub = mean(z), z_sd_sub = sd(z)) %>%
-  dplyr::mutate(pct_mean_sub = mean(percentile), pct_sd_sub = sd(percentile)) %>%
+  dplyr::mutate(pct_mean_sub = mean(percentile),
+                pct_sd_sub = sd(percentile)) %>%
   dplyr::ungroup()
 # narrow
 neurobehav <-
@@ -790,15 +797,17 @@ neurobehav <-
   dplyr::group_by(narrow, .add = TRUE) %>%
   dplyr::filter(!is.na(score)) %>%
   dplyr::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) %>%
-  dplyr::mutate(pct_mean_narrow = mean(percentile), pct_sd_narrow = sd(percentile)) %>%
+  dplyr::mutate(pct_mean_narrow = mean(percentile),
+                pct_sd_narrow = sd(percentile)) %>%
   dplyr::ungroup()
 # result text
 neurobehav <-
   neurobehav %>%
   dplyr::mutate(
     result = glue::glue(
-      "{patient}'s score on {scale}, a measure of {description}, fell in the *{range}* range (PR = {percentile}).")
-      )
+      "{patient}'s score on {scale}, a measure of {description}, fell in the *{range}* range (PR = {percentile})."
+    )
+  )
 ```
 
 ```{r, write-data}
