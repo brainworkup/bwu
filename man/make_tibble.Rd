@@ -6,13 +6,13 @@
 \usage{
 make_tibble(
   tibb,
-  data,
+  data = c("neurocog", "neurobehav"),
   pheno = NULL,
   domain = NULL,
   columns = c("scale", "score", "percentile", "range", "subdomain", "test_name"),
   percentile = NULL,
   digits = 0,
-  names = c("Scale", "Score", "&#8240 Rank", "Range", "Subdomain", "Test"),
+  names = c("Scale", "Score", "\\\\u2030 Rank", "Range", "Subdomain", "Test"),
   ...
 )
 }
