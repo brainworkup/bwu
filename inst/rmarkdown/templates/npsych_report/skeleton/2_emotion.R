@@ -115,7 +115,8 @@ tb <-
     pheno = "Behavioral/Emotional/Social"
   ) %>%
   dplyr::filter(Scale %in% filter_domain) %>%
-  dplyr::arrange(Test)
+  dplyr::arrange(Test) %>%
+  dplyr::arrange(Subdomain)
 
 ## ---- 04-kable-emotion ------------------
 kableExtra::kbl(
@@ -135,24 +136,25 @@ kableExtra::kbl(
   )) %>%
   kableExtra::column_spec(., 1, width = "8cm") %>%
   kableExtra::pack_rows(., index = table(tb$Test)) %>%
+  kableExtra::pack_rows(., index = table(tb$Subdomain)) %>%
   kableExtra::row_spec(., row = 0, bold = TRUE) %>%
   kableExtra::add_footnote("(ref:basc3-prs-srp-fn)")
 
 ## ---- 05-df-emotion -----------------------------------
 df <-
   neurobehav %>%
-  dplyr::filter(test_name == "PAI") %>%
-  dplyr::filter(test_name == "MMPI-2") %>%
-  dplyr::filter(test_name == "BASC-3 SRP Adolescent") %>%
-  dplyr::filter(test_name == "BASC-3 PRS Adolescent") %>%
-  dplyr::filter(test_name == "BASC-3 TRS Adolescent") %>%
-  dplyr::filter(test_name == "BASC-3 SRP Child") %>%
-  dplyr::filter(test_name == "BASC-3 PRS Child") %>%
-  dplyr::filter(test_name == "BASC-3 TRS Child") %>%
-  dplyr::filter(test_name == "BASC-3 PRS Preschool") %>%
-  dplyr::filter(test_name == "BASC-3 TRS Preschool") %>%
-  dplyr::filter(test_name == "BDI-2") %>%
-  dplyr::filter(test_name == "BAI-2") %>%
+  # dplyr::filter(test_name == "PAI") %>%
+  # dplyr::filter(test_name == "MMPI-2") %>%
+  # dplyr::filter(test_name == "BASC-3 SRP Adolescent") %>%
+  # dplyr::filter(test_name == "BASC-3 PRS Adolescent") %>%
+  # dplyr::filter(test_name == "BASC-3 TRS Adolescent") %>%
+  # dplyr::filter(test_name == "BASC-3 SRP Child") %>%
+  # dplyr::filter(test_name == "BASC-3 PRS Child") %>%
+  # dplyr::filter(test_name == "BASC-3 TRS Child") %>%
+  # dplyr::filter(test_name == "BASC-3 PRS Preschool") %>%
+  # dplyr::filter(test_name == "BASC-3 TRS Preschool") %>%
+  # dplyr::filter(test_name == "BDI-2") %>%
+  # dplyr::filter(test_name == "BAI-2") %>%
   dplyr::filter(!is.na(percentile)) %>%
   dplyr::filter(scale %in% filter_domain)
 

@@ -472,6 +472,10 @@ source(file = here::here("R/make_tibble.R"), local = knitr::knit_global())
 
 (ref:social) Social Cognition
 
+(ref:adhd-ef) ADHD/Executive Functioning
+
+(ref:emotion) Behavioral/Emotional/Social/Adaptive
+
 (ref:standard-score) Standard Score (M = 100, SD = 15)
 
 (ref:scaled-score) Scaled Score (M = 10, SD = 3)
@@ -1343,21 +1347,19 @@ knitr::read_chunk(here::here(patient, "2_adhd.R"))
 knitr::read_chunk(here::here(patient, "2_adhd.R"))
 ```
 
-```{r 06-plot-subdomain-adhd, eval=F, double_escape=T, escape=F, fig.cap = 'Ratings of executive and attentional functioning related to ADHD in everyday life.'}
+```{r 06-plot-subdomain-adhd, eval=F, double_escape=T, escape=F, fig.cap='(ref:adhd)'}
 ```
 
 ```{r}
 knitr::read_chunk(here::here(patient, "2_adhd.R"))
 ```
 
-```{r 07-plot-narrow-adhd, eval=F, double_escape=T, escape=F, fig.cap = 'Ratings of executive and attentional functioning related to ADHD in everyday life.'}
+```{r 07-plot-narrow-adhd, eval=T, double_escape=T, escape=F, fig.cap='(ref:adhd)'}
 ```
 
 \newpage
 
 ### Emotional/Behavioral/Adaptive
-
-(ref:emotion) Write something about emotion and personality.
 
 (ref:fn-emo) *T* Score (M = 50, SD = 10)
 
@@ -1404,14 +1406,14 @@ knitr::read_chunk(here::here(patient, "2_emotion.R"))
 knitr::read_chunk(here::here(patient, "2_emotion.R"))
 ```
 
-```{r 06-plot-subdomain-emotion, eval=F, double_escape=T, escape=F, fig.cap = '(ref:emotion)'}
+```{r 06-plot-subdomain-emotion, eval=F, double_escape=T, escape=F, fig.cap='(ref:emotion)'}
 ```
 
 ```{r}
 knitr::read_chunk(here::here(patient, "2_emotion.R"))
 ```
 
-```{r 07-plot-narrow-emotion, eval=F, double_escape=T, escape=F, fig.cap = '(ref:emotion)'}
+```{r 07-plot-narrow-emotion, eval=T, double_escape=T, escape=F, fig.cap='(ref:emotion)'}
 ```
 
 \newpage

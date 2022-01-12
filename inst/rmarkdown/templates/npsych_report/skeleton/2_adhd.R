@@ -1,5 +1,5 @@
 ## ---- 01-filter-adhd ---------
-filter_domain <- list(
+filter_domain <- c(
   # Brown
   "Activation",
   "Focus",
@@ -53,13 +53,13 @@ tb <-
     data = neurobehav,
     pheno = "Behavioral/Emotional/Social"
   ) %>%
-  filter(Scale %in% filter_domain) %>%
-  arrange(Test)
+  dplyr::filter(Scale %in% filter_domain) %>%
+  dplyr::arrange(Test)
 
 ## ---- 04-kable-adhd ------------------
 kableExtra::kbl(
   tb[, 1:4],
-  caption = "(ref:adhd)",
+  caption = "(ref:adhd-ef)",
   "latex",
   longtable = FALSE,
   booktabs = TRUE,
@@ -80,15 +80,15 @@ kableExtra::kbl(
 ## ---- 05-df-adhd -----------------------------------
 df <-
   neurobehav %>%
-  filter(test_name == "Brown EF/A Parent-Report") %>%
-  filter(test_name == "Brown EF/A Self-Report") %>%
-  filter(test_name == "Brown EF/A Observer-Report") %>%
-  filter(test_name == "CAARS Self-Report") %>%
-  filter(test_name == "CAARS Observer-Report") %>%
-  filter(test_name == "CEFI Self-Report") %>%
-  filter(test_name == "CEFI Observer-Report") %>%
-  filter(!is.na(percentile)) %>%
-  filter(scale %in% filter_domain)
+  # dplyr::filter(test_name == "Brown EF/A Parent-Report") %>%
+  # dplyr::filter(test_name == "Brown EF/A Self-Report") %>%
+  # dplyr::filter(test_name == "Brown EF/A Observer-Report") %>%
+  # dplyr::filter(test_name == "CAARS Self-Report") %>%
+  # dplyr::filter(test_name == "CAARS Observer-Report") %>%
+  # dplyr::filter(test_name == "CEFI Self-Report") %>%
+  # dplyr::filter(test_name == "CEFI Observer-Report") %>%
+  dplyr::filter(!is.na(percentile)) %>%
+  dplyr::filter(scale %in% filter_domain)
 
 ## ---- 06-plot-subdomain-adhd -------------------
 dotplot(
