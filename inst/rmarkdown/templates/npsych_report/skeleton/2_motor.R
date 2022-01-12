@@ -40,7 +40,7 @@ dt %>%
 
 ## ---- 03-table-motor ------------
 tb <-
-  npsych.data::make_tibble(
+  make_tibble(
     tibb = motor,
     data = neurocog,
     pheno = "Motor"

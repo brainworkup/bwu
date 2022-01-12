@@ -109,7 +109,7 @@ dt %>%
 
 ## ---- 03-table-emotion ------------
 tb <-
-  npsych.data::make_tibble(
+  make_tibble(
     tibb = tb,
     data = neurobehav,
     pheno = "Behavioral/Emotional/Social"

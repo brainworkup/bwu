@@ -32,7 +32,7 @@ dt %>%
 
 ## ---- 03-table-social ------------
 tb <-
-  npsych.data::make_tibble(
+  make_tibble(
     tibb = social,
     data = neurocog,
     pheno = "Social Cognition"

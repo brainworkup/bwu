@@ -48,7 +48,7 @@ dt %>%
 
 ## ---- 03-table-adhd ------------
 tb <-
-  npsych.data::make_tibble(
+  make_tibble(
     tibb = adhd,
     data = neurobehav,
     pheno = "Behavioral/Emotional/Social"

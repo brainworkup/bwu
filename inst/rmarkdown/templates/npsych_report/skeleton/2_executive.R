@@ -115,7 +115,7 @@ dt %>%
 
 ## ---- 03-table-executive ------------
 tb <-
-  npsych.data::make_tibble(
+  make_tibble(
     tibb = executive,
     data = neurocog,
     pheno = "Attention/Executive"

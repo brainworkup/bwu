@@ -1178,7 +1178,7 @@ knitr::read_chunk(here::here(patient, "2_memory.R"))
 
 ### Motor
 
-(ref:fn-motor) *T* Score (M = 50, SD = 10) or Scaled Score (M = 10, SD = 3)
+(ref:fn-mtr) *T* Score (M = 50, SD = 10) or Scaled Score (M = 10, SD = 3)
 
 ```{r, motor, results='asis'}
 cat(readLines("2_motor.md"), sep = "\n")

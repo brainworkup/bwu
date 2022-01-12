@@ -73,7 +73,7 @@ dt %>%
 
 ## ---- 03-table-academics ------------
 tb <-
-  npsych.data::make_tibble(
+  make_tibble(
     tibb = academics,
     data = neurocog,
     pheno = "Academic Skills"

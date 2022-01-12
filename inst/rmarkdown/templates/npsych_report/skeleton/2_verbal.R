@@ -74,7 +74,7 @@ dt %>%
 
 ## ---- 03-table-verbal ------------
 tb <-
-  npsych.data::make_tibble(
+  make_tibble(
     tibb = verbal,
     data = neurocog,
     pheno = "Verbal/Language"

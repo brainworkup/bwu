@@ -36,7 +36,7 @@ dt %>%
 
 ## ---- 03-table-iq ------------
 tb <-
-  npsych.data::make_tibble(
+  make_tibble(
     tibb = tb,
     data = neurocog,
     pheno = "Intelligence/General Ability"

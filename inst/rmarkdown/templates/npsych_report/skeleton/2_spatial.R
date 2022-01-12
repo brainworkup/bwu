@@ -44,7 +44,7 @@ dt %>%
 
 ## ---- 03-table-spatial ------------
 tb <-
-  npsych.data::make_tibble(
+  make_tibble(
     tibb = tb,
     data = neurocog,
     pheno = "Visual Perception/Construction"

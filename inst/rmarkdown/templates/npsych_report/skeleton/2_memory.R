@@ -87,7 +87,7 @@ dt %>%
 
 ## ---- 03-table-memory ------------
 tb <-
-  npsych.data::make_tibble(
+  make_tibble(
     tibb = tb,
     data = neurocog,
     pheno = "Memory"
