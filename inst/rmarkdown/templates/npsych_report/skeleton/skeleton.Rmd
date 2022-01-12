@@ -486,9 +486,11 @@ source(file = here::here("R/make_tibble.R"), local = knitr::knit_global())
 
 (ref:br) A *base rate* is the prevalence of score in the general population. If a score is rare, defined as a base rate (BR) of less than 10%, it is considered *clinically significant*, and that area of functioning is probably causing problems in daily life.
 
-(ref:basc3-footnote) *T* Score (M = 50, SD = 10); *Note:* Adaptive Skills *T* scores are reversed
+(ref:basc3-prs-fn) *T* Score (M = 50, SD = 10); *Note:* Adaptive Skills *T* scores are reversed
 
-(ref:basc3-fn-srp-adol) *T* Score (M = 50, SD = 10); *Note:* Personal Adjustment *T* scores are reversed
+(ref:basc3-srp-fn) *T* Score (M = 50, SD = 10); *Note:* Personal Adjustment *T* scores are reversed
+
+(ref:basc3-prs-srp-fn) *T* Score (M = 50, SD = 10); *Note:* Adaptive Skills and Personal Adjustment *T* scores are reversed
 
 (ref:g) *General intelligence* refers to an overall capacity to reason, to solve problems, and to learn useful information.
 

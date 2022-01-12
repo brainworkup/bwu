@@ -136,18 +136,25 @@ kableExtra::kbl(
   kableExtra::column_spec(., 1, width = "8cm") %>%
   kableExtra::pack_rows(., index = table(tb$Test)) %>%
   kableExtra::row_spec(., row = 0, bold = TRUE) %>%
-  kableExtra::add_footnote("(ref:fn-emo)")
+  kableExtra::add_footnote("(ref:basc3-prs-srp-fn)")
 
 ## ---- 05-df-emotion -----------------------------------
 df <-
   neurobehav %>%
-  filter(test_name == "PAI") %>%
-  filter(test_name == "BASC-3 SRP Adolescent") %>%
-  filter(test_name == "BASC-3 PRS Adolescent") %>%
-  filter(test_name == "BDI-2") %>%
-  filter(test_name == "BAI-2") %>%
-  filter(!is.na(percentile)) %>%
-  filter(scale %in% filter_domain)
+  dplyr::filter(test_name == "PAI") %>%
+  dplyr::filter(test_name == "MMPI-2") %>%
+  dplyr::filter(test_name == "BASC-3 SRP Adolescent") %>%
+  dplyr::filter(test_name == "BASC-3 PRS Adolescent") %>%
+  dplyr::filter(test_name == "BASC-3 TRS Adolescent") %>%
+  dplyr::filter(test_name == "BASC-3 SRP Child") %>%
+  dplyr::filter(test_name == "BASC-3 PRS Child") %>%
+  dplyr::filter(test_name == "BASC-3 TRS Child") %>%
+  dplyr::filter(test_name == "BASC-3 PRS Preschool") %>%
+  dplyr::filter(test_name == "BASC-3 TRS Preschool") %>%
+  dplyr::filter(test_name == "BDI-2") %>%
+  dplyr::filter(test_name == "BAI-2") %>%
+  dplyr::filter(!is.na(percentile)) %>%
+  dplyr::filter(scale %in% filter_domain)
 
 ## ---- 06-plot-subdomain-emotion -------------------
 dotplot(
