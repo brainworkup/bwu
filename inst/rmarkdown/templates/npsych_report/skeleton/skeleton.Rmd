@@ -1121,7 +1121,7 @@ knitr::read_chunk(here::here(patient, "2_executive.R"))
 
 ### Memory
 
-(ref:fn-memory) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
+(ref:fn-memory) *T* Score (M = 50, SD = 10), Scaled Score (M = 10, SD = 3), or *z*-Score (M = 0, SD = 1)
 
 ```{r, memory, results='asis'}
 cat(readLines("2_memory.md"), sep = "\n")
