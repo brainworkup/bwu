@@ -1,2 +1,1 @@
-All scores in this area were *Low-Average* to *Above Average*, without a clear
-pattern of strengths or weaknesses.
+All scores in this area were _Low-Average_ to _Above Average_, without a clear pattern of strengths or weaknesses.

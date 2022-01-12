@@ -1434,7 +1434,7 @@ dotplot(
 )
 ```
 
-(ref:pass) Planning, Attention, Sequential, and Simultaneous Processing
+(ref:pass) Planning, Attention, Successive, and Simultaneous Processing (PASS) Model
 
 ```{r pass-df}
 pass <-
@@ -1443,7 +1443,7 @@ pass <-
   filter(!is.na(pass))
 ```
 
-```{r pass-plot, fig.cap = '(ref:pass)'}
+```{r pass-plot, fig.cap = '(ref:pass)', eval=T, fig.env='marginfigure', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
 dotplot(
   data = pass,
   x = pass$z_mean_pass,
@@ -1452,7 +1452,7 @@ dotplot(
 )
 ```
 
-(ref:nonverbal) Verbal vs Nonverbal Tasks
+(ref:nonverbal) Verbal vs. Nonverbal Tasks
 
 ```{r nonverbal-df}
 nonverbal <-
@@ -1461,7 +1461,7 @@ nonverbal <-
   filter(!is.na(verbal))
 ```
 
-```{r nonverbal-plot, fig.cap = '(ref:nonverbal)'}
+```{r nonverbal-plot, fig.cap = '(ref:nonverbal)', eval=T, fig.env='marginfigure', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
 dotplot(
   data = nonverbal,
   x = nonverbal$z_mean_verbal,
@@ -1470,7 +1470,7 @@ dotplot(
 )
 ```
 
-(ref:timed) Timed vs untimed tasks
+(ref:timed) Timed vs. Untimed Tasks
 
 ```{r timed-df}
 timed <-
@@ -1479,7 +1479,7 @@ timed <-
   filter(!is.na(timed))
 ```
 
-```{r timed-plot, fig.cap = '(ref:timed)'}
+```{r timed-plot, fig.cap = '(ref:timed)', eval=T, fig.env='marginfigure', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
 dotplot(
   data = timed,
   x = timed$z_mean_timed,

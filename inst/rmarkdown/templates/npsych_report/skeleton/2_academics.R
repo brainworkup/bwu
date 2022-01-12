@@ -2,8 +2,10 @@
 filter_domain <- c(
   # WRAT5
   "Word Reading",
-  "Math Calculation",
-  "Writing",
+  "Math Computation",
+  "Spelling",
+  "Sentence Comprehension",
+  "Reading Composite",
   # CELF3 Preschool
   "Academic Language Readiness Index",
   # KTEA3
@@ -41,7 +43,7 @@ filter_domain <- c(
   "Writing Fluency",
   "Math Fluency",
   # WAIS
-  #"Arithmetic"
+  # "Arithmetic"
   # WIAT4
   "Decoding",
   "Pseudoword Decoding",
@@ -78,8 +80,8 @@ tb <-
     data = neurocog,
     pheno = "Academic Skills"
   ) %>%
-  filter(Scale %in% filter_domain) %>%
-  arrange(Test)
+  dplyr::filter(Scale %in% filter_domain) %>%
+  dplyr::arrange(Test)
 
 ## ---- 04-kable-academics ------------------
 kableExtra::kbl(
@@ -106,10 +108,10 @@ kableExtra::kbl(
 ## ---- 05-df-academics ------------
 df <-
   neurocog %>%
-  filter(domain == "Academic Skills") %>%
-  filter(!is.na(percentile)) %>%
-  arrange(test_name) %>%
-  filter(scale %in% filter_domain)
+  dplyr::filter(domain == "Academic Skills") %>%
+  dplyr::filter(!is.na(percentile)) %>%
+  dplyr::arrange(test_name) %>%
+  dplyr::filter(scale %in% filter_domain)
 
 ## ---- 06-plot-subdomain-academics -----------------
 dotplot(
