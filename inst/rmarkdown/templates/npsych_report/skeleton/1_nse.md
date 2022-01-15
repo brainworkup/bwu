@@ -1,5 +1,9 @@
 # NEUROBEHAVIORAL STATUS EXAM
 
+### Telemedicine Statement
+
+_I connected with the Patient by a video enabled telemedicine application and verified that I am speaking with the correct person using two identifiers. I discussed the limitations of evaluation and management by telemedicine and the availability of in-person appointments. The patient expressed understanding and agreed to proceed. I have verified this to be the correct patient and obtained verbal consent from the patient to perform this voluntary telemedicine visit and evaluation (including obtaining history from the patient). The patient has the right to refuse this evaluation. I have explained risks (including potential loss of confidentiality), benefits, alternatives, and the potential need for subsequent face-to-face care. The patient understands that there is a risk of medical inaccuracies given that our recommendations will be made based on reported data (and we must therefore assume this information is accurate). Knowing that there is a risk that this information is not reported accurately, and that the telemedicine video, audio, or data feed may be incomplete, the patient agrees to proceed with evaluation and holds Keck Medicine of USC harmless knowing these risks. I have notified the patient that other healthcare professionals (including students, residents, and technical personnel) may be involved in this audio-video evaluation. All laws concerning medical records apply to telemedicine. The patient has received the Keck Medicine of USC Notice of Privacy Practices._
+
 ## Identifying Information
 
 | **Patient:** (ref:last-name), (ref:first-name)\n
@@ -19,16 +23,9 @@
 
 ## Reason for Referral
 
-(ref:first-name) (ref:last-name) is a (ref:age)-year-old, (ref:hand)-handed (ref:sex) with a history of (ref:dx1) and (ref:dx1).
-(ref:he-she-cap) was previously seen through our service in Month 20XX.
-(ref:he-she-cap) was referred by (ref:refdoc), for evaluation of (ref:his-her) neurocognitive functioning to update (ref:his-her) intervention plan.
-This report is based on a review of available medical records and information gathered across a 1+ hour neurobehavioral exam conducted with the patient via telemedicine on (ref:doe1).
-
-## Background
-
-**Chief Complaint:** memory loss
-
-(ref:first-name) began experiencing symptoms of x, y, and z in 200X.
+(ref:first-name) (ref:last-name) is a (ref:age)-year-old (ref:sex) with a history of (ref:dx1) and (ref:dx1).
+(ref:he-she-cap) was referred by (ref:refdoc), for evaluation of (ref:his-her) neurocognitive, academic, and emotional functioning to develop an intervention plan.
+This report is based on a review of available medical records and information gathered across a 1-hour neurobehavioral exam conducted with the patient via telemedicine on (ref:doe1).
 
 ## Relevant History
 
@@ -54,7 +51,6 @@ Surgical history includes x, y, and z.
 
 (ref:first-name) recently completed (ref:educ) at Local High School.
 (ref:he-she-cap) earned C's, D's, and F's in (ref:his-her) classes.
-(ref:he-she-cap) is now taking English (online course) in summer school.
 (ref:his-her-cap) mother reported that (ref:he-she) is frustrated with (ref:his-her) grades, as (ref:he-she) has been an A/B student in the past.
 (ref:he-she-cap) said that (ref:he-she) has trouble with daily work as well as quizzes/tests.
 (ref:his-her-cap) teachers have reported poor participation in class.
@@ -74,8 +70,9 @@ However, this has not caused problems in daily life.
 
 ### Family
 
-(ref:first-name) lives with (ref:his-her) parents, grandmother, and older brother and sister in City, State.
-Both parents graduated from high school. Recent stressors include a family member's illness.
+(ref:first-name) lives with (ref:his-her) parents and older brother and sister in City, State.
+Both parents graduated from high school.
+Recent stressors include a family member's illness.
 Family mental health history includes depression.
 
 ## Prior Testing
@@ -86,7 +83,7 @@ Of note, on the day of that prior testing (ref:he-she) had not taken stimulant m
 
 ## Mental Status & Behavioral Observations During Interview
 
-(ref:first-name) arrived on time to the interview.
+(ref:first-name) arrived on time to the telemedicine interview.
 (ref:he-she-cap) was alert, oriented to the situation, and appeared to understand the questions that were being asked of (ref:him-her).
 (ref:he-she-cap) was articulate, demonstrated a clear and logical thought process, and (ref:his-her) speech was normal in rate, pitch, and prosody.
 (ref:his-her-cap) affect was normal in range and expression.
@@ -98,11 +95,11 @@ Of note, on the day of that prior testing (ref:he-she) had not taken stimulant m
 
 ### Diagnostic Considerations
 
-[[Diagnostic Codes|dsm5_icd10_diagnoses]]
+[[dsm5_icd10_diagnoses]]
 
 ## Recommendations/Plan
 
-1. Proceed with comprehensive neuropsychological, psychoeducational, and personality assessments;
+1. Proceed with comprehensive neuropsychological, academic, and personality assessments;
 2. Develop targeted intervention plan and academic plan based on results of testing.
 
 _Note:_ Evaluation is ongoing.
@@ -111,7 +108,3 @@ Full report and recommendations to follow.
 Please contact me with any questions or concerns regarding this patient.
 
 TRAMPUSH PH.D., JOEY W
-
-### Telemedicine Statement
-
-_I connected with the Patient by a video enabled telemedicine application and verified that I am speaking with the correct person using two identifiers. I discussed the limitations of evaluation and management by telemedicine and the availability of in-person appointments. The patient expressed understanding and agreed to proceed. I have verified this to be the correct patient and obtained verbal consent from the patient to perform this voluntary telemedicine visit and evaluation (including obtaining history from the patient). The patient has the right to refuse this evaluation. I have explained risks (including potential loss of confidentiality), benefits, alternatives, and the potential need for subsequent face-to-face care. The patient understands that there is a risk of medical inaccuracies given that our recommendations will be made based on reported data (and we must therefore assume this information is accurate). Knowing that there is a risk that this information is not reported accurately, and that the telemedicine video, audio, or data feed may be incomplete, the patient agrees to proceed with evaluation and holds Keck Medicine of USC harmless knowing these risks. I have notified the patient that other healthcare professionals (including students, residents, and technical personnel) may be involved in this audio-video evaluation. All laws concerning medical records apply to telemedicine. The patient has received the Keck Medicine of USC Notice of Privacy Practices._

@@ -20,6 +20,8 @@ filter_domain <- c(
   "Story Recall",
   "Figure Recall",
   # NEPSY-2
+  "Memory for Faces",
+  "Memory for Faces Delayed",
   "Memory for Designs",
   "Memory for Designs Content",
   "Memory for Designs Spatial",
@@ -29,7 +31,9 @@ filter_domain <- c(
   "Narrative Memory Free Recall",
   "Narrative Memory Recall",
   "Narrative Memory Free and Cued Recall",
-  # "Narrative Memory Recognition",
+  "Narrative Memory Recognition",
+  "Word List Interference-Repetition",
+  "Word List Interference-Recall",
   "Sentence Repetition",
   # CVLT-C
   "Trials 1-5 Free Recall Total Correct",
