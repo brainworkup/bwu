@@ -1,6 +1,6 @@
 ---
 title: "Neuropsychological Evaluation Results/Feedback"
-patient: "Biggie"
+patient: "BIGGIE"
 author: "Joey Trampush, PhD"
 institute: "Department of Psychiatry and the Behavioral Sciences"
 # date: '`r Sys.Date()`'
@@ -138,7 +138,7 @@ background-color: var(--near-black)
 ### Neuropsychological Testing Results
 
 ```{r patient}
-patient <- "Biggie"
+patient <- "BIGGIE"
 ```
 
 ```{r echo=FALSE}
@@ -909,4 +909,3 @@ plot2 <-
   )
 plot2
 ```
-

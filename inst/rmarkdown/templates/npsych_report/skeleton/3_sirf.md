@@ -14,7 +14,7 @@ Learning and long-term memory functioning are intact on exam, with no evidence o
 
 ## Diagnostic Impression
 
-[[Diagnostic Codes|dsm5_icd10_diagnoses]]
+[[dsm5_icd10_diagnoses]]
 
 # RECOMMENDATIONS
 
