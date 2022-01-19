@@ -26,7 +26,7 @@ filter_domain <- c(
   #"Matrix Reasoning",
   # CET
   "Total Deviation Score",
-  # WAIS/WISCI
+  # WAIS/WISC/WMS
   # WORKING MEMORY
   "Working Memory (WMI)",
   "Auditory Working Memory (AWMI)",
@@ -89,12 +89,12 @@ filter_domain <- c(
   "Clocks",
   # DKEFS
   "Inhibition",
-  "Inhibition/Switching",
+  "Inhibition/Switching"
   # "Inhibition Total Errors",
   # "Inhibition/Switching Total Errors",
   # CVLT
-  "Total Intrusions",
-  "Total Repetitions"
+  #"Total Intrusions",
+  #"Total Repetitions"
 )
 
 ## ---- 02-glue-executive ------------

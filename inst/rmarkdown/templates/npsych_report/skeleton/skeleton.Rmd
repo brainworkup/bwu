@@ -1347,14 +1347,14 @@ knitr::read_chunk(here::here(patient, "2_adhd.R"))
 knitr::read_chunk(here::here(patient, "2_adhd.R"))
 ```
 
-```{r 06-plot-subdomain-adhd, eval=F, double_escape=T, escape=F, fig.cap='(ref:adhd)'}
+```{r 06-plot-subdomain-adhd, eval=F, double_escape=T, escape=F, fig.cap='(ref:adhd-ef)'}
 ```
 
 ```{r}
 knitr::read_chunk(here::here(patient, "2_adhd.R"))
 ```
 
-```{r 07-plot-narrow-adhd, eval=T, double_escape=T, escape=F, fig.cap='(ref:adhd)'}
+```{r 07-plot-narrow-adhd, eval=T, double_escape=T, escape=F, fig.cap='(ref:adhd-ef)'}
 ```
 
 \newpage
