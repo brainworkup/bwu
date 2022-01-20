@@ -28,6 +28,9 @@ output:
       beforeInit: ["libs/macros.js"]
 ---
 
+```{r patient}
+patient <- "BIGGIE"
+```
 
 ```{r setup, include=FALSE}
 ## load libraries
@@ -136,17 +139,6 @@ class: center, middle
 background-color: var(--near-black)
 
 ### Neuropsychological Testing Results
-
-```{r patient}
-patient <- "BIGGIE"
-```
-
-```{r echo=FALSE}
-library(highcharter)
-library(tidyverse)
-library(htmlwidgets)
-library(widgetframe)
-```
 
 ```{r read-csv}
 data_path <- here::here(patient, "csv")
