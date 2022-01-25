@@ -17,6 +17,15 @@ filter_domain <- c(
   "DSM-IV Hyperactive-Impulsive Symptoms",
   "DSM-IV ADHD Symptoms Total",
   "ADHD Index",
+  # CAARS updated MHS version
+  "Inattention/Memory Problems",
+  "Hyperactivity/Restlessness",
+  "Impulsivity/Emotional Lability",
+  "Problems with Self-Concept",
+  "DSM-5 Inattentive Symptoms",
+  "DSM-5 Hyperactive-Impulsive Symptoms",
+  "DSM-5 ADHD Symptoms Total",
+  "ADHD Index",
   # CEFI
   "Full Scale",
   "Attention",
