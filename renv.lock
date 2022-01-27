@@ -378,14 +378,13 @@
     },
     "cli": {
       "Package": "cli",
-      "Version": "3.1.0.9000",
+      "Version": "3.1.1.9000",
       "Source": "Repository",
       "Repository": "https://r-lib.r-universe.dev",
-      "Remotes": "r-lib/testthat@fix/snapshot-empty-lines",
       "RemoteUrl": "https://github.com/r-lib/cli",
       "RemoteRef": "HEAD",
-      "RemoteSha": "69669be1ba04dae6c6ca6a51f058dc85ad9569f9",
-      "Hash": "1695187d109f0a30ce2a0aea543f0fa5",
+      "RemoteSha": "a1d45692fb339f76d7aaf8faaf631c93c641e437",
+      "Hash": "550ce071af2ccd3fd6691a2695995c82",
       "Requirements": [
         "glue"
       ]
@@ -636,10 +635,10 @@
     },
     "dtplyr": {
       "Package": "dtplyr",
-      "Version": "1.2.0",
+      "Version": "1.2.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "f62678f8c708f10ee8f419862b9b008e",
+      "Hash": "f5d195cd5fcc0a77499d9da698ef2ea3",
       "Requirements": [
         "crayon",
         "data.table",
@@ -870,10 +869,10 @@
     },
     "glue": {
       "Package": "glue",
-      "Version": "1.6.0",
+      "Version": "1.6.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "b8bb7aaf248e45bac08ebed86f3a0aa4",
+      "Hash": "de07842fc27ebf60e1102091c0c85e47",
       "Requirements": []
     },
     "gluedown": {
@@ -1170,13 +1169,13 @@
     },
     "knitr": {
       "Package": "knitr",
-      "Version": "1.37.2",
+      "Version": "1.37.4",
       "Source": "Repository",
       "Repository": "https://yihui.r-universe.dev",
       "RemoteUrl": "https://github.com/yihui/knitr",
       "RemoteRef": "HEAD",
-      "RemoteSha": "47e831ed437e314b7d1a89fcc60f75c4d70fa12e",
-      "Hash": "1f92f930a31308000d1b709f1cde42d5",
+      "RemoteSha": "27bac27123b119ea78fdff715e4be3e16fe3fd1f",
+      "Hash": "d052302a2b686986d8526aab36030f56",
       "Requirements": [
         "evaluate",
         "highr",
@@ -1485,15 +1484,16 @@
     },
     "pillar": {
       "Package": "pillar",
-      "Version": "1.6.4.9003",
+      "Version": "1.6.5.9001",
       "Source": "Repository",
       "Repository": "https://r-lib.r-universe.dev",
       "RemoteUrl": "https://github.com/r-lib/pillar",
       "RemoteRef": "HEAD",
-      "RemoteSha": "2d765185e5673ee1253c76b9d5a6fffe4031844e",
-      "Hash": "1dc99ad10c377227ca498e80f58f7cc1",
+      "RemoteSha": "f95d6b18ff8add0c90ae45257efda244fb8de681",
+      "Hash": "1fd66130f01d4fba6b58bea670117e5d",
       "Requirements": [
         "cli",
+        "crayon",
         "ellipsis",
         "fansi",
         "glue",
@@ -1803,10 +1803,10 @@
     },
     "renv": {
       "Package": "renv",
-      "Version": "0.15.1",
+      "Version": "0.15.2",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "c38694b67e7f7091f7d073b3766258cc",
+      "Hash": "206c4ef8b7ad6fb1060d69aa7b9dfe69",
       "Requirements": []
     },
     "repr": {
@@ -1873,13 +1873,13 @@
     },
     "rlang": {
       "Package": "rlang",
-      "Version": "0.99.0.9003",
+      "Version": "1.0.0",
       "Source": "Repository",
       "Repository": "https://r-lib.r-universe.dev",
       "RemoteUrl": "https://github.com/r-lib/rlang",
       "RemoteRef": "HEAD",
-      "RemoteSha": "ce4aca5c36c7f665e87a20328fcd6738d03a3c0c",
-      "Hash": "11feb0d071b3db42c5ae8f8fd0eb1222",
+      "RemoteSha": "f2fbaad5005f77b99237c9b0ce5e01a44f9cb4f9",
+      "Hash": "ec923a35ba44bc86fbf95dacaccf65da",
       "Requirements": []
     },
     "rlist": {
@@ -1940,10 +1940,10 @@
     },
     "rpart": {
       "Package": "rpart",
-      "Version": "4.1-15",
+      "Version": "4.1.16",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "9787c1fcb680e655d062e7611cadf78e",
+      "Hash": "ea3ca1d9473daabb3cd0f1b4f974c1ed",
       "Requirements": []
     },
     "rprojroot": {
@@ -2240,14 +2240,13 @@
     },
     "testthat": {
       "Package": "testthat",
-      "Version": "3.1.1.9000",
+      "Version": "3.1.2.9000",
       "Source": "Repository",
       "Repository": "https://r-lib.r-universe.dev",
-      "RemoteType": "repository",
       "RemoteUrl": "https://github.com/r-lib/testthat",
       "RemoteRef": "HEAD",
-      "RemoteSha": "fb28a970dbd0c9e00010d61dd378b016a72fda44",
-      "Hash": "b68f2ff741c8bafb511d26fa1e288b30",
+      "RemoteSha": "54b9db202cb0d10edddb0a37fd469333945d5d05",
+      "Hash": "2416ca2fc9026c34ec15cfff3daa32c2",
       "Requirements": [
         "R6",
         "brio",
@@ -2364,14 +2363,13 @@
     },
     "tinytex": {
       "Package": "tinytex",
-      "Version": "0.36.1",
+      "Version": "0.36.2",
       "Source": "Repository",
       "Repository": "https://yihui.r-universe.dev",
-      "RemoteType": "repository",
       "RemoteUrl": "https://github.com/yihui/tinytex",
       "RemoteRef": "HEAD",
-      "RemoteSha": "261e999acd053af31291d001ca33836b2a56bb89",
-      "Hash": "123b3ad733192b1f2295b013d92f67bc",
+      "RemoteSha": "5d211d43944d322fca49e5f0d97f34b9c46ff9ab",
+      "Hash": "10fe7b8a5cda407c69bdf1dc6df7dfc2",
       "Requirements": [
         "xfun"
       ]
@@ -2693,10 +2691,10 @@
     },
     "yaml": {
       "Package": "yaml",
-      "Version": "2.2.1",
+      "Version": "2.2.2",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "2826c5d9efb0a88f657c7a679c7106db",
+      "Hash": "4597f73aad7d32c2913ec33a345f900b",
       "Requirements": []
     },
     "zip": {
