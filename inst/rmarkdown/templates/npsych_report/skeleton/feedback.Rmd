@@ -3,7 +3,6 @@ title: "Neuropsychological Evaluation Results/Feedback"
 patient: "BIGGIE"
 author: "Joey Trampush, PhD"
 institute: "Department of Psychiatry and the Behavioral Sciences"
-# date: '`r Sys.Date()`'
 date: "2022-01-13"
 output:
   xaringan::moon_reader:
@@ -94,7 +93,7 @@ xaringanExtra::use_extra_styles(
 
 name: title
 class: title-slide, center, middle
-background-image: url(2-Line_KeckSOMofUSC_CardOnBlack.jpg)
+background-image: url(usc_ksom_logo.jpg)
 background-position: bottom
 background-repeat: no-repeat
 background-size: 25%
