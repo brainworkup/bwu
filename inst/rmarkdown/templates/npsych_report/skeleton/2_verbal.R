@@ -53,7 +53,10 @@ filter_domain <- c(
   "Language Content Index",
   "Language Structure Index",
   "Academic Language Readiness Index",
-  "Early Literacy Index"
+  "Early Literacy Index",
+  # NIH EXAMINER
+  "Letter Fluency",
+  "Category Fluency"
 )
 
 ## ---- 02-glue-verbal ---------------------

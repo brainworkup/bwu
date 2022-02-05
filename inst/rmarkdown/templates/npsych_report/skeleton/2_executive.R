@@ -3,6 +3,7 @@ filter_domain <- c(
   # NAB
   "NAB Attention Index",
   "Attention Domain",
+  # "Orientation",
   "Digits Forward",
   "Digits Forward Longest Span",
   "Digits Backward",
@@ -23,9 +24,9 @@ filter_domain <- c(
   # RBANS
   "Attention Index",
   # CONCEPT FORMATION
-  #"Comprehension",
-  #"Similarities",
-  #"Matrix Reasoning",
+  # "Comprehension",
+  # "Similarities",
+  # "Matrix Reasoning",
   # CET
   "Total Deviation Score",
   # WAIS/WISC/WMS
@@ -95,8 +96,11 @@ filter_domain <- c(
   # "Inhibition Total Errors",
   # "Inhibition/Switching Total Errors",
   # CVLT
-  #"Total Intrusions",
-  #"Total Repetitions"
+  # "Total Intrusions",
+  # "Total Repetitions",
+  # RCFT
+  # "ROCF Copy",
+  # "RCFT Copy"
 )
 
 ## ---- 02-glue-executive ------------

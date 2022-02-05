@@ -71,18 +71,18 @@ df <-
   filter(domain == "Intelligence/General Ability") %>%
   filter(!is.na(percentile)) %>%
   arrange(test_name) %>%
-  filter(scale %in% filter_domain) #%>%
-  # filter(scale != "Cognitive Proficiency (CPI)") %>%
-  # filter(scale != "General Ability (GAI)") %>%
-  # filter(scale != "NAB Total Index") %>%
+  filter(scale %in% filter_domain) # %>%
+# filter(scale != "Cognitive Proficiency (CPI)") %>%
+# filter(scale != "General Ability (GAI)") %>%
+# filter(scale != "NAB Total Index")
 
 ## ---- 06-plot-subdomain-iq --------------------
-  dotplot(
-    data = df,
-    x = df$z_mean_sub,
-    y = df$subdomain,
-    domain = "iq"
-  )
+dotplot(
+  data = df,
+  x = df$z_mean_sub,
+  y = df$subdomain,
+  domain = "iq"
+)
 
 ## ---- 07-plot-narrow-iq -------------------
 dotplot(
