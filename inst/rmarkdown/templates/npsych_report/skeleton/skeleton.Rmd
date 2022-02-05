@@ -474,7 +474,7 @@ source(file = here::here("R/make_tibble.R"), local = knitr::knit_global())
 
 (ref:adhd-ef) ADHD/Executive Functioning
 
-(ref:emotion) Behavioral/Emotional/Social/Adaptive
+(ref:emotion) Behavioral, Personality, and Emotional Functioning
 
 (ref:standard-score) Standard Score (M = 100, SD = 15)
 
@@ -627,15 +627,12 @@ cat(readLines("2_nse.md"), sep = "\n")
 
 ## Test Battery
 
--   (ref:acs-topf)
--   (ref:acs-word-choice)
--   (ref:tomm)
 -   (ref:wppsi4)
 -   (ref:wisc5)
 -   (ref:wais4)
 -   (ref:wiat4)
--   (ref:ktea3)
--   (ref:wrat5)
+-   (ref:ktea3): Form A/B
+-   (ref:wrat5): Green/Blue Form
 -   (ref:nab): Form 1/2
 -   (ref:nabs): Form 1/2
 -   (ref:rbans): Form A/B/C/D
@@ -644,12 +641,15 @@ cat(readLines("2_nse.md"), sep = "\n")
 -   (ref:cvlt3)
 -   (ref:dkefs)
 -   (ref:tmt)
--   (ref:examiner)
+-   (ref:examiner): Verbal Fluency
 -   (ref:rocf)
 -   (ref:bicycle)
 -   (ref:clock)
 -   (ref:cog-est)
 -   (ref:pegboard)
+-   (ref:acs-topf)
+-   (ref:acs-word-choice)
+-   (ref:tomm)
 -   (ref:basc3-sdh)
 -   (ref:basc3-prs-child)
 -   (ref:basc3-trs-child)
@@ -1350,11 +1350,13 @@ knitr::read_chunk(here::here(patient, "2_adhd.R"))
 ```{r 06-plot-subdomain-adhd, eval=F, double_escape=T, escape=F, fig.cap='(ref:adhd-ef)'}
 ```
 
+(ref:att-ef) Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other.
+
 ```{r}
 knitr::read_chunk(here::here(patient, "2_adhd.R"))
 ```
 
-```{r 07-plot-narrow-adhd, eval=T, double_escape=T, escape=F, fig.cap='(ref:adhd-ef)'}
+```{r 07-plot-narrow-adhd, eval=T, double_escape=T, escape=F, fig.cap='(ref:att-ef)'}
 ```
 
 \newpage
@@ -1406,14 +1408,14 @@ knitr::read_chunk(here::here(patient, "2_emotion.R"))
 knitr::read_chunk(here::here(patient, "2_emotion.R"))
 ```
 
-```{r 06-plot-subdomain-emotion, eval=F, double_escape=T, escape=F, fig.cap='(ref:emotion)'}
+```{r 06-plot-subdomain-emotion, eval=T, double_escape=T, escape=F, fig.cap='(ref:emotion)'}
 ```
 
 ```{r}
 knitr::read_chunk(here::here(patient, "2_emotion.R"))
 ```
 
-```{r 07-plot-narrow-emotion, eval=T, double_escape=T, escape=F, fig.cap='(ref:emotion)'}
+```{r 07-plot-narrow-emotion, eval=F, double_escape=T, escape=F, fig.cap='(ref:emotion)'}
 ```
 
 \newpage
@@ -1438,7 +1440,7 @@ dotplot(
 )
 ```
 
-(ref:pass) Planning, Attention, Successive, and Simultaneous Processing (PASS) Model
+(ref:pass) **PASS Cognitive Process Model** Successive and Simultaneous processing are areas of strengths, and Attention is an area of weakness.
 
 ```{r pass-df}
 pass <-
@@ -1456,7 +1458,7 @@ dotplot(
 )
 ```
 
-(ref:nonverbal) Verbal vs. Nonverbal Tasks
+(ref:nonverbal) **Verbal vs. Nonverbal** Scores on verbal tasks are slightly higher than scores on nonverbal/spatial processing tasks.
 
 ```{r nonverbal-df}
 nonverbal <-
@@ -1474,7 +1476,7 @@ dotplot(
 )
 ```
 
-(ref:timed) Timed vs. Untimed Tasks
+(ref:timed) **Timed vs. Untimed** (ref:first-name) performs more than a half of a standard deviation better on tasks that are untimed compared to tasks that require (ref:him-her) to respond both accurately and quickly.
 
 ```{r timed-df}
 timed <-

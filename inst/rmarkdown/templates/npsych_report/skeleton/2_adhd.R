@@ -68,7 +68,7 @@ tb <-
 ## ---- 04-kable-adhd ------------------
 kableExtra::kbl(
   tb[, 1:4],
-  caption = "(ref:adhd-ef)",
+  caption = "(ref:brown) (ref:cefi) (ref:caars)",
   "latex",
   longtable = FALSE,
   booktabs = TRUE,
