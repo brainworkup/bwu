@@ -10,6 +10,8 @@
 - 307.0 (F98.5) Adult-onset fluency disorder
 - 315.39 (F80.82) Social (Pragmatic) Communication Disorder
 - 307.9 (F80.9) Unspecified Communication Disorder
+- Oral and written language learning disability (OWL-LD)
+- Specific language impairment (SLI).
 
 ## Autism Spectrum Disorder
 
