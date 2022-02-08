@@ -554,6 +554,10 @@ source(file = here::here("R/make_tibble.R"), local = knitr::knit_global())
 
 (ref:aud-comp) *Auditory Comprehension* is the ability to understand what is heard, including the tone of voice, pauses between words, emphasis used, and the rhythm and pattern of speech, and attach meaning to it. This is a foundational skill originating in early infancy that, ideally, builds with exposure and learning processes.
 
+(ref:planning) *Planning* is a neurocognitive ability used to determine, select, and apply strategies to solve problems where initiation, self-monitoring, and self-correction or especially important.
+
+(ref:efficiency) *Efficiency* reflects how long it takes to complete a task with the highest number of correct responses.
+
 (ref:first-name) `r params$first_name`
 
 (ref:last-name) `r params$last_name`
