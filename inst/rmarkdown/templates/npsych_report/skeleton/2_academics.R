@@ -1,14 +1,14 @@
 ## ---- 01-filter-academics -------------
 filter_domain <- c(
-  # WRAT5
+  ## WRAT5
   "Word Reading",
   "Math Computation",
   "Spelling",
   "Sentence Comprehension",
   "Reading Composite",
-  # CELF3 Preschool
+  ## CELF-3 Preschool
   "Academic Language Readiness Index",
-  # KTEA3
+  ## KTEA-3
   "Academic Skills Battery (ASB) Composite",
   "Math Concepts & Applications",
   "Letter & Word Recognition",
@@ -42,9 +42,9 @@ filter_domain <- c(
   "Academic Fluency Composite",
   "Writing Fluency",
   "Math Fluency",
-  # WAIS
+  ## WAIS
   # "Arithmetic"
-  # WIAT4
+  ## WIAT-4
   "Decoding",
   "Pseudoword Decoding",
   "Word Reading",
@@ -54,7 +54,10 @@ filter_domain <- c(
   "Math Fluency",
   "Math Fluency-Addition",
   "Math Fluency-Subtraction",
-  "Math Fluency-Multiplication"
+  "Math Fluency-Multiplication",
+  "Essay Composition",
+  "Spelling",
+  "Phonemic Proficiency"
 )
 
 ## ---- 02-glue-academics ------------

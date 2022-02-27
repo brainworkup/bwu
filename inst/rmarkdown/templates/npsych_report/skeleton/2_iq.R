@@ -1,12 +1,12 @@
 ## ---- 01-filter-iq -------------
 filter_domain <- c(
-  # ACS TOPF
+  ## ACS TOPF
   "Test of Premorbid Functioning",
-  # NAB
+  ## NAB
   "NAB Total Index",
-  # RBANS
+  ## RBANS
   "RBANS Total Index",
-  # WISC/WAIS/WPPSI
+  ## WISC/WAIS/WPPSI
   "Full Scale IQ (FSIQ)",
   "General Ability (GAI)",
   "Cognitive Proficiency (CPI)",

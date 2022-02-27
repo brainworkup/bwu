@@ -1,6 +1,6 @@
 ## ---- 01-filter-executive -------------
 filter_domain <- c(
-  # NAB
+  ## NAB
   "NAB Attention Index",
   "Attention Domain",
   # "Orientation",
@@ -21,15 +21,15 @@ filter_domain <- c(
   "Categories",
   "Word Generation",
   "Judgment",
-  # RBANS
+  ## RBANS
   "Attention Index",
-  # CONCEPT FORMATION
+  ## CONCEPT FORMATION
   # "Comprehension",
   # "Similarities",
   # "Matrix Reasoning",
   # CET
   "Total Deviation Score",
-  # WAIS/WISC/WMS
+  ## WAIS/WISC/WMS
   # WORKING MEMORY
   "Working Memory (WMI)",
   "Auditory Working Memory (AWMI)",
@@ -46,7 +46,7 @@ filter_domain <- c(
   "Symbol Span",
   "Spatial Span",
   "Picture Span",
-  # WPPSI-IV
+  ## WPPSI-IV
   "Picture Memory",
   "Zoo Locations",
   # PROCESSING SPEED
@@ -58,10 +58,10 @@ filter_domain <- c(
   "Symbol Search",
   "Bug Search",
   "Animal Coding",
-  # TMT
+  ## TMT
   "TMT, Part A",
   "TMT, Part B",
-  # NEPSY
+  ## NEPSY-2
   "Animal Sorting",
   # "Animal Sorting Correct Sorts",
   # "Animal Sorting Novel Sort Errors",
@@ -90,17 +90,23 @@ filter_domain <- c(
   # "Statue-Eye Opening",
   # "Statue-Vocalization",
   "Clocks",
-  # DKEFS
+  ## DKEFS
+  # "Color Naming",
+  # "Word Reading",
   "Inhibition",
-  "Inhibition/Switching"
-  # "Inhibition Total Errors",
-  # "Inhibition/Switching Total Errors",
-  # CVLT
+  "Inhibition/Switching",
+  "Inhibition Total Errors",
+  "Inhibition/Switching Total Errors",
+  ## CVLT
   # "Total Intrusions",
   # "Total Repetitions",
-  # RCFT
-  # "ROCF Copy",
+  ## RCFT
+  "ROCF Copy",
   # "RCFT Copy"
+  ## NIH EXAMINER
+  "Unstructured Planning Task"
+  # "Letter Fluency",
+  # "Category Fluency"
 )
 
 ## ---- 02-glue-executive ------------

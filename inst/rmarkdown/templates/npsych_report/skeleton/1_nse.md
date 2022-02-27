@@ -6,12 +6,12 @@ _I connected with the Patient by a video enabled telemedicine application and ve
 
 ## Identifying Information
 
-| **Patient:** (ref:last-name), (ref:first-name)\n
-| **Date of Birth:** (ref:dob)\n
-| **MRN:** (ref:mrn)\n
-| **Gender:** (ref:sex)\n
-| **Age:** (ref:age)\n
-| **Date of Evaluation:** (ref:doe1)\n
+**Patient:** (ref:last-name), (ref:first-name)  
+**Date of Birth:** (ref:dob)  
+**MRN:** (ref:mrn)  
+**Gender:** (ref:sex)  
+**Age:** (ref:age)  
+**Date of Evaluation:** (ref:doe1)
 
 ## Measures Administered
 
@@ -90,7 +90,7 @@ Of note, on the day of that prior testing (ref:he-she) had not taken stimulant m
 
 ## Summary/Impression
 
-(ref:first-name) (ref:last-name) is a (ref:age)-year-old, (ref:hand)-handed (ref:sex) with a history of (ref:dx1) and (ref:dx1). 
+(ref:first-name) (ref:last-name) is a (ref:age)-year-old, (ref:hand)-handed (ref:sex) with a history of (ref:dx1) and (ref:dx1).
 (ref:he-she-cap) is motivated to complete the evaluation and to use the information gained to develop tailored plans for psychiatric intervention and school accommodations.
 
 ### Diagnostic Considerations

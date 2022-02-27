@@ -49,7 +49,7 @@ filter_domain <- c(
   "Total Repetitions",
   "Long-Delay Recognition Discriminability",
   "Long-Delay Recognition Response Bias",
-  # CVLT-3
+  ## CVLT-3/CVLT-3 Brief
   "Trial 1 Correct",
   "Trial 2 Correct",
   "Trial 3 Correct",
@@ -64,6 +64,8 @@ filter_domain <- c(
   # "Total Hits",
   # "Total False Positives",
   "Recognition Discriminability (d')",
+  # "Recognition Discriminability Nonparametric",
+  "Forced-Choice Recognition Hits",
   # EF or here
   "Total Intrusions",
   "Total Repetitions",
