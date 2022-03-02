@@ -22,9 +22,9 @@ You can install the released version of npsych.data from
 [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
-devtools::install_github("jtrampush/npsych.data")
+devtools::install_github("brainworkup/npsych.data")
 #> 
-#>      checking for file ‘/private/var/folders/6l/57_kbxxx7bsgkdxp053b_yc40000gn/T/RtmpG5njZK/remotes130e57c429173/jtrampush-npsych.data-fd6871f/DESCRIPTION’ ...  ✓  checking for file ‘/private/var/folders/6l/57_kbxxx7bsgkdxp053b_yc40000gn/T/RtmpG5njZK/remotes130e57c429173/jtrampush-npsych.data-fd6871f/DESCRIPTION’
+#>      checking for file ‘/private/var/folders/6l/57_kbxxx7bsgkdxp053b_yc40000gn/T/RtmpG5njZK/remotes130e57c429173/brainworkup-npsych.data-fd6871f/DESCRIPTION’ ...  ✓  checking for file ‘/private/var/folders/6l/57_kbxxx7bsgkdxp053b_yc40000gn/T/RtmpG5njZK/remotes130e57c429173/brainworkup-npsych.data-fd6871f/DESCRIPTION’
 #>   ─  preparing ‘npsych.data’:
 #>   ✓  checking DESCRIPTION meta-information
 #>   ─  checking for LF line-endings in source and make files and shell scripts
