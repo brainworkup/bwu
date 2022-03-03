@@ -1,2 +1,2 @@
 scale,raw_score,score,percentile,range,ci_95,test,test_name,domain,subdomain,narrow,pass,verbal,timed,test_type,score_type,absort,description
-Test of Premorbid Functioning,61,121,92,Above Average,,topf,ACS TOPF,Intelligence/General Ability,Premorbid Ability,Premorbid Verbal Ability,Knowledge,Verbal,Untimed,npsych_test,standard_score,TOPF_1,irregular word reading/premorbid ability level
+Test of Premorbid Functioning,,,,,,topf,ACS TOPF,Intelligence/General Ability,Premorbid Ability,Premorbid Verbal Ability,Knowledge,Verbal,Untimed,npsych_test,standard_score,TOPF_1,irregular word reading/premorbid ability level

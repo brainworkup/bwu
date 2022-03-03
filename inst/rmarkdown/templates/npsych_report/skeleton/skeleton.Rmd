@@ -245,18 +245,16 @@ params:
       - none/self
 ---
 
-```{r patient, echo=F}
-patient <- "Biggie"
+```{r patient, include=F}
+patient <- "BIGGIE"
 ```
 
 ```{r, eval=T}
 # Create directory
 xfun::dir_create(here::here(patient, "pre_csv"))
-xfun::dir_create(here::here(patient, "csv"))
 xfun::dir_create(here::here(patient, "pdf"))
 # Create link to directory
 out_dir_pre_csv <- here::here(patient, "pre_csv")
-out_dir_csv <- here::here(patient, "csv")
 out_dir_pdf <- here::here(patient, "pdf")
 ```
 

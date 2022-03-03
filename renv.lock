@@ -154,10 +154,10 @@
     },
     "XML": {
       "Package": "XML",
-      "Version": "3.99-0.8",
+      "Version": "3.99-0.9",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "d493b952a9073c62f72392a673d7c548",
+      "Hash": "6e75b3884423e21eda89b424a98e091d",
       "Requirements": []
     },
     "askpass": {
@@ -867,10 +867,10 @@
     },
     "glue": {
       "Package": "glue",
-      "Version": "1.6.1",
+      "Version": "1.6.2",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "de07842fc27ebf60e1102091c0c85e47",
+      "Hash": "4f2596dfb05dac67b9dc558e5c6fba2e",
       "Requirements": []
     },
     "gluedown": {
@@ -1167,14 +1167,13 @@
     },
     "knitr": {
       "Package": "knitr",
-      "Version": "1.37.4",
+      "Version": "1.37.5",
       "Source": "Repository",
       "Repository": "https://yihui.r-universe.dev",
-      "RemoteType": "repository",
       "RemoteUrl": "https://github.com/yihui/knitr",
       "RemoteRef": "HEAD",
-      "RemoteSha": "931a3a341c9bc7c22c36bd0b1bc1c95b0de78b32",
-      "Hash": "d68b179230446b35d1f894902a4a3043",
+      "RemoteSha": "bd1dec6ba4218564911a1e17ff65f9b17465527a",
+      "Hash": "a1a4138079250b30d181e978a052d267",
       "Requirements": [
         "evaluate",
         "highr",
@@ -1366,10 +1365,10 @@
     },
     "mgcv": {
       "Package": "mgcv",
-      "Version": "1.8-38",
+      "Version": "1.8-39",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "be3c61ffbb1e3d3b3df214d192ac5444",
+      "Hash": "055265005c238024e306fe0b600c89ff",
       "Requirements": [
         "Matrix",
         "nlme"
@@ -2147,10 +2146,10 @@
     },
     "startup": {
       "Package": "startup",
-      "Version": "0.16.0",
+      "Version": "0.17.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "a0e0516f45c6277d7d9f931cf86cfc06",
+      "Hash": "08ece39994910cfcd274e7d7809b2b1d",
       "Requirements": []
     },
     "stringi": {
@@ -2196,10 +2195,10 @@
     },
     "survival": {
       "Package": "survival",
-      "Version": "3.2-13",
+      "Version": "3.3-0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "6f0a0fadc63bc6570fe172770f15bbc4",
+      "Hash": "df6b9ffae44cc54b7fa971efc89d4c3f",
       "Requirements": [
         "Matrix"
       ]

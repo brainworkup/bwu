@@ -1,4 +1,0 @@
-scale,raw_score,score,percentile,range,ci_95,test,test_name,domain,subdomain,narrow,pass,verbal,timed,test_type,score_type,absort,description
-Unstructured Planning Task,1.7,54,65,Average,,nih_examiner,NIH EXAMINER,Attention/Executive,Planning/Organization,Abstract Reasoning,Planning,Nonverbal,Timed,npsych_test,t_score,EXAMINER_01,planning and organization
-Letter Fluency,,,,,,nih_examiner,NIH EXAMINER,Verbal/Language,Ideational Fluency,Phonemic Fluency,Successive,Verbal,Timed,npsych_test,t_score,EXAMINER_01,letter/phonemic word fluency
-Category Fluency,,,,,,nih_examiner,NIH EXAMINER,Verbal/Language,Ideational Fluency,Semantic Fluency,Successive,Verbal,Timed,npsych_test,t_score,EXAMINER_02,category/semantic word fluency

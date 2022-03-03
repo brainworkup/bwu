@@ -1,4 +1,7 @@
 scale,raw_score,score,percentile,range,ci_95,test,test_name,domain,subdomain,narrow,pass,verbal,timed,test_type,score_type,absort,description
-Unstructured Planning Task,1.7,54,65,Average,,nih_examiner,NIH EXAMINER,Attention/Executive,Planning/Organization,Abstract Reasoning,Planning,Nonverbal,Timed,npsych_test,t_score,EXAMINER_01,planning and organization
-Letter Fluency,24,52,59,Average,,nih_examiner,NIH EXAMINER,Verbal/Language,Ideational Fluency,Phonemic Fluency,Successive,Verbal,Timed,npsych_test,t_score,EXAMINER_02,letter/phonemic word fluency
-Category Fluency,47,71,98,Exceptionally High,,nih_examiner,NIH EXAMINER,Verbal/Language,Ideational Fluency,Semantic Fluency,Successive,Verbal,Timed,npsych_test,t_score,EXAMINER_03,category/semantic word fluency
+Unstructured Planning Task,,,,,,nih_examiner,NIH EXAMINER,Attention/Executive,Planning/Organization,Abstract Reasoning,Planning,Nonverbal,Timed,npsych_test,t_score,EXAMINER_01,planning and organization
+Letter Fluency,,,,,,nih_examiner,NIH EXAMINER,Verbal/Language,Ideational Fluency,Phonemic Fluency,Successive,Verbal,Timed,npsych_test,t_score,EXAMINER_02,letter/phonemic word fluency
+Category Fluency,,,,,,nih_examiner,NIH EXAMINER,Verbal/Language,Ideational Fluency,Semantic Fluency,Successive,Verbal,Timed,npsych_test,t_score,EXAMINER_03,category/semantic word fluency
+Dot Counting Total Score,,,,,,nih_examiner,EXAMINER,Attention/Executive,Working Memory,Working Memory,Attention,Verbal/Nonverbal,Untimed,npsych_test,t_score,EXAMINER_04,mixed verbal/nonverbal working memory maintenance
+Set Shifting Task Shift Score,,,,,,nih_examiner,EXAMINER,Attention/Executive,Cognitive Flexibility,Set-Shifting,Attention,Nonverbal,Timed,npsych_test,t_score,EXAMINER_05,set-shifting and cognitive flexibility
+Flanker Task Total Score,,,,,,nih_examiner,EXAMINER,Attention/Executive,Cognitive Control,Inhibition,Attention,Nonverbal,Timed,npsych_test,t_score,EXAMINER_06,inhibition and cognitive control
