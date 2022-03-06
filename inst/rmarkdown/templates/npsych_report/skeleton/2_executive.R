@@ -8,6 +8,7 @@ filter_domain <- c(
   "Digits Forward Longest Span",
   "Digits Backward",
   "Digits Backward Longest Span",
+  "Dots",
   # "Numbers & Letters Part A Speed",
   # "Numbers & Letters Part A Errors",
   "Numbers & Letters Part A Efficiency",
@@ -15,6 +16,7 @@ filter_domain <- c(
   "Numbers & Letters Part C Efficiency",
   "Numbers & Letters Part D Efficiency",
   # "Numbers & Letters Part D Disruption",
+  "Driving Scenes",
   "NAB Executive Functions Index",
   "Executive Functions Domain",
   "Mazes",
@@ -72,13 +74,13 @@ filter_domain <- c(
   "Naming",
   "Inhibition",
   "Switching",
-  "Inhibition Total Errors", # this is duplicate with dkefs
+  "Inhibition Total Errors",
   # "Naming Time",
   # "Inhibition Time",
   # "Switching Time",
-  # "Naming Errors",
-  # "Inhibition Errors",
-  # "Switching Errors",
+  "Naming Errors",
+  "Inhibition Errors",
+  "Switching Errors",
   # "Naming Uncorrected Errors",
   # "Inhibition Uncorrected Errors",
   # "Switching Uncorrected Errors",
@@ -98,15 +100,15 @@ filter_domain <- c(
   "Inhibition Total Errors",
   "Inhibition/Switching Total Errors",
   ## CVLT
-  # "Total Intrusions",
-  # "Total Repetitions",
+  "Total Intrusions",
+  "Total Repetitions",
   ## RCFT
   "ROCF Copy",
   # "RCFT Copy"
   ## NIH EXAMINER
-  "Unstructured Planning Task"
-  # "Letter Fluency",
-  # "Category Fluency"
+  "Unstructured Task",
+  "Letter Fluency",
+  "Category Fluency"
 )
 
 ## ---- 02-glue-executive ------------

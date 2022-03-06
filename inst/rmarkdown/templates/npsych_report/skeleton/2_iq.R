@@ -2,6 +2,7 @@
 filter_domain <- c(
   ## ACS TOPF
   "Test of Premorbid Functioning",
+  "TOPF Standard Score",
   ## NAB
   "NAB Total Index",
   ## RBANS
@@ -15,7 +16,9 @@ filter_domain <- c(
   "Fluid Reasoning (FRI)",
   "Visual Spatial (VSI)",
   "Vocabulary Acquisition (VAI)",
-  "Nonverbal (NVI)"
+  "Nonverbal (NVI)",
+  "Processing Speed (PSI)",
+  "Working Memory (WMI)"
 )
 
 ## ---- 02-glue-iq ------------

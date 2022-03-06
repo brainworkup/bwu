@@ -1,6 +1,6 @@
 ## ---- 01-filter-verbal ---------
 filter_domain <- c(
-  # NAB
+  ## NAB/NABS
   "Language Domain",
   "Language Index",
   "NAB Language Index",
@@ -11,7 +11,10 @@ filter_domain <- c(
   "Naming",
   "Naming Semantic Cuing",
   "Naming Phonemic Cuing",
-  # WAIS/WISC/WPPSI
+  "Oral Production",
+  "Writing",
+  "Bill Payment",
+  ## WAIS/WISC/WPPSI
   "Information",
   "Similarities",
   "Vocabulary",

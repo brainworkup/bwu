@@ -4,13 +4,18 @@ filter_domain <- c(
   "ROCF Delayed Recall",
   "ROCF Memory",
   "RCFT Memory",
-  # NAB-S
+  ## NAB/NABS
   "Memory Domain",
   "NAB Memory Index",
+  "List Learning Immediate Recall",
+  "List Learning Short Delayed Recall",
+  "List Learning Long Delayed Recall",
   "Shape Learning Immediate Recognition",
   "Shape Learning Delayed Recognition",
   "Story Learning Immediate Recall",
   "Story Learning Delayed Recall",
+  "Daily Living Memory Immediate Recall",
+  "Daily Living Memory Delayed Recall",
   # RBANS
   "Immediate Memory Index",
   "List Learning",
@@ -73,7 +78,9 @@ filter_domain <- c(
   "Logical Memory I",
   "Logical Memory II",
   "Visual Reproduction I",
-  "Visual Reproduction II"
+  "Visual Reproduction II",
+  "Designs II",
+  "Designs II"
 )
 
 ## ---- 02-glue-memory ------------

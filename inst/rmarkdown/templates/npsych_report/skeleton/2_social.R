@@ -1,17 +1,27 @@
 ## ---- 01-filter-social -------------
 filter_domain <- c(
-  # Social Cognition
-  # NEPSY2
+  ### Social Cognition
+  ## NEPSY2
   "Affect Recognition",
-  "Theory of Mind"
-  # "Theory of Mind Verbal",
-  # "Affect Recognition Happy Errors",
-  # "Affect Recognition Sad Errors",
-  # "Affect Recognition Neutral Errors",
-  # "Affect Recognition Fear Errors",
-  # "Affect Recognition Angry Errors",
-  # "Affect Recognition Disgust Errors"
-  # add ACS, CARS-2
+  "Theory of Mind",
+  "Theory of Mind Verbal",
+  "Affect Recognition Happy Errors",
+  "Affect Recognition Sad Errors",
+  "Affect Recognition Neutral Errors",
+  "Affect Recognition Fear Errors",
+  "Affect Recognition Angry Errors",
+  "Affect Recognition Disgust Errors",
+  ## ACS Social Cognition
+  "Social Perception",
+  "Affect Naming",
+  "Prosody",
+  "Pairs",
+  "Faces I",
+  "Faces II",
+  "Names I",
+  "Names II",
+  ## CARS-2
+  "CARS-2 HF Total Score"
 )
 
 ## ---- 02-glue-social ------------

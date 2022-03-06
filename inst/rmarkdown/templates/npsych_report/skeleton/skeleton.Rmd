@@ -247,6 +247,7 @@ params:
 
 ```{r patient, include=F}
 patient <- "BIGGIE"
+pronoun <- "his/her"
 ```
 
 ```{r, eval=T}
@@ -348,13 +349,15 @@ source(file = here::here("R/make_tibble.R"), local = knitr::knit_global())
 
 (ref:bicycle) Bicycle Drawing Task
 
-(ref:rocf) Rey-Osterrieth Complex Figure Test (ROCF)
+(ref:rocf) Rey-Osterrieth Complex Figure Test (ROCFT)
 
 (ref:ravlt) Rey Auditory Verbal Learning Test (RAVLT)
 
 (ref:cvltc) California Verbal Learning Test, Child ed (CVLT-C)
 
 (ref:cvlt3) California Verbal Learning Test, 3rd ed (CVLT-3)
+
+(ref:cvlt3-brief) California Verbal Learning Test, 3rd ed (CVLT-3), Brief Form
 
 (ref:wms4) Wechsler Memory Scale, 4th ed (WMS-IV)
 
@@ -629,28 +632,40 @@ cat(readLines("2_nse.md"), sep = "\n")
 
 ## Test Battery
 
--   (ref:wppsi4)
--   (ref:wisc5)
+-   (ref:acs-topf)
+-   (ref:acs-word-choice)
 -   (ref:wais4)
 -   (ref:wiat4)
+-   (ref:nabs): Form 1/2
+-   (ref:cvlt3-brief)
+-   (ref:dkefs): Color-Word Interference
+-   (ref:examiner)
+-   (ref:rocf)
+-   (ref:pegboard)
+-   (ref:caadid)
+-   (ref:caars-sr)
+-   (ref:caars-or)
+-   (ref:cefi-sr)
+-   (ref:cefi-or)
+-   (ref:pai)
+
+## Test Battery
+
+-   (ref:wppsi4)
+-   (ref:wisc5)
 -   (ref:ktea3): Form A/B
 -   (ref:wrat5): Green/Blue Form
 -   (ref:nab): Form 1/2
--   (ref:nabs): Form 1/2
 -   (ref:rbans): Form A/B/C/D
 -   (ref:nepsy2)
 -   (ref:cvltc)
 -   (ref:cvlt3)
+-   (ref:wms4)
 -   (ref:dkefs)
 -   (ref:tmt)
--   (ref:examiner): Verbal Fluency
--   (ref:rocf)
 -   (ref:bicycle)
 -   (ref:clock)
 -   (ref:cog-est)
--   (ref:pegboard)
--   (ref:acs-topf)
--   (ref:acs-word-choice)
 -   (ref:tomm)
 -   (ref:basc3-sdh)
 -   (ref:basc3-prs-child)
@@ -658,12 +673,6 @@ cat(readLines("2_nse.md"), sep = "\n")
 -   (ref:brown-pr)
 -   (ref:brown-sr)
 -   (ref:brown-tr)
--   (ref:caadid)
--   (ref:caars-sr)
--   (ref:caars-or)
--   (ref:cefi-sr)
--   (ref:cefi-or)
--   (ref:pai)
 
 ```{r bobs, results='asis'}
 cat(readLines("2_bobs.md"), sep = "\n")
@@ -771,7 +780,7 @@ neurocog <-
   neurocog %>%
   dplyr::mutate(
     result = glue::glue(
-      "{patient}'s score on {scale}, a measure of {description}, fell in the *{range}* range (PR = {percentile})."
+      "{patient}'s {description} as measured by the {scale} are in the {range} range and above those of approximately {percentile}% of {pronoun} peers."
     )
   )
 ```
@@ -813,7 +822,7 @@ neurobehav <-
   neurobehav %>%
   dplyr::mutate(
     result = glue::glue(
-      "{patient}'s score on {scale}, a measure of {description}, fell in the *{range}* range (PR = {percentile})."
+      "{patient}'s {description} as measured by the {scale} are in the {range} range and above those of approximately {percentile}% of {pronoun} peers."
     )
   )
 ```

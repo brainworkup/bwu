@@ -5,6 +5,8 @@ filter_domain <- c(
   "NAB Spatial Index",
   "Visual Discrimination",
   "Design Construction",
+  "Figure Drawing Copy",
+  "Map Reading",
   # WAIS/WISC/WPPSI
   "Block Design",
   "Block Design No Time Bonus",
@@ -23,7 +25,10 @@ filter_domain <- c(
   "Design Copying Process",
   "Design Copying Motor",
   "Arrows",
-  "Geometric Puzzles"
+  "Geometric Puzzles",
+  "Clocks",
+  "Clock Drawing",
+  "Bicycle Drawing"
 )
 
 ## ---- 02-glue-spatial ---------------------
