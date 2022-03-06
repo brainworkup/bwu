@@ -23,31 +23,20 @@ You can install the released version of npsych.data from
 
 ``` r
 devtools::install_github("brainworkup/npsych.data")
-#> 
-#>      checking for file ‘/private/var/folders/6l/57_kbxxx7bsgkdxp053b_yc40000gn/T/RtmpG5njZK/remotes130e57c429173/brainworkup-npsych.data-fd6871f/DESCRIPTION’ ...  ✓  checking for file ‘/private/var/folders/6l/57_kbxxx7bsgkdxp053b_yc40000gn/T/RtmpG5njZK/remotes130e57c429173/brainworkup-npsych.data-fd6871f/DESCRIPTION’
-#>   ─  preparing ‘npsych.data’:
-#>   ✓  checking DESCRIPTION meta-information
-#>   ─  checking for LF line-endings in source and make files and shell scripts
-#>   ─  checking for empty or unneeded directories
-#>      Removed empty directory ‘npsych.data/vignettes’
-#>   ─  building ‘npsych.data_0.1.1.tar.gz’
-#>      
-#> 
 ```
 
 ## Example
 
 This is a basic example which shows you how to solve a common problem:
 
-``` r
+```r
 library(npsych.data)
-## basic example code
 ```
 
 What is special about using `README.Rmd` instead of just `README.md`? You can
 include R chunks like so:
 
-``` r
+```r
 summary(dots)
 #>       raw             age          percentile             n        
 #>  Min.   : 1.00   Min.   : 3.50   Min.   :0.001355   Min.   :152.0  
