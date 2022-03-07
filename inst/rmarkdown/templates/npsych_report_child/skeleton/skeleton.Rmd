@@ -1519,13 +1519,11 @@ Although standardized scores provide the clinician with an important and necessa
 
 ```{r ranges, double_escape=TRUE, escape=FALSE, fig.fullwidth=FALSE}
 options(show_col_types = FALSE)
-range <- range %>% 
-  readr::read_csv(
-    here::here(patient, "test_score_ranges.csv") %>% 
-      gt::gt() %>%
-      gt::tab_header(title = "Test Score Labels/Ranges") %>%
-      gt::cols_align(align = "center")
-    )
+options(show_col_types = FALSE)
+range <- readr::read_csv(here::here(patient, "test_score_ranges.csv"))
+gt::gt(range) %>%
+  gt::tab_header(title = "Test Score Labels/Ranges") %>%
+  gt::cols_align(align = "center")
 ```
 
 [^1]: (ref:pct)
