@@ -4,7 +4,6 @@
 #' @param x x-axis
 #' @param y y-axis
 #' @param ... additional arguments
-#'
 #' @return A dotplot using ggplot2
 #' @export
 #' @examples

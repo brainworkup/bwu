@@ -43,5 +43,5 @@ Make tibble for npsych report tables
 }
 \examples{
 require(magrittr)
-make_tibble(tibb = iq, data = neurocog, pheno = "Intelligence")
+make_tibble(tibb = iq, data = neurocog, pheno = "Intelligence/General Ability")
 }

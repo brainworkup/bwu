@@ -1,4 +1,3 @@
-
 #' Make tibble for npsych report tables
 #'
 #' @param tibb name of tibble to make
@@ -15,7 +14,7 @@
 #' @export
 #' @examples
 #' require(magrittr)
-#' make_tibble(tibb = iq, data = neurocog, pheno = "Intelligence")
+#' make_tibble(tibb = iq, data = neurocog, pheno = "Intelligence/General Ability")
 make_tibble <- function(tibb,
                         data = c("neurocog", "neurobehav"),
                         pheno = NULL,
