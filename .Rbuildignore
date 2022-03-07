@@ -18,3 +18,4 @@
 ^\.vscode$
 ^journal$
 ^\.DS\_Store$
+^\.github$
