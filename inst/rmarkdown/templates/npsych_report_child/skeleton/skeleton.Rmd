@@ -3,13 +3,14 @@ title: "Confidential Neuropsychological Report"
 author:
   - name: "**Smalls, Biggie**"
 date: January 1, 2021
-output: npsych.data::npsych_report_child
-latex_engine: pdflatex
-citation_package: biblatex
-number_sections: false
-keep_md: true
-keep_tex: false
-always_allow_html: true
+output:
+  npsych.data::npsych_report_child:
+    latex_engine: pdflatex
+    citation_package: biblatex
+    number_sections: false
+    keep_md: true
+    keep_tex: false
+    always_allow_html: true
 site: bookdown::bookdown_site
 editor_options:
   markdown:
