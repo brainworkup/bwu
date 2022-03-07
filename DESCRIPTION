@@ -14,22 +14,33 @@ RoxygenNote: 7.1.2.9000
 Imports:
     rmarkdown,
     bookdown,
-    tufte,
     knitr,
+    here,
+    purrr,
+    readr,
+    dplyr,
+    tibble,
+    glue,
+    forcats,
+    lubridate,
     ggplot2,
     ggthemes,
-    dplyr,
-    purrr,
+    gt,
+    kableExtra,
     magrittr,
     tidyselect,
-    htmltools,
+    covr,
+    spelling,
+    stats,
     highcharter,
-    xaringan,
-    xaringanExtra
+    tufte
 Suggests:
-    testthat (>= 3.0.0),
+    testthat,
     xfun,
-    lubridate,
-    pagedown
+    pagedown,
+    xaringanExtra,
+    htmltools,
+    xaringan,
+    tabulizer
 VignetteBuilder: knitr
 Config/testthat/edition: 3

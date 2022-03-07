@@ -215,6 +215,14 @@
         "bit"
       ]
     },
+    "bitops": {
+      "Package": "bitops",
+      "Version": "1.0-7",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "b7d8d8ee39869c18d8846a184dd8a1af",
+      "Requirements": []
+    },
     "blob": {
       "Package": "blob",
       "Version": "1.2.2",
@@ -362,6 +370,16 @@
         "tibble"
       ]
     },
+    "checkmate": {
+      "Package": "checkmate",
+      "Version": "2.0.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "a667800d5f0350371bedeb8b8b950289",
+      "Requirements": [
+        "backports"
+      ]
+    },
     "class": {
       "Package": "class",
       "Version": "7.3-20",
@@ -432,6 +450,25 @@
       "Repository": "CRAN",
       "Hash": "0f22be39ec1d141fd03683c06f3a6e67",
       "Requirements": []
+    },
+    "covr": {
+      "Package": "covr",
+      "Version": "3.5.1.9003",
+      "Source": "Repository",
+      "Repository": "https://r-lib.r-universe.dev",
+      "RemoteUrl": "https://github.com/r-lib/covr",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "22ff6ae236c20810c1434caec3d31936147921f4",
+      "Hash": "7317977a9837a3c60129f5fb707ea57e",
+      "Requirements": [
+        "crayon",
+        "digest",
+        "httr",
+        "jsonlite",
+        "rex",
+        "withr",
+        "yaml"
+      ]
     },
     "cpp11": {
       "Package": "cpp11",
@@ -930,6 +967,31 @@
         "vctrs"
       ]
     },
+    "gt": {
+      "Package": "gt",
+      "Version": "0.4.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "4905765870343c66704c9e495e4e3bc0",
+      "Requirements": [
+        "base64enc",
+        "bitops",
+        "checkmate",
+        "commonmark",
+        "dplyr",
+        "fs",
+        "ggplot2",
+        "glue",
+        "htmltools",
+        "magrittr",
+        "rlang",
+        "sass",
+        "scales",
+        "stringr",
+        "tibble",
+        "tidyselect"
+      ]
+    },
     "gtable": {
       "Package": "gtable",
       "Version": "0.3.0.9000",
@@ -1083,6 +1145,17 @@
         "jsonlite",
         "mime",
         "openssl"
+      ]
+    },
+    "hunspell": {
+      "Package": "hunspell",
+      "Version": "3.0.2",
+      "Source": "Repository",
+      "Repository": "ropensci",
+      "Hash": "656219b6f3f605499d7cdbe208656639",
+      "Requirements": [
+        "Rcpp",
+        "digest"
       ]
     },
     "ids": {
@@ -2166,6 +2239,22 @@
       "Repository": "CRAN",
       "Hash": "c23666fdb7789c8a45e65340bb334607",
       "Requirements": []
+    },
+    "spelling": {
+      "Package": "spelling",
+      "Version": "2.2.1",
+      "Source": "Repository",
+      "Repository": "https://ropensci.r-universe.dev",
+      "RemoteUrl": "https://github.com/ropensci/spelling",
+      "RemoteRef": "master",
+      "RemoteSha": "bb3ef3661b8576bc4162d729a6ac7345ff55536f",
+      "Hash": "8ed9f010f7caeb8586523088b7f23dcd",
+      "Requirements": [
+        "commonmark",
+        "hunspell",
+        "knitr",
+        "xml2"
+      ]
     },
     "startup": {
       "Package": "startup",
