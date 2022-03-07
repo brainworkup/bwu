@@ -1297,7 +1297,7 @@ knitr::read_chunk(here::here(patient, "2_social.R"))
 knitr::read_chunk(here::here(patient, "2_social.R"))
 ```
 
-```{r 07-plot-narrow-social, eval=T, fig.cap = '(ref:mtr)', double_escape=T, escape=F}
+```{r 07-plot-narrow-social, eval=F, fig.cap = '(ref:mtr)', double_escape=T, escape=F}
 ```
 
 \newpage
@@ -1410,7 +1410,7 @@ knitr::read_chunk(here::here(patient, "2_emotion.R"))
 knitr::read_chunk(here::here(patient, "2_emotion.R"))
 ```
 
-```{r 06-plot-subdomain-emotion, eval=T, double_escape=T, escape=F, fig.cap='(ref:emotion)'}
+```{r 06-plot-subdomain-emotion, eval=F, double_escape=T, escape=F, fig.cap='(ref:emotion)'}
 ```
 
 ```{r}
