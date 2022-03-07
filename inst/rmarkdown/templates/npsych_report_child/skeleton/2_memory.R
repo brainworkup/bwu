@@ -101,14 +101,14 @@ dt %>%
 
 ## ---- 03-table-memory ------------
 tb <-
-  make_tibble(
+  npsych.data::make_tibble(
     tibb = tb,
     data = neurocog,
     pheno = "Memory"
   ) %>%
   filter(Scale %in% filter_domain) %>%
   arrange(Test)
-tb$Score <- round(tb$Score, 0L)
+# tb$Score <- round(tb$Score, 0L)
 
 ## ---- 04-kable-memory ------------------
 kableExtra::kbl(
@@ -134,15 +134,15 @@ kableExtra::kbl(
 ## ---- 05-df-memory ------------
 df <-
   neurocog %>%
-  filter(domain == "Memory") %>%
-  filter(!is.na(percentile)) %>%
-  arrange(test_name) %>%
-  filter(scale %in% filter_domain) %>%
-  filter(scale != "Total Intrusions") %>%
-  filter(scale != "Total Repetitions")
+  dplyr::filter(domain == "Memory") %>%
+  dplyr::filter(!is.na(percentile)) %>%
+  dplyr::arrange(test_name) %>%
+  dplyr::filter(scale %in% filter_domain) %>%
+  dplyr::filter(scale != "Total Intrusions") %>%
+  dplyr::filter(scale != "Total Repetitions")
 
 ## ---- 06-plot-subdomain-memory -----------------
-dotplot(
+npsych.data::dotplot(
   data = df,
   x = df$z_mean_sub,
   y = df$subdomain,
@@ -150,7 +150,7 @@ dotplot(
 )
 
 ## ---- 07-plot-narrow-memory -------------------
-dotplot(
+npsych.data::dotplot(
   data = df,
   x = df$z_mean_narrow,
   y = df$narrow,

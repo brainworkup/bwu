@@ -40,7 +40,7 @@ dt %>%
 
 ## ---- 03-table-motor ------------
 tb <-
-  make_tibble(
+  npsych.data::make_tibble(
     tibb = motor,
     data = neurocog,
     pheno = "Motor"
@@ -78,7 +78,7 @@ df <-
   dplyr::filter(scale %in% filter_domain)
 
 ## ---- 06-plot-subdomain-motor -----------------
-dotplot(
+npsych.data::dotplot(
   data = df,
   x = df$z_mean_sub,
   y = df$subdomain,
@@ -86,7 +86,7 @@ dotplot(
 )
 
 ## ---- 07-plot-narrow-motor -------------------
-dotplot(
+npsych.data::dotplot(
   data = df,
   x = df$z_mean_narrow,
   y = df$narrow,

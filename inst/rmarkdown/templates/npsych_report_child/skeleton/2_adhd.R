@@ -57,7 +57,7 @@ dt %>%
 
 ## ---- 03-table-adhd ------------
 tb <-
-  make_tibble(
+  npsych.data::make_tibble(
     tibb = adhd,
     data = neurobehav,
     pheno = "Behavioral/Emotional/Social"
@@ -89,18 +89,11 @@ kableExtra::kbl(
 ## ---- 05-df-adhd -----------------------------------
 df <-
   neurobehav %>%
-  # dplyr::filter(test_name == "Brown EF/A Parent-Report") %>%
-  # dplyr::filter(test_name == "Brown EF/A Self-Report") %>%
-  # dplyr::filter(test_name == "Brown EF/A Observer-Report") %>%
-  # dplyr::filter(test_name == "CAARS Self-Report") %>%
-  # dplyr::filter(test_name == "CAARS Observer-Report") %>%
-  # dplyr::filter(test_name == "CEFI Self-Report") %>%
-  # dplyr::filter(test_name == "CEFI Observer-Report") %>%
   dplyr::filter(!is.na(percentile)) %>%
   dplyr::filter(scale %in% filter_domain)
 
 ## ---- 06-plot-subdomain-adhd -------------------
-dotplot(
+npsych.data::dotplot(
   data = df,
   x = df$z_mean_sub,
   y = df$subdomain,
@@ -108,7 +101,7 @@ dotplot(
 )
 
 ## ---- 07-plot-narrow-adhd --------------------
-dotplot(
+npsych.data::dotplot(
   data = df,
   x = df$z_mean_narrow,
   y = df$narrow,

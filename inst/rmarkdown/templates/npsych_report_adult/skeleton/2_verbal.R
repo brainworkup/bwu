@@ -80,7 +80,7 @@ dt %>%
 
 ## ---- 03-table-verbal ------------
 tb <-
-  make_tibble(
+  npsych.data::make_tibble(
     tibb = verbal,
     data = neurocog,
     pheno = "Verbal/Language"
@@ -118,7 +118,7 @@ df <-
   dplyr::filter(scale %in% filter_domain)
 
 ## ---- 06-plot-subdomain-verbal ------------------
-dotplot(
+npsych.data::dotplot(
   data = df,
   x = df$z_mean_sub,
   y = df$subdomain,
@@ -126,7 +126,7 @@ dotplot(
 )
 
 ## ---- 07-plot-narrow-verbal --------------------
-dotplot(
+npsych.data::dotplot(
   data = df,
   x = df$z_mean_narrow,
   y = df$narrow,

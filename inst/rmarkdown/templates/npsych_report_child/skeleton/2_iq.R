@@ -39,7 +39,7 @@ dt %>%
 
 ## ---- 03-table-iq ------------
 tb <-
-  make_tibble(
+  npsych.data::make_tibble(
     tibb = tb,
     data = neurocog,
     pheno = "Intelligence/General Ability"
@@ -71,16 +71,16 @@ kableExtra::kbl(
 ## ---- 05-df-iq ------------
 df <-
   neurocog %>%
-  filter(domain == "Intelligence/General Ability") %>%
-  filter(!is.na(percentile)) %>%
-  arrange(test_name) %>%
-  filter(scale %in% filter_domain) # %>%
-# filter(scale != "Cognitive Proficiency (CPI)") %>%
-# filter(scale != "General Ability (GAI)") %>%
-# filter(scale != "NAB Total Index")
+  dplyr::filter(domain == "Intelligence/General Ability") %>%
+  dplyr::filter(!is.na(percentile)) %>%
+  dplyr::arrange(test_name) %>%
+  dplyr::filter(scale %in% filter_domain) # %>%
+# dplyr::filter(scale != "Cognitive Proficiency (CPI)") %>%
+# dplyr::filter(scale != "General Ability (GAI)") %>%
+# dplyr::filter(scale != "NAB Total Index")
 
 ## ---- 06-plot-subdomain-iq --------------------
-dotplot(
+npsych.data::dotplot(
   data = df,
   x = df$z_mean_sub,
   y = df$subdomain,
@@ -88,7 +88,7 @@ dotplot(
 )
 
 ## ---- 07-plot-narrow-iq -------------------
-dotplot(
+npsych.data::dotplot(
   data = df,
   x = df$z_mean_narrow,
   y = df$narrow,
