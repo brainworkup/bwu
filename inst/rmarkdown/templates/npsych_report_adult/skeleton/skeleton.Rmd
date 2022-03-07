@@ -1,0 +1,1553 @@
+---
+title: "Confidential Neuropsychological Report"
+author:
+  - name: "**Smalls, Biggie**"
+date: January 1, 2021
+output: npsych_report_adult
+  latex_engine: pdflatex
+  citation_package: biblatex
+  number_sections: false
+  keep_md: true
+  keep_tex: false
+  always_allow_html: true
+site: bookdown::bookdown_site
+editor_options:
+  markdown:
+    references:
+      location: block
+      prefix: "np"
+header-includes:
+  - \usepackage{titling}
+  - \pretitle{\begin{center}
+    \includegraphics[width=6in,height=2in]{logo.png}\LARGE\\}
+  - \posttitle{\end{center}}
+  - \usepackage{svg}
+  - \usepackage{wasysym}
+  - \usepackage{float}
+toc: false
+highlight: yes
+bibliography: komadown.bib
+biblio-style: apa
+link-citations: yes
+colorlinks: yes
+graphics: yes
+fig-caption: true
+self-contained: yes
+fontpack-libertine: yes
+fontpack-newtx: yes
+fontpack-libertinus-type1: yes
+automark: yes
+classoption:
+  - DIV=calc
+  - headsepline=true
+header:
+  - pos: ro
+    next: "`r params$last_name`, `r params$first_name`"
+caption:
+  - labelfont=bf
+  - labelsep=period
+  - font=small
+setkomafont:
+  - element: descriptionlabel
+    commands: \normalfont\scshape\bfseries
+params:
+  first_name:
+    label: "First Name:"
+    value: Biggie
+    input: text
+  last_name:
+    label: "Last Name:"
+    value: Smalls
+    input: text
+  mrn:
+    label: "Patient ID:"
+    value: "000000000"
+    input: numeric
+    min: 000000000
+    max: 999999999
+  dob:
+    label: "Date of Birth:"
+    value: !r Sys.Date()
+    input: date
+  sex:
+    label: "Sex/Gender:"
+    value: Male
+    input: radio
+    choices:
+      - Male
+      - Female
+      - Nonbinary
+      - Prefer not to answer
+  race:
+    label: "Race/Ethnicity:"
+    value: White/Caucasian
+    input: radio
+    choices:
+      - American Indian/Alaska Native
+      - Asian-American
+      - Black/African-American
+      - Hispanic/Caucasian
+      - Multiracial
+      - Native Hawaiian
+      - Pacific Islander
+      - White/Caucasian
+      - Prefer not to answer
+      - Other
+  hand:
+    label: "Handedness:"
+    value: Right
+    input: radio
+    width: 800px
+    choices:
+      - Right
+      - Left
+      - Ambidextrous
+  educ:
+    label: "Current Grade:"
+    value: "Dropped outta high school"
+    input: select
+    multiple: no
+    choices:
+      - Dropped outta high school
+      - At home with relatives
+      - Daycare
+      - Preschool
+      - Transitional Kindergarten
+      - Kindergarten
+      - 1st grade
+      - 2nd grade
+      - 3rd grade
+      - 4th grade
+      - 5th grade
+      - 6th grade
+      - 7th grade
+      - 8th grade
+      - 9th grade
+      - 10th grade
+      - 11th grade
+      - 12th grade
+      - Some college
+      - College freshman
+      - College sophomore
+      - College junior
+      - College senior
+      - Graduate student
+      - Medical student
+      - Post-doctoral student
+      - Other
+      - High school diploma
+      - College degree
+      - Masters degree
+      - Medical degree
+      - Doctoral degree
+  doe1:
+    label: "DOE 1st visit (NSE):"
+    value: !r Sys.Date()
+    input: date
+  doe2:
+    label: "DOE 2nd visit (NT1):"
+    value: !r Sys.Date()
+    input: date
+  doe3:
+    label: "DOE 3rd visit (NT2):"
+    value: !r Sys.Date()
+    input: date
+  doe4:
+    label: "DOE 4th visit (SIRF):"
+    value: !r Sys.Date()
+    input: date
+  he_she:
+    label: "he/she Pronoun:"
+    value: he
+    input: radio
+    width: 800px
+    choices:
+      - he
+      - she
+  his_her:
+    label: "his/her Pronoun:"
+    value: his
+    input: radio
+    width: 800px
+    choices:
+      - his
+      - her
+  him_her:
+    label: "him/her Pronoun:"
+    value: him
+    input: radio
+    width: 800px
+    choices:
+      - him
+      - her
+  he_she_cap:
+    label: "He/She Pronoun:"
+    value: He
+    input: radio
+    width: 800px
+    choices:
+      - He
+      - She
+  his_her_cap:
+    label: "His/Her Pronoun:"
+    value: His
+    input: radio
+    width: 800px
+    choices:
+      - His
+      - Her
+  him_her_cap:
+    label: "Him/Her Pronoun:"
+    value: Him
+    input: radio
+    width: 800px
+    choices:
+      - Him
+      - Her
+  dx1:
+    label: "Diagnosis/Disorder 1:"
+    value: ADHD
+    input: radio
+    choices:
+      - ADHD
+      - dyslexia
+      - depression
+      - anxiety
+  dx2:
+    label: "Diagnosis/Disorder 2:"
+    value: depression
+    input: radio
+    width: 800px
+    choices:
+      - ADHD
+      - dyslexia
+      - depression
+      - anxiety
+  refdoc:
+    label: "Referral Source:"
+    value: Dr Dre
+    input: text
+  family:
+    label: "Family Member:"
+    value: parents
+    input: radio
+    choices:
+      - parents
+      - mother
+      - father
+      - wife
+      - husband
+      - partner
+      - spouse
+      - guardian
+      - other
+      - none/self
+---
+
+```{r patient, include=F}
+patient <- "BIGGIE"
+pronoun <- "his/her"
+```
+
+```{r, setup, include = FALSE, results='hide', warning=FALSE}
+library(knitr)
+knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
+knitr::knit_hooks$set(optipng = knitr::hook_optipng)
+
+# Fix subfigs for rmarkdown -> latex
+if (identical(knitr:::pandoc_to(), "latex")) {
+  knitr::knit_hooks$set(plot = knitr::hook_plot_tex)
+}
+
+knitr::opts_chunk$set(
+  echo = FALSE,
+  dev = c("CairoPNG", "CairoPDF"),
+  dev.args = list(pointsize = 8),
+  crop = TRUE,
+  par = TRUE,
+  fig.width = 5,
+  fig.height = 3,
+  dpi = 300,
+  fig.pos = "!ht",
+  root.dir = normalizePath("./"),
+  cache = FALSE,
+  cache.path = "./cache/report-",
+  # Code block options
+  eval = TRUE,
+  include = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  results = "asis",
+  error = TRUE
+)
+knitr::opts_knit$set(width = 50)
+options(digits = 1, warnPartialMatchArgs = FALSE)
+options(knitr.kable.NA = "--")
+```
+
+```{r}
+source(file = here::here("R/utils.R"), local = knitr::knit_global())
+source(file = here::here("R/handout.R"), local = knitr::knit_global())
+source(file = here::here("R/html.R"), local = knitr::knit_global())
+```
+
+```{r}
+knitr::knit_engines$set(marginfigure = function(options) {
+  options$type <- "marginfigure"
+  eng_block <- knitr::knit_engines$get("block")
+  eng_block(options)
+})
+```
+
+```{r}
+source(file = here::here("R/calc_age.R"), local = knitr::knit_global())
+source(file = here::here("R/dotplot.R"), local = knitr::knit_global())
+source(file = here::here("R/make_tibble.R"), local = knitr::knit_global())
+```
+
+(ref:wais4) Wechsler Adult Intelligence Scale, 4th ed (WAIS-IV)
+
+(ref:wasi2) Wechsler Abbreviated Scale of Intelligence, 2nd ed (WASI-2)
+
+(ref:ktea3) Kaufman Test of Educational Achievement, 3rd ed (KTEA-3)
+
+(ref:wrat5) Wide Range Achievement Test, 5th ed (WRAT-5)
+
+(ref:wiat3) Wechsler Individual Achievement Test, 3rd ed (WIAT-III)
+
+(ref:wiat4) Wechsler Individual Achievement Test, 4th ed (WIAT-4)
+
+(ref:evt3) Expressive Vocabulary Test, 3rd ed (EVT-3)
+
+(ref:ppvt5) Peabody Picture Vocabulary Test, 5th ed (PPVT-5)
+
+(ref:tiwre) Test of Irregular Word Reading Efficiency (TIWRE)
+
+(ref:nepsy2) NEPSY-II Developmental Neuropsychological Battery
+
+(ref:examiner) NIH Executive Abilities: Measures and Instruments for Neurobehavioral Evaluation and Research (NIH EXAMINER)
+
+(ref:cms) Children's Memory Scale (CMS)
+
+(ref:pegboard) Grooved Pegboard Test
+
+(ref:clock) Clock Drawing Test
+
+(ref:bicycle) Bicycle Drawing Task
+
+(ref:rocf) Rey-Osterrieth Complex Figure Test (ROCFT)
+
+(ref:ravlt) Rey Auditory Verbal Learning Test (RAVLT)
+
+(ref:cvltc) California Verbal Learning Test, Child ed (CVLT-C)
+
+(ref:cvlt3) California Verbal Learning Test, 3rd ed (CVLT-3)
+
+(ref:cvlt3-brief) California Verbal Learning Test, 3rd ed (CVLT-3), Brief Form
+
+(ref:wms4) Wechsler Memory Scale, 4th ed (WMS-IV)
+
+(ref:dkefs) Delis-Kaplan Executive Function System (D-KEFS)
+
+(ref:tmt) Trail Making Test
+
+(ref:nab) Neuropsychological Assessment Battery (NAB)
+
+(ref:nabs) Neuropsychological Assessment Battery (NAB), Screener
+
+(ref:rbans) Repeatable Repeatable Battery for the Assessment of Neuropsychological Status Update (RBANS)
+
+(ref:coca) Colorado Cognitive Assessment (CoCA)
+
+(ref:cog-est) Cognitive Estimation Test
+
+(ref:celf5) Clinical Evaluation of Language Fundamentals, 5th ed (CELF-5)
+
+(ref:celf3) Clinical Evaluation of Language Fundamentals, Preschool, 3rd ed (CELF Preschool-3)
+
+(ref:celf5-ors) Clinical Evaluation of Language Fundamentals, 5th ed (CELF-5), Observational Rating Scale
+
+(ref:rist) Reynolds' Intellectual Screening Test (RIST)
+
+(ref:tomm) Test of Memory Malingering (TOMM)
+
+(ref:acs-word-choice) Advanced Clinical Solutions (ACS), Word Choice Test
+
+(ref:acs-soc-cog) Advanced Clinical Solutions (ACS), Social Cognition Battery
+
+(ref:acs-topf) Advanced Clinical Solutions (ACS), Test of Premorbid Functioning (TOPF)
+
+(ref:abas3) Adaptive Behavior Assessment System, 3rd ed (ABAS-3)
+
+(ref:abas3-parent) Adaptive Behavior Assessment System, 3rd ed (ABAS-3), Parent Report
+
+(ref:abas3-teacher) Adaptive Behavior Assessment System, 3rd ed (ABAS-3), Teacher Report
+
+(ref:basc3) Behavioral Assessment Scale for Children, 3rd ed (BASC-3)
+
+(ref:basc3-sdh) BASC-3 Structured Developmental History (SDH)
+
+(ref:basc3-prs) BASC-3 Parent Rating Scale (PRS)
+
+(ref:basc3-prs-preschool) BASC-3 Parent Rating Scale (PRS), Preschool
+
+(ref:basc3-prs-child) BASC-3 Parent Rating Scale (PRS), Child
+
+(ref:basc3-trs-child) BASC-3 Teacher Rating Scale (TRS), Child
+
+(ref:basc3-prs-adolescent) BASC-3 Parent Rating Scale (PRS), Adolescent
+
+(ref:basc3-srp) BASC-3 Self-Report of Personality (SRP)
+
+(ref:basc3-srp-child) BASC-3 Self-Report of Personality (SRP), Child
+
+(ref:basc3-srp-adolescent) BASC-3 Self-Report of Personality (SRP), Adolescent
+
+(ref:brown) Brown Executive Function/Attention Scales (Brown EF/A)
+
+(ref:brown-pr) Brown Executive Function/Attention Scales, (EF/A), Parent-Report
+
+(ref:brown-sr) Brown Executive Function/Attention Scale (EF/A), Self-Report
+
+(ref:brown-tr) Brown Executive Function/Attention Scales (EF/A), Teacher-Report
+
+(ref:cefi) Comprehensive Executive Function Inventory (CEFI)
+
+(ref:cefi-sr) Comprehensive Executive Function Inventory Adult (CEFI Adult), Self-Report
+
+(ref:cefi-or) Comprehensive Executive Function Inventory Adult (CEFI Adult), Observer-Report
+
+(ref:caadid) Conners' Adult ADHD Diagnostic Interview for DSM-IV (CAADID), Part I: History
+
+(ref:caars) Conners' Adult ADHD Rating Scale (CAARS)
+
+(ref:caars-sr) Conners' Adult ADHD Rating Scale (CAARS), Self-Report
+
+(ref:caars-or) Conners' Adult ADHD Rating Scale (CAARS), Observer-Report
+
+(ref:swan) SWAN ADHD Rating Scale
+
+(ref:bai) Beck Anxiety Inventory (BAI)
+
+(ref:bdi2) Beck Depression Inventory, 2nd ed (BDI-2)
+
+(ref:cars2) Childhood Autism Rating Scale, 2nd ed (CARS2)
+
+(ref:cars2-hf) CARS2 High-Functioning Version (CARS2-HF)
+
+(ref:cars2-qpc) CARS2 Questionnaire for Parents/Caregivers (CARS2-QPC)
+
+(ref:sent-comp) Children's Sentence Completion Test
+
+(ref:pai) Personality Assessment Inventory (PAI)
+
+(ref:mmpi) Minnesota Multiphasic Personality Inventory-2-Restructured Form (MMPI-2-RF)
+
+(ref:iq) Intelligence/General Ability
+
+(ref:academics) Academic Skills
+
+(ref:verbal) Verbal/Language
+
+(ref:spatial) Visual Perception/Construction
+
+(ref:memory) Memory
+
+(ref:executive) Attention/Executive
+
+(ref:motor) Motor
+
+(ref:social) Social Cognition
+
+(ref:adhd-ef) ADHD/Executive Functioning
+
+(ref:emotion) Behavioral, Personality, and Emotional Functioning
+
+(ref:standard-score) Standard Score (M = 100, SD = 15)
+
+(ref:scaled-score) Scaled Score (M = 10, SD = 3)
+
+(ref:t-score) *T* Score (M = 50, SD = 10)
+
+(ref:z-score) *z*-Score (M = 0, SD = 1)
+
+(ref:zplot) *z* = -1 (16th percentile), *z* = 0 (50th percentile), and *z* = 1 (84th percentile)
+
+(ref:pct) A *percentile* shows `r params$first_name`'s standing relative to peers. For example, a percentile rank (PR) of 70 means `r params$first_name` performed as well as or better than 70% of individuals the same age.
+
+(ref:br) A *base rate* is the prevalence of score in the general population. If a score is rare, defined as a base rate (BR) of less than 10%, it is considered *clinically significant*, and that area of functioning is probably causing problems in daily life.
+
+(ref:basc3-prs-fn) *T* Score (M = 50, SD = 10); *Note:* Adaptive Skills *T* scores are reversed
+
+(ref:basc3-srp-fn) *T* Score (M = 50, SD = 10); *Note:* Personal Adjustment *T* scores are reversed
+
+(ref:basc3-prs-srp-fn) *T* Score (M = 50, SD = 10); *Note:* Adaptive Skills and Personal Adjustment *T* scores are reversed
+
+(ref:g) *General intelligence* refers to an overall capacity to reason, to solve problems, and to learn useful information.
+
+(ref:gc) *Crystallized intelligence* refers to the ability to learn and use language to reason and understand how the world works.
+
+(ref:gf) *Fluid intelligence* refers to the ability to use logical reasoning to figure things out without being told exactly how things work, analyze and solve novel problems, identify patterns and relationships that underpin these problems, and apply logic.
+
+(ref:gcf) *General cognitive functioning* refers to an overall capacity to reason, to solve problems, and to learn useful information.
+
+(ref:acad) *Reading ability* consists of three interrelated abilities: decoding, comprehension, and fluency. *Writing ability* can be described in terms of spelling, grammar, expression of ideas, and writing fluency. *Math ability* can be described in terms of calculation skills, applied problem solving, and math fluency.
+
+(ref:read) *Reading ability* can be described as consisting of three interrelated abilities: decoding (the ability to recognize and pronounce written words presented without context), comprehension (the ability not only to understand the facts presented in the text but also the ability to figure out things in the text that are not directly stated), and fluency (the ability to decode and understand simple written information in a rapid and fluent manner).
+
+(ref:write) *Writing ability* can be described in terms of spelling, grammar, expression of ideas, and writing fluency. Spelling ability and writing fluency help one write quickly and with quality. If these lower-level skills don't flow easily, they can take up attention and working memory space so that more important skills such as making good choices about words and meaning (i.e., expression), and capitalizing on background grammar knowledge to construct good pieces of writing cannot be used as easily.
+
+(ref:math) *Math ability* can be described in terms of calculation skills, applied problem solving (e.g., word problems), and math fluency.
+
+(ref:vrb) *Verbal/language* refers to the ability to access and apply acquired word knowledge, to verbalize meaningful concepts, to understand complex multistep instructions, to think about verbal information, and to express oneself using words.
+
+(ref:spt) *Visuoperception, visuoconstruction, and visuospatial processing* refer to abilities such as mentally visualizing how objects should look from different angles, visualizing how to put objects together so that they fit correctly, and being able to accurately and efficiently copy and/or reproduce visual-spatial information onto paper.
+
+(ref:att-exe) *Attentional* and *executive functions* underlie most, if not all, domains of cognitive performance. These are behaviors and skills that allow individuals to successfully carry-out instrumental and social activities, academic work, engage with others effectively, problem solve, and successfully interact with the environment to get needs met.
+
+(ref:att) *Attention* is a basic function that underlies most, if not all, domains of neurocognitive functioning. If an individual has limited attentional capacity, an inability to sustain or divide attentional focus, or a reduced ability to selectively attend to competing stimuli, then they would likely be unable to interact with the environment to an adequate degree and, thus have limited functioning in other, higher-order areas.
+
+(ref:exe) Measures of *executive functioning* are used as proxies for behaviors and skills that allow individuals to successfully carry-out instrumental and social activities, such as planning, engaging with others effectively, problem solving, and successfully interacting with the environment to get needs met.
+
+(ref:wm) *Working memory* is the system responsible for the transient holding and processing of information in conscious awareness just long enough to use it for problem solving, and plays a critical role in reasoning, comprehension, and learning.
+
+(ref:ps) *Processing speed* refers to the rate at which the brain can repetitively process familiar and unfamiliar information during relatively easy tasks that almost everyone can do. Processing speed tests are good predictors of performance on tasks that are so well learned that they are nearly automatic, which can be critical to completing work efficiently.
+
+(ref:mem) *Learning and memory* refer to the rate and ease with which new information (e. g., facts, stories, lists, faces, names) can be encoded, stored, and later recalled from long-term memory.
+
+(ref:mtr) *Sensorimotor* tasks refer to the capacity to control hand movements quickly, smoothly, and with adequate precision, which are required to engage in activities such as writing and drawing.
+
+(ref:soc-cog) *Social cognition* measures are used to gauge aspects of social-emotional processing and social aptitude (sometimes referred to as emotional intelligence), which are important facets of how individuals process social information about other children, adults, groups, and social contexts.
+
+(ref:cog-ctrl) *Cognitive control* guides behavior by controlling what, when, and how information is represented in the brain. Cognitive control is associated with a wide range of processes and is not restricted to a particular cognitive domain. Impairments in cognitive control functions are associated with specific deficits in attention, memory, language comprehension and emotional processing.
+
+(ref:adhd) *ADHD* is a lifelong disorder characterized by symptoms of inattention (not being able to keep focus), hyperactivity (excess movement that is not fitting to the setting) and impulsivity (hasty acts that occur in the moment without thought). Many ADHD symptoms, such as high activity levels, difficulty remaining still for long periods of time, and limited attention span, are common from time to time in everyone. The difference in individuals with ADHD is that their inattention, poor impulse control, and hyperactivity are substantially greater than expected for their age and cause distress and/or problems functioning at home, at school, at work, and/or with friends.
+
+(ref:dysgraphia) *Dysgraphia* is an impairment in writing, including problems with letter formation/legibility, letter spacing, spelling, fine motor coordination, rate of writing, grammar, and composition. DSM-5 categorizes writing impairment as a "specific learning disability with impairment in written expression" (spelling accuracy, grammar and punctuation accuracy, and clarity and organization of written expression) [@chungDisorderWrittenExpression2020].
+
+(ref:odd) *Oppositional defiant disorder (ODD)* is a tendency to oppose and defy. DSM-5 categorizes ODD under Disruptive, impulse-control, and conduct disorder. It is described as a pattern of persistent anger, hostility, and argumentative behavior that persists for more than six months.
+
+(ref:dyslexia) *Dyslexia* means an individual has a neurobiologically based cognitive processing problem that affects how easily and efficiently they can learn to read. Dyslexia is a common condition: some experts believe 5-10% of people have it; others say as many as 17% of people show signs of reading challenges. Dyslexia is formally classified as a specific learning disability in reading. People with dyslexia have trouble reading at a good pace and without mistakes. They may also have a hard time with reading comprehension, spelling, and writing. Importantly, these challenges are not a problem with intelligence.
+
+(ref:comp-dyslexia) *Dyslexia* means an individual has a neurobiologically based cognitive processing problem that affects how easily and efficiently they can learn to read. Approximately 24% of individuals diagnosed with dyslexia are able to achieve reading skills commensurate with nondyslexic peers. A concept in the research literature is one of "compensated dyslexia"[@vanviersenHighReadingSkills2016], which is used to describe these individuals because they use strengths in other areas to compensate for deficits in reading. Dyslexia is underidentified in this population because the dyslexia can be masked by strengths in vocabulary and intelligence, making it especially difficult to identify in high-achieving individuals.
+
+(ref:mazes) *Mazes* Planning is central to human behavior and illustrates the aptitude to formulate an action in advance of performance or intended performance. Impulse control is the degree to which instant gratification may be controlled. Psychomotor speed indicates the level at which complex visual-perception information is perceived, attended, and responded to with simple fine-motor coordination. To successfully demonstrate this trio of cognitive skills, the patient must plan a course of action for navigation through the maze, while preventing the urge to take erroneous or seemingly simpler paths, all while issuing commands to their hands to physically manifest this decision-making. Tasks involving multitasking and subsequent physical action will be reduced. Sports, writing essays, or creating standardized documents, and adhering to financial institutional regulations (such as ledger maintenance), will show reduced proficiency.
+
+(ref:letter-number) *Numbers & Letters* incorporates letter cancellation and counting tasks to evaluate deficits in attention, the four subtests of this task were developed to measure seven aspects of attention: sustained attention, psychomotor speed, selective attention, divided attention, information processing speed, impulsivity, and disinhibition.
+
+(ref:driving) *Driving Scenes* Created to reflect situational daily living and patient proficiency with such, this assessment ascertains a combination of visual working memory, visual scanning, attention to detail, and selective attention. Visual working memory is the ability to recognize, remember, and then retrieve visually presented information for use in the short-term. Visual scanning is the ability to use vision to search in a systematic manner. Selective attention is the capacity for or process of reacting to certain stimuli selectively when several occur simultaneously. Attention to detail is the ability to achieve thoroughness and accuracy when accomplishing a task. A combination of these cognitive processes enable daily functioning. As this exam demonstrates, the ability to scan surroundings, take notice of selectively important visual details, and then quickly recall such for use in applicable situations, such as when driving, is integral to modern human independence. Below average scores reflect limited ability to safely and proficiently perform tasks associated with typical daily life."
+
+(ref:bills) *Bill Payment* Purporting a necessary daily living function, this piece of the module evaluates auditory language comprehension, bill payment skills, simple calculation ability, and speech output. The patient is handed a bill statement, a check with accompanying check ledger, and an envelope. Questions are posited orally by the test administrator regarding the presented materials. Following the question and answer portion, patients are then given more complex, multistep commands involving physically responding to directives. For instance, during this phase, directions to adhere to and complete the billing instructions as they appear on the billing statement are given, complete with the need to fill out the check and assure the bill would be paid. Each requisite step, when explicitly performed, is awarded one point. Thus, (ref:first-name)'s score of 8 shows that (ref:he-she) accurately completed the same number of steps towards bill payment achievement. This score leads to placement in the severely impaired interpretive category. Auditory comprehension is the ability to understand what is heard, including the tone of voice, pauses between words, emphasis used, and the rhythm and pattern of speech, and attach meaning to it. This is a foundational skill originating in early infancy that, ideally, builds with exposure and learning processes. Bill payment skills refer to the wherewithal to complete the processes surrounding proper bill satisfaction and related financial responsibility. Calculation is a deliberate process that transforms one or more inputs into one or more results. In this instance, simple calculation relates to the capacity to accurately and effectively use numerical information to maintain financial balance and responsibility utilizing only basic mathematical skills. Speech output is simply defined as the ability to put thoughts to words. The nature of this exam exhibits the potential negative ramifications in these cognitive functions. Not only will fiscal responsibility suffer deleteriously, similar or related tasks required for independent living and satisfactory life stability will also show negative effects.
+
+(ref:aud-comp) *Auditory Comprehension* is the ability to understand what is heard, including the tone of voice, pauses between words, emphasis used, and the rhythm and pattern of speech, and attach meaning to it. This is a foundational skill originating in early infancy that, ideally, builds with exposure and learning processes.
+
+(ref:planning) *Planning* is a neurocognitive ability used to determine, select, and apply strategies to solve problems where initiation, self-monitoring, and self-correction or especially important.
+
+(ref:efficiency) *Efficiency* reflects how long it takes to complete a task with the highest number of correct responses.
+
+(ref:first-name) `r params$first_name`
+
+(ref:last-name) `r params$last_name`
+
+(ref:he-she) `r params$he_she`
+
+(ref:his-her) `r params$his_her`
+
+(ref:him-her) `r params$him_her`
+
+(ref:he-she-cap) `r params$he_she_cap`
+
+(ref:his-her-cap) `r params$his_her_cap`
+
+(ref:him-her-cap) `r params$him_her_cap`
+
+(ref:refdoc) `r params$refdoc`
+
+(ref:doe1) `r params$doe1`
+
+(ref:doe2) `r params$doe2`
+
+(ref:doe3) `r params$doe3`
+
+(ref:doe4) `r params$doe4`
+
+(ref:dx1) `r params$dx1`
+
+(ref:dx2) `r params$dx2`
+
+(ref:family) `r params$family`
+
+# NEUROBEHAVIORAL STATUS EXAM
+
+(ref:patient) `r params$first_name` `r params$last_name`
+
+(ref:mrn) `r params$mrn`
+
+(ref:dob) `r params$dob`
+
+(ref:age) `r calc_age(params$dob, params$doe2)`
+
+(ref:sex) `r params$sex`
+
+(ref:race) `r params$race`
+
+(ref:hand) `r params$hand`
+
+(ref:educ) `r params$educ`
+
+(ref:doe) `r params$doe1`, `r params$doe2`, `r params$doe3`, and `r params$doe4`
+
+```{marginfigure, echo=TRUE}
+**Name:** (ref:patient)\
+**MRN:** (ref:mrn)\
+**DOB:** (ref:dob)\
+**Age:** (ref:age)\
+**Gender:** (ref:sex)\
+**Handedness:** (ref:hand)\
+**Education:** (ref:educ)\
+**Evaluation Dates:** (ref:doe)
+```
+
+```{r nse, results='asis'}
+cat(readLines("2_nse.md"), sep = "\n")
+```
+
+\newpage
+
+# NEUROPSYCHOLOGICAL TESTING
+
+## Test Battery
+
+-   (ref:acs-topf)
+-   (ref:acs-word-choice)
+-   (ref:wais4)
+-   (ref:wiat4)
+-   (ref:nabs): Form 1/2
+-   (ref:cvlt3-brief)
+-   (ref:dkefs): Color-Word Interference
+-   (ref:examiner)
+-   (ref:rocf)
+-   (ref:pegboard)
+-   (ref:caadid)
+-   (ref:caars-sr)
+-   (ref:caars-or)
+-   (ref:cefi-sr)
+-   (ref:cefi-or)
+-   (ref:pai)
+
+## Test Battery
+
+-   (ref:ktea3): Form A/B
+-   (ref:wrat5): Green/Blue Form
+-   (ref:nab): Form 1/2
+-   (ref:rbans): Form A/B/C/D
+-   (ref:nepsy2)
+-   (ref:cvltc)
+-   (ref:cvlt3)
+-   (ref:wms4)
+-   (ref:dkefs)
+-   (ref:tmt)
+-   (ref:bicycle)
+-   (ref:clock)
+-   (ref:cog-est)
+-   (ref:tomm)
+-   (ref:basc3-sdh)
+-   (ref:basc3-prs-child)
+-   (ref:basc3-trs-child)
+-   (ref:brown-pr)
+-   (ref:brown-sr)
+-   (ref:brown-tr)
+
+```{r bobs, results='asis'}
+cat(readLines("2_bobs.md"), sep = "\n")
+```
+
+\newpage
+
+## Test Results
+
+\autoref{fig:gauss-plot-narrow} can be used as a guide to help interpret individual test scores in terms of the degree of distance a score fell in relation to normative and developmental expectations (i.e., the mean).
+\autoref{fig:gauss-plot-broad} can be used to help interpret broad domains in terms of the degree of clinical severity.
+Test scores are easiest to interpret as percentiles[^1], which are provided in the tables below, and as *z*-scores (M = 0, SD = 1)[^2], which are used to plot the various test and domain scores below
+.
+
+(ref:gauss-plot-narrow) Statistical classification of neuropsychological test scores in the general population [@guilmetteAmericanAcademyClinical2020].
+
+```{r gauss-plot-narrow, fig.cap='(ref:gauss-plot-narrow)', fig.width=6, fig.height=5, fig.pos = '!ht'}
+knitr::include_graphics("plot_narrow.png", auto_pdf = TRUE)
+```
+
+(ref:gauss-plot-broad) General clinical interpretation of performance for individual test scores and broader neuropsychological domains [@schoenbergReportingStandardsNeuropsychological2017].
+
+```{r gauss-plot-broad, fig.cap='(ref:gauss-plot-broad)', fig.width=6, fig.height=5, fig.pos = '!ht'}
+knitr::include_graphics("plot_broad.png", auto_pdf = TRUE)
+```
+
+```{r read-csv}
+library(tidyverse)
+data_path <- here::here(patient, "csv")
+files <- dir(data_path, pattern = "*.csv")
+neuropsych <-
+  files %>%
+  purrr::set_names() %>%
+  purrr::map_df(
+    ~ readr::read_csv(file.path(data_path, .), show_col_types = FALSE),
+    na = c("", "NA", "--", "-"),
+    .id = "filename"
+  ) %>%
+  dplyr::filter(!is.na(percentile)) %>%
+  dplyr::distinct() %>%
+  dplyr::mutate(z = qnorm(percentile / 100)) %>%
+  dplyr::mutate(domain = forcats::as_factor(domain)) %>%
+  dplyr::mutate(subdomain = forcats::as_factor(subdomain)) %>%
+  dplyr::mutate(narrow = forcats::as_factor(narrow)) %>%
+  dplyr::mutate(pass = forcats::as_factor(pass)) %>%
+  dplyr::mutate(verbal = forcats::as_factor(verbal)) %>%
+  dplyr::mutate(timed = forcats::as_factor(timed))
+```
+
+```{r, make-factors-neurocog}
+# Subset neurocognitive data
+neurocog <-
+  neuropsych %>%
+  dplyr::filter(test_type == "npsych_test")
+# domain
+neurocog <-
+  neurocog %>%
+  dplyr::group_by(domain, .add = TRUE) %>%
+  dplyr::filter(!is.na(percentile)) %>%
+  dplyr::mutate(z_mean_dom = mean(z), z_sd_dom = sd(z)) %>%
+  dplyr::mutate(pct_mean_dom = mean(percentile),
+                pct_sd_dom = sd(percentile)) %>%
+  dplyr::ungroup()
+# subdomain
+neurocog <-
+  neurocog %>%
+  dplyr::group_by(subdomain, .add = TRUE) %>%
+  dplyr::filter(!is.na(percentile)) %>%
+  dplyr::mutate(z_mean_sub = mean(z), z_sd_sub = sd(z)) %>%
+  dplyr::mutate(pct_mean_sub = mean(percentile),
+                pct_sd_sub = sd(percentile)) %>%
+  dplyr::ungroup()
+# narrow
+neurocog <-
+  neurocog %>%
+  dplyr::group_by(narrow, .add = TRUE) %>%
+  dplyr::filter(!is.na(percentile)) %>%
+  dplyr::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) %>%
+  dplyr::mutate(pct_mean_narrow = mean(percentile),
+                pct_sd_narrow = sd(percentile)) %>%
+  dplyr::ungroup()
+# pass
+neurocog <-
+  neurocog %>%
+  dplyr::group_by(pass, .add = TRUE) %>%
+  dplyr::filter(!is.na(percentile)) %>%
+  dplyr::mutate(z_mean_pass = mean(z), z_sd_pass = sd(z)) %>%
+  dplyr::ungroup()
+# verbal
+neurocog <-
+  neurocog %>%
+  dplyr::group_by(verbal, .add = TRUE) %>%
+  dplyr::filter(!is.na(percentile)) %>%
+  dplyr::mutate(z_mean_verbal = mean(z), z_sd_verbal = sd(z)) %>%
+  dplyr::ungroup()
+# timed
+neurocog <-
+  neurocog %>%
+  dplyr::group_by(timed, .add = TRUE) %>%
+  dplyr::filter(!is.na(percentile)) %>%
+  dplyr::mutate(z_mean_timed = mean(z), z_sd_timed = sd(z)) %>%
+  dplyr::ungroup()
+# result text
+neurocog <-
+  neurocog %>%
+  dplyr::mutate(
+    result = glue::glue(
+      "{patient}'s {description} are in the {range} range and above those of approximately {percentile}% of {pronoun} peers."
+    )
+  )
+```
+
+```{r, make-factors-neurobehav}
+# Subset neurobehavioral data
+neurobehav <-
+  neuropsych %>%
+  dplyr::filter(test_type != "npsych_test")
+# domain
+neurobehav <-
+  neurobehav %>%
+  dplyr::group_by(domain, .add = TRUE) %>%
+  dplyr::filter(!is.na(score)) %>%
+  dplyr::mutate(z_mean_dom = mean(z), z_sd_dom = sd(z)) %>%
+  dplyr::mutate(pct_mean_dom = mean(percentile),
+                pct_sd_dom = sd(percentile)) %>%
+  dplyr::ungroup()
+# subdomain
+neurobehav <-
+  neurobehav %>%
+  dplyr::group_by(subdomain, .add = TRUE) %>%
+  dplyr::filter(!is.na(score)) %>%
+  dplyr::mutate(z_mean_sub = mean(z), z_sd_sub = sd(z)) %>%
+  dplyr::mutate(pct_mean_sub = mean(percentile),
+                pct_sd_sub = sd(percentile)) %>%
+  dplyr::ungroup()
+# narrow
+neurobehav <-
+  neurobehav %>%
+  dplyr::group_by(narrow, .add = TRUE) %>%
+  dplyr::filter(!is.na(score)) %>%
+  dplyr::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) %>%
+  dplyr::mutate(pct_mean_narrow = mean(percentile),
+                pct_sd_narrow = sd(percentile)) %>%
+  dplyr::ungroup()
+# result text
+neurobehav <-
+  neurobehav %>%
+  dplyr::mutate(
+    result = glue::glue(
+      "{patient}'s score on {scale} is in the {range} range, suggestive of difficulties with {description}."
+    )
+  )
+```
+
+```{r, write-data}
+readr::write_csv(neuropsych, here::here(patient, "neuropsych.csv"))
+readr::write_csv(neurocog, here::here(patient, "neurocog.csv"))
+readr::write_csv(neurobehav, here::here(patient, "neurobehav.csv"))
+```
+
+```{r, read-data}
+neuropsych <- readr::read_csv(here::here(patient, "neuropsych.csv"))
+neurocog <- readr::read_csv(here::here(patient, "neurocog.csv"))
+neurobehav <- readr::read_csv(here::here(patient, "neurobehav.csv"))
+```
+
+### Intelligence/General Ability
+
+(ref:fn-iq) Standard Score (M = 100, SD = 15)
+
+```{r, iq, results='asis'}
+cat(readLines("2_iq.md"), sep = "\n")
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_iq.R"))
+```
+
+```{r 01-filter-iq, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_iq.R"))
+```
+
+```{r 02-glue-iq, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_iq.R"))
+```
+
+```{r 03-table-iq, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_iq.R"))
+```
+
+```{r 04-kable-iq, eval=T, double_escape=T, escape=F, fig.fullwidth=T}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_iq.R"))
+```
+
+```{r 05-df-iq, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_iq.R"))
+```
+
+```{r 06-plot-subdomain-iq, eval=T, double_escape=T, escape=F, fig.cap = '(ref:g) (ref:gc) (ref:gf)'}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_iq.R"))
+```
+
+```{r 07-plot-narrow-iq, eval=F, double_escape=T, escape=F, fig.cap = '(ref:g) (ref:gc) (ref:gf)'}
+```
+
+\newpage
+
+### Academic Skills
+
+(ref:fn-acad) Standard Score (M = 100, SD = 15)
+
+```{r, academics, results='asis'}
+cat(readLines("2_academics.md"), sep = "\n")
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here(patient, "2_academics.R"))
+```
+
+```{r 01-filter-academics, eval=T, double_escape=T, escape=F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here(patient, "2_academics.R"))
+```
+
+```{r 02-glue-academics, eval=T, double_escape=T, escape=F}
+```
+
+```{r, eval=T}
+knitr::read_chunk(here::here(patient, "2_academics.R"))
+```
+
+```{r 03-table-academics, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_academics.R"))
+```
+
+```{r 04-kable-academics, eval=T, double_escape=T, escape=F, fig.fullwidth=T}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_academics.R"))
+```
+
+```{r 05-df-academics, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_academics.R"))
+```
+
+```{r 06-plot-subdomain-academics, eval=T, double_escape=T, escape=F, fig.cap = '(ref:acad)'}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_academics.R"))
+```
+
+```{r 07-plot-narrow-academics, eval=F, double_escape=T, escape=F, fig.cap = '(ref:acad)'}
+```
+
+\newpage
+
+### Verbal/Language
+
+(ref:fn-vrb) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
+
+```{r, verbal, results='asis'}
+cat(readLines("2_verbal.md"), sep = "\n")
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_verbal.R"))
+```
+
+```{r 01-filter-verbal, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_verbal.R"))
+```
+
+```{r 02-glue-verbal, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_verbal.R"))
+```
+
+```{r 03-table-verbal, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_verbal.R"))
+```
+
+```{r 04-kable-verbal, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_verbal.R"))
+```
+
+```{r 05-df-verbal, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_verbal.R"))
+```
+
+```{r 06-plot-subdomain-verbal, eval=F, fig.cap = '(ref:vrb)', double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_verbal.R"))
+```
+
+```{r 07-plot-narrow-verbal, eval=T, fig.cap = '(ref:vrb)', double_escape=T, escape=F}
+```
+
+\newpage
+
+### Visual Perception/Construction
+
+(ref:fn-spt) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
+
+```{r, spatial, results='asis'}
+cat(readLines("2_spatial.md"), sep = "\n")
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_spatial.R"))
+```
+
+```{r 01-filter-spatial, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_spatial.R"))
+```
+
+```{r 02-glue-spatial, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_spatial.R"))
+```
+
+```{r 03-table-spatial, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_spatial.R"))
+```
+
+```{r 04-kable-spatial, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_spatial.R"))
+```
+
+```{r 05-df-spatial, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_spatial.R"))
+```
+
+```{r 06-plot-subdomain-spatial, eval=F, fig.cap = '(ref:spt)', double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_spatial.R"))
+```
+
+```{r 07-plot-narrow-spatial, eval=T, fig.cap = '(ref:spt)', double_escape=T, escape=F}
+```
+
+\newpage
+
+### Attention/Executive
+
+(ref:fn-exe) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
+
+```{r, executive, results='asis'}
+cat(readLines("2_executive.md"), sep = "\n")
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_executive.R"))
+```
+
+```{r 01-filter-executive, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_executive.R"))
+```
+
+```{r 02-glue-executive, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_executive.R"))
+```
+
+```{r 03-table-executive, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_executive.R"))
+```
+
+```{r 04-kable-executive, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_executive.R"))
+```
+
+```{r 05-df-executive, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_executive.R"))
+```
+
+```{r 06-plot-subdomain-executive, eval=T, fig.cap = '(ref:att-exe)', double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_executive.R"))
+```
+
+```{r 07-plot-narrow-executive, eval=F, fig.cap = '(ref:att-exe)', double_escape=T, escape=F}
+```
+
+\newpage
+
+### Memory
+
+(ref:fn-memory) *T* Score (M = 50, SD = 10), Scaled Score (M = 10, SD = 3), or *z*-Score (M = 0, SD = 1)
+
+```{r, memory, results='asis'}
+cat(readLines("2_memory.md"), sep = "\n")
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_memory.R"))
+```
+
+```{r 01-filter-memory, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_memory.R"))
+```
+
+```{r 02-glue-memory, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_memory.R"))
+```
+
+```{r 03-table-memory, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_memory.R"))
+```
+
+```{r 04-kable-memory, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_memory.R"))
+```
+
+```{r 05-df-memory, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_memory.R"))
+```
+
+```{r 06-plot-subdomain-memory, eval=F, fig.cap = '(ref:mem)', double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_memory.R"))
+```
+
+```{r 07-plot-narrow-memory, eval=T, fig.cap = '(ref:mem)', double_escape=T, escape=F}
+```
+
+\newpage
+
+### Motor
+
+(ref:fn-mtr) *T* Score (M = 50, SD = 10) or Scaled Score (M = 10, SD = 3)
+
+```{r, motor, results='asis'}
+cat(readLines("2_motor.md"), sep = "\n")
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_motor.R"))
+```
+
+```{r 01-filter-motor, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_motor.R"))
+```
+
+```{r 02-glue-motor, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_motor.R"))
+```
+
+```{r 03-table-motor, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_motor.R"))
+```
+
+```{r 04-kable-motor, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_motor.R"))
+```
+
+```{r 05-df-motor, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_motor.R"))
+```
+
+```{r 06-plot-subdomain-motor, eval=F, fig.cap = '(ref:mtr)', double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_motor.R"))
+```
+
+```{r 07-plot-narrow-motor, eval=T, fig.cap = '(ref:mtr)', double_escape=T, escape=F}
+```
+
+\newpage
+
+### Social Cognition
+
+(ref:fn-soc) Scaled Score (M = 10, SD = 3)
+
+```{r, social, results='asis'}
+cat(readLines("2_social.md"), sep = "\n")
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_social.R"))
+```
+
+```{r 01-filter-social, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_social.R"))
+```
+
+```{r 02-glue-social, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_social.R"))
+```
+
+```{r 03-table-social, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_social.R"))
+```
+
+```{r 04-kable-social, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_social.R"))
+```
+
+```{r 05-df-social, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_social.R"))
+```
+
+```{r 06-plot-subdomain-social, eval=F, fig.cap = '(ref:mtr)', double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_social.R"))
+```
+
+```{r 07-plot-narrow-social, eval=F, fig.cap = '(ref:mtr)', double_escape=T, escape=F}
+```
+
+\newpage
+
+### ADHD/Executive Functioning
+
+(ref:fn-adhd) *T* Score (M = 50, SD = 10) or Standard Score (M = 100, SD = 15)
+
+```{r, adhd, results='asis'}
+cat(readLines("2_adhd.md"), sep = "\n")
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_adhd.R"))
+```
+
+```{r 01-filter-adhd, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_adhd.R"))
+```
+
+```{r 02-glue-adhd, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_adhd.R"))
+```
+
+```{r 03-table-adhd, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_adhd.R"))
+```
+
+```{r 04-kable-adhd, eval=T, double_escape=T, escape=F, fig.fullwidth=T}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_adhd.R"))
+```
+
+```{r 05-df-adhd, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_adhd.R"))
+```
+
+```{r 06-plot-subdomain-adhd, eval=F, double_escape=T, escape=F, fig.cap='(ref:adhd-ef)'}
+```
+
+(ref:att-ef) Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other.
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_adhd.R"))
+```
+
+```{r 07-plot-narrow-adhd, eval=T, double_escape=T, escape=F, fig.cap='(ref:att-ef)'}
+```
+
+\newpage
+
+### Emotional/Behavioral/Adaptive
+
+(ref:fn-emo) *T* Score (M = 50, SD = 10)
+
+```{r, emotion, results='asis'}
+cat(readLines("2_emotion.md"), sep = "\n")
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_emotion.R"))
+```
+
+```{r 01-filter-emotion, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_emotion.R"))
+```
+
+```{r 02-glue-emotion, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_emotion.R"))
+```
+
+```{r 03-table-emotion, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_emotion.R"))
+```
+
+```{r 04-kable-emotion, eval=T, double_escape=T, escape=F, fig.fullwidth=T}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_emotion.R"))
+```
+
+```{r 05-df-emotion, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_emotion.R"))
+```
+
+```{r 06-plot-subdomain-emotion, eval=F, double_escape=T, escape=F, fig.cap='(ref:emotion)'}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_emotion.R"))
+```
+
+```{r 07-plot-narrow-emotion, eval=F, double_escape=T, escape=F, fig.cap='(ref:emotion)'}
+```
+
+\newpage
+
+# SUMMARY/IMPRESSION
+
+(ref:domain) **Key Findings** Verbal skills are significantly stronger than nonverbal/spatial processing skills. Attentional fluency (i.e., working memory and processing speed) and abstract reasoning are areas of weakness. Notably, even (ref:first-name)'s normatively average scores reflect performances that are well below cognitive expectations for (ref:him-her). *Note:* *z* = 0 (mean) ± 1 (sd)
+
+```{r domain-df}
+domain <-
+  neurocog %>%
+  filter(test_type == "npsych_test") %>%
+  filter(!is.na(domain))
+```
+
+```{r domain-plot, fig.cap = '(ref:domain)', fig.height = 3.5}
+dotplot(
+  data = domain,
+  x = domain$z_mean_dom,
+  y = domain$domain,
+  domain = "domain"
+)
+```
+
+(ref:pass) **PASS Cognitive Process Model** Successive and Simultaneous processing are areas of strengths, and Attention is an area of weakness.
+
+```{r pass-df}
+pass <-
+  neurocog %>%
+  filter(test_type == "npsych_test") %>%
+  filter(!is.na(pass))
+```
+
+```{r pass-plot, fig.cap = '(ref:pass)', eval=T, fig.env='marginfigure', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
+dotplot(
+  data = pass,
+  x = pass$z_mean_pass,
+  y = pass$pass,
+  domain = "pass"
+)
+```
+
+(ref:nonverbal) **Verbal vs. Nonverbal** Scores on verbal tasks are slightly higher than scores on nonverbal/spatial processing tasks.
+
+```{r nonverbal-df}
+nonverbal <-
+  neurocog %>%
+  filter(test_type == "npsych_test") %>%
+  filter(!is.na(verbal))
+```
+
+```{r nonverbal-plot, fig.cap = '(ref:nonverbal)', eval=T, fig.env='marginfigure', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
+dotplot(
+  data = nonverbal,
+  x = nonverbal$z_mean_verbal,
+  y = nonverbal$verbal,
+  domain = "nonverbal"
+)
+```
+
+(ref:timed) **Timed vs. Untimed** (ref:first-name) performs more than a half of a standard deviation better on tasks that are untimed compared to tasks that require (ref:him-her) to respond both accurately and quickly.
+
+```{r timed-df}
+timed <-
+  neurocog %>%
+  filter(test_type == "npsych_test") %>%
+  filter(!is.na(timed))
+```
+
+```{r timed-plot, fig.cap = '(ref:timed)', eval=T, fig.env='marginfigure', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
+dotplot(
+  data = timed,
+  x = timed$z_mean_timed,
+  y = timed$timed,
+  domain = "timed"
+)
+```
+
+```{r, sirf, results='asis'}
+cat(readLines("3_sirf.md"), sep = "\n")
+```
+
+It was a pleasure to work with `r params$first_name`.
+Please contact me with any questions or concerns regarding this patient.
+
+```{marginfigure, echo=TRUE}
+**CONTACT**\
+Department of Psychiatry and the Behavioral Sciences\
+2250 Alcazar St., Suite 2200\
+Los Angeles, CA 90033\
+(323) 442-4000\
+[trampush\@usc.edu](mailto:trampush@usc.edu){.email}\
+```
+
+Sincerely,
+
+```{r sig, out.width='33%', fig.align='left'}
+knitr::include_graphics("../jwtSig.png")
+```
+
+**Joey Trampush, PhD**\
+Della Martin Assistant Professor of Psychiatry\
+Department of Psychiatry and the Behavioral Sciences\
+University of Southern California Keck School of Medicine\
+CA License PSY29212
+
+\newpage
+
+# APPENDIX
+
+```{r results='asis'}
+cat(readLines("telehealth_statement.md"), sep = "\n")
+```
+
+## Test Selection Procedures
+
+Neuropsychological tests are intrinsically performance-based, and cognitive performance assessed during this neuropsychological evaluation is summarized above.
+Where appropriate, qualitative observations are included.
+Cultural considerations were made when selecting measures, interpreting results, and making diagnostic impressions and recommendations.
+Results from formal tests are reported in comparison to other individuals the same age, sex, and educational level as range of functioning (e.g., below average, average, above average).
+Test score labels are intended solely to be descriptive, identifying positions of scores relative to a normal curve distribution, and should be interpreted within the context of the patient's individual presentation and history.
+Although standardized scores provide the clinician with an important and necessary understanding of the patient's test performance compared with a normative group, they do not on their own lead to accurate diagnosis or treatment recommendations.
+
+\newpage
+
+## Conversion of Test Scores
+
+```{r ranges, double_escape=TRUE, escape=FALSE, fig.fullwidth=FALSE}
+range <-
+  readr::read_csv(here::here(patient, "test_score_ranges.csv"),
+                  show_col_types = FALSE)
+range %>%
+  gt::gt() %>%
+  gt::tab_header(title = "Test Score Labels/Ranges") %>% 
+  gt::cols_align(align = "center")
+```
+
+[^1]: (ref:pct)
+
+[^2]: (ref:zplot)
