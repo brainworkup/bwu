@@ -1,5 +1,5 @@
 #' @details \code{newthought()} can be used in inline R expressions in R
-#'   Markdown (e.g. \samp{`r newthought(Some text)`}), and it works for both
+#'   Markdown (e.g. \samp{`r newthought('Some text')`}), and it works for both
 #'   HTML (\samp{<span class="newthought">text</span>}) and PDF
 #'   (\samp{\\newthought{text}}) output.
 #' @param text A character string to be presented as a \dQuote{new thought}
@@ -21,6 +21,8 @@ template_resources = function(name, ...) {
   system.file('rmarkdown', 'templates', name, 'resources', ..., package = 'tufte')
 }
 
-gsub_fixed = function(...) gsub(..., fixed = TRUE)
+gsub_fixed = function(...)
+  gsub(..., fixed = TRUE)
 
-pandoc2.0 = function() rmarkdown::pandoc_available('2.0')
+pandoc2.0 = function()
+  rmarkdown::pandoc_available('2.0')

@@ -1,0 +1,23 @@
+## ---- include = FALSE---------------------------------------------------------
+knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
+# Fix subfigs for rmarkdown -> latex
+if (identical(knitr:::pandoc_to(), 'latex'))
+  knitr::knit_hooks$set(plot = knitr::hook_plot_tex)
+knitr::opts_chunk$set(
+  echo = TRUE,
+  dev = "pdf",
+  dev.args = list(pointsize = 8),
+  crop = TRUE,
+  fig.width = 5,
+  fig.height = 3
+)
+knitr::opts_knit$set(width = 50)
+options(digits = 3)
+
+## ---- eval = FALSE------------------------------------------------------------
+#  ---
+#  output:
+#    npsych.data::npsych_report_adult:
+#      citation_package: biblatex
+#  ---
+

@@ -1,0 +1,72 @@
+---
+title: "npsych_report_adult"
+subtitle: "Neuropsych Report"
+author:
+  - name: "Joey Trampush"
+    thanks: "mail@larssonjohan.com"
+    id: 1
+affil:
+  - name: "Lund University, Department of Statistics"
+    id: 1
+date: "`r Sys.Date()`"
+output: 
+  npsych.data::npsych_report_adult:
+    citation_package: natbib
+bibliography: komadown.bib
+automark: yes
+vignette: >
+  %\VignetteIndexEntry{KOMA-script articles inspired by Tufte}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+pkgdown:
+  as_is: true
+  extension: pdf
+---
+
+```{r, include = FALSE}
+knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
+# Fix subfigs for rmarkdown -> latex
+if (identical(knitr:::pandoc_to(), 'latex'))
+  knitr::knit_hooks$set(plot = knitr::hook_plot_tex)
+knitr::opts_chunk$set(
+  echo = TRUE,
+  dev = "pdf",
+  dev.args = list(pointsize = 8),
+  crop = TRUE,
+  fig.width = 5,
+  fig.height = 3
+)
+knitr::opts_knit$set(width = 50)
+options(digits = 3)
+```
+
+# Inspired by Edward Tufte
+
+This style has been inspired by the popular document style of Edward Tufte, which is used throughout his many excellent texts on data visualization.
+The distinguishing feature of this style is its division into a left-aligned main column and a wide margin on the right into which text, figures, tables, and more can be arranged.
+
+## Default figure environment
+
+# Algorithms
+
+# Citations and bibliography
+
+**komatufte** is at its best when **natbib** or **biblatex** is used.
+If they are, the citations are placed in a two-column full-width environment.
+This is specified in the YAML markdown like this[^1]:
+
+```{r, eval = FALSE}
+---
+output: 
+  npsych.data::npsych_report_adult:
+    citation_package: biblatex
+---
+```
+
+If the default engine, *pandoc-citeproc*, is used instead, the bibliography will simply be appended after a regular section titled *References* and will therefore end up in the main column.[^2]
+
+# References
+
+[^1]: This document is built with `citation_package: natbib`
+
+[^2]: There is a pandoc filter, [pandoc-citeproc-preamble](https://github.com/spwhitton/pandoc-citeproc-preamble) that seems like a perfect solution to this problem, but I have yet to figure out how to incorporate its Haskell script into this R package.

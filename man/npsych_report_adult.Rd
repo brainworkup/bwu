@@ -2,7 +2,7 @@
 % Please edit documentation in R/npsych_report_adult.R
 \name{npsych_report_adult}
 \alias{npsych_report_adult}
-\title{Rmarkdown Template for koma-scrartcl}
+\title{Rmarkdown Template for Neuropsychological Report Adult}
 \usage{
 npsych_report_adult(
   ...,
@@ -13,7 +13,7 @@ npsych_report_adult(
 )
 }
 \arguments{
-\item{...}{Arguments passed down to [bookdown::pdf_document2()]}
+\item{...}{arguments passed down to \code{\link[bookdown:html_document2]{bookdown::pdf_document2()}}}
 
 \item{number_sections}{Whether to number section headers: if \code{TRUE},
 figure/table numbers will be of the form \code{X.i}, where \code{X} is the
@@ -27,22 +27,37 @@ specific output format function. For a function \code{foo2()}, its
 arguments are passed to \code{foo()}, e.g. \code{...} of
 \code{html_document2()} are passed to \code{rmarkdown::html_document()}.}
 
-\item{csl}{bibliography style in the `.csl` format}
+\item{csl}{bibliography style in the \code{.csl} format}
+
+\item{colorlinks}{should cross-references and links be
+colored?}
 }
 \value{
-R Markdown output format to pass to [rmarkdown::render()].
+R Markdown output format to pass to \code{\link[rmarkdown:render]{rmarkdown::render()}}
 }
 \description{
-This is an interface to the KOMA-Script class scrartcl that acts as an
-alternative to the article class in LaTeX. Most of the added functionality
-is documented in the *scrartcl* vignette
-(`vignette("scrartcl", "komadown")`) and is accessed via the YAML metadata
+This template is a designed for pdf output and acts
+as an alternative to the \code{\link[tufte:tufte_handout]{tufte::tufte_handout()}}
+template. Whereas that Rmarkdown template is based on
+the \href{https://www.ctan.org/pkg/tufte-latex}{tufte-latex}
+LaTeX package, however, \strong{komatufte} is instead
+based on a custom template that I have designed using
+the KOMA-script scrartcl class. Most of the added functionality
+is documented in the \emph{komatufte} vignette
+(\code{vignette("npsych_report_adult", "npsych.data")}) and is accessed via the YAML metadata
 block of the R Markdown file.
+}
+\details{
+The main features of this template is the use of a
+left-aligned column for the main content and a right-aligned
+column for marginal content.
 }
 \examples{
 
 library(rmarkdown)
 library(bookdown)
-draft("adult-report.Rmd", template = "npsych_report_adult", package = "npsych.data",
-      edit = FALSE)
+rmarkdown::draft("adult-report.Rmd",
+                 template = "npsych_report_adult",
+                 package = "npsych.data",
+                 edit = FALSE)
 }
