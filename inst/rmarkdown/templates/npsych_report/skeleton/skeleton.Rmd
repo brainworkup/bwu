@@ -2,6 +2,8 @@
 title: "Confidential Neuropsychological Report"
 author:
   - name: "**Smalls, Biggie**"
+patient: "BIGGIE"
+pronoun: "his/her"
 date: January 1, 2021
 output:
   komadown::komatufte:
@@ -250,7 +252,7 @@ patient <- "BIGGIE"
 pronoun <- "his/her"
 ```
 
-```{r, eval=T}
+```{r create-dir include=F}
 # Create directory
 xfun::dir_create(here::here(patient, "pre_csv"))
 xfun::dir_create(here::here(patient, "pdf"))
@@ -822,9 +824,7 @@ neurobehav <-
   neurobehav %>%
   dplyr::mutate(
     result = glue::glue(
-      "{patient}'s {description} are in the {range} range
-       and above those of approximately {percentile}% 
-       of {pronoun} peers."
+      "{patient}'s {description} are in the {range} range and above those of approximately {percentile}% of {pronoun} peers."
     )
   )
 ```
