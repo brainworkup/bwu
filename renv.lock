@@ -576,16 +576,16 @@
     },
     "desc": {
       "Package": "desc",
-      "Version": "1.4.0.9000",
+      "Version": "1.4.1.9000",
       "Source": "Repository",
-      "Repository": "https://ropensci.r-universe.dev",
+      "Repository": "https://r-lib.r-universe.dev",
       "RemoteUrl": "https://github.com/r-lib/desc",
       "RemoteRef": "HEAD",
-      "RemoteSha": "469977b496e596f5bb9b8f19d08d65cd46166cfc",
-      "Hash": "36a25e0903692bd8b82aadb07381aff4",
+      "RemoteSha": "38f5b3a3d4de05a73221c92011b99b4c6bb3e2a4",
+      "Hash": "7b73ee61d4e636d03e66b50469329024",
       "Requirements": [
         "R6",
-        "crayon",
+        "cli",
         "rprojroot"
       ]
     },

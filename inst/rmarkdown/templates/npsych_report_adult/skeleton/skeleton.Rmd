@@ -4,7 +4,7 @@ author:
   - name: "**Smalls, Biggie**"
 date: January 1, 2021
 output: 
-  npsych.data::npsych_report_adult
+  npsych_report_adult:
     latex_engine: pdflatex
     citation_package: biblatex
     number_sections: false
