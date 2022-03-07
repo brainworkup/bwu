@@ -42,13 +42,13 @@ dt %>%
 
 ## ---- 03-table-social ------------
 tb <-
-  make_tibble(
+  npsych.data::make_tibble(
     tibb = social,
     data = neurocog,
     pheno = "Social Cognition"
   ) %>%
-  filter(Scale %in% filter_domain) %>%
-  arrange(Test)
+  dplyr::filter(Scale %in% filter_domain) %>%
+  dplyr::arrange(Test)
 
 ## ---- 04-kable-social ------------------
 kableExtra::kbl(
@@ -74,13 +74,13 @@ kableExtra::kbl(
 ## ---- 05-df-social ------------
 df <-
   neurocog %>%
-  filter(domain == "Social Cognition") %>%
-  filter(!is.na(percentile)) %>%
-  arrange(test_name) %>%
-  filter(scale %in% filter_domain)
+  dplyr::filter(domain == "Social Cognition") %>%
+  dplyr::filter(!is.na(percentile)) %>%
+  dplyr::arrange(test_name) %>%
+  dplyr::filter(scale %in% filter_domain)
 
 ## ---- 06-plot-subdomain-social -----------------
-dotplot(
+npsych.data::dotplot(
   data = df,
   x = df$z_mean_sub,
   y = df$subdomain,
@@ -88,7 +88,7 @@ dotplot(
 )
 
 ## ---- 07-plot-narrow-social -------------------
-dotplot(
+npsych.data::dotplot(
   data = df,
   x = df$z_mean_narrow,
   y = df$narrow,

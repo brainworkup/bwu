@@ -49,13 +49,13 @@ dt %>%
 
 ## ---- 03-table-spatial ------------
 tb <-
-  make_tibble(
+  npsych.data::make_tibble(
     tibb = tb,
     data = neurocog,
     pheno = "Visual Perception/Construction"
   ) %>%
-  filter(Scale %in% filter_domain) %>%
-  arrange(Test)
+  dplyr::filter(Scale %in% filter_domain) %>%
+  dplyr::arrange(Test)
 
 ## ---- 04-kable-spatial -----------------
 kableExtra::kbl(
@@ -81,13 +81,13 @@ kableExtra::kbl(
 ## ---- 05-df-spatial -----------------------------
 df <-
   neurocog %>%
-  filter(domain == "Visual Perception/Construction") %>%
-  filter(!is.na(percentile)) %>%
-  arrange(test_name) %>%
-  filter(scale %in% filter_domain)
+  dplyr::filter(domain == "Visual Perception/Construction") %>%
+  dplyr::filter(!is.na(percentile)) %>%
+  dplyr::arrange(test_name) %>%
+  dplyr::filter(scale %in% filter_domain)
 
 ## ---- 06-plot-subdomain-spatial ------------------
-dotplot(
+npsych.data::dotplot(
   data = df,
   x = df$z_mean_sub,
   y = df$subdomain,
@@ -95,7 +95,7 @@ dotplot(
 )
 
 ## ---- 07-plot-narrow-spatial --------------------
-dotplot(
+npsych.data::dotplot(
   data = df,
   x = df$z_mean_narrow,
   y = df$narrow,

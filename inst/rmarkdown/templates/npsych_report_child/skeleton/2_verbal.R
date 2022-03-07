@@ -80,13 +80,13 @@ dt %>%
 
 ## ---- 03-table-verbal ------------
 tb <-
-  make_tibble(
+  npsych.data::make_tibble(
     tibb = verbal,
     data = neurocog,
     pheno = "Verbal/Language"
   ) %>%
-  filter(Scale %in% filter_domain) %>%
-  arrange(Test)
+  dplyr::filter(Scale %in% filter_domain) %>%
+  dplyr::arrange(Test)
 
 ## ---- 04-kable-verbal -----------------
 kableExtra::kbl(
@@ -112,13 +112,13 @@ kableExtra::kbl(
 ## ---- 05-df-verbal -----------------------------
 df <-
   neurocog %>%
-  filter(domain == "Verbal/Language") %>%
-  filter(!is.na(percentile)) %>%
-  arrange(test_name) %>%
-  filter(scale %in% filter_domain)
+  dplyr::filter(domain == "Verbal/Language") %>%
+  dplyr::filter(!is.na(percentile)) %>%
+  dplyr::arrange(test_name) %>%
+  dplyr::filter(scale %in% filter_domain)
 
 ## ---- 06-plot-subdomain-verbal ------------------
-dotplot(
+npsych.data::dotplot(
   data = df,
   x = df$z_mean_sub,
   y = df$subdomain,
@@ -126,7 +126,7 @@ dotplot(
 )
 
 ## ---- 07-plot-narrow-verbal --------------------
-dotplot(
+npsych.data::dotplot(
   data = df,
   x = df$z_mean_narrow,
   y = df$narrow,

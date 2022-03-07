@@ -109,7 +109,7 @@ dt %>%
 
 ## ---- 03-table-emotion ------------
 tb <-
-  make_tibble(
+  npsych.data::make_tibble(
     tibb = tb,
     data = neurobehav,
     pheno = "Behavioral/Emotional/Social"
@@ -143,23 +143,11 @@ kableExtra::kbl(
 ## ---- 05-df-emotion -----------------------------------
 df <-
   neurobehav %>%
-  # dplyr::filter(test_name == "PAI") %>%
-  # dplyr::filter(test_name == "MMPI-2") %>%
-  # dplyr::filter(test_name == "BASC-3 SRP Adolescent") %>%
-  # dplyr::filter(test_name == "BASC-3 PRS Adolescent") %>%
-  # dplyr::filter(test_name == "BASC-3 TRS Adolescent") %>%
-  # dplyr::filter(test_name == "BASC-3 SRP Child") %>%
-  # dplyr::filter(test_name == "BASC-3 PRS Child") %>%
-  # dplyr::filter(test_name == "BASC-3 TRS Child") %>%
-  # dplyr::filter(test_name == "BASC-3 PRS Preschool") %>%
-  # dplyr::filter(test_name == "BASC-3 TRS Preschool") %>%
-  # dplyr::filter(test_name == "BDI-2") %>%
-  # dplyr::filter(test_name == "BAI-2") %>%
   dplyr::filter(!is.na(percentile)) %>%
   dplyr::filter(scale %in% filter_domain)
 
 ## ---- 06-plot-subdomain-emotion -------------------
-dotplot(
+npsych.data::dotplot(
   data = df,
   x = df$z_mean_sub,
   y = df$subdomain,
@@ -167,7 +155,7 @@ dotplot(
 )
 
 ## ---- 07-plot-narrow-emotion --------------------
-dotplot(
+npsych.data::dotplot(
   data = df,
   x = df$z_mean_narrow,
   y = df$narrow,
