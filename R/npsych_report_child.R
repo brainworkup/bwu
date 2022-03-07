@@ -1,4 +1,4 @@
-#' Rmarkdown Template for koma-scrartcl
+#' Rmarkdown Template for Neuropsych child report
 #'
 #' This template is a designed for pdf output and acts
 #' as an alternative to the [tufte::tufte_handout()]
@@ -8,15 +8,12 @@
 #' based on a custom template that I have designed using
 #' the KOMA-script scrartcl class. Most of the added functionality
 #' is documented in the *komatufte* vignette
-#' (`vignette("komatufte", "komadown")`) and is accessed via the YAML metadata
+#' (`vignette("npsych_report_child", "npsych.data")`) and is accessed via the YAML metadata
 #' block of the R Markdown file.
 #'
 #' The main features of this template is the use of a
 #' left-aligned column for the main content and a right-aligned
 #' column for marginal content.
-#'
-#' This template is more opinionated than [scrartcl]
-#' and is not catered to manual tinkering with the style.
 #'
 #' @inheritParams bookdown::pdf_document2
 #' @param ... arguments passed down to [bookdown::pdf_document2()]
@@ -44,7 +41,7 @@ npsych_report_child <- function(...,
                       number_sections = number_sections,
                       md_extensions = md_extensions,
                       format = "npsych_report_child",
-                      template = "komatufte.tex",
+                      template = "npsych_report_child.tex",
                       csl = NULL,
                       colorlinks = TRUE)
 }

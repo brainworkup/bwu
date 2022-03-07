@@ -1,7 +1,7 @@
 Package: npsych.data
 Type: Package
-Title: USC NPSYCH Data Repository
-Version: 0.2.0.9000
+Title: Neuropsychological Report Repository USC Psychiatry
+Version: 0.2.1.9000
 Author: person("Joey", "Trampush", email = trampush@usc.edu, role = c("aut", "cre"))
 Maintainer: Joey Trampush <trampush@usc.edu>
 Description: This package stores the functions and normative datasets to use for neuropsychological evaluatioins at USC Keck School of Medicine. Hopefully it works.
@@ -11,6 +11,7 @@ LazyData: true
 Depends:
     R (>= 3.10)
 RoxygenNote: 7.1.2.9000
+Roxygen: list(markdown = TRUE)
 Imports:
     rmarkdown,
     bookdown,
@@ -29,17 +30,17 @@ Imports:
     kableExtra,
     magrittr,
     tidyselect,
+    htmltools
+Suggests:
+    testthat,
+    xfun,
+    xaringan,
+    pagedown,
+    tabulizer,
     covr,
     spelling,
     stats,
     highcharter,
-    tufte
-Suggests:
-    testthat,
-    xfun,
-    pagedown,
-    htmltools,
-    xaringan,
-    tabulizer
+    tufte,
 VignetteBuilder: knitr
 Config/testthat/edition: 3
