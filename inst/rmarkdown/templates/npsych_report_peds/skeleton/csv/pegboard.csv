@@ -1,0 +1,3 @@
+scale,raw_score,score,percentile,range,ci_95,test,test_name,domain,subdomain,narrow,pass,verbal,timed,test_type,score_type,absort,description
+Dominant Hand,,,,,,pegboard,Grooved Pegboard,Motor,Fine Motor Dexterity,Dominant Hand Dexterity,Successive,Nonverbal,Timed,npsych_test,t_score,GP_01,fine motor dexterity for dominant hand
+Nondominant Hand,,,,,,pegboard,Grooved Pegboard,Motor,Fine Motor Dexterity,Nondominant Hand Dexterity,Successive,Nonverbal,Timed,npsych_test,t_score,GP_02,fine motor dexterity for nondominant hand

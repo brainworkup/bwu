@@ -1,7 +1,7 @@
 Package: npsych.data
 Type: Package
 Title: USC NPSYCH Data Repository
-Version: 0.1.7.9000
+Version: 0.2.0.9000
 Author: person("Joey", "Trampush", email = trampush@usc.edu, role = c("aut", "cre"))
 Maintainer: Joey Trampush <trampush@usc.edu>
 Description: This package stores the functions and normative datasets to use for neuropsychological evaluatioins at USC Keck School of Medicine. Hopefully it works.
@@ -14,7 +14,6 @@ RoxygenNote: 7.1.2.9000
 Imports:
     rmarkdown,
     bookdown,
-    komadown,
     tufte,
     knitr,
     ggplot2,

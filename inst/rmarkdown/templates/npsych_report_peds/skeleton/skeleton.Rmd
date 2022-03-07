@@ -3,14 +3,13 @@ title: "Confidential Neuropsychological Report"
 author:
   - name: "**Smalls, Biggie**"
 date: January 1, 2021
-output:
-  komadown::komatufte:
-    latex_engine: pdflatex
-    citation_package: biblatex
-    number_sections: false
-    keep_md: true
-    keep_tex: false
-    always_allow_html: true
+output: npsych_report_child
+  latex_engine: pdflatex
+  citation_package: biblatex
+  number_sections: false
+  keep_md: true
+  keep_tex: false
+  always_allow_html: true
 site: bookdown::bookdown_site
 editor_options:
   markdown:
@@ -127,20 +126,6 @@ params:
       - 10th grade
       - 11th grade
       - 12th grade
-      - Some college
-      - College freshman
-      - College sophomore
-      - College junior
-      - College senior
-      - Graduate student
-      - Medical student
-      - Post-doctoral student
-      - Other
-      - High school diploma
-      - College degree
-      - Masters degree
-      - Medical degree
-      - Doctoral degree
   doe1:
     label: "DOE 1st visit (NSE):"
     value: !r Sys.Date()
@@ -236,8 +221,6 @@ params:
       - parents
       - mother
       - father
-      - wife
-      - husband
       - partner
       - spouse
       - guardian
