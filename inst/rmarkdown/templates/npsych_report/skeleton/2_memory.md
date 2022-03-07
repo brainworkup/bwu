@@ -1,7 +1,8 @@
-Learning and recall of rote verbal information (word list) was _Below Average_
-overall.
-Recall of the list after a long delay was _Exceptionally Low_ secondary to (ref:his-her) difficulties initially encoding the list of words.
-Recall of more complex verbal information (short stories) was _Exceptionally Low_ for immediate free recall across measures.
-Delayed recall of the stories was _Exceptionally Low_.
-Learning and recognition of visual material (abstract shapes) was _Exceptionally Low_. Recognition of the shapes after a delay was _Below Average_, suggesting slightly improved memory consolidation over time.
-Reconstructing a complex/abstract visual design from memory after a delay was _Exceptionally Low_.
+Learning and recall of rote verbal information (word list) was Average overall.
+Recall of the list after a short delay was Average secondary to (ref:his-her) difficulties encoding the information.
+Recall of the list after a long delay was intact, as (ref:he-she) was able to recall nearly all the material (ref:he-she) had learned.
+Memory recall of more complex verbal information (short stories) was Average for immediate free recall across multiple measures.
+Delayed recall of the details of the stories was preserved over time.
+Learning and recognition of visual material (abstract shapes) was Average.
+Recognition of the target visual material amongst nontarget distractors after a delay period was Average, suggesting slightly improved memory consolidation over time.
+Reconstructing a complex/abstract visual design from memory after a delay was intact.
