@@ -1,33 +1,9 @@
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
   "folders": [
     {
       "name": "BWU",
       "path": "."
     }
-=======
-<<<<<<< HEAD
-  "settings": {
-    "workbench.colorCustomizations": {
-      "activityBar.activeBackground": "#ec92fd",
-      "activityBar.activeBorder": "#7d6a02",
-      "activityBar.background": "#ec92fd",
-      "activityBar.foreground": "#15202b",
-      "activityBar.inactiveForeground": "#15202b99",
-      "activityBarBadge.background": "#7d6a02",
-      "activityBarBadge.foreground": "#e7e7e7",
-      "sash.hoverBorder": "#ec92fd"
-    }
-=======
-=======
->>>>>>> 613ce85 (fixing)
-  "folders": [
-    {
-      "name": "BWU",
-      "path": "."
-    }
->>>>>>> 0a2f30f (Big move: changed repo to bwu)
   ],
   "settings": {
     "window.zoomLevel": 0.25,
@@ -45,21 +21,6 @@
         "scrollbar.shadow": "#0d0d0d"
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "peacock.color": "#b60596",
-=======
-    "peacock.color": "#b60596"
-<<<<<<< HEAD
->>>>>>> ff1fefe (Big move: changed repo to bwu)
->>>>>>> 0a2f30f (Big move: changed repo to bwu)
-=======
->>>>>>> 613ce85 (fixing)
-=======
-    "peacock.color": "#b60596"
-=======
-    "peacock.color": "#b60596",
->>>>>>> c593998 (fixing rebase on bwu workspace file)
->>>>>>> 197e2c7 (fixing rebase on bwu workspace file)
+    "peacock.color": "#419b95"
   }
 }
