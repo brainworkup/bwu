@@ -1,9 +1,30 @@
 {
+<<<<<<< HEAD
   "folders": [
     {
       "name": "BWU",
       "path": "."
     }
+=======
+<<<<<<< HEAD
+  "settings": {
+    "workbench.colorCustomizations": {
+      "activityBar.activeBackground": "#ec92fd",
+      "activityBar.activeBorder": "#7d6a02",
+      "activityBar.background": "#ec92fd",
+      "activityBar.foreground": "#15202b",
+      "activityBar.inactiveForeground": "#15202b99",
+      "activityBarBadge.background": "#7d6a02",
+      "activityBarBadge.foreground": "#e7e7e7",
+      "sash.hoverBorder": "#ec92fd"
+    }
+=======
+  "folders": [
+    {
+      "name": "BWU",
+      "path": "."
+    }
+>>>>>>> 0a2f30f (Big move: changed repo to bwu)
   ],
   "settings": {
     "window.zoomLevel": 0.25,
@@ -21,6 +42,11 @@
         "scrollbar.shadow": "#0d0d0d"
       }
     },
+<<<<<<< HEAD
     "peacock.color": "#b60596",
+=======
+    "peacock.color": "#b60596"
+>>>>>>> ff1fefe (Big move: changed repo to bwu)
+>>>>>>> 0a2f30f (Big move: changed repo to bwu)
   }
 }
