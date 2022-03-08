@@ -27,7 +27,7 @@ header-includes:
   - \usepackage{float}
 toc: false
 highlight: yes
-bibliography: komadown.bib
+bibliography: brainworkup.bib
 biblio-style: apa
 link-citations: yes
 colorlinks: yes
