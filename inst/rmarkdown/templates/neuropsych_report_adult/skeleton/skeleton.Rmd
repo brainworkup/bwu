@@ -4,7 +4,7 @@ author:
   - name: "**Smalls, Biggie**"
 date: January 1, 2021
 output:
-  npsych.data::npsych_report_child:
+  bwu::neuropsych_report_adult:
     latex_engine: pdflatex
     citation_package: biblatex
     number_sections: false
@@ -127,6 +127,20 @@ params:
       - 10th grade
       - 11th grade
       - 12th grade
+      - Some college
+      - College freshman
+      - College sophomore
+      - College junior
+      - College senior
+      - Graduate student
+      - Medical student
+      - Post-doctoral student
+      - Other
+      - High school diploma
+      - College degree
+      - Masters degree
+      - Medical degree
+      - Doctoral degree
   doe1:
     label: "DOE 1st visit (NSE):"
     value: !r Sys.Date()
@@ -222,6 +236,8 @@ params:
       - parents
       - mother
       - father
+      - wife
+      - husband
       - partner
       - spouse
       - guardian
@@ -277,10 +293,6 @@ knitr::knit_engines$set(marginfigure = function(options) {
   eng_block(options)
 })
 ```
-
-(ref:wppsi4) Wechsler Preschool and Primary Scale of Intelligence, 4th ed (WPPSI-IV)
-
-(ref:wisc5) Wechsler Intelligence Scale for Children, 5th ed (WISC-V)
 
 (ref:wais4) Wechsler Adult Intelligence Scale, 4th ed (WAIS-IV)
 
@@ -562,7 +574,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:dob) `r params$dob`
 
-(ref:age) `r calc_age(params$dob, params$doe2)`
+(ref:age) `r npsych.data::calc_age(params$dob, params$doe2)`
 
 (ref:sex) `r params$sex`
 
@@ -595,22 +607,38 @@ cat(readLines("2_nse.md"), sep = "\n")
 
 ## Test Battery
 
--   (ref:wppsi4)
--   (ref:wisc5)
--   (ref:ktea3): Form A/B
--   (ref:wrat5): Green/Blue Form
+-   (ref:acs-topf)
+-   (ref:acs-word-choice)
+-   (ref:wais4)
 -   (ref:wiat4)
--   (ref:nepsy2)
--   (ref:dkefs)
+-   (ref:nabs): Form 1/2
+-   (ref:cvlt3-brief)
+-   (ref:dkefs): Color-Word Interference
 -   (ref:examiner)
 -   (ref:rocf)
+-   (ref:pegboard)
+-   (ref:caadid)
+-   (ref:caars-sr)
+-   (ref:caars-or)
+-   (ref:cefi-sr)
+-   (ref:cefi-or)
+-   (ref:pai)
+
+## Test Battery
+
+-   (ref:ktea3): Form A/B
+-   (ref:wrat5): Green/Blue Form
+-   (ref:nab): Form 1/2
+-   (ref:rbans): Form A/B/C/D
+-   (ref:nepsy2)
 -   (ref:cvltc)
+-   (ref:cvlt3)
 -   (ref:wms4)
+-   (ref:dkefs)
 -   (ref:tmt)
 -   (ref:bicycle)
 -   (ref:clock)
 -   (ref:cog-est)
--   (ref:pegboard)
 -   (ref:tomm)
 -   (ref:basc3-sdh)
 -   (ref:basc3-prs-child)
@@ -656,6 +684,7 @@ neuropsych <-
     na = c("", "NA", "--", "-"),
     .id = "filename"
   ) %>%
+  dplyr::filter(!is.na(percentile)) %>%
   dplyr::distinct() %>%
   dplyr::mutate(z = qnorm(percentile / 100)) %>%
   dplyr::mutate(domain = forcats::as_factor(domain)) %>%
@@ -1499,7 +1528,6 @@ Although standardized scores provide the clinician with an important and necessa
 ## Conversion of Test Scores
 
 ```{r ranges, double_escape=TRUE, escape=FALSE, fig.fullwidth=FALSE}
-options(show_col_types = FALSE)
 options(show_col_types = FALSE)
 range <- readr::read_csv(here::here(patient, "test_score_ranges.csv"))
 gt::gt(range) %>%

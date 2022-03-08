@@ -22,7 +22,7 @@ find_file <- function(template, file) {
                           "templates",
                           template,
                           file,
-                          package = "npsych.data")
+                          package = "bwu")
   if (template == "")
     stop("Couldn't find template file ", template, "/", file, call. = FALSE)
   template

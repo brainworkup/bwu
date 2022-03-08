@@ -2824,32 +2824,6 @@
       "Hash": "cb1d8d9f300a7e536b89c8a88c53f610",
       "Requirements": []
     },
-    "npsych.data": {
-      "Package": "npsych.data",
-      "Version": "0.2.1.9000",
-      "Source": "unknown",
-      "Hash": "74f22874244b2402eefabe2f4e9eeda7",
-      "Requirements": [
-        "bookdown",
-        "dplyr",
-        "forcats",
-        "ggplot2",
-        "ggthemes",
-        "glue",
-        "gt",
-        "here",
-        "htmltools",
-        "kableExtra",
-        "knitr",
-        "lubridate",
-        "magrittr",
-        "purrr",
-        "readr",
-        "rmarkdown",
-        "tibble",
-        "tidyselect"
-      ]
-    },
     "numDeriv": {
       "Package": "numDeriv",
       "Version": "2016.8-1.1",
@@ -3140,10 +3114,10 @@
     },
     "posterior": {
       "Package": "posterior",
-      "Version": "1.2.0",
+      "Version": "1.2.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "eee1bf053666bd7fe8410c6f8298ea74",
+      "Hash": "d93584bc476065c88564de68addf35d1",
       "Requirements": [
         "abind",
         "checkmate",
@@ -4940,14 +4914,13 @@
     },
     "xaringan": {
       "Package": "xaringan",
-      "Version": "0.22.1",
+      "Version": "0.23.1",
       "Source": "Repository",
       "Repository": "https://yihui.r-universe.dev",
-      "RemoteType": "repository",
       "RemoteUrl": "https://github.com/yihui/xaringan",
       "RemoteRef": "HEAD",
-      "RemoteSha": "cea0773a8cfd5e593e4985e87665f513a7fe2d3f",
-      "Hash": "51a54bf645d3f545d98026017050721f",
+      "RemoteSha": "5864e6ae136a773405eceb3cd8f056fc12c4aad4",
+      "Hash": "ad3d677eb3d49c5d258a4f2d7a794d65",
       "Requirements": [
         "htmltools",
         "knitr",

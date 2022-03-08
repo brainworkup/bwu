@@ -1,5 +1,8 @@
 # Load libraries ----------------------------------------------------------
 
+## bwu
+library(bwu)
+
 ## packages/tools/etc
 library(devtools)
 library(remotes)
@@ -27,10 +30,6 @@ library(hrbrthemes)
 library(distill)
 library(linl)
 library(rmdformats)
-
-# npsych komatufte
-library(npsych.data)
-library(komadown)
 
 ## C++
 library(Rcpp)
