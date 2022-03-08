@@ -46,6 +46,7 @@
       }
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
     "peacock.color": "#b60596",
 =======
     "peacock.color": "#b60596"
@@ -54,5 +55,11 @@
 >>>>>>> 0a2f30f (Big move: changed repo to bwu)
 =======
 >>>>>>> 613ce85 (fixing)
+=======
+    "peacock.color": "#b60596"
+=======
+    "peacock.color": "#b60596",
+>>>>>>> c593998 (fixing rebase on bwu workspace file)
+>>>>>>> 197e2c7 (fixing rebase on bwu workspace file)
   }
 }
