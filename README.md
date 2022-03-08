@@ -22,7 +22,7 @@ You can install the released version of npsych.data from
 [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
-devtools::install_github("brainworkup/npsych.data")
+devtools::install_github("brainworkup/bwu")
 ```
 
 ## Example
@@ -30,7 +30,7 @@ devtools::install_github("brainworkup/npsych.data")
 This is a basic example which shows you how to solve a common problem:
 
 ```r
-library(npsych.data)
+library(bwu)
 ```
 
 What is special about using `README.Rmd` instead of just `README.md`? You can
