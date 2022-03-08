@@ -1,5 +1,6 @@
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
   "folders": [
     {
       "name": "BWU",
@@ -19,6 +20,8 @@
       "sash.hoverBorder": "#ec92fd"
     }
 =======
+=======
+>>>>>>> 613ce85 (fixing)
   "folders": [
     {
       "name": "BWU",
@@ -46,7 +49,10 @@
     "peacock.color": "#b60596",
 =======
     "peacock.color": "#b60596"
+<<<<<<< HEAD
 >>>>>>> ff1fefe (Big move: changed repo to bwu)
 >>>>>>> 0a2f30f (Big move: changed repo to bwu)
+=======
+>>>>>>> 613ce85 (fixing)
   }
 }
