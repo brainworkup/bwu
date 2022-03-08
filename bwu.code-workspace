@@ -1,0 +1,26 @@
+{
+  "folders": [
+    {
+      "name": "BWU",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "window.zoomLevel": 0.25,
+    "files.autoSave": "afterDelay",
+    "workbench.colorCustomizations": {
+      "activityBar.activeBackground": "#e806bf",
+      "activityBar.activeBorder": "#b3d906",
+      "activityBar.background": "#e806bf",
+      "activityBar.foreground": "#e7e7e7",
+      "activityBar.inactiveForeground": "#e7e7e799",
+      "activityBarBadge.background": "#b3d906",
+      "activityBarBadge.foreground": "#15202b",
+      "sash.hoverBorder": "#e806bf",
+      "[Hyper Dracula]": {
+        "scrollbar.shadow": "#0d0d0d"
+      }
+    },
+    "peacock.color": "#b60596"
+  }
+}

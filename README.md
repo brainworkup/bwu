@@ -6,7 +6,7 @@ editor_options:
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# npsych.data
+# bwu: brainworkup neuropsychological package
 
 # Neuropsychological Testing Data Package
 
@@ -14,11 +14,11 @@ editor_options:
 
 <!-- badges: end -->
 
-The goal of npsych.data is to …
+The goal of bwu is to …
 
 ## Installation
 
-You can install the released version of npsych.data from
+You can install the released version of bwu from
 [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
