@@ -75,3 +75,4 @@ inst/rmarkdown/templates/npsychreport/skeleton/dsm5_icd10_diagnoses.pdf
 .Rbuildignore
 .Rprofile
 renv/.DS_Store
+renv/.DS_Store
