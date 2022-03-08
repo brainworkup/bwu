@@ -1416,10 +1416,10 @@
     },
     "flextable": {
       "Package": "flextable",
-      "Version": "0.6.10",
+      "Version": "0.7.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "4d80053f3159dff0b2c741350d7c2c9c",
+      "Hash": "c0ab683f6ee8b99be0e0cdce8ad53416",
       "Requirements": [
         "base64enc",
         "data.table",
@@ -2041,6 +2041,18 @@
         "tidyr"
       ]
     },
+    "hablar": {
+      "Package": "hablar",
+      "Version": "0.3.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "58ca0f8fff30f57b9ec11fecf673f8ac",
+      "Requirements": [
+        "dplyr",
+        "lubridate",
+        "purrr"
+      ]
+    },
     "hardhat": {
       "Package": "hardhat",
       "Version": "0.2.0",
@@ -2543,6 +2555,29 @@
       "Hash": "d908914ae53b04d4c0c0fd72ecc35370",
       "Requirements": []
     },
+    "learnr": {
+      "Package": "learnr",
+      "Version": "0.10.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "ee4c94c586f032847b5ff679935f2ba4",
+      "Requirements": [
+        "checkmate",
+        "ellipsis",
+        "evaluate",
+        "htmltools",
+        "htmlwidgets",
+        "jsonlite",
+        "knitr",
+        "markdown",
+        "rappdirs",
+        "renv",
+        "rmarkdown",
+        "rprojroot",
+        "shiny",
+        "withr"
+      ]
+    },
     "lhs": {
       "Package": "lhs",
       "Version": "1.1.4",
@@ -2788,6 +2823,32 @@
       "Repository": "CRAN",
       "Hash": "cb1d8d9f300a7e536b89c8a88c53f610",
       "Requirements": []
+    },
+    "npsych.data": {
+      "Package": "npsych.data",
+      "Version": "0.2.1.9000",
+      "Source": "unknown",
+      "Hash": "74f22874244b2402eefabe2f4e9eeda7",
+      "Requirements": [
+        "bookdown",
+        "dplyr",
+        "forcats",
+        "ggplot2",
+        "ggthemes",
+        "glue",
+        "gt",
+        "here",
+        "htmltools",
+        "kableExtra",
+        "knitr",
+        "lubridate",
+        "magrittr",
+        "purrr",
+        "readr",
+        "rmarkdown",
+        "tibble",
+        "tidyselect"
+      ]
     },
     "numDeriv": {
       "Package": "numDeriv",
@@ -3876,10 +3937,10 @@
     },
     "seriation": {
       "Package": "seriation",
-      "Version": "1.3.2",
+      "Version": "1.3.3",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "13bb841bb3a683362935dd72f5632c2d",
+      "Hash": "26bd559de3fc8d5067507bd52244965c",
       "Requirements": [
         "MASS",
         "TSP",
@@ -3922,10 +3983,10 @@
     },
     "sf": {
       "Package": "sf",
-      "Version": "1.0-6",
+      "Version": "1.0-7",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "9b7b141f7844870dda255584d62775a9",
+      "Hash": "d237b77320537f7793c7a4f83267cf50",
       "Requirements": [
         "DBI",
         "Rcpp",
