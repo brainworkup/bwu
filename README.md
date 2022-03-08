@@ -18,8 +18,8 @@ The goal of bwu is to …
 
 ## Installation
 
-You can install the released version of bwu from
-[CRAN](https://CRAN.R-project.org) with:
+You can install the developmental version of bwu from
+[GitHub](https://github.com) with:
 
 ``` r
 devtools::install_github("brainworkup/bwu")

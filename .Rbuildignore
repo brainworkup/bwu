@@ -19,3 +19,7 @@
 ^journal$
 ^\.DS\_Store$
 ^\.github$
+^bwu\.code-workspace$
+^dendron\.code-workspace$
+^bwu\.Rproj$
+^neuropsych\-report$

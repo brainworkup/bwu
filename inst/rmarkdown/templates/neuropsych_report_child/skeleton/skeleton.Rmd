@@ -4,7 +4,7 @@ author:
   - name: "**Smalls, Biggie**"
 date: January 1, 2021
 output:
-  npsych.data::npsych_report_child:
+  bwu::neuropsych_report_child:
     latex_engine: pdflatex
     citation_package: biblatex
     number_sections: false
@@ -27,7 +27,7 @@ header-includes:
   - \usepackage{float}
 toc: false
 highlight: yes
-bibliography: komadown.bib
+bibliography: brainworkup.bib
 biblio-style: apa
 link-citations: yes
 colorlinks: yes

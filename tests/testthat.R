@@ -1,4 +1,4 @@
 library(testthat)
-library(npsych.data)
+library(bwu)
 
-test_check("npsych.data")
+test_check("bwu")
