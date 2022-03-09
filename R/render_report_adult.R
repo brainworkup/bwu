@@ -1,6 +1,6 @@
-#' Render neuropsychological reports with rmarkdown and pagedown
+#' Render neuropsychological reports with rmarkdown and bookdown adult
 #'
-#' \code{render_report_ask} creates an npsych report.
+#' \code{render_report_adult} creates an neuropsych report.
 #'
 #' This is a generic function: methods can be defined for it directly or via the
 #' \code{\link{Summary}} group generic. For this to work properly, the arguments
@@ -16,16 +16,17 @@
 #'
 #' @author Joey W Trampush, \email{trampush@usc.edu}
 #'
+#' @import rmarkdown bookdown
 #'
 #' @export
-render_report_ask <- function(input, patient, ...) {
+render_report_adult <- function(input, patient, ...) {
 
   output <- rmarkdown::render(
     input = input,
-    output_format = "bookdown::pdf_document2",
+    output_format = "bwu::neuropsych_report_adult",
     params = "ask")
 
-  pagedown::chrome_print(
+  bookdown::pdf_document2(
     output,
     paste0("npsych-report", "_", patient, "_", Sys.Date(), ".pdf"))
 

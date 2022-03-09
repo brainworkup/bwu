@@ -1,7 +1,7 @@
 Package: bwu
 Type: Package
 Title: BrainWorkUp Neuropsychological Report Repository USC Psychiatry
-Version: 0.2.2.9000
+Version: 0.2.3.9000
 Author: person("Joey", "Trampush", email = trampush@usc.edu, role = c("aut", "cre"))
 Maintainer: Joey Trampush <trampush@usc.edu>
 Description: This package stores the functions and normative datasets to use for neuropsychological assessments at USC Keck School of Medicine. Hopefully it works.
@@ -13,35 +13,39 @@ Depends:
 RoxygenNote: 7.1.2.9000
 Roxygen: list(markdown = TRUE)
 Imports:
+    rmarkdown,
     bookdown,
     knitr,
     here,
+    magrittr,
+    htmltools,
+    png,
+    rJava,
+    stats,
+    dplyr,
+    stringr,
+    tabulizer
+Suggests:
+    tabulizerjars,
     purrr,
     readr,
-    dplyr,
     tibble,
     glue,
     forcats,
     lubridate,
     ggplot2,
+    hablar,
     ggthemes,
-    gt,
-    kableExtra,
-    magrittr,
     tidyselect,
-    htmltools,
-    hablar
-Suggests:
-    rmarkdown,
+    kableExtra,
+    gt,
     testthat,
     xfun,
     xaringan,
     pagedown,
-    tabulizer,
     covr,
     spelling,
-    stats,
     highcharter,
-    tufte,
+    tufte
 VignetteBuilder: knitr
 Config/testthat/edition: 3

@@ -11,10 +11,10 @@
 #' @param ... additional arguments
 #'
 #' @return A dotplot using ggplot2
-#' @export
 #' @examples
 #' require(magrittr)
 #' make_tibble(tibb = iq, data = neurocog, pheno = "Intelligence/General Ability")
+#' @export
 make_tibble <- function(tibb,
                         data = c("neurocog", "neurobehav"),
                         pheno = NULL,

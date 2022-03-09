@@ -1,0 +1,18 @@
+#' @title Rename neuropsych table scale variable
+#'
+#' @param table Name of table
+#' @param scale Name of scale
+#' @param name1 Old name
+#' @param name2 New name
+#'
+#' @import stringr dplyr
+#' @export
+rename_scale <- function(table, scale, name1, name2) {
+  table <-
+    table %>%
+    dplyr::mutate(scale = stringr::str_replace(
+      string = scale,
+      pattern = name1,
+      replacement = name2
+    ))
+}
