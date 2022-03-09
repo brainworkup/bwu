@@ -5,7 +5,8 @@
 #' @param name1 Old name
 #' @param name2 New name
 #'
-#' @import stringr dplyr
+#' @importFrom stringr str_replace
+#'
 #' @export
 rename_scale <- function(table, scale, name1, name2) {
   table <-
