@@ -2,7 +2,7 @@
 % Please edit documentation in R/render_report_adult.R
 \name{render_report_adult}
 \alias{render_report_adult}
-\title{Render neuropsychological reports with rmarkdown and bookdown adult}
+\title{neuropsych_report_adut}
 \usage{
 render_report_adult(input, patient, ...)
 }
@@ -17,9 +17,10 @@ render_report_adult(input, patient, ...)
 A report for the \code{patient} who has this index \code{input}.
 }
 \description{
+Render neuropsychological reports with rmarkdown and bookdown adult
+
 \code{render_report_adult} creates an neuropsych report.
-}
-\details{
+
 This is a generic function: methods can be defined for it directly or via the
 \code{\link{Summary}} group generic. For this to work properly, the arguments
 \code{...} should be unnamed, and dispatch is on the first argument.
