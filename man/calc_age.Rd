@@ -23,8 +23,8 @@ intervals are specific to the two dates. Periods give the actual length
 of time between those dates, so convert to period and extract the year.
 }
 \examples{
-
 dob <- "1977-07-13"
 doe <- "2021-04-04"
 calc_age(dob, doe)
+
 }

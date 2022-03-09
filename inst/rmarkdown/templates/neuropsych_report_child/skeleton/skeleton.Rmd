@@ -229,9 +229,9 @@ params:
       - none/self
 ---
 
-```{r patient, include=F}
-patient <- "BIGGIE"
-pronoun <- "his/her"
+```{r patient, include=FALSE}
+patient <- params$first_name
+pronoun <- params$his_her
 ```
 
 ```{r, setup, include = FALSE, results='hide', warning=FALSE}
@@ -267,7 +267,7 @@ knitr::opts_chunk$set(
 )
 knitr::opts_knit$set(width = 50)
 options(digits = 1, warnPartialMatchArgs = FALSE)
-options(knitr.kable.NA = "--")
+options(knitr.kable.NA = "--", show_col_types = FALSE)
 ```
 
 ```{r}

@@ -23,4 +23,5 @@ Make a dotplot for cognitive domains
 }
 \examples{
 dotplot(iris, iris$Sepal.Length, iris$Species)
+
 }

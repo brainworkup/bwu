@@ -3,14 +3,7 @@ title: "Confidential Neuropsychological Report"
 author:
   - name: "**Smalls, Biggie**"
 date: January 1, 2021
-output:
-  bwu::neuropsych_report_adult:
-    latex_engine: pdflatex
-    citation_package: biblatex
-    number_sections: false
-    keep_md: true
-    keep_tex: false
-    always_allow_html: true
+output: bwu::neuropsych_report_adult
 site: bookdown::bookdown_site
 editor_options:
   markdown:
@@ -235,8 +228,8 @@ vignette: >
 ---
 
 ```{r patient, include=F}
-patient <- "BIGGIE"
-pronoun <- "his/her"
+patient <- params$first_name
+pronoun <- params$his_her
 ```
 
 ```{r, setup, include = FALSE, results='hide', warning=FALSE}

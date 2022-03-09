@@ -10,13 +10,13 @@
 #' @param unit unit year, month or day
 #'
 #' @return age
-#' @export
 #'
 #' @examples
-#'
 #' dob <- "1977-07-13"
 #' doe <- "2021-04-04"
 #' calc_age(dob, doe)
+#'
+#' @export
 calc_age <-
   function(birthDate,
            refDate = Sys.Date(),
