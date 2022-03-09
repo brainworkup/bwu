@@ -562,7 +562,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:dob) `r params$dob`
 
-(ref:age) `r calc_age(params$dob, params$doe2)`
+(ref:age) `r bwu::calc_age(params$dob, params$doe2)`
 
 (ref:sex) `r params$sex`
 
