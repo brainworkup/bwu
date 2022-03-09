@@ -1,4 +1,5 @@
-#' Render neuropsychological reports with rmarkdown and bookdown adult
+#' @title neuropsych_report_adut
+#' @description Render neuropsychological reports with rmarkdown and bookdown adult
 #'
 #' \code{render_report_adult} creates an neuropsych report.
 #'
@@ -20,14 +21,14 @@
 #'
 #' @export
 render_report_adult <- function(input, patient, ...) {
-
   output <- rmarkdown::render(
     input = input,
     output_format = "bwu::neuropsych_report_adult",
-    params = "ask")
+    params = "ask"
+  )
 
   bookdown::pdf_document2(
     output,
-    paste0("npsych-report", "_", patient, "_", Sys.Date(), ".pdf"))
-
+    paste0("npsych-report", "_", patient, "_", Sys.Date(), ".pdf")
+  )
 }

@@ -19,7 +19,7 @@ neuropsych_report_child <- function(...,
                       number_sections = number_sections,
                       md_extensions = md_extensions,
                       format = "neuropsych_report_child",
-                      template = "neuropsych_report.tex",
+                      template = "style_tufte.tex",
                       csl = NULL,
                       colorlinks = TRUE)
 }

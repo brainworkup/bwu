@@ -27,7 +27,7 @@ neuropsych_report_adult <- function(...,
     number_sections = number_sections,
     md_extensions = md_extensions,
     format = "neuropsych_report_adult",
-    template = "neuropsych_report.tex",
+    template = "style_tufte.tex",
     csl = NULL,
     colorlinks = TRUE
   )
