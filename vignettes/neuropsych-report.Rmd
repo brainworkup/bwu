@@ -3,7 +3,7 @@ title: "Confidential Neuropsychological Report"
 author:
   - name: "**Smalls, Biggie**"
 date: January 1, 2021
-output: rmarkdown::html_vignette
+output: bwu::neuropsych_report_adult
 site: bookdown::bookdown_site
 editor_options:
   markdown:
