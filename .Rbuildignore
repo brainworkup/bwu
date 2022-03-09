@@ -23,3 +23,5 @@
 ^dendron\.code-workspace$
 ^bwu\.Rproj$
 ^neuropsych\-report$
+^neuropsych\-report\.html$
+^neuropsych\-report\.*$
