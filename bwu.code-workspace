@@ -19,7 +19,8 @@
       "sash.hoverBorder": "#57b8b2",
       "[Hyper Dracula]": {
         "scrollbar.shadow": "#0d0d0d"
-      }
+      },
+      "sideBar.border": "#57b8b2"
     },
     "peacock.color": "#419b95"
   }

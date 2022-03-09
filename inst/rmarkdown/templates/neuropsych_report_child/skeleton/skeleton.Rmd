@@ -802,7 +802,7 @@ knitr::read_chunk(here::here(patient, "2_iq.R"))
 knitr::read_chunk(here::here(patient, "2_iq.R"))
 ```
 
-```{r 02-glue-iq, eval=T, double_escape=T, escape=F}
+```{r 02-glue-iq, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache'}
 ```
 
 ```{r}
@@ -861,7 +861,7 @@ knitr::read_chunk(here::here(patient, "2_academics.R"))
 knitr::read_chunk(here::here(patient, "2_academics.R"))
 ```
 
-```{r 02-glue-academics, eval=T, double_escape=T, escape=F}
+```{r 02-glue-academics, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache'}
 ```
 
 ```{r, eval=T}
@@ -920,7 +920,7 @@ knitr::read_chunk(here::here(patient, "2_verbal.R"))
 knitr::read_chunk(here::here(patient, "2_verbal.R"))
 ```
 
-```{r 02-glue-verbal, eval=T, double_escape=T, escape=F}
+```{r 02-glue-verbal, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache'}
 ```
 
 ```{r}
@@ -979,7 +979,7 @@ knitr::read_chunk(here::here(patient, "2_spatial.R"))
 knitr::read_chunk(here::here(patient, "2_spatial.R"))
 ```
 
-```{r 02-glue-spatial, eval=T, double_escape=T, escape=F}
+```{r 02-glue-spatial, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache'}
 ```
 
 ```{r}
@@ -1038,7 +1038,7 @@ knitr::read_chunk(here::here(patient, "2_executive.R"))
 knitr::read_chunk(here::here(patient, "2_executive.R"))
 ```
 
-```{r 02-glue-executive, eval=T, double_escape=T, escape=F}
+```{r 02-glue-executive, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache'}
 ```
 
 ```{r}
@@ -1097,7 +1097,7 @@ knitr::read_chunk(here::here(patient, "2_memory.R"))
 knitr::read_chunk(here::here(patient, "2_memory.R"))
 ```
 
-```{r 02-glue-memory, eval=T, double_escape=T, escape=F}
+```{r 02-glue-memory, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache'}
 ```
 
 ```{r}
@@ -1156,7 +1156,7 @@ knitr::read_chunk(here::here(patient, "2_motor.R"))
 knitr::read_chunk(here::here(patient, "2_motor.R"))
 ```
 
-```{r 02-glue-motor, eval=T, double_escape=T, escape=F}
+```{r 02-glue-motor, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache'}
 ```
 
 ```{r}
@@ -1215,7 +1215,7 @@ knitr::read_chunk(here::here(patient, "2_social.R"))
 knitr::read_chunk(here::here(patient, "2_social.R"))
 ```
 
-```{r 02-glue-social, eval=T, double_escape=T, escape=F}
+```{r 02-glue-social, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache'}
 ```
 
 ```{r}
@@ -1274,7 +1274,7 @@ knitr::read_chunk(here::here(patient, "2_adhd.R"))
 knitr::read_chunk(here::here(patient, "2_adhd.R"))
 ```
 
-```{r 02-glue-adhd, eval=T, double_escape=T, escape=F}
+```{r 02-glue-adhd, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache'}
 ```
 
 ```{r}
@@ -1335,7 +1335,7 @@ knitr::read_chunk(here::here(patient, "2_emotion.R"))
 knitr::read_chunk(here::here(patient, "2_emotion.R"))
 ```
 
-```{r 02-glue-emotion, eval=T, double_escape=T, escape=F}
+```{r 02-glue-emotion, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache'}
 ```
 
 ```{r}
@@ -1382,12 +1382,12 @@ knitr::read_chunk(here::here(patient, "2_emotion.R"))
 ```{r domain-df}
 domain <-
   neurocog %>%
-  filter(test_type == "npsych_test") %>%
-  filter(!is.na(domain))
+  dplyr::filter(test_type == "npsych_test") %>%
+  dplyr::filter(!is.na(domain))
 ```
 
 ```{r domain-plot, fig.cap = '(ref:domain)', fig.height = 3.5}
-dotplot(
+bwu::dotplot(
   data = domain,
   x = domain$z_mean_dom,
   y = domain$domain,
@@ -1400,12 +1400,12 @@ dotplot(
 ```{r pass-df}
 pass <-
   neurocog %>%
-  filter(test_type == "npsych_test") %>%
-  filter(!is.na(pass))
+  dplyr::filter(test_type == "npsych_test") %>%
+  dplyr::filter(!is.na(pass))
 ```
 
 ```{r pass-plot, fig.cap = '(ref:pass)', eval=T, fig.env='marginfigure', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
-dotplot(
+bwu::dotplot(
   data = pass,
   x = pass$z_mean_pass,
   y = pass$pass,
@@ -1418,12 +1418,12 @@ dotplot(
 ```{r nonverbal-df}
 nonverbal <-
   neurocog %>%
-  filter(test_type == "npsych_test") %>%
-  filter(!is.na(verbal))
+  dplyr::filter(test_type == "npsych_test") %>%
+  dplyr::filter(!is.na(verbal))
 ```
 
 ```{r nonverbal-plot, fig.cap = '(ref:nonverbal)', eval=T, fig.env='marginfigure', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
-dotplot(
+bwu::dotplot(
   data = nonverbal,
   x = nonverbal$z_mean_verbal,
   y = nonverbal$verbal,
@@ -1436,18 +1436,19 @@ dotplot(
 ```{r timed-df}
 timed <-
   neurocog %>%
-  filter(test_type == "npsych_test") %>%
-  filter(!is.na(timed))
+  dplyr::filter(test_type == "npsych_test") %>%
+  dplyr::filter(!is.na(timed))
 ```
 
 ```{r timed-plot, fig.cap = '(ref:timed)', eval=T, fig.env='marginfigure', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
-dotplot(
+bwu::dotplot(
   data = timed,
   x = timed$z_mean_timed,
   y = timed$timed,
   domain = "timed"
 )
 ```
+
 
 ```{r, sirf, results='asis'}
 cat(readLines("3_sirf.md"), sep = "\n")
