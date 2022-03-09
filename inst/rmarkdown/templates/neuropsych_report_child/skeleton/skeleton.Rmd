@@ -802,7 +802,7 @@ knitr::read_chunk(here::here(patient, "2_iq.R"))
 knitr::read_chunk(here::here(patient, "2_iq.R"))
 ```
 
-```{r 02-glue-iq, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache'}
+```{r 02-glue-iq, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache/'}
 ```
 
 ```{r}
@@ -861,7 +861,7 @@ knitr::read_chunk(here::here(patient, "2_academics.R"))
 knitr::read_chunk(here::here(patient, "2_academics.R"))
 ```
 
-```{r 02-glue-academics, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache'}
+```{r 02-glue-academics, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache/'}
 ```
 
 ```{r, eval=T}
@@ -920,7 +920,7 @@ knitr::read_chunk(here::here(patient, "2_verbal.R"))
 knitr::read_chunk(here::here(patient, "2_verbal.R"))
 ```
 
-```{r 02-glue-verbal, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache'}
+```{r 02-glue-verbal, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache/'}
 ```
 
 ```{r}
@@ -979,7 +979,7 @@ knitr::read_chunk(here::here(patient, "2_spatial.R"))
 knitr::read_chunk(here::here(patient, "2_spatial.R"))
 ```
 
-```{r 02-glue-spatial, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache'}
+```{r 02-glue-spatial, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache/'}
 ```
 
 ```{r}
@@ -1038,7 +1038,7 @@ knitr::read_chunk(here::here(patient, "2_executive.R"))
 knitr::read_chunk(here::here(patient, "2_executive.R"))
 ```
 
-```{r 02-glue-executive, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache'}
+```{r 02-glue-executive, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache/'}
 ```
 
 ```{r}
@@ -1097,7 +1097,7 @@ knitr::read_chunk(here::here(patient, "2_memory.R"))
 knitr::read_chunk(here::here(patient, "2_memory.R"))
 ```
 
-```{r 02-glue-memory, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache'}
+```{r 02-glue-memory, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache/'}
 ```
 
 ```{r}
@@ -1156,7 +1156,7 @@ knitr::read_chunk(here::here(patient, "2_motor.R"))
 knitr::read_chunk(here::here(patient, "2_motor.R"))
 ```
 
-```{r 02-glue-motor, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache'}
+```{r 02-glue-motor, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache/'}
 ```
 
 ```{r}
@@ -1215,7 +1215,7 @@ knitr::read_chunk(here::here(patient, "2_social.R"))
 knitr::read_chunk(here::here(patient, "2_social.R"))
 ```
 
-```{r 02-glue-social, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache'}
+```{r 02-glue-social, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache/'}
 ```
 
 ```{r}
@@ -1274,7 +1274,7 @@ knitr::read_chunk(here::here(patient, "2_adhd.R"))
 knitr::read_chunk(here::here(patient, "2_adhd.R"))
 ```
 
-```{r 02-glue-adhd, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache'}
+```{r 02-glue-adhd, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache/'}
 ```
 
 ```{r}
@@ -1335,7 +1335,7 @@ knitr::read_chunk(here::here(patient, "2_emotion.R"))
 knitr::read_chunk(here::here(patient, "2_emotion.R"))
 ```
 
-```{r 02-glue-emotion, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache'}
+```{r 02-glue-emotion, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache/'}
 ```
 
 ```{r}
