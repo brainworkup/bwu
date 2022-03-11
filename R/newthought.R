@@ -21,8 +21,6 @@ template_resources = function(name, ...) {
   system.file('rmarkdown', 'templates', name, 'resources', ..., package = 'tufte')
 }
 
-gsub_fixed = function(...)
-  gsub(..., fixed = TRUE)
+gsub_fixed = function(...) gsub(..., fixed = TRUE)
 
-pandoc2.0 = function()
-  rmarkdown::pandoc_available('2.0')
+pandoc2.0 = function() rmarkdown::pandoc_available('2.0')

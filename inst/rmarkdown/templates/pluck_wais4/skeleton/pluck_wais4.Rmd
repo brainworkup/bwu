@@ -227,7 +227,7 @@ area <- readr::read_rds(here::here(patient, "pre_csv", "area_wais4.rds"))
 ## Extract tables
 
 ```{r extract, include=FALSE, cache=TRUE}
-plucked_table = gpluck_extract_table(
+plucked_table <- gpluck_extract_table(
   file = file,
   pages = pages,
   area = area,
