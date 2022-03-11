@@ -7,7 +7,7 @@
 #' @param level confidence level
 #' @import stats
 #' @return Returns 95% CI
-#' @examples ci_95(x = 88, m = 100, sd = 15, rel = .80)
+#' @examples calc_ci_95(x = 88, m = 100, sd = 15, rel = .80)
 #'
 #' @export
 calc_ci_95 <- function(x, m, sd, rel, level = .95) {
@@ -18,7 +18,7 @@ calc_ci_95 <- function(x, m, sd, rel, level = .95) {
   ci_95_lo <- true_score - error
   ci_95_hi <- true_score + error
 
-  ci_95 <- paste0(c(true_score, ci_95_lo, "-", ci_95_hi), sep = "")
+  calc_ci_95 <- paste0(c(true_score, ci_95_lo, "-", ci_95_hi), sep = "")
 
-  return(ci_95)
+  return(calc_ci_95)
 }

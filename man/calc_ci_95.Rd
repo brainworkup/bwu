@@ -24,6 +24,6 @@ Returns 95\% CI
 To compute confidence interval.
 }
 \examples{
-ci_95(x = 88, m = 100, sd = 15, rel = .80)
+calc_ci_95(x = 88, m = 100, sd = 15, rel = .80)
 
 }

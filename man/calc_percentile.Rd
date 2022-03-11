@@ -12,8 +12,6 @@ calc_percentile(score, mean, sd)
 \item{mean}{Mean of whatever type of score}
 
 \item{sd}{SD of whatever type of score}
-
-\item{percentile}{percentile rank score}
 }
 \value{
 percentile score

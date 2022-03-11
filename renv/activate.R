@@ -2,7 +2,7 @@
 local({
 
   # the requested version of renv
-  version <- "0.15.4"
+  version <- "0.15.4-4"
 
   # the project directory
   project <- getwd()
@@ -800,7 +800,7 @@ local({
   
     # find strings in the JSON
     pattern <- '["](?:(?:\\\\.)|(?:[^"\\\\]))*?["]'
-    locs <- gregexpr(pattern, text)[[1]]
+    locs <- gregexpr(pattern, text, perl = TRUE)[[1]]
   
     # if any are found, replace them with placeholders
     replaced <- text
