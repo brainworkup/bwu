@@ -7,12 +7,11 @@
 #' @return percentile score
 #'
 #' @examples
-#' require(magrittr)
-#' require(dplyr)
 #' calc_percentile(score = 103, mean = 100, sd = 15)
 #' @export
 calc_percentile <-
-  function(score, mean, sd, percentile = percentile) {
+  function(score, mean, sd) {
+
     z <- (score - mean) / sd
     percentile <- round(pnorm(z) * 100, 0)
 

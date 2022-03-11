@@ -2,8 +2,8 @@
 
 export("%>%")
 export(calc_age)
+export(calc_ci_95)
 export(calc_percentile)
-export(ci_95)
 export(dotplot)
 export(drilldown)
 export(gpluck_extract_table)

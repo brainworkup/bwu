@@ -42,7 +42,7 @@ dt %>%
 
 ## ---- 03-table-social ------------
 tb <-
-  npsych.data::make_tibble(
+  bwu::make_tibble(
     tibb = social,
     data = neurocog,
     pheno = "Social Cognition"
@@ -80,7 +80,7 @@ df <-
   dplyr::filter(scale %in% filter_domain)
 
 ## ---- 06-plot-subdomain-social -----------------
-npsych.data::dotplot(
+bwu::dotplot(
   data = df,
   x = df$z_mean_sub,
   y = df$subdomain,
@@ -88,7 +88,7 @@ npsych.data::dotplot(
 )
 
 ## ---- 07-plot-narrow-social -------------------
-npsych.data::dotplot(
+bwu::dotplot(
   data = df,
   x = df$z_mean_narrow,
   y = df$narrow,

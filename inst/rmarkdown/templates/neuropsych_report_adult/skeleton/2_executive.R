@@ -129,7 +129,7 @@ dt %>%
 
 ## ---- 03-table-executive ------------
 tb <-
-  npsych.data::make_tibble(
+  bwu::make_tibble(
     tibb = executive,
     data = neurocog,
     pheno = "Attention/Executive"
@@ -167,7 +167,7 @@ df <-
   dplyr::filter(scale %in% filter_domain)
 
 ## ---- 06-plot-subdomain-executive -----------------
-npsych.data::dotplot(
+bwu::dotplot(
   data = df,
   x = df$z_mean_sub,
   y = df$subdomain,
@@ -175,7 +175,7 @@ npsych.data::dotplot(
 )
 
 ## ---- 07-plot-narrow-executive -------------------
-npsych.data::dotplot(
+bwu::dotplot(
   data = df,
   x = df$z_mean_narrow,
   y = df$narrow,

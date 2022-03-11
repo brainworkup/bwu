@@ -109,7 +109,7 @@ dt %>%
 
 ## ---- 03-table-emotion ------------
 tb <-
-  npsych.data::make_tibble(
+  bwu::make_tibble(
     tibb = tb,
     data = neurobehav,
     pheno = "Behavioral/Emotional/Social"
@@ -147,7 +147,7 @@ df <-
   dplyr::filter(scale %in% filter_domain)
 
 ## ---- 06-plot-subdomain-emotion -------------------
-npsych.data::dotplot(
+bwu::dotplot(
   data = df,
   x = df$z_mean_sub,
   y = df$subdomain,
@@ -155,7 +155,7 @@ npsych.data::dotplot(
 )
 
 ## ---- 07-plot-narrow-emotion --------------------
-npsych.data::dotplot(
+bwu::dotplot(
   data = df,
   x = df$z_mean_narrow,
   y = df$narrow,

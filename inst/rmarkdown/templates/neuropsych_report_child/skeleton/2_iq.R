@@ -39,7 +39,7 @@ dt %>%
 
 ## ---- 03-table-iq ------------
 tb <-
-  npsych.data::make_tibble(
+  bwu::make_tibble(
     tibb = tb,
     data = neurocog,
     pheno = "Intelligence/General Ability"
@@ -80,7 +80,7 @@ df <-
 # dplyr::filter(scale != "NAB Total Index")
 
 ## ---- 06-plot-subdomain-iq --------------------
-npsych.data::dotplot(
+bwu::dotplot(
   data = df,
   x = df$z_mean_sub,
   y = df$subdomain,
@@ -88,7 +88,7 @@ npsych.data::dotplot(
 )
 
 ## ---- 07-plot-narrow-iq -------------------
-npsych.data::dotplot(
+bwu::dotplot(
   data = df,
   x = df$z_mean_narrow,
   y = df$narrow,

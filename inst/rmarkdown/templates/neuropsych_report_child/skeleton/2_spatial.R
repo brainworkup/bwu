@@ -49,7 +49,7 @@ dt %>%
 
 ## ---- 03-table-spatial ------------
 tb <-
-  npsych.data::make_tibble(
+  bwu::make_tibble(
     tibb = tb,
     data = neurocog,
     pheno = "Visual Perception/Construction"
@@ -87,7 +87,7 @@ df <-
   dplyr::filter(scale %in% filter_domain)
 
 ## ---- 06-plot-subdomain-spatial ------------------
-npsych.data::dotplot(
+bwu::dotplot(
   data = df,
   x = df$z_mean_sub,
   y = df$subdomain,
@@ -95,7 +95,7 @@ npsych.data::dotplot(
 )
 
 ## ---- 07-plot-narrow-spatial --------------------
-npsych.data::dotplot(
+bwu::dotplot(
   data = df,
   x = df$z_mean_narrow,
   y = df$narrow,

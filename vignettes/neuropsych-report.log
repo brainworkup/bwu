@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.3.8)  9 MAR 2022 03:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.3.10)  11 MAR 2022 08:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -246,16 +246,16 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 ) (/Users/joey/Library/TinyTeX/texmf-dist/tex/latex/ragged2e/ragged2e.sty
 Package: ragged2e 2021/12/15 v3.1 ragged2e Package
 (/Users/joey/Library/TinyTeX/texmf-dist/tex/latex/footmisc/footmisc.sty
-Package: footmisc 2022/03/07 v6.0c a miscellany of footnote facilities
+Package: footmisc 2022/03/08 v6.0d a miscellany of footnote facilities
 \FN@temptoken=\toks19
 \footnotemargin=\dimen177
 \@outputbox@depth=\dimen178
-Package footmisc Info: Declaring symbol style bringhurst on input line 691.
-Package footmisc Info: Declaring symbol style chicago on input line 699.
-Package footmisc Info: Declaring symbol style wiley on input line 708.
-Package footmisc Info: Declaring symbol style lamport-robust on input line 719.
-Package footmisc Info: Declaring symbol style lamport* on input line 739.
-Package footmisc Info: Declaring symbol style lamport*-robust on input line 760.
+Package footmisc Info: Declaring symbol style bringhurst on input line 695.
+Package footmisc Info: Declaring symbol style chicago on input line 703.
+Package footmisc Info: Declaring symbol style wiley on input line 712.
+Package footmisc Info: Declaring symbol style lamport-robust on input line 723.
+Package footmisc Info: Declaring symbol style lamport* on input line 743.
+Package footmisc Info: Declaring symbol style lamport*-robust on input line 764.
 )
 \CenteringLeftskip=\skip65
 \RaggedLeftLeftskip=\skip66
@@ -1228,7 +1228,7 @@ Package rerunfilecheck Info: File `neuropsych-report.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  29178 strings out of 480201
- 553948 string characters out of 5894159
+ 553948 string characters out of 5894158
  999899 words of memory out of 5000000
  46589 multiletter control sequences out of 15000+600000
  548618 words of font info for 114 fonts, out of 8000000 for 9000

@@ -6,28 +6,33 @@ Author: person("Joey", "Trampush", email = trampush@usc.edu, role = c("aut", "cr
 Maintainer: Joey Trampush <trampush@usc.edu>
 Description: This package stores the functions and normative datasets to use for neuropsychological assessments at USC Keck School of Medicine. Hopefully it works.
 License: GPL-3
-Encoding: UTF-8
 LazyData: true
 Depends:
     R (>= 3.10)
-RoxygenNote: 7.1.2.9000
-Roxygen: list(markdown = TRUE)
 Imports:
-    rmarkdown,
-    bookdown,
-    knitr,
     here,
+    fs,
+    miniUI,
     magrittr,
     htmltools,
+    purrr (>= 0.3.2),
+    rlang (>= 0.4.0),
+    rmarkdown (>= 2.10),
+    rstudioapi,
     png,
     rJava,
     stats,
     dplyr,
     stringr,
-    tabulizer
+    shiny,
+    usethis (>= 1.5.0),
+    tabulizer,
+    bookdown
 Suggests:
+    knitr,
+    blogdown,
     tabulizerjars,
-    purrr,
+    pkgdown,
     readr,
     tibble,
     glue,
@@ -39,13 +44,18 @@ Suggests:
     tidyselect,
     kableExtra,
     gt,
-    testthat,
+    testthat (>= 3.0.0),
     xfun,
     xaringan,
     pagedown,
     covr,
     spelling,
     highcharter,
+    roxygen2,
     tufte
 VignetteBuilder: knitr
+Language: en-US
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2.9000
 Config/testthat/edition: 3

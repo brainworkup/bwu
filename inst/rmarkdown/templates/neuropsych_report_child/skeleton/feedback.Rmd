@@ -52,7 +52,7 @@ library(manipulateWidget)
 library(tibble)
 library(svglite)
 library(gifski)
-
+library(bwu)
 ## knitr options
 options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(

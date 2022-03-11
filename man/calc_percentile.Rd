@@ -4,7 +4,7 @@
 \alias{calc_percentile}
 \title{Convert T scores to z scores to percentiles}
 \usage{
-calc_percentile(score, mean, sd, percentile = percentile)
+calc_percentile(score, mean, sd)
 }
 \arguments{
 \item{score}{Test score}
@@ -22,7 +22,5 @@ percentile score
 Convert T scores to z scores to percentiles
 }
 \examples{
-require(magrittr)
-require(dplyr)
 calc_percentile(score = 103, mean = 100, sd = 15)
 }

@@ -10,7 +10,7 @@
 #' @examples ci_95(x = 88, m = 100, sd = 15, rel = .80)
 #'
 #' @export
-ci_95 <- function(x, m, sd, rel, level = .95) {
+calc_ci_95 <- function(x, m, sd, rel, level = .95) {
   sem <- sd * sqrt(1 - rel)
   true_score <- (x - m) * rel + m # true score
   z <- -stats::qnorm((1 - level) / 2)

@@ -5,11 +5,9 @@ fish_shell_commmands.sh
 .DS_Store
 renv/.DS_Store
 .vscode
-npsych.data.code-workspace
 journal/
 .gitignore
 README.Rmd
-daily-note-2021-07-23.md
 renv/activate.R
 
 # Created by https://www.toptal.com/developers/gitignore/api/r

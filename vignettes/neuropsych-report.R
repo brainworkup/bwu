@@ -1,9 +1,9 @@
 params <-
 list(first_name = "Biggie", last_name = "Smalls", mrn = "000000000", 
-    dob = structure(19060, class = "Date"), sex = "Male", race = "White/Caucasian", 
-    hand = "Right", educ = "Dropped outta high school", doe1 = structure(19060, class = "Date"), 
-    doe2 = structure(19060, class = "Date"), doe3 = structure(19060, class = "Date"), 
-    doe4 = structure(19060, class = "Date"), he_she = "he", his_her = "his", 
+    dob = structure(19062, class = "Date"), sex = "Male", race = "White/Caucasian", 
+    hand = "Right", educ = "Dropped outta high school", doe1 = structure(19062, class = "Date"), 
+    doe2 = structure(19062, class = "Date"), doe3 = structure(19062, class = "Date"), 
+    doe4 = structure(19062, class = "Date"), he_she = "he", his_her = "his", 
     him_her = "him", he_she_cap = "He", his_her_cap = "His", 
     him_her_cap = "Him", dx1 = "ADHD", dx2 = "depression", refdoc = "Dr Dre")
 

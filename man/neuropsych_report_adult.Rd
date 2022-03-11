@@ -40,8 +40,6 @@ Rmarkdown Template for Neuropsychological Report Adult
 }
 \examples{
 
-library(rmarkdown)
-library(bookdown)
 rmarkdown::draft("neuropsych-report.Rmd",
                  template = "neuropsych_report_adult",
                  package = "bwu",

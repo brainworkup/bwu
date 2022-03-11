@@ -101,7 +101,7 @@ dt %>%
 
 ## ---- 03-table-memory ------------
 tb <-
-  npsych.data::make_tibble(
+  bwu::make_tibble(
     tibb = tb,
     data = neurocog,
     pheno = "Memory"
@@ -142,7 +142,7 @@ df <-
   dplyr::filter(scale != "Total Repetitions")
 
 ## ---- 06-plot-subdomain-memory -----------------
-npsych.data::dotplot(
+bwu::dotplot(
   data = df,
   x = df$z_mean_sub,
   y = df$subdomain,
@@ -150,7 +150,7 @@ npsych.data::dotplot(
 )
 
 ## ---- 07-plot-narrow-memory -------------------
-npsych.data::dotplot(
+bwu::dotplot(
   data = df,
   x = df$z_mean_narrow,
   y = df$narrow,

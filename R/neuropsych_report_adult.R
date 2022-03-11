@@ -9,8 +9,6 @@
 #' @return R Markdown output format to pass to [rmarkdown::render()]
 #' @examples
 #'
-#' library(rmarkdown)
-#' library(bookdown)
 #' rmarkdown::draft("neuropsych-report.Rmd",
 #'                  template = "neuropsych_report_adult",
 #'                  package = "bwu",
