@@ -25,3 +25,8 @@
 ^neuropsych\-report$
 ^neuropsych\-report\.html$
 ^neuropsych\-report\.*$
+^neuropsych\-report\.log$
+^neuropsych\-report\.pdf$
+^neuropsych\-report\.R$
+^neuropsych\-report\.Rmd$
+^neuropsych\-report\.DS\_Store$
