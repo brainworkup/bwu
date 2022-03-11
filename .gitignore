@@ -1,11 +1,10 @@
 .Rproj.user
 .Rprofile
+.Renviron
 data-raw/
-fish_shell_commmands.sh
 .DS_Store
 renv/.DS_Store
 .vscode
-journal/
 .gitignore
 README.Rmd
 renv/activate.R
@@ -72,5 +71,4 @@ inst/rmarkdown/templates/npsychreport/skeleton/dsm5_icd10_diagnoses.pdf
 # New 1/4/22
 .Rbuildignore
 .Rprofile
-renv/.DS_Store
-bwu_core_pkgs.md
+.Renviron
