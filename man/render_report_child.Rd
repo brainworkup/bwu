@@ -29,6 +29,3 @@ This is a generic function: methods can be defined for it directly or via the
 Do not operate heavy machinery within 8 hours of using this function.
 }
 
-\author{
-Joey W Trampush, \email{trampush@usc.edu}
-}
