@@ -13,9 +13,6 @@
 #' @param patient Name of patient quoted.
 #' @param ... Numeric, complex, or logical vectors.
 #' @return A report for the \code{patient} who has this index \code{input}.
-#' @import rmarkdown bookdown
-#' @author Joey W Trampush, \email{trampush@usc.edu}
-#'
 #'
 #' @export
 render_report_child <- function(input, patient, ...) {

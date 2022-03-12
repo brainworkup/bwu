@@ -15,9 +15,6 @@
 #' @param ... Numeric, complex, or logical vectors.
 #' @return A report for the \code{patient} who has this index \code{input}.
 #'
-#' @author Joey W Trampush, \email{trampush@usc.edu}
-#'
-#' @import rmarkdown bookdown
 #'
 #' @export
 render_report_adult <- function(input, patient, ...) {
