@@ -1,15 +1,17 @@
 Package: bwu
 Type: Package
 Title: BrainWorkUp Neuropsychological Report Repository USC Psychiatry
-Version: 0.2.5.9000
+Version: 0.2.6.9000
 Author: person("Joey", "Trampush", email = trampush@usc.edu, role = c("aut", "cre"))
 Maintainer: Joey Trampush <trampush@usc.edu>
 Description: This package stores the functions and normative datasets to use for neuropsychological assessments at USC Keck School of Medicine. Hopefully it works.
 License: GPL-3
 LazyData: true
 Depends:
-    R (>= 3.10)
+    R (>= 3.10),
 Imports:
+    knitr,
+    rmarkdown (>= 2.10),
     here,
     fs,
     miniUI,
@@ -17,7 +19,6 @@ Imports:
     htmltools,
     purrr (>= 0.3.2),
     rlang (>= 0.4.0),
-    rmarkdown (>= 2.10),
     rstudioapi,
     png,
     rJava,
@@ -27,8 +28,7 @@ Imports:
     shiny,
     usethis (>= 1.5.0),
     tabulizer,
-    bookdown,
-    knitr
+    bookdown
 Suggests:
     blogdown,
     tabulizerjars,

@@ -68,10 +68,10 @@
     },
     "Rcpp": {
       "Package": "Rcpp",
-      "Version": "1.0.8",
+      "Version": "1.0.8.2",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "22b546dd7e337f6c0c58a39983a496bc",
+      "Hash": "6d93fbe4e93e43cbf59fd90d7932c5fb",
       "Requirements": []
     },
     "TTR": {
@@ -649,12 +649,11 @@
       "Version": "0.1.1.9000",
       "Source": "Repository",
       "Repository": "https://r-lib.r-universe.dev",
-      "RemoteType": "repository",
+      "Remotes": "r-lib/oskeyring",
       "RemoteUrl": "https://github.com/r-lib/gitcreds",
       "RemoteRef": "HEAD",
-      "RemoteSha": "bbf3864e8f152e2511f3d606e637ef2ad5b53494",
-      "Remotes": "r-lib/oskeyring",
-      "Hash": "716c5d8437313834cf3ef56c0d4cc72e",
+      "RemoteSha": "7fa2031549d8b52721d06db80e164e5f2559c274",
+      "Hash": "5d0c0becb102a27e90453da9ff87a91d",
       "Requirements": []
     },
     "glue": {
