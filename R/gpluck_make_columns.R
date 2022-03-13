@@ -1,5 +1,5 @@
-#' @title gpluck_make_columns
-#' @description Make columns for npsych tables
+#' @title Make columns for npsych tables
+#' @description Make new columns for neuropsych tables
 #' @param table Name of table
 #' @param scale Name of scale/subtest
 #' @param raw_score Raw score for scale
@@ -61,10 +61,10 @@ gpluck_make_columns <- function(table,
                                          "Attention",
                                          "Sequential",
                                          "Simultaneous",
+                                         "Knowledge"
                                          NA),
                                 verbal = c("Verbal",
                                            "Nonverbal",
-                                           "Verbal/Nonverbal",
                                            NA),
                                 timed = c("Timed",
                                           "Untimed",
@@ -73,16 +73,16 @@ gpluck_make_columns <- function(table,
                                               "rating_scale",
                                               "rating_scale2"),
                                 score_type = c(
-                                  "standard_score",
-                                  "t_score",
-                                  "z_score",
-                                  "scaled_score",
                                   "raw_score",
+                                  "scaled_score",
+                                  "t_score",
+                                  "standard_score",
+                                  "z_score",
                                   "percentile",
                                   "base_rate",
                                   NA
                                 ),
-                                absort,
+                                absort = NULL,
                                 description = NULL,
                                 ...) {
   table <-

@@ -1,4 +1,4 @@
-#' @title gpluck_extract_table
+#' @title Pluck tables from PDFs
 #' @description Extract tables from a file
 #' @param file A character string specifying the path or URL to a PDF file.
 #' @param pages An optional integer vector specifying pages to extract from.
@@ -23,7 +23,6 @@
 #' }
 #' @return By default, a list of character matrices. This can be changed by specifying an alternative value of \code{method} (see Details).
 #' @references \href{http://tabula.technology/}{Tabula}
-#' @author Joey Trampush <j.trampush@gmail.com>
 #' @examples
 #' \dontrun{
 #' # simple demo file
@@ -44,6 +43,7 @@
 #' # return data.frames
 #' extract_tables(f, pages = 2, output = "data.frame")
 #' }
+#' @importFrom tabulizer extract_tables
 #' @importFrom utils read.delim download.file
 #' @importFrom tools file_path_sans_ext
 #' @importFrom rJava J new .jfloat
@@ -54,16 +54,8 @@ gpluck_extract_table <-
     pages = NULL,
     area = NULL,
     guess = FALSE,
-    method = c("decide",
-               "lattice",
-               "stream"),
-    output = c("matrix",
-               "data.frame",
-               "character",
-               "asis",
-               "csv",
-               "tsv",
-               "json"),
+    method = c("decide", "lattice", "stream"),
+    output = c("matrix", "data.frame", "character", "asis", "csv", "tsv", "json"),
            ...) {
     tabulizer::extract_tables(
       file = file,

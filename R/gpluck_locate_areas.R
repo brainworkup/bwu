@@ -1,10 +1,9 @@
 #' @rdname gpluck_extract_areas
-#' @title gpluck_extract_areas
+#' @title Extract areas for PDF plucking of tables
 #' @description Interactively identify areas and extract
 #' @param file A character string specifying the path to a PDF file. This can also be a URL, in which case the file will be downloaded to the R temporary directory using \code{download.file}.
 #' @param pages An optional integer vector specifying pages to extract from. To extract multiple tables from a given page, repeat the page number (e.g., \code{c(1,2,2,3)}).
 #' @param \dots Other arguments passed to \code{\link{extract_tables}}.
-#' @author Joey W Trampush, \email{trampush@usc.edu}
 #'
 #' @examples
 #' \dontrun{
@@ -20,7 +19,7 @@
 #' # locate areas and extract
 #' extract_areas(f)
 #' }
-#' @import tabulizer
+#' @importFrom tabulizer locate_areas
 #' @importFrom tools file_path_sans_ext
 #' @importFrom rJava J new
 #' @importFrom png readPNG
