@@ -1,28 +1,5 @@
 ## ---- 01-filter-executive -------------
 filter_domain <- c(
-  ## NAB
-  "NAB Attention Index",
-  "Attention Domain",
-  # "Orientation",
-  "Digits Forward",
-  "Digits Forward Longest Span",
-  "Digits Backward",
-  "Digits Backward Longest Span",
-  "Dots",
-  # "Numbers & Letters Part A Speed",
-  # "Numbers & Letters Part A Errors",
-  "Numbers & Letters Part A Efficiency",
-  "Numbers & Letters Part B Efficiency",
-  "Numbers & Letters Part C Efficiency",
-  "Numbers & Letters Part D Efficiency",
-  # "Numbers & Letters Part D Disruption",
-  "Driving Scenes",
-  "NAB Executive Functions Index",
-  "Executive Functions Domain",
-  "Mazes",
-  "Categories",
-  "Word Generation",
-  "Judgment",
   ## RBANS
   "Attention Index",
   ## CONCEPT FORMATION
@@ -40,11 +17,11 @@ filter_domain <- c(
   "Digit Span Forward",
   "Digit Span Backward",
   "Digit Span Sequencing",
-  "Longest Digit Span Forward",
-  "Longest Digit Span Backward",
-  "Longest Digit Span Sequence",
+  # "Longest Digit Span Forward",
+  # "Longest Digit Span Backward",
+  # "Longest Digit Span Sequence",
   "Letter-Number Sequencing",
-  "Longest Letter-Number Sequence",
+  # "Longest Letter-Number Sequence",
   "Symbol Span",
   "Spatial Span",
   "Picture Span",
@@ -68,7 +45,7 @@ filter_domain <- c(
   # "Animal Sorting Correct Sorts",
   # "Animal Sorting Novel Sort Errors",
   # "Animal Sorting Repeated Sort Errors",
-  # "Animal Sorting Errors",
+  "Animal Sorting Errors",
   "Auditory Attention",
   "Response Set",
   "Naming",
@@ -104,7 +81,7 @@ filter_domain <- c(
   "Total Repetitions",
   ## RCFT
   "ROCF Copy",
-  # "RCFT Copy"
+  "RCFT Copy"
   ## NIH EXAMINER
   "Unstructured Task",
   "Letter Fluency",
