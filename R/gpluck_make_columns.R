@@ -61,7 +61,7 @@ gpluck_make_columns <- function(table,
                                          "Attention",
                                          "Sequential",
                                          "Simultaneous",
-                                         "Knowledge"
+                                         "Knowledge",
                                          NA),
                                 verbal = c("Verbal",
                                            "Nonverbal",

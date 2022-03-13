@@ -2,7 +2,7 @@
 % Please edit documentation in R/gpluck_make_columns.R
 \name{gpluck_make_columns}
 \alias{gpluck_make_columns}
-\title{gpluck_make_columns}
+\title{Make columns for npsych tables}
 \usage{
 gpluck_make_columns(
   table,
@@ -19,13 +19,13 @@ gpluck_make_columns(
     "Social Cognition", "Behavioral/Emotional/Social", "Effort/Validity", NA),
   subdomain = NULL,
   narrow = NULL,
-  pass = c("Planning", "Attention", "Sequential", "Simultaneous", NA),
-  verbal = c("Verbal", "Nonverbal", "Verbal/Nonverbal", NA),
+  pass = c("Planning", "Attention", "Sequential", "Simultaneous", "Knowledge", NA),
+  verbal = c("Verbal", "Nonverbal", NA),
   timed = c("Timed", "Untimed", NA),
   test_type = c("npsych_test", "rating_scale", "rating_scale2"),
-  score_type = c("standard_score", "t_score", "z_score", "scaled_score", "raw_score",
+  score_type = c("raw_score", "scaled_score", "t_score", "standard_score", "z_score",
     "percentile", "base_rate", NA),
-  absort,
+  absort = NULL,
   description = NULL,
   ...
 )
@@ -75,7 +75,7 @@ gpluck_make_columns(
 A table for the report
 }
 \description{
-Make columns for npsych tables
+Make new columns for neuropsych tables
 }
 \examples{
 gpluck_make_columns(table = neurocog, scale = "Clock Drawing",

@@ -2,7 +2,7 @@
 % Please edit documentation in R/gpluck_extract_table.R
 \name{gpluck_extract_table}
 \alias{gpluck_extract_table}
-\title{gpluck_extract_table}
+\title{Pluck tables from PDFs}
 \usage{
 gpluck_extract_table(
   file,
@@ -72,7 +72,4 @@ extract_tables(f, pages = 2, output = "data.frame")
 }
 \references{
 \href{http://tabula.technology/}{Tabula}
-}
-\author{
-Joey Trampush \href{mailto:j.trampush@gmail.com}{j.trampush@gmail.com}
 }

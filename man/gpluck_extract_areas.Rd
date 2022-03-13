@@ -2,7 +2,7 @@
 % Please edit documentation in R/gpluck_locate_areas.R
 \name{gpluck_locate_areas}
 \alias{gpluck_locate_areas}
-\title{gpluck_extract_areas}
+\title{Extract areas for PDF plucking of tables}
 \usage{
 gpluck_locate_areas(file, pages = NULL, ...)
 }
@@ -30,7 +30,4 @@ locate_areas(f, widget = "shiny")
 # locate areas and extract
 extract_areas(f)
 }
-}
-\author{
-Joey W Trampush, \email{trampush@usc.edu}
 }
