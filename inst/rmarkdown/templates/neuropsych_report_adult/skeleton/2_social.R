@@ -14,8 +14,8 @@ filter_domain <- c(
   ## ACS Social Cognition
   "Social Perception",
   "Affect Naming",
-  "Prosody",
-  "Pairs",
+  "Prosody-Face Matching",
+  "Prosody-Pair Matching",
   "Faces I",
   "Faces II",
   "Names I",
