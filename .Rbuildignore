@@ -24,7 +24,7 @@
 ^bwu\.Rproj$
 ^neuropsych\-report$
 ^neuropsych\-report\.html$
-^neuropsych\-report\.*$
+^vignettes\neuropsych\-report\.*$
 ^neuropsych\-report\.log$
 ^neuropsych\-report\.pdf$
 ^neuropsych\-report\.R$
