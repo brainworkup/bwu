@@ -12,7 +12,7 @@ make_tibble(
   columns = c("scale", "score", "percentile", "range", "subdomain", "test_name"),
   percentile = NULL,
   digits = 0,
-  names = c("Scale", "Score", "&#x2030 Rank", "Range", "Subdomain", "Test"),
+  names = c("Scale", "Score", "‰ Rank", "Range", "Subdomain", "Test"),
   ...
 )
 }
