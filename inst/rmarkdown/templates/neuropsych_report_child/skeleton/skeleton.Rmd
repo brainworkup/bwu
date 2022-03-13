@@ -1499,7 +1499,7 @@ Although standardized scores provide the clinician with an important and necessa
 
 ## Conversion of Test Scores
 
-```{r ranges, double_escape=TRUE, escape=FALSE, fig.fullwidth=FALSE}
+```{r ranges, double_escape=TRUE, escape=FALSE, fig.fullwidth=FALSE, show_col_types = FALSE}
 options(show_col_types = FALSE)
 options(show_col_types = FALSE)
 range <- readr::read_csv(here::here(patient, "test_score_ranges.csv"))
