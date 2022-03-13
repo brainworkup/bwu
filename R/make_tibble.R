@@ -32,7 +32,7 @@ make_tibble <- function(tibb,
                         names = c(
                           "Scale",
                           "Score",
-                          "&#x$2030$ Rank",
+                          "\\u2030 Rank",
                           "Range",
                           "Subdomain",
                           "Test"
