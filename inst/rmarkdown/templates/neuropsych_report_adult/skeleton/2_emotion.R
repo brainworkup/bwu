@@ -1,40 +1,5 @@
 ## ---- 01-filter-emotion ---------
 filter_domain <- list(
-  # BASC-3
-  "Externalizing Problems",
-  "Hyperactivity",
-  "Aggression",
-  "Conduct Problems",
-  "Internalizing Problems",
-  "Anxiety",
-  "Depression",
-  "Somatization",
-  "Behavioral Symptoms Index",
-  "Atypicality",
-  "Withdrawal",
-  "Attention Problems",
-  "Adaptive Skills",
-  "Adaptability",
-  "Social Skills",
-  "Leadership",
-  "Activities of Daily Living",
-  "Functional Communication",
-  "Personal Adjustment",
-  "School Problems",
-  "Inattention/Hyperactivity",
-  "Emotional Symptoms Index",
-  "Personal Adjustment",
-  "Attitude to School",
-  "Attitude to Teachers",
-  "Locus of Control",
-  "Social Stress",
-  "Sense of Inadequacy",
-  "Relations with Parents",
-  "Interpersonal Relations",
-  "Self-Esteem",
-  "Self-Reliance",
-  "Sensation Seeking",
-  "Somatization",
   # PAI
   "Somatic Complaints",
   "Conversion",
@@ -138,7 +103,7 @@ kableExtra::kbl(
   kableExtra::pack_rows(., index = table(tb$Test)) %>%
   kableExtra::pack_rows(., index = table(tb$Subdomain)) %>%
   kableExtra::row_spec(., row = 0, bold = TRUE) %>%
-  kableExtra::add_footnote("(ref:basc3-prs-srp-fn)")
+  kableExtra::add_footnote("(ref:fn-emo)")
 
 ## ---- 05-df-emotion -----------------------------------
 df <-
