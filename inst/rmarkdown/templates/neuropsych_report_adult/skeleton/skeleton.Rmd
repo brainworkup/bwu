@@ -91,6 +91,7 @@ params:
       - Multiracial
       - Native Hawaiian
       - Pacific Islander
+      - Indian/Southeast Asian
       - White/Caucasian
       - Prefer not to answer
       - Other
@@ -623,15 +624,10 @@ cat(readLines("2_nse.md"), sep = "\n")
 -   (ref:cefi-sr)
 -   (ref:cefi-or)
 -   (ref:pai)
-
-## Test Battery
-
 -   (ref:ktea3): Form A/B
 -   (ref:wrat5): Green/Blue Form
 -   (ref:nab): Form 1/2
 -   (ref:rbans): Form A/B/C/D
--   (ref:nepsy2)
--   (ref:cvltc)
 -   (ref:cvlt3)
 -   (ref:wms4)
 -   (ref:dkefs)
@@ -640,9 +636,6 @@ cat(readLines("2_nse.md"), sep = "\n")
 -   (ref:clock)
 -   (ref:cog-est)
 -   (ref:tomm)
--   (ref:basc3-sdh)
--   (ref:basc3-prs-child)
--   (ref:basc3-trs-child)
 -   (ref:brown-pr)
 -   (ref:brown-sr)
 -   (ref:brown-tr)
@@ -1527,9 +1520,8 @@ Although standardized scores provide the clinician with an important and necessa
 
 ## Conversion of Test Scores
 
-```{r ranges, double_escape=TRUE, escape=FALSE, fig.fullwidth=FALSE, show_col_types = FALSE}
-options(show_col_types = FALSE)
-range <- readr::read_csv(here::here(patient, "test_score_ranges.csv"))
+```{r ranges, double_escape=TRUE, escape=FALSE, fig.fullwidth=FALSE}
+range <- readr::read_csv(here::here(patient, "test_score_ranges.csv"), show_col_types = FALSE)
 gt::gt(range) %>%
   gt::tab_header(title = "Test Score Labels/Ranges") %>%
   gt::cols_align(align = "center")

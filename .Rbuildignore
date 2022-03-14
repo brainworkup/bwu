@@ -31,3 +31,4 @@
 ^neuropsych\-report\.Rmd$
 ^neuropsych\-report\.DS\_Store$
 ^\.DS\_Store$
+^R\-CMD\-check\.yaml$
