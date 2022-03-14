@@ -158,8 +158,6 @@ patient <- "Alex"
 ```{r setup, include=FALSE}
 Sys.setenv(JAVA_HOME = "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home")
 options(java.parameters = "-Xmx16000m")
-library(knitr)
-library(xfun)
 knitr::opts_chunk$set(
   root.dir = normalizePath("./"),
   echo = FALSE,
@@ -168,6 +166,8 @@ knitr::opts_chunk$set(
   error = TRUE
 )
 library(bwu)
+library(knitr)
+library(xfun)
 library(tabulizer)
 library(tabulizerjars)
 library(rJava)
@@ -485,7 +485,7 @@ table2 <- gpluck_make_columns(
 
 ### Test score ranges
 
-```{r}
+```{r ranges2}
 table2 <- gpluck_make_score_ranges(table = table2, test_type = "npsych_test")
 ```
 
@@ -523,7 +523,7 @@ table2 <-
 
 ### Scale descriptions
 
-```{r desc-vci}
+```{r desc2}
 table2 <-
   table2 |>
   mutate(
@@ -537,17 +537,15 @@ table2 <-
   )
 ```
 
-## Finalize and save
+### Relocate variables
 
-### relocate variables
-
-```{r relocate-t2}
+```{r relocate2}
 table2 <- table2 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
 # PRI
 
-```{r tb3}
+```{r pluck3}
 table3 <- tibble::as_tibble(plucked_table[[3]])
 colnames(table3) <- params$colnames2
 table3 <- dplyr::na_if(table3, "")

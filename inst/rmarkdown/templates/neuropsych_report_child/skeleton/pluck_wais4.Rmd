@@ -15,7 +15,7 @@ params:
     input: file
   pages:
     label: "Pages"
-    value: NULL
+    value: "2,3,3,3,3,5,5"
     input: text
   table1:
     label: Index Scores
@@ -158,8 +158,6 @@ patient <- "Alex"
 ```{r setup, include=FALSE}
 Sys.setenv(JAVA_HOME = "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home")
 options(java.parameters = "-Xmx16000m")
-library(knitr)
-library(xfun)
 knitr::opts_chunk$set(
   root.dir = normalizePath("./"),
   echo = FALSE,
@@ -168,6 +166,8 @@ knitr::opts_chunk$set(
   error = TRUE
 )
 library(bwu)
+library(knitr)
+library(xfun)
 library(tabulizer)
 library(tabulizerjars)
 library(rJava)
@@ -216,7 +216,7 @@ area <- list(
   c(508, 50, 618, 560) 
 )
 # if unknown
-# area <- gpluck_locate_areas(
+# area <- bwu::gpluck_locate_areas(
 #   file = params$file,
 #   pages = params$pages
 # )
@@ -227,7 +227,7 @@ area <- readr::read_rds(here::here(patient, "pre_csv", "area_wais4.rds"))
 ## Extract tables
 
 ```{r extract, include=FALSE, cache=TRUE}
-plucked_table <- gpluck_extract_table(
+plucked_table <- bwu::gpluck_extract_table(
   file = file,
   pages = pages,
   area = area,
@@ -421,7 +421,7 @@ table1 <-
 ### Test score ranges
 
 ```{r range1}
-table1 <- gpluck_make_score_ranges(table = table1, test_type = "npsych_test")
+table1 <- bwu::gpluck_make_score_ranges(table = table1, test_type = "npsych_test")
 ```
 
 ## Finalize and save
@@ -486,7 +486,7 @@ table2 <- gpluck_make_columns(
 ### Test score ranges
 
 ```{r}
-table2 <- gpluck_make_score_ranges(table = table2, test_type = "npsych_test")
+table2 <- bwu::gpluck_make_score_ranges(table = table2, test_type = "npsych_test")
 ```
 
 ### Subdomains
@@ -599,7 +599,7 @@ table3 <- gpluck_make_columns(
 ## Test score ranges
 
 ```{r ranges3}
-table3 <- gpluck_make_score_ranges(table = table3, test_type = "npsych_test")
+table3 <- bwu::gpluck_make_score_ranges(table = table3, test_type = "npsych_test")
 ```
 
 ## Subdomains
@@ -728,7 +728,7 @@ table4 <- gpluck_make_columns(
 ### Test score ranges
 
 ```{r ranges4}
-table4 <- gpluck_make_score_ranges(table = table4, test_type = "npsych_test")
+table4 <- bwu::gpluck_make_score_ranges(table = table4, test_type = "npsych_test")
 ```
 
 ### Subdomains
@@ -868,7 +868,7 @@ table5 <- gpluck_make_columns(
 ### Test score ranges
 
 ```{r ranges5}
-table5 <- gpluck_make_score_ranges(table = table5, test_type = "npsych_test")
+table5 <- bwu::gpluck_make_score_ranges(table = table5, test_type = "npsych_test")
 ```
 
 ### Subdomains
@@ -993,7 +993,7 @@ table6 <- gpluck_make_columns(
 ### Test score ranges
 
 ```{r ranges6}
-table6 <- gpluck_make_score_ranges(table = table6, test_type = "npsych_test")
+table6 <- bwu::gpluck_make_score_ranges(table = table6, test_type = "npsych_test")
 ```
 
 ### Scale descriptions
@@ -1071,7 +1071,7 @@ table7 <- gpluck_make_columns(
 ### Test score ranges
 
 ```{r ranges7}
-table7 <- gpluck_make_score_ranges(table = table7, test_type = "npsych_test")
+table7 <- bwu::gpluck_make_score_ranges(table = table7, test_type = "npsych_test")
 ```
 
 ## Narrow subdomains
