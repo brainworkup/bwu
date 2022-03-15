@@ -1,4 +1,3 @@
-## ---- 01-filter-adhd ---------
 filter_domain <- c(
   # Brown
   "Activation",
@@ -68,8 +67,7 @@ tb <-
 ## ---- 04-kable-adhd ------------------
 kableExtra::kbl(
   tb[, 1:4],
-  caption = "(ref:brown) (ref:cefi) (ref:caars)",
-  "latex",
+  caption = "(ref:caars) and the (ref:cefi)", "latex",
   longtable = FALSE,
   booktabs = TRUE,
   linesep = "",
@@ -77,9 +75,7 @@ kableExtra::kbl(
 ) %>%
   kableExtra::kable_paper(., lightable_options = "basic") %>%
   kableExtra::kable_styling(., latex_options = c(
-    "scale_down",
-    "HOLD_position",
-    "striped"
+    "scale_down", "HOLD_position", "striped"
   )) %>%
   kableExtra::column_spec(., 1, width = "8cm") %>%
   kableExtra::pack_rows(., index = table(tb$Test)) %>%
@@ -89,18 +85,28 @@ kableExtra::kbl(
 ## ---- 05-df-adhd -----------------------------------
 df <-
   neurobehav %>%
+  dplyr::filter(domain == "Behavioral/Emotional/Social") %>%
+  dplyr::filter(scale %in% filter_domain) %>%
   dplyr::filter(!is.na(percentile)) %>%
-  dplyr::filter(scale %in% filter_domain)
+  dplyr::filter(filename %in% c("caars_sr.csv", "caars_or.csv"))
 
-## ---- 06-plot-subdomain-adhd -------------------
+## ---- 06-plot-adhd-adhd -------------------
 bwu::dotplot(
   data = df,
-  x = df$z_mean_sub,
-  y = df$subdomain,
+  x = df$z_mean_narrow,
+  y = df$narrow,
   domain = "attention/executive"
 )
 
-## ---- 07-plot-narrow-adhd --------------------
+## ---- 07-df-adhd -----------------------------------
+df <-
+  neurobehav %>%
+  dplyr::filter(domain == "Behavioral/Emotional/Social") %>%
+  dplyr::filter(scale %in% filter_domain) %>%
+  dplyr::filter(!is.na(percentile)) %>%
+  dplyr::filter(filename %in% c("cefi_sr.csv", "cefi_or.csv"))
+
+## ---- 08-plot-executive-adhd --------------------
 bwu::dotplot(
   data = df,
   x = df$z_mean_narrow,

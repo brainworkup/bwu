@@ -453,7 +453,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:pct) A *percentile* shows `r params$first_name`'s standing relative to peers. For example, a percentile rank (PR) of 70 means `r params$first_name` performed as well as or better than 70% of individuals the same age.
 
-(ref:br) A *base rate* is the prevalence of score in the general population. If a score is rare, defined as a base rate (BR) of less than 10%, it is considered *clinically significant*, and that area of functioning is probably causing problems in daily life.
+(ref:baserate) A *base rate* is the prevalence of score in the general population. If a score is rare, defined as a base rate of less than 10%, it is considered *clinically significant*, and that area of functioning is probably causing problems in daily life.
 
 (ref:basc3-prs-fn) *T* Score (M = 50, SD = 10); *Note:* Adaptive Skills *T* scores are reversed
 

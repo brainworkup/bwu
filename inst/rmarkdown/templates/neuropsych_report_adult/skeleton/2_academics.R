@@ -108,7 +108,8 @@ tb <-
     pheno = "Academic Skills"
   ) %>%
   dplyr::filter(Scale %in% filter_domain) %>%
-  dplyr::arrange(Test)
+  dplyr::arrange(Test) %>%
+  dplyr::arrange(Subdomain)
 
 ## ---- 04-kable-academics ------------------
 kableExtra::kbl(
