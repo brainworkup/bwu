@@ -9,7 +9,7 @@ output:
     citation_package: biblatex
     number_sections: false
     keep_md: true
-    keep_tex: false
+    keep_tex: true
     always_allow_html: true
 site: bookdown::bookdown_site
 editor_options:
@@ -112,20 +112,6 @@ params:
     choices:
       - Dropped outta high school
       - At home with relatives
-      - Daycare
-      - Preschool
-      - Transitional Kindergarten
-      - Kindergarten
-      - 1st grade
-      - 2nd grade
-      - 3rd grade
-      - 4th grade
-      - 5th grade
-      - 6th grade
-      - 7th grade
-      - 8th grade
-      - 9th grade
-      - 10th grade
       - 11th grade
       - 12th grade
       - Some college
@@ -152,10 +138,6 @@ params:
     input: date
   doe3:
     label: "DOE 3rd visit (NT2):"
-    value: !r Sys.Date()
-    input: date
-  doe4:
-    label: "DOE 4th visit (SIRF):"
     value: !r Sys.Date()
     input: date
   he_she:
@@ -234,6 +216,7 @@ params:
     value: parents
     input: radio
     choices:
+      - none/self
       - parents
       - mother
       - father
@@ -243,7 +226,6 @@ params:
       - spouse
       - guardian
       - other
-      - none/self
 ---
 
 ```{r patient, include=FALSE}
@@ -559,8 +541,6 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:doe3) `r params$doe3`
 
-(ref:doe4) `r params$doe4`
-
 (ref:dx1) `r params$dx1`
 
 (ref:dx2) `r params$dx2`
@@ -585,7 +565,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:educ) `r params$educ`
 
-(ref:doe) `r params$doe1`, `r params$doe2`, `r params$doe3`, and `r params$doe4`
+(ref:doe) `r params$doe1`, `r params$doe2`, and `r params$doe3`
 
 ```{marginfigure, echo=TRUE}
 **Name:** (ref:patient)\
@@ -613,6 +593,7 @@ cat(readLines("2_nse.md"), sep = "\n")
 -   (ref:wais4)
 -   (ref:wiat4)
 -   (ref:nabs): Form 1/2
+-   (ref:nab): Form 1/2
 -   (ref:cvlt3-brief)
 -   (ref:dkefs): Color-Word Interference
 -   (ref:examiner)
@@ -626,11 +607,10 @@ cat(readLines("2_nse.md"), sep = "\n")
 -   (ref:pai)
 -   (ref:ktea3): Form A/B
 -   (ref:wrat5): Green/Blue Form
--   (ref:nab): Form 1/2
 -   (ref:rbans): Form A/B/C/D
+-   (ref:dkefs)
 -   (ref:cvlt3)
 -   (ref:wms4)
--   (ref:dkefs)
 -   (ref:tmt)
 -   (ref:bicycle)
 -   (ref:clock)
