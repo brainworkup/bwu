@@ -49,8 +49,7 @@ tb <-
 
 ## ---- 04-kable-iq ------------------
 kableExtra::kbl(
-  tb[, 1:4],
-  "latex",
+  tb[, 1:4], "latex",
   longtable = FALSE,
   booktabs = TRUE,
   linesep = "",

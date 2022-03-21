@@ -84,6 +84,7 @@ params:
     value: White/Caucasian
     input: radio
     choices:
+      - White/Caucasian
       - American Indian/Alaska Native
       - Asian-American
       - Black/African-American
@@ -92,7 +93,6 @@ params:
       - Native Hawaiian
       - Pacific Islander
       - Indian/Southeast Asian
-      - White/Caucasian
       - Prefer not to answer
       - Other
   hand:
@@ -199,21 +199,21 @@ params:
       - anxiety
   dx2:
     label: "Diagnosis/Disorder 2:"
-    value: depression
+    value: anxiety
     input: radio
     width: 800px
     choices:
       - ADHD
+      - anxiety
       - dyslexia
       - depression
-      - anxiety
   refdoc:
     label: "Referral Source:"
     value: Dr Dre
     input: text
   family:
     label: "Family Member:"
-    value: parents
+    value: none/self
     input: radio
     choices:
       - none/self
@@ -334,8 +334,6 @@ knitr::knit_engines$set(marginfigure = function(options) {
 (ref:cog-est) Cognitive Estimation Test
 
 (ref:celf5) Clinical Evaluation of Language Fundamentals, 5th ed (CELF-5)
-
-(ref:celf3) Clinical Evaluation of Language Fundamentals, Preschool, 3rd ed (CELF Preschool-3)
 
 (ref:celf5-ors) Clinical Evaluation of Language Fundamentals, 5th ed (CELF-5), Observational Rating Scale
 

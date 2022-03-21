@@ -67,13 +67,12 @@ tb <-
 
 ## ---- 04-kable-adhd ------------------
 kableExtra::kbl(
-  tb[, 1:4],
-  caption = "(ref:caars), (ref:cefi)",
-  "latex",
+  tb[, 1:4], "latex",
   longtable = FALSE,
   booktabs = TRUE,
   linesep = "",
-  align = c("lccc")
+  align = c("lccc"),
+  caption = "(ref:caars), (ref:cefi)"
 ) %>%
   kableExtra::kable_paper(., lightable_options = "basic") %>%
   kableExtra::kable_styling(., latex_options = c(
