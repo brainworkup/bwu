@@ -68,10 +68,10 @@
     },
     "Rcpp": {
       "Package": "Rcpp",
-      "Version": "1.0.8.2",
+      "Version": "1.0.8.3",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "6d93fbe4e93e43cbf59fd90d7932c5fb",
+      "Hash": "32e79b908fda56ee57fe518a8d37b864",
       "Requirements": []
     },
     "TTR": {
@@ -175,10 +175,10 @@
     },
     "bookdown": {
       "Package": "bookdown",
-      "Version": "0.24",
+      "Version": "0.25",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "3837766a1e1b527af25fa3e2d12a2800",
+      "Hash": "6bbce515702d8d2f9a36b385bc629eb1",
       "Requirements": [
         "htmltools",
         "jquerylib",
@@ -921,13 +921,13 @@
     },
     "knitr": {
       "Package": "knitr",
-      "Version": "1.37.6",
+      "Version": "1.37.7",
       "Source": "Repository",
       "Repository": "https://yihui.r-universe.dev",
       "RemoteUrl": "https://github.com/yihui/knitr",
       "RemoteRef": "HEAD",
-      "RemoteSha": "d9197331937e351f4c26e9b527d206630e1a3ed1",
-      "Hash": "2e7057f05b394cc70fd0090517222b6c",
+      "RemoteSha": "fb54231ef9b47a2821cde7ad410aba927c3961d0",
+      "Hash": "b595a65d924c4364531d8d072fcebc6a",
       "Requirements": [
         "evaluate",
         "highr",
@@ -1920,14 +1920,13 @@
     },
     "waldo": {
       "Package": "waldo",
-      "Version": "0.3.1.9000",
+      "Version": "0.4.0.9000",
       "Source": "Repository",
       "Repository": "https://r-lib.r-universe.dev",
-      "RemoteType": "repository",
       "RemoteUrl": "https://github.com/r-lib/waldo",
       "RemoteRef": "HEAD",
-      "RemoteSha": "8e22b227d92eed12a178fc4a3507aec319cd6279",
-      "Hash": "71284de557c06fe301f7b74ebce62075",
+      "RemoteSha": "8e25d6f531e99c8e542e22c3d86698f25ac356e5",
+      "Hash": "7bae5081832190dcbb407446cc323e39",
       "Requirements": [
         "cli",
         "diffobj",
@@ -1984,14 +1983,13 @@
     },
     "xaringan": {
       "Package": "xaringan",
-      "Version": "0.23.1",
+      "Version": "0.23.4",
       "Source": "Repository",
       "Repository": "https://yihui.r-universe.dev",
-      "RemoteType": "repository",
       "RemoteUrl": "https://github.com/yihui/xaringan",
       "RemoteRef": "HEAD",
-      "RemoteSha": "5864e6ae136a773405eceb3cd8f056fc12c4aad4",
-      "Hash": "ab167a77bdb876612d31721950ebcf2d",
+      "RemoteSha": "2ad2a6d7c78cbca919d1687765c118a8e8c4e5ea",
+      "Hash": "f76df25cd0e27f554169d4662da2649a",
       "Requirements": [
         "htmltools",
         "knitr",
