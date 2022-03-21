@@ -50,7 +50,7 @@ However, this has not caused problems in daily life.
 (ref:he-she-cap) enjoys pick-up basketball and watching basketball games.
 (ref:his-her-cap) mother reported that (ref:he-she) recently got (ref:his-her) driver's license and is looking for a job.
 
-### Family
+### Family/Home
 
 (ref:first-name) lives with (ref:his-her) parents, grandmother, and older brother and sister in City, State.
 Both parents graduated from high school.

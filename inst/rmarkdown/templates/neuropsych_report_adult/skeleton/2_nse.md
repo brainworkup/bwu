@@ -28,13 +28,6 @@ There are no current concerns with hearing, vision, sleep, appetite or growth.
 Family medical history includes x, y, and z.
 Surgical history includes x, y, and z.
 
-### Academics
-
-(ref:first-name) recently completed (ref:educ) at Local High School.
-(ref:he-she-cap) earned C's, D's, and F's in (ref:his-her) classes.
-(ref:he-she-cap) is now taking English (online course) in summer school.
-(ref:his-her-cap) mother reported that (ref:he-she) is frustrated with (ref:his-her) grades, as (ref:he-she) has been an A/B student in the past.
-
 ### Behavioral/Emotional/Social
 
 (ref:first-name)'s mother reported that (ref:he-she) has struggled with depression over the years.
@@ -50,7 +43,14 @@ However, this has not caused problems in daily life.
 (ref:he-she-cap) enjoys pick-up basketball and watching basketball games.
 (ref:his-her-cap) mother reported that (ref:he-she) recently got (ref:his-her) driver's license and is looking for a job.
 
-### Family
+### Academics
+
+(ref:first-name) recently completed (ref:educ) at Local High School.
+(ref:he-she-cap) earned C's, D's, and F's in (ref:his-her) classes.
+(ref:he-she-cap) is now taking English (online course) in summer school.
+(ref:his-her-cap) mother reported that (ref:he-she) is frustrated with (ref:his-her) grades, as (ref:he-she) has been an A/B student in the past.
+
+### Family/Home
 
 (ref:first-name) lives with (ref:his-her) parents, grandmother, and older brother and sister in City, State.
 Both parents graduated from high school.
