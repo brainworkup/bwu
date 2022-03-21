@@ -86,13 +86,19 @@ jobs:
           sudo apt-get install -y python3
           sudo apt-get install -y python3-pip
           sudo apt-get install -y python3-venv
+          
       - name: Install macOS system dependencies
         if: runner.os == 'macOS'
         shell: bash
         run: |
           brew install git
           brew install libgit2
+      
       - name: Install renv
+        shell: bash
+        run: R CMD INSTALL --preclean .
+        
+      - name: Install tabulizer
         shell: bash
         run: R CMD INSTALL --preclean .
 
