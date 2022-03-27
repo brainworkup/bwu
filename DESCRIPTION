@@ -19,7 +19,6 @@ Imports:
     htmltools,
     purrr (>= 0.3.2),
     rlang (>= 0.4.0),
-    rstudioapi,
     png,
     rJava,
     stats,
@@ -28,10 +27,11 @@ Imports:
     shiny,
     usethis (>= 1.5.0),
     tabulizer,
+    tabulizerjars,
     bookdown
 Suggests:
+    rstudioapi,
     blogdown,
-    tabulizerjars,
     pkgdown,
     readr,
     tibble,
