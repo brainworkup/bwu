@@ -63,35 +63,8 @@ filter_domain <- c(
   ## TMT
   "TMT, Part A",
   "TMT, Part B",
-  ## NEPSY-2
-  "Animal Sorting",
-  # "Animal Sorting Correct Sorts",
-  # "Animal Sorting Novel Sort Errors",
-  # "Animal Sorting Repeated Sort Errors",
-  "Animal Sorting Errors",
-  "Auditory Attention",
-  "Response Set",
-  "Naming",
-  "Inhibition",
-  "Switching",
-  "Inhibition Total Errors",
-  # "Naming Time",
-  # "Inhibition Time",
-  # "Switching Time",
-  "Naming Errors",
-  "Inhibition Errors",
-  "Switching Errors",
-  # "Naming Uncorrected Errors",
-  # "Inhibition Uncorrected Errors",
-  # "Switching Uncorrected Errors",
-  # "Naming Self-Corrected Errors",
-  # "Inhibition Self-Corrected Errors",
-  # "Switching Self-Corrected Errors",
-  "Statue",
-  # "Statue-Body Movement",
-  # "Statue-Eye Opening",
-  # "Statue-Vocalization",
-  "Clocks",
+  ## Clock Drawing Test
+  "Clock Drawing",
   ## DKEFS
   # "Color Naming",
   # "Word Reading",
@@ -108,7 +81,10 @@ filter_domain <- c(
   ## NIH EXAMINER
   "Unstructured Task",
   "Letter Fluency",
-  "Category Fluency"
+  "Category Fluency",
+  ## WMS-4 Working Memory
+  "Spatial Addition",
+  "Picture Span"
 )
 
 ## ---- 02-glue-executive ------------
