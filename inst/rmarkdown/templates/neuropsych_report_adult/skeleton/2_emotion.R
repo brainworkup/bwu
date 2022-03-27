@@ -47,7 +47,7 @@ filter_domain <- list(
   "Suicidal Ideation",
   "Stress",
   "Nonsupport",
-  "Treatment Rejection",
+  #"Treatment Rejection",
   "Dominance",
   "Warmth",
   # BDI-2
