@@ -353,26 +353,6 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:abas3-teacher) Adaptive Behavior Assessment System, 3rd ed (ABAS-3), Teacher Report
 
-(ref:basc3) Behavioral Assessment Scale for Children, 3rd ed (BASC-3)
-
-(ref:basc3-sdh) BASC-3 Structured Developmental History (SDH)
-
-(ref:basc3-prs) BASC-3 Parent Rating Scale (PRS)
-
-(ref:basc3-prs-preschool) BASC-3 Parent Rating Scale (PRS), Preschool
-
-(ref:basc3-prs-child) BASC-3 Parent Rating Scale (PRS), Child
-
-(ref:basc3-trs-child) BASC-3 Teacher Rating Scale (TRS), Child
-
-(ref:basc3-prs-adolescent) BASC-3 Parent Rating Scale (PRS), Adolescent
-
-(ref:basc3-srp) BASC-3 Self-Report of Personality (SRP)
-
-(ref:basc3-srp-child) BASC-3 Self-Report of Personality (SRP), Child
-
-(ref:basc3-srp-adolescent) BASC-3 Self-Report of Personality (SRP), Adolescent
-
 (ref:brown) Brown Executive Function/Attention Scales (Brown EF/A)
 
 (ref:brown-pr) Brown Executive Function/Attention Scales, (EF/A), Parent-Report
@@ -593,7 +573,6 @@ cat(readLines("2_nse.md"), sep = "\n")
 -   (ref:nabs): Form 1/2
 -   (ref:nab): Form 1/2
 -   (ref:cvlt3-brief)
--   (ref:dkefs): Color-Word Interference
 -   (ref:examiner)
 -   (ref:rocf)
 -   (ref:pegboard)
@@ -1257,6 +1236,8 @@ knitr::read_chunk(here::here(patient, "2_social.R"))
 
 ### ADHD/Executive Functioning
 
+(ref:att-ef) Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other.
+
 (ref:fn-adhd) *T* Score (M = 50, SD = 10) or Standard Score (M = 100, SD = 15)
 
 ```{r, adhd, results='asis'}
@@ -1302,21 +1283,26 @@ knitr::read_chunk(here::here(patient, "2_adhd.R"))
 knitr::read_chunk(here::here(patient, "2_adhd.R"))
 ```
 
-```{r 06-plot-subdomain-adhd, eval=F, double_escape=T, escape=F, fig.cap='(ref:adhd-ef)'}
+```{r 06-plot-adhd-adhd, eval=T, double_escape=T, escape=F, fig.cap='(ref:adhd-ef)'}
 ```
-
-(ref:att-ef) Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other.
 
 ```{r}
 knitr::read_chunk(here::here(patient, "2_adhd.R"))
 ```
 
-```{r 07-plot-narrow-adhd, eval=T, double_escape=T, escape=F, fig.cap='(ref:att-ef)'}
+```{r 07-df-adhd, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_adhd.R"))
+```
+
+```{r 08-plot-executive-adhd, eval=T, double_escape=T, escape=F, fig.cap='(ref:att-ef)'}
 ```
 
 \newpage
 
-### Emotional/Behavioral/Adaptive
+### Emotional/Behavioral/Personality
 
 (ref:fn-emo) *T* Score (M = 50, SD = 10)
 
@@ -1395,7 +1381,7 @@ bwu::dotplot(
 )
 ```
 
-(ref:pass) **PASS Cognitive Process Model** Successive and Simultaneous processing are areas of strengths, and Attention is an area of weakness.
+(ref:pass) **PASS Cognitive Process Model** Sequential and Simultaneous processing are areas of strengths, and Attention is an area of weakness.
 
 ```{r pass-df}
 pass <-
@@ -1413,7 +1399,7 @@ bwu::dotplot(
 )
 ```
 
-(ref:nonverbal) **Verbal vs. Nonverbal** Scores on verbal tasks are slightly higher than scores on nonverbal/spatial processing tasks.
+(ref:nonverbal) **Verbal vs. Nonverbal Tests** Scores on verbal tasks are slightly higher than scores on nonverbal/spatial processing tasks.
 
 ```{r nonverbal-df}
 nonverbal <-
@@ -1431,7 +1417,7 @@ bwu::dotplot(
 )
 ```
 
-(ref:timed) **Timed vs. Untimed** (ref:first-name) performs more than a half of a standard deviation better on tasks that are untimed compared to tasks that require (ref:him-her) to respond both accurately and quickly.
+(ref:timed) **Timed vs. Untimed Tests** (ref:first-name) performs more than a half of a standard deviation better on tasks that are untimed compared to tasks that require (ref:him-her) to respond both accurately and quickly.
 
 ```{r timed-df}
 timed <-

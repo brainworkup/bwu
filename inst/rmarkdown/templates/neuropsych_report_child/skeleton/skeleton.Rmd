@@ -1258,6 +1258,8 @@ knitr::read_chunk(here::here(patient, "2_social.R"))
 
 ### ADHD/Executive Functioning
 
+(ref:att-ef) Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other.
+
 (ref:fn-adhd) *T* Score (M = 50, SD = 10) or Standard Score (M = 100, SD = 15)
 
 ```{r, adhd, results='asis'}
@@ -1303,16 +1305,21 @@ knitr::read_chunk(here::here(patient, "2_adhd.R"))
 knitr::read_chunk(here::here(patient, "2_adhd.R"))
 ```
 
-```{r 06-plot-subdomain-adhd, eval=F, double_escape=T, escape=F, fig.cap='(ref:adhd-ef)'}
+```{r 06-plot-adhd-adhd, eval=T, double_escape=T, escape=F, fig.cap='(ref:adhd-ef)'}
 ```
-
-(ref:att-ef) Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other.
 
 ```{r}
 knitr::read_chunk(here::here(patient, "2_adhd.R"))
 ```
 
-```{r 07-plot-narrow-adhd, eval=T, double_escape=T, escape=F, fig.cap='(ref:att-ef)'}
+```{r 07-df-adhd, eval=T, double_escape=T, escape=F}
+```
+
+```{r}
+knitr::read_chunk(here::here(patient, "2_adhd.R"))
+```
+
+```{r 08-plot-executive-adhd, eval=T, double_escape=T, escape=F, fig.cap='(ref:att-ef)'}
 ```
 
 \newpage

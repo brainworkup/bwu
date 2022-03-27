@@ -37,14 +37,14 @@ Learning and long-term memory functioning are intact on exam, with no evidence o
 
 1. Rec 3
 
-## Recommendations for Home
+## Recommendations for Home/Family
 
-1.  _Mindfulness_ is a technique in which (ref:first-name) can learn to ignore
-    distracting thoughts and concentrate on the task at hand. People of all ages can benefit from mindfulness training, which can help them to develop
-    cognitive control.
+1. _Mindfulness_ is a technique in which (ref:first-name) can learn to ignore
+   distracting thoughts and concentrate on the task at hand. People of all ages can benefit from mindfulness training, which can help them to develop
+   cognitive control.
 
-1.  Social activities are strongly encouraged to foster positive socialization
-    experiences.
+1. Social activities are strongly encouraged to foster positive socialization
+   experiences.
 
 ## Recommendations for Follow-Up Evaluation
 
