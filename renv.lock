@@ -178,13 +178,10 @@
     },
     "bookdown": {
       "Package": "bookdown",
-      "Version": "0.25.3",
+      "Version": "0.25",
       "Source": "Repository",
-      "Repository": "https://rstudio.r-universe.dev",
-      "RemoteUrl": "https://github.com/rstudio/bookdown",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "23d5a4c76605b8ca0f5b4bde04f60276e4ab6046",
-      "Hash": "78243c316778c28bf72cf971b9c66c99",
+      "Repository": "CRAN",
+      "Hash": "6bbce515702d8d2f9a36b385bc629eb1",
       "Requirements": [
         "htmltools",
         "jquerylib",
@@ -1423,13 +1420,10 @@
     },
     "rmarkdown": {
       "Package": "rmarkdown",
-      "Version": "2.13.2",
+      "Version": "2.13",
       "Source": "Repository",
-      "Repository": "https://rstudio.r-universe.dev",
-      "RemoteUrl": "https://github.com/rstudio/rmarkdown",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "75350ea398ab53583220c300274458e95ebbce85",
-      "Hash": "0a043c80486701b529ed46644662fc44",
+      "Repository": "CRAN",
+      "Hash": "ac78f4d2e0289d4cba73b88af567b8b1",
       "Requirements": [
         "bslib",
         "evaluate",

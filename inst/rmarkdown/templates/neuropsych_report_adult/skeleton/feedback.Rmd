@@ -1,6 +1,6 @@
 ---
 title: "Neuropsychological Evaluation Results/Feedback"
-patient: "BIGGIE"
+patient: "Biggie"
 author: "Joey Trampush, PhD"
 institute: "Department of Psychiatry and the Behavioral Sciences"
 date: "2022-01-13"
@@ -28,7 +28,7 @@ output:
 ---
 
 ```{r patient, include=FALSE}
-patient <- "BIGGIE"
+patient <- "Biggie"
 ```
 
 ```{r setup, include=FALSE}
@@ -36,7 +36,6 @@ patient <- "BIGGIE"
 library(knitr)
 library(xaringan)
 library(xaringanExtra)
-library(xaringanBuilder)
 library(xaringanthemer)
 library(rmarkdown)
 library(revealjs)
@@ -51,6 +50,7 @@ library(tibble)
 library(svglite)
 library(gifski)
 library(bwu)
+library(languageserver)
 ## knitr options
 options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(
