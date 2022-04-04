@@ -66,7 +66,9 @@ Surgical history includes x, y, and z.
 However, this has not caused problems in daily life.
 (ref:he-she-cap) denied any other anxiety.
 
-(ref:first-name) has many friends. (ref:he-she-cap) enjoys pick-up basketball and watching basketball games. (ref:his-her-cap) mother reported that (ref:he-she) recently got (ref:his-her) driver's license and is looking for a job.
+(ref:first-name) has many friends.
+(ref:he-she-cap) enjoys pick-up basketball and watching basketball games.
+(ref:his-her-cap) mother reported that (ref:he-she) recently got (ref:his-her) driver's license and is looking for a job.
 
 ### Family
 
@@ -106,5 +108,7 @@ _Note:_ Evaluation is ongoing.
 Full report and recommendations to follow.
 
 Please contact me with any questions or concerns regarding this patient.
+
+Neurobehavioral status exam and clinical documentation by Neuropsychologist (96116 x 1, 96121 x 1): 2 hr, 5 min.
 
 TRAMPUSH PH.D., JOEY W
