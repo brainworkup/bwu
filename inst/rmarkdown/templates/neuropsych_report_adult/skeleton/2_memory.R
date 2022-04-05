@@ -61,6 +61,7 @@ filter_domain <- c(
   "Trial 4 Correct",
   "Trial 5 Correct",
   "List B Correct",
+  "Trials 1-4 Correct",
   "Trials 1-5 Correct",
   "Short Delay Free Recall",
   "Short Delay Cued Recall",

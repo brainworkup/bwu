@@ -309,8 +309,8 @@ table1 <-
     domain = case_when(
       scale == "Verbal Comprehension (VCI)" ~ "Intelligence/General Ability",
       scale == "Perceptual Reasoning (PRI)" ~ "Intelligence/General Ability",
-      scale == "Working Memory (WMI)" ~ "Attention/Executive",
-      scale == "Processing Speed (PSI)" ~ "Attention/Executive",
+      scale == "Working Memory (WMI)" ~ "Intelligence/General Ability",
+      scale == "Processing Speed (PSI)" ~ "Intelligence/General Ability",
       scale == "Full Scale IQ (FSIQ)" ~ "Intelligence/General Ability",
       scale == "General Ability (GAI)" ~ "Intelligence/General Ability",
       TRUE ~ as.character(domain)
@@ -631,7 +631,7 @@ table3 <-
   table3 |>
   mutate(
     narrow = case_when(
-      scale == "Block Design" ~ "Visual Cconstruction",
+      scale == "Block Design" ~ "Visuoconstruction",
       scale == "Matrix Reasoning" ~ "Inductive Reasoning",
       scale == "Visual Puzzles" ~ "Visualization",
       scale == "Figure Weights" ~ "General Sequential Reasoning",
@@ -805,8 +805,8 @@ table4 <-
   mutate(
     description = case_when(
       scale == "Digit Span" ~ "register, maintain, and manipulate auditory information",
-      scale == "Arithmetic" ~ "mental manipulation, concentration, and working memory; short- and long-term memory; fluid, quantitative, and logical reasoning; sequential processing; and quantiative knowledge",
-      scale == "Letter-Number Sequencing" ~ "sequencing and working memory, as well as auditory sequential processing, immediate auditory memory, attention, numerical ability, and visual-spatial imaging",
+      scale == "Arithmetic" ~ "solve math word problems in working memory",
+      scale == "Letter-Number Sequencing" ~ "register, maintain, manipulate, and resequence series of numbers and letters in working memory",
       TRUE ~ as.character(description)
     )
   )
@@ -931,7 +931,7 @@ table5 <-
     description = case_when(
       scale == "Coding" ~ "psychomotor speed, visual scanning ability, and visual-motor coordination",
       scale == "Symbol Search" ~ "visual-perceptual/decision-making speed",
-      scale == "Cancellation" ~ "selective visual attention, rate of test-taking, perceptual speed, visual discrimination, and visual-perceptual processing",
+      scale == "Cancellation" ~ "selective visual attention, visual discrimination, and visual-perceptual processing",
       TRUE ~ as.character(description)
     )
   )
@@ -986,7 +986,7 @@ table6 <- gpluck_make_columns(
   test_name = "WAIS-IV",
   domain = "Visual Perception/Construction",
   subdomain = "Visual Processing",
-  narrow = "Visual Construction",
+  narrow = "Visuoconstruction (Untimed)",
   timed = "Untimed",
   verbal = "Nonverbal",
   pass = "Simultaneous",
@@ -1009,7 +1009,7 @@ table6 <-
   table6 |>
   mutate(
     description = case_when(
-      scale == "Block Design No Time Bonus" ~ "visuoconstruction and integration of blocks (untimed)",
+      scale == "Block Design No Time Bonus" ~ "understand visual-spatial relationships to construct geometric designs from a model (untimed)",
       TRUE ~ as.character(description)
     )
   )
