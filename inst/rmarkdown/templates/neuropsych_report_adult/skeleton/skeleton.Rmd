@@ -711,7 +711,7 @@ neurocog <-
   neurocog %>%
   dplyr::mutate(
     result = glue::glue(
-      "{patient}'s {description} are in the {range} range and above those of approximately {percentile}% of {pronoun} peers."
+      "{patient}'s ability to {description} as measured by the {scale} subtest was {range} relative to same age peers."
     )
   )
 ```
@@ -753,7 +753,7 @@ neurobehav <-
   neurobehav %>%
   dplyr::mutate(
     result = glue::glue(
-      "{patient}'s score on {scale} is in the {range} range, suggestive of difficulties with {description}."
+      "{patient}'s score on {scale} (i.e., {description}) was {range}."
     )
   )
 ```
