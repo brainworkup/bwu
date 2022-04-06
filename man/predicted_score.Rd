@@ -4,7 +4,7 @@
 \alias{predicted_score}
 \title{Predicted Ability-Achievement Score}
 \usage{
-predicted_score(x, r, m = 100)
+predicted_score(x, r, m)
 }
 \arguments{
 \item{x}{Actual score}
@@ -17,7 +17,7 @@ predicted_score(x, r, m = 100)
 A predicted score.
 }
 \description{
-Estimate the difference between an ability and achievement score
+Estimate the difference between an ability and achievement score.
 }
 \examples{
 predicted_score(x = 82, r = .93, m = 100)

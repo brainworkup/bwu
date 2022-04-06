@@ -16,5 +16,5 @@ rename_scale(table, scale, name1, name2)
 \item{name2}{New name}
 }
 \description{
-Rename neuropsych table scale variable
+Description of this function.
 }

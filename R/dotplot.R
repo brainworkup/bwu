@@ -1,9 +1,11 @@
 #' Make a dotplot for cognitive domains
 #'
-#' @param data dataset
-#' @param x x-axis
-#' @param y y-axis
-#' @param ... additional arguments
+#' Description of the function.
+#'
+#' @param data Name of dataset
+#' @param x Name of x-axis variable
+#' @param y Name of y-axis variable
+#' @param ... Additional arguments
 #' @return A dotplot using ggplot2
 #'
 #' @examples
@@ -34,5 +36,4 @@ dotplot <- function(data, x, y, ...) {
     ggplot2::theme(panel.background = ggplot2::element_rect(fill = "white")) +
     ggplot2::theme(plot.background = ggplot2::element_rect(fill = "white")) +
     ggplot2::theme(panel.border = ggplot2::element_rect(colour = "white"))
-
 }

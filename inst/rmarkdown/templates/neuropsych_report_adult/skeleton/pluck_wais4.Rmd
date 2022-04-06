@@ -161,27 +161,20 @@ knitr::opts_chunk$set(
   warning = FALSE,
   error = TRUE
 )
-library(bwu)
+library(rmarkdown)
 library(knitr)
-library(xfun)
+library(bwu)
 library(tabulizer)
 library(tabulizerjars)
 library(rJava)
-library(shiny)
-library(miniUI)
 library(here)
-library(pdftools)
-library(tidyverse)
-library(fs)
-library(data.table)
-library(magrittr)
-library(kableExtra)
-library(formattable)
-library(DT)
-library(ggiraph)
+library(readr)
+library(dplyr)
 library(hablar)
 library(tibble)
-library(png)
+library(magrittr)
+library(shiny)
+library(miniUI)
 ```
 
 ```{r patient, include=FALSE}
@@ -202,8 +195,8 @@ file <- readr::read_lines(here::here(patient, "pre_csv", "wais4_pdf"))
 ## Pages
 
 ```{r pages, include=FALSE}
-# pages <- params$pages
-pages <- c(2,4,4,4,4,6,6)
+pages <- params$pages
+# pages <- c(2,4,4,4,4,6,6)
 ```
 
 
@@ -253,7 +246,7 @@ plucked_table <- bwu::gpluck_extract_table(
 
 ```{r pluck1}
 colnames1 <- params$colnames1
-table1 <- as_tibble(plucked_table[[1]])
+table1 <- tibble:as_tibble(plucked_table[[1]])
 colnames(table1) <- params$colnames1
 table1 <- dplyr::na_if(table1, "")
 table1 <- dplyr::na_if(table1, "NA")
@@ -283,7 +276,7 @@ table1 <- table1 |> dplyr::select(all_of(params$keep1))
 ### Create/Insert/Mutate new columns in table
 
 ```{r mutate1}
-table1 <- gpluck_make_columns(
+table1 <- bwu::gpluck_make_columns(
   table1,
   range = "",
   test = "wais4",
@@ -305,8 +298,8 @@ table1 <- gpluck_make_columns(
 ```{r domain1}
 table1 <-
   table1 |>
-  mutate(
-    domain = case_when(
+  dplyr::mutate(
+    domain = dplyr::case_when(
       scale == "Verbal Comprehension (VCI)" ~ "Intelligence/General Ability",
       scale == "Perceptual Reasoning (PRI)" ~ "Intelligence/General Ability",
       scale == "Working Memory (WMI)" ~ "Intelligence/General Ability",
@@ -323,8 +316,8 @@ table1 <-
 ```{r subdomain1}
 table1 <-
   table1 |>
-  mutate(
-    subdomain = case_when(
+  dplyr::mutate(
+    subdomain = dplyr::case_when(
       scale == "Verbal Comprehension (VCI)" ~ "Crystallized Intelligence",
       scale == "Perceptual Reasoning (PRI)" ~ "Fluid Intelligence",
       scale == "Working Memory (WMI)" ~ "Working Memory",
@@ -341,8 +334,8 @@ table1 <-
 ```{r narrow1}
 table1 <-
   table1 |>
-  mutate(
-    narrow = case_when(
+  dplyr::mutate(
+    narrow = dplyr::case_when(
       scale == "Verbal Comprehension (VCI)" ~ "Crystallized Intelligence",
       scale == "Perceptual Reasoning (PRI)" ~ "Fluid Intelligence",
       scale == "Working Memory (WMI)" ~ "Working Memory",
@@ -359,8 +352,8 @@ table1 <-
 ```{r pass1}
 table1 <-
   table1 |>
-  mutate(
-    pass = case_when(
+  dplyr::mutate(
+    pass = dplyr::case_when(
       scale == "Verbal Comprehension (VCI)" ~ "",
       scale == "Perceptual Reasoning (PRI)" ~ "",
       scale == "Working Memory (WMI)" ~ "",
@@ -377,8 +370,8 @@ table1 <-
 ```{r verbal1}
 table1 <-
   table1 |>
-  mutate(
-    verbal = case_when(
+  dplyr::mutate(
+    verbal = dplyr::case_when(
       scale == "Verbal Comprehension (VCI)" ~ "Verbal",
       scale == "Perceptual Reasoning (PRI)" ~ "Nonverbal",
       scale == "Working Memory (WMI)" ~ "Verbal",
@@ -395,8 +388,8 @@ table1 <-
 ```{r timed1}
 table1 <-
   table1 |>
-  mutate(
-    timed = case_when(
+  dplyr::mutate(
+    timed = dplyr::case_when(
       scale == "Verbal Comprehension (VCI)" ~ "Untimed",
       scale == "Perceptual Reasoning (PRI)" ~ "Timed",
       scale == "Working Memory (WMI)" ~ "Untimed",
@@ -413,8 +406,8 @@ table1 <-
 ```{r desc1}
 table1 <-
   table1 |>
-  mutate(
-    description = case_when(
+  dplyr::mutate(
+    description = dplyr::case_when(
       scale == "Verbal Comprehension (VCI)" ~ "The VCI provides an estimate of Crystallized Intelligence (Gc). Gc refers to an individual’s knowledge base (or general fund of information) that develops as a result of exposure to language, culture, general life experiences, and formal schooling.",
       scale == "Perceptual Reasoning (PRI)" ~ "The PRI provides an estimate of Fluid Reasoning (Gf). Gf refers to a type of thinking that an individual may use when faced with a relatively new or novel task that cannot be performed automatically.",
       scale == "Working Memory (WMI)" ~ "The WMI provides an estimate of Short-term Working Memory (Gsm). Gsm refers to the ability to hold information in immediate awareness and then manipulate or transform it in some way within a few seconds.",
@@ -436,14 +429,14 @@ table1 <- bwu::gpluck_make_score_ranges(table = table1, test_type = "npsych_test
 
 ### Relocate variables
 
-```{r relocate1}
-table1 <- table1 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+```{r reloc1}
+table1 <- table1 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), before = test)
 ```
 
 # VCI
 
 ```{r pluck2}
-table2 <- as_tibble(plucked_table[[2]])
+table2 <- tibble::as_tibble(plucked_table[[2]])
 colnames(table2) <- params$colnames2
 table2 <- dplyr::na_if(table2, "")
 table2 <- dplyr::na_if(table2, "NA")
@@ -473,7 +466,7 @@ table2 <- table2 |> dplyr::select(all_of(params$keep2))
 ### Create/Insert/Mutate new columns in table
 
 ```{r maketbl2}
-table2 <- gpluck_make_columns(
+table2 <- bwu::gpluck_make_columns(
   table2,
   range = "",
   ci_95 = "",
@@ -502,8 +495,8 @@ table2 <- bwu::gpluck_make_score_ranges(table = table2, test_type = "npsych_test
 ```{r subdomain2}
 table2 <-
   table2 |>
-  mutate(
-    subdomain = case_when(
+  dplyr::mutate(
+    subdomain = dplyr::case_when(
       scale == "Similarities" ~ "Acquired Knowledge",
       scale == "Vocabulary" ~ "Acquired Knowledge",
       scale == "Information" ~ "Acquired Knowledge",
@@ -518,8 +511,8 @@ table2 <-
 ```{r narrow2}
 table2 <-
   table2 |>
-  mutate(
-    narrow = case_when(
+  dplyr::mutate(
+    narrow = dplyr::case_when(
       scale == "Similarities" ~ "Verbal Reasoning",
       scale == "Vocabulary" ~ "Lexical Knowledge",
       scale == "Information" ~ "General Verbal Information",
@@ -534,8 +527,8 @@ table2 <-
 ```{r desc2}
 table2 <-
   table2 |>
-  mutate(
-    description = case_when(
+  dplyr::mutate(
+    description = dplyr::case_when(
       scale == "Similarities" ~ "reasoning with words",
       scale == "Vocabulary" ~ "word knowledge",
       scale == "Information" ~ "acquired knowledge/ability to acquire, retain, and retrieve general factual knowledge",
@@ -584,7 +577,7 @@ table3 <- table3 |> dplyr::select(all_of(params$keep2))
 ## Insert/mutate columns
 
 ```{r mutate3}
-table3 <- gpluck_make_columns(
+table3 <- bwu::gpluck_make_columns(
   table3,
   range = "",
   ci_95 = "",
@@ -613,8 +606,8 @@ table3 <- bwu::gpluck_make_score_ranges(table = table3, test_type = "npsych_test
 ```{r subdomain3}
 table3 <-
   table3 |>
-  mutate(
-    subdomain = case_when(
+  dplyr::mutate(
+    subdomain = dplyr::case_when(
       scale == "Block Design" ~ "Visual Processing",
       scale == "Matrix Reasoning" ~ "Fluid Reasoning",
       scale == "Visual Puzzles" ~ "Visual Processing",
@@ -629,8 +622,8 @@ table3 <-
 ```{r narrow3}
 table3 <-
   table3 |>
-  mutate(
-    narrow = case_when(
+  dplyr::mutate(
+    narrow = dplyr::case_when(
       scale == "Block Design" ~ "Visuoconstruction",
       scale == "Matrix Reasoning" ~ "Inductive Reasoning",
       scale == "Visual Puzzles" ~ "Visualization",
@@ -645,8 +638,8 @@ table3 <-
 ```{r timed3}
 table3 <-
   table3 |>
-  mutate(
-    timed = case_when(
+  dplyr::mutate(
+    timed = dplyr::case_when(
       scale == "Block Design" ~ "Timed",
       scale == "Matrix Reasoning" ~ "Untimed",
       scale == "Visual Puzzles" ~ "Timed",
@@ -661,8 +654,8 @@ table3 <-
 ```{r desc3}
 table3 <-
   table3 |>
-  mutate(
-    description = case_when(
+  dplyr::mutate(
+    description = dplyr::case_when(
       scale == "Block Design" ~ "understand visual-spatial relationships to construct geometric designs from a model",
       scale == "Matrix Reasoning" ~ "inductive reasoning",
       scale == "Visual Puzzles" ~ "generate visual images in the mind's eye",
@@ -683,7 +676,7 @@ table3 <- table3 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 ## Table 4
 
 ```{r pluck4}
-table4 <- as_tibble(plucked_table[[4]])
+table4 <- tibble::as_tibble(plucked_table[[4]])
 colnames(table4) <- params$colnames2
 table4 <- dplyr::na_if(table4, "")
 table4 <- dplyr::na_if(table4, "NA")
@@ -713,7 +706,7 @@ table4 <- table4 |> dplyr::select(all_of(params$keep2))
 ## Mutate columns
 
 ```{r mutate4}
-table4 <- gpluck_make_columns(
+table4 <- bwu::gpluck_make_columns(
   table4,
   range = "",
   ci_95 = "",
@@ -742,8 +735,8 @@ table4 <- bwu::gpluck_make_score_ranges(table = table4, test_type = "npsych_test
 ```{r subdomain4}
 table4 <-
   table4 |>
-  mutate(
-    subdomain = case_when(
+  dplyr::mutate(
+    subdomain = dplyr::case_when(
       scale == "Digit Span" ~ "Working Memory",
       scale == "Arithmetic" ~ "Working Memory",
       scale == "Letter-Number Sequencing" ~ "Working Memory",
@@ -757,8 +750,8 @@ table4 <-
 ```{r narrow4}
 table4 <-
   table4 |>
-  mutate(
-    narrow = case_when(
+  dplyr::mutate(
+    narrow = dplyr::case_when(
       scale == "Digit Span" ~ "Working Memory",
       scale == "Arithmetic" ~ "Working Memory",
       scale == "Letter-Number Sequencing" ~ "Working Memory",
@@ -772,8 +765,8 @@ table4 <-
 ```{r timed4}
 table4 <-
   table4 |>
-  mutate(
-    timed = case_when(
+  dplyr::mutate(
+    timed = dplyr::case_when(
       scale == "Digit Span" ~ "Untimed",
       scale == "Arithmetic" ~ "Timed",
       scale == "Letter-Number Sequencing" ~ "Untimed",
@@ -787,8 +780,8 @@ table4 <-
 ```{r pass4}
 table4 <-
   table4 |>
-  mutate(
-    pass = case_when(
+  dplyr::mutate(
+    pass = dplyr::case_when(
       scale == "Digit Span" ~ "Attention",
       scale == "Arithmetic" ~ "Attention",
       scale == "Letter-Number Sequencing" ~ "Attention",
@@ -802,8 +795,8 @@ table4 <-
 ```{r desc4}
 table4 <-
   table4 |>
-  mutate(
-    description = case_when(
+  dplyr::mutate(
+    description = dplyr::case_when(
       scale == "Digit Span" ~ "register, maintain, and manipulate auditory information",
       scale == "Arithmetic" ~ "solve math word problems in working memory",
       scale == "Letter-Number Sequencing" ~ "register, maintain, manipulate, and resequence series of numbers and letters in working memory",
@@ -823,7 +816,7 @@ table4 <- table4 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 ## Table 5
 
 ```{r pluck5}
-table5 <- as_tibble(plucked_table[[5]])
+table5 <- tibble::as_tibble(plucked_table[[5]])
 colnames(table5) <- params$colnames2
 table5 <- dplyr::na_if(table5, "")
 table5 <- dplyr::na_if(table5, "NA")
@@ -853,7 +846,7 @@ table5 <- table5 |> dplyr::select(all_of(params$keep2))
 ## Mutate columns
 
 ```{r mutate5}
-table5 <- gpluck_make_columns(
+table5 <- bwu::gpluck_make_columns(
   table5,
   range = "",
   ci_95 = "",
@@ -882,8 +875,8 @@ table5 <- bwu::gpluck_make_score_ranges(table = table5, test_type = "npsych_test
 ```{r subdomain5}
 table5 <-
   table5 |>
-  mutate(
-    subdomain = case_when(
+  dplyr::mutate(
+    subdomain = dplyr::case_when(
       scale == "Coding" ~ "Processing Speed",
       scale == "Symbol Search" ~ "Processing Speed",
       scale == "Cancellation" ~ "Processing Speed",
@@ -897,8 +890,8 @@ table5 <-
 ```{r narrow5}
 table5 <-
   table5 |>
-  mutate(
-    narrow = case_when(
+  dplyr::mutate(
+    narrow = dplyr::case_when(
       scale == "Coding" ~ "Cognitive Efficiency",
       scale == "Symbol Search" ~ "Perceptual Speed",
       scale == "Cancellation" ~ "Visual Attention",
@@ -912,8 +905,8 @@ table5 <-
 ```{r pass5}
 table5 <-
   table5 |>
-  mutate(
-    pass = case_when(
+  dplyr::mutate(
+    pass = dplyr::case_when(
       scale == "Cancellation" ~ "Attention",
       scale == "Coding" ~ "Planning",
       scale == "Symbol Search" ~ "Attention",
@@ -927,8 +920,8 @@ table5 <-
 ```{r desc5}
 table5 <-
   table5 |>
-  mutate(
-    description = case_when(
+  dplyr::mutate(
+    description = dplyr::case_when(
       scale == "Coding" ~ "psychomotor speed, visual scanning ability, and visual-motor coordination",
       scale == "Symbol Search" ~ "visual-perceptual/decision-making speed",
       scale == "Cancellation" ~ "selective visual attention, visual discrimination, and visual-perceptual processing",
@@ -948,7 +941,7 @@ table5 <- table5 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 ## Table 6
 
 ```{r pluck6}
-table6 <- as_tibble(plucked_table[[6]])
+table6 <- tibble::as_tibble(plucked_table[[6]])
 colnames(table6) <- params$colnames2
 table6 <- dplyr::na_if(table6, "")
 table6 <- dplyr::na_if(table6, "NA")
@@ -978,7 +971,7 @@ table6 <- table6 |> dplyr::select(all_of(params$keep2))
 ## Mutate columns
 
 ```{r mutate6}
-table6 <- gpluck_make_columns(
+table6 <- bwu::gpluck_make_columns(
   table6,
   range = "",
   ci_95 = "",
@@ -1007,8 +1000,8 @@ table6 <- bwu::gpluck_make_score_ranges(table = table6, test_type = "npsych_test
 ```{r desc6}
 table6 <-
   table6 |>
-  mutate(
-    description = case_when(
+  dplyr::mutate(
+    description = dplyr::case_when(
       scale == "Block Design No Time Bonus" ~ "understand visual-spatial relationships to construct geometric designs from a model (untimed)",
       TRUE ~ as.character(description)
     )
@@ -1056,7 +1049,7 @@ table7 <- table7 |> dplyr::select(all_of(params$keep2))
 ## Mutate columns
 
 ```{r mutate7}
-table7 <- gpluck_make_columns(
+table7 <- bwu::gpluck_make_columns(
   table7,
   range = "",
   ci_95 = "",
@@ -1085,8 +1078,8 @@ table7 <- bwu::gpluck_make_score_ranges(table = table7, test_type = "npsych_test
 ```{r narrow7}
 table7 <-
   table7 |>
-  mutate(
-    narrow = case_when(
+  dplyr::mutate(
+    narrow = dplyr::case_when(
       scale == "Digit Span Backward" ~ "Working Memory Capacity",
       scale == "Digit Span Forward" ~ "Memory Span",
       scale == "Digit Span Sequencing" ~ "Working Memory Capacity",
@@ -1104,8 +1097,8 @@ table7 <-
 ```{r pass7}
 table7 <-
   table7 |>
-  mutate(
-    pass = case_when(
+  dplyr::mutate(
+    pass = dplyr::case_when(
       scale == "Digit Span Forward" ~ "Attention",
       scale == "Digit Span Backward" ~ "Attention",
       scale == "Digit Span Sequencing" ~ "Attention",
@@ -1123,8 +1116,8 @@ table7 <-
 ```{r score7}
 table7 <-
   table7 |>
-  mutate(
-    score_type = case_when(
+  dplyr::mutate(
+    score_type = dplyr::case_when(
       scale == "Digit Span Backward" ~ "scaled_score",
       scale == "Digit Span Forward" ~ "scaled_score",
       scale == "Digit Span Sequencing" ~ "scaled_score",
@@ -1142,8 +1135,8 @@ table7 <-
 ```{r desc7}
 table7 <-
   table7 |>
-  mutate(
-    description = case_when(
+  dplyr::mutate(
+    description = dplyr::case_when(
       scale == "Digit Span Backward" ~ "recall of digits backward",
       scale == "Digit Span Forward" ~ "recall of digits forward",
       scale == "Digit Span Sequencing" ~ "recall of digits sequencing",

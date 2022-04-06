@@ -2,7 +2,7 @@
 % Please edit documentation in R/make_tibble.R
 \name{make_tibble}
 \alias{make_tibble}
-\title{Make tibble for npsych report tables}
+\title{Make tibble table for npsych report tables}
 \usage{
 make_tibble(
   tibb,
@@ -17,31 +17,32 @@ make_tibble(
 )
 }
 \arguments{
-\item{tibb}{name of tibble to make}
+\item{tibb}{Name of tibble to make}
 
-\item{data}{dataset}
+\item{data}{Dataset to use}
 
-\item{pheno}{which phenotype/cog trait}
+\item{pheno}{Which phenotype/cog trait}
 
-\item{domain}{which cognitive domain}
+\item{domain}{Which cognitive domain}
 
-\item{columns}{columns to keep}
+\item{columns}{Columns to keep}
 
-\item{percentile}{percentile score}
+\item{percentile}{Percentile score}
 
-\item{digits}{how many digits to round}
+\item{digits}{How many digits to round}
 
-\item{names}{names of variables/columns}
+\item{names}{Names of variables/columns}
 
-\item{...}{additional arguments}
+\item{...}{Additional arguments}
 }
 \value{
 A dotplot using ggplot2
 }
 \description{
-Make tibble for npsych report tables
+This is the description.
 }
 \examples{
 require(magrittr)
 make_tibble(tibb = iq, data = neurocog, pheno = "Intelligence/General Ability")
+
 }

@@ -11,8 +11,6 @@
 #'   \item \code{method = "stream"} use Tabula's basic extraction algorithm
 #' }
 #' @param output A function to coerce the Java response object (a Java ArrayList of Tabula Tables) to some output format. The default method, \dQuote{matrices}, returns a list of character matrices. See Details for other options.
-
-
 #' @param \dots These are additional arguments passed to the internal functions dispatched by \code{method}.
 #' @details This function mimics the behavior of the Tabula command line utility. It returns a list of R character matrices containing tables extracted from a file by default. This response behavior can be changed by using the following options.
 #' \itemize{

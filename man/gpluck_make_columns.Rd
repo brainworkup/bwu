@@ -75,7 +75,7 @@ gpluck_make_columns(
 A table for the report
 }
 \description{
-Make new columns for neuropsych tables
+Make new columns for neuropsych tables more of a description.
 }
 \examples{
 gpluck_make_columns(table = neurocog, scale = "Clock Drawing",

@@ -1,5 +1,5 @@
 #' @title Make columns for npsych tables
-#' @description Make new columns for neuropsych tables
+#' @description Make new columns for neuropsych tables more of a description.
 #' @param table Name of table
 #' @param scale Name of scale/subtest
 #' @param raw_score Raw score for scale
@@ -57,21 +57,25 @@ gpluck_make_columns <- function(table,
                                 ),
                                 subdomain = NULL,
                                 narrow = NULL,
-                                pass = c("Planning",
-                                         "Attention",
-                                         "Sequential",
-                                         "Simultaneous",
-                                         "Knowledge",
-                                         NA),
-                                verbal = c("Verbal",
-                                           "Nonverbal",
-                                           NA),
-                                timed = c("Timed",
-                                          "Untimed",
-                                          NA),
-                                test_type = c("npsych_test",
-                                              "rating_scale",
-                                              "rating_scale2"),
+                                pass = c(
+                                  "Planning",
+                                  "Attention",
+                                  "Sequential",
+                                  "Simultaneous",
+                                  "Knowledge",
+                                  NA),
+                                verbal = c(
+                                  "Verbal",
+                                  "Nonverbal",
+                                  NA),
+                                timed = c(
+                                  "Timed",
+                                  "Untimed",
+                                  NA),
+                                test_type = c(
+                                  "npsych_test",
+                                  "rating_scale",
+                                  "rating_scale2"),
                                 score_type = c(
                                   "raw_score",
                                   "scaled_score",

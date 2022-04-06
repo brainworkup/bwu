@@ -1,21 +1,23 @@
-#' @title Make test score range (e.g., Below Average, Above Average)
-#' @description Use a consistent set of ranges for performance
+#' @title Make test score range (e.g., Below Average, Above Average).
+#' @description Use a consistent set of ranges for performance on neuropsychological testing.
+#' @import dplyr
 #'
-#' @param table name of table
-#' @param score standard score
-#' @param percentile percentile rank
+#' @param table Name of table
+#' @param score Score, raw score, or standard score
+#' @param percentile Percentile rank
 #' @param range Range of performance score
 #' @param test_type Type of test
 #' @param ... More if needed
 #'
 #' @return Returns a modified table.
+#' 
 #' @examples
 #' neurocog <- gpluck_make_score_ranges(
 #' table = neurocog,
-#'  score = 50,
-#'   percentile = 50,
-#'    range = "",
-#'     test_type = "npsych_test")
+#' score = 50,
+#' percentile = 50,
+#' range = "",
+#' test_type = "npsych_test")
 #'
 #' @export
 gpluck_make_score_ranges <-

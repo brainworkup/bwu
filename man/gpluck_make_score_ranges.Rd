@@ -2,7 +2,7 @@
 % Please edit documentation in R/gpluck_make_score_ranges.R
 \name{gpluck_make_score_ranges}
 \alias{gpluck_make_score_ranges}
-\title{Make test score range (e.g., Below Average, Above Average)}
+\title{Make test score range (e.g., Below Average, Above Average).}
 \usage{
 gpluck_make_score_ranges(
   table = table,
@@ -14,11 +14,11 @@ gpluck_make_score_ranges(
 )
 }
 \arguments{
-\item{table}{name of table}
+\item{table}{Name of table}
 
-\item{score}{standard score}
+\item{score}{Score, raw score, or standard score}
 
-\item{percentile}{percentile rank}
+\item{percentile}{Percentile rank}
 
 \item{range}{Range of performance score}
 
@@ -30,14 +30,14 @@ gpluck_make_score_ranges(
 Returns a modified table.
 }
 \description{
-Use a consistent set of ranges for performance
+Use a consistent set of ranges for performance on neuropsychological testing.
 }
 \examples{
 neurocog <- gpluck_make_score_ranges(
 table = neurocog,
- score = 50,
-  percentile = 50,
-   range = "",
-    test_type = "npsych_test")
+score = 50,
+percentile = 50,
+range = "",
+test_type = "npsych_test")
 
 }

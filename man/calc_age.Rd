@@ -7,14 +7,14 @@
 calc_age(birthDate, refDate = Sys.Date(), unit = "year")
 }
 \arguments{
-\item{birthDate}{date of birth}
+\item{birthDate}{Date of birth}
 
-\item{refDate}{date of evaluation}
+\item{refDate}{Date of evaluation}
 
-\item{unit}{unit year, month or day}
+\item{unit}{Unit of time (year, month or day)}
 }
 \value{
-age
+Age in years.
 }
 \description{
 Calculate age at a given reference date

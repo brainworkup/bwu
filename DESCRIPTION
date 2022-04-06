@@ -1,61 +1,63 @@
-Package: bwu
 Type: Package
-Title: BrainWorkUp Neuropsychological Report Repository USC Psychiatry
-Version: 0.2.7.9000
-Author: person("Joey", "Trampush", email = trampush@usc.edu, role = c("aut", "cre"))
+Package: bwu
+Title: BrainWorkUp Neuropsychological Report Writing Package
+Version: 0.2.8.9000
+Author: person("Joey", "Trampush", email = trampush@usc.edu, role =
+    c("aut", "cre"))
 Maintainer: Joey Trampush <trampush@usc.edu>
-Description: This package stores the functions and normative datasets to use for neuropsychological assessments at USC Keck School of Medicine. Hopefully it works.
+Description: This package stores the functions and normative datasets to
+    use for neuropsychological assessments at the USC Keck School of
+    Medicine Department of Psychiatry and Behavioral Sciences. Hopefully
+    it works.
 License: GPL-3
-LazyData: true
 Depends:
-    R (>= 3.10),
+    R (>= 3.10)
 Imports:
-    knitr,
-    rmarkdown (>= 2.10),
-    here,
-    fs,
-    miniUI,
-    magrittr,
-    htmltools,
-    purrr (>= 0.3.2),
-    rlang (>= 0.4.0),
-    png,
-    rJava,
-    stats,
+    bookdown,
     dplyr,
-    stringr,
-    shiny,
-    usethis (>= 1.5.0),
-    tabulizer,
-    tabulizerjars,
-    bookdown
-Suggests:
-    rstudioapi,
-    blogdown,
-    pkgdown,
-    readr,
-    tibble,
-    glue,
     forcats,
-    lubridate,
+    fs,
     ggplot2,
-    hablar,
     ggthemes,
-    tidyselect,
-    kableExtra,
+    glue,
     gt,
-    testthat (>= 3.0.0),
-    xfun,
-    xaringan,
-    pagedown,
-    covr,
-    spelling,
+    hablar,
+    here,
     highcharter,
+    htmltools,
+    kableExtra,
+    knitr,
+    lubridate,
+    magrittr,
+    png,
+    purrr,
+    readr,
+    rJava,
+    rlang,
+    rmarkdown,
+    shiny,
+    stats,
+    stringr,
+    tabulizer,
+    tibble,
+    usethis (>= 1.5.0)
+Suggests:
+    covr,
+    miniUI,
+    pkgdown,
     roxygen2,
-    tufte
-VignetteBuilder: knitr
-Language: en-US
+    rstudioapi,
+    spelling,
+    testthat (>= 3.0.0),
+    tidyselect,
+    tufte,
+    xaringan,
+    xfun
+VignetteBuilder: 
+    knitr
+Config/testthat/edition: 3
 Encoding: UTF-8
+Language: en-US
+LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2.9000
-Config/testthat/edition: 3

@@ -2,7 +2,7 @@
 % Please edit documentation in R/drilldown.R
 \name{drilldown}
 \alias{drilldown}
-\title{Highcharter Drilldown}
+\title{Drilldown on neuropsych domains.}
 \usage{
 drilldown(data, patient, ...)
 }
@@ -14,8 +14,11 @@ drilldown(data, patient, ...)
 \item{...}{Numeric, complex, or logical vectors.}
 }
 \value{
-plot
+A drilldown plot
 }
 \description{
-\code{drilldown} creates a highcharter drilldown interactive plot.
+This function uses the R Highcharter package and drilldown function to "drill down" on neuropsychological domains and test scores.
+}
+\details{
+\code{drilldown} Creates a highcharter drilldown interactive plot.
 }

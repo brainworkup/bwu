@@ -7,19 +7,19 @@
 dotplot(data, x, y, ...)
 }
 \arguments{
-\item{data}{dataset}
+\item{data}{Name of dataset}
 
-\item{x}{x-axis}
+\item{x}{Name of x-axis variable}
 
-\item{y}{y-axis}
+\item{y}{Name of y-axis variable}
 
-\item{...}{additional arguments}
+\item{...}{Additional arguments}
 }
 \value{
 A dotplot using ggplot2
 }
 \description{
-Make a dotplot for cognitive domains
+Description of the function.
 }
 \examples{
 dotplot(iris, iris$Sepal.Length, iris$Species)

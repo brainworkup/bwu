@@ -1,21 +1,24 @@
-#' Highcharter Drilldown
+#' Drilldown on neuropsych domains.
+#' 
+#' This function uses the R Highcharter package and drilldown function to "drill down" on neuropsychological domains and test scores.
 #'
-#' \code{drilldown} creates a highcharter drilldown interactive plot.
-#'
+#' \code{drilldown} Creates a highcharter drilldown interactive plot.
+#' 
 #' @param data Dataset to use.
 #' @param patient Patient initials, 4 letters.
 #' @param ... Numeric, complex, or logical vectors.
 #'
-#' @return plot
+#' @return A drilldown plot
 #'
 #' @export
 drilldown <- function(data, patient, ...) {
 
-  # Create 4 levels of dataframes for drilldown ----------------------------------
+  # Create 4 levels of dataframes for drilldown -----------------------
   ## Level 1 -------------------------------------------------------
   ## Domain scores
   # 1. create mean z-scores for domain
-  ncog1 <- data %>%
+  ncog1 <- 
+    data %>%
     dplyr::group_by(domain) %>%
     dplyr::summarize(
       zMean = mean(z),
@@ -30,9 +33,9 @@ drilldown <- function(data, patient, ...) {
       range = dplyr::case_when(
         zPct >= 98 ~ "Exceptionally High",
         zPct %in% 91:97 ~ "Above Average",
-        zPct %in% 75:90 ~ "High-Average",
+        zPct %in% 75:90 ~ "High Average",
         zPct %in% 25:74 ~ "Average",
-        zPct %in% 9:24 ~ "Low-Average",
+        zPct %in% 9:24 ~ "Low Average",
         zPct %in% 2:8 ~ "Below Average",
         zPct < 2 ~ "Exceptionally Low",
         TRUE ~ as.character(range)
@@ -43,7 +46,7 @@ drilldown <- function(data, patient, ...) {
   ncog1 <- dplyr::arrange(ncog1, desc(zMean))
 
   # 3. create tibble with new column with domain name lowercase
-  ncog_level1_status <- tibble(
+  ncog_level1_status <- tibble::tibble(
     name = ncog1$domain,
     y = ncog1$zMean,
     y2 = ncog1$zPct,
@@ -77,9 +80,9 @@ drilldown <- function(data, patient, ...) {
           range = dplyr::case_when(
             zPct >= 98 ~ "Exceptionally High",
             zPct %in% 91:97 ~ "Above Average",
-            zPct %in% 75:90 ~ "High-Average",
+            zPct %in% 75:90 ~ "High Average",
             zPct %in% 25:74 ~ "Average",
-            zPct %in% 9:24 ~ "Low-Average",
+            zPct %in% 9:24 ~ "Low Average",
             zPct %in% 2:8 ~ "Below Average",
             zPct < 2 ~ "Exceptionally Low",
             TRUE ~ as.character(range)
@@ -90,7 +93,7 @@ drilldown <- function(data, patient, ...) {
       ncog2 <- dplyr::arrange(ncog2, desc(zMean))
 
       # 3. create tibble with new column with domain name lowercase
-      ncog_level2_status <- tibble(
+      ncog_level2_status <- tibble::tibble(
         name = ncog2$subdomain,
         y = ncog2$zMean,
         y2 = ncog2$zPct,
@@ -132,9 +135,9 @@ drilldown <- function(data, patient, ...) {
             range = dplyr::case_when(
               zPct >= 98 ~ "Exceptionally High",
               zPct %in% 91:97 ~ "Above Average",
-              zPct %in% 75:90 ~ "High-Average",
+              zPct %in% 75:90 ~ "High Average",
               zPct %in% 25:74 ~ "Average",
-              zPct %in% 9:24 ~ "Low-Average",
+              zPct %in% 9:24 ~ "Low Average",
               zPct %in% 2:8 ~ "Below Average",
               zPct < 2 ~ "Exceptionally Low",
               TRUE ~ as.character(range)
@@ -143,7 +146,7 @@ drilldown <- function(data, patient, ...) {
 
         ncog3 <- dplyr::arrange(ncog3, desc(zMean))
 
-        ncog_level3_status <- tibble(
+        ncog_level3_status <- tibble::tibble(
           name = ncog3$narrow,
           y = ncog3$zMean,
           y2 = ncog3$zPct,
@@ -190,9 +193,9 @@ drilldown <- function(data, patient, ...) {
               range = dplyr::case_when(
                 zPct >= 98 ~ "Exceptionally High",
                 zPct %in% 91:97 ~ "Above Average",
-                zPct %in% 75:90 ~ "High-Average",
+                zPct %in% 75:90 ~ "High Average",
                 zPct %in% 25:74 ~ "Average",
-                zPct %in% 9:24 ~ "Low-Average",
+                zPct %in% 9:24 ~ "Low Average",
                 zPct %in% 2:8 ~ "Below Average",
                 zPct < 2 ~ "Exceptionally Low",
                 TRUE ~ as.character(range)
@@ -201,7 +204,7 @@ drilldown <- function(data, patient, ...) {
 
           ncog4 <- dplyr::arrange(ncog4, desc(zMean))
 
-          ncog_level4_status <- tibble(
+          ncog_level4_status <- tibble::tibble(
             name = ncog4$scale,
             y = ncog4$zMean,
             y2 = ncog4$zPct,

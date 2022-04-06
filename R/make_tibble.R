@@ -1,47 +1,46 @@
-#' Make tibble for npsych report tables
+#' @title Make tibble table for npsych report tables
 #'
-#' @param tibb name of tibble to make
-#' @param data dataset
-#' @param pheno which phenotype/cog trait
-#' @param domain which cognitive domain
-#' @param columns columns to keep
-#' @param percentile percentile score
-#' @param digits how many digits to round
-#' @param names names of variables/columns
-#' @param ... additional arguments
+#' @description This is the description.
+#'
+#' @param tibb Name of tibble to make
+#' @param data Dataset to use
+#' @param pheno Which phenotype/cog trait
+#' @param domain Which cognitive domain
+#' @param columns Columns to keep
+#' @param percentile Percentile score
+#' @param digits How many digits to round
+#' @param names Names of variables/columns
+#' @param ... Additional arguments
 #'
 #' @return A dotplot using ggplot2
 #' @examples
 #' require(magrittr)
 #' make_tibble(tibb = iq, data = neurocog, pheno = "Intelligence/General Ability")
+#'
 #' @export
 make_tibble <- function(tibb,
                         data = c("neurocog", "neurobehav"),
                         pheno = NULL,
                         domain = NULL,
-                        columns = c(
-                          "scale",
-                          "score",
-                          "percentile",
-                          "range",
-                          "subdomain",
-                          "test_name"
-                        ),
+                        columns = c("scale",
+                                    "score",
+                                    "percentile",
+                                    "range",
+                                    "subdomain",
+                                    "test_name"),
                         percentile = NULL,
                         digits = 0,
-                        names = c(
-                          "Scale",
-                          "Score",
-                          "\u2030 Rank",
-                          "Range",
-                          "Subdomain",
-                          "Test"
-                        ),
+                        names = c("Scale",
+                                  "Score",
+                                  "\u2030 Rank",
+                                  "Range",
+                                  "Subdomain",
+                                  "Test"),
                         ...) {
   tibb <-
     data %>%
     dplyr::filter(domain == pheno) %>%
     dplyr::select(tidyselect::all_of(columns)) %>%
-    dplyr::mutate(percentile = base::round(percentile, digits)) %>%
+    dplyr::mutate(percentile = round(percentile, digits)) %>%
     purrr::set_names(names)
 }
