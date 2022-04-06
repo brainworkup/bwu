@@ -1,9 +1,5 @@
 # NEUROBEHAVIORAL STATUS EXAM
 
-### Telemedicine Statement
-
-_I connected with the Patient by a video enabled telemedicine application and verified that I am speaking with the correct person using two identifiers. I discussed the limitations of evaluation and management by telemedicine and the availability of in-person appointments. The patient expressed understanding and agreed to proceed. I have verified this to be the correct patient and obtained verbal consent from the patient to perform this voluntary telemedicine visit and evaluation (including obtaining history from the patient). The patient has the right to refuse this evaluation. I have explained risks (including potential loss of confidentiality), benefits, alternatives, and the potential need for subsequent face-to-face care. The patient understands that there is a risk of medical inaccuracies given that our recommendations will be made based on reported data (and we must therefore assume this information is accurate). Knowing that there is a risk that this information is not reported accurately, and that the telemedicine video, audio, or data feed may be incomplete, the patient agrees to proceed with evaluation and holds Keck Medicine of USC harmless knowing these risks. I have notified the patient that other healthcare professionals (including students, residents, and technical personnel) may be involved in this audio-video evaluation. All laws concerning medical records apply to telemedicine. The patient has received the Keck Medicine of USC Notice of Privacy Practices._
-
 ## Identifying Information
 
 **Patient:** (ref:last-name), (ref:first-name)  
@@ -23,8 +19,8 @@ _I connected with the Patient by a video enabled telemedicine application and ve
 
 ## Reason for Referral
 
-(ref:first-name) (ref:last-name) is a (ref:age)-year-old (ref:sex) with a history of (ref:dx1) and (ref:dx1).
-(ref:he-she-cap) was referred by (ref:refdoc), for evaluation of (ref:his-her) neurocognitive, academic, and emotional functioning to develop an intervention plan.
+(ref:first-name) (ref:last-name) is a (ref:age)-year-old (ref:race) (ref:sex) self-referred for evaluation to assess (ref:his-her) current cognitive and emotional functioning and to develop an intervention plan.
+(ref:first-name) reports a history of mood dysregulation, performance anxiety, attention/organization problems, and social-emotional difficulties.
 This report is based on a review of available medical records and information gathered across a 1-hour neurobehavioral exam conducted with the patient via telemedicine on (ref:doe1).
 
 ## Relevant History
@@ -42,7 +38,7 @@ However, (ref:his-her) mother reported ongoing difficulties with focus/concentra
 (ref:he-she-cap) also reported that it has been difficult to get(ref:first-name) to take (ref:his-her) medications if (ref:he-she) is not there to remind (ref:him-her).
 (ref:he-she-cap) has told (ref:his-her) that (ref:he-she) would like to stop taking all medication.
 Previous medication includes Ritalin (stopped because of low appetite).
-There are no current concerns with hearing, vision, sleep, appetite or growth.
+There are no current concerns with hearing, vision, sleep, or appetite.
 (ref:he-she-cap) also denies current headaches or pain.
 Family medical history includes x, y, and z.
 Surgical history includes x, y, and z.
@@ -57,7 +53,7 @@ Surgical history includes x, y, and z.
 
 ### Behavioral/Emotional/Social
 
-(ref:first-name)'s mother reported that (ref:he-she) has struggled with depression over the years.
+(ref:first-name) reported that (ref:he-she) has struggled with depression over the years.
 (ref:he-she-cap) was especially upset at no longer being allowed to play sports after (ref:his-her) previous concussions.
 (ref:he-she-cap) noted that (ref:his-her) mood has been better and (ref:he-she) has not been as withdrawn since increasing (ref:his-her) dose of Effexor XR.
 (ref:he-she-cap) denied concerns about (ref:him-her) harming (ref:him-her)self or others.
@@ -112,3 +108,7 @@ Please contact me with any questions or concerns regarding this patient.
 Neurobehavioral status exam and clinical documentation by Neuropsychologist (96116 x 1, 96121 x 1): 2 hr, 5 min.
 
 TRAMPUSH PH.D., JOEY W
+
+### Telemedicine Statement
+
+_I connected with the Patient by a video enabled telemedicine application and verified that I am speaking with the correct person using two identifiers. I discussed the limitations of evaluation and management by telemedicine and the availability of in-person appointments. The patient expressed understanding and agreed to proceed. I have verified this to be the correct patient and obtained verbal consent from the patient to perform this voluntary telemedicine visit and evaluation (including obtaining history from the patient). The patient has the right to refuse this evaluation. I have explained risks (including potential loss of confidentiality), benefits, alternatives, and the potential need for subsequent face-to-face care. The patient understands that there is a risk of medical inaccuracies given that our recommendations will be made based on reported data (and we must therefore assume this information is accurate). Knowing that there is a risk that this information is not reported accurately, and that the telemedicine video, audio, or data feed may be incomplete, the patient agrees to proceed with evaluation and holds Keck Medicine of USC harmless knowing these risks. I have notified the patient that other healthcare professionals (including students, residents, and technical personnel) may be involved in this audio-video evaluation. All laws concerning medical records apply to telemedicine. The patient has received the Keck Medicine of USC Notice of Privacy Practices._

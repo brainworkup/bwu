@@ -1,11 +1,9 @@
 ## Behavioral Observations
 
-(ref:first-name) arrived on time to the test session.
-(ref:he-she-cap) was seen in-person at our clinic on the USC campus.
 (ref:he-she-cap) was evaluated during a 4-hour testing session in a physically-distanced testing environment.
+(ref:he-she-cap) was seen in-person at our clinic on the USC campus.
 Precautionary health safety measures were employed (e.g., masks, plexiglass dividers) during the evaluation, while minimizing interference with standardized testing procedures.
-
-(ref:first-name) transitioned appropriately to begin testing.
+(ref:first-name) arrived on time to the test session.
 (ref:he-she-cap) was alert, oriented to the situation, and appeared to understand the questions that were being asked of (ref:him-her).
 (ref:he-she-cap) was articulate, demonstrated a clear and logical thought process, and (ref:his-her) speech was normal in rate, pitch, and prosody.
 (ref:his-her-cap) language expression and comprehension were age-appropriate.
