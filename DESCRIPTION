@@ -16,7 +16,6 @@ Imports:
     bookdown,
     dplyr,
     forcats,
-    fs,
     ggplot2,
     ggthemes,
     glue,
@@ -44,6 +43,7 @@ Imports:
 Suggests:
     covr,
     miniUI,
+    fs,
     pkgdown,
     roxygen2,
     rstudioapi,
