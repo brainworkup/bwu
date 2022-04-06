@@ -1,4 +1,5 @@
-(ref:first-name) completed self-report rating scales of real-world executive functioning (attention, emotion regulation, flexibility, inhibitory control, initiation, organization, planning, self-monitoring, and working memory). In addition to general executive dysfunction, Clinically Significant, consistent, and overlapping difficulties emerged in the areas of:
+(ref:first-name) completed self-report rating scales of real-world executive functioning (e.g., activation, focus, effort, emotion, and working memory).
+In addition to general executive dysfunction, Clinically Significant, consistent, and overlapping difficulties emerged in the areas of:
 
 - Initiation (e.g., beginning tasks or projects on own, including starting tasks easily, being motivated, and taking the initiative when needed)
 - Organization (e.g., manage personal effects, work, or multiple tasks, including organizing tasks and thoughts well, managing time effectively, and working neatly)
