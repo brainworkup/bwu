@@ -631,7 +631,6 @@ knitr::include_graphics("plot_broad.png", auto_pdf = TRUE)
 ```
 
 ```{r read-csv}
-library(tidyverse)
 data_path <- here::here(patient, "csv")
 files <- dir(data_path, pattern = "*.csv")
 neuropsych <-
@@ -663,9 +662,12 @@ neurocog <-
   neurocog %>%
   dplyr::group_by(domain, .add = TRUE) %>%
   dplyr::filter(!is.na(percentile)) %>%
-  dplyr::mutate(z_mean_dom = mean(z), z_sd_dom = sd(z)) %>%
-  dplyr::mutate(pct_mean_dom = mean(percentile),
-                pct_sd_dom = sd(percentile)) %>%
+  dplyr::mutate(
+    z_mean_dom = mean(z),
+    z_sd_dom = sd(z)) %>%
+  dplyr::mutate(
+    pct_mean_dom = mean(percentile),
+    pct_sd_dom = sd(percentile)) %>%
   dplyr::ungroup()
 # subdomain
 neurocog <-
