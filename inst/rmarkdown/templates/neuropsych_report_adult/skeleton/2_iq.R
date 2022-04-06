@@ -77,7 +77,10 @@ df <-
   dplyr::filter(scale %in% filter_domain) # %>%
 # dplyr::filter(scale != "Cognitive Proficiency (CPI)") %>%
 # dplyr::filter(scale != "General Ability (GAI)") %>%
-# dplyr::filter(scale != "NAB Total Index")
+# dplyr::filter(scale != "NAB Total Index") %>%
+#  dplyr::filter(scale != "TOPF Standard Score") %>%
+#  dplyr::filter(scale != "Working Memory (WMI)") %>%
+#  dplyr::filter(scale != "Processing Speed (PSI)")
 
 ## ---- 06-plot-subdomain-iq --------------------
 bwu::dotplot(

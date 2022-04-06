@@ -1266,9 +1266,9 @@ knitr::read_chunk(here::here(patient, "2_social.R"))
 
 ### ADHD/Executive Functioning
 
-(ref:att-ef) Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other.
+(ref:fn-adhd) *T* Score (M = 50, SD = 10)
 
-(ref:fn-adhd) *T* Score (M = 50, SD = 10) or Standard Score (M = 100, SD = 15)
+(ref:att-ef) Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other.
 
 ```{r, adhd, results='asis'}
 cat(readLines("2_adhd.md"), sep = "\n")
@@ -1292,42 +1292,28 @@ knitr::read_chunk(here::here(patient, "2_adhd.R"))
 knitr::read_chunk(here::here(patient, "2_adhd.R"))
 ```
 
-```{r 03-table-adhd, eval=T, double_escape=T, escape=F}
+```{r 03-table-adhd, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache/'}
 ```
 
 ```{r}
 knitr::read_chunk(here::here(patient, "2_adhd.R"))
 ```
 
-```{r 04-kable-adhd, eval=T, double_escape=T, escape=F, fig.fullwidth=T}
+```{r 04-kable-adhd, eval=T, double_escape=T, escape=F, fig.fullwidth=T, cache=TRUE, cache.path='cache/'}
 ```
 
 ```{r}
 knitr::read_chunk(here::here(patient, "2_adhd.R"))
 ```
 
-```{r 05-df-adhd, eval=T, double_escape=T, escape=F}
+```{r 05-df-adhd, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache/'}
 ```
 
 ```{r}
 knitr::read_chunk(here::here(patient, "2_adhd.R"))
 ```
 
-```{r 06-plot-adhd-adhd, eval=T, double_escape=T, escape=F, fig.cap='(ref:adhd-ef)'}
-```
-
-```{r}
-knitr::read_chunk(here::here(patient, "2_adhd.R"))
-```
-
-```{r 07-df-adhd, eval=T, double_escape=T, escape=F}
-```
-
-```{r}
-knitr::read_chunk(here::here(patient, "2_adhd.R"))
-```
-
-```{r 08-plot-executive-adhd, eval=T, double_escape=T, escape=F, fig.cap='(ref:att-ef)'}
+```{r 06-plot-narrow-adhd, eval=T, double_escape=T, escape=F, fig.cap='(ref:adhd-ef)', cache=TRUE, cache.path='cache/'}
 ```
 
 \newpage
@@ -1379,7 +1365,7 @@ knitr::read_chunk(here::here(patient, "2_emotion.R"))
 knitr::read_chunk(here::here(patient, "2_emotion.R"))
 ```
 
-```{r 06-plot-subdomain-emotion, eval=F, double_escape=T, escape=F, fig.cap='(ref:emotion)'}
+```{r 06-plot-subdomain-emotion, eval=T, double_escape=T, escape=F, fig.cap='(ref:emotion)'}
 ```
 
 ```{r}
@@ -1393,7 +1379,7 @@ knitr::read_chunk(here::here(patient, "2_emotion.R"))
 
 # SUMMARY/IMPRESSION
 
-(ref:domain) **Key Findings** Verbal skills are significantly stronger than nonverbal/spatial processing skills. Attentional fluency (i.e., working memory and processing speed) and abstract reasoning are areas of weakness. Notably, even (ref:first-name)'s normatively average scores reflect performances that are well below cognitive expectations for (ref:him-her). *Note:* *z* = 0 (mean) ± 1 (sd)
+(ref:domain) **Key Findings** Verbal skills are significantly stronger than nonverbal/spatial processing skills. Attentional fluency (i.e., working memory and processing speed) and abstract reasoning are areas of weakness. Notably, even `r params$first_name`'s normatively average scores reflect performances that are well below cognitive expectations for `r params$him_her`. *Note:* *z* = 0 (mean) ± 1 (sd)
 
 ```{r domain-df}
 domain <-
@@ -1411,7 +1397,7 @@ bwu::dotplot(
 )
 ```
 
-(ref:pass) **PASS Cognitive Process Model** Successive and Simultaneous processing are areas of strengths, and Attention is an area of weakness.
+(ref:pass) **PASS Cognitive Process Model** Sequential and Simultaneous processing are areas of strengths, and Attention is an area of weakness.
 
 ```{r pass-df}
 pass <-
@@ -1429,7 +1415,7 @@ bwu::dotplot(
 )
 ```
 
-(ref:nonverbal) **Verbal vs. Nonverbal** Scores on verbal tasks are slightly higher than scores on nonverbal/spatial processing tasks.
+(ref:nonverbal) **Verbal vs. Nonverbal Tests** Scores on verbal tasks are slightly higher than scores on nonverbal/spatial processing tasks.
 
 ```{r nonverbal-df}
 nonverbal <-
@@ -1447,7 +1433,7 @@ bwu::dotplot(
 )
 ```
 
-(ref:timed) **Timed vs. Untimed** (ref:first-name) performs more than a half of a standard deviation better on tasks that are untimed compared to tasks that require (ref:him-her) to respond both accurately and quickly.
+(ref:timed) **Timed vs. Untimed Tests** (ref:first-name) performs more than a half of a standard deviation better on tasks that are untimed compared to tasks that require (ref:him-her) to respond both accurately and quickly.
 
 ```{r timed-df}
 timed <-

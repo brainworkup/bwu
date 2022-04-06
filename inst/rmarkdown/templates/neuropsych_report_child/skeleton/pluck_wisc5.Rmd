@@ -1,21 +1,21 @@
 ---
-title: "Pluck Tables from WAIS-IV"
+title: "Pluck Tables from WISC-V"
 params:
   test:
-    label: "Test: WAIS-IV"
-    value: wais4
+    label: "Test: WISC-V"
+    value: wisc5
     input: select
     multiple: no
     choices:
-      - wais4
       - wisc5
+      - wais4
   file:
-    label: "No file selected"
+    label: No file selected
     value: file
     input: file
   pages:
-    label: "Pages"
-    value: "2,3,3,3,3,5,5"
+    label: Pages
+    value: c(2,c(4,4,4,4),c(6,6)) #TODO
     input: text
   table1:
     label: Index Scores
@@ -149,10 +149,6 @@ params:
 
 # WAIS-IV
 
-```{r patient, include=FALSE}
-patient <- "Alex"
-```
-
 ## Load libraries
 
 ```{r setup, include=FALSE}
@@ -188,10 +184,17 @@ library(tibble)
 library(png)
 ```
 
+```{r patient, include=FALSE}
+patient <- "Biggie"
+```
+
 ## Upload/attach PDF
 
 ```{r choose, include=FALSE}
 file <- params$file
+```
+
+```{r rw-file}
 readr::write_lines(file, here::here(patient, "pre_csv", "wais4_pdf"))
 file <- readr::read_lines(here::here(patient, "pre_csv", "wais4_pdf"))
 ```
@@ -199,8 +202,10 @@ file <- readr::read_lines(here::here(patient, "pre_csv", "wais4_pdf"))
 ## Pages
 
 ```{r pages, include=FALSE}
-pages <- list(params$pages)
+# pages <- params$pages
+pages <- c(2,4,4,4,4,6,6)
 ```
+
 
 ## Locate areas
 
@@ -220,6 +225,9 @@ area <- list(
 #   file = params$file,
 #   pages = params$pages
 # )
+```
+
+```{r rw-area}
 readr::write_rds(area, here::here(patient, "pre_csv", "area_wais4.rds"))
 area <- readr::read_rds(here::here(patient, "pre_csv", "area_wais4.rds"))
 ```
@@ -301,8 +309,8 @@ table1 <-
     domain = case_when(
       scale == "Verbal Comprehension (VCI)" ~ "Intelligence/General Ability",
       scale == "Perceptual Reasoning (PRI)" ~ "Intelligence/General Ability",
-      scale == "Working Memory (WMI)" ~ "Attention/Executive",
-      scale == "Processing Speed (PSI)" ~ "Attention/Executive",
+      scale == "Working Memory (WMI)" ~ "Intelligence/General Ability",
+      scale == "Processing Speed (PSI)" ~ "Intelligence/General Ability",
       scale == "Full Scale IQ (FSIQ)" ~ "Intelligence/General Ability",
       scale == "General Ability (GAI)" ~ "Intelligence/General Ability",
       TRUE ~ as.character(domain)
@@ -407,10 +415,10 @@ table1 <-
   table1 |>
   mutate(
     description = case_when(
-      scale == "Verbal Comprehension (VCI)" ~ "acquired knowledge, verbal concept formation, verbal reasoning, verbal comprehension and expression, and practical knowledge and judgment",
-      scale == "Perceptual Reasoning (PRI)" ~ "fluid reasoning, spatial processing, and visual-motor integration",
-      scale == "Working Memory (WMI)" ~ "ability to consciously register, maintain, and manipulate information in working memory",
-      scale == "Processing Speed (PSI)" ~ "ability to quickly use reasoning to identify and apply solutions to problems",
+      scale == "Verbal Comprehension (VCI)" ~ "The VCI provides an estimate of Crystallized Intelligence (Gc). Gc refers to an individual’s knowledge base (or general fund of information) that develops as a result of exposure to language, culture, general life experiences, and formal schooling.",
+      scale == "Perceptual Reasoning (PRI)" ~ "The PRI provides an estimate of Fluid Reasoning (Gf). Gf refers to a type of thinking that an individual may use when faced with a relatively new or novel task that cannot be performed automatically.",
+      scale == "Working Memory (WMI)" ~ "The WMI provides an estimate of Short-term Working Memory (Gsm). Gsm refers to the ability to hold information in immediate awareness and then manipulate or transform it in some way within a few seconds.",
+      scale == "Processing Speed (PSI)" ~ "The PSI provides an estimate of Processing Speed (Gs). Gs refers to the efficiency of cognitive processing or speed of mental activity. It involves the ability to perform simple clerical-type tasks quickly, especially when under pressure to maintain attention and concentration. The PSI of 90 (85-95) is classified as Average and is ranked at the 25th percentile, indicating performance as good as or better than 25% of same age peers from the general population.",
       scale == "Full Scale IQ (FSIQ)" ~ "general level of intellectual functioning",
       scale == "General Ability (GAI)" ~ "a subset of intellectual functioning with reduced influences of working memory and processing speed",
       TRUE ~ as.character(description)
@@ -474,7 +482,7 @@ table2 <- gpluck_make_columns(
   domain = "Verbal/Language",
   subdomain = "",
   narrow = "",
-  pass = "Successive",
+  pass = "Sequential",
   verbal = "Verbal",
   timed = "Untimed",
   test_type = "npsych_test",
@@ -485,7 +493,7 @@ table2 <- gpluck_make_columns(
 
 ### Test score ranges
 
-```{r}
+```{r ranges2}
 table2 <- bwu::gpluck_make_score_ranges(table = table2, test_type = "npsych_test")
 ```
 
@@ -523,13 +531,13 @@ table2 <-
 
 ### Scale descriptions
 
-```{r desc-vci}
+```{r desc2}
 table2 <-
   table2 |>
   mutate(
     description = case_when(
-      scale == "Similarities" ~ "verbal concept formation and abstract word reasoning",
-      scale == "Vocabulary" ~ "expressive vocabulary, verbal concept formation, and word knowledge",
+      scale == "Similarities" ~ "reasoning with words",
+      scale == "Vocabulary" ~ "word knowledge",
       scale == "Information" ~ "acquired knowledge/ability to acquire, retain, and retrieve general factual knowledge",
       scale == "Comprehension" ~ "practical knowledge and judgment of general principles and social situations",
       TRUE ~ as.character(description)
@@ -537,11 +545,9 @@ table2 <-
   )
 ```
 
-## Finalize and save
+### Relocate variables
 
-### relocate variables
-
-```{r relocate-t2}
+```{r reloc2}
 table2 <- table2 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
@@ -625,7 +631,7 @@ table3 <-
   table3 |>
   mutate(
     narrow = case_when(
-      scale == "Block Design" ~ "Visual Cconstruction",
+      scale == "Block Design" ~ "Visuoconstruction",
       scale == "Matrix Reasoning" ~ "Inductive Reasoning",
       scale == "Visual Puzzles" ~ "Visualization",
       scale == "Figure Weights" ~ "General Sequential Reasoning",
@@ -657,10 +663,10 @@ table3 <-
   table3 |>
   mutate(
     description = case_when(
-      scale == "Block Design" ~ "visuoconstruction and integration of blocks; visual-spatial processing and visual-motor integration",
-      scale == "Matrix Reasoning" ~ "nonverbal/fluid inductive reasoning and problem-solving; fluid intelligence, classification and spatial ability, simultaneous processing, attention to visual detail, and working memory",
-      scale == "Visual Puzzles" ~ "visuoperceptual integration and reasoning; analyze and synthesize abstract visual stimuli",
-      scale == "Figure Weights" ~ "fluid/quantitative reasoning; quantitative and inductive reasoning, mental flexibility, and set shifting",
+      scale == "Block Design" ~ "understand visual-spatial relationships to construct geometric designs from a model",
+      scale == "Matrix Reasoning" ~ "inductive reasoning",
+      scale == "Visual Puzzles" ~ "generate visual images in the mind's eye",
+      scale == "Figure Weights" ~ "general sequential (deductive) reasoning and quantitative reasoning",
       TRUE ~ as.character(description)
     )
   )
@@ -668,7 +674,7 @@ table3 <-
 
 ### relocate variables
 
-```{r relocate3}
+```{r reloc3}
 table3 <- table3 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
@@ -753,9 +759,9 @@ table4 <-
   table4 |>
   mutate(
     narrow = case_when(
-      scale == "Digit Span" ~ "Working Memory Capacity",
-      scale == "Arithmetic" ~ "Working Memory Capacity",
-      scale == "Letter-Number Sequencing" ~ "Working Memory Capacity",
+      scale == "Digit Span" ~ "Working Memory",
+      scale == "Arithmetic" ~ "Working Memory",
+      scale == "Letter-Number Sequencing" ~ "Working Memory",
       TRUE ~ as.character(narrow)
     )
   )
@@ -798,9 +804,9 @@ table4 <-
   table4 |>
   mutate(
     description = case_when(
-      scale == "Digit Span" ~ "working memory, in addition to auditory attention, sequential processing, and mental manipulation",
-      scale == "Arithmetic" ~ "mental manipulation, concentration, and working memory; short- and long-term memory; fluid, quantitative, and logical reasoning; sequential processing; and quantiative knowledge",
-      scale == "Letter-Number Sequencing" ~ "sequencing and working memory, as well as auditory sequential processing, immediate auditory memory, attention, numerical ability, and visual-spatial imaging",
+      scale == "Digit Span" ~ "register, maintain, and manipulate auditory information",
+      scale == "Arithmetic" ~ "solve math word problems in working memory",
+      scale == "Letter-Number Sequencing" ~ "register, maintain, manipulate, and resequence series of numbers and letters in working memory",
       TRUE ~ as.character(description)
     )
   )
@@ -808,7 +814,7 @@ table4 <-
 
 ### Relocate variables
 
-```{r reloc5}
+```{r reloc4}
 table4 <- table4 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
@@ -895,7 +901,7 @@ table5 <-
     narrow = case_when(
       scale == "Coding" ~ "Cognitive Efficiency",
       scale == "Symbol Search" ~ "Perceptual Speed",
-      scale == "Cancellation" ~ "Selective Attention",
+      scale == "Cancellation" ~ "Visual Attention",
       TRUE ~ as.character(narrow)
     )
   )
@@ -923,9 +929,9 @@ table5 <-
   table5 |>
   mutate(
     description = case_when(
-      scale == "Coding" ~ "visual-motor processing speed, as well as graphomotor speed, short-term memory, learning ability, visual acuity, sequential processing, and attention to visual stimuli",
-      scale == "Symbol Search" ~ "visual-motor processing speed, as well as short-term visual memory, perceputal organization, learning ability, perceptual and psychomotor speed, visual-motor coordination, visual discrimination, and attention to visual stimuli",
-      scale == "Cancellation" ~ "selective visual attention, rate of test-taking, perceptual speed, visual discrimination, and visual-perceptual processing",
+      scale == "Coding" ~ "psychomotor speed, visual scanning ability, and visual-motor coordination",
+      scale == "Symbol Search" ~ "visual-perceptual/decision-making speed",
+      scale == "Cancellation" ~ "selective visual attention, visual discrimination, and visual-perceptual processing",
       TRUE ~ as.character(description)
     )
   )
@@ -980,7 +986,7 @@ table6 <- gpluck_make_columns(
   test_name = "WAIS-IV",
   domain = "Visual Perception/Construction",
   subdomain = "Visual Processing",
-  narrow = "Visual Construction",
+  narrow = "Visuoconstruction (Untimed)",
   timed = "Untimed",
   verbal = "Nonverbal",
   pass = "Simultaneous",
@@ -1003,7 +1009,7 @@ table6 <-
   table6 |>
   mutate(
     description = case_when(
-      scale == "Block Design No Time Bonus" ~ "visuoconstruction and integration of blocks; visual-spatial processing and visual-motor integration (untimed)",
+      scale == "Block Design No Time Bonus" ~ "understand visual-spatial relationships to construct geometric designs from a model (untimed)",
       TRUE ~ as.character(description)
     )
   )

@@ -140,7 +140,8 @@ df <-
   dplyr::arrange(test_name) %>%
   dplyr::filter(scale %in% filter_domain) %>%
   dplyr::filter(scale != "Total Intrusions") %>%
-  dplyr::filter(scale != "Total Repetitions")
+  dplyr::filter(scale != "Total Repetitions") %>%
+  dplyr::filter(scale != "Forced-Choice Recognition Hits")
 
 ## ---- 06-plot-subdomain-memory -----------------
 bwu::dotplot(

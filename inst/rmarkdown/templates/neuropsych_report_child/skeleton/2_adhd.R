@@ -8,24 +8,6 @@ filter_domain <- c(
   "Memory",
   "Action",
   "Total Composite",
-  # CAARS
-  "Inattention/Memory Problems",
-  "Hyperactivity/Restlessness",
-  "Impulsivity/Emotional Lability",
-  "Problems with Self-Concept",
-  "DSM-IV Inattentive Symptoms",
-  "DSM-IV Hyperactive-Impulsive Symptoms",
-  "DSM-IV ADHD Symptoms Total",
-  "ADHD Index",
-  # CAARS updated MHS version
-  "Inattention/Memory Problems",
-  "Hyperactivity/Restlessness",
-  "Impulsivity/Emotional Lability",
-  "Problems with Self-Concept",
-  "DSM-5 Inattentive Symptoms",
-  "DSM-5 Hyperactive-Impulsive Symptoms",
-  "DSM-5 ADHD Symptoms Total",
-  "ADHD Index",
   # CEFI
   "Full Scale",
   "Attention",
@@ -72,7 +54,7 @@ kableExtra::kbl(
   booktabs = TRUE,
   linesep = "",
   align = c("lccc"),
-  caption = "(ref:caars), (ref:cefi)"
+  caption = "(ref:brown)"
 ) %>%
   kableExtra::kable_paper(., lightable_options = "basic") %>%
   kableExtra::kable_styling(., latex_options = c(
@@ -88,18 +70,12 @@ kableExtra::kbl(
 ## ---- 05-df-adhd -----------------------------------
 df <-
   neurobehav %>%
+  dplyr::filter(domain == "Behavioral/Emotional/Social") %>%
+  dplyr::filter(scale %in% filter_domain) %>%
   dplyr::filter(!is.na(percentile)) %>%
-  dplyr::filter(scale %in% filter_domain)
+  dplyr::filter(filename %in% c("brown_sr.csv", "brown_or.csv"))
 
-## ---- 06-plot-subdomain-adhd -------------------
-bwu::dotplot(
-  data = df,
-  x = df$z_mean_sub,
-  y = df$subdomain,
-  domain = "attention/executive"
-)
-
-## ---- 07-plot-narrow-adhd --------------------
+## ---- 06-plot-narrow-adhd --------------------
 bwu::dotplot(
   data = df,
   x = df$z_mean_narrow,

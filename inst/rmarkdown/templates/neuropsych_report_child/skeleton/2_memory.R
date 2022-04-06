@@ -61,6 +61,7 @@ filter_domain <- c(
   "Trial 4 Correct",
   "Trial 5 Correct",
   "List B Correct",
+  "Trials 1-4 Correct",
   "Trials 1-5 Correct",
   "Short Delay Free Recall",
   "Short Delay Cued Recall",
@@ -139,7 +140,8 @@ df <-
   dplyr::arrange(test_name) %>%
   dplyr::filter(scale %in% filter_domain) %>%
   dplyr::filter(scale != "Total Intrusions") %>%
-  dplyr::filter(scale != "Total Repetitions")
+  dplyr::filter(scale != "Total Repetitions") %>%
+  dplyr::filter(scale != "Forced-Choice Recognition Hits")
 
 ## ---- 06-plot-subdomain-memory -----------------
 bwu::dotplot(
