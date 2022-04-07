@@ -571,7 +571,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:dob) `r params$dob`
 
-(ref:age) `r bwu::calc_age(params$dob, params$doe2)`
+(ref:age) `r bwu::age(params$dob, params$doe2)`
 
 (ref:sex) `r params$sex`
 
@@ -654,7 +654,6 @@ knitr::include_graphics("plot_broad.png", auto_pdf = TRUE)
 ```
 
 ```{r read-csv}
-library(tidyverse)
 data_path <- here::here(patient, "csv")
 files <- dir(data_path, pattern = "*.csv")
 neuropsych <-

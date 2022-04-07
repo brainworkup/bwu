@@ -62,7 +62,7 @@ params:
     input: text
   mrn:
     label: "Patient ID:"
-    value: "000000000"
+    value: 000000000
     input: numeric
     min: 000000000
     max: 999999999
@@ -541,7 +541,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:dob) `r params$dob`
 
-(ref:age) `r bwu::calc_age(params$dob, params$doe2)`
+(ref:age) `r bwu::age(params$dob, params$doe2)`
 
 (ref:sex) `r params$sex`
 
