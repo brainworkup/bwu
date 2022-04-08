@@ -631,6 +631,7 @@ knitr::include_graphics("plot_broad.png", auto_pdf = TRUE)
 ```
 
 ```{r read-csv}
+library(tidyverse)
 data_path <- here::here(patient, "csv")
 files <- dir(data_path, pattern = "*.csv")
 neuropsych <-
