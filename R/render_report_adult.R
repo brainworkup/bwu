@@ -1,4 +1,4 @@
-#' @title neuropsych_report_adut
+#' @title Render adult neuropsych report via Rmarkdown
 #' @description Render neuropsychological reports with rmarkdown and bookdown adult
 #'
 #' \code{render_report_adult} creates an neuropsych report.
