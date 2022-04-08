@@ -1,15 +1,23 @@
 ---
-title: "Pluck Tables from WAIS-IV"
+title: "Pluck Tables from WISC-V"
 params:
   patient: "Biggie"
   test:
-    label: "Test: WAIS-IV"
+    label: "Test"
     value: wais4
     input: select
     multiple: no
     choices:
       - wais4
       - wisc5
+  test_name:
+    label: "Test Name"
+    value: "WISC-V"
+    input: select
+    multiple: no
+    choices:
+      - "WISC-V"
+      - "WAIS-IV"
   file:
     label: No file selected
     value: file
@@ -37,7 +45,7 @@ params:
       - Information
       - Comprehension
   table3:
-    label: Perceptual Reasoning (PRI)
+    label: Perceptual Reasoning (PRI) #TODO
     value: Block Design
     input: select
     multiple: yes
@@ -183,12 +191,6 @@ library(tibble)
 library(magrittr)
 library(shiny)
 library(miniUI)
-```
-
-## Test
-
-```{r test}
-test <- params$test
 ```
 
 ## Patient

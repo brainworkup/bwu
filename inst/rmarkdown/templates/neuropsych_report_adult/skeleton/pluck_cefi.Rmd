@@ -1,0 +1,317 @@
+---
+title: "Pluck Tables from CEFI"
+params:
+  patient: "Woody"
+  test:
+    label: "Test"
+    value: cefi_sr
+    input: select
+    multiple: no
+    choices:
+      - cefi_sr
+      - cefi_or
+  test_name:
+    label: "Test Name:"
+    value: CEFI Self-Report
+    input: select
+    multiple: no
+    choices:
+      - CEFI Self-Report
+      - CEFI Observer-Report
+  file:
+    label: "No file selected"
+    value: file
+    input: file
+---
+
+# CEFI SR/OR
+
+## Load libraries
+
+```{r setup, include=FALSE}
+Sys.setenv(JAVA_HOME = "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home")
+options(java.parameters = "-Xmx16000m")
+knitr::opts_chunk$set(
+  root.dir = normalizePath("./"),
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  error = TRUE
+)
+library(rmarkdown)
+library(knitr)
+library(bwu)
+library(tabulizer)
+library(tabulizerjars)
+library(rJava)
+library(here)
+library(readr)
+library(dplyr)
+library(hablar)
+library(tibble)
+library(magrittr)
+library(shiny)
+library(miniUI)
+```
+
+## Pages
+
+Do this first.
+
+```{r pages}
+pages <- c(3,3)
+```
+
+## Patient
+
+```{r patient}
+patient <- params$patient
+```
+
+## Test
+
+```{r test}
+test <- params$test
+```
+
+## Test Name
+
+```{r testname}
+test_name <- params$test_name
+```
+
+## Upload/attach PDF
+
+```{r file}
+file <- params$file
+```
+
+```{r save-file}
+readr::write_lines(file, here::here(patient, "pre_csv", paste0(test, ".pdf")))
+```
+
+```{r read-file, eval=FALSE}
+#test <- readr::read_lines(here::here(patient, "pre_csv", paste0(test, ".pdf")))
+```
+
+## Locate areas
+
+```{r areas-known}
+area <- list(
+  c(460, 34, 483, 578),
+  c(533, 34, 671, 578)
+)
+```
+
+```{r areas-unknown, eval=F}
+# area <- gpluck_locate_areas(
+#   file = cefi_sr_pdf,
+#   pages = pages
+# )
+```
+
+## Extract table
+
+```{r extract}
+plucked_table <- bwu::gpluck_extract_table(
+  file = file,
+  pages = pages,
+  area = area,
+  guess = NULL,
+  method = "stream",
+  output = "matrix"
+)
+```
+
+# Tidy Tables
+
+## Column names per test/subtest/measure
+
+```{r colnam}
+colnames1 <- c(
+  "score",
+  "ci_95",
+  "percentile",
+  "category"
+)
+colnames2 <- c(
+  "scale",
+  "score",
+  "ci_95",
+  "percentile",
+  "category",
+  "diff_from_avg",
+  "stat",
+  "strength"
+)
+```
+
+# CEFI Full Scale
+
+```{r tbl1}
+table1 <- tibble::as_tibble(plucked_table[[1]])
+colnames(table1) <- colnames1
+table1 <- dplyr::na_if(table1, "")
+table1 <- dplyr::na_if(table1, "NA")
+table1 <- dplyr::na_if(table1, "-")
+table1 <- dplyr::na_if(table1, "--")
+table1 <- dplyr::na_if(table1, "---")
+to_double <- c("score", "percentile")
+table1 <- table1 |> hablar::convert(dbl(all_of(to_double))) %>% 
+  dplyr::mutate(scale = "") %>% 
+  dplyr::relocate(scale, .before = score)
+```
+
+```{r rename1}
+table1[1, 1] <- c("Full Scale")
+```
+
+# CEFI Subscales
+
+```{r tb2}
+table2 <- as_tibble(plucked_table[[2]])
+colnames(table2) <- colnames2
+table2 <- dplyr::na_if(table2, "")
+table2 <- dplyr::na_if(table2, "NA")
+table2 <- dplyr::na_if(table2, "-")
+table2 <- dplyr::na_if(table2, "--")
+table2 <- dplyr::na_if(table2, "---")
+to_double <- c("score", "percentile")
+table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
+```
+
+```{r rownames2}
+table2[1, 1] <- c("Attention")
+table2[2, 1] <- c("Emotion Regulation")
+table2[3, 1] <- c("Flexibility")
+table2[4, 1] <- c("Inhibitory Control")
+table2[5, 1] <- c("Initiation")
+table2[6, 1] <- c("Organization")
+table2[7, 1] <- c("Planning")
+table2[8, 1] <- c("Self-Monitoring")
+table2[9, 1] <- c("Working Memory")
+```
+
+## Select variables to keep
+
+```{r keep}
+keep <- c("scale", "score", "percentile", "ci_95")
+```
+
+```{r select}
+table1 <- table1 |> dplyr::select(all_of(keep))
+table2 <- table2 |> dplyr::select(all_of(keep))
+table <- dplyr::bind_rows(table1, table2)
+```
+
+# Format Tables
+
+```{r mutate}
+table <- bwu::gpluck_make_columns(
+  table,
+  raw_score = "",
+  range = "",
+  ci_95 = "",
+  test = params$test,
+  test_name = params$test_name,
+  domain = "Behavioral/Emotional/Social",
+  subdomain = "Attention/Executive",
+  narrow = "",
+  pass = "",
+  verbal = "",
+  timed = "",
+  test_type = "rating_scale",
+  score_type = "standard_score",
+  description = ""
+)
+```
+
+## Test score ranges
+
+```{r ranges}
+table <- bwu::gpluck_make_score_ranges(table = table, test_type = "npsych_test")
+```
+
+## Narrow subdomains
+
+```{r narrow}
+table <-
+  table |>
+  mutate(
+    narrow = case_when(
+      scale == "Full Scale" ~ "Full Scale",
+      scale == "Attention" ~ "Attention",
+      scale == "Emotion Regulation" ~ "Emotion Regulation",
+      scale == "Flexibility" ~ "Flexibility",
+      scale == "Inhibitory Control" ~ "Inhibitory Control",
+      scale == "Initiation" ~ "Initiation",
+      scale == "Organization" ~ "Organization",
+      scale == "Planning" ~ "Planning",
+      scale == "Self-Monitoring" ~ "Self-Monitoring",
+      scale == "Working Memory" ~ "Working Memory",
+      TRUE ~ as.character(narrow)
+    )
+  )
+```
+
+## Scale descriptions
+
+```{r description}
+if (params$test == "cefi_sr") {
+  table <-
+    table |>
+    mutate(
+      description = case_when(
+        scale == "Full Scale" ~ "overall level of executive function",
+        scale == "Attention" ~ "avoid distractions, concentrate on tasks, and sustain attention",
+        scale == "Emotion Regulation" ~ "control and manage emotions, including staying calm when handling small problems and reacting with the right level of emotion",
+        scale == "Flexibility" ~ "adjust behavior to meet circumstances, including coming up with different ways to solve problems, changing behavior when needed, and being able to come up with new ways to reach a goal",
+        scale == "Inhibitory Control" ~ "control behavior or impulses, including thinking about consequences before acting, maintaining self-control, and thinking before speaking",
+        scale == "Initiation" ~ "begin tasks or projects on own, including starting tasks easily, being motivated, and taking the initiative when needed",
+        scale == "Organization" ~ "manage personal effects, work, or multiple tasks, including organizing tasks and thoughts well, managing time effectively, and working neatly",
+        scale == "Planning" ~ "develop and implement strategies to accomplish tasks, including planning ahead and making good decisions",
+        scale == "Self-Monitoring" ~ "evaluate own behavior in order to determine when a different approach is necessary, including noticing and fixing mistakes, knowing when help is required, and understanding when a task is completed",
+        scale == "Working Memory" ~ "keep information in mind that is important for knowing what to do and how to do it, including remembering important things, instructions, and steps",
+        TRUE ~ as.character(description)
+      )
+    )
+} else {
+  table <-
+    table |>
+    mutate(
+      description = case_when(
+        scale == "Full Scale" ~ "overall level of executive function (observer)",
+        scale == "Attention" ~ "avoid distractions, concentrate on tasks, and sustain attention (observer)",
+        scale == "Emotion Regulation" ~ "control and manage emotions, including staying calm when handling small problems and reacting with the right level of emotion (observer)",
+        scale == "Flexibility" ~ "adjust behavior to meet circumstances, including coming up with different ways to solve problems, changing behavior when needed, and being able to come up with new ways to reach a goal (observer)",
+        scale == "Inhibitory Control" ~ "control behavior or impulses, including thinking about consequences before acting, maintaining self-control, and thinking before speaking (observer)",
+        scale == "Initiation" ~ "begin tasks or projects on own, including starting tasks easily, being motivated, and taking the initiative when needed (observer)",
+        scale == "Organization" ~ "manage personal effects, work, or multiple tasks, including organizing tasks and thoughts well, managing time effectively, and working neatly (observer)",
+        scale == "Planning" ~ "develop and implement strategies to accomplish tasks, including planning ahead and making good decisions (observer)",
+        scale == "Self-Monitoring" ~ "evaluate own behavior in order to determine when a different approach is necessary, including noticing and fixing mistakes, knowing when help is required, and understanding when a task is completed (observer)",
+        scale == "Working Memory" ~ "keep information in mind that is important for knowing what to do and how to do it, including remembering important things, instructions, and steps (observer)",
+        TRUE ~ as.character(description)
+      )
+    )
+}
+```
+
+# Finalize and save
+
+## Relocate variables
+
+```{r relocate}
+table <- table |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+```
+
+## Write csv
+
+```{r write}
+readr::write_csv(table, here::here(patient, "csv", paste0(test, ".csv")), col_names = TRUE, na = "")
+```
+
+### Cleanup
+
+```{r cleanup}
+rm(table, area, table1, table2)
+```

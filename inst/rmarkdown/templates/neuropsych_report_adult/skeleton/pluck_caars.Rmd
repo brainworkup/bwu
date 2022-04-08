@@ -1,0 +1,366 @@
+---
+title: "Pluck Tables from CAARS"
+params:
+  patient: "Woody"
+  test:
+    label: "CAARS"
+    value: caars_sr
+    input: select
+    multiple: no
+    choices:
+      - caars_sr
+      - caars_or
+  test_name:
+    label: "Test Name:"
+    value: CAARS Self-Report
+    input: select
+    multiple: no
+    choices:
+      - CAARS Self-Report
+      - CAARS Observer-Report
+  file:
+    label: "No file selected"
+    value: file
+    input: file
+---
+
+# CAARS Long Version
+
+## Load libraries
+
+```{r setup, include=FALSE}
+Sys.setenv(JAVA_HOME = "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home")
+options(java.parameters = "-Xmx16000m")
+knitr::opts_chunk$set(
+  root.dir = normalizePath("./"),
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  error = TRUE
+)
+library(rmarkdown)
+library(knitr)
+library(bwu)
+library(tabulizer)
+library(tabulizerjars)
+library(rJava)
+library(here)
+library(readr)
+library(dplyr)
+library(hablar)
+library(tibble)
+library(magrittr)
+library(shiny)
+library(miniUI)
+```
+
+## Pages
+
+```{r pages}
+pages <- c(3,3,3)
+```
+
+## Patient
+
+```{r patient}
+patient <- params$patient
+```
+
+## Test
+
+```{r test}
+test <- params$test
+```
+
+## Test Name
+
+```{r testname}
+test_name <- params$test_name
+```
+
+## Upload/attach PDF
+
+```{r file}
+file <- params$file
+```
+
+```{r save-file}
+readr::write_lines(file, here::here(patient, "pre_csv", paste0(test, ".pdf")))
+```
+
+```{r read-file, eval=FALSE}
+#test <- readr::read_lines(here::here(patient, "pre_csv", "caars_or_pdf"))
+```
+
+## Locate areas
+
+```{r area-known}
+area <- list(
+  c(155, 73, 647, 208),
+  c(155, 209, 647, 246), 
+  c(155, 247, 647, 283))
+```
+
+```{r area-unknown, eval=FALSE}
+# area <- bwu::gpluck_locate_areas(
+#   file = file,
+#   pages = pages
+# )
+```
+
+```{r save-areas, eval=FALSE}
+#readr::write_rds(area, here::here(patient, "pre_csv", test, "_area.rds"))
+```
+
+```{r read-areas}
+#area <- readr::read_rds(here::here(patient, "pre_csv", test, "_area.rds"))
+```
+
+## Extract table
+
+```{r extract}
+plucked_table <- bwu::gpluck_extract_table(
+  file = file,
+  pages = pages,
+  area = area,
+  guess = NULL,
+  method = "stream",
+  output = "matrix"
+)
+```
+
+# Tidy Tables
+
+## Column names per test/subtest/measure
+
+```{r colnames}
+colnames1 <- c("scale")
+colnames2 <- c("raw_score")
+colnames3 <- c("score")
+```
+
+### To pluck individual columns
+
+```{r pluck1}
+table1 <- dplyr::as_tibble(plucked_table[[1]])
+colnames(table1) <- colnames1
+table1 <- dplyr::na_if(table1, "")
+table1 <- dplyr::na_if(table1, "NA")
+table1 <- dplyr::na_if(table1, "-")
+table1 <- dplyr::na_if(table1, "--")
+table1 <- dplyr::na_if(table1, "---")
+table1 <- dplyr::na_if(table1, "N/A")
+```
+
+```{r tb1-rownames}
+table1[1, 1] <- c("Inattention/Memory Problems")
+table1[2, 1] <- c("Hyperactivity/Restlessness")
+table1[3, 1] <- c("Impulsivity/Emotional Lability")
+table1[4, 1] <- c("Problems with Self-Concept")
+table1[5, 1] <- c("DSM-5 Inattentive Symptoms")
+table1[6, 1] <- c("DSM-5 Hyperactive-Impulsive Symptoms")
+table1[7, 1] <- c("DSM-5 ADHD Symptoms Total")
+table1[8, 1] <- c("ADHD Index")
+table1[9, 1] <- c("Inconsistency Index")
+table1 <- table1[1:9, ]
+```
+
+```{r pluck2}
+table2 <- tibble::as_tibble(plucked_table[[2]])
+colnames(table2) <- colnames2
+table2 <- dplyr::na_if(table2, "")
+table2 <- dplyr::na_if(table2, "NA")
+table2 <- dplyr::na_if(table2, "-")
+table2 <- dplyr::na_if(table2, "--")
+table2 <- dplyr::na_if(table2, "---")
+table2 <- dplyr::na_if(table2, "N/A")
+to_double <- c("raw_score")
+table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
+table2 <- table2[1:9, ]
+```
+
+```{r pluck3}
+table3 <- dplyr::as_tibble(plucked_table[[3]])
+colnames(table3) <- colnames3
+table3 <- dplyr::na_if(table3, "")
+table3 <- dplyr::na_if(table3, "NA")
+table3 <- dplyr::na_if(table3, "-")
+table3 <- dplyr::na_if(table3, "--")
+table3 <- dplyr::na_if(table3, "---")
+table3 <- dplyr::na_if(table3, "N/A")
+to_double <- c("score")
+table3 <- table3 |> hablar::convert(dbl(all_of(to_double)))
+table3 <- table3[1:9, ]
+```
+
+```{r bind}
+table <- dplyr::bind_cols(table1, table2, table3)
+```
+
+## Select variables to keep
+
+```{r keep}
+keep <- c("scale", "raw_score", "score")
+table <- table %>% dplyr::select(all_of(keep))
+```
+
+## Format Tables
+
+```{r mutate}
+table <- bwu::gpluck_make_columns(
+  table,
+  percentile = "",
+  range = "",
+  ci_95 = "",
+  test = params$test,
+  test_name = params$test_name,
+  domain = "Behavioral/Emotional/Social",
+  subdomain = "Attention/Executive",
+  narrow = "",
+  pass = "",
+  verbal = "",
+  timed = "",
+  test_type = "rating_scale2",
+  score_type = "t_score",
+  description = ""
+)
+```
+
+### cleanup interim
+
+```{r percentile}
+table <- table %>%
+  dplyr::mutate(z = (score - 50) / 10) %>%
+  dplyr::mutate(percentile = round(stats::pnorm(z) * 100, 1L)) %>% 
+  dplyr::select(-z)
+# caars_sr[1, 4] <- 99
+```
+
+## Test score ranges
+
+```{r ranges}
+table <- bwu::gpluck_make_score_ranges(table = table, test_type = "rating_scale2")
+```
+
+## Domain
+
+```{r domain}
+table <-
+  table |>
+  mutate(
+    domain = case_when(
+      scale == "Inconsistency Index" ~ "Effort/Validity",
+      TRUE ~ as.character(domain)
+    )
+  )
+```
+
+## Subdomain
+
+```{r subdomain}
+table <-
+  table |>
+  mutate(
+    subdomain = case_when(
+      scale == "Inconsistency Index" ~ "Effort/Validity",
+      TRUE ~ as.character(subdomain)
+    )
+  )
+```
+
+## Narrow subdomains
+
+```{r narrow}
+table <-
+  table |>
+  mutate(
+    narrow = case_when(
+      scale == "Inattention/Memory Problems" ~ "Inattention/Memory Problems",
+      scale == "Hyperactivity/Restlessness" ~ "Hyperactivity/Restlessness",
+      scale == "Impulsivity/Emotional Lability" ~ "Impulsivity/Emotional Lability",
+      scale == "Problems with Self-Concept" ~ "Problems with Self-Concept",
+      scale == "DSM-5 Inattentive Symptoms" ~ "DSM-5 Inattentive Symptoms",
+      scale == "DSM-5 Hyperactive-Impulsive Symptoms" ~ "DSM-5 Hyperactive-Impulsive Symptoms",
+      scale == "DSM-5 ADHD Symptoms Total" ~ "DSM-5 ADHD Symptoms Total",
+      scale == "ADHD Index" ~ "ADHD Index",
+      scale == "Inconsistency Index" ~ "Effort/Validity",
+      TRUE ~ as.character(narrow)
+    )
+  )
+```
+
+## Scale descriptions
+
+```{r description}
+if (params$test == "caars_or") {
+  table <-
+    table |>
+    mutate(
+      description = case_when(
+        scale == "Inattention/Memory Problems" ~ "trouble concentrating, difficulty planning or completing tasks, forgetfulness, absent-mindedness, being disorganized (observer)",
+        
+        scale == "Hyperactivity/Restlessness" ~ "problems with working at the same task for long periods of time, feeling more restless than others seems to be, fidgeting (observer)",
+        
+        scale == "Impulsivity/Emotional Lability" ~ "engaging in more impulsive acts than others do, low frustration tolerance, quick and frequent mood changes, feeling easily angered and irritated by people (observer)",
+        
+        scale == "Problems with Self-Concept" ~ "poor social relationships, low observer-esteem and observer confidence (observer)",
+        
+        scale == "DSM-5 Inattentive Symptoms" ~ "behave in a manner consistent with the Inattentive Presentation of ADHD, described in the DSM-5 (observer)",
+        
+        scale == "DSM-5 Hyperactive-Impulsive Symptoms" ~ "behave in a manner consistent with the Hyperactive-Impulsive Presentation of ADHD, described in the DSM-5 (observer)",
+        
+        scale == "DSM-5 ADHD Symptoms Total" ~ "behave in a manner consistent with the DSM-5 diagnostic criteria for Combined Presentation of ADHD (observer)",
+        
+        scale == "ADHD Index" ~ "composite indicator for identifying individuals 'at-risk' for ADHD (observer)",
+        
+        scale == "Inconsistency Index" ~ "there may be some inconsistency in the responses (observer)",
+        TRUE ~ as.character(description)
+      )
+    )
+} else {
+  table <-
+    table |>
+    mutate(
+      description = case_when(
+        scale == "Inattention/Memory Problems" ~ "trouble concentrating, difficulty planning or completing tasks, forgetfulness, absent-mindedness, being disorganized",
+        
+        scale == "Hyperactivity/Restlessness" ~ "problems with working at the same task for long periods of time, feeling more restless than others seems to be, fidgeting",
+        
+        scale == "Impulsivity/Emotional Lability" ~ "engaging in more impulsive acts than others do, low frustration tolerance, quick and frequent mood changes, feeling easily angered and irritated by people",
+        
+        scale == "Problems with Self-Concept" ~ "poor social relationships, low observer-esteem and observer confidence",
+        
+        scale == "DSM-5 Inattentive Symptoms" ~ "behave in a manner consistent with the Inattentive Presentation of ADHD, described in the DSM-5",
+        
+        scale == "DSM-5 Hyperactive-Impulsive Symptoms" ~ "behave in a manner consistent with the Hyperactive-Impulsive Presentation of ADHD, described in the DSM-5",
+        
+        scale == "DSM-5 ADHD Symptoms Total" ~ "behave in a manner consistent with the DSM-5 diagnostic criteria for Combined Presentation of ADHD",
+        
+        scale == "ADHD Index" ~ "composite indicator for identifying individuals 'at-risk' for ADHD",
+        
+        scale == "Inconsistency Index" ~ "there may be some inconsistency in the responses",
+        TRUE ~ as.character(description)
+      )
+    )
+}
+```
+
+# Finalize and save
+
+## Relocate variables
+
+```{r relocate}
+table <- table |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+```
+
+## Write out csv
+
+```{r write}
+readr::write_csv(table, here::here(patient, "csv", paste0(test, ".csv")), col_names = TRUE, na = "")
+```
+
+## Cleanup
+
+```{r cleanup}
+#rm(table, area, table1, table2, table3)
+```

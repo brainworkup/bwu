@@ -1,0 +1,676 @@
+---
+title: "Pluck Tables from CVLT-3 Brief"
+params:
+  patient: "Woody"
+  test:
+    label: CVLT-3
+    value: cvlt3_brief
+    input: select
+    multiple: no
+    choices:
+      - cvlt3_brief
+      - cvlt3
+  file:
+    label: No file selected
+    value: file
+    input: file
+  table1:
+    label: Immediate Recall
+    value: Trial 1 Correct
+    input: select
+    multiple: yes
+    choices:
+      - Trial 1 Correct
+      - Trial 2 Correct
+      - Trial 3 Correct
+      - Trial 4 Correct
+      - Trial 5 Correct
+  table2:
+    label: Standard Score Summary
+    value: Trials 1-4 Correct
+    input: select
+    multiple: yes
+    choices:
+      - Trials 1-4 Correct
+      - Trials 1-5 Correct
+      - Delayed Recall Correct
+      - Total Recall Correct
+  table3:
+    label: DELAYED RECALL
+    value: Short Delay Free Recall
+    input: select
+    multiple: yes
+    choices:
+      - Short Delay Free Recall
+      #- Short Delay Cued Recall
+      - Long Delay Free Recall
+      - Long Delay Cued Recall
+  table4:
+    label: Yes/No Recognition
+    value: Total Hits
+    input: select
+    multiple: yes
+    choices:
+      - Total Hits
+      - Total False Positives
+      - Recognition Discriminability (d')
+      - Recognition Discriminability Nonparametric
+  table5:
+    label: Recall Errors
+    value: Total Intrusions
+    input: select
+    multiple: yes
+    choices:
+      - Total Intrusions
+  table6:
+    label: Repetition Errors
+    value: Total Repetitions
+    input: select
+    multiple: yes
+    choices:
+      - Total Repetitions
+  table7:
+    label: Forced Choice Recognition
+    value: Forced-Choice Recognition Hits
+    input: select
+    multiple: yes
+    choices:
+      - Forced-Choice Recognition Hits
+  colnames1:
+    label: Tables 1-6 Column Names
+    value: scale
+    input: select
+    multiple: yes
+    choices:
+      - scale
+      - raw_score
+      - score
+      - percentile
+  colnames2:
+    label: Table 7
+    value: scale
+    input: select
+    multiple: yes
+    choices:
+      - scale
+      - raw_score
+      - base_rate
+  keep1:
+    label: Variables to Keep, Set 1
+    value: scale
+    input: select
+    multiple: yes
+    choices:
+      - scale
+      - raw_score
+      - score
+      - percentile
+  keep2:
+    label: Variables to Keep, Set 2
+    value: scale
+    input: select
+    multiple: yes
+    choices:
+      - scale
+      - raw_score
+---
+
+# CVLT-3 Brief
+
+## Setup
+
+```{r setup, include=F}
+Sys.setenv(JAVA_HOME = "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home")
+options(java.parameters = "-Xmx16000m")
+knitr::opts_chunk$set(
+  root.dir = normalizePath("./"),
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  error = TRUE
+)
+library(rmarkdown)
+library(knitr)
+library(bwu)
+library(tabulizer)
+library(tabulizerjars)
+library(rJava)
+library(here)
+library(readr)
+library(dplyr)
+library(hablar)
+library(tibble)
+library(magrittr)
+library(shiny)
+library(miniUI)
+```
+
+## Patient
+
+```{r patient}
+patient <- params$patient
+```
+
+## Pages
+
+```{r pages}
+pages <- c(9,11,9,9,9,12,9)
+```
+
+## Test
+
+```{r test}
+test <- params$test
+```
+
+## Upload/attach PDF
+
+```{r choose}
+file <- params$file
+```
+
+```{r save}
+readr::write_lines(file, here::here(patient, "pre_csv", "cvlt3_brief_pdf"))
+```
+
+```{r read}
+#file <- readr::read_lines(here::here(patient, "pre_csv", "cvlt3_brief_pdf"))
+```
+
+## Locate areas
+
+```{r areas}
+area <- list(
+  c(166, 52, 237, 560),
+  c(159, 52, 185, 560),
+  c(289, 52, 343, 560),
+  c(397, 52, 467, 560),
+  c(520, 52, 544, 560),
+  c(273, 52, 296, 560),
+  c(597, 52, 619, 459)
+)
+```
+
+```{r areas2, eval=FALSE}
+# if unknown
+# area2 <- gpluck_locate_areas(
+#   file = file,
+#   pages = c(9)
+# )
+```
+
+```{r save-areas}
+#readr::write_rds(area, here::here(patient, "pre_csv", "area_cvlt3_brief.rds"))
+```
+
+```{r read-areas}
+#area <- readr::read_rds(here::here(patient, "pre_csv", "area_cvlt3_brief.rds"))
+```
+
+### Extract table
+
+```{r extract}
+plucked_table <- 
+  bwu::gpluck_extract_table(
+    file = file,
+    pages = pages,
+    area = area,
+    guess = NULL,
+    method = "stream",
+    output = "matrix"
+  )
+```
+
+# Tables 1
+
+```{r table1}
+table1 <- tibble::as_tibble(plucked_table[[1]])
+colnames(table1) <- params$colnames1
+table1 <- dplyr::na_if(table1, "")
+table1 <- dplyr::na_if(table1, "NA")
+table1 <- dplyr::na_if(table1, "-")
+table1 <- dplyr::na_if(table1, "--")
+table1 <- dplyr::na_if(table1, "---")
+to_double <- c("raw_score", "score", "percentile")
+table1 <- table1 |> hablar::convert(dbl(all_of(to_double)))
+```
+
+```{r rownames1}
+rownames(table1) <- params$table1
+table1 <- 
+  table1 %>% 
+  dplyr::rename(scale2 = scale) %>% 
+  tibble::rownames_to_column(., var = "scale")
+```
+
+# Table 2
+
+```{r table2}
+table2 <- tibble::as_tibble(plucked_table[[2]])
+colnames(table2) <- params$colnames1
+table2 <- dplyr::na_if(table2, "")
+table2 <- dplyr::na_if(table2, "NA")
+table2 <- dplyr::na_if(table2, "-")
+table2 <- dplyr::na_if(table2, "--")
+table2 <- dplyr::na_if(table2, "---")
+to_double <- c("raw_score", "score", "percentile")
+table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
+```
+
+```{r rownames2}
+rownames(table2) <- params$table2
+table2 <- 
+  table2 %>% 
+  dplyr::rename(scale2 = scale) %>% 
+  tibble::rownames_to_column(., var = "scale")
+```
+
+```{r rename2}
+# table2[1, 1] <- c("Trials 1-4 Correct")
+```
+
+# Table 3
+
+```{r table3}
+table3 <- tibble::as_tibble(plucked_table[[3]])
+colnames(table3) <- params$colnames1
+table3 <- dplyr::na_if(table3, "")
+table3 <- dplyr::na_if(table3, "NA")
+table3 <- dplyr::na_if(table3, "-")
+table3 <- dplyr::na_if(table3, "--")
+table3 <- dplyr::na_if(table3, "---")
+to_double <- c("raw_score", "score", "percentile")
+table3 <- table3 |> hablar::convert(dbl(all_of(to_double)))
+```
+
+```{r rownames3}
+rownames(table3) <- params$table3
+table3 <- 
+  table3 %>% 
+  dplyr::rename(scale2 = scale) %>% 
+  tibble::rownames_to_column(., var = "scale")
+```
+
+# Table 4
+
+```{r table4}
+table4 <- tibble::as_tibble(plucked_table[[4]])
+colnames(table4) <- params$colnames1
+table4 <- dplyr::na_if(table4, "")
+table4 <- dplyr::na_if(table4, "NA")
+table4 <- dplyr::na_if(table4, "-")
+table4 <- dplyr::na_if(table4, "--")
+table4 <- dplyr::na_if(table4, "---")
+to_double <- c("raw_score", "score", "percentile")
+table4 <- table4 |> hablar::convert(dbl(all_of(to_double)))
+```
+
+```{r rownames4}
+rownames(table4) <- params$table4
+table4 <- 
+  table4 %>% 
+  dplyr::rename(scale2 = scale) %>% 
+  tibble::rownames_to_column(., var = "scale")
+```
+
+# Table 5
+
+```{r table5}
+table5 <- tibble::as_tibble(plucked_table[[5]])
+colnames(table5) <- params$colnames1
+table5 <- dplyr::na_if(table5, "")
+table5 <- dplyr::na_if(table5, "NA")
+table5 <- dplyr::na_if(table5, "-")
+table5 <- dplyr::na_if(table5, "--")
+table5 <- dplyr::na_if(table5, "---")
+to_double <- c("raw_score", "score", "percentile")
+table5 <- table5 |> hablar::convert(dbl(all_of(to_double)))
+```
+
+```{r rownames5}
+rownames(table5) <- params$table5
+table5 <- 
+  table5 %>% 
+  dplyr::rename(scale2 = scale) %>% 
+  tibble::rownames_to_column(., var = "scale")
+```
+
+# Table 6
+
+```{r pluck6}
+table6 <- tibble::as_tibble(plucked_table[[6]])
+colnames(table6) <- params$colnames1
+table6 <- dplyr::na_if(table6, "")
+table6 <- dplyr::na_if(table6, "NA")
+table6 <- dplyr::na_if(table6, "-")
+table6 <- dplyr::na_if(table6, "--")
+table6 <- dplyr::na_if(table6, "---")
+to_double <- c("raw_score", "score", "percentile")
+table6 <- table6 |> hablar::convert(dbl(all_of(to_double)))
+```
+
+```{r rownames6}
+rownames(table6) <- params$table6
+table6 <- 
+  table6 %>% 
+  dplyr::rename(scale2 = scale) %>% 
+  tibble::rownames_to_column(., var = "scale")
+```
+
+# Table 7
+
+```{r pluck7}
+table7 <- tibble::as_tibble(plucked_table[[7]])
+colnames(table7) <- params$colnames2
+table7 <- dplyr::na_if(table7, "")
+table7 <- dplyr::na_if(table7, "NA")
+table7 <- dplyr::na_if(table7, "-")
+table7 <- dplyr::na_if(table7, "--")
+table7 <- dplyr::na_if(table7, "---")
+to_double <- c("raw_score", "base_rate")
+table7 <- table7 |> hablar::convert(dbl(all_of(to_double)))
+```
+
+```{r rownames7}
+rownames(table7) <- params$table7
+table7 <- 
+  table7 %>% 
+  dplyr::rename(scale2 = scale) %>% 
+  tibble::rownames_to_column(., var = "scale")
+```
+
+## Select to Keep
+
+```{r keep}
+table1 <- table1 |> dplyr::select(all_of(params$keep1))
+table2 <- table2 |> dplyr::select(all_of(params$keep1))
+table3 <- table3 |> dplyr::select(all_of(params$keep1))
+table4 <- table4 |> dplyr::select(all_of(params$keep1))
+table5 <- table5 |> dplyr::select(all_of(params$keep1))
+table6 <- table6 |> dplyr::select(all_of(params$keep1))
+table7 <- table7 |> dplyr::select(all_of(params$keep2))
+```
+
+# Create/Insert/Mutate new columns in tables
+
+```{r mutate1}
+table1 <- bwu::gpluck_make_columns(
+  table1,
+  range = "",
+  ci_95 = "",  
+  test = "cvlt3_brief",
+  test_name = "CVLT-3 Brief",
+  domain = "Memory",
+  subdomain = "Learning Efficiency",
+  narrow = "Word List Learning",
+  pass = "Sequential",
+  verbal = "Verbal",
+  timed = "Untimed",
+  test_type = "npsych_test",
+  score_type = "scaled_score",
+  description = ""
+)
+```
+
+```{r mutate2}
+table2 <- bwu::gpluck_make_columns(
+  table2,
+  range = "",
+  ci_95 = "",  
+  test = "cvlt3_brief",
+  test_name = "CVLT-3 Brief",
+  domain = "Memory",
+  subdomain = "Learning Efficiency",
+  narrow = "Word List Learning",
+  pass = "Sequential",
+  verbal = "Verbal",
+  timed = "Untimed",
+  test_type = "npsych_test",
+  score_type = "standard_score",
+  description = ""
+)
+```
+
+```{r mutate3}
+table3 <- bwu::gpluck_make_columns(
+  table3,
+  range = "",
+  ci_95 = "",  
+  test = "cvlt3_brief",
+  test_name = "CVLT-3 Brief",
+  domain = "Memory",
+  subdomain = "Long-Term Memory",
+  narrow = "Free-Recall Memory",
+  pass = "Sequential",
+  verbal = "Verbal",
+  timed = "Untimed",
+  test_type = "npsych_test",
+  score_type = "scaled_score",
+  description = ""
+)
+```
+
+```{r mutate4}
+table4 <- bwu::gpluck_make_columns(
+  table4,
+  range = "",
+  ci_95 = "",  
+  test = "cvlt3_brief",
+  test_name = "CVLT-3 Brief",
+  domain = "Memory",
+  subdomain = "Long-Term Memory",
+  narrow = "Recognition Memory",
+  pass = "Sequential",
+  verbal = "Verbal",
+  timed = "Untimed",
+  test_type = "npsych_test",
+  score_type = "scaled_score",
+  description = ""
+)
+```
+
+```{r mutate5}
+table5 <- bwu::gpluck_make_columns(
+  table5,
+  range = "",
+  ci_95 = "",  
+  test = "cvlt3_brief",
+  test_name = "CVLT-3 Brief",
+  domain = "Memory",
+  subdomain = "Response Monitoring",
+  narrow = "Response Monitoring",
+  pass = "Attention",
+  verbal = "Verbal",
+  timed = "Untimed",
+  test_type = "npsych_test",
+  score_type = "scaled_score",
+  description = ""
+)
+```
+
+```{r mutate6}
+table6 <- bwu::gpluck_make_columns(
+  table6,
+  range = "",
+  ci_95 = "",  
+  test = "cvlt3_brief",
+  test_name = "CVLT-3 Brief",
+  domain = "Memory",
+  subdomain = "Response Monitoring",
+  narrow = "Response Monitoring",
+  pass = "Attention",
+  verbal = "Verbal",
+  timed = "Untimed",
+  test_type = "npsych_test",
+  score_type = "scaled_score",
+  description = ""
+)
+```
+
+```{r mutate7}
+table7 <- bwu::gpluck_make_columns(
+  table7,
+  score = NA_integer_,
+  percentile = NA_integer_,
+  range = "",
+  ci_95 = "",  
+  test = "cvlt3_brief",
+  test_name = "CVLT-3 Brief",
+  domain = "Memory",
+  subdomain = "Effort/Validity",
+  narrow = "Effort/Validity",
+  pass = "Attention",
+  verbal = "Verbal",
+  timed = "Untimed",
+  test_type = "npsych_test",
+  score_type = "scaled_score",
+  description = ""
+)
+```
+
+### Test score ranges
+
+```{r ranges}
+table1 <- bwu::gpluck_make_score_ranges(table = table1, test_type = "npsych_test")
+table2 <- bwu::gpluck_make_score_ranges(table = table2, test_type = "npsych_test")
+table3 <- bwu::gpluck_make_score_ranges(table = table3, test_type = "npsych_test")
+table4 <- bwu::gpluck_make_score_ranges(table = table4, test_type = "npsych_test")
+table5 <- bwu::gpluck_make_score_ranges(table = table5, test_type = "npsych_test")
+table6 <- bwu::gpluck_make_score_ranges(table = table6, test_type = "npsych_test")
+```
+
+### Narrow subdomains
+
+```{r subdomain3}
+table3 <-
+  table3 |>
+  mutate(
+    narrow = case_when(
+      scale == "Short Delay Free Recall" ~ "Free-Recall Memory",
+      scale == "Long Delay Free Recall" ~ "Free-Recall Memory",
+      scale == "Long Delay Cued Recall" ~ "Free-Recall Memory",
+      TRUE ~ as.character(narrow)
+    )
+  )
+```
+
+### Scale descriptions
+
+```{r desc1}
+table1 <-
+  table1 |>
+  mutate(
+    description = case_when(
+      scale == "Trial 1 Correct" ~ "word list first trial",
+      scale == "Trial 2 Correct" ~ "word list second trial",
+      scale == "Trial 3 Correct" ~ "word list third trial",
+      scale == "Trial 4 Correct" ~ "word list fourth trial",
+      TRUE ~ as.character(description)
+    )
+  )
+```
+
+```{r desc2}
+table2 <-
+  table2 |>
+  dplyr::mutate(
+    description = dplyr::case_when(
+      scale == "Trials 1-4 Correct" ~ "word list total words learned trials 1-4",
+      TRUE ~ as.character(description)
+    )
+  )
+```
+
+```{r desc3}
+table3 <-
+  table3 |>
+  mutate(
+    description = case_when(
+      scale == "Short Delay Free Recall" ~ "immediate free recall of a word list",
+      scale == "Long Delay Free Recall" ~ "long-term delayed free recall of a word list",
+      scale == "Long Delay Cued Recall" ~ "long-term delayed cued recall of a word list",
+      TRUE ~ as.character(description)
+    )
+  )
+```
+
+```{r desc4}
+table4 <-
+  table4 %>% 
+  dplyr::mutate(
+    description = case_when(
+      scale == "Total Hits" ~ "yes/no recognition total hits",
+      scale == "Total False Positives" ~ "yes/no recognition total false positives",
+      scale == "Recognition Discriminability (d')" ~ "yes/no recognition discriminability",
+      scale == "Recognition Discriminability Nonparametric" ~ "yes/no recognition discriminability (nonparametric)",
+      TRUE ~ as.character(description)
+    )
+  )
+```
+
+```{r desc5}
+table5 <-
+  table5 |>
+  mutate(
+    description = case_when(
+      scale == "Total Intrusions" ~ "total number of intrusive response errors",
+      TRUE ~ as.character(description)
+    )
+  )
+```
+
+```{r desc6}
+table6 <-
+  table6 |>
+  mutate(
+    description = case_when(
+      scale == "Total Repetitions" ~ "total number of repetitive response errors",
+      TRUE ~ as.character(description)
+    )
+  )
+```
+
+```{r desc7}
+table7 <-
+  table7 |>
+  mutate(
+    description = case_when(
+      scale == "Forced-Choice Recognition Hits" ~ "total number of hits forced-choice recognition",
+      TRUE ~ as.character(description)
+    )
+  )
+```
+
+## Finalize and save
+
+### Relocate variables
+
+```{r relocate}
+table1 <- table1 |> relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+table2 <- table2 |> relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+table3 <- table3 |> relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+table4 <- table4 |> relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+table5 <- table5 |> relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+table6 <- table6 |> relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+table7 <- table7 |> relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+```
+
+## Merge tables
+
+### Row bind
+
+```{r bind-rows}
+cvlt3_brief <- dplyr::bind_rows(table1, table2, table3, table4, table5, table6, table7)
+```
+
+### write out final csv
+
+```{r write-csv}
+readr::write_csv(cvlt3_brief, here::here(patient, "csv", "cvlt3_brief.csv"), col_names = TRUE, na = "")
+```
+
+### Cleanup
+
+```{r cleanup}
+rm(table1, table2, table3, table4, table5, table6, area, table, table7)
+```
