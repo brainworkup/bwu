@@ -2,7 +2,7 @@
 % Please edit documentation in R/render_report_adult.R
 \name{render_report_adult}
 \alias{render_report_adult}
-\title{neuropsych_report_adut}
+\title{Render adult neuropsych report via Rmarkdown}
 \usage{
 render_report_adult(input, patient, ...)
 }

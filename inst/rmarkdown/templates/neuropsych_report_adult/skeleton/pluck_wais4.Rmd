@@ -3,17 +3,26 @@ title: "Pluck Tables from WAIS-IV"
 params:
   patient: "Biggie"
   test:
-    label: "Test: WAIS-IV"
+    label: Test
     value: wais4
     input: select
     multiple: no
     choices:
       - wais4
       - wisc5
+  test_name:
+    label: Test Name
+    value: WAIS-IV
+    input: select
+    multiple: no
+    choices:
+      - WAIS-IV
+      - WISC-V
   file:
     label: No file selected
     value: file
     input: file
+  pages: [2,4,4,4,4,6,6]
   table1:
     label: Index Scores
     value: Verbal Comprehension (VCI)
@@ -86,7 +95,7 @@ params:
       - Longest Letter-Number Sequence
   colnames1:
     label: Table 1 Column Names
-    value: "scale"
+    value: scale
     input: select
     multiple: yes
     choices:
@@ -133,7 +142,7 @@ params:
       - base_rate
       - sem
   keep1:
-    label: "Variables to Keep, Set 1"
+    label: Variables to Keep, Set 1
     value: scale
     input: select
     multiple: yes
@@ -144,7 +153,7 @@ params:
       - percentile
       - ci_95
   keep2:
-    label: "Variables to Keep, Set 2"
+    label: Variables to Keep, Set 2
     value: scale
     input: select
     multiple: yes
@@ -185,22 +194,16 @@ library(shiny)
 library(miniUI)
 ```
 
-## Test
-
-```{r test}
-test <- params$test
-```
-
 ## Patient
 
 ```{r patient}
 patient <- params$patient
 ```
 
-## Pages
+## Test
 
-```{r pages}
-pages <- c(2,4,4,4,4,6,6)
+```{r test}
+test <- params$test
 ```
 
 ## Upload/attach PDF
@@ -209,8 +212,14 @@ pages <- c(2,4,4,4,4,6,6)
 file <- params$file
 ```
 
+## Pages
+
+```{r pages}
+pages <- params$pages
+```
+
 ```{r wfile}
-readr::write_lines(file, here::here(patient, "pre_csv", "wais4_pdf"))
+#readr::write_lines(file, here::here(patient, "pre_csv", "wais4_pdf"))
 ```
 
 ```{r rfile}
@@ -222,13 +231,13 @@ readr::write_lines(file, here::here(patient, "pre_csv", "wais4_pdf"))
 ```{r predetermined}
 # if known
 area <- list(
-  c(133, 50, 212, 560),
-  c(347, 50, 382, 560),
-  c(434, 50, 468, 560),
-  c(521, 50, 553, 560),
-  c(605, 50, 639, 560),
-  c(377, 50, 398, 560),
-  c(460, 50, 570, 560) 
+  index = c(133, 50, 212, 560),
+  vci = c(347, 50, 382, 560),
+  pri = c(434, 50, 468, 560),
+  wmi = c(521, 50, 553, 560),
+  psi = c(605, 50, 639, 560),
+  bd = c(377, 50, 398, 560),
+  ds = c(460, 50, 570, 560)
 )
 ```
 
@@ -241,12 +250,12 @@ area <- list(
 # )
 ```
 
-```{r warea}
-readr::write_rds(area, here::here(patient, "pre_csv", "area_wais4.rds"))
+```{r w-area}
+#readr::write_rds(area, here::here(patient, "pre_csv", "area_wais4.rds"))
 ```
 
-```{r rarea}
-#area <- readr::read_rds(here::here(patient, "pre_csv", "area_wais4.rds"))
+```{r r-area}
+#area <- readr::read_rds(here::here(params$patient, "pre_csv", "area_wais4.rds"))
 ```
 
 ## Extract tables
@@ -1060,7 +1069,7 @@ rownames(table7) <- params$table7
 table7 <- 
   table7 %>% 
   dplyr::rename(scale2 = scale) %>% 
-  tibble::rownames_to_column(., var = "scale")
+  tibble::rownames_to_column(var = "scale")
 ```
 
 ## Variables to keep
@@ -1076,8 +1085,8 @@ table7 <- bwu::gpluck_make_columns(
   table7,
   range = "",
   ci_95 = "",
-  test = "wais4",
-  test_name = "WAIS-IV",
+  test = params$test,
+  test_name = params$test_name,
   domain = "Attention/Executive",
   subdomain = "Working Memory",
   narrow = "",
@@ -1190,8 +1199,7 @@ wais4 <-
 ## Slice to reorder subtests/scales
 
 ```{r slice}
-# eight subtest table
-# wais4 <- wais4 %>% dplyr::slice(5,1,6:7,2,9,8,10,3,12,11,13:15,4,21,20)
+wais4 <- wais4 %>% dplyr::slice(5,1,6:7,2,9,8,10,3,12,11,13:15,4,21,20)
 ```
 
 ## Write out final csv
