@@ -1,28 +1,28 @@
 ---
-title: "Pluck Tables from WAIS-IV"
+title: "Pluck Tables from WISC-V"
 params:
   patient: "Biggie"
   test:
     label: Test
-    value: wais4
+    value: wisc5
     input: select
     multiple: no
     choices:
-      - wais4
       - wisc5
+      - wais4
   test_name:
     label: Test Name
-    value: WAIS-IV
+    value: WISC-V
     input: select
     multiple: no
     choices:
-      - WAIS-IV
       - WISC-V
+      - WAIS-IV
   file:
     label: No file selected
     value: file
     input: file
-  pages: [2,4,4,4,4,6,6]
+  pages: [2,4,4,4,4,6,6] #TODO
   table1:
     label: Index Scores
     value: Verbal Comprehension (VCI)
@@ -164,7 +164,7 @@ params:
       - percentile
 ---
 
-# WAIS-IV
+# WISC-V
 
 ## Load libraries
 
@@ -219,11 +219,11 @@ pages <- params$pages
 ```
 
 ```{r wfile}
-#readr::write_lines(file, here::here(patient, "pre_csv", "wais4_pdf"))
+#readr::write_lines(file, here::here(patient, "pre_csv", "wisc5_pdf"))
 ```
 
 ```{r rfile}
-#file <- readr::read_lines(here::here(patient, "pre_csv", "wais4_pdf"))
+#file <- readr::read_lines(here::here(patient, "pre_csv", "wisc5_pdf"))
 ```
 
 ## Locate areas
@@ -238,7 +238,7 @@ area <- list(
   psi = c(605, 50, 639, 560),
   bd = c(377, 50, 398, 560),
   ds = c(460, 50, 570, 560)
-)
+) #TODO
 ```
 
 ```{r eval=FALSE}
@@ -251,11 +251,11 @@ area <- list(
 ```
 
 ```{r w-area}
-#readr::write_rds(area, here::here(patient, "pre_csv", "area_wais4.rds"))
+#readr::write_rds(area, here::here(patient, "pre_csv", "area_wisc5.rds"))
 ```
 
 ```{r r-area}
-#area <- readr::read_rds(here::here(params$patient, "pre_csv", "area_wais4.rds"))
+#area <- readr::read_rds(here::here(params$patient, "pre_csv", "area_wisc5.rds"))
 ```
 
 ## Extract tables
@@ -271,7 +271,7 @@ plucked_table <- bwu::gpluck_extract_table(
 )
 ```
 
-# WAIS-IV Index Scores
+# Index Scores
 
 ## Pluck and format tables
 
@@ -292,11 +292,7 @@ table1 <- table1 |> hablar::convert(dbl(all_of(to_double)))
 ### Scale names
 
 ```{r rownames1}
-rownames(table1) <- params$table1
-table1 <- 
-  table1 %>% 
-  dplyr::rename(scale2 = scale) %>% 
-  tibble::rownames_to_column(., var = "scale")
+table1$scale <- params$table1
 ```
 
 ### Select variables to keep
@@ -311,8 +307,8 @@ table1 <- table1 |> dplyr::select(all_of(params$keep1))
 table1 <- bwu::gpluck_make_columns(
   table1,
   range = "",
-  test = "wais4",
-  test_name = "WAIS-IV",
+  test = params$test,
+  test_name = params$test_name,
   domain = "",
   subdomain = "",
   narrow = "",
@@ -443,7 +439,7 @@ table1 <-
       scale == "Verbal Comprehension (VCI)" ~ "The VCI provides an estimate of Crystallized Intelligence (Gc). Gc refers to an individual’s knowledge base (or general fund of information) that develops as a result of exposure to language, culture, general life experiences, and formal schooling.",
       scale == "Perceptual Reasoning (PRI)" ~ "The PRI provides an estimate of Fluid Reasoning (Gf). Gf refers to a type of thinking that an individual may use when faced with a relatively new or novel task that cannot be performed automatically.",
       scale == "Working Memory (WMI)" ~ "The WMI provides an estimate of Short-term Working Memory (Gsm). Gsm refers to the ability to hold information in immediate awareness and then manipulate or transform it in some way within a few seconds.",
-      scale == "Processing Speed (PSI)" ~ "The PSI provides an estimate of Processing Speed (Gs). Gs refers to the efficiency of cognitive processing or speed of mental activity. It involves the ability to perform simple clerical-type tasks quickly, especially when under pressure to maintain attention and concentration. The PSI of 90 (85-95) is classified as Average and is ranked at the 25th percentile, indicating performance as good as or better than 25% of same age peers from the general population.",
+      scale == "Processing Speed (PSI)" ~ "The PSI provides an estimate of Processing Speed (Gs). Gs refers to the efficiency of cognitive processing or speed of mental activity. It involves the ability to perform simple clerical-type tasks quickly, especially when under pressure to maintain attention and concentration. The PSI of {{ score }} ({{ ci_95 }}) is classified as {{ range }} and is ranked at the {{ percentile }}th percentile, indicating performance as good as or better than {{ percentile }}% of same age peers from the general population.",
       scale == "Full Scale IQ (FSIQ)" ~ "general level of intellectual functioning",
       scale == "General Ability (GAI)" ~ "a subset of intellectual functioning with reduced influences of working memory and processing speed",
       TRUE ~ as.character(description)
@@ -482,11 +478,7 @@ table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
 ## Scale names
 
 ```{r rownames2}
-rownames(table2) <- params$table2
-table2 <- 
-  table2 %>% 
-  dplyr::rename(scale2 = scale) %>% 
-  tibble::rownames_to_column(., var = "scale")
+table2$scale <- params$table2
 ```
 
 ## Select variables to keep
@@ -502,8 +494,8 @@ table2 <- bwu::gpluck_make_columns(
   table2,
   range = "",
   ci_95 = "",
-  test = "wais4",
-  test_name = "WAIS-IV",
+  test = params$test,
+  test_name = params$test_name,
   domain = "Verbal/Language",
   subdomain = "",
   narrow = "",
@@ -593,11 +585,7 @@ table3 <- table3 |> hablar::convert(dbl(all_of(to_double)))
 ## Scale names
 
 ```{r rownames3}
-rownames(table3) <- params$table3
-table3 <- 
-  table3 %>% 
-  dplyr::rename(scale2 = scale) %>% 
-  tibble::rownames_to_column(., var = "scale")
+table3$scale <- params$table3
 ```
 
 ## select variables to keep
@@ -613,8 +601,8 @@ table3 <- bwu::gpluck_make_columns(
   table3,
   range = "",
   ci_95 = "",
-  test = "wais4",
-  test_name = "WAIS-IV",
+  test = params$test,
+  test_name = params$test_name,
   domain = "Visual Perception/Construction",
   subdomain = "",
   narrow = "",
@@ -722,11 +710,7 @@ table4 <- table4 |> hablar::convert(dbl(all_of(to_double)))
 ## Scale names
 
 ```{r rownames4}
-rownames(table4) <- params$table4
-table4 <- 
-  table4 %>% 
-  dplyr::rename(scale2 = scale) %>% 
-  tibble::rownames_to_column(., var = "scale")
+table4$scale <- params$table4
 ```
 
 ## Select variables to keep
@@ -742,8 +726,8 @@ table4 <- bwu::gpluck_make_columns(
   table4,
   range = "",
   ci_95 = "",
-  test = "wais4",
-  test_name = "WAIS-IV",
+  test = params$test,
+  test_name = params$test_name,
   domain = "Attention/Executive",
   subdomain = "Working Memory",
   narrow = "",
@@ -862,11 +846,7 @@ table5 <- table5 |> hablar::convert(dbl(all_of(to_double)))
 ## Scale names
 
 ```{r rownames5}
-rownames(table5) <- params$table5
-table5 <- 
-  table5 %>% 
-  dplyr::rename(scale2 = scale) %>% 
-  tibble::rownames_to_column(., var = "scale")
+table5$scale <- params$table5
 ```
 
 ## Select variables to keep
@@ -882,8 +862,8 @@ table5 <- bwu::gpluck_make_columns(
   table5,
   range = "",
   ci_95 = "",
-  test = "wais4",
-  test_name = "WAIS-IV",
+  test = params$test,
+  test_name = params$test_name,
   domain = "Attention/Executive",
   subdomain = "Processing Speed",
   narrow = "",
@@ -987,11 +967,7 @@ table6 <- table6 %>% hablar::convert(dbl(all_of(to_double)))
 ## Scale names
 
 ```{r rownames6}
-rownames(table6) <- params$table6
-table6 <- 
-  table6 %>% 
-  dplyr::rename(scale2 = scale) %>% 
-  tibble::rownames_to_column(., var = "scale")
+table6$scale <- params$table6
 ```
 
 ## Select variables to keep
@@ -1007,8 +983,8 @@ table6 <- bwu::gpluck_make_columns(
   table6,
   range = "",
   ci_95 = "",
-  test = "wais4",
-  test_name = "WAIS-IV",
+  test = params$test,
+  test_name = params$test_name,
   domain = "Visual Perception/Construction",
   subdomain = "Visual Processing",
   narrow = "Visuoconstruction (Untimed)",
@@ -1065,11 +1041,7 @@ table7 <- table7 |> hablar::convert(dbl(all_of(to_double)))
 ## Scale names
 
 ```{r rownames7}
-rownames(table7) <- params$table7
-table7 <- 
-  table7 %>% 
-  dplyr::rename(scale2 = scale) %>% 
-  tibble::rownames_to_column(var = "scale")
+table7$scale <- params$table7
 ```
 
 ## Variables to keep
@@ -1192,20 +1164,20 @@ table7 <- table7 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 ## Merge tables
 
 ```{r merge}
-wais4 <-
+wisc5 <-
   dplyr::bind_rows(table1, table2, table3, table6, table4, table7, table5)
 ```
 
 ## Slice to reorder subtests/scales
 
 ```{r slice}
-wais4 <- wais4 %>% dplyr::slice(5,1,6:7,2,9,8,10,3,12,11,13:15,4,21,20)
+wisc5 <- wisc5 %>% dplyr::slice(5,1,6:7,2,9,8,10,3,12,11,13:15,4,21,20)
 ```
 
 ## Write out final csv
 
 ```{r write}
-readr::write_csv(wais4, here::here(patient, "csv", "wais4.csv"), col_names = TRUE, na = "")
+readr::write_csv(wisc5, here::here(patient, "csv", "wisc5.csv"), col_names = TRUE, na = "")
 ```
 
 ## Cleanup
