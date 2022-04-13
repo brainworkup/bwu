@@ -25,12 +25,13 @@ header-includes:
   - \usepackage{svg}
   - \usepackage{wasysym}
   - \usepackage{float}
+  - \usepackage {hyperref}
+  - \hypersetup {colorlinks = true, linkcolor = blue, urlcolor = blue}
 toc: false
 highlight: yes
 bibliography: brainworkup.bib
 biblio-style: apa
 link-citations: yes
-colorlinks: yes
 graphics: yes
 fig-caption: true
 self-contained: yes
@@ -1448,6 +1449,16 @@ bwu::dotplot(
 
 ```{r, sirf, results='asis'}
 cat(readLines("3_sirf.md"), sep = "\n")
+```
+
+# RECOMMENDATIONS
+
+```{marginfigure, echo=TRUE}
+Links highlighted in \textcolor{blue}{blue} should be clickable to the online content.
+```
+
+```{r, recs, results='asis'}
+cat(readLines("3_recs.md"), sep = "\n")
 ```
 
 It was a pleasure to work with `r params$first_name`.

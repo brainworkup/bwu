@@ -1,7 +1,7 @@
 ## Overall Evaluation Interpretation
 
 (ref:first-name) (ref:last-name) is a (ref:age)-year-old (ref:sex) with a history of (ref:dx1) and (ref:dx2).
-(ref:he-she-cap) was referred for testing by (ref:his-her) psychiatrist,(ref:refdoc), to assess (ref:his-her) current cognitive and emotional functioning.
+(ref:he-she-cap) was referred for testing by (ref:his-her) psychiatrist, (ref:refdoc), to assess (ref:his-her) current cognitive and emotional functioning.
 Without question, (ref:first-name) is an endearing (ref:sex) who presents with a
 multitude of cognitive and interpersonal strengths.
 (ref:his-her-cap) premorbid and current general ability/intellectual skills are in the average range for (ref:his-her) age and level of schooling.
@@ -16,41 +16,8 @@ Learning and long-term memory functioning are intact on exam, with no evidence o
 
 [[dsm5_icd10_diagnoses]]
 
-# RECOMMENDATIONS
+- Dx 1
 
-## Recommendations for Medical/Healthcare
+- Dx 2
 
-1. Rec 1
-
-1. Rec 2
-
-1. Rec 3
-
-1. High quality sleep, balanced nutrition, and frequent, vigorous exercise are
-   critical to maximizing attention and focus as well.
-
-## Recommendations for School
-
-1. Rec 1
-
-1. Rec 2
-
-1. Rec 3
-
-## Recommendations for Home/Family
-
-1. _Mindfulness_ is a technique in which (ref:first-name) can learn to ignore
-   distracting thoughts and concentrate on the task at hand. People of all ages can benefit from mindfulness training, which can help them to develop
-   cognitive control.
-
-1. Social activities are strongly encouraged to foster positive socialization
-   experiences.
-
-## Recommendations for Follow-Up Evaluation
-
-Follow-up assessment is not recommended at this time unless further concerns
-arise that need to be addressed.
-
-Follow-up assessment in 12-18 months to gauge (ref:first-name)'s progress and to
-assess the impact of the above interventions, unless further concerns arise that
-need to be addressed sooner.
+- Dx 3
