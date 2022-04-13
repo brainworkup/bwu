@@ -342,39 +342,41 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:tomm) Test of Memory Malingering (TOMM)
 
-(ref:acs-word-choice) Advanced Clinical Solutions (ACS), Word Choice Test
+(ref:acs) Advanced Clinical Solutions (ACS):
 
-(ref:acs-soc-cog) Advanced Clinical Solutions (ACS), Social Cognition Battery
+(ref:acs-word-choice) ACS Word Choice Test
 
-(ref:acs-topf) Advanced Clinical Solutions (ACS), Test of Premorbid Functioning (TOPF)
+(ref:acs-soc-cog) ACS Social Cognition Battery
 
-(ref:abas3) Adaptive Behavior Assessment System, 3rd ed (ABAS-3)
+(ref:acs-topf) ACS Test of Premorbid Functioning (TOPF)
 
-(ref:abas3-parent) Adaptive Behavior Assessment System, 3rd ed (ABAS-3), Parent Report
+(ref:abas3) Adaptive Behavior Assessment System, 3rd ed (ABAS-3):
 
-(ref:abas3-teacher) Adaptive Behavior Assessment System, 3rd ed (ABAS-3), Teacher Report
+(ref:abas3-parent) ABAS-3 Parent Report
 
-(ref:brown) Brown Executive Function/Attention Scales (Brown EF/A)
+(ref:abas3-teacher) ABAS-3 Teacher Report
 
-(ref:brown-pr) Brown Executive Function/Attention Scales, (EF/A), Parent-Report
+(ref:brown) Brown Executive Function/Attention Scales (Brown EF/A):
 
-(ref:brown-sr) Brown Executive Function/Attention Scale (EF/A), Self-Report
+(ref:brown-pr) Brown EF/A Parent-Report
 
-(ref:brown-tr) Brown Executive Function/Attention Scales (EF/A), Teacher-Report
+(ref:brown-tr) Brown EF/A Teacher-Report
 
-(ref:cefi) Comprehensive Executive Function Inventory (CEFI)
+(ref:brown-sr) Brown EF/A Self-Report
 
-(ref:cefi-sr) Comprehensive Executive Function Inventory Adult (CEFI Adult), Self-Report
+(ref:cefi) Comprehensive Executive Function Inventory (CEFI):
 
-(ref:cefi-or) Comprehensive Executive Function Inventory Adult (CEFI Adult), Observer-Report
+(ref:cefi-sr) CEFI Adult Self-Report
+
+(ref:cefi-or) CEFI Adult Observer-Report
 
 (ref:caadid) Conners' Adult ADHD Diagnostic Interview for DSM-IV (CAADID), Part I: History
 
-(ref:caars) Conners' Adult ADHD Rating Scale (CAARS)
+(ref:caars) Conners' Adult ADHD Rating Scale (CAARS):
 
-(ref:caars-sr) Conners' Adult ADHD Rating Scale (CAARS), Self-Report
+(ref:caars-sr) CAARS Self-Report
 
-(ref:caars-or) Conners' Adult ADHD Rating Scale (CAARS), Observer-Report
+(ref:caars-or) CAARS Observer-Report
 
 (ref:swan) SWAN ADHD Rating Scale
 
@@ -393,6 +395,8 @@ knitr::knit_engines$set(marginfigure = function(options) {
 (ref:pai) Personality Assessment Inventory (PAI)
 
 (ref:mmpi) Minnesota Multiphasic Personality Inventory-2-Restructured Form (MMPI-2-RF)
+
+(ref:mmpi-a) Minnesota Multiphasic Personality Inventory-Adolescent (MMPI-A)
 
 (ref:iq) Intelligence/General Ability
 
@@ -496,13 +500,13 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:efficiency) *Efficiency* reflects how long it takes to complete a task with the highest number of correct responses.
 
-(ref:psi) The Processing Speed Index (PSI) is primarily a measure of Processing Speed (Gs). Gs refers to the efficiency of cognitive processing or speed of mental activity. It involves the ability to perform simple clerical-type tasks quickly, especially when under pressure to maintain attention and concentration. The difference between the scores that comprise the WAIS-IV PSI is statistically significant and a difference of this size occurs in less than 10% of the general population which means the difference is relatively uncommon. This means that although the composite is likely a psychometrically sound estimate of Processing Speed, it may not be a good clinical summary because it may obscure an important and meaningful difference within this domain, which often occurs when one score is below average and the other score(s) is at least average relative to most people. (ref:patient)'s Gs-PSI score of XX (XX-XX) is classified as Low Average/Within Normal Limits and is ranked at the XXrd percentile, indicating performance as good as or better than XX% of same age peers from the general population.
+(ref:psi) The Processing Speed Index (PSI) is primarily a measure of Processing Speed (Gs). Gs refers to the efficiency of cognitive processing or speed of mental activity. It involves the ability to perform simple clerical-type tasks quickly, especially when under pressure to maintain attention and concentration. The difference between the scores that comprise the PSI is statistically significant and a difference of this size occurs in less than 10% of the general population which means the difference is relatively uncommon. This means that although the composite is likely a psychometrically sound estimate of Processing Speed, it may not be a good clinical summary because it may obscure an important and meaningful difference within this domain, which often occurs when one score is below average and the other score(s) is at least average relative to most people. (ref:patient)'s Gs-PSI score of {{ score }} ({{ ci_95 }}) is classified as {{ range }} and is ranked at the {{ percentile }}rd percentile, indicating performance as good as or better than {{ percentile }}% of same age peers from the general population.
 
-(ref:vci) The Verbal Comprehension Index (VCI) is primarily a measure of Comprehension and Knowledge (Gc). Gc refers to an individual's knowledge base (or general fund of information) that develops as a result of exposure to language, culture, general life experiences, and formal schooling. The size of the difference between the lowest and highest scores that comprise the VCI occurs in at least 10% of the general population, which makes the difference relatively common. This means that the WAIS-IV VCI is a good psychometric summary of Comprehension and Knowledge. Additionally, information regarding where the subtest scores fall relative to each other and relative to most people may not add clinically relevant information above and beyond the WAIS-IV VCI. The individual's Gc-VCI score of XXX (XXX-XXX) is classified as Upper Extreme/Normative Strength and is ranked at the XXth percentile, indicating performance as good as or better than XX% of same age peers in the general population.
+(ref:vci) The Verbal Comprehension Index (VCI) is primarily a measure of Comprehension and Knowledge (Gc). Gc refers to an individual's knowledge base (or general fund of information) that develops as a result of exposure to language, culture, general life experiences, and formal schooling. The size of the difference between the lowest and highest scores that comprise the VCI occurs in at least 10% of the general population, which makes the difference relatively common. This means that the VCI is a good psychometric summary of Comprehension and Knowledge. Additionally, information regarding where the subtest scores fall relative to each other and relative to most people may not add clinically relevant information above and beyond the VCI. (ref:patient)'s VCI-Gc score of {{ score }} ({{ ci_95 }}) is classified as {{ range }} and is ranked at the {{ percentile }}rd percentile, indicating performance as good as or better than {{ percentile }}% of same age peers from the general population.
 
-(ref:fri) The Gf-Nonverbal Fluid Reasoning Index (FRI) is primarily a measure of Fluid Reasoning (Gf). Gf refers to a type of thinking that an individual may use when faced with a relatively new or novel task that cannot be performed automatically. The individual's Gf-FRI score of 126 (121-131) is classified as Above Average/Normative Strength and is ranked at the 96th percentile, indicating performance as good as or better than 96% of same age peers from the general population.
+(ref:fri) The Gf-Nonverbal Fluid Reasoning Index (FRI) is primarily a measure of Fluid Reasoning (Gf). Gf refers to a type of thinking that an individual may use when faced with a relatively new or novel task that cannot be performed automatically. (ref:patient)'s FRI-Gf score of {{ score }} ({{ ci_95 }}) is classified as {{ range }} and is ranked at the {{ percentile }}rd percentile, indicating performance as good as or better than {{ percentile }}% of same age peers from the general population.
 
-(ref:vsi) The Gv-Visual Processing Index (VSI) is primarily a measure of Visual Processing (Gv). Gv Refers to an individuals ability to generate visual images and perceive and analyze visual patterns and visual information. The individual's Gv-VSI score of 100 (95-105) is classified as Average/Within Normal Limits and is ranked at the 50th percentile, indicating performance as good as or better than 50% of same age peers from the general population.
+(ref:vsi) The Gv-Visual Processing Index (VSI) is primarily a measure of Visual Processing (Gv). Gv Refers to an individuals ability to generate visual images and perceive and analyze visual patterns and visual information. (ref:patient)'s VSI-Gv score of {{ score }} ({{ ci_95 }}) is classified as {{ range }} and is ranked at the {{ percentile }}rd percentile, indicating performance as good as or better than {{ percentile }}% of same age peers from the general population.
 
 (ref:first-name) `r params$first_name`
 
@@ -566,48 +570,15 @@ knitr::knit_engines$set(marginfigure = function(options) {
 ```
 
 ```{r nse, results='asis'}
-cat(readLines("2_nse.md"), sep = "\n")
+cat(readLines("1_nse-2.md"), sep = "\n")
 ```
 
 \newpage
 
 # NEUROPSYCHOLOGICAL TESTING
 
-## Test Battery
-
--   (ref:acs-topf)
--   (ref:acs-word-choice)
--   (ref:wais4)
--   (ref:wiat4)
--   (ref:nabs): Form 1/2
--   (ref:nab): Form 1/2
--   (ref:cvlt3-brief)
--   (ref:examiner)
--   (ref:rocf)
--   (ref:pegboard)
--   (ref:caadid)
--   (ref:caars-sr)
--   (ref:caars-or)
--   (ref:cefi-sr)
--   (ref:cefi-or)
--   (ref:pai)
--   (ref:ktea3): Form A/B
--   (ref:wrat5): Green/Blue Form
--   (ref:rbans): Form A/B/C/D
--   (ref:dkefs)
--   (ref:cvlt3)
--   (ref:wms4)
--   (ref:tmt)
--   (ref:bicycle)
--   (ref:clock)
--   (ref:cog-est)
--   (ref:tomm)
--   (ref:brown-pr)
--   (ref:brown-sr)
--   (ref:brown-tr)
-
-```{r bobs, results='asis'}
-cat(readLines("2_bobs.md"), sep = "\n")
+```{r nt-obs, results='asis'}
+cat(readLines("2_nt-obs.md"), sep = "\n")
 ```
 
 \newpage
@@ -763,15 +734,15 @@ neurobehav <-
 ```
 
 ```{r, write-data}
-readr::write_csv(neuropsych, here::here(patient, "neuropsych.csv"))
-readr::write_csv(neurocog, here::here(patient, "neurocog.csv"))
-readr::write_csv(neurobehav, here::here(patient, "neurobehav.csv"))
+readr::write_csv(neuropsych, here::here(patient, "neuropsych.csv"), show_col_types = FALSE)
+readr::write_csv(neurocog, here::here(patient, "neurocog.csv"), show_col_types = FALSE)
+readr::write_csv(neurobehav, here::here(patient, "neurobehav.csv"), show_col_types = FALSE)
 ```
 
 ```{r, read-data}
-neuropsych <- readr::read_csv(here::here(patient, "neuropsych.csv"))
-neurocog <- readr::read_csv(here::here(patient, "neurocog.csv"))
-neurobehav <- readr::read_csv(here::here(patient, "neurobehav.csv"))
+neuropsych <- readr::read_csv(here::here(patient, "neuropsych.csv"), show_col_types = FALSE)
+neurocog <- readr::read_csv(here::here(patient, "neurocog.csv"), show_col_types = FALSE)
+neurobehav <- readr::read_csv(here::here(patient, "neurobehav.csv"), show_col_types = FALSE)
 ```
 
 ### Intelligence/General Ability
@@ -1458,7 +1429,7 @@ Links highlighted in \textcolor{blue}{blue} should be clickable to the online co
 ```
 
 ```{r, recs, results='asis'}
-cat(readLines("3_recs.md"), sep = "\n")
+cat(readLines("4_recs.md"), sep = "\n")
 ```
 
 It was a pleasure to work with `r params$first_name`.

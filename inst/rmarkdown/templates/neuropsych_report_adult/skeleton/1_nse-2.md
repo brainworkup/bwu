@@ -5,10 +5,6 @@
 This report is based on a review of available medical records, clinical interviews, and information gathered across multiple days of testing.
 Intervention planning was discussed with (ref:first-name) and (ref:his-her) (ref:family) during interactive feedback on the final day of the evaluation.
 
-## Background
-
-(ref:first-name) began experiencing symptoms of x, y, and z in 200X.
-
 ## Relevant History
 
 ### Developmental/Medical
@@ -58,6 +54,4 @@ Family mental health history includes depression.
 
 ### Prior Testing
 
-(ref:first-name) had a previous neuropsychological evaluation (Month 20XX), shortly following (ref:his-her) 20XX concussion.
-Results at that time indicated age-appropriate intelligence, but weaknesses in attention, executive skills, memory, fine motor speed, and word-finding.
-Of note, on the day of that prior testing (ref:he-she) had not taken stimulant medication and reported continuous headache.
+No prior testing reported.
