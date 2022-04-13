@@ -21,8 +21,6 @@ jobs:
       matrix:
         config:
           - {os: macOS-latest,   r: 'release'}
-          - {os: windows-latest, r: 'release'}
-          - {os: windows-latest, r: '3.6'}
           - {os: ubuntu-18.04,   r: 'devel'}
           - {os: ubuntu-18.04,   r: 'release'}
           - {os: ubuntu-18.04,   r: 'oldrel'}
@@ -36,7 +34,6 @@ jobs:
       GITHUB_PAT:                    "${{ secrets.GITHUB_TOKEN }}"
       RENV_CI_CACHE_VERSION_LINUX:   "1"
       RENV_CI_CACHE_VERSION_MACOS:   "1"
-      RENV_CI_CACHE_VERSION_WINDOWS: "1"
       USE_CXX1X:                     "TRUE"
       USE_CXX11:                     "TRUE"
 
@@ -93,6 +90,7 @@ jobs:
         run: |
           brew install git
           brew install libgit2
+          brew install pandoc
       
       - name: Install renv
         shell: bash
@@ -139,8 +137,3 @@ jobs:
         with:
           name: ${{ matrix.config.os }}-r-${{ matrix.config.r }}-results
           path: check
-
-      - name: Fix path for Windows caching
-        if: runner.os == 'Windows'
-        shell: bash
-        run: echo "C:/Program Files/Git/usr/bin" >> $GITHUB_PATH
