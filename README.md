@@ -6,7 +6,7 @@ editor_options:
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# bwu: brainworkup neuropsychological package
+# bwu: BrainWorkUp neuropsychological package
 
 # Neuropsychological Testing Data Package
 
