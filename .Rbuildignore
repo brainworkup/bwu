@@ -33,3 +33,4 @@
 ^\.DS\_Store$
 ^R\-CMD\-check\.yaml$
 ^docs$
+^revdep$
