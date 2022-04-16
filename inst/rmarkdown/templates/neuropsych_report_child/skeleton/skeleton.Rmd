@@ -628,9 +628,10 @@ cat(readLines("2_nse.md"), sep = "\n")
   -   (ref:basc3-trs-adolescent)
   -   (ref:basc3-srp-child)
   -   (ref:basc3-srp-adolescent)
--   (ref:brown-pr)
--   (ref:brown-sr)
--   (ref:brown-tr)
+-   (ref:brown)
+  -   (ref:brown-pr)
+  -   (ref:brown-sr)
+  -   (ref:brown-tr)
 
 ```{r bobs, results='asis'}
 cat(readLines("2_bobs.md"), sep = "\n")
@@ -665,7 +666,7 @@ neuropsych <-
   files %>%
   purrr::set_names() %>%
   purrr::map_df(
-    ~ readr::read_csv(file.path(data_path, .), show_col_types = FALSE),
+    ~ vroom::vroom(file.path(data_path, .), show_col_types = FALSE),
     na = c("", "NA", "--", "-"),
     .id = "filename"
   ) %>%
@@ -785,15 +786,15 @@ neurobehav <-
 ```
 
 ```{r, write-data}
-readr::write_csv(neuropsych, here::here(patient, "neuropsych.csv"))
-readr::write_csv(neurocog, here::here(patient, "neurocog.csv"))
-readr::write_csv(neurobehav, here::here(patient, "neurobehav.csv"))
+vroom::vroom_write(neuropsych, here::here(patient, "neuropsych.csv"))
+vroom::vroom_write(neurocog, here::here(patient, "neurocog.csv"))
+vroom::vroom_write(neurobehav, here::here(patient, "neurobehav.csv"))
 ```
 
 ```{r, read-data}
-neuropsych <- readr::read_csv(here::here(patient, "neuropsych.csv"))
-neurocog <- readr::read_csv(here::here(patient, "neurocog.csv"))
-neurobehav <- readr::read_csv(here::here(patient, "neurobehav.csv"))
+neuropsych <- vroom::vroom(here::here(patient, "neuropsych.csv"))
+neurocog <- vroom::vroom(here::here(patient, "neurocog.csv"))
+neurobehav <- vroom::vroom(here::here(patient, "neurobehav.csv"))
 ```
 
 ### Intelligence/General Ability
@@ -1515,7 +1516,7 @@ Although standardized scores provide the clinician with an important and necessa
 ## Conversion of Test Scores
 
 ```{r ranges, double_escape=TRUE, escape=FALSE, fig.fullwidth=FALSE}
-range <- readr::read_csv(here::here(patient, "test_score_ranges.csv"), show_col_types = FALSE)
+range <- vroom::vroom(here::here(patient, "test_score_ranges.csv"), show_col_types = FALSE)
 gt::gt(range) %>%
   gt::tab_header(., title = "Test Score Labels/Ranges") %>%
   gt::cols_align(., align = "center")

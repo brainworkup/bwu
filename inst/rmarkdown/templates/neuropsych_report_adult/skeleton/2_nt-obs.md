@@ -1,8 +1,8 @@
 ## Test Battery
 
 - (ref:acs)
-- (ref:acs-word-choice)
-- (ref:acs-topf)
+  - (ref:acs-topf)
+  - (ref:acs-word-choice)
 - (ref:wais4)
 - (ref:wiat4)
 - (ref:wrat5): Green/Blue Form
@@ -18,14 +18,13 @@
 - (ref:pegboard)
 - (ref:caadid)
 - (ref:caars)
-- (ref:caars-sr)
-- (ref:caars-or)
+  - (ref:caars-sr)
+  - (ref:caars-or)
 - (ref:cefi)
-- (ref:cefi-sr)
-- (ref:cefi-or)
+  - (ref:cefi-sr)
+  - (ref:cefi-or)
 - (ref:pai)
 
-- (ref:acs-social-cognition)
 - (ref:tomm)
 - (ref:rbans): Form A/B/C/D
 - (ref:dkefs)
@@ -35,14 +34,14 @@
 - (ref:brown)
 - (ref:brown-sr)
 - (ref:brown-pr)
+- (ref:acs-social-cognition)
 
 ## Behavioral Observations
 
-(ref:he-she-cap) was evaluated during a 4-hour testing session in a physically-distanced testing environment.
-(ref:he-she-cap) was seen in-person at our clinic on the USC campus.
+(ref:first-name) was evaluated during a 4-hour testing session in a physically-distanced testing environment in-person at our clinic on the USC campus.
 Precautionary health safety measures were employed (e.g., masks, plexiglass dividers) during the evaluation, while minimizing interference with standardized testing procedures.
-(ref:first-name) arrived on time to the test session.
-(ref:he-she-cap) was alert, oriented to the situation, and appeared to understand the questions that were being asked of (ref:him-her).
+(ref:he-she-cap) arrived on time to the test session.
+(ref:first-name) was alert, oriented to the situation, and appeared to understand the questions that were being asked of (ref:him-her).
 (ref:he-she-cap) was articulate, demonstrated a clear and logical thought process, and (ref:his-her) speech was normal in rate, pitch, and prosody.
 (ref:his-her-cap) language expression and comprehension were age-appropriate.
 (ref:first-name) was cooperative with testing and seemed motivated to do well.

@@ -22,8 +22,7 @@
         "scrollbar.shadow": "#0d0d0d"
       },
       "editorGroup.border": "#57b8b2",
-      "panel.border": "#57b8b2",
-      "tab.activeBorder": "#57b8b2"
+      "panel.border": "#57b8b2"
     },
     "peacock.color": "#419b95",
     "makefile.extensionOutputFolder": "./.vscode"
