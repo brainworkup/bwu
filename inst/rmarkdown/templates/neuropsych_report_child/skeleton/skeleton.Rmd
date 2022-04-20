@@ -63,7 +63,7 @@ params:
     input: text
   mrn:
     label: "Patient ID:"
-    value: "000000000"
+    value: 000000000
     input: numeric
     min: 000000000
     max: 999999999
@@ -107,7 +107,7 @@ params:
       - Ambidextrous
   educ:
     label: "Current Grade:"
-    value: "Dropped outta high school"
+    value: Dropped outta high school
     input: select
     multiple: no
     choices:
@@ -691,8 +691,10 @@ neurocog <-
   dplyr::group_by(domain, .add = TRUE) %>%
   dplyr::filter(!is.na(percentile)) %>%
   dplyr::mutate(z_mean_dom = mean(z), z_sd_dom = sd(z)) %>%
-  dplyr::mutate(pct_mean_dom = mean(percentile),
-                pct_sd_dom = sd(percentile)) %>%
+  dplyr::mutate(
+    pct_mean_dom = mean(percentile),
+    pct_sd_dom = sd(percentile)
+  ) %>%
   dplyr::ungroup()
 # subdomain
 neurocog <-
@@ -700,8 +702,10 @@ neurocog <-
   dplyr::group_by(subdomain, .add = TRUE) %>%
   dplyr::filter(!is.na(percentile)) %>%
   dplyr::mutate(z_mean_sub = mean(z), z_sd_sub = sd(z)) %>%
-  dplyr::mutate(pct_mean_sub = mean(percentile),
-                pct_sd_sub = sd(percentile)) %>%
+  dplyr::mutate(
+    pct_mean_sub = mean(percentile),
+    pct_sd_sub = sd(percentile)
+  ) %>%
   dplyr::ungroup()
 # narrow
 neurocog <-
@@ -709,8 +713,10 @@ neurocog <-
   dplyr::group_by(narrow, .add = TRUE) %>%
   dplyr::filter(!is.na(percentile)) %>%
   dplyr::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) %>%
-  dplyr::mutate(pct_mean_narrow = mean(percentile),
-                pct_sd_narrow = sd(percentile)) %>%
+  dplyr::mutate(
+    pct_mean_narrow = mean(percentile),
+    pct_sd_narrow = sd(percentile)
+  ) %>%
   dplyr::ungroup()
 # pass
 neurocog <-
@@ -754,8 +760,10 @@ neurobehav <-
   dplyr::group_by(domain, .add = TRUE) %>%
   dplyr::filter(!is.na(score)) %>%
   dplyr::mutate(z_mean_dom = mean(z), z_sd_dom = sd(z)) %>%
-  dplyr::mutate(pct_mean_dom = mean(percentile),
-                pct_sd_dom = sd(percentile)) %>%
+  dplyr::mutate(
+    pct_mean_dom = mean(percentile),
+    pct_sd_dom = sd(percentile)
+  ) %>%
   dplyr::ungroup()
 # subdomain
 neurobehav <-
@@ -763,8 +771,10 @@ neurobehav <-
   dplyr::group_by(subdomain, .add = TRUE) %>%
   dplyr::filter(!is.na(score)) %>%
   dplyr::mutate(z_mean_sub = mean(z), z_sd_sub = sd(z)) %>%
-  dplyr::mutate(pct_mean_sub = mean(percentile),
-                pct_sd_sub = sd(percentile)) %>%
+  dplyr::mutate(
+    pct_mean_sub = mean(percentile),
+    pct_sd_sub = sd(percentile)
+  ) %>%
   dplyr::ungroup()
 # narrow
 neurobehav <-
@@ -772,8 +782,10 @@ neurobehav <-
   dplyr::group_by(narrow, .add = TRUE) %>%
   dplyr::filter(!is.na(score)) %>%
   dplyr::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) %>%
-  dplyr::mutate(pct_mean_narrow = mean(percentile),
-                pct_sd_narrow = sd(percentile)) %>%
+  dplyr::mutate(
+    pct_mean_narrow = mean(percentile),
+    pct_sd_narrow = sd(percentile)
+  ) %>%
   dplyr::ungroup()
 # result text
 neurobehav <-

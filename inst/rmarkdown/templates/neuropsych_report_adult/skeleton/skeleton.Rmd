@@ -107,7 +107,7 @@ params:
       - Ambidextrous
   educ:
     label: "Current Grade:"
-    value: "Dropped outta high school"
+    value: Dropped outta high school
     input: select
     multiple: no
     choices:
@@ -123,12 +123,12 @@ params:
       - Graduate student
       - Medical student
       - Post-doctoral student
-      - Other
       - High school diploma
       - College degree
-      - Masters degree
+      - Master's degree
       - Medical degree
       - Doctoral degree
+      - Other
   doe1:
     label: "DOE 1st visit (NSE):"
     value: !r Sys.Date()
@@ -138,7 +138,7 @@ params:
     value: !r Sys.Date()
     input: date
   doe3:
-    label: "DOE 3rd visit (NT2):"
+    label: "DOE 3rd visit (SIRF):"
     value: !r Sys.Date()
     input: date
   he_she:
@@ -637,10 +637,12 @@ neurocog <-
   dplyr::filter(!is.na(percentile)) %>%
   dplyr::mutate(
     z_mean_dom = mean(z),
-    z_sd_dom = sd(z)) %>%
+    z_sd_dom = sd(z)
+  ) %>%
   dplyr::mutate(
     pct_mean_dom = mean(percentile),
-    pct_sd_dom = sd(percentile)) %>%
+    pct_sd_dom = sd(percentile)
+  ) %>%
   dplyr::ungroup()
 # subdomain
 neurocog <-
@@ -648,8 +650,10 @@ neurocog <-
   dplyr::group_by(subdomain, .add = TRUE) %>%
   dplyr::filter(!is.na(percentile)) %>%
   dplyr::mutate(z_mean_sub = mean(z), z_sd_sub = sd(z)) %>%
-  dplyr::mutate(pct_mean_sub = mean(percentile),
-                pct_sd_sub = sd(percentile)) %>%
+  dplyr::mutate(
+    pct_mean_sub = mean(percentile),
+    pct_sd_sub = sd(percentile)
+  ) %>%
   dplyr::ungroup()
 # narrow
 neurocog <-
@@ -657,8 +661,10 @@ neurocog <-
   dplyr::group_by(narrow, .add = TRUE) %>%
   dplyr::filter(!is.na(percentile)) %>%
   dplyr::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) %>%
-  dplyr::mutate(pct_mean_narrow = mean(percentile),
-                pct_sd_narrow = sd(percentile)) %>%
+  dplyr::mutate(
+    pct_mean_narrow = mean(percentile),
+    pct_sd_narrow = sd(percentile)
+  ) %>%
   dplyr::ungroup()
 # pass
 neurocog <-
@@ -702,8 +708,10 @@ neurobehav <-
   dplyr::group_by(domain, .add = TRUE) %>%
   dplyr::filter(!is.na(score)) %>%
   dplyr::mutate(z_mean_dom = mean(z), z_sd_dom = sd(z)) %>%
-  dplyr::mutate(pct_mean_dom = mean(percentile),
-                pct_sd_dom = sd(percentile)) %>%
+  dplyr::mutate(
+    pct_mean_dom = mean(percentile),
+    pct_sd_dom = sd(percentile)
+  ) %>%
   dplyr::ungroup()
 # subdomain
 neurobehav <-
@@ -711,8 +719,10 @@ neurobehav <-
   dplyr::group_by(subdomain, .add = TRUE) %>%
   dplyr::filter(!is.na(score)) %>%
   dplyr::mutate(z_mean_sub = mean(z), z_sd_sub = sd(z)) %>%
-  dplyr::mutate(pct_mean_sub = mean(percentile),
-                pct_sd_sub = sd(percentile)) %>%
+  dplyr::mutate(
+    pct_mean_sub = mean(percentile),
+    pct_sd_sub = sd(percentile)
+  ) %>%
   dplyr::ungroup()
 # narrow
 neurobehav <-
@@ -720,8 +730,10 @@ neurobehav <-
   dplyr::group_by(narrow, .add = TRUE) %>%
   dplyr::filter(!is.na(score)) %>%
   dplyr::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) %>%
-  dplyr::mutate(pct_mean_narrow = mean(percentile),
-                pct_sd_narrow = sd(percentile)) %>%
+  dplyr::mutate(
+    pct_mean_narrow = mean(percentile),
+    pct_sd_narrow = sd(percentile)
+  ) %>%
   dplyr::ungroup()
 # result text
 neurobehav <-
