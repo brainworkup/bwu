@@ -1,9 +1,9 @@
 ---
-title: "Pluck Tables from NAB/NAB Screener"
+title: "Pluck Tables from NAB Screener"
 params:
   patient: "Biggie"
   test:
-    label: Test
+    label: "Test"
     value: nabs
     input: select
     multiple: no
@@ -11,238 +11,19 @@ params:
       - nabs
       - nab
   test_name:
-    label: Test Name
+    label: "Test Name"
     value: NAB
     input: select
     multiple: no
-    choices:
-      - NAB
-      - NAB Screener
+    choices: [NAB, NAB-S]    
   file:
-    label: No file selected
+    label: "No file selected"
     value: file
     input: file
   pages: [2,5,6,7,8,8]
-  table1:
-    label: NAB Index Scores
-    value: NAB Attention Index
-    input: select
-    multiple: yes
-    choices:
-      - NAB Attention Index
-      - NAB Language Index
-      - NAB Memory Index
-      - NAB Spatial Index
-      - NAB Executive Functions Index
-      - NAB Total Index
-  table2:
-    label: NAB Attention Index
-    value: Orientation
-    input: select
-    multiple: yes
-    choices:
-      - Orientation
-      - Orientation to Self
-      - Orientation to Time
-      - Orientation to Place
-      - Orientation to Situation
-      - Digits Forward
-      - Digits Forward Longest Span
-      - Digits Backward
-      - Digits Backward Longest Span
-      - Dots
-      - Numbers & Letters Part A Speed
-      - Numbers & Letters Part A Errors
-      - Numbers & Letters Part A Efficiency
-      - Numbers & Letters Part B Efficiency
-      - Numbers & Letters Part C Efficiency
-      - Numbers & Letters Part D Efficiency
-      - Numbers & Letters Part D Disruption
-      - Driving Scenes
-  table3:
-    label: NAB Language Index
-    value: Oral Production
-    input: select
-    multiple: yes
-    choices:
-      - Oral Production
-      - Auditory Comprehension
-      - Auditory Comprehension Colors
-      - Auditory Comprehension Shapes
-      - Auditory Comprehension Colors/Shapes/Numbers
-      - Auditory Comprehension Pointing
-      - Auditory Comprehension Yes/No
-      - Auditory Comprehension Paper Folding
-      - Naming
-      - Naming Percent Correct After Semantic Cuing
-      - Naming Percent Correct After Phonemic Cuing
-      - Reading Comprehension
-      - Reading Comprehension Words
-      - Reading Comprehension Sentences
-      - Writing
-      - Writing Legibility
-      - Writing Spelling
-      - Writing Syntax
-      - Writing Conveyance
-      - Bill Payment
-  table4:
-    label: NAB Memory Index
-    value: List Learning Trial 1
-    input: select
-    multiple: yes
-    choices:
-      - List Learning Trial 1
-      - List Learning Trial 2
-      - List Learning Trial 3
-      - List Learning Immediate Recall
-      - List Learning Trial 4 (List B)
-      - List Learning Short Delayed Recall
-      - List Learning Long Delayed Recall
-      - List Learning Percent Retention
-      - List Learning Forced-Choice Recognition
-      - List Learning Forced-Choice Recognition False Alarms
-      - List Learning Discriminability Index
-      - List Learning Semantic Clusters
-      - List Learning Perseverations
-      - List Learning Instrusions
-      - Shape Learning Trial 1
-      - Shape Learning Trial 2
-      - Shape Learning Trial 3
-      - Shape Learning Immediate Recognition
-      - Shape Learning Delayed Recognition
-      - Shape Learning Percent Retention
-      - Shape Learning Forced-Choice Recognition
-      - Shape Learning Forced-Choice Recognition False Alarms
-      - Shape Learning Discriminability Index
-      - Story Learning Trial 1 Phrase Unit
-      - Story Learning Trial 2 Phrase Unit
-      - Story Learning Phrase Unit Immediate Recall
-      - Story Learning Thematic Unit Immediate Recall
-      - Story Learning Trial 1 Thematic Unit
-      - Story Learning Trial 2 Thematic Unit
-      - Story Learning Phrase Unit Delayed Recall
-      - Story Learning Thematic Unit Delayed Recall
-      - Story Learning Phrase Unit Percent Retention
-      - Daily Living Memory
-      - Daily Living Memory Immediate Recall
-      - Daily Living Memory Delayed Recall
-      - Daily Living Memory Retention
-      - Daily Living Memory Delayed Recognition
-      - Daily Living Memory Delayed Recall vs. Recognition
-      - Medication Instructions Immediate Recall
-      - Medication Instructions Delayed Recall
-      - Medication Instructions Delayed Recognition
-      - Name/Address/Phone Immediate Recall
-      - Name/Address/Phone Delayed Recall
-      - Name/Address/Phone Delayed Recognition
-  table5:
-    label: NAB Spatial Index
-    value: Visual Discrimination
-    input: select
-    multiple: yes
-    choices:
-      - Visual Discrimination
-      - Design Construction
-      - Figure Drawing Copy
-      - Figure Drawing Copy Organization
-      - Figure Drawing Copy Fragmentation
-      - Figure Drawing Copy Planning
-      - Figure Drawing Copy Immediate Recall
-      - Figure Drawing Copy Immediate Recall Organization
-      - Figure Drawing Copy Immediate Recall Fragmentation
-      - Figure Drawing Copy Immediate Recall Planning
-      - Figure Drawing Copy Immediate Recall Percent Retention
-      - Map Reading
-  table6:
-    label: NAB Executive Functions Index
-    value: Mazes
-    input: select
-    multiple: yes
-    choices:
-      - Mazes
-      - Judgment
-      - Categories
-      - Word Generation
-      - Word Generation Perseverations
-  colnames1:
-    label: Column Names Index Tables
-    value: scale
-    input: select
-    multiple: yes
-    choices:
-      - scale
-      - score
-      - percentile
-      - ci_95
-      - category
-  colnames2:
-    label: Column Names Full Table
-    value: scale
-    input: select
-    multiple: yes
-    choices:
-      - scale
-      - raw_score
-      - z_score
-      - score
-      - percentile
-      - base_rate
-      - category
-  colnames3:
-    label: Column Names Brief Table
-    value: scale
-    input: select
-    multiple: yes
-    choices:
-      - scale
-      - raw_score
-      - z_score
-      - score
-      - percentile
-      - category
-  colnames4:
-    label: Column Names Primary Score Table
-    value: scale
-    input: select
-    multiple: yes
-    choices:
-      - scale
-      - raw_score
-      - z_score
-      - score
-  keep1:
-    label: Variables to Keep, Set 1
-    value: scale
-    input: select
-    multiple: yes
-    choices:
-      - scale
-      - raw_score
-      - score
-      - percentile
-      - ci_95
-  keep2:
-    label: Variables to Keep, Set 2
-    value: scale
-    input: select
-    multiple: yes
-    choices:
-      - scale
-      - raw_score
-      - score
-      - percentile
-  keep4: # if needed
-    label: Variables to Keep, Set 2
-    value: scale
-    input: select
-    multiple: yes
-    choices:
-      - scale
-      - raw_score
-      - score
 ---
 
-# NAB
+# NAB Screener
 
 ## Load libraries
 
@@ -270,6 +51,8 @@ library(tibble)
 library(magrittr)
 library(shiny)
 library(miniUI)
+library(tidyr)
+library(vroom)
 ```
 
 ## Patient
@@ -296,9 +79,8 @@ file <- params$file
 pages <- params$pages
 ```
 
-
 ```{r save-pdf}
-#readr::write_lines(file, here::here(patient, "pre_csv", "nabs_pdf"))
+#vroom::vroom_write(file, here::here(patient, "pre_csv", "nabs_pdf"))
 ```
 
 ```{r read-pdf}
@@ -319,9 +101,11 @@ area <- list(
 ```
 
 ```{r areas-get, eval=FALSE}
-# areas <- bwu::gpluck_locate_areas(
-#   file = params$file,
-#   pages = params$pages
+# if unknown
+# file <- file.choose()
+# area6 <- bwu::gpluck_locate_areas(
+#   file = file,
+#   pages = c(6)
 # )
 ```
 
@@ -346,11 +130,44 @@ plucked_table <- bwu::gpluck_extract_table(
 )
 ```
 
+# Tidy Tables
+
+## Column names per test/subtest/measure
+
+This will vary by measure/table.
+
+```{r colnames}
+column_names1 <- c(
+  "scale",
+  "score",
+  "percentile",
+  "ci_95",
+  "category"
+)
+column_names2 <- c(
+  "scale",
+  "raw_score",
+  "z_score",
+  "score",
+  "percentile",
+  "base_rate",
+  "category"
+)
+column_names3 <- c(
+  "scale",
+  "raw_score",
+  "z_score",
+  "score",
+  "percentile",
+  "category"
+)
+```
+
 # NAB Index Score
 
 ```{r pluck-table1}
-table1 <- tibble::as_tibble(plucked_table[[1]])
-colnames(table1) <- params$colnames1
+table1 <- as_tibble(plucked_table[[1]])
+colnames(table1) <- column_names1
 table1 <- dplyr::na_if(table1, "")
 table1 <- dplyr::na_if(table1, "NA")
 table1 <- dplyr::na_if(table1, "-")
@@ -375,20 +192,19 @@ table1 <- table1 |>
 ```
 
 ```{r scales-table1}
-table1$scale <- params$table1
-# table1[1, 1] <- c("NAB Attention Index")
-# table1[2, 1] <- c("NAB Language Index")
-# table1[3, 1] <- c("NAB Memory Index")
-# table1[4, 1] <- c("NAB Spatial Index")
-# table1[5, 1] <- c("NAB Executive Functions Index")
-# table1[6, 1] <- c("NAB Total Index")
+table1[1, 1] <- c("NAB Attention Index")
+table1[2, 1] <- c("NAB Language Index")
+table1[3, 1] <- c("NAB Memory Index")
+table1[4, 1] <- c("NAB Spatial Index")
+table1[5, 1] <- c("NAB Executive Functions Index")
+table1[6, 1] <- c("NAB Total Index")
 ```
 
 # NAB Attention
 
 ```{r pluck-table2}
 table2 <- as_tibble(plucked_table[[2]])
-colnames(table2) <- params$colnames2
+colnames(table2) <- column_names2
 table2 <- dplyr::na_if(table2, "")
 table2 <- dplyr::na_if(table2, "NA")
 table2 <- dplyr::na_if(table2, "-")
@@ -409,21 +225,20 @@ table2 <- table2 |>
   arrange(absort)
 ```
 
-```{r rownames2}
-table2$scale <- params$table2
-# table2[1, 1] <- c("Orientation")
-# table2[2, 1] <- c("Orientation to Self")
-# table2[3, 1] <- c("Orientation to Time")
-# table2[4, 1] <- c("Orientation to Place")
-# table2[5, 1] <- c("Orientation to Situation")
-# table2[6, 1] <- c("Digits Forward")
-# table2[7, 1] <- c("Digits Forward Longest Span")
-# table2[8, 1] <- c("Digits Backward")
-# table2[9, 1] <- c("Digits Backward Longest Span")
-# table2[10, 1] <- c("Numbers & Letters Part A Speed")
-# table2[11, 1] <- c("Numbers & Letters Part A Errors")
-# table2[12, 1] <- c("Numbers & Letters Part A Efficiency")
-# table2[13, 1] <- c("Numbers & Letters Part B Efficiency")
+```{r nabs-att}
+table2[1, 1] <- c("Orientation")
+table2[2, 1] <- c("Orientation to Self")
+table2[3, 1] <- c("Orientation to Time")
+table2[4, 1] <- c("Orientation to Place")
+table2[5, 1] <- c("Orientation to Situation")
+table2[6, 1] <- c("Digits Forward")
+table2[7, 1] <- c("Digits Forward Longest Span")
+table2[8, 1] <- c("Digits Backward")
+table2[9, 1] <- c("Digits Backward Longest Span")
+table2[10, 1] <- c("Numbers & Letters Part A Speed")
+table2[11, 1] <- c("Numbers & Letters Part A Errors")
+table2[12, 1] <- c("Numbers & Letters Part A Efficiency")
+table2[13, 1] <- c("Numbers & Letters Part B Efficiency")
 ```
 
 ```{r mutate-value, eval=F}
@@ -435,7 +250,7 @@ table2$scale <- params$table2
 
 ```{r pluck-table3}
 table3 <- as_tibble(plucked_table[[3]])
-colnames(table3) <- params$colnames2
+colnames(table3) <- column_names2
 table3 <- dplyr::na_if(table3, "")
 table3 <- dplyr::na_if(table3, "NA")
 table3 <- dplyr::na_if(table3, "-")
@@ -450,21 +265,20 @@ table3 <-
 ```
 
 ```{r scales-table3}
-table3$scale <- params$table3
-# table3[1, 1] <- c("Auditory Comprehension")
-# table3[2, 1] <- c("Auditory Comprehension Colors")
-# table3[3, 1] <- c("Auditory Comprehension Shapes")
-# table3[4, 1] <- c("Auditory Comprehension Colors/Shapes/Numbers")
-# table3[5, 1] <- c("Naming")
-# table3[6, 1] <- c("Naming Semantic Cuing")
-# table3[7, 1] <- c("Naming Phonemic Cuing")
+table3[1, 1] <- c("Auditory Comprehension")
+table3[2, 1] <- c("Auditory Comprehension Colors")
+table3[3, 1] <- c("Auditory Comprehension Shapes")
+table3[4, 1] <- c("Auditory Comprehension Colors/Shapes/Numbers")
+table3[5, 1] <- c("Naming")
+table3[6, 1] <- c("Naming Semantic Cuing")
+table3[7, 1] <- c("Naming Phonemic Cuing")
 ```
 
 # NAB Memory
 
 ```{r tbl4}
 table4 <- as_tibble(plucked_table[[4]])
-colnames(table4) <- params$colnames3
+colnames(table4) <- column_names3
 table4 <- dplyr::na_if(table4, "")
 table4 <- dplyr::na_if(table4, "NA")
 table4 <- dplyr::na_if(table4, "-")
@@ -486,20 +300,19 @@ table4 <- table4 |>
 ```
 
 ```{r scales-table4}
-table4$scale <- params$table4
-# table4[1, 1] <- c("Shape Learning Immediate Recognition")
-# table4[2, 1] <- c("Shape Learning Delayed Recognition")
-# table4[3, 1] <- c("Shape Learning Percent Retention")
-# table4[4, 1] <- c("Story Learning Immediate Recall")
-# table4[5, 1] <- c("Story Learning Delayed Recall")
-# table4[6, 1] <- c("Story Learning Percent Retention")
+table4[1, 1] <- c("Shape Learning Immediate Recognition")
+table4[2, 1] <- c("Shape Learning Delayed Recognition")
+table4[3, 1] <- c("Shape Learning Percent Retention")
+table4[4, 1] <- c("Story Learning Immediate Recall")
+table4[5, 1] <- c("Story Learning Delayed Recall")
+table4[6, 1] <- c("Story Learning Percent Retention")
 ```
 
 # NAB Spatial
 
 ```{r pluck-table5}
 table5 <- as_tibble(plucked_table[[5]])
-colnames(table5) <- params$colnames3
+colnames(table5) <- column_names3
 table5 <- dplyr::na_if(table5, "")
 table5 <- dplyr::na_if(table5, "NA")
 table5 <- dplyr::na_if(table5, "-")
@@ -521,16 +334,15 @@ table5 <- table5 |>
 ```
 
 ```{r scales-table5}
-table5$scale <- params$table5
-# table5[1, 1] <- c("Visual Discrimination")
-# table5[2, 1] <- c("Design Construction")
+table5[1, 1] <- c("Visual Discrimination")
+table5[2, 1] <- c("Design Construction")
 ```
 
 # NAB Executive Functions
 
-```{r pluck6}
+```{r tbl6}
 table6 <- as_tibble(plucked_table[[6]])
-colnames(table6) <- params$colnames3
+colnames(table6) <- column_names3
 table6 <- dplyr::na_if(table6, "")
 table6 <- dplyr::na_if(table6, "NA")
 table6 <- dplyr::na_if(table6, "-")
@@ -552,10 +364,9 @@ table6 <- table6 |>
 ```
 
 ```{r scales-table6}
-table6$scale <- params$table6
-# table6[1, 1] <- c("Mazes")
-# table6[2, 1] <- c("Word Generation")
-# table6[3, 1] <- c("Word Generation Perseverations")
+table6[1, 1] <- c("Mazes")
+table6[2, 1] <- c("Word Generation")
+table6[3, 1] <- c("Word Generation Perseverations")
 ```
 
 ```{r mutate-value6, eval=F}
@@ -564,13 +375,20 @@ table6$scale <- params$table6
 
 ## Select variables to keep
 
+This will vary by measure.
+
+```{r keep-variables}
+keep1 <- c("scale", "raw_score", "score", "percentile", "ci_95")
+keep2 <- c("scale", "raw_score", "score", "percentile")
+```
+
 ```{r select-variables}
-table1 <- table1 |> dplyr::select(all_of(params$keep1))
-table2 <- table2 |> dplyr::select(all_of(params$keep2))
-table3 <- table3 |> dplyr::select(all_of(params$keep2))
-table4 <- table4 |> dplyr::select(all_of(params$keep2))
-table5 <- table5 |> dplyr::select(all_of(params$keep2))
-table6 <- table6 |> dplyr::select(all_of(params$keep2))
+table1 <- table1 |> dplyr::select(all_of(keep1))
+table2 <- table2 |> dplyr::select(all_of(keep2))
+table3 <- table3 |> dplyr::select(all_of(keep2))
+table4 <- table4 |> dplyr::select(all_of(keep2))
+table5 <- table5 |> dplyr::select(all_of(keep2))
+table6 <- table6 |> dplyr::select(all_of(keep2))
 ```
 
 # Format Tables
@@ -579,8 +397,8 @@ table6 <- table6 |> dplyr::select(all_of(params$keep2))
 table1 <- bwu::gpluck_make_columns(
   table1,
   range = "",
-  test = params$test,
-  test_name = params$test_name,
+  test = "nabs",
+  test_name = "NAB",
   domain = "",
   subdomain = "",
   narrow = "",
@@ -598,8 +416,8 @@ table2 <- bwu::gpluck_make_columns(
   table2,
   range = "",
   ci_95 = "",
-  test = params$test,
-  test_name = params$test_name,
+  test = "nabs",
+  test_name = "NAB",
   domain = "Attention/Executive",
   subdomain = "",
   narrow = "",
@@ -617,8 +435,8 @@ table3 <- bwu::gpluck_make_columns(
   table3,
   range = "",
   ci_95 = "",  
-  test = params$test,
-  test_name = params$test_name,
+  test = "nabs",
+  test_name = "NAB",
   domain = "Verbal/Language",
   subdomain = "",
   narrow = "",
@@ -636,8 +454,8 @@ table4 <- bwu::gpluck_make_columns(
   table4,
   range = "",
   ci_95 = "",
-  test = params$test,
-  test_name = params$test_name,
+  test = "nabs",
+  test_name = "NAB",
   domain = "Memory",
   subdomain = "",
   narrow = "",
@@ -655,8 +473,8 @@ table5 <- bwu::gpluck_make_columns(
   table5,
   range = "",
   ci_95 = "",
-  test = params$test,
-  test_name = params$test_name,
+  test = "nabs",
+  test_name = "NAB",
   domain = "Visual Perception/Construction",
   subdomain = "",
   narrow = "",
@@ -674,8 +492,8 @@ table6 <- bwu::gpluck_make_columns(
   table6,
   range = "",
   ci_95 = "",
-  test = params$test,
-  test_name = params$test_name,
+  test = "nabs",
+  test_name = "NAB",
   domain = "Attention/Executive",
   subdomain = "",
   narrow = "",
@@ -699,10 +517,10 @@ table5 <- bwu::gpluck_make_score_ranges(table = table5, test_type = "npsych_test
 table6 <- bwu::gpluck_make_score_ranges(table = table6, test_type = "npsych_test")
 ```
 
-# Create/Insert/Mutate new columns in table
+# Domains
 
 ## Domain
-#TODO #16 add missing variables
+
 ```{r domain1}
 table1 <-
   table1 |>
@@ -761,8 +579,6 @@ table2 <-
       scale == "Numbers & Letters Part A Errors" ~ "Response Monitoring",
       scale == "Numbers & Letters Part A Efficiency" ~ "Processing Speed",
       scale == "Numbers & Letters Part B Efficiency" ~ "Processing Speed",
-      scale == "Numbers & Letters Part C Efficiency" ~ "Processing Speed",
-      scale == "Numbers & Letters Part D Efficiency" ~ "Processing Speed",
       TRUE ~ as.character(subdomain)
     )
   )
@@ -862,8 +678,6 @@ table2 <-
       scale == "Numbers & Letters Part A Errors" ~ "Response Monitoring",
       scale == "Numbers & Letters Part A Efficiency" ~ "Psychomotor Speed",
       scale == "Numbers & Letters Part B Efficiency" ~ "Cognitive Efficiency",
-      scale == "Numbers & Letters Part C Efficiency" ~ "Cognitive Efficiency",
-      scale == "Numbers & Letters Part D Efficiency" ~ "Cognitive Efficiency",
       TRUE ~ as.character(narrow)
     )
   )

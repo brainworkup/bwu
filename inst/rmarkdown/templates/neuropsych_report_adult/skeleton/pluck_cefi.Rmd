@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from CEFI"
 params:
-  patient: "Woody"
+  patient: "Biggie"
   test:
     label: "Test"
     value: cefi_sr
@@ -22,6 +22,7 @@ params:
     label: "No file selected"
     value: file
     input: file
+  pages: [3,3]
 ---
 
 # CEFI SR/OR
@@ -54,14 +55,6 @@ library(shiny)
 library(miniUI)
 ```
 
-## Pages
-
-Do this first.
-
-```{r pages}
-pages <- c(3,3)
-```
-
 ## Patient
 
 ```{r patient}
@@ -84,6 +77,12 @@ test_name <- params$test_name
 
 ```{r file}
 file <- params$file
+```
+
+## Pages
+
+```{r pages}
+pages <- params$pages
 ```
 
 ```{r save-file}

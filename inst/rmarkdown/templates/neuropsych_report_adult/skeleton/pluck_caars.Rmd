@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from CAARS"
 params:
-  patient: "Woody"
+  patient: "Biggie"
   test:
     label: "CAARS"
     value: caars_sr
@@ -22,6 +22,7 @@ params:
     label: "No file selected"
     value: file
     input: file
+  pages: [3,3,3]
 ---
 
 # CAARS Long Version
@@ -54,12 +55,6 @@ library(shiny)
 library(miniUI)
 ```
 
-## Pages
-
-```{r pages}
-pages <- c(3,3,3)
-```
-
 ## Patient
 
 ```{r patient}
@@ -82,6 +77,12 @@ test_name <- params$test_name
 
 ```{r file}
 file <- params$file
+```
+
+## Pages
+
+```{r pages}
+pages <- params$pages
 ```
 
 ```{r save-file}

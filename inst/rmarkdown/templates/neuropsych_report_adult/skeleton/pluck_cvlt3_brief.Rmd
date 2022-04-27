@@ -1,21 +1,30 @@
 ---
 title: "Pluck Tables from CVLT-3 Brief"
 params:
-  patient: "Woody"
+  patient: "Biggie"
   test:
-    label: CVLT-3
+    label: "Test"
     value: cvlt3_brief
     input: select
     multiple: no
     choices:
       - cvlt3_brief
       - cvlt3
+  test_name:
+    label: "Test Name"
+    value: CVLT-3 Brief
+    input: select
+    multiple: no
+    choices:
+      - CVLT-3 Brief
+      - CVLT-3
   file:
-    label: No file selected
+    label: "No file selected"
     value: file
     input: file
+  pages: [9,11,9,9,9,12,9]
   table1:
-    label: Immediate Recall
+    label: "Immediate Recall"
     value: Trial 1 Correct
     input: select
     multiple: yes
@@ -26,7 +35,7 @@ params:
       - Trial 4 Correct
       - Trial 5 Correct
   table2:
-    label: Standard Score Summary
+    label: "Standard Score Summary"
     value: Trials 1-4 Correct
     input: select
     multiple: yes
@@ -36,7 +45,7 @@ params:
       - Delayed Recall Correct
       - Total Recall Correct
   table3:
-    label: DELAYED RECALL
+    label: "DELAYED RECALL"
     value: Short Delay Free Recall
     input: select
     multiple: yes
@@ -46,7 +55,7 @@ params:
       - Long Delay Free Recall
       - Long Delay Cued Recall
   table4:
-    label: Yes/No Recognition
+    label: "Yes/No Recognition"
     value: Total Hits
     input: select
     multiple: yes
@@ -56,28 +65,28 @@ params:
       - Recognition Discriminability (d')
       - Recognition Discriminability Nonparametric
   table5:
-    label: Recall Errors
+    label: "Recall Errors"
     value: Total Intrusions
     input: select
     multiple: yes
     choices:
       - Total Intrusions
   table6:
-    label: Repetition Errors
+    label: "Repetition Errors"
     value: Total Repetitions
     input: select
     multiple: yes
     choices:
       - Total Repetitions
   table7:
-    label: Forced Choice Recognition
+    label: "Forced Choice Recognition"
     value: Forced-Choice Recognition Hits
     input: select
     multiple: yes
     choices:
       - Forced-Choice Recognition Hits
   colnames1:
-    label: Tables 1-6 Column Names
+    label: "Tables 1-6 Column Names"
     value: scale
     input: select
     multiple: yes
@@ -87,7 +96,7 @@ params:
       - score
       - percentile
   colnames2:
-    label: Table 7
+    label: "Table 7"
     value: scale
     input: select
     multiple: yes
@@ -96,7 +105,7 @@ params:
       - raw_score
       - base_rate
   keep1:
-    label: Variables to Keep, Set 1
+    label: "Variables to Keep, Set 1"
     value: scale
     input: select
     multiple: yes
@@ -106,7 +115,7 @@ params:
       - score
       - percentile
   keep2:
-    label: Variables to Keep, Set 2
+    label: "Variables to Keep, Set 2"
     value: scale
     input: select
     multiple: yes
@@ -151,12 +160,6 @@ library(miniUI)
 patient <- params$patient
 ```
 
-## Pages
-
-```{r pages}
-pages <- c(9,11,9,9,9,12,9)
-```
-
 ## Test
 
 ```{r test}
@@ -167,6 +170,12 @@ test <- params$test
 
 ```{r choose}
 file <- params$file
+```
+
+## Pages
+
+```{r pages}
+pages <- params$pages
 ```
 
 ```{r save}
@@ -207,7 +216,7 @@ area <- list(
 #area <- readr::read_rds(here::here(patient, "pre_csv", "area_cvlt3_brief.rds"))
 ```
 
-### Extract table
+## Extract table
 
 ```{r extract}
 plucked_table <- 
