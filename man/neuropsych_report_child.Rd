@@ -22,11 +22,6 @@ current first-level section number, and \code{i} is an incremental number
 sequentially in the document from 1, 2, ..., and you cannot cross-reference
 section headers in this case.}
 
-\item{md_extensions}{Arguments to be passed to a
-specific output format function. For a function \code{foo2()}, its
-arguments are passed to \code{foo()}, e.g. \code{...} of
-\code{html_document2()} are passed to \code{rmarkdown::html_document()}.}
-
 \item{csl}{bibliography style in the \code{.csl} format}
 
 \item{colorlinks}{should cross-references and links be
