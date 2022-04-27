@@ -342,7 +342,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:tomm) Test of Memory Malingering (TOMM)
 
-(ref:acs) Advanced Clinical Solutions (ACS):
+(ref:acs) Advanced Clinical Solutions (ACS)
 
 (ref:acs-word-choice) ACS Word Choice Test
 
@@ -350,13 +350,13 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:acs-topf) ACS Test of Premorbid Functioning (TOPF)
 
-(ref:abas3) Adaptive Behavior Assessment System, 3rd ed (ABAS-3):
+(ref:abas3) Adaptive Behavior Assessment System, 3rd ed (ABAS-3)
 
 (ref:abas3-parent) ABAS-3 Parent Report
 
 (ref:abas3-teacher) ABAS-3 Teacher Report
 
-(ref:brown) Brown Executive Function/Attention Scales (Brown EF/A):
+(ref:brown) Brown Executive Function/Attention Scales (Brown EF/A)
 
 (ref:brown-pr) Brown EF/A Parent-Report
 
@@ -364,7 +364,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:brown-sr) Brown EF/A Self-Report
 
-(ref:cefi) Comprehensive Executive Function Inventory (CEFI):
+(ref:cefi) Comprehensive Executive Function Inventory (CEFI)
 
 (ref:cefi-sr) CEFI Adult Self-Report
 
@@ -372,7 +372,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:caadid) Conners' Adult ADHD Diagnostic Interview for DSM-IV (CAADID), Part I: History
 
-(ref:caars) Conners' Adult ADHD Rating Scale (CAARS):
+(ref:caars) Conners' Adult ADHD Rating Scale (CAARS)
 
 (ref:caars-sr) CAARS Self-Report
 
@@ -430,7 +430,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:pct) A *percentile* shows `r params$first_name`'s standing relative to peers. For example, a percentile rank (PR) of 70 means `r params$first_name` performed as well as or better than 70% of individuals the same age.
 
-(ref:baserate) A *base rate* is the prevalence of score in the general population. If a score is rare, defined as a base rate of less than 10%, it is considered *clinically significant*, and that area of functioning is probably causing problems in daily life.
+(ref:br) A *base rate* is the prevalence of score in the general population. If a score is rare, defined as a base rate of less than 10%, it is considered *clinically significant*, and that area of functioning is probably causing problems in daily life.
 
 (ref:basc3-prs-fn) *T* Score (M = 50, SD = 10); *Note:* Adaptive Skills *T* scores are reversed
 

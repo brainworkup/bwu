@@ -1,6 +1,6 @@
 ## Test Battery
 
-- (ref:acs)
+- (ref:acs):
   - (ref:acs-topf)
   - (ref:acs-word-choice)
 - (ref:wais4)
@@ -17,10 +17,10 @@
 - (ref:tmt)
 - (ref:pegboard)
 - (ref:caadid)
-- (ref:caars)
+- (ref:caars):
   - (ref:caars-sr)
   - (ref:caars-or)
-- (ref:cefi)
+- (ref:cefi):
   - (ref:cefi-sr)
   - (ref:cefi-or)
 - (ref:pai)
@@ -31,10 +31,10 @@
 - (ref:bicycle)
 - (ref:clock)
 - (ref:cog-est)
-- (ref:brown)
-- (ref:brown-sr)
-- (ref:brown-pr)
-- (ref:acs-social-cognition)
+- (ref:brown):
+  - (ref:brown-sr)
+  - (ref:brown-pr)
+- (ref:acs-soc-cog)
 
 ## Behavioral Observations
 
