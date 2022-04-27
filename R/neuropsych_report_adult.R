@@ -5,6 +5,7 @@
 #' @param csl bibliography style in the `.csl` format
 #' @param colorlinks should cross-references and links be
 #'   colored?
+#' @param md_extensions Pandoc arguments
 #'
 #' @return R Markdown output format to pass to [rmarkdown::render()]
 #' @examples

@@ -22,6 +22,8 @@ current first-level section number, and \code{i} is an incremental number
 sequentially in the document from 1, 2, ..., and you cannot cross-reference
 section headers in this case.}
 
+\item{md_extensions}{Pandoc arguments}
+
 \item{csl}{bibliography style in the \code{.csl} format}
 
 \item{colorlinks}{should cross-references and links be
