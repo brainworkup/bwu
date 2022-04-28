@@ -3,7 +3,7 @@ title: "Neuropsychological Evaluation Results/Feedback"
 patient: "Biggie"
 author: "Joey Trampush, PhD"
 institute: "Department of Psychiatry and the Behavioral Sciences"
-date: "2022-01-13"
+date: '`r Sys.Date()`'
 output:
   xaringan::moon_reader:
     css: ["css/npsych-fonts.css", "css/npsych-theme.css"]
@@ -51,6 +51,7 @@ library(svglite)
 library(gifski)
 library(bwu)
 library(languageserver)
+library(vroom)
 ## knitr options
 options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(
@@ -139,11 +140,11 @@ background-color: var(--near-black)
 
 ```{r, read-data}
 neuropsych <-
-  readr::read_csv(here::here(patient, "neuropsych.csv"), show_col_types = FALSE)
+  vroom::vroom(here::here(patient, "neuropsych.csv"), show_col_types = FALSE)
 neurocog <-
-  readr::read_csv(here::here(patient, "neurocog.csv"), show_col_types = FALSE)
+  vroom::vroom(here::here(patient, "neurocog.csv"), show_col_types = FALSE)
 neurobehav <-
-  readr::read_csv(here::here(patient, "neurobehav.csv"), show_col_types = FALSE)
+  vroom::vroom(here::here(patient, "neurobehav.csv"), show_col_types = FALSE)
 ```
 
 ```{r drilldown-level1}
@@ -163,9 +164,9 @@ ncog1 <-
     range = dplyr::case_when(
       zPct >= 98 ~ "Exceptionally High",
       zPct %in% 91:97 ~ "Above Average",
-      zPct %in% 75:90 ~ "High-Average",
+      zPct %in% 75:90 ~ "High Average",
       zPct %in% 25:74 ~ "Average",
-      zPct %in% 9:24 ~ "Low-Average",
+      zPct %in% 9:24 ~ "Low Average",
       zPct %in% 2:8 ~ "Below Average",
       zPct < 2 ~ "Exceptionally Low",
       TRUE ~ as.character(range)
@@ -210,9 +211,9 @@ ncog_level2_drill <-
         range = dplyr::case_when(
           zPct >= 98 ~ "Exceptionally High",
           zPct %in% 91:97 ~ "Above Average",
-          zPct %in% 75:90 ~ "High-Average",
+          zPct %in% 75:90 ~ "High Average",
           zPct %in% 25:74 ~ "Average",
-          zPct %in% 9:24 ~ "Low-Average",
+          zPct %in% 9:24 ~ "Low Average",
           zPct %in% 2:8 ~ "Below Average",
           zPct < 2 ~ "Exceptionally Low",
           TRUE ~ as.character(range)
@@ -267,9 +268,9 @@ ncog_level3_drill <-
           range = dplyr::case_when(
             zPct >= 98 ~ "Exceptionally High",
             zPct %in% 91:97 ~ "Above Average",
-            zPct %in% 75:90 ~ "High-Average",
+            zPct %in% 75:90 ~ "High Average",
             zPct %in% 25:74 ~ "Average",
-            zPct %in% 9:24 ~ "Low-Average",
+            zPct %in% 9:24 ~ "Low Average",
             zPct %in% 2:8 ~ "Below Average",
             zPct < 2 ~ "Exceptionally Low",
             TRUE ~ as.character(range)
@@ -325,9 +326,9 @@ ncog_level4_drill <-
             range = dplyr::case_when(
               zPct >= 98 ~ "Exceptionally High",
               zPct %in% 91:97 ~ "Above Average",
-              zPct %in% 75:90 ~ "High-Average",
+              zPct %in% 75:90 ~ "High Average",
               zPct %in% 25:74 ~ "Average",
-              zPct %in% 9:24 ~ "Low-Average",
+              zPct %in% 9:24 ~ "Low Average",
               zPct %in% 2:8 ~ "Below Average",
               zPct < 2 ~ "Exceptionally Low",
               TRUE ~ as.character(range)
