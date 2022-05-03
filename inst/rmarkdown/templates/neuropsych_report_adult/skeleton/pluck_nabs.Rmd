@@ -21,6 +21,63 @@ params:
     value: file
     input: file
   pages: [2,5,6,7,8,8]
+  column_names1:
+    label: "Table 1 Column Names"
+    value: scale
+    input: select
+    multiple: yes
+    choices:
+      - scale
+      - score
+      - percentile
+      - ci_95
+      - category
+  column_names2:
+    label: "Tables 2-3, 5 Column Names"
+    value: scale
+    input: select
+    multiple: yes
+    choices:
+      - scale
+      - raw_score
+      - z_score
+      - score
+      - percentile
+      - base_rate
+      - category
+  column_names3:
+    label: "Tables 4, 6 Column Names"
+    value: scale
+    input: select
+    multiple: yes
+    choices:
+      - scale
+      - raw_score
+      - z_score
+      - score
+      - percentile
+      - category
+  keep1:
+    label: "Variables to Keep, Set 1"
+    value: scale
+    input: select
+    multiple: yes
+    choices:
+      - scale
+      - raw_score
+      - score
+      - percentile
+      - ci_95
+  keep2:
+    label: "Variables to Keep, Set 2"
+    value: scale
+    input: select
+    multiple: yes
+    choices:
+      - scale
+      - raw_score
+      - score
+      - percentile
 ---
 
 # NAB Screener
@@ -37,20 +94,20 @@ knitr::opts_chunk$set(
   warning = FALSE,
   error = TRUE
 )
-library(rmarkdown)
-library(knitr)
 library(bwu)
-library(tabulizer)
-library(tabulizerjars)
-library(rJava)
-library(here)
-library(readr)
 library(dplyr)
 library(hablar)
-library(tibble)
+library(here)
+library(knitr)
 library(magrittr)
-library(shiny)
 library(miniUI)
+library(readr)
+library(rJava)
+library(rmarkdown)
+library(shiny)
+library(tabulizer)
+library(tabulizerjars)
+library(tibble)
 library(tidyr)
 library(vroom)
 ```
@@ -80,11 +137,11 @@ pages <- params$pages
 ```
 
 ```{r save-pdf}
-#vroom::vroom_write(file, here::here(patient, "pre_csv", "nabs_pdf"))
+#vroom::vroom_write_lines(file, here::here(patient, "pre_csv", "nabs_pdf"))
 ```
 
 ```{r read-pdf}
-#file <- readr::read_lines(here::here(patient, "pre_csv", "nabs_pdf"))
+#file <- vroom::vroom_read(here::here(patient, "pre_csv", "nabs_pdf"))
 ```
 
 ## Locate areas
@@ -100,7 +157,7 @@ area <- list(
 )
 ```
 
-```{r areas-get, eval=FALSE}
+```{r areas-get, eval = FALSE}
 # if unknown
 # file <- file.choose()
 # area6 <- bwu::gpluck_locate_areas(
@@ -110,14 +167,14 @@ area <- list(
 ```
 
 ```{r save-areas}
-#readr::write_rds(area, here::here(patient, "pre_csv", "area_nabs.rds"))
+#vroom::vroom_write_lines(area, here::here(patient, "pre_csv", "area_nabs.rds"))
 ```
 
 ```{r read-areas}
 #area <- readr::read_rds(here::here(patient, "pre_csv", "area_nabs.rds"))
 ```
 
-## Extract table
+## Extract tables
 
 ```{r extract}
 plucked_table <- bwu::gpluck_extract_table(
@@ -130,44 +187,15 @@ plucked_table <- bwu::gpluck_extract_table(
 )
 ```
 
-# Tidy Tables
-
-## Column names per test/subtest/measure
-
-This will vary by measure/table.
-
-```{r colnames}
-column_names1 <- c(
-  "scale",
-  "score",
-  "percentile",
-  "ci_95",
-  "category"
-)
-column_names2 <- c(
-  "scale",
-  "raw_score",
-  "z_score",
-  "score",
-  "percentile",
-  "base_rate",
-  "category"
-)
-column_names3 <- c(
-  "scale",
-  "raw_score",
-  "z_score",
-  "score",
-  "percentile",
-  "category"
-)
-```
-
 # NAB Index Score
 
-```{r pluck-table1}
-table1 <- as_tibble(plucked_table[[1]])
-colnames(table1) <- column_names1
+## Pluck and format tables
+
+### Convert to tibble and format
+
+```{r pluck1}
+table1 <- tibble::as_tibble(plucked_table[[1]])
+colnames(table1) <- params$column_names1
 table1 <- dplyr::na_if(table1, "")
 table1 <- dplyr::na_if(table1, "NA")
 table1 <- dplyr::na_if(table1, "-")
@@ -202,9 +230,9 @@ table1[6, 1] <- c("NAB Total Index")
 
 # NAB Attention
 
-```{r pluck-table2}
+```{r pluck2}
 table2 <- as_tibble(plucked_table[[2]])
-colnames(table2) <- column_names2
+colnames(table2) <- params$column_names2
 table2 <- dplyr::na_if(table2, "")
 table2 <- dplyr::na_if(table2, "NA")
 table2 <- dplyr::na_if(table2, "-")
@@ -248,9 +276,9 @@ table2[13, 1] <- c("Numbers & Letters Part B Efficiency")
 
 # NAB Language
 
-```{r pluck-table3}
+```{r pluck3}
 table3 <- as_tibble(plucked_table[[3]])
-colnames(table3) <- column_names2
+colnames(table3) <- params$column_names2
 table3 <- dplyr::na_if(table3, "")
 table3 <- dplyr::na_if(table3, "NA")
 table3 <- dplyr::na_if(table3, "-")
@@ -276,9 +304,9 @@ table3[7, 1] <- c("Naming Phonemic Cuing")
 
 # NAB Memory
 
-```{r tbl4}
+```{r pluck4}
 table4 <- as_tibble(plucked_table[[4]])
-colnames(table4) <- column_names3
+colnames(table4) <- params$column_names3
 table4 <- dplyr::na_if(table4, "")
 table4 <- dplyr::na_if(table4, "NA")
 table4 <- dplyr::na_if(table4, "-")
@@ -310,9 +338,9 @@ table4[6, 1] <- c("Story Learning Percent Retention")
 
 # NAB Spatial
 
-```{r pluck-table5}
+```{r pluck5}
 table5 <- as_tibble(plucked_table[[5]])
-colnames(table5) <- column_names3
+colnames(table5) <- params$column_names3
 table5 <- dplyr::na_if(table5, "")
 table5 <- dplyr::na_if(table5, "NA")
 table5 <- dplyr::na_if(table5, "-")
@@ -340,9 +368,9 @@ table5[2, 1] <- c("Design Construction")
 
 # NAB Executive Functions
 
-```{r tbl6}
+```{r pluck6}
 table6 <- as_tibble(plucked_table[[6]])
-colnames(table6) <- column_names3
+colnames(table6) <- params$column_names3
 table6 <- dplyr::na_if(table6, "")
 table6 <- dplyr::na_if(table6, "NA")
 table6 <- dplyr::na_if(table6, "-")
@@ -375,20 +403,13 @@ table6[3, 1] <- c("Word Generation Perseverations")
 
 ## Select variables to keep
 
-This will vary by measure.
-
-```{r keep-variables}
-keep1 <- c("scale", "raw_score", "score", "percentile", "ci_95")
-keep2 <- c("scale", "raw_score", "score", "percentile")
-```
-
-```{r select-variables}
-table1 <- table1 |> dplyr::select(all_of(keep1))
-table2 <- table2 |> dplyr::select(all_of(keep2))
-table3 <- table3 |> dplyr::select(all_of(keep2))
-table4 <- table4 |> dplyr::select(all_of(keep2))
-table5 <- table5 |> dplyr::select(all_of(keep2))
-table6 <- table6 |> dplyr::select(all_of(keep2))
+```{r keep}
+table1 <- table1 |> dplyr::select(all_of(params$keep1))
+table2 <- table2 |> dplyr::select(all_of(params$keep2))
+table3 <- table3 |> dplyr::select(all_of(params$keep2))
+table4 <- table4 |> dplyr::select(all_of(params$keep2))
+table5 <- table5 |> dplyr::select(all_of(params$keep2))
+table6 <- table6 |> dplyr::select(all_of(params$keep2))
 ```
 
 # Format Tables
@@ -411,7 +432,7 @@ table1 <- bwu::gpluck_make_columns(
 )
 ```
 
-```{r format-table2}
+```{r mutate2}
 table2 <- bwu::gpluck_make_columns(
   table2,
   range = "",
@@ -430,7 +451,7 @@ table2 <- bwu::gpluck_make_columns(
 )
 ```
 
-```{r format-table3}
+```{r mutate3}
 table3 <- bwu::gpluck_make_columns(
   table3,
   range = "",
@@ -449,7 +470,7 @@ table3 <- bwu::gpluck_make_columns(
 )
 ```
 
-```{r format-table4}
+```{r mutate4}
 table4 <- bwu::gpluck_make_columns(
   table4,
   range = "",
@@ -468,7 +489,7 @@ table4 <- bwu::gpluck_make_columns(
 )
 ```
 
-```{r format-table5}
+```{r mutate5}
 table5 <- bwu::gpluck_make_columns(
   table5,
   range = "",
@@ -487,7 +508,7 @@ table5 <- bwu::gpluck_make_columns(
 )
 ```
 
-```{r format-table6}
+```{r mutate6}
 table6 <- bwu::gpluck_make_columns(
   table6,
   range = "",
@@ -508,7 +529,7 @@ table6 <- bwu::gpluck_make_columns(
 
 ## Test score ranges
 
-```{r test-score-ranges}
+```{r ranges}
 table1 <- bwu::gpluck_make_score_ranges(table = table1, test_type = "npsych_test")
 table2 <- bwu::gpluck_make_score_ranges(table = table2, test_type = "npsych_test")
 table3 <- bwu::gpluck_make_score_ranges(table = table3, test_type = "npsych_test")
@@ -563,6 +584,20 @@ orientation <- c(
   "Orientation to Place",
   "Orientation to Situation"
 )
+dsf <- c(
+"Digits Forward",
+"Digits Forward Longest Span"
+)
+dsb <- c(
+"Digits Backward",
+"Digits Backward Longest Span"
+)
+nl <- c(
+"Numbers & Letters Part A Speed",
+"Numbers & Letters Part A Errors",
+"Numbers & Letters Part A Efficiency",
+"Numbers & Letters Part B Efficiency"
+)
 ```
 
 ```{r subdomain2}
@@ -571,14 +606,10 @@ table2 <-
   mutate(
     subdomain = case_when(
       scale %in% orientation ~ "Orientation",
-      scale == "Digits Forward" ~ "Memory Span",
-      scale == "Digits Forward Longest Span" ~ "Memory Span",
-      scale == "Digits Backward" ~ "Working Memory",
-      scale == "Digits Backward Longest Span" ~ "Working Memory",
-      scale == "Numbers & Letters Part A Speed" ~ "Processing Speed",
+      scale %in% dsf ~ "Memory Span",
+      scale %in% dsb ~ "Working Memory",
+      scale %in% nl ~ "Processing Speed",
       scale == "Numbers & Letters Part A Errors" ~ "Response Monitoring",
-      scale == "Numbers & Letters Part A Efficiency" ~ "Processing Speed",
-      scale == "Numbers & Letters Part B Efficiency" ~ "Processing Speed",
       TRUE ~ as.character(subdomain)
     )
   )
@@ -743,7 +774,7 @@ table6 <-
 
 ## PASS
 
-```{r pass-table1, eval=F}
+```{r pass1}
 table1 <-
   table1 |>
   mutate(
@@ -759,7 +790,7 @@ table1 <-
   )
 ```
 
-```{r pass-table2}
+```{r pass2}
 table2 <-
   table2 |>
   mutate(
@@ -782,15 +813,15 @@ table2 <-
   )
 ```
 
-```{r pass-table3}
+```{r pass3}
 table3 <-
   table3 |>
   mutate(
     pass = case_when(
       scale == "Auditory Comprehension" ~ "Sequential",
-      scale == "Auditory Comprehension Colors" ~ "Sequential",
-      scale == "Auditory Comprehension Shapes" ~ "Sequential",
-      scale == "Auditory Comprehension Colors/Shapes/Numbers" ~ "Sequential",
+      scale == "Auditory Comprehension Colors" ~ "",
+      scale == "Auditory Comprehension Shapes" ~ "",
+      scale == "Auditory Comprehension Colors/Shapes/Numbers" ~ "",
       scale == "Naming" ~ "Knowledge",
       scale == "Naming Semantic Cuing" ~ "",
       scale == "Naming Phonemic Cuing" ~ "",
@@ -799,7 +830,7 @@ table3 <-
   )
 ```
 
-```{r pass-table4}
+```{r pass4}
 table4 <-
   table4 |>
   mutate(
@@ -815,7 +846,7 @@ table4 <-
   )
 ```
 
-```{r pass-table5}
+```{r pass5}
 table5 <-
   table5 |>
   mutate(
@@ -827,13 +858,13 @@ table5 <-
   )
 ```
 
-```{r pass-table6}
+```{r pass6}
 table6 <-
   table6 |>
   mutate(
     pass = case_when(
       scale == "Mazes" ~ "Planning",
-      scale == "Word Generation" ~ "Sequential",
+      scale == "Word Generation" ~ "Attention",
       scale == "Word Generation Perseverations" ~ "Attention",
       TRUE ~ as.character(pass)
     )
@@ -962,14 +993,9 @@ table2 <-
   mutate(
     timed = case_when(
       scale %in% orientation ~ "Untimed",
-      scale == "Digits Forward" ~ "Untimed",
-      scale == "Digits Forward Longest Span" ~ "Untimed",
-      scale == "Digits Backward" ~ "Untimed",
-      scale == "Digits Backward Longest Span" ~ "Untimed",
-      scale == "Numbers & Letters Part A Speed" ~ "Timed",
-      scale == "Numbers & Letters Part A Errors" ~ "Timed",
-      scale == "Numbers & Letters Part A Efficiency" ~ "Timed",
-      scale == "Numbers & Letters Part B Efficiency" ~ "Timed",
+      scale %in% dsf ~ "Untimed",
+      scale %in% dsb ~ "Untimed",
+      scale %in% nl ~ "Timed",
       TRUE ~ as.character(timed)
     )
   )
@@ -1125,14 +1151,14 @@ table2 <-
       
       scale == "Numbers & Letters Part A Speed" ~ "psychomotor speed and sustained attention",
       scale == "Numbers & Letters Part A Errors" ~ "sustained attention and impulsivity",
-      scale == "Numbers & Letters Part A Efficiency" ~ "letter cancellation task to evaluate psychomotor speed, sustained attention, and inhibition",
-      scale == "Numbers & Letters Part B Efficiency" ~ "letter cancellation plus serial addition task to evaluate psychomotor speed, information processing speed, divided attention, and inhibition",
+      scale == "Numbers & Letters Part A Efficiency" ~ "psychomotor speed, sustained attention, and inhibition",
+      scale == "Numbers & Letters Part B Efficiency" ~ "psychomotor speed, information processing speed, divided attention/set-shifting, and inhibition",
       TRUE ~ as.character(description)
     )
   )
 ```
 
-```{r description-table3}
+```{r description3}
 table3 <-
   table3 |>
   mutate(
@@ -1170,8 +1196,8 @@ table5 <-
   table5 |>
   mutate(
     description = case_when(
-      scale == "Visual Discrimination" ~ "visuoperception and discrimination of abstract visual images",
-      scale == "Design Construction" ~ "visuoconstruction and integration of abstract visual shapes",
+      scale == "Visual Discrimination" ~ "visual perception and discrimination of abstract visual images",
+      scale == "Design Construction" ~ "visual construction and integration of abstract visual shapes",
       TRUE ~ as.character(description)
     )
   )
@@ -1218,8 +1244,8 @@ nabs <- dplyr::bind_rows(
 
 ## Slice/Reorder table
 
-```{r reorder, eval=FALSE}
-# nabs <- dplyr::slice(nabs, 6, c(1,7,13,15,18,19), c(2,20,25), c(3,27,28,30,31), c(4,33,34), c(5,35,36,37))
+```{r reorder, eval = T}
+nabs <- dplyr::slice(nabs, 6, c(1,7,13,15,18,19), c(2,20,25), c(3,27,28,30,31), c(4,33,34), c(5,35,36,37))
 ```
 
 ## Write final csv table

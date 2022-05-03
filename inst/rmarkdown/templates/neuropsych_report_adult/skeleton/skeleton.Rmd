@@ -692,7 +692,7 @@ neurocog <-
   neurocog %>%
   dplyr::mutate(
     result = glue::glue(
-      "{patient}'s ability to {description} as measured by the {scale} subtest was {range} relative to same age peers."
+      "{patient}'s ability to {description} as measured by the {scale} subtest was {range} relative to same-age peers."
     )
   )
 ```
@@ -1054,7 +1054,7 @@ knitr::read_chunk(here::here(patient, "2_executive.R"))
 
 ### Memory
 
-(ref:fn-memory) *T* Score (M = 50, SD = 10), Scaled Score (M = 10, SD = 3), or *z*-Score (M = 0, SD = 1)
+(ref:fn-memory) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
 ```{r, memory, results='asis'}
 cat(readLines("2_memory.md"), sep = "\n")
@@ -1233,7 +1233,7 @@ knitr::read_chunk(here::here(patient, "2_social.R"))
 
 (ref:att-ef) Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other.
 
-(ref:fn-adhd) *T* Score (M = 50, SD = 10) or Standard Score (M = 100, SD = 15)
+(ref:fn-adhd) Standard Score (M = 100, SD = 15) or *T* Score (M = 50, SD = 10) 
 
 ```{r, adhd, results='asis'}
 cat(readLines("2_adhd.md"), sep = "\n")
@@ -1358,7 +1358,7 @@ knitr::read_chunk(here::here(patient, "2_emotion.R"))
 
 # SUMMARY/IMPRESSION
 
-(ref:domain) **Key Findings** Verbal skills are significantly stronger than nonverbal/spatial processing skills. Attentional fluency (i.e., working memory and processing speed) and abstract reasoning are areas of weakness. Notably, even (ref:first-name)'s normatively average scores reflect performances that are well below cognitive expectations for (ref:him-her). *Note:* *z* = 0 (mean) ± 1 (sd)
+(ref:domain) **Key Findings** General intellectual functioning is a strength. Verbal skills are significantly stronger than nonverbal/spatial processing skills. Attentional fluency (i.e., working memory and processing speed) and abstract reasoning are areas of weakness. Notably, even `r params$first_name`'s normatively average scores reflect performances that are well below cognitive expectations for `r params$him_her`. *Note:* *z* = 0 (mean) ± 1 (sd)
 
 ```{r domain-df}
 domain <-
