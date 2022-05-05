@@ -3,7 +3,7 @@ title: "Pluck Tables from WAIS-IV"
 params:
   patient: "Biggie"
   test:
-    label: Test
+    label: "Test"
     value: wais4
     input: select
     multiple: no
@@ -11,7 +11,7 @@ params:
       - wais4
       - wisc5
   test_name:
-    label: Test Name
+    label: "Test Name"
     value: WAIS-IV
     input: select
     multiple: no
@@ -19,12 +19,12 @@ params:
       - WAIS-IV
       - WISC-V
   file:
-    label: No file selected
+    label: "No file selected"
     value: file
     input: file
   pages: [2,4,4,4,4,6,6]
   table1:
-    label: Index Scores
+    label: "Index Scores"
     value: Verbal Comprehension (VCI)
     input: select
     multiple: yes
@@ -36,7 +36,7 @@ params:
       - Full Scale IQ (FSIQ)
       - General Ability (GAI)
   table2:
-    label: Verbal Comprehension (VCI)
+    label: "Verbal Comprehension (VCI)"
     value: Similarities
     input: select
     multiple: yes
@@ -46,7 +46,7 @@ params:
       - Information
       - Comprehension
   table3:
-    label: Perceptual Reasoning (PRI)
+    label: "Perceptual Reasoning (PRI)"
     value: Block Design
     input: select
     multiple: yes
@@ -56,7 +56,7 @@ params:
       - Visual Puzzles
       - Figure Weights
   table4:
-    label: Working Memory (WMI)
+    label: "Working Memory (WMI)"
     value: Digit Span
     input: select
     multiple: yes
@@ -65,7 +65,7 @@ params:
       - Arithmetic
       - Letter-Number Sequencing
   table5:
-    label: Processing Speed (PSI)
+    label: "Processing Speed (PSI)"
     value: Symbol Search
     input: select
     multiple: yes
@@ -74,14 +74,14 @@ params:
       - Coding
       - Cancellation
   table6:
-    label: Perceptual Reasoning Process Score Summary
+    label: "Perceptual Reasoning Process Score Summary"
     value: Block Design No Time Bonus
     input: select
     multiple: yes
     choices:
       - Block Design No Time Bonus
   table7:
-    label: Working Memory Process Score Summary
+    label: "Working Memory Process Score Summary"
     value: Digit Span Forward
     input: select
     multiple: yes
@@ -89,12 +89,12 @@ params:
       - Digit Span Forward
       - Digit Span Backward
       - Digit Span Sequencing
-      - Longest Digit Span Backward
       - Longest Digit Span Forward
+      - Longest Digit Span Backward
       - Longest Digit Span Sequence
       - Longest Letter-Number Sequence
   colnames1:
-    label: Table 1 Column Names
+    label: "Table 1 Column Names"
     value: scale
     input: select
     multiple: yes
@@ -107,7 +107,7 @@ params:
       - ci_95
       - category
   colnames2:
-    label: Tables 2-5 Column Names
+    label: "Tables 2-5 Column Names"
     value: scale
     input: select
     multiple: yes
@@ -119,7 +119,7 @@ params:
       - ref_group_ss
       - sem
   colnames3:
-    label: Table 6 Column Names
+    label: "Table 6 Column Names"
     value: scale
     input: select
     multiple: yes
@@ -130,7 +130,7 @@ params:
       - percentile
       - sem
   colnames4:
-    label: Table 7 Column Names
+    label: "Table 7 Column Names"
     value: scale
     input: select
     multiple: yes
@@ -142,7 +142,7 @@ params:
       - base_rate
       - sem
   keep1:
-    label: Variables to Keep, Set 1
+    label: "Variables to Keep, Set 1"
     value: scale
     input: select
     multiple: yes
@@ -153,7 +153,7 @@ params:
       - percentile
       - ci_95
   keep2:
-    label: Variables to Keep, Set 2
+    label: "Variables to Keep, Set 2"
     value: scale
     input: select
     multiple: yes
@@ -178,20 +178,22 @@ knitr::opts_chunk$set(
   warning = FALSE,
   error = TRUE
 )
-library(rmarkdown)
-library(knitr)
 library(bwu)
-library(tabulizer)
-library(tabulizerjars)
-library(rJava)
-library(here)
-library(readr)
 library(dplyr)
 library(hablar)
-library(tibble)
+library(here)
+library(knitr)
 library(magrittr)
-library(shiny)
 library(miniUI)
+library(readr)
+library(rJava)
+library(rmarkdown)
+library(shiny)
+library(tabulizer)
+library(tabulizerjars)
+library(tibble)
+library(tidyr)
+library(vroom)
 ```
 
 ## Patient
@@ -219,11 +221,11 @@ pages <- params$pages
 ```
 
 ```{r wfile}
-#readr::write_lines(file, here::here(patient, "pre_csv", "wais4_pdf"))
+#vroom::vroom_write_lines(file, here::here(patient, "pre_csv", "wais4_pdf"))
 ```
 
 ```{r rfile}
-#file <- readr::read_lines(here::here(patient, "pre_csv", "wais4_pdf"))
+#file <- vroom::vroom_read(here::here(patient, "pre_csv", "wais4_pdf"))
 ```
 
 ## Locate areas
@@ -244,18 +246,18 @@ area <- list(
 ```{r areas-get, eval=FALSE}
 # if unknown
 # file <- file.choose()
-# area6 <- bwu::gpluck_locate_areas(
+# area <- bwu::gpluck_locate_areas(
 #   file = file,
-#   pages = c(6)
+#   pages = c(2,4,4,4,4,6,6)
 # )
 ```
 
 ```{r w-area}
-#readr::write_rds(area, here::here(patient, "pre_csv", "area_wais4.rds"))
+#vroom::vroom_write_lines(area, here::here(patient, "pre_csv", "area_wais4.rds"))
 ```
 
 ```{r r-area}
-#area <- readr::read_rds(here::here(params$patient, "pre_csv", "area_wais4.rds"))
+#area <- readr::read_rds(here::here(patient, "pre_csv", "area_wais4.rds"))
 ```
 
 ## Extract tables
@@ -271,11 +273,9 @@ plucked_table <- bwu::gpluck_extract_table(
 )
 ```
 
-# WAIS-IV Index Scores
+# Index Scores (Table 1)
 
-## Pluck and format tables
-
-### Convert to tibble and format
+## Pluck and tidy tables
 
 ```{r pluck1}
 table1 <- tibble::as_tibble(plucked_table[[1]])
@@ -289,19 +289,19 @@ to_double <- c("raw_score", "score", "percentile")
 table1 <- table1 |> hablar::convert(dbl(all_of(to_double)))
 ```
 
-### Scale names
+## Scale names
 
 ```{r rownames1}
 table1$scale <- params$table1
 ```
 
-### Select variables to keep
+## Select variables to keep
 
 ```{r select1}
 table1 <- table1 |> dplyr::select(all_of(params$keep1))
 ```
 
-### Create/Insert/Mutate new columns in table
+## Mutate columns
 
 ```{r mutate1}
 table1 <- bwu::gpluck_make_columns(
@@ -429,7 +429,7 @@ table1 <-
   )
 ```
 
-### Description
+## Scale descriptions
 
 ```{r desc1}
 table1 <-
@@ -447,21 +447,21 @@ table1 <-
   )
 ```
 
-### Test score ranges
+## Test score ranges
 
 ```{r range1}
 table1 <- bwu::gpluck_make_score_ranges(table = table1, test_type = "npsych_test")
 ```
 
-## Finalize and save
-
-### Relocate variables
+## Relocate variables
 
 ```{r relocate1}
 table1 <- table1 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
-# VCI
+# VCI (Table 2)
+
+## Pluck and tidy tables
 
 ```{r pluck2}
 table2 <- tibble::as_tibble(plucked_table[[2]])
@@ -487,9 +487,9 @@ table2$scale <- params$table2
 table2 <- table2 |> dplyr::select(all_of(params$keep2))
 ```
 
-### Create/Insert/Mutate new columns in table
+## Mutate columns
 
-```{r maketbl2}
+```{r mutate2}
 table2 <- bwu::gpluck_make_columns(
   table2,
   range = "",
@@ -508,13 +508,13 @@ table2 <- bwu::gpluck_make_columns(
 )
 ```
 
-### Test score ranges
+## Test score ranges
 
 ```{r ranges2}
 table2 <- bwu::gpluck_make_score_ranges(table = table2, test_type = "npsych_test")
 ```
 
-### Subdomains
+## Subdomains
 
 ```{r subdomain2}
 table2 <-
@@ -530,7 +530,7 @@ table2 <-
   )
 ```
 
-### Narrow subdomains
+## Narrow subdomains
 
 ```{r narrow2}
 table2 <-
@@ -546,7 +546,7 @@ table2 <-
   )
 ```
 
-### Scale descriptions
+## Scale descriptions
 
 ```{r desc2}
 table2 <-
@@ -562,13 +562,15 @@ table2 <-
   )
 ```
 
-### Relocate variables
+## Relocate variables
 
 ```{r reloc2}
 table2 <- table2 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
-# PRI
+# PRI (Table 3)
+
+## Pluck and tidy tables
 
 ```{r pluck3}
 table3 <- tibble::as_tibble(plucked_table[[3]])
@@ -588,13 +590,13 @@ table3 <- table3 |> hablar::convert(dbl(all_of(to_double)))
 table3$scale <- params$table3
 ```
 
-## select variables to keep
+## Select variables to keep
 
 ```{r keep3}
 table3 <- table3 |> dplyr::select(all_of(params$keep2))
 ```
 
-## Insert/mutate columns
+## Mutate columns
 
 ```{r mutate3}
 table3 <- bwu::gpluck_make_columns(
@@ -685,15 +687,15 @@ table3 <-
   )
 ```
 
-### relocate variables
+## Relocate variables
 
 ```{r reloc3}
 table3 <- table3 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
-# WMI
+# WMI (Table 4)
 
-## Table 4
+## Pluck and tidy tables
 
 ```{r pluck4}
 table4 <- tibble::as_tibble(plucked_table[[4]])
@@ -740,13 +742,13 @@ table4 <- bwu::gpluck_make_columns(
 )
 ```
 
-### Test score ranges
+## Test score ranges
 
 ```{r ranges4}
 table4 <- bwu::gpluck_make_score_ranges(table = table4, test_type = "npsych_test")
 ```
 
-### Subdomains
+## Subdomains
 
 ```{r subdomain4}
 table4 <-
@@ -791,7 +793,7 @@ table4 <-
   )
 ```
 
-### PASS model
+## PASS model
 
 ```{r pass4}
 table4 <-
@@ -806,7 +808,7 @@ table4 <-
   )
 ```
 
-### Scale descriptions
+## Scale descriptions
 
 ```{r desc4}
 table4 <-
@@ -821,15 +823,15 @@ table4 <-
   )
 ```
 
-### Relocate variables
+## Relocate variables
 
 ```{r reloc4}
 table4 <- table4 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
-# PSI
+# PSI (Table 5)
 
-## Table 5
+## Pluck and tidy tables
 
 ```{r pluck5}
 table5 <- tibble::as_tibble(plucked_table[[5]])
@@ -876,13 +878,13 @@ table5 <- bwu::gpluck_make_columns(
 )
 ```
 
-### Test score ranges
+## Test score ranges
 
 ```{r ranges5}
 table5 <- bwu::gpluck_make_score_ranges(table = table5, test_type = "npsych_test")
 ```
 
-### Subdomains
+## Subdomains
 
 ```{r subdomain5}
 table5 <-
@@ -897,7 +899,7 @@ table5 <-
   )
 ```
 
-### Narrow subdomains
+## Narrow subdomains
 
 ```{r narrow5}
 table5 <-
@@ -912,7 +914,7 @@ table5 <-
   )
 ```
 
-### PASS model
+## PASS model
 
 ```{r pass5}
 table5 <-
@@ -927,7 +929,7 @@ table5 <-
   )
 ```
 
-### Scale descriptions
+## Scale descriptions
 
 ```{r desc5}
 table5 <-
@@ -942,15 +944,15 @@ table5 <-
   )
 ```
 
-### Relocate variables
+## Relocate variables
 
 ```{r relocate5}
 table5 <- table5 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
-# PROCESS ANALYSIS TABLE 6
+# PRI Process Score Summary (Table 6)
 
-## Table 6
+## Pluck and tidy tables
 
 ```{r pluck6}
 table6 <- tibble::as_tibble(plucked_table[[6]])
@@ -997,13 +999,13 @@ table6 <- bwu::gpluck_make_columns(
 )
 ```
 
-### Test score ranges
+## Test score ranges
 
 ```{r ranges6}
 table6 <- bwu::gpluck_make_score_ranges(table = table6, test_type = "npsych_test")
 ```
 
-### Scale descriptions
+## Scale descriptions
 
 ```{r desc6}
 table6 <-
@@ -1016,15 +1018,15 @@ table6 <-
   )
 ```
 
-### Relocate variables
+## Relocate variables
 
 ```{r relocate6}
 table6 <- table6 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
-# PROCESS ANALYSIS TABLE 7
+# WMI Process Score Summary (Table 7)
 
-## Table 7
+## Pluck and tidy tables
 
 ```{r pluck7}
 table7 <- tibble::as_tibble(plucked_table[[7]])
@@ -1071,7 +1073,7 @@ table7 <- bwu::gpluck_make_columns(
 )
 ```
 
-### Test score ranges
+## Test score ranges
 
 ```{r ranges7}
 table7 <- bwu::gpluck_make_score_ranges(table = table7, test_type = "npsych_test")
@@ -1096,7 +1098,7 @@ table7 <-
   )
 ```
 
-### PASS model
+## PASS model
 
 ```{r pass7}
 table7 <-
@@ -1115,7 +1117,7 @@ table7 <-
   )
 ```
 
-### Score type
+## Score type
 
 ```{r score7}
 table7 <-
@@ -1134,7 +1136,7 @@ table7 <-
   )
 ```
 
-### Scale descriptions
+## Scale descriptions
 
 ```{r desc7}
 table7 <-
@@ -1153,13 +1155,13 @@ table7 <-
   )
 ```
 
-### Relocate variables
+## Relocate variables
 
 ```{r relocate7}
 table7 <- table7 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
-# Finalize and save
+# Finalize and save csv
 
 ## Merge tables
 

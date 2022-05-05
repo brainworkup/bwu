@@ -162,7 +162,7 @@ area <- list(
 # file <- file.choose()
 # area6 <- bwu::gpluck_locate_areas(
 #   file = file,
-#   pages = c(6)
+#   pages = c(2,5,6,7,8,8)
 # )
 ```
 
