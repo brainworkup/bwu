@@ -220,12 +220,12 @@ file <- params$file
 pages <- params$pages
 ```
 
-```{r wfile}
-#vroom::vroom_write_lines(file, here::here(patient, "pre_csv", "wais4_pdf"))
+```{r w-file}
+writeLines(file, here::here(patient, "pre_csv", "wais4_pdf"))
 ```
 
-```{r rfile}
-#file <- vroom::vroom_read(here::here(patient, "pre_csv", "wais4_pdf"))
+```{r r-file}
+file <- readLines(here::here(patient, "pre_csv", "wais4_pdf"))
 ```
 
 ## Locate areas
@@ -245,6 +245,7 @@ area <- list(
 
 ```{r areas-get, eval=FALSE}
 # if unknown
+# patient <- "Biggie"
 # file <- file.choose()
 # area <- bwu::gpluck_locate_areas(
 #   file = file,
@@ -253,11 +254,11 @@ area <- list(
 ```
 
 ```{r w-area}
-#vroom::vroom_write_lines(area, here::here(patient, "pre_csv", "area_wais4.rds"))
+saveRDS(area, file = here::here(patient, "pre_csv", "area_wais4.rds"), compress = FALSE)
 ```
 
 ```{r r-area}
-#area <- readr::read_rds(here::here(patient, "pre_csv", "area_wais4.rds"))
+area <- readRDS(here::here(patient, "pre_csv", "area_wais4.rds"))
 ```
 
 ## Extract tables
@@ -1086,11 +1087,11 @@ table7 <-
   table7 %>% 
   dplyr::mutate(
     narrow = dplyr::case_when(
-      scale == "Digit Span Backward" ~ "Working Memory",
       scale == "Digit Span Forward" ~ "Memory Span",
+      scale == "Digit Span Backward" ~ "Working Memory",
       scale == "Digit Span Sequencing" ~ "Working Memory",
-      scale == "Longest Digit Span Backward" ~ "Working Memory",
       scale == "Longest Digit Span Forward" ~ "Memory Span",
+      scale == "Longest Digit Span Backward" ~ "Working Memory",
       scale == "Longest Digit Span Sequence" ~ "Working Memory",
       scale == "Longest Letter-Number Sequence" ~ "Working Memory",
       TRUE ~ as.character(narrow)
@@ -1124,11 +1125,11 @@ table7 <-
   table7 |>
   dplyr::mutate(
     score_type = dplyr::case_when(
-      scale == "Digit Span Backward" ~ "scaled_score",
       scale == "Digit Span Forward" ~ "scaled_score",
+      scale == "Digit Span Backward" ~ "scaled_score",
       scale == "Digit Span Sequencing" ~ "scaled_score",
-      scale == "Longest Digit Span Backward" ~ "raw_score",
       scale == "Longest Digit Span Forward" ~ "raw_score",
+      scale == "Longest Digit Span Backward" ~ "raw_score",
       scale == "Longest Digit Span Sequence" ~ "raw_score",
       scale == "Longest Letter-Number Sequence" ~ "raw_score",
       TRUE ~ as.character(score_type)
@@ -1143,11 +1144,11 @@ table7 <-
   table7 |>
   dplyr::mutate(
     description = dplyr::case_when(
-      scale == "Digit Span Backward" ~ "recall of digits backward",
       scale == "Digit Span Forward" ~ "recall of digits forward",
+      scale == "Digit Span Backward" ~ "recall of digits backward",
       scale == "Digit Span Sequencing" ~ "recall of digits sequencing",
-      scale == "Longest Digit Span Backward" ~ "recall of digits backward (span)",
       scale == "Longest Digit Span Forward" ~ "recall of digits forward (span)",
+      scale == "Longest Digit Span Backward" ~ "recall of digits backward (span)",
       scale == "Longest Digit Span Sequence" ~ "recall of digits sequence (span)",
       scale == "Longest Letter-Number Sequence" ~ "longest letter-number sequence (span)",
       TRUE ~ as.character(description)
@@ -1179,7 +1180,7 @@ wais4 <- wais4 %>% dplyr::slice(5,1,6:7,2,9,8,10,3,12,11,13:15,4,21,20)
 ## Write out final csv
 
 ```{r write}
-readr::write_csv(wais4, here::here(patient, "csv", "wais4.csv"), col_names = TRUE, na = "")
+vroom::vroom_write(wais4, here::here(patient, "csv", "wais4.csv"), col_names = TRUE, na = "", delim = ", ")
 ```
 
 ## Cleanup

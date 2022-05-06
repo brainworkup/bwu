@@ -39,20 +39,22 @@ knitr::opts_chunk$set(
   warning = FALSE,
   error = TRUE
 )
-library(rmarkdown)
-library(knitr)
 library(bwu)
-library(tabulizer)
-library(tabulizerjars)
-library(rJava)
-library(here)
-library(readr)
 library(dplyr)
 library(hablar)
-library(tibble)
+library(here)
+library(knitr)
 library(magrittr)
-library(shiny)
 library(miniUI)
+library(readr)
+library(rJava)
+library(rmarkdown)
+library(shiny)
+library(tabulizer)
+library(tabulizerjars)
+library(tibble)
+library(tidyr)
+library(vroom)
 ```
 
 ## Patient

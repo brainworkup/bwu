@@ -136,12 +136,12 @@ file <- params$file
 pages <- params$pages
 ```
 
-```{r save-pdf}
-#vroom::vroom_write_lines(file, here::here(patient, "pre_csv", "nabs_pdf"))
+```{r wfile}
+writeLines(file, here::here(patient, "pre_csv", "nabs_pdf"))
 ```
 
-```{r read-pdf}
-#file <- vroom::vroom_read(here::here(patient, "pre_csv", "nabs_pdf"))
+```{r rfile}
+file <- readLines(here::here(patient, "pre_csv", "nabs_pdf"))
 ```
 
 ## Locate areas
@@ -166,12 +166,12 @@ area <- list(
 # )
 ```
 
-```{r save-areas}
-#vroom::vroom_write_lines(area, here::here(patient, "pre_csv", "area_nabs.rds"))
+```{r s-area}
+saveRDS(area, here::here(patient, "pre_csv", "area_nabs.rds"))
 ```
 
-```{r read-areas}
-#area <- readr::read_rds(here::here(patient, "pre_csv", "area_nabs.rds"))
+```{r r-area}
+#area <- readRDS(here::here(patient, "pre_csv", "area_nabs.rds"))
 ```
 
 ## Extract tables

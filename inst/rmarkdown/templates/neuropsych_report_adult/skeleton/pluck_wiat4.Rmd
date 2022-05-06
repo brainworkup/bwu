@@ -1,0 +1,650 @@
+---
+title: "Pluck Tables from WIAT-4"
+params:
+  patient: "Biggie"
+  test:
+    label: "Test"
+    value: wiat4
+    input: select
+    multiple: no
+    choices:
+      - wiat4
+      - wiat3
+  test_name:
+    label: "Test Name"
+    value: WIAT-4
+    input: select
+    multiple: no
+    choices:
+      - WIAT-4
+      - WIAT-III
+  file:
+    label: "No file selected"
+    value: file
+    input: file
+  pages: [17,18]
+  table1:
+    label: "Table 1"
+    value: Total Achievement
+    input: select
+    multiple: yes
+    choices:
+      - Total Achievement
+      - Word Reading
+      - Reading Comprehension
+      - Spelling
+      - Essay Composition
+      - Math Problem Solving
+      - Numerical Operations
+      - Reading
+      - Word Reading
+      - Reading Comprehension
+      - Written Expression
+      - Spelling
+      - Sentence Composition
+      - Essay Composition
+      - Mathematics
+      - Math Problem Solving
+      - Numerical Operations
+  table2:
+    label: "Table 2"
+    value: Similarities
+    input: select
+    multiple: yes
+    choices:
+      - Basic Reading
+      - Pseudoword Decoding
+      - Phonemic Proficiency
+      - Word Reading
+      - Decoding
+      - Pseudoword Decoding
+      - Word Reading
+      - Phonological Processing
+      - Pseudoword Decoding
+      - Phonemic Proficiency
+      - Orthographic Processing
+      - Orthographic Fluency
+      - Spelling
+      - Dyslexia Index
+      - Word Reading
+      - Pseudoword Decoding
+      - Orthographic Fluency
+      - Reading Fluency
+      - Oral Reading Fluency
+      - Decoding Fluency
+      - Orthographic Processing Extended
+      - Orthographic Choice
+      - Math Fluency
+      - Math Fluency-Addition
+      - Math Fluency-Subtraction
+      - Math Fluency-Multiplication
+      - Oral Language
+      - Listening Comprehension
+      - Oral Expression
+  colnames1:
+    label: "Table 1 Column Names"
+    value: scale
+    input: select
+    multiple: yes
+    choices:
+      - scale
+      - raw_score
+      - score
+      - ci_95
+      - percentile
+      - category
+      - age_equiv
+      - grade_equiv
+      - gsv
+  colnames2:
+    label: "Table 2 Column Names"
+    value: scale
+    input: select
+    multiple: yes
+    choices:
+      - scale
+      - raw_score
+      - score
+      - ci_95
+      - percentile
+      - category
+      - age_equiv
+      - grade_equiv
+      - gsv
+  keep1:
+    label: "Variables to Keep, Set 1"
+    value: scale
+    input: select
+    multiple: yes
+    choices:
+      - scale
+      - raw_score
+      - score
+      - percentile
+      - ci_95
+  keep2:
+    label: "Variables to Keep, Set 2"
+    value: scale
+    input: select
+    multiple: yes
+    choices:
+      - scale
+      - raw_score
+      - score
+      - percentile
+---
+
+# WIAT-4
+
+## Load libraries
+
+```{r setup, include=FALSE}
+Sys.setenv(JAVA_HOME = "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home")
+options(java.parameters = "-Xmx16000m")
+knitr::opts_chunk$set(
+  root.dir = normalizePath("./"),
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  error = TRUE
+)
+library(bwu)
+library(dplyr)
+library(hablar)
+library(here)
+library(knitr)
+library(magrittr)
+library(miniUI)
+library(readr)
+library(rJava)
+library(rmarkdown)
+library(shiny)
+library(tabulizer)
+library(tabulizerjars)
+library(tibble)
+library(tidyr)
+library(vroom)
+```
+
+## Patient 
+
+```{r patient}
+patient <- params$patient
+```
+
+## Test
+
+```{r test}
+test <- params$test
+```
+
+## Upload/attach PDF
+
+```{r choose}
+file <- params$file
+```
+
+## Pages
+
+```{r pages}
+pages <- params$pages
+```
+
+```{r w-file}
+writeLines(file, here::here(patient, "pre_csv", "wiat4_pdf"))
+```
+
+```{r r-file}
+file <- readLines(here::here(patient, "pre_csv", "wiat4_pdf"))
+```
+
+## Locate areas
+
+```{r areas-known}
+# top left bottom right
+# area <- list(
+#   c(143, 32, 335, 580),
+#   c(141, 32, 327, 580)
+# )
+# area <- list(
+#   c(143, 32, 335, 580)
+# )
+```
+
+```{r areas-get, eval=F}
+# if unknown
+# patient <- "Biggie"
+# file <- file.choose()
+# area <- bwu::gpluck_locate_areas(
+#   file = file,
+#   pages = c(17,18)
+# )
+```
+
+```{r w-area}
+saveRDS(area, file = here::here(patient, "pre_csv", "area_wiat4.rds"), compress = FALSE)
+```
+
+```{r r-area}
+area <- readRDS(here::here(patient, "pre_csv", "area_wiat4.rds"))
+```
+
+## Extract tables
+
+Change pages per patient.
+
+```{r extract-table-pdf}
+plucked_table <- bwu::gpluck_extract_table(
+  file = file,
+  pages = pages,
+  area = area,
+  guess = NULL,
+  method = "lattice",
+  output = "matrix"
+)
+```
+
+# Table 1
+
+## Pluck and tidy tables
+
+```{r pluck1}
+table1 <- as_tibble(plucked_table[[1]])
+table1 <- dplyr::mutate(table1, raw_score = NA_integer_, .before = V2)
+colnames(table1) <- colnames1
+table1$scale <- NA
+table1 <- dplyr::na_if(table1, "")
+table1 <- dplyr::na_if(table1, "NA")
+table1 <- dplyr::na_if(table1, "-")
+table1 <- dplyr::na_if(table1, "--")
+table1 <- dplyr::na_if(table1, "---")
+#table1 <- table1 |> slice(-2) # redundant, change each time to remove rows with extra line
+table1 <- table1 |> slice(-c(3, 11))
+to_double <- c("raw_score", "score", "percentile")
+table1 <- 
+  table1 %>% 
+  hablar::convert(dbl(all_of(to_double))) %>% 
+  dplyr::relocate(scale, .before = raw_score)
+```
+
+## Change scale names
+## Scale names
+
+```{r rownames1}
+table1$scale <- params$table1
+```
+```{r names1}
+# table1[1, 1] <- c("Total Achievement")
+# table1[2, 1] <- c("Word Reading")
+# table1[3, 1] <- c("Reading Comprehension")
+# table1[4, 1] <- c("Spelling")
+# table1[5, 1] <- c("Essay Composition")
+# table1[6, 1] <- c("Math Problem Solving")
+# table1[7, 1] <- c("Numerical Operations")
+# table1[8, 1] <- c("Reading")
+# table1[9, 1] <- c("Word Reading")
+# table1[10, 1] <- c("Reading Comprehension")
+# table1[11, 1] <- c("Written Expression")
+# table1[12, 1] <- c("Spelling")
+# table1[13, 1] <- c("Sentence Composition")
+# table1[14, 1] <- c("Essay Composition")
+# table1[15, 1] <- c("Mathematics")
+# table1[16, 1] <- c("Math Problem Solving")
+# table1[17, 1] <- c("Numerical Operations")
+```
+
+### Table 2
+
+```{r table2}
+table2 <- as_tibble(plucked_table[[2]])
+table2 <- dplyr::mutate(table2, raw_score = NA_integer_, .before = V2)
+colnames(table2) <- colnames2
+table2 <- dplyr::na_if(table2, "")
+table2 <- dplyr::na_if(table2, "NA")
+table2 <- dplyr::na_if(table2, "-")
+table2 <- dplyr::na_if(table2, "--")
+table2 <- dplyr::na_if(table2, "---")
+#table2 <- dplyr::slice(table2, 2) # check each time
+table2 <- dplyr::distinct(table2, .keep_all = FALSE) # check each time
+to_double <- c("raw_score", "score", "percentile")
+table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
+```
+
+## Scale names
+
+```{r rownames2}
+table2$scale <- params$table2
+```
+
+```{r names2}
+# table2[1, 1] <- c("Basic Reading")
+# table2[2, 1] <- c("Pseudoword Decoding")
+# table2[3, 1] <- c("Phonemic Proficiency")
+# table2[4, 1] <- c("Word Reading")
+# table2[5, 1] <- c("Decoding")
+# table2[6, 1] <- c("Pseudoword Decoding")
+# table2[7, 1] <- c("Word Reading")
+# table2[8, 1] <- c("Phonological Processing")
+# table2[9, 1] <- c("Pseudoword Decoding")
+# table2[10, 1] <- c("Phonemic Proficiency")
+# table2[11, 1] <- c("Orthographic Processing")
+# table2[12, 1] <- c("Orthographic Fluency")
+# table2[13, 1] <- c("Spelling")
+# table2[14, 1] <- c("Dyslexia Index")
+# table2[15, 1] <- c("Word Reading")
+# table2[16, 1] <- c("Pseudoword Decoding")
+# table2[17, 1] <- c("Orthographic Fluency")
+
+# table2[6, 1] <- c("Reading Fluency")
+# table2[7, 1] <- c("Oral Reading Fluency")
+# table2[9, 1] <- c("Decoding Fluency")
+# table2[13, 1] <- c("Orthographic Processing Extended")
+# table2[14, 1] <- c("Orthographic Choice")
+# table2[14, 1] <- c("Math Fluency")
+# table2[5, 1] <- c("Math Fluency-Addition")
+# table2[6, 1] <- c("Math Fluency-Subtraction")
+# table2[7, 1] <- c("Math Fluency-Multiplication")
+# table2[5, 1] <- c("Oral Language")
+# table2[6, 1] <- c("Listening Comprehension")
+# table2[7, 1] <- c("Oral Expression")
+```
+
+## Select variables to keep
+
+```{r select}
+table1 <- table1 |> dplyr::select(all_of(params$keep1))
+table2 <- table2 |> dplyr::select(all_of(params$keep2))
+table <- rbind(table1, table2)
+table <- dplyr::distinct(table, .keep_all = FALSE)
+View(table)
+```
+
+# Mutate columns
+
+```{r mutate}
+table <- bwu::gpluck_make_columns(
+  table,
+  range = "",
+  test = params$test,
+  test_name = params$test_name,
+  domain = "Academic Skills",
+  subdomain = "",
+  narrow = "",
+  pass = "",
+  verbal = "",
+  timed = "",
+  test_type = "npsych_test",
+  score_type = "standard_score",
+  description = ""
+)
+```
+
+
+
+## Subdomain
+
+```{r subdomain1}
+table <-
+  table |>
+  mutate(
+    subdomain = case_when(
+      scale == "Total Achievement" ~ "Academic Skills",
+      scale == "Reading" ~ "Reading",
+      scale == "Word Reading" ~ "Reading",
+      scale == "Reading Comprehension" ~ "Reading",
+      scale == "Spelling" ~ "Writing",
+      scale == "Sentence Composition" ~ "Writing",
+      scale == "Mathematics" ~ "Math",
+      scale == "Math Problem Solving" ~ "Math",
+      scale == "Numerical Operations" ~ "Math",
+      scale == "Written Expression" ~ "Writing",
+      scale == "Essay Composition" ~ "Writing",
+      scale == "Basic Reading" ~ "Reading",
+      scale == "Decoding" ~ "Reading",
+      scale == "Pseudoword Decoding" ~ "Reading",
+      scale == "Phonemic Proficiency" ~ "Reading",
+      scale == "Phonological Processing" ~ "Reading",
+      scale == "Orthographic Processing Extended" ~ "Reading",
+      scale == "Orthographic Processing" ~ "Language",
+      scale == "Orthographic Fluency" ~ "Reading",
+      scale == "Orthographic Choice" ~ "Reading",
+      scale == "Dyslexia Index" ~ "Reading",
+      scale == "Math Fluency" ~ "Math",
+      scale == "Math Fluency-Addition" ~ "Math",
+      scale == "Math Fluency-Subtraction" ~ "Math",
+      scale == "Math Fluency-Multiplication" ~ "Math",
+      TRUE ~ as.character(subdomain)
+    )
+  )
+```
+
+## Narrow subdomain
+
+```{r narrow1}
+table <-
+  table |>
+  mutate(
+    narrow = case_when(
+      scale == "Total Achievement" ~ "Academic Achievement",
+      scale == "Reading" ~ "Reading",
+      scale == "Word Reading" ~ "Reading Decoding",
+      scale == "Reading Comprehension" ~ "Reading Comprehension",
+      scale == "Spelling" ~ "Spelling Ability",
+      scale == "Sentence Composition" ~ "Writing Ability",
+      scale == "Mathematics" ~ "Quantitative Reasoning",
+      scale == "Math Problem Solving" ~ "Mathematical Knowledge",
+      scale == "Numerical Operations" ~ "Mathematical Achievement",
+      scale == "Written Expression" ~ "Writing Ability",
+      scale == "Essay Composition" ~ "Writing Ability",
+      scale == "Basic Reading" ~ "Basic Reading",
+      scale == "Decoding" ~ "Reading Decoding",
+      scale == "Pseudoword Decoding" ~ "Reading Decoding",
+      scale == "Phonemic Proficiency" ~ "Reading Decoding",
+      scale == "Phonological Processing" ~ "Reading Decoding",
+      scale == "Orthographic Processing Extended" ~ "Reading Orthography",
+      scale == "Orthographic Processing" ~ "Reading Orthography",
+      scale == "Orthographic Fluency" ~ "Reading Fluency",
+      scale == "Orthographic Choice" ~ "Reading Orthography",
+      scale == "Dyslexia Index" ~ "Reading",
+      scale == "Math Fluency" ~ "Number Facility",
+      scale == "Math Fluency-Addition" ~ "Number Facility",
+      scale == "Math Fluency-Subtraction" ~ "Number Facility",
+      scale == "Math Fluency-Multiplication" ~ "Number Facility",
+      TRUE ~ as.character(narrow)
+    )
+  )
+```
+
+## PASS model
+
+As necessary.
+
+```{r pass1}
+table <-
+  table |>
+  mutate(
+    pass = case_when(
+      scale == "Total Achievement" ~ "Sequential",
+      scale == "Reading" ~ "Sequential",
+      scale == "Word Reading" ~ "Sequential",
+      scale == "Reading Comprehension" ~ "Sequential",
+      scale == "Spelling" ~ "Sequential",
+      scale == "Sentence Composition" ~ "Sequential",
+      scale == "Mathematics" ~ "Simultaneous",
+      scale == "Math Problem Solving" ~ "Simultaneous",
+      scale == "Numerical Operations" ~ "Simultaneous",
+      scale == "Written Expression" ~ "Sequential",
+      scale == "Essay Composition" ~ "Sequential",
+      scale == "Basic Reading" ~ "Sequential",
+      scale == "Decoding" ~ "Sequential",
+      scale == "Pseudoword Decoding" ~ "Sequential",
+      scale == "Phonemic Proficiency" ~ "Sequential",
+      scale == "Phonological Processing" ~ "Sequential",
+      scale == "Orthographic Processing Extended" ~ "Sequential",
+      scale == "Orthographic Processing" ~ "Sequential",
+      scale == "Orthographic Fluency" ~ "Sequential",
+      scale == "Orthographic Choice" ~ "Sequential",
+      scale == "Dyslexia Index" ~ "Sequential",
+      scale == "Math Fluency" ~ "Simultaneous",
+      scale == "Math Fluency-Addition" ~ "Sequential",
+      scale == "Math Fluency-Subtraction" ~ "Sequential",
+      scale == "Math Fluency-Multiplication" ~ "Sequential",
+      TRUE ~ as.character(pass)
+    )
+  )
+```
+
+## Verbal vs Nonverbal
+
+As necessary.
+
+```{r verbal1}
+table <-
+  table |>
+  mutate(
+    verbal = case_when(
+      scale == "Total Achievement" ~ "",
+      scale == "Reading" ~ "Verbal",
+      scale == "Word Reading" ~ "Verbal",
+      scale == "Reading Comprehension" ~ "Verbal",
+      scale == "Spelling" ~ "Verbal",
+      scale == "Sentence Composition" ~ "Verbal",
+      scale == "Mathematics" ~ "Nonverbal",
+      scale == "Math Problem Solving" ~ "Nonverbal",
+      scale == "Numerical Operations" ~ "Nonverbal",
+      scale == "Written Expression" ~ "Verbal",
+      scale == "Essay Composition" ~ "Verbal",
+      scale == "Basic Reading" ~ "Verbal",
+      scale == "Decoding" ~ "Verbal",
+      scale == "Pseudoword Decoding" ~ "Verbal",
+      scale == "Phonemic Proficiency" ~ "Verbal",
+      scale == "Phonological Processing" ~ "Verbal",
+      scale == "Orthographic Processing Extended" ~ "Verbal",
+      scale == "Orthographic Processing" ~ "Verbal",
+      scale == "Orthographic Fluency" ~ "Verbal",
+      scale == "Orthographic Choice" ~ "Verbal",
+      scale == "Dyslexia Index" ~ "Verbal",
+      scale == "Math Fluency" ~ "Nonverbal",
+      scale == "Math Fluency-Addition" ~ "Nonverbal",
+      scale == "Math Fluency-Subtraction" ~ "Nonverbal",
+      scale == "Math Fluency-Multiplication" ~ "Nonverbal",
+      TRUE ~ as.character(verbal)
+    )
+  )
+```
+
+## Timed vs Untimed
+
+As necessary.
+
+```{r timed}
+table <-
+  table |>
+  mutate(
+    timed = case_when(
+      scale == "Total Achievement" ~ "Untimed",
+      scale == "Reading" ~ "Untimed",
+      scale == "Word Reading" ~ "Untimed",
+      scale == "Reading Comprehension" ~ "Untimed",
+      scale == "Spelling" ~ "Untimed",
+      scale == "Sentence Composition" ~ "Untimed",
+      scale == "Mathematics" ~ "Untimed",
+      scale == "Math Problem Solving" ~ "Untimed",
+      scale == "Numerical Operations" ~ "Untimed",
+      scale == "Written Expression" ~ "Untimed",
+      scale == "Essay Composition" ~ "Untimed",
+      scale == "Basic Reading" ~ "Untimed",
+      scale == "Decoding" ~ "Untimed",
+      scale == "Pseudoword Decoding" ~ "Untimed",
+      scale == "Phonemic Proficiency" ~ "Timed",
+      scale == "Phonological Processing" ~ "Untimed",
+      scale == "Orthographic Processing Extended" ~ "Timed",
+      scale == "Orthographic Processing" ~ "Timed",
+      scale == "Orthographic Fluency" ~ "Timed",
+      scale == "Orthographic Choice" ~ "Timed",
+      scale == "Dyslexia Index" ~ "",
+      scale == "Math Fluency" ~ "Timed",
+      scale == "Math Fluency-Addition" ~ "Timed",
+      scale == "Math Fluency-Subtraction" ~ "Timed",
+      scale == "Math Fluency-Multiplication" ~ "Timed",
+      TRUE ~ as.character(timed)
+    )
+  )
+```
+
+## Description
+
+```{r desc}
+table <-
+  table |>
+  mutate(
+    description = case_when(
+      scale == "Total Achievement" ~ "overall academic achievement in the areas of reading, math, and writing",
+      scale == "Reading" ~ "composite score of decoding and comprehension that balances word-level and text-level reading skills",
+      scale == "Word Reading" ~ "single word reading/decoding of a list of regular and irregular words",
+      scale == "Reading Comprehension" ~ "reading comprehension skills at the level of word, sentence, and passage",
+      scale == "Reading Fluency" ~ "composite measure of overall oral reading fluency skills, including  reading in context and in isolation",
+      scale == "Spelling" ~ "written spelling from dictations",
+      scale == "Sentence Composition" ~ "sentence formulation skills",
+      scale == "Sentence Writing Fluency" ~ "sentence composition fluency",
+      scale == "Mathematics" ~ "estimate of overall mathematics skills in the domains of math comprehension and problem solving and math computation",
+      scale == "Math Problem Solving" ~ "applying mathematical principles to real-life situations, ranging from basic concepts, everyday applications, geometry, and algebra",
+      scale == "Numerical Operations" ~ "paper-and-pencil math calculation skills, ranging from basic operations with integers to geometry, algebra, and calculus problems",
+      scale == "Written Expression" ~ "overall written expression skills including spelling and expository/contextual writing",
+      scale == "Essay Composition" ~ "spontaneous writing fluency at the discourse level",
+      scale == "Basic Reading" ~ "composite measure of phonological skills, phonic decoding, and single-word reading skills",
+      scale == "Decoding" ~ "composite estimate of decontextualized phonic decoding and word reading skills",
+      scale == "Pseudoword Decoding" ~ "phonic decoding skills by reading aloud a list of pseudowords",
+      scale == "Decoding Fluency" ~ "phonic decoding fluency",
+      scale == "Phonemic Proficiency" ~ "speed and accuracy of phonological/phonemic skills including elision, substitution, and reversal",
+      scale == "Phonological Processing" ~ "phonological processing composite measure of phonemic proficiency and phonic decoding skills",
+      scale == "Orthographic Processing" ~ "overall measure of orthographic processing, including the size of the examinees orthographic lexicon and the quality of orthographic representations",
+      scale == "Orthographic Processing Extended" ~ "overall measure of orthographic processing, including the size of the examinees orthographic lexicon and the quality of orthographic representations (extended)",
+      scale == "Orthographic Fluency" ~ "orthographic lexicon, or sight vocabulary fluency",
+      scale == "Orthographic Choice" ~ "orthographic knowledge, or the quality of stored orthographic representations (i.e., correct word spellings)",
+      scale == "Dyslexia Index" ~ "clinically sensitive composite score for identifying risk for dyslexia among students",
+      scale == "Math Fluency" ~ "overall speed/fluency in solving fact-based addition, subtraction, and multiplication problems",
+      scale == "Math Fluency-Addition" ~ "speed of addition fact fluency",
+      scale == "Math Fluency-Subtraction" ~ "speed of subtraction fact fluency",
+      scale == "Math Fluency-Multiplication" ~ "speed of multiplication fact fluency",
+      scale == "Listening Comprehension" ~ "receptive language comprehension at the level of the word, sentence, and passage",
+      scale == "Receptive Vocabulary" ~ "selecting pictures that best illustrate the mean of individual target words",
+      scale == "Oral Discourse Comprehension" ~ "listening to passages and then responding aloud to comprehension questions",
+      scale == "Alphabet Writing Fluency" ~ "letter writing fluency",
+      scale == "Oral Expression" ~ "oral expression at the level of the word and sentence",
+      scale == "Expressive Vocabulary" ~ "seeing a pciture and hearing a definition and hten saying the word that best corresponds to the picture and definition",
+      scale == "Oral Word Fluency" ~ "naming as many things as possible belonging to a given category within 60 seconds",
+      scale == "Sentence Repetition" ~ "listening to a sentence and then repeating it verbatim",
+      scale == "Oral Reading Fluency" ~ "oral reading fluency",
+      TRUE ~ as.character(description)
+    )
+  )
+```
+
+## Test score ranges
+
+```{r range}
+table <- bwu::gpluck_make_score_ranges(table = table, test_type = "npsych_test")
+```
+
+## Relocate variables
+
+```{r relocate}
+wiat4 <- table |> relocate(c(raw_score, score, percentile, range, ci_95), .before = test) 
+# %>% 
+#   dplyr::slice(4:6, 1:3, 7:10)
+```
+
+## Write out final csv
+
+```{r write-csv}
+readr::write_csv(wiat4, here::here(patient, "csv", "wiat4.csv"), col_names = TRUE, na = "")
+```
+
+## Cleanup
+
+```{r cleanup}
+rm(area)
+rm(table)
+rm(table1, table2)
+```
