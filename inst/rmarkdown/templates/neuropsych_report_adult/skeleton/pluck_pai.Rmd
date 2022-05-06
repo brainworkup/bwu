@@ -1,0 +1,397 @@
+---
+title: "Import tables from Personality Assessment Inventory (PAI) csv"
+params:
+  patient: "Biggie"
+  test: pai
+  test_name: PAI
+---
+
+# PAI
+
+## Setup
+
+```{r setup, include=FALSE}
+Sys.setenv(JAVA_HOME = "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home")
+options(java.parameters = "-Xmx16000m")
+knitr::opts_chunk$set(
+  root.dir = normalizePath("./"),
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  error = TRUE
+)
+library(bwu)
+library(dplyr)
+library(hablar)
+library(here)
+library(knitr)
+library(magrittr)
+library(miniUI)
+library(readr)
+library(rJava)
+library(rmarkdown)
+library(shiny)
+library(tabulizer)
+library(tabulizerjars)
+library(tibble)
+library(tidyr)
+library(vroom)
+```
+
+## Patient
+
+```{r patient}
+patient <- params$patient
+```
+
+## Export PAI CSV file from PARiConnect
+
+Need to export csv file from PARiConnect before processing.
+"Export Client Data" tab, then click "Univ of Sou Ca" then "PAI".
+Specify date range to exclude entire database.
+
+## Import PAI CSV file from PARiConnect
+
+Copy over to pre_csv.
+
+```{r pai-csv}
+plucked_table <- readr::read_csv(here::here(patient, "pre_csv", "pariconnectexportPAI.csv"), show_col_types = FALSE)
+```
+
+## PAI Index and Subscale Scores
+
+### Subset and rename columns
+
+```{r subset}
+table <- plucked_table %>%
+  dplyr::select(SOM_T:AGG_P_T) %>%
+  tidyr::gather() %>%
+  dplyr::rename(scale = key, score = value)
+```
+
+### Convert T scores to z scores to percentiles
+
+```{r t2z2p}
+table <- table %>%
+  dplyr::mutate(z = (score - 50) / 10) %>%
+  dplyr::mutate(percentile = round(pnorm(z) * 100, 1L)) %>%
+  dplyr::select(scale, score, percentile)
+```
+
+### Change scale names
+
+```{r names}
+# Clinical Scales
+table[1, 1] <- c("Somatic Complaints")
+table[2, 1] <- c("Anxiety")
+table[3, 1] <- c("Anxiety-Related Disorders")
+table[4, 1] <- c("Depression")
+table[5, 1] <- c("Mania")
+table[6, 1] <- c("Paranoia")
+table[7, 1] <- c("Schizophrenia")
+table[8, 1] <- c("Borderline Features")
+table[9, 1] <- c("Antisocial Features")
+table[10, 1] <- c("Alcohol Problems")
+table[11, 1] <- c("Drug Problems")
+# Treatment consideration scales
+table[12, 1] <- c("Aggression")
+table[13, 1] <- c("Suicidal Ideation")
+table[14, 1] <- c("Stress")
+table[15, 1] <- c("Nonsupport")
+table[16, 1] <- c("Treatment Rejection")
+# Interpersonal scales
+table[17, 1] <- c("Dominance")
+table[18, 1] <- c("Warmth")
+# Clinical subscales
+table[19, 1] <- c("Conversion")
+table[20, 1] <- c("Somatization")
+table[21, 1] <- c("Health Concerns")
+table[22, 1] <- c("Cognitive (A)")
+table[23, 1] <- c("Affective (A)")
+table[24, 1] <- c("Physiological (A)")
+table[25, 1] <- c("Obsessive-Compulsive")
+table[26, 1] <- c("Phobias")
+table[27, 1] <- c("Traumatic Stress")
+table[28, 1] <- c("Cognitive (D)")
+table[29, 1] <- c("Affective (D)")
+table[30, 1] <- c("Physiological (D)")
+table[31, 1] <- c("Activity Level")
+table[32, 1] <- c("Grandiosity")
+table[33, 1] <- c("Irritability")
+table[34, 1] <- c("Hypervigilance")
+table[35, 1] <- c("Persecution")
+table[36, 1] <- c("Resentment")
+table[37, 1] <- c("Psychotic Experiences")
+table[38, 1] <- c("Social Detachment")
+table[39, 1] <- c("Thought Disorder")
+table[40, 1] <- c("Affective Instability")
+table[41, 1] <- c("Identity Problems")
+table[42, 1] <- c("Negative Relationships")
+table[43, 1] <- c("Self-Harm")
+table[44, 1] <- c("Antisocial Behaviors")
+table[45, 1] <- c("Egocentricity")
+table[46, 1] <- c("Stimulus-Seeking")
+table[47, 1] <- c("Aggressive Attitude")
+table[48, 1] <- c("Verbal Aggression")
+table[49, 1] <- c("Physical Aggression")
+```
+
+### Filter, group, select
+
+```{r filter}
+table <- table %>% dplyr::slice(
+  c(
+    1, 19:21,
+    2, 22:24,
+    3, 25:27,
+    4, 28:30,
+    5, 31:33,
+    6, 34:36,
+    7, 37:39,
+    8, 40:43,
+    9, 44:46,
+    12, 47:49,
+    10:11,
+    13:18
+  )
+)
+```
+
+## Add/mutate columns
+
+```{r mutate}
+table <- dplyr::mutate(
+  table,
+  raw_score = "",
+  range = "",
+  ci_95 = "",
+  test = "pai",
+  test_name = "PAI",
+  domain = "Behavioral/Emotional/Social",
+  subdomain = "",
+  narrow = "",
+  pass = "",
+  verbal = "",
+  timed = "",
+  test_type = "rating_scale2",
+  score_type = "t_score",
+  description = ""
+)
+```
+
+## Rating Scale score ranges
+
+```{r ranges}
+table <- bwu::gpluck_make_score_ranges(table = table, test_type = "rating_scale2")
+```
+
+### Subdomains
+
+```{r subdomain}
+table <-
+  table |>
+  mutate(
+    subdomain = case_when(
+      scale == "Somatic Complaints" ~ "Somatic Symptom Disorder",
+      scale == "Conversion" ~ "Somatic Symptom Disorder",
+      scale == "Somatization" ~ "Somatic Symptom Disorder",
+      scale == "Health Concerns" ~ "Somatic Symptom Disorder",
+      scale == "Anxiety" ~ "Anxiety",
+      scale == "Cognitive (A)" ~ "Anxiety",
+      scale == "Affective (A)" ~ "Anxiety",
+      scale == "Physiological (A)" ~ "Anxiety",
+      scale == "Anxiety-Related Disorders" ~ "Anxiety Disorder",
+      scale == "Obsessive-Compulsive" ~ "Anxiety Disorder",
+      scale == "Phobias" ~ "Anxiety Disorder",
+      scale == "Traumatic Stress" ~ "Anxiety Disorder",
+      scale == "Depression" ~ "Depression",
+      scale == "Cognitive (D)" ~ "Depression",
+      scale == "Affective (D)" ~ "Depression",
+      scale == "Physiological (D)" ~ "Depression",
+      scale == "Mania" ~ "Mania/Hypomania",
+      scale == "Activity Level" ~ "Mania/Hypomania",
+      scale == "Grandiosity" ~ "Mania/Hypomania",
+      scale == "Irritability" ~ "Mania/Hypomania",
+      scale == "Paranoia" ~ "Schizophrenia Spectrum Disorder",
+      scale == "Hypervigilance" ~ "Schizophrenia Spectrum Disorder",
+      scale == "Persecution" ~ "Schizophrenia Spectrum Disorder",
+      scale == "Resentment" ~ "Schizophrenia Spectrum Disorder",
+      scale == "Schizophrenia" ~ "Schizophrenia Spectrum Disorder",
+      scale == "Psychotic Experiences" ~ "Schizophrenia Spectrum Disorder",
+      scale == "Social Detachment" ~ "Schizophrenia Spectrum Disorder",
+      scale == "Thought Disorder" ~ "Schizophrenia Spectrum Disorder",
+      scale == "Borderline Features" ~ "Borderline Personality Disorder",
+      scale == "Affective Instability" ~ "Borderline Personality Disorder",
+      scale == "Identity Problems" ~ "Borderline Personality Disorder",
+      scale == "Negative Relationships" ~ "Borderline Personality Disorder",
+      scale == "Self-Harm" ~ "Borderline Personality Disorder",
+      scale == "Antisocial Features" ~ "Antisocial Personality Disorder",
+      scale == "Antisocial Behaviors" ~ "Antisocial Personality Disorder",
+      scale == "Egocentricity" ~ "Antisocial Personality Disorder",
+      scale == "Stimulus-Seeking" ~ "Antisocial Personality Disorder",
+      scale == "Aggression" ~ "Aggression",
+      scale == "Aggressive Attitude" ~ "Aggression",
+      scale == "Verbal Aggression" ~ "Aggression",
+      scale == "Physical Aggression" ~ "Aggression",
+      scale == "Alcohol Problems" ~ "Substance Use Disorder",
+      scale == "Drug Problems" ~ "Substance Use Disorder",
+      scale == "Suicidal Ideation" ~ "Depression",
+      scale == "Stress" ~ "Social Environment",
+      scale == "Nonsupport" ~ "Social Environment",
+      scale == "Treatment Rejection" ~ "Treatment Considerations",
+      scale == "Dominance" ~ "Interpersonal",
+      scale == "Warmth" ~ "Interpersonal",
+      TRUE ~ as.character(subdomain)
+    )
+  )
+```
+
+### Narrow subdomains
+
+```{r narrow}
+table <-
+  table |>
+  mutate(
+    narrow = case_when(
+      scale == "Somatic Complaints" ~ "Somatic Symptom Disorder",
+      scale == "Conversion" ~ "Somatic Symptom Disorder",
+      scale == "Somatization" ~ "Somatic Symptom Disorder",
+      scale == "Health Concerns" ~ "Somatic Symptom Disorder",
+      scale == "Anxiety" ~ "Anxiety",
+      scale == "Cognitive (A)" ~ "Anxiety",
+      scale == "Affective (A)" ~ "Anxiety",
+      scale == "Physiological (A)" ~ "Anxiety",
+      scale == "Anxiety-Related Disorders" ~ "Anxiety Disorder",
+      scale == "Obsessive-Compulsive" ~ "Anxiety Disorder",
+      scale == "Phobias" ~ "Anxiety Disorder",
+      scale == "Traumatic Stress" ~ "Anxiety Disorder",
+      scale == "Depression" ~ "Depression",
+      scale == "Cognitive (D)" ~ "Depression",
+      scale == "Affective (D)" ~ "Depression",
+      scale == "Physiological (D)" ~ "Depression",
+      scale == "Mania" ~ "Mania/Hypomania",
+      scale == "Activity Level" ~ "Mania/Hypomania",
+      scale == "Grandiosity" ~ "Mania/Hypomania",
+      scale == "Irritability" ~ "Mania/Hypomania",
+      scale == "Paranoia" ~ "Schizophrenia Spectrum Disorder",
+      scale == "Hypervigilance" ~ "Schizophrenia Spectrum Disorder",
+      scale == "Persecution" ~ "Schizophrenia Spectrum Disorder",
+      scale == "Resentment" ~ "Schizophrenia Spectrum Disorder",
+      scale == "Schizophrenia" ~ "Schizophrenia Spectrum Disorder",
+      scale == "Psychotic Experiences" ~ "Schizophrenia Spectrum Disorder",
+      scale == "Social Detachment" ~ "Schizophrenia Spectrum Disorder",
+      scale == "Thought Disorder" ~ "Schizophrenia Spectrum Disorder",
+      scale == "Borderline Features" ~ "Borderline Personality Disorder",
+      scale == "Affective Instability" ~ "Borderline Personality Disorder",
+      scale == "Identity Problems" ~ "Borderline Personality Disorder",
+      scale == "Negative Relationships" ~ "Borderline Personality Disorder",
+      scale == "Self-Harm" ~ "Borderline Personality Disorder",
+      scale == "Antisocial Features" ~ "Antisocial Personality Disorder",
+      scale == "Antisocial Behaviors" ~ "Antisocial Personality Disorder",
+      scale == "Egocentricity" ~ "Antisocial Personality Disorder",
+      scale == "Stimulus-Seeking" ~ "Antisocial Personality Disorder",
+      scale == "Aggression" ~ "Aggression",
+      scale == "Aggressive Attitude" ~ "Aggression",
+      scale == "Verbal Aggression" ~ "Aggression",
+      scale == "Physical Aggression" ~ "Aggression",
+      scale == "Alcohol Problems" ~ "Substance Use Disorder",
+      scale == "Drug Problems" ~ "Substance Use Disorder",
+      scale == "Suicidal Ideation" ~ "Depression",
+      scale == "Stress" ~ "Social Environment",
+      scale == "Nonsupport" ~ "Social Environment",
+      scale == "Treatment Rejection" ~ "Treatment Considerations",
+      scale == "Dominance" ~ "Interpersonal",
+      scale == "Warmth" ~ "Interpersonal",
+      TRUE ~ as.character(narrow)
+    )
+  )
+```
+
+### Scale descriptions
+
+```{r description}
+table <-
+  table |>
+  mutate(
+    description = case_when(
+      scale == "Somatic Complaints" ~ "degree of concern about physical functioning and health matters and the extent of perceived impairment arising from somatic symptoms",
+      scale == "Conversion" ~ "moderate elevations may be seen in neurological disorders with CNS impairment involving sensorimotor problems, MS, CVA/stroke, or neuropsychological associated with chronic alcoholism",
+      scale == "Somatization" ~ "high scores describe general lethargy and malaise, and the presentation is one of complaintiveness and dissatisfaction",
+      scale == "Health Concerns" ~ "elevations indicate a poor health may be a major component of the self-image, with the person accustomed to being in the patient role",
+      scale == "Anxiety" ~ "reflecting a generalized impairment associated with anxiety",
+      scale == "Cognitive (A)" ~ "elevations indicate worry and concern about current (often uncontrollable) issues that compromise the person's ability to concentrate and attend",
+      scale == "Affective (A)" ~ "high scores experience a great deal of tension, have difficulty with relaxing and tend to be easily fatigued as a result of high-perceived stress",
+      scale == "Physiological (A)" ~ "high scores my not psychologically experience themselves as anxious but show physiological signs that mos people associate with anxiety. This reflects a repressive style of dealing with stress. When this scale is elevated, other somatic symptoms are often observed",
+      scale == "Anxiety-Related Disorders" ~ "reflecting multiple anxiety-disorder diagnoses and broad impairment associated with anxiety",
+      scale == "Obsessive-Compulsive" ~ "scores marked rigidity and significant ruminative concerns; obsessional defenses are probably finding to control marked anxiety and intrusive thoughts are likely to be present",
+      scale == "Phobias" ~ "indicate impairing phobic behaviors, with avoidance of the feared object or situation",
+      scale == "Traumatic Stress" ~ "indicate that the trauma (single or multiple) is the overriding focus of the person's life, and (ref:he-she) views themself as having been severely damages, perhaps irreparably, by having experienced it",
+      scale == "Depression" ~ "person feels hopeless, discouraged and useless",
+      scale == "Cognitive (D)" ~ "a higher scorer is likely to report feeling hopeless and as having failed at most important life tasks; he tends to globally attribute negative events in his life to his own incompetence or inadequacy, whereas any positive events are minimized or attributed to some external source",
+      scale == "Affective (D)" ~ "elevations suggest sadness, a loss of interest in normal activities and a loss if one's sense of pleasure in things that were previously enjoyed. This scale is probably one of the most direct measures of overall life satisfaction on the PAI. Moderate elevations can be considered a positive prognostic indicator cause it reflects significant dissatisfaction with current circumstances and such distress can serve as a motivator for change.",
+      scale == "Physiological (D)" ~ "Elevations suggest a change in level of physical functioning, typically with a disturbance in sleep pattern, a decrease in energy and level of sexual interest and a loss of appetite and/or weight loss; motor slowing also may be present",
+      scale == "Mania" ~ "scores are associated with disorders such as mania, hypomania, or cyclothymia; individuals take on more than they can handle and react with frustration and anger to suggestions of reducing activity levels",
+      scale == "Activity Level" ~ "this activity level renders the person confused and difficult to understand; scores in this range are unusual because such people have difficulty focusing their attention for the time required to complete lengthier self-report questionnaires",
+      scale == "Grandiosity" ~ "person may have little capacity to recognize personal limitations, to the point where one is not able to think clearly about one's capabilities; beliefs may border on delusional in terms of having special and unique talents that will lead to fame and fortune; others may view person as self-centered and narcissistic",
+      scale == "Irritability" ~ "person is very volatile in response to frustration and his judgment in such situations may be poor; quality of mood state can change very rapidly, and he is prone to lash out at others who he views as the source of his frustration.",
+      scale == "Paranoia" ~ "individuals are likely to be overtly suspicious and hostile; tend to be distrustful of close interpersonal relationships and probably have few close friends",
+      scale == "Hypervigilance" ~ "suggest a person who is pragmatic and skeptical in relationships; person may be difficult to know well and keep causal acquaintance at arms length",
+      scale == "Persecution" ~ "suggest an individual who is quick to feel that they are being treated inequitably and easily believes that there is concerted effort among others to undermine their best interests",
+      scale == "Resentment" ~ "increasing tendency to attribute any misfortunes to the neglect of others and to discredit the successes of others as being the result of luck or favoritism",
+      scale == "Schizophrenia" ~ "associated with an active schizophrenic episode; individual is confused, withdrawn and suspicious; person has poor judgment and poor reality testing",
+      scale == "Psychotic Experiences" ~ "person may strike others as peculiar and eccentric; scores indicate the experience of unusual perceptual or sensory events and/or unusual ideas that may involve delusional beliefs",
+      scale == "Social Detachment" ~ "reflects a person who neither desires nor enjoys the meaning to personal relationships; social isolation and detachment may serve o decrease the sense of discomfort that interpersonal contact fosters; lack of interest in others is mirrored in a lack of self-interest",
+      scale == "Thought Disorder" ~ "suggest problems in concentration and decision-making",
+      scale == "Borderline Features" ~ "behaviors typically associated with borderline personality disorder, e.g., individuals are invariably hostile and feel angry and betrayed by the people around them; they often report being very depressed and anxious in response to their circumstances",
+      scale == "Affective Instability" ~ "a propensity to experience a particular negative affect (anxiety, depression, or anger is the typical response)",
+      scale == "Identity Problems" ~ "suggest uncertainty about major life issues and difficulties in developing and maintaining a sense of purpose",
+      scale == "Negative Relationships" ~ "person is likely to be bitter and resentful about the way past relationships have gone, feeling betrayed by the people who were once closest to him and preoccupied with fears of abandonment or rejection by those currently important to him",
+      scale == "Self-Harm" ~ "reflect levels of impulsivity and recklessness that become more hazardous as scores rise; individuals are impulsive in areas that have high potential for negative consequences",
+      scale == "Antisocial Features" ~ "individuals are likely to be impulsive and hostile, perhaps with a history of reckless and/or antisocial acts; others may seen them as callous in their relationships, and long-lasting friendships tend to be the exception rather than the rule",
+      scale == "Antisocial Behaviors" ~ "scores suggest a history of difficulties with authority and with social convention; A pattern of antisocial behavior was probably first evident in adolescence, and it is likely that this pattern has continued into adulthood",
+      scale == "Egocentricity" ~ "suggest a person who tends to be self-centered and pragmatic in interaction with others; person feels relatively little social anxiety or guilt and he may be effective in superficial social contacts",
+      scale == "Stimulus-Seeking" ~ "patient is likely to manifest behavior that is reckless and potentially dangerous to himself and/or those around him; He craves novelty and stimulation, is easily bored by routine and convention, and he may act impulsively in an effort to stir up excitement. His desire for new experiences may lead to periods of nomadic wandering and make any long-term commitment unlikely; he tends to be less anxious than most people, even when he ends up in situations where some anxiety would be expected",
+      scale == "Aggression" ~ "scores are indicative of an individual who may be seen as impatient, irritable, and quick-tempered; Individuals who score toward the upper end of this range may be increasingly angry and easily provoked by the actions of others around them",
+      scale == "Aggressive Attitude" ~ "suggest an individual who is easily angered and frustrated; others may perceive him as hostile and readily provoked",
+      scale == "Verbal Aggression" ~ "reflects a person who is assertive and not intimidated by confrontation and, toward the upper end of this range, he may be verbally aggressive",
+      scale == "Physical Aggression" ~ "suggest that losses of temper are more common and that the person is prone to more physical displays of anger, perhaps breaking objects or engaging in physical confrontations;",
+      scale == "Alcohol Problems" ~ "are indicative of an individual who may drink regularly and may have experienced some adverse consequences as a result",
+      scale == "Drug Problems" ~ "scores are indicative of a person who may use drugs on a fairly regular basis and may have experienced some adverse consequences as a result; toward the upper end of this range, there is an increasing likelihood that drug use has caused or is causing problems for the person",
+      scale == "Suicidal Ideation" ~ "scores are typically of an individual who is seen in clinical settings; they suggest a person who entertains periodic and transient thoughts about suicide and is pessimistic and unhappy about prospects for the future; Scores merit some follow-up evaluations",
+      scale == "Stress" ~ "individuals may be experiencing a moderate degree of stress as a result of difficulties in some major life area",
+      scale == "Nonsupport" ~ "The social relationships are perceived as offering little support - family relationships may be either distant or combative, whereas friends are generally seen as unavailable or not helpful when needed",
+      scale == "Treatment Rejection" ~ "average scores suggest a person who acknowledges major difficulties in their functioning, and perceives an acute need for help in dealing with these problems",
+      scale == "Dominance" ~ "average scores reflect an individual who is likely to be able to adapt to different interpersonal situations, by being able to both take and relinquish control in these relationships as needed",
+      scale == "Warmth" ~ "average scores reflect an individual who is likely to be able to adapt to different interpersonal situations, by being able to tolerate close attachment but also capable of maintaining some distance in relationships as needed",
+      TRUE ~ as.character(description)
+    )
+  )
+```
+
+### Slice
+
+```{r slice}
+#slice.pai <- c(1:43)
+slice.pai <- c(1:49)
+table <- table |> dplyr::slice(slice.pai)
+```
+
+## Finalize and save
+
+### relocate variables
+
+```{r relocate}
+pai <- table |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+```
+
+## write out final csv
+
+```{r writeout}
+readr::write_csv(pai, here::here(patient, "csv", "pai.csv"), col_names = TRUE, na = "")
+```
+
+### cleanup
+
+```{r cleanup}
+rm(table)
+```

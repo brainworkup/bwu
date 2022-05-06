@@ -22,9 +22,9 @@ params:
     label: "No file selected"
     value: file
     input: file
-  pages: [17,18]
+  pages: [16]
   table1:
-    label: "Table 1"
+    label: "Table 1 Core Composite Score Summary"
     value: Total Achievement
     input: select
     multiple: yes
@@ -47,8 +47,8 @@ params:
       - Math Problem Solving
       - Numerical Operations
   table2:
-    label: "Table 2"
-    value: Similarities
+    label: "Table 2 Supplemental Composite Score Summary"
+    value: ""
     input: select
     multiple: yes
     choices:
@@ -59,18 +59,18 @@ params:
       - Decoding
       - Pseudoword Decoding
       - Word Reading
+      - Reading Fluency
+      - Oral Reading Fluency
+      - Orthographic Fluency
       - Phonological Processing
       - Pseudoword Decoding
       - Phonemic Proficiency
-      - Orthographic Processing
-      - Orthographic Fluency
-      - Spelling
       - Dyslexia Index
       - Word Reading
       - Pseudoword Decoding
       - Orthographic Fluency
-      - Reading Fluency
-      - Oral Reading Fluency
+      - Orthographic Processing
+      - Spelling
       - Decoding Fluency
       - Orthographic Processing Extended
       - Orthographic Choice
@@ -166,7 +166,7 @@ library(tidyr)
 library(vroom)
 ```
 
-## Patient 
+## Patient
 
 ```{r patient}
 patient <- params$patient
@@ -209,6 +209,9 @@ file <- readLines(here::here(patient, "pre_csv", "wiat4_pdf"))
 # area <- list(
 #   c(143, 32, 335, 580)
 # )
+area <- list(
+  c(141, 32, 327, 580)
+)
 ```
 
 ```{r areas-get, eval=F}
@@ -226,17 +229,15 @@ saveRDS(area, file = here::here(patient, "pre_csv", "area_wiat4.rds"), compress 
 ```
 
 ```{r r-area}
-area <- readRDS(here::here(patient, "pre_csv", "area_wiat4.rds"))
+#area <- readRDS(here::here(patient, "pre_csv", "area_wiat4.rds"))
 ```
 
 ## Extract tables
 
-Change pages per patient.
-
 ```{r extract-table-pdf}
 plucked_table <- bwu::gpluck_extract_table(
   file = file,
-  pages = pages,
+  pages = c(16),
   area = area,
   guess = NULL,
   method = "lattice",
@@ -248,10 +249,10 @@ plucked_table <- bwu::gpluck_extract_table(
 
 ## Pluck and tidy tables
 
-```{r pluck1}
+```{r pluck1, eval=F}
 table1 <- as_tibble(plucked_table[[1]])
 table1 <- dplyr::mutate(table1, raw_score = NA_integer_, .before = V2)
-colnames(table1) <- colnames1
+colnames(table1) <- params$colnames1
 table1$scale <- NA
 table1 <- dplyr::na_if(table1, "")
 table1 <- dplyr::na_if(table1, "NA")
@@ -267,12 +268,12 @@ table1 <-
   dplyr::relocate(scale, .before = raw_score)
 ```
 
-## Change scale names
 ## Scale names
 
-```{r rownames1}
+```{r rownames1, eval=F}
 table1$scale <- params$table1
 ```
+
 ```{r names1}
 # table1[1, 1] <- c("Total Achievement")
 # table1[2, 1] <- c("Word Reading")
@@ -293,12 +294,12 @@ table1$scale <- params$table1
 # table1[17, 1] <- c("Numerical Operations")
 ```
 
-### Table 2
+# Table 2
 
-```{r table2}
-table2 <- as_tibble(plucked_table[[2]])
+```{r pluck2}
+table2 <- as_tibble(plucked_table[[1]]) # usually 2
 table2 <- dplyr::mutate(table2, raw_score = NA_integer_, .before = V2)
-colnames(table2) <- colnames2
+colnames(table2) <- params$colnames2
 table2 <- dplyr::na_if(table2, "")
 table2 <- dplyr::na_if(table2, "NA")
 table2 <- dplyr::na_if(table2, "-")
@@ -378,8 +379,6 @@ table <- bwu::gpluck_make_columns(
   description = ""
 )
 ```
-
-
 
 ## Subdomain
 
