@@ -88,11 +88,11 @@ pages <- params$pages
 ```
 
 ```{r save-file}
-readr::write_lines(file, here::here(patient, "pre_csv", paste0(test, ".pdf")))
+writeLines(file, here::here(patient, "pre_csv", paste0(test, ".pdf")))
 ```
 
 ```{r read-file, eval=FALSE}
-#test <- readr::read_lines(here::here(patient, "pre_csv", "caars_or_pdf"))
+#test <- readLines(here::here(patient, "pre_csv", "caars_or_pdf"))
 ```
 
 ## Locate areas
@@ -112,11 +112,11 @@ area <- list(
 ```
 
 ```{r save-areas, eval=FALSE}
-#readr::write_rds(area, here::here(patient, "pre_csv", test, "_area.rds"))
+saveRDS(area, here::here(patient, "pre_csv", test, "_area.rds"))
 ```
 
 ```{r read-areas}
-#area <- readr::read_rds(here::here(patient, "pre_csv", test, "_area.rds"))
+#area <- readRDS(here::here(patient, "pre_csv", test, "_area.rds"))
 ```
 
 ## Extract table

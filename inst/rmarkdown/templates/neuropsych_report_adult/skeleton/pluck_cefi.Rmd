@@ -88,11 +88,11 @@ pages <- params$pages
 ```
 
 ```{r save-file}
-readr::write_lines(file, here::here(patient, "pre_csv", paste0(test, ".pdf")))
+writeLines(file, here::here(patient, "pre_csv", paste0(test, ".pdf")))
 ```
 
 ```{r read-file, eval=FALSE}
-#test <- readr::read_lines(here::here(patient, "pre_csv", paste0(test, ".pdf")))
+#test <- readLines(here::here(patient, "pre_csv", paste0(test, ".pdf")))
 ```
 
 ## Locate areas
@@ -109,6 +109,14 @@ area <- list(
 #   file = cefi_sr_pdf,
 #   pages = pages
 # )
+```
+
+```{r save-areas, eval=FALSE}
+saveRDS(area, here::here(patient, "pre_csv", test, "_area.rds"))
+```
+TODO check these
+```{r read-areas}
+#area <- readRDS(here::here(patient, "pre_csv", test, "_area.rds"))
 ```
 
 ## Extract table
