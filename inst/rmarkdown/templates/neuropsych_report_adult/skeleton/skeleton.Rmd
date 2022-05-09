@@ -746,9 +746,9 @@ neurobehav <-
 ```
 
 ```{r, write-data}
-vroom::vroom_write(neuropsych, here::here(patient, "neuropsych.csv"))
-vroom::vroom_write(neurocog, here::here(patient, "neurocog.csv"))
-vroom::vroom_write(neurobehav, here::here(patient, "neurobehav.csv"))
+vroom::vroom_write(neuropsych, here::here(patient, "neuropsych.csv"), delim = ",")
+vroom::vroom_write(neurocog, here::here(patient, "neurocog.csv"), delim = ",")
+vroom::vroom_write(neurobehav, here::here(patient, "neurobehav.csv"), delim = ",")
 ```
 
 ```{r, read-data}
