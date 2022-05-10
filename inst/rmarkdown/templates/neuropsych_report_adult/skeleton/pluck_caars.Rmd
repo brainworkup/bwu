@@ -87,12 +87,12 @@ file <- params$file
 pages <- params$pages
 ```
 
-```{r save-file}
+```{r write-file}
 writeLines(file, here::here(patient, "pre_csv", paste0(test, ".pdf")))
 ```
 
-```{r read-file, eval=FALSE}
-#test <- readLines(here::here(patient, "pre_csv", "caars_or_pdf"))
+```{r read-file}
+#test <- readLines(here::here(patient, "pre_csv", paste0(test, ".pdf")))
 ```
 
 ## Locate areas
@@ -111,12 +111,12 @@ area <- list(
 # )
 ```
 
-```{r save-areas, eval=FALSE}
-saveRDS(area, here::here(patient, "pre_csv", test, "_area.rds"))
+```{r save-area}
+saveRDS(area, here::here(patient, "pre_csv", paste0(test, "_area.rds")))
 ```
 
-```{r read-areas}
-#area <- readRDS(here::here(patient, "pre_csv", test, "_area.rds"))
+```{r read-area}
+#area <- readRDS(here::here(patient, "pre_csv", paste0(test, "_area.rds")))
 ```
 
 ## Extract table
@@ -223,18 +223,18 @@ table <- bwu::gpluck_make_columns(
   pass = "",
   verbal = "",
   timed = "",
-  test_type = "rating_scale2",
+  test_type = "rating_scale",
   score_type = "t_score",
   description = ""
 )
 ```
 
-### cleanup interim
+## Create percentile
 
 ```{r percentile}
 table <- table %>%
   dplyr::mutate(z = (score - 50) / 10) %>%
-  dplyr::mutate(percentile = round(stats::pnorm(z) * 100, 1L)) %>% 
+  dplyr::mutate(percentile = trunc(pnorm(z) * 100)) %>% 
   dplyr::select(-z)
 # caars_sr[1, 4] <- 99
 ```
@@ -242,7 +242,7 @@ table <- table %>%
 ## Test score ranges
 
 ```{r ranges}
-table <- bwu::gpluck_make_score_ranges(table = table, test_type = "rating_scale2")
+table <- bwu::gpluck_make_score_ranges(table = table, test_type = "npsych_test")
 ```
 
 ## Domain
@@ -360,10 +360,4 @@ table <- table |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95),
 
 ```{r write}
 readr::write_csv(table, here::here(patient, "csv", paste0(test, ".csv")), col_names = TRUE, na = "")
-```
-
-## Cleanup
-
-```{r cleanup}
-#rm(table, area, table1, table2, table3)
 ```

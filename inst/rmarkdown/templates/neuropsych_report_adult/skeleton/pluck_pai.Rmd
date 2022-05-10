@@ -1,5 +1,5 @@
 ---
-title: "Import tables from Personality Assessment Inventory (PAI) csv"
+title: "Import csv from Personality Assessment Inventory (PAI)"
 params:
   patient: "Biggie"
   test: pai
@@ -47,15 +47,15 @@ patient <- params$patient
 ## Export PAI CSV file from PARiConnect
 
 Need to export csv file from PARiConnect before processing.
-"Export Client Data" tab, then click "Univ of Sou Ca" then "PAI".
+"Export Client Data" tab, then click "Univ of Southern Cali" then "PAI".
 Specify date range to exclude entire database.
 
 ## Import PAI CSV file from PARiConnect
 
 Copy over to pre_csv.
 
-```{r pai-csv}
-plucked_table <- readr::read_csv(here::here(patient, "pre_csv", "pariconnectexportPAI.csv"), show_col_types = FALSE)
+```{r pluck}
+plucked_table <- vroom::vroom(here::here(patient, "pre_csv", "pariconnectexportPAI.csv"), delim = ",", col_name = TRUE)
 ```
 
 ## PAI Index and Subscale Scores
@@ -74,7 +74,7 @@ table <- plucked_table %>%
 ```{r t2z2p}
 table <- table %>%
   dplyr::mutate(z = (score - 50) / 10) %>%
-  dplyr::mutate(percentile = round(pnorm(z) * 100, 1L)) %>%
+  dplyr::mutate(percentile = trunc(pnorm(z) * 100)) %>%
   dplyr::select(scale, score, percentile)
 ```
 
@@ -165,15 +165,15 @@ table <- dplyr::mutate(
   raw_score = "",
   range = "",
   ci_95 = "",
-  test = "pai",
-  test_name = "PAI",
+  test = params$test,
+  test_name = params$test_name,
   domain = "Behavioral/Emotional/Social",
   subdomain = "",
   narrow = "",
   pass = "",
   verbal = "",
   timed = "",
-  test_type = "rating_scale2",
+  test_type = "rating_scale",
   score_type = "t_score",
   description = ""
 )
@@ -182,7 +182,7 @@ table <- dplyr::mutate(
 ## Rating Scale score ranges
 
 ```{r ranges}
-table <- bwu::gpluck_make_score_ranges(table = table, test_type = "rating_scale2")
+table <- bwu::gpluck_make_score_ranges(table = table, test_type = "npsych_test")
 ```
 
 ### Subdomains
@@ -325,7 +325,7 @@ table <-
       scale == "Anxiety-Related Disorders" ~ "reflecting multiple anxiety-disorder diagnoses and broad impairment associated with anxiety",
       scale == "Obsessive-Compulsive" ~ "scores marked rigidity and significant ruminative concerns; obsessional defenses are probably finding to control marked anxiety and intrusive thoughts are likely to be present",
       scale == "Phobias" ~ "indicate impairing phobic behaviors, with avoidance of the feared object or situation",
-      scale == "Traumatic Stress" ~ "indicate that the trauma (single or multiple) is the overriding focus of the person's life, and (ref:he-she) views themself as having been severely damages, perhaps irreparably, by having experienced it",
+      scale == "Traumatic Stress" ~ "indicate that the trauma (single or multiple) is the overriding focus of the person's life, and views themself as having been severely damages, perhaps irreparably, by having experienced it",
       scale == "Depression" ~ "person feels hopeless, discouraged and useless",
       scale == "Cognitive (D)" ~ "a higher scorer is likely to report feeling hopeless and as having failed at most important life tasks; he tends to globally attribute negative events in his life to his own incompetence or inadequacy, whereas any positive events are minimized or attributed to some external source",
       scale == "Affective (D)" ~ "elevations suggest sadness, a loss of interest in normal activities and a loss if one's sense of pleasure in things that were previously enjoyed. This scale is probably one of the most direct measures of overall life satisfaction on the PAI. Moderate elevations can be considered a positive prognostic indicator cause it reflects significant dissatisfaction with current circumstances and such distress can serve as a motivator for change.",

@@ -267,7 +267,8 @@ knitr::opts_chunk$set(
 )
 knitr::opts_knit$set(width = 50)
 options(digits = 1, warnPartialMatchArgs = FALSE)
-options(knitr.kable.NA = "--", show_col_types = FALSE)
+options(knitr.kable.NA = "--")
+options(readr.show_col_types = FALSE)
 ```
 
 ```{r}
@@ -559,7 +560,6 @@ knitr::knit_engines$set(marginfigure = function(options) {
 (ref:doe) `r params$doe1`, `r params$doe2`, and `r params$doe3`
 
 ```{marginfigure, echo=TRUE}
-**Name:** (ref:patient)\
 **MRN:** (ref:mrn)\
 **DOB:** (ref:dob)\
 **Age:** (ref:age)\
@@ -570,7 +570,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 ```
 
 ```{r nse, results='asis'}
-cat(readLines("1_nse-2.md"), sep = "\n")
+cat(readLines("2_nse.md"), sep = "\n")
 ```
 
 \newpage
@@ -749,12 +749,6 @@ neurobehav <-
 vroom::vroom_write(neuropsych, here::here(patient, "neuropsych.csv"), delim = ",")
 vroom::vroom_write(neurocog, here::here(patient, "neurocog.csv"), delim = ",")
 vroom::vroom_write(neurobehav, here::here(patient, "neurobehav.csv"), delim = ",")
-```
-
-```{r, read-data}
-neuropsych <- vroom::vroom(here::here(patient, "neuropsych.csv"))
-neurocog <- vroom::vroom(here::here(patient, "neurocog.csv"))
-neurobehav <- vroom::vroom(here::here(patient, "neurobehav.csv"))
 ```
 
 ### Intelligence/General Ability

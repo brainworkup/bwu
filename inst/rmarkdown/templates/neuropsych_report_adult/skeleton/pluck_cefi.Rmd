@@ -87,11 +87,11 @@ file <- params$file
 pages <- params$pages
 ```
 
-```{r save-file}
+```{r write-file}
 writeLines(file, here::here(patient, "pre_csv", paste0(test, ".pdf")))
 ```
 
-```{r read-file, eval=FALSE}
+```{r read-file}
 #test <- readLines(here::here(patient, "pre_csv", paste0(test, ".pdf")))
 ```
 
@@ -111,12 +111,12 @@ area <- list(
 # )
 ```
 
-```{r save-areas, eval=FALSE}
-saveRDS(area, here::here(patient, "pre_csv", test, "_area.rds"))
+```{r save-area}
+saveRDS(area, here::here(patient, "pre_csv", paste0(test, "_area.rds")))
 ```
-TODO check these
-```{r read-areas}
-#area <- readRDS(here::here(patient, "pre_csv", test, "_area.rds"))
+
+```{r read-area}
+#area <- readRDS(here::here(patient, "pre_csv", paste0(test, "_area.rds")))
 ```
 
 ## Extract table
@@ -157,7 +157,7 @@ colnames2 <- c(
 
 # CEFI Full Scale
 
-```{r tbl1}
+```{r pluck1}
 table1 <- tibble::as_tibble(plucked_table[[1]])
 colnames(table1) <- colnames1
 table1 <- dplyr::na_if(table1, "")
@@ -177,7 +177,7 @@ table1[1, 1] <- c("Full Scale")
 
 # CEFI Subscales
 
-```{r tb2}
+```{r pluck2}
 table2 <- as_tibble(plucked_table[[2]])
 colnames(table2) <- colnames2
 table2 <- dplyr::na_if(table2, "")
@@ -317,10 +317,4 @@ table <- table |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95),
 
 ```{r write}
 readr::write_csv(table, here::here(patient, "csv", paste0(test, ".csv")), col_names = TRUE, na = "")
-```
-
-### Cleanup
-
-```{r cleanup}
-rm(table, area, table1, table2)
 ```
