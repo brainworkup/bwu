@@ -11,7 +11,6 @@ make_tibble(
   domain = NULL,
   columns = c("scale", "score", "percentile", "range", "subdomain", "test_name"),
   percentile = NULL,
-  digits = 0,
   names = c("Scale", "Score", "‰ Rank", "Range", "Subdomain", "Test"),
   ...
 )
@@ -28,8 +27,6 @@ make_tibble(
 \item{columns}{Columns to keep}
 
 \item{percentile}{Percentile score}
-
-\item{digits}{How many digits to round}
 
 \item{names}{Names of variables/columns}
 
