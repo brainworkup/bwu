@@ -8,7 +8,6 @@
 #' @param domain Which cognitive domain
 #' @param columns Columns to keep
 #' @param percentile Percentile score
-#' @param digits How many digits to round
 #' @param names Names of variables/columns
 #' @param ... Additional arguments
 #'
@@ -29,7 +28,6 @@ make_tibble <- function(tibb,
                                     "subdomain",
                                     "test_name"),
                         percentile = NULL,
-                        digits = 0,
                         names = c("Scale",
                                   "Score",
                                   "\u2030 Rank",
@@ -41,6 +39,6 @@ make_tibble <- function(tibb,
     data %>%
     dplyr::filter(domain == pheno) %>%
     dplyr::select(tidyselect::all_of(columns)) %>%
-    dplyr::mutate(percentile = round(percentile, digits)) %>%
+    dplyr::mutate(percentile = trunc(percentile)) %>%
     purrr::set_names(names)
 }
