@@ -437,10 +437,10 @@ table1 <-
   table1 |>
   dplyr::mutate(
     description = dplyr::case_when(
-      scale == "Verbal Comprehension (VCI)" ~ "The VCI provides an estimate of Crystallized Intelligence (Gc). Gc refers to an individual’s knowledge base (or general fund of information) that develops as a result of exposure to language, culture, general life experiences, and formal schooling.",
+      scale == "Verbal Comprehension (VCI)" ~ "The VCI provides an estimate of Crystallized Intelligence (Gc). Gc refers to an individual's knowledge base (or general fund of information) that develops as a result of exposure to language, culture, general life experiences, and formal schooling.",
       scale == "Perceptual Reasoning (PRI)" ~ "The PRI provides an estimate of Fluid Reasoning (Gf). Gf refers to a type of thinking that an individual may use when faced with a relatively new or novel task that cannot be performed automatically.",
       scale == "Working Memory (WMI)" ~ "The WMI provides an estimate of Short-term Working Memory (Gsm). Gsm refers to the ability to hold information in immediate awareness and then manipulate or transform it in some way within a few seconds.",
-      scale == "Processing Speed (PSI)" ~ "The PSI provides an estimate of Processing Speed (Gs). Gs refers to the efficiency of cognitive processing or speed of mental activity. It involves the ability to perform simple clerical-type tasks quickly, especially when under pressure to maintain attention and concentration. The PSI of {{ score }} ({{ ci_95 }}) is classified as {{ range }} and is ranked at the {{ percentile }}th percentile, indicating performance as good as or better than {{ percentile }}% of same age peers from the general population.",
+      scale == "Processing Speed (PSI)" ~ "The PSI provides an estimate of Processing Speed (Gs). Gs refers to the efficiency of cognitive processing or speed of mental activity. It involves the ability to perform simple clerical-type tasks quickly, especially when under pressure to maintain attention and concentration.",
       scale == "Full Scale IQ (FSIQ)" ~ "general level of intellectual functioning",
       scale == "General Ability (GAI)" ~ "a subset of intellectual functioning with reduced influences of working memory and processing speed",
       TRUE ~ as.character(description)

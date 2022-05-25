@@ -371,14 +371,13 @@ table <-
 ### Slice
 
 ```{r slice}
-#slice.pai <- c(1:43)
 slice.pai <- c(1:49)
 table <- table |> dplyr::slice(slice.pai)
 ```
 
-## Finalize and save
+# Finalize and save
 
-### relocate variables
+## relocate variables
 
 ```{r relocate}
 pai <- table |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
@@ -388,10 +387,4 @@ pai <- table |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .
 
 ```{r writeout}
 readr::write_csv(pai, here::here(patient, "csv", "pai.csv"), col_names = TRUE, na = "")
-```
-
-### cleanup
-
-```{r cleanup}
-rm(table)
 ```
