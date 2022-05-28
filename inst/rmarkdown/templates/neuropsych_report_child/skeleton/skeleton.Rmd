@@ -666,10 +666,11 @@ neuropsych <-
   files %>%
   purrr::set_names() %>%
   purrr::map_df(
-    ~ vroom::vroom(file.path(data_path, .), show_col_types = FALSE),
+    ~ readr::read_csv(file.path(data_path, .), show_col_types = FALSE),
     na = c("", "NA", "--", "-"),
     .id = "filename"
   ) %>%
+  dplyr::filter(!is.na(percentile)) %>%
   dplyr::distinct() %>%
   dplyr::mutate(z = qnorm(percentile / 100)) %>%
   dplyr::mutate(domain = forcats::as_factor(domain)) %>%
@@ -691,10 +692,8 @@ neurocog <-
   dplyr::group_by(domain, .add = TRUE) %>%
   dplyr::filter(!is.na(percentile)) %>%
   dplyr::mutate(z_mean_dom = mean(z), z_sd_dom = sd(z)) %>%
-  dplyr::mutate(
-    pct_mean_dom = mean(percentile),
-    pct_sd_dom = sd(percentile)
-  ) %>%
+  dplyr::mutate(pct_mean_dom = mean(percentile),
+                pct_sd_dom = sd(percentile)) %>%
   dplyr::ungroup()
 # subdomain
 neurocog <-
@@ -702,10 +701,8 @@ neurocog <-
   dplyr::group_by(subdomain, .add = TRUE) %>%
   dplyr::filter(!is.na(percentile)) %>%
   dplyr::mutate(z_mean_sub = mean(z), z_sd_sub = sd(z)) %>%
-  dplyr::mutate(
-    pct_mean_sub = mean(percentile),
-    pct_sd_sub = sd(percentile)
-  ) %>%
+  dplyr::mutate(pct_mean_sub = mean(percentile),
+                pct_sd_sub = sd(percentile)) %>%
   dplyr::ungroup()
 # narrow
 neurocog <-
@@ -713,10 +710,8 @@ neurocog <-
   dplyr::group_by(narrow, .add = TRUE) %>%
   dplyr::filter(!is.na(percentile)) %>%
   dplyr::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) %>%
-  dplyr::mutate(
-    pct_mean_narrow = mean(percentile),
-    pct_sd_narrow = sd(percentile)
-  ) %>%
+  dplyr::mutate(pct_mean_narrow = mean(percentile),
+                pct_sd_narrow = sd(percentile)) %>%
   dplyr::ungroup()
 # pass
 neurocog <-
@@ -744,7 +739,7 @@ neurocog <-
   neurocog %>%
   dplyr::mutate(
     result = glue::glue(
-      "{patient}'s {description} are in the {range} range and above those of approximately {percentile}% of {pronoun} peers."
+      "{patient}'s ability to {description} as measured by the {scale} subtest was {range} relative to same-age peers."
     )
   )
 ```
@@ -760,10 +755,8 @@ neurobehav <-
   dplyr::group_by(domain, .add = TRUE) %>%
   dplyr::filter(!is.na(score)) %>%
   dplyr::mutate(z_mean_dom = mean(z), z_sd_dom = sd(z)) %>%
-  dplyr::mutate(
-    pct_mean_dom = mean(percentile),
-    pct_sd_dom = sd(percentile)
-  ) %>%
+  dplyr::mutate(pct_mean_dom = mean(percentile),
+                pct_sd_dom = sd(percentile)) %>%
   dplyr::ungroup()
 # subdomain
 neurobehav <-
@@ -771,10 +764,8 @@ neurobehav <-
   dplyr::group_by(subdomain, .add = TRUE) %>%
   dplyr::filter(!is.na(score)) %>%
   dplyr::mutate(z_mean_sub = mean(z), z_sd_sub = sd(z)) %>%
-  dplyr::mutate(
-    pct_mean_sub = mean(percentile),
-    pct_sd_sub = sd(percentile)
-  ) %>%
+  dplyr::mutate(pct_mean_sub = mean(percentile),
+                pct_sd_sub = sd(percentile)) %>%
   dplyr::ungroup()
 # narrow
 neurobehav <-
@@ -782,25 +773,29 @@ neurobehav <-
   dplyr::group_by(narrow, .add = TRUE) %>%
   dplyr::filter(!is.na(score)) %>%
   dplyr::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) %>%
-  dplyr::mutate(
-    pct_mean_narrow = mean(percentile),
-    pct_sd_narrow = sd(percentile)
-  ) %>%
+  dplyr::mutate(pct_mean_narrow = mean(percentile),
+                pct_sd_narrow = sd(percentile)) %>%
   dplyr::ungroup()
 # result text
 neurobehav <-
   neurobehav %>%
   dplyr::mutate(
     result = glue::glue(
-      "{patient}'s score on {scale} is in the {range} range, suggestive of difficulties with {description}."
+      "{patient}'s score on {scale} (i.e., {description}) was {range}."
     )
   )
 ```
 
 ```{r, write-data}
-vroom::vroom_write(neuropsych, here::here(patient, "neuropsych.csv"), delim = ",")
-vroom::vroom_write(neurocog, here::here(patient, "neurocog.csv"), delim = ",")
-vroom::vroom_write(neurobehav, here::here(patient, "neurobehav.csv"), delim = ",")
+readr::write_csv(neuropsych, here::here(patient, "neuropsych.csv"))
+readr::write_csv(neurocog, here::here(patient, "neurocog.csv"))
+readr::write_csv(neurobehav, here::here(patient, "neurobehav.csv"))
+```
+
+```{r, read-data}
+neuropsych <- readr::read_csv(here::here(patient, "neuropsych.csv"))
+neurocog <- readr::read_csv(here::here(patient, "neurocog.csv"))
+neurobehav <- readr::read_csv(here::here(patient, "neurobehav.csv"))
 ```
 
 ### Intelligence/General Ability

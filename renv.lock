@@ -669,10 +669,13 @@
     },
     "gt": {
       "Package": "gt",
-      "Version": "0.6.0",
+      "Version": "0.6.0.9000",
       "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "842059d3f71b14e812500b23eeea765e",
+      "Repository": "https://rstudio.r-universe.dev",
+      "RemoteUrl": "https://github.com/rstudio/gt",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "e4533eef997c7a33c2f0f35e166d8322cad7f89b",
+      "Hash": "45ebbc5539ac913b6c2e15d2da694795",
       "Requirements": [
         "base64enc",
         "bitops",
@@ -934,13 +937,13 @@
     },
     "knitr": {
       "Package": "knitr",
-      "Version": "1.39.2",
+      "Version": "1.39.3",
       "Source": "Repository",
       "Repository": "https://yihui.r-universe.dev",
       "RemoteUrl": "https://github.com/yihui/knitr",
       "RemoteRef": "HEAD",
-      "RemoteSha": "9860f1cfdf220b253bcb60bc2590dfe90e4eb683",
-      "Hash": "42a11898862eb62833d9386da235b678",
+      "RemoteSha": "907184f82489488ab8fd3619aa15b9822bf96067",
+      "Hash": "310690b94315d9e85f8e37ec02f988e3",
       "Requirements": [
         "evaluate",
         "highr",
@@ -1349,13 +1352,13 @@
     },
     "renv": {
       "Package": "renv",
-      "Version": "0.15.4-46",
+      "Version": "0.15.5-6",
       "Source": "Repository",
       "Repository": "https://rstudio.r-universe.dev",
       "RemoteUrl": "https://github.com/rstudio/renv",
       "RemoteRef": "HEAD",
-      "RemoteSha": "c6a6bc1234983fd459188d876b823a6d03d231cd",
-      "Hash": "2eeba8275591f38ac6146a5390374874",
+      "RemoteSha": "0b6a5a4a93105fd05c5f3c0d540c050debc4a9ca",
+      "Hash": "4653b08d66f5eb5250a0cdc8a7f448dc",
       "Requirements": []
     },
     "rex": {
@@ -1849,10 +1852,13 @@
     },
     "usethis": {
       "Package": "usethis",
-      "Version": "2.1.6",
+      "Version": "2.1.6.9000",
       "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "a67a22c201832b12c036cc059f1d137d",
+      "Repository": "https://r-lib.r-universe.dev",
+      "RemoteUrl": "https://github.com/r-lib/usethis",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "29062553a7d1ce3f0dcc73c24a3eb13c8600205b",
+      "Hash": "21493a84a5bddcf7a6e30489ec9a0bed",
       "Requirements": [
         "cli",
         "clipr",

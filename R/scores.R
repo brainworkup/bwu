@@ -18,7 +18,6 @@ pred <- function(x, y, r, m, ...) {
   z <- round(r * (x - m) + m, 0)
   diff <- z - y
   out <- paste(z, diff, sep = ", ")
-  
 }
 
 #' @title Compute confidence intervals (CI)
@@ -60,6 +59,3 @@ pct <- function(x, m, sd) {
   z <- (x - m) / sd
   percentile <- round(stats::pnorm(z) * 100, 0)
 }
-
-
-
