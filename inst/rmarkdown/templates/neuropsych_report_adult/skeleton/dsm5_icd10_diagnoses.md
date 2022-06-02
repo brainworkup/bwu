@@ -223,13 +223,13 @@
 
 - 313.89 (F94.1) Reactive Attachment Disorder
 - 313.89 (F94.2) Disinhibited Social Engagement Disorder
-- 309.81 (F43.10) Post-traumatic Stress Disorder
+- 309.81 (F43.10) Post-Traumatic Stress Disorder
 - 308.3 (F43.0) Acute Stress Disorder
-- 309.0 (F43.21) Adjustment Disorder, With depressed mood
-- 309.24 (F43.22) Adjustment Disorder, With anxiety
-- 309.28 (F43.23) Adjustment Disorder, With mixed anxiety and depressed mood
-- 309.3 (F43.24) Adjustment Disorder, With disturbance of conduct
-- 309.4 (F43.25) Adjustment Disorder, With mixed disturbance of emotions and conduct
+- 309.0 (F43.21) Adjustment Disorder, With Depressed Mood
+- 309.24 (F43.22) Adjustment Disorder, With Anxiety
+- 309.28 (F43.23) Adjustment Disorder, With Mixed Anxiety And Depressed Mood
+- 309.3 (F43.24) Adjustment Disorder, With Disturbance Of Conduct
+- 309.4 (F43.25) Adjustment Disorder, With Mixed Disturbance Of Emotions And Conduct
 - 309.9 (F43.20) Adjustment Disorder, Unspecified
 - 309.89 (F43.8) Other Specified Trauma- and Stressor-Related Disorder
 - 309.9 (F43.9) Unspecified Trauma- and Stressor-Related Disorder
