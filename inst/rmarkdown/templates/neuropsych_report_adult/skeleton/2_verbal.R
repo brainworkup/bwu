@@ -14,6 +14,8 @@ filter_domain <- c(
   "Oral Production",
   "Writing",
   "Bill Payment",
+  ## from EF
+  "Word Generation", 
   ## WAIS/WISC/WPPSI
   "Information",
   "Similarities",

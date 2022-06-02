@@ -21,7 +21,8 @@ filter_domain <- c(
   "Executive Functions Domain",
   "Mazes",
   "Categories",
-  "Word Generation",
+  # "Word Generation",
+  "Word Generation Perseverations",
   "Judgment",
   ## RBANS
   "Attention Index",
@@ -80,8 +81,8 @@ filter_domain <- c(
   "RCFT Copy",
   ## NIH EXAMINER
   "Unstructured Task",
-  "Letter Fluency",
-  "Category Fluency",
+  # "Letter Fluency",
+  # "Category Fluency",
   ## WMS-4 Working Memory
   "Spatial Addition",
   "Picture Span"
