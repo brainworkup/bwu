@@ -11,3 +11,9 @@
 - fixed emotion.R
 
 - changed data import back to readr
+
+## bwu 1.0.2.9000
+
+- added mmpi3
+
+- deleted/cleaned up extra knitr::readchunk code blocks
