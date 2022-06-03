@@ -1157,7 +1157,7 @@ bwu::dotplot(
 )
 ```
 
-(ref:timed) **Timed vs. Untimed Tests** (ref:first-name) performs more than a half of a standard deviation better on tasks that are untimed compared to tasks that require (ref:him-her) to respond both accurately and quickly.
+(ref:timed) **Timed vs. Untimed Tests** `r params$first_name` performs more than a half of a standard deviation better on tasks that are untimed compared to tasks that require `r params$him_her` to respond both accurately and quickly.
 
 ```{r timed-df}
 timed <-
