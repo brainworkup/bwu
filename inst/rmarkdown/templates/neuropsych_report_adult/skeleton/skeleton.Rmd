@@ -100,7 +100,6 @@ params:
     label: "Handedness:"
     value: Right
     input: radio
-    width: 800px
     choices:
       - Right
       - Left
@@ -145,7 +144,6 @@ params:
     label: "he/she Pronoun:"
     value: he
     input: radio
-    width: 800px
     choices:
       - he
       - she
@@ -153,7 +151,6 @@ params:
     label: "his/her Pronoun:"
     value: his
     input: radio
-    width: 800px
     choices:
       - his
       - her
@@ -161,7 +158,6 @@ params:
     label: "him/her Pronoun:"
     value: him
     input: radio
-    width: 800px
     choices:
       - him
       - her
@@ -169,7 +165,6 @@ params:
     label: "He/She Pronoun:"
     value: He
     input: radio
-    width: 800px
     choices:
       - He
       - She
@@ -177,7 +172,6 @@ params:
     label: "His/Her Pronoun:"
     value: His
     input: radio
-    width: 800px
     choices:
       - His
       - Her
@@ -185,7 +179,6 @@ params:
     label: "Him/Her Pronoun:"
     value: Him
     input: radio
-    width: 800px
     choices:
       - Him
       - Her
@@ -202,7 +195,6 @@ params:
     label: "Diagnosis/Disorder 2:"
     value: anxiety
     input: radio
-    width: 800px
     choices:
       - ADHD
       - anxiety
@@ -431,7 +423,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:zplot) *z* = -1 (16th percentile), *z* = 0 (50th percentile), and *z* = 1 (84th percentile)
 
-(ref:pct) A *percentile* shows `r params$first_name`'s standing relative to peers. For example, a percentile rank (PR) of 70 means `r params$first_name` performed as well as or better than 70% of individuals the same age.
+(ref:pct) A *percentile* shows `r params$first_name`'s standing relative to peers. For example, a percentile rank of 70 means `r params$first_name` performed as well as or better than 70% of individuals the same age.
 
 (ref:br) A *base rate* is the prevalence of score in the general population. If a score is rare, defined as a base rate of less than 10%, it is considered *clinically significant*, and that area of functioning is probably causing problems in daily life.
 
@@ -503,7 +495,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:efficiency) *Efficiency* reflects how long it takes to complete a task with the highest number of correct responses.
 
-(ref:psi) The Processing Speed Index (PSI) is primarily a measure of Processing Speed (Gs). Gs refers to the efficiency of cognitive processing or speed of mental activity. It involves the ability to perform simple clerical-type tasks quickly, especially when under pressure to maintain attention and concentration. The difference between the scores that comprise the PSI is statistically significant and a difference of this size occurs in less than 10% of the general population which means the difference is relatively uncommon. This means that although the composite is likely a psychometrically sound estimate of Processing Speed, it may not be a good clinical summary because it may obscure an important and meaningful difference within this domain, which often occurs when one score is below average and the other score(s) is at least average relative to most people. (ref:patient)'s Gs-PSI score of {{ score }} ({{ ci_95 }}) is classified as {{ range }} and is ranked at the {{ percentile }}rd percentile, indicating performance as good as or better than {{ percentile }}% of same age peers from the general population.
+(ref:psi) The Processing Speed Index (PSI) is primarily a measure of Processing Speed (Gs). Gs refers to the efficiency of cognitive processing or speed of mental activity. It involves the ability to perform simple clerical-type tasks quickly, especially when under pressure to maintain attention and concentration. The difference between the scores that comprise the PSI is statistically significant and a difference of this size occurs in less than 10% of the general population which means the difference is relatively uncommon. This means that although the composite is likely a psychometrically sound estimate of Processing Speed, it may not be a good clinical summary because it may obscure an important and meaningful difference within this domain, which often occurs when one score is below average and the other score(s) is at least average relative to most people. (ref:patient)'s Gs-PSI score of {{{ score }}} ({{{ ci_95 }}}) is classified as {{{ range }}} and is ranked at the {{{ percentile }}}rd percentile, indicating performance as good as or better than {{{ percentile }}}% of same age peers from the general population.
 
 (ref:vci) The Verbal Comprehension Index (VCI) is primarily a measure of Comprehension and Knowledge (Gc). Gc refers to an individual's knowledge base (or general fund of information) that develops as a result of exposure to language, culture, general life experiences, and formal schooling. The size of the difference between the lowest and highest scores that comprise the VCI occurs in at least 10% of the general population, which makes the difference relatively common. This means that the VCI is a good psychometric summary of Comprehension and Knowledge. Additionally, information regarding where the subtest scores fall relative to each other and relative to most people may not add clinically relevant information above and beyond the VCI. (ref:patient)'s VCI-Gc score of {{ score }} ({{ ci_95 }}) is classified as {{ range }} and is ranked at the {{ percentile }}rd percentile, indicating performance as good as or better than {{ percentile }}% of same age peers from the general population.
 
@@ -850,25 +842,25 @@ cat(readLines("2_spatial.md"), sep = "\n")
 knitr::read_chunk(here::here(patient, "2_spatial.R"))
 ```
 
-```{r 01-filter-spatial, double_escape=T, escape=F}
+```{r 01-filter-spatial}
 ```
 
 ```{r 02-glue-spatial, double_escape=T, escape=F, cache=TRUE, cache.path='cache/'}
 ```
 
-```{r 03-table-spatial, double_escape=T, escape=F}
+```{r 03-table-spatial}
 ```
 
 ```{r 04-kable-spatial, double_escape=T, escape=F}
 ```
 
-```{r 05-df-spatial, double_escape=T, escape=F}
+```{r 05-df-spatial}
 ```
 
-```{r 06-plot-subdomain-spatial, eval=F, fig.cap = '(ref:spt)', double_escape=T, escape=F}
+```{r 06-plot-subdomain-spatial, eval=F, fig.cap = '(ref:spt)'}
 ```
 
-```{r 07-plot-narrow-spatial, eval=T, fig.cap = '(ref:spt)', double_escape=T, escape=F}
+```{r 07-plot-narrow-spatial, eval=T, fig.cap = '(ref:spt)'}
 ```
 
 \newpage
@@ -892,13 +884,13 @@ knitr::read_chunk(here::here(patient, "2_executive.R"))
 ```
 
 
-```{r 03-table-executive, double_escape=T, escape=F}
+```{r 03-table-executive}
 ```
 
 ```{r 04-kable-executive, double_escape=T, escape=F}
 ```
 
-```{r 05-df-executive, double_escape=T, escape=F}
+```{r 05-df-executive}
 ```
 
 ```{r 06-plot-subdomain-executive, eval=T, fig.cap = '(ref:att-exe)', double_escape=T, escape=F}
@@ -917,7 +909,7 @@ knitr::read_chunk(here::here(patient, "2_executive.R"))
 cat(readLines("2_memory.md"), sep = "\n")
 ```
 
-```{r}
+```{r read-memory}
 knitr::read_chunk(here::here(patient, "2_memory.R"))
 ```
 
