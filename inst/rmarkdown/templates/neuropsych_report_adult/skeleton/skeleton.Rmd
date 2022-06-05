@@ -573,8 +573,8 @@ knitr::knit_engines$set(marginfigure = function(options) {
 **Evaluation Dates:** (ref:doe)
 ```
 
-```{r nse, results = 'asis'}
-cat(readLines("2_nse.md"), sep = "\n")
+```{r nse, results = 'asis', cache = TRUE}
+cat(readLines("1.2_nse.md"), sep = "\n")
 ```
 
 \newpage
@@ -607,8 +607,8 @@ cat(readLines("2_nse.md"), sep = "\n")
   - (ref:cefi-or)
 - (ref:pai)
 
-```{r nt-obs, results = 'asis'}
-cat(readLines("2_nt-obs.md"), sep = "\n")
+```{r nt-obs, results = 'asis', cache = TRUE}
+cat(readLines("2.1_nt-obs.md"), sep = "\n")
 ```
 
 \newpage
@@ -765,11 +765,11 @@ neurobehav <- readr::read_csv(here::here(patient, "neurobehav.csv"))
 (ref:fn-iq) Standard Score (M = 100, SD = 15)
 
 ```{r, iq, results = 'asis', eval = params$eval_iq}
-cat(readLines("2_iq.md"), sep = "\n")
+cat(readLines("2.2_iq.md"), sep = "\n")
 ```
 
 ```{r read-iq, eval = params$eval_iq}
-knitr::read_chunk(here::here(patient, "2_iq.R"))
+knitr::read_chunk(here::here(patient, "2.2_iq.R"))
 ```
 
 ```{r 01-filter-iq, eval = params$eval_iq, cache = TRUE}
@@ -800,11 +800,11 @@ knitr::read_chunk(here::here(patient, "2_iq.R"))
 (ref:fn-acad) Standard Score (M = 100, SD = 15)
 
 ```{r, academics, results = 'asis', eval = params$eval_academics}
-cat(readLines("2_academics.md"), sep = "\n")
+cat(readLines("2.3_academics.md"), sep = "\n")
 ```
 
 ```{r read-academics, eval = params$eval_academics}
-knitr::read_chunk(here::here(patient, "2_academics.R"))
+knitr::read_chunk(here::here(patient, "2.3_academics.R"))
 ```
 
 ```{r 01-filter-academics, eval = params$eval_academics}
@@ -835,11 +835,11 @@ knitr::read_chunk(here::here(patient, "2_academics.R"))
 (ref:fn-vrb) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
 ```{r, verbal, results='asis', eval = params$eval_verbal}
-cat(readLines("2_verbal.md"), sep = "\n")
+cat(readLines("2.4_verbal.md"), sep = "\n")
 ```
 
 ```{r read-verbal, eval = params$eval_verbal}
-knitr::read_chunk(here::here(patient, "2_verbal.R"))
+knitr::read_chunk(here::here(patient, "2.4_verbal.R"))
 ```
 
 ```{r 01-filter-verbal, eval = params$eval_verbal}
@@ -870,11 +870,11 @@ knitr::read_chunk(here::here(patient, "2_verbal.R"))
 (ref:fn-spt) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
 ```{r, spatial, results='asis', eval = params$eval_spatial}
-cat(readLines("2_spatial.md"), sep = "\n")
+cat(readLines("2.5_spatial.md"), sep = "\n")
 ```
 
 ```{r read-spatial, eval = params$eval_spatial}
-knitr::read_chunk(here::here(patient, "2_spatial.R"))
+knitr::read_chunk(here::here(patient, "2.5_spatial.R"))
 ```
 
 ```{r 01-filter-spatial, eval = params$eval_spatial}
@@ -905,11 +905,11 @@ knitr::read_chunk(here::here(patient, "2_spatial.R"))
 (ref:fn-exe) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
 ```{r, executive, results='asis', eval = params$eval_executive}
-cat(readLines("2_executive.md"), sep = "\n")
+cat(readLines("2.6_executive.md"), sep = "\n")
 ```
 
 ```{r read-executive, eval = params$eval_executive}
-knitr::read_chunk(here::here(patient, "2_executive.R"))
+knitr::read_chunk(here::here(patient, "2.6_executive.R"))
 ```
 
 ```{r 01-filter-executive, eval = params$eval_executive}
@@ -940,11 +940,11 @@ knitr::read_chunk(here::here(patient, "2_executive.R"))
 (ref:fn-memory) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
 ```{r, memory, results='asis', eval = params$eval_memory}
-cat(readLines("2_memory.md"), sep = "\n")
+cat(readLines("2.7_memory.md"), sep = "\n")
 ```
 
 ```{r read-memory, eval = params$eval_memory}
-knitr::read_chunk(here::here(patient, "2_memory.R"))
+knitr::read_chunk(here::here(patient, "2.7_memory.R"))
 ```
 
 ```{r 01-filter-memory, eval = params$eval_memory}
@@ -975,11 +975,11 @@ knitr::read_chunk(here::here(patient, "2_memory.R"))
 (ref:fn-mtr) *T* Score (M = 50, SD = 10) or Scaled Score (M = 10, SD = 3)
 
 ```{r, motor, results='asis', eval = params$eval_motor}
-cat(readLines("2_motor.md"), sep = "\n")
+cat(readLines("2.8_motor.md"), sep = "\n")
 ```
 
 ```{r read-motor, eval = params$eval_motor}
-knitr::read_chunk(here::here(patient, "2_motor.R"))
+knitr::read_chunk(here::here(patient, "2.8_motor.R"))
 ```
 
 ```{r 01-filter-motor, eval = params$eval_motor}
@@ -1010,11 +1010,11 @@ knitr::read_chunk(here::here(patient, "2_motor.R"))
 (ref:fn-soc) Scaled Score (M = 10, SD = 3)
 
 ```{r, social, results='asis', eval = params$eval_social}
-cat(readLines("2_social.md"), sep = "\n")
+cat(readLines("2.9_social.md"), sep = "\n")
 ```
 
 ```{r read-social, eval = params$eval_social}
-knitr::read_chunk(here::here(patient, "2_social.R"))
+knitr::read_chunk(here::here(patient, "2.9_social.R"))
 ```
 
 ```{r 01-filter-social, eval = params$eval_social}
@@ -1047,11 +1047,11 @@ knitr::read_chunk(here::here(patient, "2_social.R"))
 (ref:fn-adhd) Standard Score (M = 100, SD = 15) or *T* Score (M = 50, SD = 10) 
 ex
 ```{r, adhd, results='asis', eval = params$eval_adhd}
-cat(readLines("2_adhd.md"), sep = "\n")
+cat(readLines("2.10_adhd.md"), sep = "\n")
 ```
 
 ```{r read-adhd, eval = params$eval_adhd}
-knitr::read_chunk(here::here(patient, "2_adhd.R"))
+knitr::read_chunk(here::here(patient, "2.10_adhd.R"))
 ```
 
 ```{r 01-filter-adhd, eval = params$eval_adhd}
@@ -1085,11 +1085,11 @@ knitr::read_chunk(here::here(patient, "2_adhd.R"))
 (ref:fn-emo) *T* Score (M = 50, SD = 10)
 
 ```{r, emotion, results='asis', eval = params$eval_emotion}
-cat(readLines("2_emotion.md"), sep = "\n")
+cat(readLines("2.11_emotion.md"), sep = "\n")
 ```
 
 ```{r read-emotion, eval = params$eval_emotion}
-knitr::read_chunk(here::here(patient, "2_emotion.R"))
+knitr::read_chunk(here::here(patient, "2.11_emotion.R"))
 ```
 
 ```{r 01-filter-emotion, eval = params$eval_emotion}
@@ -1189,7 +1189,7 @@ bwu::dotplot(
 )
 ```
 
-```{r, sirf, results='asis', cache = TRUE}
+```{r, sirf, results = 'asis', cache = TRUE}
 cat(readLines("3_sirf.md"), sep = "\n")
 ```
 
@@ -1199,7 +1199,7 @@ cat(readLines("3_sirf.md"), sep = "\n")
 Links highlighted in \textcolor{blue}{blue} should be clickable to the online content.
 ```
 
-```{r, recs, results='asis', cache = TRUE}
+```{r, recs, results = 'asis', cache = TRUE}
 cat(readLines("4_recs.md"), sep = "\n")
 ```
 
@@ -1217,7 +1217,7 @@ Los Angeles, CA 90033\
 
 Sincerely,
 
-```{r sig, out.width='33%', fig.align='left'}
+```{r sig, out.width='33%', fig.align='left', cache = TRUE}
 knitr::include_graphics("../jwtSig.png")
 ```
 
