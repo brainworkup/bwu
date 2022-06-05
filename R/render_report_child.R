@@ -16,14 +16,14 @@
 #'
 #' @export
 render_report_child <- function(input, patient, ...) {
-
   output <- rmarkdown::render(
     input = input,
     output_format = "bwu::neuropsych_report_child",
-    params = "ask")
+    params = "ask"
+  )
 
   bookdown::pdf_document2(
     output,
-    paste0("npsych-report", "_", patient, "_", Sys.Date(), ".pdf"))
-
+    paste0("npsych-report", "_", patient, "_", Sys.Date(), ".pdf")
+  )
 }

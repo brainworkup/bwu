@@ -62,9 +62,13 @@ make_shades <- function(color, n, lighter = TRUE) {
 plot_colors <- function(colors) {
   plot_data <- data.frame(Color = colors)
 
-  ggplot2::ggplot(plot_data,
-                  ggplot2::aes(x = .data$Color, y = 1, fill = .data$Color,
-             label = .data$Color)) +
+  ggplot2::ggplot(
+    plot_data,
+    ggplot2::aes(
+      x = .data$Color, y = 1, fill = .data$Color,
+      label = .data$Color
+    )
+  ) +
     ggplot2::geom_tile() +
     ggplot2::geom_text(angle = "90") +
     ggplot2::scale_fill_identity() +

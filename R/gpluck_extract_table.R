@@ -47,13 +47,12 @@
 #' @importFrom rJava J new .jfloat
 #' @export
 gpluck_extract_table <-
-  function(
-    file,
-    pages = NULL,
-    area = NULL,
-    guess = FALSE,
-    method = c("decide", "lattice", "stream"),
-    output = c("matrix", "data.frame", "character", "asis", "csv", "tsv", "json"),
+  function(file,
+           pages = NULL,
+           area = NULL,
+           guess = FALSE,
+           method = c("decide", "lattice", "stream"),
+           output = c("matrix", "data.frame", "character", "asis", "csv", "tsv", "json"),
            ...) {
     tabulizer::extract_tables(
       file = file,

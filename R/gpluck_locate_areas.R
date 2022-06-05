@@ -32,5 +32,5 @@ gpluck_locate_areas <- function(file, pages = NULL, ...) {
     file = file,
     pages = pages,
     ...
-    )
+  )
 }

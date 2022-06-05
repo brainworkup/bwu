@@ -21,24 +21,28 @@ make_tibble <- function(tibb,
                         data = c("neurocog", "neurobehav"),
                         pheno = NULL,
                         domain = NULL,
-                        columns = c("scale",
-                                    "score",
-                                    "percentile",
-                                    "range",
-                                    "subdomain",
-                                    "test_name"),
+                        columns = c(
+                          "scale",
+                          "score",
+                          "percentile",
+                          "range",
+                          "subdomain",
+                          "test_name"
+                        ),
                         percentile = NULL,
-                        names = c("Scale",
-                                  "Score",
-                                  "\u2030 Rank",
-                                  "Range",
-                                  "Subdomain",
-                                  "Test"),
+                        names = c(
+                          "Scale",
+                          "Score",
+                          "\u2030 Rank",
+                          "Range",
+                          "Subdomain",
+                          "Test"
+                        ),
                         ...) {
   tibb <-
-    data %>%
-    dplyr::filter(domain == pheno) %>%
-    dplyr::select(tidyselect::all_of(columns)) %>%
-    dplyr::mutate(percentile = trunc(percentile)) %>%
+    data |>
+    dplyr::filter(domain == pheno) |>
+    dplyr::select(tidyselect::all_of(columns)) |>
+    dplyr::mutate(percentile = trunc(percentile)) |>
     purrr::set_names(names)
 }

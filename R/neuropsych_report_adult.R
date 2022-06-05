@@ -11,16 +11,16 @@
 #' @examples
 #'
 #' rmarkdown::draft("neuropsych-report.Rmd",
-#'                  template = "neuropsych_report_adult",
-#'                  package = "bwu",
-#'                  edit = FALSE)
+#'   template = "neuropsych_report_adult",
+#'   package = "bwu",
+#'   edit = FALSE
+#' )
 #' @export
 neuropsych_report_adult <- function(...,
-                                number_sections = TRUE,
-                                md_extensions = c("-autolink_bare_uris"),
-                                csl = NULL,
-                                colorlinks = TRUE)
-{
+                                    number_sections = TRUE,
+                                    md_extensions = c("-autolink_bare_uris"),
+                                    csl = NULL,
+                                    colorlinks = TRUE) {
   pdf_document_format(
     ...,
     number_sections = number_sections,

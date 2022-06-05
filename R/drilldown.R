@@ -1,9 +1,9 @@
 #' Drilldown on neuropsych domains.
-#' 
+#'
 #' This function uses the R Highcharter package and drilldown function to "drill down" on neuropsychological domains and test scores.
 #'
 #' \code{drilldown} Creates a highcharter drilldown interactive plot.
-#' 
+#'
 #' @param data Dataset to use.
 #' @param patient Patient initials, 4 letters.
 #' @param ... Numeric, complex, or logical vectors.
@@ -17,7 +17,7 @@ drilldown <- function(data, patient, ...) {
   ## Level 1 -------------------------------------------------------
   ## Domain scores
   # 1. create mean z-scores for domain
-  ncog1 <- 
+  ncog1 <-
     data %>%
     dplyr::group_by(domain) %>%
     dplyr::summarize(
@@ -261,6 +261,6 @@ drilldown <- function(data, patient, ...) {
       allowPointDrilldown = TRUE,
       series = c(ncog_level2_drill, ncog_level3_drill, ncog_level4_drill)
     ) %>%
-    highcharter::hc_add_theme(hc_theme_sandsignika())
+    highcharter::hc_add_theme(highcharter::hc_theme_sandsignika())
   plot
 }
