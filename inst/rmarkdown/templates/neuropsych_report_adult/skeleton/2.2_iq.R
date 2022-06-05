@@ -3,6 +3,8 @@ filter_domain <- c(
   ## ACS TOPF
   "Test of Premorbid Functioning",
   "TOPF Standard Score",
+  ## WRAT5 Word Reading
+  "Word Reading",
   ## NAB
   "NAB Total Index",
   ## RBANS
@@ -74,13 +76,13 @@ df <-
   dplyr::filter(domain == "Intelligence/General Ability") %>%
   dplyr::filter(!is.na(percentile)) %>%
   dplyr::arrange(test_name) %>%
-  dplyr::filter(scale %in% filter_domain) # %>%
+  dplyr::filter(scale %in% filter_domain) %>%
+  dplyr::filter(scale != "NAB Total Index") %>%
+  dplyr::filter(scale != "TOPF Standard Score") %>%
+  dplyr::filter(scale != "Working Memory (WMI)") %>%
+  dplyr::filter(scale != "Processing Speed (PSI)")
 # dplyr::filter(scale != "Cognitive Proficiency (CPI)") %>%
 # dplyr::filter(scale != "General Ability (GAI)") %>%
-# dplyr::filter(scale != "NAB Total Index") %>%
-#  dplyr::filter(scale != "TOPF Standard Score") %>%
-#  dplyr::filter(scale != "Working Memory (WMI)") %>%
-#  dplyr::filter(scale != "Processing Speed (PSI)")
 
 ## ---- 06-plot-subdomain-iq --------------------
 bwu::dotplot(
