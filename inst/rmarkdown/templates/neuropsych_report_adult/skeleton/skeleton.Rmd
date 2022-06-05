@@ -63,7 +63,7 @@ params:
     input: text
   mrn:
     label: "Patient ID:"
-    value: 000000000
+    value: 123456789
     input: numeric
     min: 000000000
     max: 999999999
@@ -581,6 +581,32 @@ cat(readLines("2_nse.md"), sep = "\n")
 
 # NEUROPSYCHOLOGICAL TESTING
 
+## Test Battery
+
+- (ref:acs):
+  - (ref:acs-topf)
+  - (ref:acs-word-choice)
+- (ref:wais4)
+- (ref:wiat4)
+- (ref:wrat5): Green/Blue Form
+- (ref:ktea3): Form A/B
+- (ref:nabs): Form 1/2
+- (ref:nab): Form 1/2
+- (ref:examiner)
+- (ref:cvlt3-brief)
+- (ref:wms4)
+- (ref:rocf)
+- (ref:tmt)
+- (ref:pegboard)
+- (ref:caadid)
+- (ref:caars):
+  - (ref:caars-sr)
+  - (ref:caars-or)
+- (ref:cefi):
+  - (ref:cefi-sr)
+  - (ref:cefi-or)
+- (ref:pai)
+
 ```{r nt-obs, results = 'asis'}
 cat(readLines("2_nt-obs.md"), sep = "\n")
 ```
@@ -596,13 +622,13 @@ Test scores are easiest to interpret as percentiles[^1], which are provided in t
 
 (ref:gauss-plot-narrow) Classification of neuropsychological test scores that are normally distributed in the general population [@guilmetteAmericanAcademyClinical2020].
 
-```{r gauss-plot-narrow, fig.cap='(ref:gauss-plot-narrow)', fig.width=6, fig.height=5, fig.pos = '!ht'}
+```{r gauss-plot-narrow, fig.cap='(ref:gauss-plot-narrow)', fig.width = 6, fig.height = 5, fig.pos = '!ht'}
 knitr::include_graphics("plot_narrow.png", auto_pdf = TRUE)
 ```
 
 (ref:gauss-plot-broad) Classification of neuropsychological test scores that are positively skewed in the general population [@schoenbergReportingStandardsNeuropsychological2017].
 
-```{r gauss-plot-broad, fig.cap='(ref:gauss-plot-broad)', fig.width=6, fig.height=5, fig.pos = '!ht'}
+```{r gauss-plot-broad, fig.cap='(ref:gauss-plot-broad)', fig.width = 6, fig.height = 5, fig.pos = '!ht'}
 knitr::include_graphics("plot_broad.png", auto_pdf = TRUE)
 ```
 
@@ -761,7 +787,7 @@ knitr::read_chunk(here::here(patient, "2_iq.R"))
 ```{r 05-df-iq, eval = params$eval_iq}
 ```
 
-```{r 06-plot-subdomain-iq, eval = TRUE, fig.cap = '(ref:g) (ref:gc) (ref:gf)'}
+```{r 06-plot-subdomain-iq, eval = params$eval_iq, fig.cap = '(ref:g) (ref:gc) (ref:gf)'}
 ```
 
 ```{r 07-plot-narrow-iq, eval = FALSE, fig.cap = '(ref:g) (ref:gc) (ref:gf)'}
@@ -796,7 +822,7 @@ knitr::read_chunk(here::here(patient, "2_academics.R"))
 ```{r 05-df-academics, eval = params$eval_academics}
 ```
 
-```{r 06-plot-subdomain-academics, eval=T, fig.cap = '(ref:acad)'}
+```{r 06-plot-subdomain-academics, eval = params$eval_academics, fig.cap = '(ref:acad)'}
 ```
 
 ```{r 07-plot-narrow-academics, eval=F, fig.cap = '(ref:acad)'}
@@ -834,75 +860,74 @@ knitr::read_chunk(here::here(patient, "2_verbal.R"))
 ```{r 06-plot-subdomain-verbal, eval=F, fig.cap = '(ref:vrb)'}
 ```
 
-```{r 07-plot-narrow-verbal, eval=T, fig.cap = '(ref:vrb)'}
+```{r 07-plot-narrow-verbal, eval = params$eval_verbal, fig.cap = '(ref:vrb)'}
 ```
 
 \newpage
 
-### Visual Perception/Construction
+<!-- ### Visual Perception/Construction -->
 
 (ref:fn-spt) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
-```{r, spatial, results='asis'}
+```{r, spatial, results='asis', eval = params$eval_spatial}
 cat(readLines("2_spatial.md"), sep = "\n")
 ```
 
-```{r read-spatial}
+```{r read-spatial, eval = params$eval_spatial}
 knitr::read_chunk(here::here(patient, "2_spatial.R"))
 ```
 
-```{r 01-filter-spatial}
+```{r 01-filter-spatial, eval = params$eval_spatial}
 ```
 
-```{r 02-glue-spatial, cache=TRUE, cache.path='cache/'}
+```{r 02-glue-spatial, eval = params$eval_spatial, cache=TRUE, cache.path='cache/'}
 ```
 
-```{r 03-table-spatial}
+```{r 03-table-spatial, eval = params$eval_spatial}
 ```
 
-```{r 04-kable-spatial, double_escape=T, escape=F, fig.fullwidth = TRUE}
+```{r 04-kable-spatial, eval = params$eval_spatial, double_escape= T , escape = F, fig.fullwidth = TRUE}
 ```
 
-```{r 05-df-spatial}
+```{r 05-df-spatial, eval = params$eval_spatial}
 ```
 
-```{r 06-plot-subdomain-spatial, eval=F, fig.cap = '(ref:spt)'}
+```{r 06-plot-subdomain-spatial, eval = F, fig.cap = '(ref:spt)'}
 ```
 
-```{r 07-plot-narrow-spatial, eval=T, fig.cap = '(ref:spt)'}
+```{r 07-plot-narrow-spatial, eval = params$eval_spatial, fig.cap = '(ref:spt)'}
 ```
 
 \newpage
 
-### Attention/Executive
+<!-- ### Attention/Executive -->
 
 (ref:fn-exe) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
-```{r, executive, results='asis'}
+```{r, executive, results='asis', eval = params$eval_executive}
 cat(readLines("2_executive.md"), sep = "\n")
 ```
 
-```{r read-executive}
+```{r read-executive, eval = params$eval_executive}
 knitr::read_chunk(here::here(patient, "2_executive.R"))
 ```
 
-```{r 01-filter-executive}
+```{r 01-filter-executive, eval = params$eval_executive}
 ```
 
-```{r 02-glue-executive, cache = TRUE, cache.path = 'cache/'}
+```{r 02-glue-executive, eval = params$eval_executive, cache = TRUE, cache.path = 'cache/'}
 ```
 
-
-```{r 03-table-executive}
+```{r 03-table-executive, eval = params$eval_executive}
 ```
 
-```{r 04-kable-executive, double_escape=T, escape=F, fig.fullwidth = TRUE}
+```{r 04-kable-executive, eval = params$eval_executive, double_escape = T, escape = F, fig.fullwidth = TRUE}
 ```
 
-```{r 05-df-executive}
+```{r 05-df-executive, eval = params$eval_executive}
 ```
 
-```{r 06-plot-subdomain-executive, eval=T, fig.cap = '(ref:att-exe)'}
+```{r 06-plot-subdomain-executive, eval = params$eval_executive, fig.cap = '(ref:att-exe)'}
 ```
 
 ```{r 07-plot-narrow-executive, eval=F, fig.cap = '(ref:att-exe)'}
@@ -910,37 +935,37 @@ knitr::read_chunk(here::here(patient, "2_executive.R"))
 
 \newpage
 
-### Memory
+<!-- ### Memory -->
 
 (ref:fn-memory) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
-```{r, memory, results='asis'}
+```{r, memory, results='asis', eval = params$eval_memory}
 cat(readLines("2_memory.md"), sep = "\n")
 ```
 
-```{r read-memory}
+```{r read-memory, eval = params$eval_memory}
 knitr::read_chunk(here::here(patient, "2_memory.R"))
 ```
 
-```{r 01-filter-memory}
+```{r 01-filter-memory, eval = params$eval_memory}
 ```
 
-```{r 02-glue-memory, double_escape=T, escape=F, cache=TRUE, cache.path='cache/'}
+```{r 02-glue-memory, eval = params$eval_memory, cache = TRUE, cache.path = 'cache/'}
 ```
 
-```{r 03-table-memory, double_escape=T, escape=F}
+```{r 03-table-memory, eval = params$eval_memory}
 ```
 
-```{r 04-kable-memory, double_escape=T, escape=F, fig.fullwidth = TRUE}
+```{r 04-kable-memory, eval = params$eval_memory, double_escape = T, escape = F, fig.fullwidth = TRUE}
 ```
 
-```{r 05-df-memory, double_escape=T, escape=F}
+```{r 05-df-memory, eval = params$eval_memory}
 ```
 
-```{r 06-plot-subdomain-memory, eval=F, fig.cap = '(ref:mem)', double_escape=T, escape=F}
+```{r 06-plot-subdomain-memory, eval=F, fig.cap = '(ref:mem)'}
 ```
 
-```{r 07-plot-narrow-memory, eval=T, fig.cap = '(ref:mem)', double_escape=T, escape=F}
+```{r 07-plot-narrow-memory, eval = params$eval_memory, fig.cap = '(ref:mem)'}
 ```
 
 \newpage
@@ -949,112 +974,108 @@ knitr::read_chunk(here::here(patient, "2_memory.R"))
 
 (ref:fn-mtr) *T* Score (M = 50, SD = 10) or Scaled Score (M = 10, SD = 3)
 
-```{r, motor, results='asis'}
+```{r, motor, results='asis', eval = params$eval_motor}
 cat(readLines("2_motor.md"), sep = "\n")
 ```
 
-```{r}
+```{r read-motor, eval = params$eval_motor}
 knitr::read_chunk(here::here(patient, "2_motor.R"))
 ```
 
-```{r 01-filter-motor}
+```{r 01-filter-motor, eval = params$eval_motor}
 ```
 
-
-```{r 02-glue-motor, double_escape=T, escape=F, cache=TRUE, cache.path='cache/'}
+```{r 02-glue-motor, eval = params$eval_motor, cache=TRUE, cache.path='cache/'}
 ```
 
-```{r 03-table-motor, double_escape=T, escape=F}
+```{r 03-table-motor, eval = params$eval_motor}
 ```
 
-```{r 04-kable-motor, double_escape=T, escape=F, fig.fullwidth = TRUE}
+```{r 04-kable-motor, eval = params$eval_motor, double_escape=T, escape=F, fig.fullwidth = TRUE}
 ```
 
-```{r 05-df-motor, double_escape=T, escape=F}
+```{r 05-df-motor, eval = params$eval_motor}
 ```
 
-```{r 06-plot-subdomain-motor, eval=F, fig.cap = '(ref:mtr)', double_escape=T, escape=F}
+```{r 06-plot-subdomain-motor, eval=F, fig.cap = '(ref:mtr)'}
 ```
 
-```{r 07-plot-narrow-motor, eval=T, fig.cap = '(ref:mtr)', double_escape=T, escape=F}
+```{r 07-plot-narrow-motor, eval = params$eval_motor, fig.cap = '(ref:mtr)'}
 ```
 
 \newpage
 
-### Social Cognition
+<!-- ### Social Cognition -->
 
 (ref:fn-soc) Scaled Score (M = 10, SD = 3)
 
-```{r, social, results='asis'}
+```{r, social, results='asis', eval = params$eval_social}
 cat(readLines("2_social.md"), sep = "\n")
 ```
 
-```{r read-social}
+```{r read-social, eval = params$eval_social}
 knitr::read_chunk(here::here(patient, "2_social.R"))
 ```
 
-```{r 01-filter-social}
+```{r 01-filter-social, eval = params$eval_social}
 ```
 
-```{r 02-glue-social, double_escape=T, escape=F, cache=TRUE, cache.path='cache/'}
+```{r 02-glue-social, eval = params$eval_social, cache=TRUE, cache.path='cache/'}
 ```
 
-```{r 03-table-social, double_escape=T, escape=F}
+```{r 03-table-social, eval = params$eval_social}
 ```
 
-```{r 04-kable-social, double_escape=T, escape=F, fig.fullwidth = TRUE}
+```{r 04-kable-social, eval = params$eval_social, double_escape=T, escape=F, fig.fullwidth = TRUE}
 ```
 
-```{r 05-df-social, double_escape=T, escape=F}
+```{r 05-df-social, eval = params$eval_social}
 ```
 
-```{r 06-plot-subdomain-social, eval=F, fig.cap = '(ref:soc-cog)', double_escape=T, escape=F}
+```{r 06-plot-subdomain-social, eval=F, fig.cap = '(ref:soc-cog)'}
 ```
 
-```{r 07-plot-narrow-social, eval=T, fig.cap = '(ref:soc-cog)', double_escape=T, escape=F}
+```{r 07-plot-narrow-social, eval = params$eval_social, fig.cap = '(ref:soc-cog)'}
 ```
 
 \newpage
 
-### ADHD/Executive Functioning
+<!-- ### ADHD/Executive Functioning -->
 
 (ref:att-ef) Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other.
 
 (ref:fn-adhd) Standard Score (M = 100, SD = 15) or *T* Score (M = 50, SD = 10) 
 
-```{r, adhd, results='asis'}
+```{r, adhd, results='asis', eval = params$eval_adhd}
 cat(readLines("2_adhd.md"), sep = "\n")
 ```
 
-```{r read-adhd}
+```{r read-adhd, eval = params$eval_adhd}
 knitr::read_chunk(here::here(patient, "2_adhd.R"))
 ```
 
-```{r 01-filter-adhd, eval=T, double_escape=T, escape=F}
+```{r 01-filter-adhd, eval = params$eval_adhd}
 ```
 
-
-```{r 02-glue-adhd, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache/'}
+```{r 02-glue-adhd, eval = params$eval_adhd, cache=TRUE, cache.path='cache/'}
 ```
 
-
-```{r 03-table-adhd, eval=T, double_escape=T, escape=F}
+```{r 03-table-adhd, eval = params$eval_adhd}
 ```
 
-
-```{r 04-kable-adhd, eval=T, double_escape=T, escape=F, fig.fullwidth=T}
+```{r 04-kable-adhd, eval = params$eval_adhd, double_escape=T, escape=F, fig.fullwidth=T}
 ```
 
-```{r 05-df-adhd}
+```{r 05-df-adhd, eval = params$eval_adhd}
 ```
 
-```{r 06-plot-adhd-adhd, eval = TRUE, fig.cap='(ref:adhd-ef)'}
+```{r 06-plot-adhd-adhd, eval = params$eval_adhd, fig.cap='(ref:adhd-ef)'}
 ```
 
-```{r 07-df-adhd}
+```{r 07-df-adhd, eval = params$eval_adhd}
 ```
 
-```{r 08-plot-executive-adhd, eval = TRUE, fig.cap='(ref:att-ef)'}
+```{r 08-plot-executive-adhd, eval = params$eval_adhd, fig.cap='(ref:att-ef)'}
 ```
 
 \newpage
@@ -1063,33 +1084,33 @@ knitr::read_chunk(here::here(patient, "2_adhd.R"))
 
 (ref:fn-emo) *T* Score (M = 50, SD = 10)
 
-```{r, emotion, results='asis'}
+```{r, emotion, results='asis', eval = params$eval_emotion}
 cat(readLines("2_emotion.md"), sep = "\n")
 ```
 
-```{r read-emotion}
+```{r read-emotion, eval = params$eval_emotion}
 knitr::read_chunk(here::here(patient, "2_emotion.R"))
 ```
 
-```{r 01-filter-emotion}
+```{r 01-filter-emotion, eval = params$eval_emotion}
 ```
 
-```{r 02-glue-emotion, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache/'}
+```{r 02-glue-emotion, eval = params$eval_emotion, cache=TRUE, cache.path='cache/'}
 ```
 
-```{r 03-table-emotion, eval=T, double_escape=T, escape=F}
+```{r 03-table-emotion, eval = params$eval_emotion}
 ```
 
-```{r 04-kable-emotion, eval=T, double_escape=T, escape=F, fig.fullwidth=T}
+```{r 04-kable-emotion, eval = params$eval_emotion, double_escape=T, escape=F, fig.fullwidth=T}
 ```
 
-```{r 05-df-emotion, eval=T, double_escape=T, escape=F}
+```{r 05-df-emotion, eval = params$eval_emotion}
 ```
 
-```{r 06-plot-subdomain-emotion, eval=F, double_escape=T, escape=F, fig.cap='(ref:emotion)'}
+```{r 06-plot-subdomain-emotion, eval = params$eval_emotion, fig.cap='(ref:emotion)'}
 ```
 
-```{r 07-plot-narrow-emotion, eval=F, double_escape=T, escape=F, fig.cap='(ref:emotion)'}
+```{r 07-plot-narrow-emotion, eval = F, fig.cap='(ref:emotion)'}
 ```
 
 \newpage

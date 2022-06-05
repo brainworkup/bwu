@@ -1,3 +1,5 @@
+### Visual Perception/Construction
+
 Performance across measures of visual perception, construction, motor integration, and spatial navigation of visual/environmental information was Average overall with some variability.
 Visuoperceptual matching requiring close attention to visual detail was Average.
 Visuoconstruction assembly requiring nonverbal reasoning and quick processing speed was Average.

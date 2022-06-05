@@ -1,3 +1,5 @@
+### Memory
+
 Learning and recall of rote verbal information (word list) was Average overall.
 Recall of the list after a short delay was Average secondary to (ref:his-her) difficulties encoding the information.
 Recall of the list after a long delay was intact, as (ref:he-she) was able to recall nearly all the material (ref:he-she) had learned.

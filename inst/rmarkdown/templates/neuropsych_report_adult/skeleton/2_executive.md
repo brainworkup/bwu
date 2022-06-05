@@ -1,3 +1,5 @@
+### Attention/Executive
+
 Formal testing of an array of attention and executive functions revealed heterogeneous skills.
 Orientation to person, place, time, and situation were intact.
 No gross behavioral apathy or disinhibition was observed.
@@ -12,4 +14,4 @@ Concept formation and abstract reasoning skills were Average.
 Performance across measures of planning and flexible problem-solving, concept formation, and decision-making in medical and emergency situations was Average.
 Verbal initiation and word retrieval fluency were Average.
 Performance on a measure inhibitory control was Average.
-Planning and problem-solving skills examined through a 6-minute unstructured, speeded task was Average.^[This was a novel planning task published as part of the NIH EXAMINER Executive Function Battery [@kramer2014]. The task allows the examinee to choose which problems they want to work on to maximize points earned. In doing so, examinees need to plan ahead, avoid items that are strategically poor choices, and be cognizant of when a particular booklet offers diminishing returns. (ref:first-name) performed this task rather effortlessly.]
+Planning and problem-solving skills examined through a 6-minute unstructured, speeded task was Average.^[This was a novel planning task published as part of the NIH EXAMINER Executive Function Battery [@kramer2014]. The task allows the examinee to choose which problems they want to work on to maximize points earned. In doing so, examinees need to plan ahead, avoid items that are strategically poor choices, and be cognizant of when a particular booklet offers diminishing returns. (ref:first-name) performed this task effortlessly.]

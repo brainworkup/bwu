@@ -1,3 +1,5 @@
+### Social Cognition
+
 Emotional intelligence and social cognition were examined through a combination of performance-based tests and semi-structured clinical interviews.
 Performance-based testing on measures to gauge aspects of social-emotional processing and social aptitude, which are important aspects of how individuals process social information about other adults, groups, and social contexts, was intact.
 Global social perception fell in the Average range, but (ref:his-her) overall score was significantly lower than predicted by (ref:his-her) General Ability Index.
