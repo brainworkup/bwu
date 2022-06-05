@@ -12,6 +12,7 @@ output:
     keep_tex: true
     always_allow_html: true
 site: bookdown::bookdown_site
+#knit: bwu::knit_with_date
 editor_options:
   markdown:
     references:
@@ -248,10 +249,10 @@ if (identical(knitr:::pandoc_to(), "latex")) {
 
 knitr::opts_chunk$set(
   # Code block options
-  cache = TRUE,
+  cache = FALSE,
   cache.path = ".cache/",
   crop = TRUE,
-  dev = c("CairoPNG", "CairoPDF"),
+  dev = c("CairoPNG", "CairoPDF", "svg"),
   dev.args = list(pointsize = 8),
   dpi = 300,
   echo = FALSE,
@@ -631,7 +632,7 @@ knitr::include_graphics("plot_narrow.png", auto_pdf = TRUE)
 knitr::include_graphics("plot_broad.png", auto_pdf = TRUE)
 ```
 
-```{r read-csv}
+```{r read-csv, cache = TRUE}
 library(tidyverse)
 data_path <- here::here(patient, "csv")
 files <- dir(data_path, pattern = "*.csv")
@@ -654,7 +655,7 @@ neuropsych <-
   dplyr::mutate(timed = forcats::as_factor(timed))
 ```
 
-```{r, make-factors-neurocog}
+```{r, make-factors-neurocog, cache = TRUE}
 # Subset neurocognitive data
 neurocog <-
   neuropsych %>%
@@ -711,7 +712,7 @@ neurocog <-
   )
 ```
 
-```{r, make-factors-neurobehav}
+```{r, make-factors-neurobehav, cache = TRUE}
 # Subset neurobehavioral data
 neurobehav <-
   neuropsych %>%
@@ -747,13 +748,13 @@ neurobehav <-
   )
 ```
 
-```{r, write-data}
+```{r, write-data, cache = TRUE}
 readr::write_csv(neuropsych, here::here(patient, "neuropsych.csv"))
 readr::write_csv(neurocog, here::here(patient, "neurocog.csv"))
 readr::write_csv(neurobehav, here::here(patient, "neurobehav.csv"))
 ```
 
-```{r, read-data}
+```{r, read-data, cache = TRUE}
 neuropsych <- readr::read_csv(here::here(patient, "neuropsych.csv"))
 neurocog <- readr::read_csv(here::here(patient, "neurocog.csv"))
 neurobehav <- readr::read_csv(here::here(patient, "neurobehav.csv"))
@@ -771,25 +772,25 @@ cat(readLines("2_iq.md"), sep = "\n")
 knitr::read_chunk(here::here(patient, "2_iq.R"))
 ```
 
-```{r 01-filter-iq, eval = params$eval_iq}
+```{r 01-filter-iq, eval = params$eval_iq, cache = TRUE}
 ```
 
-```{r 02-glue-iq, eval = params$eval_iq, cache=TRUE, cache.path='cache/'}
+```{r 02-glue-iq, eval = params$eval_iq, cache=TRUE}
 ```
 
-```{r 03-table-iq, eval = params$eval_iq}
+```{r 03-table-iq, eval = params$eval_iq, cache = TRUE}
 ```
 
-```{r 04-kable-iq, eval = params$eval_iq, double_escape=T, escape=F, fig.fullwidth=T}
+```{r 04-kable-iq, eval = params$eval_iq, double_escape = TRUE, escape = FALSE, fig.fullwidth = TRUE, cache = TRUE}
 ```
 
-```{r 05-df-iq, eval = params$eval_iq}
+```{r 05-df-iq, eval = params$eval_iq, cache = TRUE}
 ```
 
-```{r 06-plot-subdomain-iq, eval = params$eval_iq, fig.cap = '(ref:g) (ref:gc) (ref:gf)'}
+```{r 06-plot-subdomain-iq, eval = params$eval_iq, fig.cap = '(ref:g) (ref:gc) (ref:gf)', cache = TRUE}
 ```
 
-```{r 07-plot-narrow-iq, eval = FALSE, fig.cap = '(ref:g) (ref:gc) (ref:gf)'}
+```{r 07-plot-narrow-iq, eval = FALSE, fig.cap = '(ref:g) (ref:gc) (ref:gf)', cache = TRUE}
 ```
 
 \newpage
@@ -809,7 +810,7 @@ knitr::read_chunk(here::here(patient, "2_academics.R"))
 ```{r 01-filter-academics, eval = params$eval_academics}
 ```
 
-```{r 02-glue-academics, eval = params$eval_academics, cache=TRUE, cache.path='cache/'}
+```{r 02-glue-academics, eval = params$eval_academics, cache=TRUE}
 ```
 
 ```{r 03-table-academics, eval = params$eval_academics}
@@ -879,7 +880,7 @@ knitr::read_chunk(here::here(patient, "2_spatial.R"))
 ```{r 01-filter-spatial, eval = params$eval_spatial}
 ```
 
-```{r 02-glue-spatial, eval = params$eval_spatial, cache=TRUE, cache.path='cache/'}
+```{r 02-glue-spatial, eval = params$eval_spatial, cache=TRUE}
 ```
 
 ```{r 03-table-spatial, eval = params$eval_spatial}
@@ -984,7 +985,7 @@ knitr::read_chunk(here::here(patient, "2_motor.R"))
 ```{r 01-filter-motor, eval = params$eval_motor}
 ```
 
-```{r 02-glue-motor, eval = params$eval_motor, cache=TRUE, cache.path='cache/'}
+```{r 02-glue-motor, eval = params$eval_motor, cache=TRUE}
 ```
 
 ```{r 03-table-motor, eval = params$eval_motor}
@@ -1019,7 +1020,7 @@ knitr::read_chunk(here::here(patient, "2_social.R"))
 ```{r 01-filter-social, eval = params$eval_social}
 ```
 
-```{r 02-glue-social, eval = params$eval_social, cache=TRUE, cache.path='cache/'}
+```{r 02-glue-social, eval = params$eval_social, cache=TRUE}
 ```
 
 ```{r 03-table-social, eval = params$eval_social}
@@ -1044,7 +1045,7 @@ knitr::read_chunk(here::here(patient, "2_social.R"))
 (ref:att-ef) Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other.
 
 (ref:fn-adhd) Standard Score (M = 100, SD = 15) or *T* Score (M = 50, SD = 10) 
-
+ex
 ```{r, adhd, results='asis', eval = params$eval_adhd}
 cat(readLines("2_adhd.md"), sep = "\n")
 ```
@@ -1056,7 +1057,7 @@ knitr::read_chunk(here::here(patient, "2_adhd.R"))
 ```{r 01-filter-adhd, eval = params$eval_adhd}
 ```
 
-```{r 02-glue-adhd, eval = params$eval_adhd, cache=TRUE, cache.path='cache/'}
+```{r 02-glue-adhd, eval = params$eval_adhd, cache=TRUE}
 ```
 
 ```{r 03-table-adhd, eval = params$eval_adhd}
@@ -1094,13 +1095,13 @@ knitr::read_chunk(here::here(patient, "2_emotion.R"))
 ```{r 01-filter-emotion, eval = params$eval_emotion}
 ```
 
-```{r 02-glue-emotion, eval = params$eval_emotion, cache=TRUE, cache.path='cache/'}
+```{r 02-glue-emotion, eval = params$eval_emotion, cache=TRUE}
 ```
 
 ```{r 03-table-emotion, eval = params$eval_emotion}
 ```
 
-```{r 04-kable-emotion, eval = params$eval_emotion, double_escape=T, escape=F, fig.fullwidth=T}
+```{r 04-kable-emotion, eval = params$eval_emotion, double_escape = TRUE, escape = FALSE, fig.fullwidth = TRUE}
 ```
 
 ```{r 05-df-emotion, eval = params$eval_emotion}
@@ -1118,14 +1119,14 @@ knitr::read_chunk(here::here(patient, "2_emotion.R"))
 
 (ref:domain) **Key Findings** General intellectual functioning is a strength. Verbal skills are significantly stronger than nonverbal/spatial processing skills. Attentional fluency (i.e., working memory and processing speed) and abstract reasoning are areas of weakness. Notably, even `r params$first_name`'s normatively average scores reflect performances that are well below cognitive expectations for `r params$him_her`. *Note:* *z* = 0 (mean) ± 1 (sd)
 
-```{r domain-df}
+```{r domain-df, cache = TRUE}
 domain <-
   neurocog %>%
   dplyr::filter(test_type == "npsych_test") %>%
   dplyr::filter(!is.na(domain))
 ```
 
-```{r domain-plot, fig.cap = '(ref:domain)', fig.height = 3.5}
+```{r domain-plot, fig.cap = '(ref:domain)', fig.height = 3.5, cache = TRUE}
 bwu::dotplot(
   data = domain,
   x = domain$z_mean_dom,
@@ -1136,14 +1137,14 @@ bwu::dotplot(
 
 (ref:pass) **PASS Cognitive Process Model** Sequential and Simultaneous processing are areas of strengths, and Attention is an area of weakness.
 
-```{r pass-df}
+```{r pass-df, cache = TRUE}
 pass <-
   neurocog %>%
   dplyr::filter(test_type == "npsych_test") %>%
   dplyr::filter(!is.na(pass))
 ```
 
-```{r pass-plot, eval = T, fig.cap = '(ref:pass)', fig.env='marginfigure', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
+```{r pass-plot, eval = T, fig.cap = '(ref:pass)', fig.env = 'marginfigure', fig.height = 5, out.width = '.5\\textwidth', out.extra = '', fig.pos = '', cache = TRUE}
 bwu::dotplot(
   data = pass,
   x = pass$z_mean_pass,
@@ -1154,14 +1155,14 @@ bwu::dotplot(
 
 (ref:nonverbal) **Verbal vs. Nonverbal Tests** Scores on verbal tasks are slightly higher than scores on nonverbal/spatial processing tasks.
 
-```{r nonverbal-df}
+```{r nonverbal-df, cache = TRUE}
 nonverbal <-
   neurocog %>%
   dplyr::filter(test_type == "npsych_test") %>%
   dplyr::filter(!is.na(verbal))
 ```
 
-```{r nonverbal-plot, eval = T, fig.cap = '(ref:nonverbal)', fig.env='marginfigure', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
+```{r nonverbal-plot, eval = T, fig.cap = '(ref:nonverbal)', fig.env = 'marginfigure', fig.height = 5, out.width = '.5\\textwidth', out.extra = '', fig.pos = '', cache = TRUE}
 bwu::dotplot(
   data = nonverbal,
   x = nonverbal$z_mean_verbal,
@@ -1172,14 +1173,14 @@ bwu::dotplot(
 
 (ref:timed) **Timed vs. Untimed Tests** `r params$first_name` performs more than a half of a standard deviation better on tasks that are untimed compared to tasks that require `r params$him_her` to respond both accurately and quickly.
 
-```{r timed-df}
+```{r timed-df, cache = TRUE}
 timed <-
   neurocog %>%
   dplyr::filter(test_type == "npsych_test") %>%
   dplyr::filter(!is.na(timed))
 ```
 
-```{r timed-plot, eval = T, fig.cap = '(ref:timed)', fig.env='marginfigure', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
+```{r timed-plot, eval = T, fig.cap = '(ref:timed)', fig.env='marginfigure', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos='', cache = TRUE}
 bwu::dotplot(
   data = timed,
   x = timed$z_mean_timed,
@@ -1188,7 +1189,7 @@ bwu::dotplot(
 )
 ```
 
-```{r, sirf, results='asis'}
+```{r, sirf, results='asis', cache = TRUE}
 cat(readLines("3_sirf.md"), sep = "\n")
 ```
 
@@ -1198,7 +1199,7 @@ cat(readLines("3_sirf.md"), sep = "\n")
 Links highlighted in \textcolor{blue}{blue} should be clickable to the online content.
 ```
 
-```{r, recs, results='asis'}
+```{r, recs, results='asis', cache = TRUE}
 cat(readLines("4_recs.md"), sep = "\n")
 ```
 
@@ -1230,7 +1231,7 @@ CA License PSY29212
 
 # APPENDIX
 
-```{r results='asis'}
+```{r results='asis', cache = TRUE}
 cat(readLines("telehealth_statement.md"), sep = "\n")
 ```
 
@@ -1247,7 +1248,7 @@ Although standardized scores provide the clinician with an important and necessa
 
 ## Conversion of Test Scores
 
-```{r ranges, double_escape=TRUE, escape=FALSE, fig.fullwidth=FALSE}
+```{r ranges, double_escape=TRUE, escape=FALSE, fig.fullwidth=FALSE, cache = TRUE}
 range <- vroom::vroom(here::here(patient, "test_score_ranges.csv"), show_col_types = FALSE)
 gt::gt(range) %>%
   gt::tab_header(., title = "Test Score Labels/Ranges") %>%
