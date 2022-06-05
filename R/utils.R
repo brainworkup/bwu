@@ -71,7 +71,7 @@ pdf_document_format <- function(...,
   #   rmarkdown::pandoc_path_arg("citeproc-preamble.tex")
   # )
   # # return format
-  # fmt
+  fmt
 }
 
 ### These copied from tufte package
