@@ -266,7 +266,6 @@ knitr::opts_chunk$set(
   root.dir = normalizePath("./"),
   warning = FALSE
 )
-
 knitr::opts_knit$set(width = 50)
 options(digits = 1, warnPartialMatchArgs = FALSE)
 options(knitr.kable.NA = "--")
@@ -962,7 +961,7 @@ knitr::read_chunk(here::here(patient, "2_memory.R"))
 ```{r 05-df-memory, eval = params$eval_memory}
 ```
 
-```{r 06-plot-subdomain-memory, eval=F, fig.cap = '(ref:mem)'}
+```{r 06-plot-subdomain-memory, eval = F, fig.cap = '(ref:mem)'}
 ```
 
 ```{r 07-plot-narrow-memory, eval = params$eval_memory, fig.cap = '(ref:mem)'}
@@ -970,7 +969,7 @@ knitr::read_chunk(here::here(patient, "2_memory.R"))
 
 \newpage
 
-### Motor
+<!-- ### Motor -->
 
 (ref:fn-mtr) *T* Score (M = 50, SD = 10) or Scaled Score (M = 10, SD = 3)
 

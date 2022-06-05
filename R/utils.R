@@ -65,13 +65,13 @@ pdf_document_format <- function(...,
   }
 
   # # use pandoc-citeproc-preamble to add stuff before bibliography
-  fmt$pandoc$args <- c(
-    fmt$pandoc$args,
-    "--filter pandoc-citeproc-preamble -M citeproc-preamble=",
-    rmarkdown::pandoc_path_arg("citeproc-preamble.tex")
-  )
-  # return format
-  fmt
+  # fmt$pandoc$args <- c(
+  #   fmt$pandoc$args,
+  #   "--filter pandoc-citeproc-preamble -M citeproc-preamble=",
+  #   rmarkdown::pandoc_path_arg("citeproc-preamble.tex")
+  # )
+  # # return format
+  # fmt
 }
 
 ### These copied from tufte package

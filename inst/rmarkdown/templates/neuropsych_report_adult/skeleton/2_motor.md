@@ -1,3 +1,5 @@
+### Motor
+
 All scores in this area were Average to High Average.
 Fine motor speed and dexterity were intact bilaterally.
 No evidence of atypical lateralization of fine nor gross motor skills.

@@ -185,7 +185,7 @@ writeLines(file, here::here(patient, "pre_csv", "cvlt3_brief_pdf"))
 ```
 
 ```{r read}
-#file <- readLines(here::here(patient, "pre_csv", "cvlt3_brief_pdf"))
+# file <- readLines(here::here(patient, "pre_csv", "cvlt3_brief_pdf"))
 ```
 
 ## Locate areas
@@ -215,13 +215,13 @@ saveRDS(area, here::here(patient, "pre_csv", "area_cvlt3_brief.rds"))
 ```
 
 ```{r read-areas}
-#area <- readRDS(here::here(patient, "pre_csv", "area_cvlt3_brief.rds"))
+# area <- readRDS(here::here(patient, "pre_csv", "area_cvlt3_brief.rds"))
 ```
 
 ## Extract table
 
 ```{r extract}
-plucked_table <- 
+plucked_table <-
   bwu::gpluck_extract_table(
     file = file,
     pages = pages,
@@ -248,9 +248,9 @@ table1 <- table1 |> hablar::convert(dbl(all_of(to_double)))
 
 ```{r rownames1}
 rownames(table1) <- params$table1
-table1 <- 
-  table1 %>% 
-  dplyr::rename(scale2 = scale) %>% 
+table1 <-
+  table1 %>%
+  dplyr::rename(scale2 = scale) %>%
   tibble::rownames_to_column(., var = "scale")
 ```
 
@@ -270,9 +270,9 @@ table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
 
 ```{r rownames2}
 rownames(table2) <- params$table2
-table2 <- 
-  table2 %>% 
-  dplyr::rename(scale2 = scale) %>% 
+table2 <-
+  table2 %>%
+  dplyr::rename(scale2 = scale) %>%
   tibble::rownames_to_column(., var = "scale")
 ```
 
@@ -296,9 +296,9 @@ table3 <- table3 |> hablar::convert(dbl(all_of(to_double)))
 
 ```{r rownames3}
 rownames(table3) <- params$table3
-table3 <- 
-  table3 %>% 
-  dplyr::rename(scale2 = scale) %>% 
+table3 <-
+  table3 %>%
+  dplyr::rename(scale2 = scale) %>%
   tibble::rownames_to_column(., var = "scale")
 ```
 
@@ -318,9 +318,9 @@ table4 <- table4 |> hablar::convert(dbl(all_of(to_double)))
 
 ```{r rownames4}
 rownames(table4) <- params$table4
-table4 <- 
-  table4 %>% 
-  dplyr::rename(scale2 = scale) %>% 
+table4 <-
+  table4 %>%
+  dplyr::rename(scale2 = scale) %>%
   tibble::rownames_to_column(., var = "scale")
 ```
 
@@ -340,9 +340,9 @@ table5 <- table5 |> hablar::convert(dbl(all_of(to_double)))
 
 ```{r rownames5}
 rownames(table5) <- params$table5
-table5 <- 
-  table5 %>% 
-  dplyr::rename(scale2 = scale) %>% 
+table5 <-
+  table5 %>%
+  dplyr::rename(scale2 = scale) %>%
   tibble::rownames_to_column(., var = "scale")
 ```
 
@@ -362,9 +362,9 @@ table6 <- table6 |> hablar::convert(dbl(all_of(to_double)))
 
 ```{r rownames6}
 rownames(table6) <- params$table6
-table6 <- 
-  table6 %>% 
-  dplyr::rename(scale2 = scale) %>% 
+table6 <-
+  table6 %>%
+  dplyr::rename(scale2 = scale) %>%
   tibble::rownames_to_column(., var = "scale")
 ```
 
@@ -384,9 +384,9 @@ table7 <- table7 |> hablar::convert(dbl(all_of(to_double)))
 
 ```{r rownames7}
 rownames(table7) <- params$table7
-table7 <- 
-  table7 %>% 
-  dplyr::rename(scale2 = scale) %>% 
+table7 <-
+  table7 %>%
+  dplyr::rename(scale2 = scale) %>%
   tibble::rownames_to_column(., var = "scale")
 ```
 
@@ -408,7 +408,7 @@ table7 <- table7 |> dplyr::select(all_of(params$keep2))
 table1 <- bwu::gpluck_make_columns(
   table1,
   range = "",
-  ci_95 = "",  
+  ci_95 = "",
   test = "cvlt3_brief",
   test_name = "CVLT-3 Brief",
   domain = "Memory",
@@ -427,7 +427,7 @@ table1 <- bwu::gpluck_make_columns(
 table2 <- bwu::gpluck_make_columns(
   table2,
   range = "",
-  ci_95 = "",  
+  ci_95 = "",
   test = "cvlt3_brief",
   test_name = "CVLT-3 Brief",
   domain = "Memory",
@@ -446,7 +446,7 @@ table2 <- bwu::gpluck_make_columns(
 table3 <- bwu::gpluck_make_columns(
   table3,
   range = "",
-  ci_95 = "",  
+  ci_95 = "",
   test = "cvlt3_brief",
   test_name = "CVLT-3 Brief",
   domain = "Memory",
@@ -465,9 +465,9 @@ table3 <- bwu::gpluck_make_columns(
 table4 <- bwu::gpluck_make_columns(
   table4,
   range = "",
-  ci_95 = "",  
-  test = "cvlt3_brief",
-  test_name = "CVLT-3 Brief",
+  ci_95 = "",
+  test = test,
+  test_name = test_name,
   domain = "Memory",
   subdomain = "Long-Term Memory",
   narrow = "Recognition Memory",
@@ -484,7 +484,7 @@ table4 <- bwu::gpluck_make_columns(
 table5 <- bwu::gpluck_make_columns(
   table5,
   range = "",
-  ci_95 = "",  
+  ci_95 = "",
   test = "cvlt3_brief",
   test_name = "CVLT-3 Brief",
   domain = "Memory",
@@ -503,7 +503,7 @@ table5 <- bwu::gpluck_make_columns(
 table6 <- bwu::gpluck_make_columns(
   table6,
   range = "",
-  ci_95 = "",  
+  ci_95 = "",
   test = "cvlt3_brief",
   test_name = "CVLT-3 Brief",
   domain = "Memory",
@@ -524,7 +524,7 @@ table7 <- bwu::gpluck_make_columns(
   score = NA_integer_,
   percentile = NA_integer_,
   range = "",
-  ci_95 = "",  
+  ci_95 = "",
   test = "cvlt3_brief",
   test_name = "CVLT-3 Brief",
   domain = "Memory",
@@ -607,7 +607,7 @@ table3 <-
 
 ```{r desc4}
 table4 <-
-  table4 %>% 
+  table4 %>%
   dplyr::mutate(
     description = case_when(
       scale == "Total Hits" ~ "yes/no recognition total hits",
