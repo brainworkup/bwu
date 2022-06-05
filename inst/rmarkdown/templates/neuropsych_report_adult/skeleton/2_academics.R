@@ -1,5 +1,5 @@
-## ---- 01-filter-academics -------------
-filter_domain <- c(
+## ---- 01-filter-academics ----
+filter_scales <- list(
   ## WRAT5
   "Word Reading",
   "Math Computation",
@@ -84,34 +84,34 @@ filter_domain <- c(
   "Written Expression"
 )
 
-## ---- 02-glue-academics ------------
+## ---- 02-glue-academics ----
 dt <-
-  neurocog %>%
-  dplyr::filter(scale %in% filter_domain) %>%
-  dplyr::arrange(desc(percentile)) %>%
+  neurocog |>
+  dplyr::filter(scale %in% filter_scales) |>
+  dplyr::arrange(desc(percentile)) |>
   dplyr::distinct(.keep_all = FALSE)
 
-dt %>%
-  glue::glue_data() %>%
-  purrr::modify(lift(paste0)) %>%
+dt |>
+  glue::glue_data() |>
+  purrr::modify(lift(paste0)) |>
   cat(dt$result,
     file = "2_academics.md",
     fill = TRUE,
     append = TRUE
   )
 
-## ---- 03-table-academics ------------
+## ---- 03-table-academics ----
 tb <-
   bwu::make_tibble(
     tibb = academics,
     data = neurocog,
     pheno = "Academic Skills"
-  ) %>%
-  dplyr::filter(Scale %in% filter_domain) %>%
-  dplyr::arrange(Test) %>%
+  ) |>
+  dplyr::filter(Scale %in% filter_scales) |>
+  dplyr::arrange(Test) |>
   dplyr::arrange(Subdomain)
 
-## ---- 04-kable-academics ------------------
+## ---- 04-kable-academics ----
 kableExtra::kbl(
   tb[, 1:4],
   "latex",
@@ -120,28 +120,27 @@ kableExtra::kbl(
   linesep = "",
   align = c("lccc"),
   caption = "(ref:academics)"
-) %>%
-  kableExtra::kable_paper(., lightable_options = "basic") %>%
+) |>
   kableExtra::kable_styling(., latex_options = c(
     "scale_down",
     "HOLD_position",
     "striped"
-  )) %>%
-  kableExtra::column_spec(., 1, width = "8cm") %>%
-  kableExtra::pack_rows(., index = table(tb$Test)) %>%
-  kableExtra::pack_rows(., index = table(tb$Subdomain)) %>%
-  kableExtra::row_spec(., row = 0, bold = TRUE) %>%
+  )) |>
+  kableExtra::column_spec(., 1, width = "8cm") |>
+  kableExtra::row_spec(., row = 0, bold = TRUE) |>
+  kableExtra::pack_rows(., index = table(tb$Test)) |>
+  kableExtra::pack_rows(., index = table(tb$Subdomain)) |>
   kableExtra::add_footnote("(ref:fn-acad)")
 
-## ---- 05-df-academics ------------
+## ---- 05-df-academics ----
 df <-
-  neurocog %>%
-  dplyr::filter(domain == "Academic Skills") %>%
-  dplyr::filter(!is.na(percentile)) %>%
-  dplyr::arrange(test_name) %>%
-  dplyr::filter(scale %in% filter_domain)
+  neurocog |>
+  dplyr::filter(domain == "Academic Skills") |>
+  dplyr::filter(scale %in% filter_scales) |>
+  dplyr::filter(!is.na(percentile)) |>
+  dplyr::arrange(test_name)
 
-## ---- 06-plot-subdomain-academics -----------------
+## ---- 06-plot-subdomain-academics ----
 bwu::dotplot(
   data = df,
   x = df$z_mean_sub,
@@ -149,7 +148,7 @@ bwu::dotplot(
   domain = "academics"
 )
 
-## ---- 07-plot-narrow-academics -------------------
+## ---- 07-plot-narrow-academics ----
 bwu::dotplot(
   data = df,
   x = df$z_mean_narrow,

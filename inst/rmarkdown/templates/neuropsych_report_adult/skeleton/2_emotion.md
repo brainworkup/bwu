@@ -1,3 +1,5 @@
+### Emotional/Behavioral/Personality
+
 (ref:first-name) completed an objective, self-report inventory of personality and emotional functioning.
 The validity indicators fell in the normal range, suggesting (ref:he-she) answered in a reasonably forthright manner and did not attempt to present an unrealistic or inaccurate impression that was either more negative or more positive than the clinical picture would warrant.
 

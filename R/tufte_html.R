@@ -1,3 +1,7 @@
+#' Tufte HTML
+#'
+#' Templates for creating handouts according to the style of Edward R. Tufte and
+#' Richard Feynman.
 #' @details `tufte_html()` provides the HTML format based on the Tufte CSS:
 #'   <https://edwardtufte.github.io/tufte-css/>.
 #' @param tufte_features A character vector of style features to enable:
@@ -14,7 +18,7 @@
 #'   sets the font family to `Roboto Condensed`, and changed the
 #'   background/foreground colors).
 #' @param margin_references Whether to place citations in margin notes.
-#' @rdname tufte_html
+#' @rdname tufte_handout
 #' @export
 tufte_html <- function(..., tufte_features = c("fonts", "background", "italics"),
                        tufte_variant = c("default", "envisioned"), margin_references = TRUE) {
@@ -22,6 +26,7 @@ tufte_html <- function(..., tufte_features = c("fonts", "background", "italics")
   if (missing(tufte_features) && tufte_variant != "default") {
     tufte_features <- character()
   }
+
   html_document2 <- function(..., extra_dependencies = list()) {
     rmarkdown::html_document(
       ...,

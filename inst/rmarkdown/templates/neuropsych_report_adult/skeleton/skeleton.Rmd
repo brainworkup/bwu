@@ -219,14 +219,24 @@ params:
       - spouse
       - guardian
       - other
+  eval_iq: TRUE
+  eval_academics: TRUE
+  eval_verbal: TRUE
+  eval_spatial: TRUE
+  eval_executive: TRUE
+  eval_memory: TRUE
+  eval_motor: TRUE
+  eval_social: TRUE
+  eval_adhd: TRUE
+  eval_emotion: TRUE
 ---
 
-```{r patient, include=FALSE}
+```{r patient, include = FALSE}
 patient <- params$first_name
 pronoun <- params$his_her
 ```
 
-```{r, setup, include = FALSE, results='hide', warning=FALSE}
+```{r, setup, include = FALSE}
 library(knitr)
 knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
 knitr::knit_hooks$set(optipng = knitr::hook_optipng)
@@ -237,33 +247,33 @@ if (identical(knitr:::pandoc_to(), "latex")) {
 }
 
 knitr::opts_chunk$set(
-  echo = FALSE,
+  # Code block options
+  cache = TRUE,
+  cache.path = ".cache/",
+  crop = TRUE,
   dev = c("CairoPNG", "CairoPDF"),
   dev.args = list(pointsize = 8),
-  crop = TRUE,
-  par = TRUE,
-  fig.width = 5,
-  fig.height = 3,
   dpi = 300,
+  echo = FALSE,
+  error = TRUE,
+  fig.height = 3,
   fig.pos = "!ht",
-  root.dir = normalizePath("./"),
-  cache = FALSE,
-  cache.path = "./cache/report-",
-  # Code block options
-  eval = TRUE,
+  fig.width = 5,
   include = TRUE,
   message = FALSE,
-  warning = FALSE,
+  par = TRUE,
   results = "asis",
-  error = TRUE
+  root.dir = normalizePath("./"),
+  warning = FALSE
 )
+
 knitr::opts_knit$set(width = 50)
 options(digits = 1, warnPartialMatchArgs = FALSE)
 options(knitr.kable.NA = "--")
 options(readr.show_col_types = FALSE)
 ```
 
-```{r}
+```{r margin-figure-engine}
 knitr::knit_engines$set(marginfigure = function(options) {
   options$type <- "marginfigure"
   eng_block <- knitr::knit_engines$get("block")
@@ -553,7 +563,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:doe) `r params$doe1`, `r params$doe2`, and `r params$doe3`
 
-```{marginfigure, echo=TRUE}
+```{marginfigure, echo = TRUE}
 **MRN:** (ref:mrn)\
 **DOB:** (ref:dob)\
 **Age:** (ref:age)\
@@ -563,7 +573,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 **Evaluation Dates:** (ref:doe)
 ```
 
-```{r nse, results='asis'}
+```{r nse, results = 'asis'}
 cat(readLines("2_nse.md"), sep = "\n")
 ```
 
@@ -571,7 +581,7 @@ cat(readLines("2_nse.md"), sep = "\n")
 
 # NEUROPSYCHOLOGICAL TESTING
 
-```{r nt-obs, results='asis'}
+```{r nt-obs, results = 'asis'}
 cat(readLines("2_nt-obs.md"), sep = "\n")
 ```
 
@@ -724,108 +734,107 @@ neurocog <- readr::read_csv(here::here(patient, "neurocog.csv"))
 neurobehav <- readr::read_csv(here::here(patient, "neurobehav.csv"))
 ```
 
-### Intelligence/General Ability
+<!-- ### Intelligence/General Ability -->
 
 (ref:fn-iq) Standard Score (M = 100, SD = 15)
 
-```{r, iq, results='asis'}
+```{r, iq, results = 'asis', eval = params$eval_iq}
 cat(readLines("2_iq.md"), sep = "\n")
 ```
 
-```{r}
+```{r read-iq, eval = params$eval_iq}
 knitr::read_chunk(here::here(patient, "2_iq.R"))
 ```
 
-```{r 01-filter-iq}
+```{r 01-filter-iq, eval = params$eval_iq}
 ```
 
-```{r 02-glue-iq, double_escape=T, escape=F, cache=TRUE, cache.path='cache/'}
+```{r 02-glue-iq, eval = params$eval_iq, cache=TRUE, cache.path='cache/'}
 ```
 
-```{r 03-table-iq}
+```{r 03-table-iq, eval = params$eval_iq}
 ```
 
-```{r 04-kable-iq, double_escape=T, escape=F, fig.fullwidth=T}
+```{r 04-kable-iq, eval = params$eval_iq, double_escape=T, escape=F, fig.fullwidth=T}
 ```
 
-```{r 05-df-iq}
+```{r 05-df-iq, eval = params$eval_iq}
 ```
 
-```{r 06-plot-subdomain-iq, eval=T, double_escape=T, escape=F, fig.cap = '(ref:g) (ref:gc) (ref:gf)'}
+```{r 06-plot-subdomain-iq, eval = TRUE, fig.cap = '(ref:g) (ref:gc) (ref:gf)'}
 ```
 
-```{r 07-plot-narrow-iq, eval=F, double_escape=T, escape=F, fig.cap = '(ref:g) (ref:gc) (ref:gf)'}
+```{r 07-plot-narrow-iq, eval = FALSE, fig.cap = '(ref:g) (ref:gc) (ref:gf)'}
 ```
 
 \newpage
 
-### Academic Skills
+<!-- ### Academic Skills -->
 
 (ref:fn-acad) Standard Score (M = 100, SD = 15)
 
-```{r, academics, results='asis'}
+```{r, academics, results = 'asis', eval = params$eval_academics}
 cat(readLines("2_academics.md"), sep = "\n")
 ```
 
-```{r, eval=T}
+```{r read-academics, eval = params$eval_academics}
 knitr::read_chunk(here::here(patient, "2_academics.R"))
 ```
 
-```{r 01-filter-academics}
+```{r 01-filter-academics, eval = params$eval_academics}
 ```
 
-```{r 02-glue-academics, double_escape=T, escape=F, cache=TRUE, cache.path='cache/'}
+```{r 02-glue-academics, eval = params$eval_academics, cache=TRUE, cache.path='cache/'}
 ```
 
-```{r 03-table-academics, double_escape=T, escape=F}
+```{r 03-table-academics, eval = params$eval_academics}
 ```
 
-```{r 04-kable-academics, double_escape=T, escape=F, fig.fullwidth=T}
+```{r 04-kable-academics, eval = params$eval_academics, double_escape = T, escape = F, fig.fullwidth = TRUE}
 ```
 
-```{r 05-df-academics, double_escape=T, escape=F}
+```{r 05-df-academics, eval = params$eval_academics}
 ```
 
-```{r 06-plot-subdomain-academics, eval=T, double_escape=T, escape=F, fig.cap = '(ref:acad)'}
+```{r 06-plot-subdomain-academics, eval=T, fig.cap = '(ref:acad)'}
 ```
 
-```{r 07-plot-narrow-academics, eval=F, double_escape=T, escape=F, fig.cap = '(ref:acad)'}
+```{r 07-plot-narrow-academics, eval=F, fig.cap = '(ref:acad)'}
 ```
 
 \newpage
 
-### Verbal/Language
+<!-- ### Verbal/Language -->
 
 (ref:fn-vrb) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
-```{r, verbal, results='asis'}
+```{r, verbal, results='asis', eval = params$eval_verbal}
 cat(readLines("2_verbal.md"), sep = "\n")
 ```
 
-```{r}
+```{r read-verbal, eval = params$eval_verbal}
 knitr::read_chunk(here::here(patient, "2_verbal.R"))
 ```
 
-```{r 01-filter-verbal}
+```{r 01-filter-verbal, eval = params$eval_verbal}
 ```
 
-```{r 02-glue-verbal, double_escape=T, escape=F, cache=TRUE, cache.path='cache/'}
+```{r 02-glue-verbal, eval = params$eval_verbal, cache = TRUE, cache.path = 'cache/'}
 ```
 
-```{r 03-table-verbal, double_escape=T, escape=F}
+```{r 03-table-verbal, eval = params$eval_verbal}
 ```
 
-
-```{r 04-kable-verbal, double_escape=T, escape=F}
+```{r 04-kable-verbal, eval = params$eval_verbal, double_escape = TRUE, escape = FALSE, fig.fullwidth = TRUE}
 ```
 
-```{r 05-df-verbal, double_escape=T, escape=F}
+```{r 05-df-verbal, eval = params$eval_verbal}
 ```
 
-```{r 06-plot-subdomain-verbal, eval=F, fig.cap = '(ref:vrb)', double_escape=T, escape=F}
+```{r 06-plot-subdomain-verbal, eval=F, fig.cap = '(ref:vrb)'}
 ```
 
-```{r 07-plot-narrow-verbal, eval=T, fig.cap = '(ref:vrb)', double_escape=T, escape=F}
+```{r 07-plot-narrow-verbal, eval=T, fig.cap = '(ref:vrb)'}
 ```
 
 \newpage
@@ -838,20 +847,20 @@ knitr::read_chunk(here::here(patient, "2_verbal.R"))
 cat(readLines("2_spatial.md"), sep = "\n")
 ```
 
-```{r}
+```{r read-spatial}
 knitr::read_chunk(here::here(patient, "2_spatial.R"))
 ```
 
 ```{r 01-filter-spatial}
 ```
 
-```{r 02-glue-spatial, double_escape=T, escape=F, cache=TRUE, cache.path='cache/'}
+```{r 02-glue-spatial, cache=TRUE, cache.path='cache/'}
 ```
 
 ```{r 03-table-spatial}
 ```
 
-```{r 04-kable-spatial, double_escape=T, escape=F}
+```{r 04-kable-spatial, double_escape=T, escape=F, fig.fullwidth = TRUE}
 ```
 
 ```{r 05-df-spatial}
@@ -873,30 +882,30 @@ knitr::read_chunk(here::here(patient, "2_spatial.R"))
 cat(readLines("2_executive.md"), sep = "\n")
 ```
 
-```{r}
+```{r read-executive}
 knitr::read_chunk(here::here(patient, "2_executive.R"))
 ```
 
 ```{r 01-filter-executive}
 ```
 
-```{r 02-glue-executive, double_escape=T, escape=F, cache=TRUE, cache.path='cache/'}
+```{r 02-glue-executive, cache = TRUE, cache.path = 'cache/'}
 ```
 
 
 ```{r 03-table-executive}
 ```
 
-```{r 04-kable-executive, double_escape=T, escape=F}
+```{r 04-kable-executive, double_escape=T, escape=F, fig.fullwidth = TRUE}
 ```
 
 ```{r 05-df-executive}
 ```
 
-```{r 06-plot-subdomain-executive, eval=T, fig.cap = '(ref:att-exe)', double_escape=T, escape=F}
+```{r 06-plot-subdomain-executive, eval=T, fig.cap = '(ref:att-exe)'}
 ```
 
-```{r 07-plot-narrow-executive, eval=F, fig.cap = '(ref:att-exe)', double_escape=T, escape=F}
+```{r 07-plot-narrow-executive, eval=F, fig.cap = '(ref:att-exe)'}
 ```
 
 \newpage
@@ -922,7 +931,7 @@ knitr::read_chunk(here::here(patient, "2_memory.R"))
 ```{r 03-table-memory, double_escape=T, escape=F}
 ```
 
-```{r 04-kable-memory, double_escape=T, escape=F}
+```{r 04-kable-memory, double_escape=T, escape=F, fig.fullwidth = TRUE}
 ```
 
 ```{r 05-df-memory, double_escape=T, escape=F}
@@ -958,7 +967,7 @@ knitr::read_chunk(here::here(patient, "2_motor.R"))
 ```{r 03-table-motor, double_escape=T, escape=F}
 ```
 
-```{r 04-kable-motor, double_escape=T, escape=F}
+```{r 04-kable-motor, double_escape=T, escape=F, fig.fullwidth = TRUE}
 ```
 
 ```{r 05-df-motor, double_escape=T, escape=F}
@@ -980,7 +989,7 @@ knitr::read_chunk(here::here(patient, "2_motor.R"))
 cat(readLines("2_social.md"), sep = "\n")
 ```
 
-```{r}
+```{r read-social}
 knitr::read_chunk(here::here(patient, "2_social.R"))
 ```
 
@@ -993,7 +1002,7 @@ knitr::read_chunk(here::here(patient, "2_social.R"))
 ```{r 03-table-social, double_escape=T, escape=F}
 ```
 
-```{r 04-kable-social, double_escape=T, escape=F}
+```{r 04-kable-social, double_escape=T, escape=F, fig.fullwidth = TRUE}
 ```
 
 ```{r 05-df-social, double_escape=T, escape=F}
@@ -1017,7 +1026,7 @@ knitr::read_chunk(here::here(patient, "2_social.R"))
 cat(readLines("2_adhd.md"), sep = "\n")
 ```
 
-```{r}
+```{r read-adhd}
 knitr::read_chunk(here::here(patient, "2_adhd.R"))
 ```
 
@@ -1036,23 +1045,21 @@ knitr::read_chunk(here::here(patient, "2_adhd.R"))
 ```{r 04-kable-adhd, eval=T, double_escape=T, escape=F, fig.fullwidth=T}
 ```
 
-```{r 05-df-adhd, eval=T, double_escape=T, escape=F}
+```{r 05-df-adhd}
 ```
 
-```{r 06-plot-adhd-adhd, eval=T, double_escape=T, escape=F, fig.cap='(ref:adhd-ef)'}
+```{r 06-plot-adhd-adhd, eval = TRUE, fig.cap='(ref:adhd-ef)'}
 ```
 
-
-```{r 07-df-adhd, eval=T, double_escape=T, escape=F}
+```{r 07-df-adhd}
 ```
 
-
-```{r 08-plot-executive-adhd, eval=T, double_escape=T, escape=F, fig.cap='(ref:att-ef)'}
+```{r 08-plot-executive-adhd, eval = TRUE, fig.cap='(ref:att-ef)'}
 ```
 
 \newpage
 
-### Emotional/Behavioral/Personality
+<!-- ### Emotional/Behavioral/Personality -->
 
 (ref:fn-emo) *T* Score (M = 50, SD = 10)
 
@@ -1060,33 +1067,27 @@ knitr::read_chunk(here::here(patient, "2_adhd.R"))
 cat(readLines("2_emotion.md"), sep = "\n")
 ```
 
-```{r}
+```{r read-emotion}
 knitr::read_chunk(here::here(patient, "2_emotion.R"))
 ```
 
-```{r 01-filter-emotion, eval=T, double_escape=T, escape=F}
+```{r 01-filter-emotion}
 ```
-
 
 ```{r 02-glue-emotion, eval=T, double_escape=T, escape=F, cache=TRUE, cache.path='cache/'}
 ```
 
-
 ```{r 03-table-emotion, eval=T, double_escape=T, escape=F}
 ```
-
 
 ```{r 04-kable-emotion, eval=T, double_escape=T, escape=F, fig.fullwidth=T}
 ```
 
-
 ```{r 05-df-emotion, eval=T, double_escape=T, escape=F}
 ```
 
-
 ```{r 06-plot-subdomain-emotion, eval=F, double_escape=T, escape=F, fig.cap='(ref:emotion)'}
 ```
-
 
 ```{r 07-plot-narrow-emotion, eval=F, double_escape=T, escape=F, fig.cap='(ref:emotion)'}
 ```
@@ -1122,7 +1123,7 @@ pass <-
   dplyr::filter(!is.na(pass))
 ```
 
-```{r pass-plot, fig.cap = '(ref:pass)', eval=T, fig.env='marginfigure', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
+```{r pass-plot, eval = T, fig.cap = '(ref:pass)', fig.env='marginfigure', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
 bwu::dotplot(
   data = pass,
   x = pass$z_mean_pass,
@@ -1140,7 +1141,7 @@ nonverbal <-
   dplyr::filter(!is.na(verbal))
 ```
 
-```{r nonverbal-plot, fig.cap = '(ref:nonverbal)', eval=T, fig.env='marginfigure', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
+```{r nonverbal-plot, eval = T, fig.cap = '(ref:nonverbal)', fig.env='marginfigure', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
 bwu::dotplot(
   data = nonverbal,
   x = nonverbal$z_mean_verbal,
@@ -1158,7 +1159,7 @@ timed <-
   dplyr::filter(!is.na(timed))
 ```
 
-```{r timed-plot, fig.cap = '(ref:timed)', eval=T, fig.env='marginfigure', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
+```{r timed-plot, eval = T, fig.cap = '(ref:timed)', fig.env='marginfigure', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
 bwu::dotplot(
   data = timed,
   x = timed$z_mean_timed,

@@ -17,3 +17,13 @@
 - added mmpi3
 
 - deleted/cleaned up extra knitr::readchunk code blocks
+
+## bwu 1.1.0.9000
+
+- changed skeleton yaml header to use "eval" as a yes/no variable
+
+- deleted extra R functions (eg marginnote, sans serif)
+
+- many other tweaks
+
+- added "knit with date" function for knitr button in Rstudio

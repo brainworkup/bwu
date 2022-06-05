@@ -38,7 +38,8 @@ Rmarkdown Template for Neuropsychological Report Adult
 \examples{
 
 rmarkdown::draft("neuropsych-report.Rmd",
-                 template = "neuropsych_report_adult",
-                 package = "bwu",
-                 edit = FALSE)
+  template = "neuropsych_report_adult",
+  package = "bwu",
+  edit = FALSE
+)
 }

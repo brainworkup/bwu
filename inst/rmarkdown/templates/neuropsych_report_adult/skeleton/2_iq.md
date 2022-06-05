@@ -1,3 +1,5 @@
+### Intelligence/General Ability
+
 An estimate of premorbid verbal ability fell within the Average range.
 General intellectual functioning scores were Average overall.
 Index scores ranged from Below Average to Above Average.

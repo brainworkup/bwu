@@ -1,3 +1,5 @@
+### Verbal/Language
+
 (ref:first-name)'s language comprehension and expression skills are intact for (ref:his-her) age, demographic background, and educational history, without a clear pattern of strengths or weaknesses.
 Speech output and fluency were in the Average range and above those of approximately 50% of (ref:his-her) peers.
 Auditory comprehension (i.e., the ability to receive, process, and execute oral instructions of increasing syntactic complexity) was Average.

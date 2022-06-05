@@ -1,3 +1,5 @@
+### Academic Skills
+
 (ref:first-name)'s broad academic achievement and academic fluency skills fell in the Average range for (ref:his-her) age and grade-level.
 Math fluency, math calculation, and quantitative reasoning were Average to Exceptionally High.
 (ref:he-she-cap) demonstrated Average written expression skills on measures of word spelling and expository writing, and Average writing speed/fluency.
