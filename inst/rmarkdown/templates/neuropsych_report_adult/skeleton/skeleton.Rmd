@@ -622,17 +622,17 @@ Test scores are easiest to interpret as percentiles[^1], which are provided in t
 
 (ref:gauss-plot-narrow) Classification of neuropsychological test scores that are normally distributed in the general population [@guilmetteAmericanAcademyClinical2020].
 
-```{r gauss-plot-narrow, fig.cap='(ref:gauss-plot-narrow)', fig.width = 6, fig.height = 5, fig.pos = '!ht'}
+```{r gauss-plot-narrow, fig.cap='(ref:gauss-plot-narrow)', fig.width = 6, fig.height = 5, fig.pos = '!ht', cache = TRUE}
 knitr::include_graphics("plot_narrow.png", auto_pdf = TRUE)
 ```
 
 (ref:gauss-plot-broad) Classification of neuropsychological test scores that are positively skewed in the general population [@schoenbergReportingStandardsNeuropsychological2017].
 
-```{r gauss-plot-broad, fig.cap='(ref:gauss-plot-broad)', fig.width = 6, fig.height = 5, fig.pos = '!ht'}
+```{r gauss-plot-broad, fig.cap='(ref:gauss-plot-broad)', fig.width = 6, fig.height = 5, fig.pos = '!ht', cache = TRUE}
 knitr::include_graphics("plot_broad.png", auto_pdf = TRUE)
 ```
 
-```{r read-csv, cache = TRUE}
+```{r read-csv, cache = F}
 library(tidyverse)
 data_path <- here::here(patient, "csv")
 files <- dir(data_path, pattern = "*.csv")
@@ -655,7 +655,7 @@ neuropsych <-
   dplyr::mutate(timed = forcats::as_factor(timed))
 ```
 
-```{r, make-factors-neurocog, cache = TRUE}
+```{r, make-factors-neurocog, cache = F}
 # Subset neurocognitive data
 neurocog <-
   neuropsych %>%
@@ -712,7 +712,7 @@ neurocog <-
   )
 ```
 
-```{r, make-factors-neurobehav, cache = TRUE}
+```{r, make-factors-neurobehav, cache = F}
 # Subset neurobehavioral data
 neurobehav <-
   neuropsych %>%
@@ -748,13 +748,13 @@ neurobehav <-
   )
 ```
 
-```{r, write-data, cache = TRUE}
+```{r, write-data, cache = F}
 readr::write_csv(neuropsych, here::here(patient, "neuropsych.csv"))
 readr::write_csv(neurocog, here::here(patient, "neurocog.csv"))
 readr::write_csv(neurobehav, here::here(patient, "neurobehav.csv"))
 ```
 
-```{r, read-data, cache = TRUE}
+```{r, read-data, cache = F}
 neuropsych <- readr::read_csv(here::here(patient, "neuropsych.csv"))
 neurocog <- readr::read_csv(here::here(patient, "neurocog.csv"))
 neurobehav <- readr::read_csv(here::here(patient, "neurobehav.csv"))
