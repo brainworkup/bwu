@@ -772,25 +772,25 @@ cat(readLines("2.2_iq.md"), sep = "\n")
 knitr::read_chunk(here::here(patient, "2.2_iq.R"))
 ```
 
-```{r 01-filter-iq, eval = params$eval_iq, cache = TRUE}
+```{r 01-filter-iq, eval = params$eval_iq}
 ```
 
-```{r 02-glue-iq, eval = params$eval_iq, cache=TRUE}
+```{r 02-glue-iq, eval = params$eval_iq, cache = TRUE}
 ```
 
-```{r 03-table-iq, eval = params$eval_iq, cache = TRUE}
+```{r 03-table-iq, eval = params$eval_iq}
 ```
 
-```{r 04-kable-iq, eval = params$eval_iq, double_escape = TRUE, escape = FALSE, fig.fullwidth = TRUE, cache = TRUE}
+```{r 04-kable-iq, eval = params$eval_iq, double_escape = TRUE, escape = FALSE, fig.fullwidth = TRUE}
 ```
 
-```{r 05-df-iq, eval = params$eval_iq, cache = TRUE}
+```{r 05-df-iq, eval = params$eval_iq}
 ```
 
-```{r 06-plot-subdomain-iq, eval = params$eval_iq, fig.cap = '(ref:g) (ref:gc) (ref:gf)', cache = TRUE}
+```{r 06-plot-subdomain-iq, eval = params$eval_iq, fig.cap = '(ref:g) (ref:gc) (ref:gf)'}
 ```
 
-```{r 07-plot-narrow-iq, eval = FALSE, fig.cap = '(ref:g) (ref:gc) (ref:gf)', cache = TRUE}
+```{r 07-plot-narrow-iq, eval = FALSE, fig.cap = '(ref:g) (ref:gc) (ref:gf)'}
 ```
 
 \newpage
@@ -810,7 +810,7 @@ knitr::read_chunk(here::here(patient, "2.3_academics.R"))
 ```{r 01-filter-academics, eval = params$eval_academics}
 ```
 
-```{r 02-glue-academics, eval = params$eval_academics, cache=TRUE}
+```{r 02-glue-academics, eval = params$eval_academics, cache = TRUE}
 ```
 
 ```{r 03-table-academics, eval = params$eval_academics}
@@ -825,7 +825,7 @@ knitr::read_chunk(here::here(patient, "2.3_academics.R"))
 ```{r 06-plot-subdomain-academics, eval = params$eval_academics, fig.cap = '(ref:acad)'}
 ```
 
-```{r 07-plot-narrow-academics, eval=F, fig.cap = '(ref:acad)'}
+```{r 07-plot-narrow-academics, eval = F, fig.cap = '(ref:acad)'}
 ```
 
 \newpage
@@ -845,7 +845,7 @@ knitr::read_chunk(here::here(patient, "2.4_verbal.R"))
 ```{r 01-filter-verbal, eval = params$eval_verbal}
 ```
 
-```{r 02-glue-verbal, eval = params$eval_verbal, cache = TRUE, cache.path = 'cache/'}
+```{r 02-glue-verbal, eval = params$eval_verbal, cache = TRUE}
 ```
 
 ```{r 03-table-verbal, eval = params$eval_verbal}
@@ -857,7 +857,7 @@ knitr::read_chunk(here::here(patient, "2.4_verbal.R"))
 ```{r 05-df-verbal, eval = params$eval_verbal}
 ```
 
-```{r 06-plot-subdomain-verbal, eval=F, fig.cap = '(ref:vrb)'}
+```{r 06-plot-subdomain-verbal, eval = F, fig.cap = '(ref:vrb)'}
 ```
 
 ```{r 07-plot-narrow-verbal, eval = params$eval_verbal, fig.cap = '(ref:vrb)'}
@@ -880,13 +880,13 @@ knitr::read_chunk(here::here(patient, "2.5_spatial.R"))
 ```{r 01-filter-spatial, eval = params$eval_spatial}
 ```
 
-```{r 02-glue-spatial, eval = params$eval_spatial, cache=TRUE}
+```{r 02-glue-spatial, eval = params$eval_spatial, cache = TRUE}
 ```
 
 ```{r 03-table-spatial, eval = params$eval_spatial}
 ```
 
-```{r 04-kable-spatial, eval = params$eval_spatial, double_escape= T , escape = F, fig.fullwidth = TRUE}
+```{r 04-kable-spatial, eval = params$eval_spatial, double_escape= TRUE , escape = FALSE, fig.fullwidth = TRUE}
 ```
 
 ```{r 05-df-spatial, eval = params$eval_spatial}
@@ -915,13 +915,13 @@ knitr::read_chunk(here::here(patient, "2.6_executive.R"))
 ```{r 01-filter-executive, eval = params$eval_executive}
 ```
 
-```{r 02-glue-executive, eval = params$eval_executive, cache = TRUE, cache.path = 'cache/'}
+```{r 02-glue-executive, eval = params$eval_executive, cache = TRUE}
 ```
 
 ```{r 03-table-executive, eval = params$eval_executive}
 ```
 
-```{r 04-kable-executive, eval = params$eval_executive, double_escape = T, escape = F, fig.fullwidth = TRUE}
+```{r 04-kable-executive, eval = params$eval_executive, double_escape = TRUE, escape = FALSE, fig.fullwidth = TRUE}
 ```
 
 ```{r 05-df-executive, eval = params$eval_executive}
@@ -950,7 +950,7 @@ knitr::read_chunk(here::here(patient, "2.7_memory.R"))
 ```{r 01-filter-memory, eval = params$eval_memory}
 ```
 
-```{r 02-glue-memory, eval = params$eval_memory, cache = TRUE, cache.path = 'cache/'}
+```{r 02-glue-memory, eval = params$eval_memory, cache = TRUE}
 ```
 
 ```{r 03-table-memory, eval = params$eval_memory}
@@ -985,13 +985,13 @@ knitr::read_chunk(here::here(patient, "2.8_motor.R"))
 ```{r 01-filter-motor, eval = params$eval_motor}
 ```
 
-```{r 02-glue-motor, eval = params$eval_motor, cache=TRUE}
+```{r 02-glue-motor, eval = params$eval_motor, cache = TRUE}
 ```
 
 ```{r 03-table-motor, eval = params$eval_motor}
 ```
 
-```{r 04-kable-motor, eval = params$eval_motor, double_escape=T, escape=F, fig.fullwidth = TRUE}
+```{r 04-kable-motor, eval = params$eval_motor, double_escape = T, escape = F, fig.fullwidth = TRUE}
 ```
 
 ```{r 05-df-motor, eval = params$eval_motor}
@@ -1020,13 +1020,13 @@ knitr::read_chunk(here::here(patient, "2.9_social.R"))
 ```{r 01-filter-social, eval = params$eval_social}
 ```
 
-```{r 02-glue-social, eval = params$eval_social, cache=TRUE}
+```{r 02-glue-social, eval = params$eval_social, cache = TRUE}
 ```
 
 ```{r 03-table-social, eval = params$eval_social}
 ```
 
-```{r 04-kable-social, eval = params$eval_social, double_escape=T, escape=F, fig.fullwidth = TRUE}
+```{r 04-kable-social, eval = params$eval_social, double_escape = T, escape = F, fig.fullwidth = TRUE}
 ```
 
 ```{r 05-df-social, eval = params$eval_social}
@@ -1057,13 +1057,13 @@ knitr::read_chunk(here::here(patient, "2.10_adhd.R"))
 ```{r 01-filter-adhd, eval = params$eval_adhd}
 ```
 
-```{r 02-glue-adhd, eval = params$eval_adhd, cache=TRUE}
+```{r 02-glue-adhd, eval = params$eval_adhd, cache = TRUE}
 ```
 
 ```{r 03-table-adhd, eval = params$eval_adhd}
 ```
 
-```{r 04-kable-adhd, eval = params$eval_adhd, double_escape=T, escape=F, fig.fullwidth=T}
+```{r 04-kable-adhd, eval = params$eval_adhd, double_escape = T, escape = F, fig.fullwidth = T}
 ```
 
 ```{r 05-df-adhd, eval = params$eval_adhd}
@@ -1095,7 +1095,7 @@ knitr::read_chunk(here::here(patient, "2.11_emotion.R"))
 ```{r 01-filter-emotion, eval = params$eval_emotion}
 ```
 
-```{r 02-glue-emotion, eval = params$eval_emotion, cache=TRUE}
+```{r 02-glue-emotion, eval = params$eval_emotion, cache = TRUE}
 ```
 
 ```{r 03-table-emotion, eval = params$eval_emotion}
@@ -1126,7 +1126,7 @@ domain <-
   dplyr::filter(!is.na(domain))
 ```
 
-```{r domain-plot, fig.cap = '(ref:domain)', fig.height = 3.5, cache = TRUE}
+```{r domain-plot, fig.cap = '(ref:domain)', fig.height = 3.5}
 bwu::dotplot(
   data = domain,
   x = domain$z_mean_dom,
@@ -1144,7 +1144,7 @@ pass <-
   dplyr::filter(!is.na(pass))
 ```
 
-```{r pass-plot, eval = T, fig.cap = '(ref:pass)', fig.env = 'marginfigure', fig.height = 5, out.width = '.5\\textwidth', out.extra = '', fig.pos = '', cache = TRUE}
+```{r pass-plot, eval = T, fig.cap = '(ref:pass)', fig.env = 'marginfigure', fig.height = 5, out.width = '.5\\textwidth', out.extra = '', fig.pos = ''}
 bwu::dotplot(
   data = pass,
   x = pass$z_mean_pass,
@@ -1162,7 +1162,7 @@ nonverbal <-
   dplyr::filter(!is.na(verbal))
 ```
 
-```{r nonverbal-plot, eval = T, fig.cap = '(ref:nonverbal)', fig.env = 'marginfigure', fig.height = 5, out.width = '.5\\textwidth', out.extra = '', fig.pos = '', cache = TRUE}
+```{r nonverbal-plot, eval = T, fig.cap = '(ref:nonverbal)', fig.env = 'marginfigure', fig.height = 5, out.width = '.5\\textwidth', out.extra = '', fig.pos = ''}
 bwu::dotplot(
   data = nonverbal,
   x = nonverbal$z_mean_verbal,
@@ -1180,7 +1180,7 @@ timed <-
   dplyr::filter(!is.na(timed))
 ```
 
-```{r timed-plot, eval = T, fig.cap = '(ref:timed)', fig.env='marginfigure', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos='', cache = TRUE}
+```{r timed-plot, eval = T, fig.cap = '(ref:timed)', fig.env='marginfigure', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}
 bwu::dotplot(
   data = timed,
   x = timed$z_mean_timed,
@@ -1189,24 +1189,24 @@ bwu::dotplot(
 )
 ```
 
-```{r, sirf, results = 'asis', cache = TRUE}
+```{r, sirf, results = 'asis'}
 cat(readLines("3_sirf.md"), sep = "\n")
 ```
 
 # RECOMMENDATIONS
 
-```{marginfigure, echo=TRUE}
+```{marginfigure, echo = TRUE}
 Links highlighted in \textcolor{blue}{blue} should be clickable to the online content.
 ```
 
-```{r, recs, results = 'asis', cache = TRUE}
+```{r, recs, results = 'asis'}
 cat(readLines("4_recs.md"), sep = "\n")
 ```
 
 It was a pleasure to work with `r params$first_name`.
 Please contact me with any questions or concerns regarding this patient.
 
-```{marginfigure, echo=TRUE}
+```{marginfigure, echo = TRUE}
 **CONTACT**\
 Department of Psychiatry and the Behavioral Sciences\
 2250 Alcazar St., Suite 2200\
@@ -1231,7 +1231,7 @@ CA License PSY29212
 
 # APPENDIX
 
-```{r results='asis', cache = TRUE}
+```{r results = 'asis', cache = TRUE}
 cat(readLines("telehealth_statement.md"), sep = "\n")
 ```
 
@@ -1248,7 +1248,7 @@ Although standardized scores provide the clinician with an important and necessa
 
 ## Conversion of Test Scores
 
-```{r ranges, double_escape=TRUE, escape=FALSE, fig.fullwidth=FALSE, cache = TRUE}
+```{r ranges, double_escape = TRUE, escape = FALSE, fig.fullwidth = FALSE, cache = TRUE}
 range <- vroom::vroom(here::here(patient, "test_score_ranges.csv"), show_col_types = FALSE)
 gt::gt(range) %>%
   gt::tab_header(., title = "Test Score Labels/Ranges") %>%

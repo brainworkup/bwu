@@ -1,6 +1,6 @@
 ## ---- 01-filter-executive -------------
 filter_domain <- c(
-  ## NAB
+## NAB
   "NAB Attention Index",
   "Attention Domain",
   "Orientation",
@@ -24,7 +24,7 @@ filter_domain <- c(
   # "Word Generation",
   "Word Generation Perseverations",
   "Judgment",
-  ## RBANS
+## RBANS
   "Attention Index",
   ## CONCEPT FORMATION
   # "Comprehension",
@@ -32,7 +32,7 @@ filter_domain <- c(
   # "Matrix Reasoning",
   # CET
   "Total Deviation Score",
-  ## WAIS/WISC/WMS
+## WAIS/WISC/WMS
   # WORKING MEMORY
   "Working Memory (WMI)",
   "Auditory Working Memory (AWMI)",
@@ -49,7 +49,7 @@ filter_domain <- c(
   "Symbol Span",
   "Spatial Span",
   "Picture Span",
-  ## WPPSI-IV
+## WPPSI-IV
   "Picture Memory",
   "Zoo Locations",
   # PROCESSING SPEED
@@ -61,29 +61,29 @@ filter_domain <- c(
   "Symbol Search",
   "Bug Search",
   "Animal Coding",
-  ## TMT
+## TMT
   "TMT, Part A",
   "TMT, Part B",
-  ## Clock Drawing Test
+## Clock Drawing Test
   "Clock Drawing",
-  ## DKEFS
+## DKEFS
   # "Color Naming",
   # "Word Reading",
   "Inhibition",
   "Inhibition/Switching",
   "Inhibition Total Errors",
   "Inhibition/Switching Total Errors",
-  ## CVLT
+## CVLT
   "Total Intrusions",
   "Total Repetitions",
-  ## RCFT
+## RCFT
   "ROCF Copy",
   "RCFT Copy",
-  ## NIH EXAMINER
+## NIH EXAMINER
   "Unstructured Task",
   # "Letter Fluency",
   # "Category Fluency",
-  ## WMS-4 Working Memory
+## WMS-4 Working Memory
   "Spatial Addition",
   "Picture Span"
 )
@@ -99,7 +99,7 @@ dt %>%
   glue::glue_data() %>%
   purrr::modify(lift(paste0)) %>%
   cat(dt$result,
-    file = "2_executive.md",
+    file = "2.6_executive.md",
     fill = TRUE,
     append = TRUE
   )

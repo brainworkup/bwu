@@ -42,7 +42,7 @@ dt %>%
   glue::glue_data() %>%
   purrr::modify(lift(paste0)) %>%
   cat(dt$result,
-    file = "2_spatial.md",
+    file = "2.5_spatial.md",
     fill = TRUE,
     append = TRUE
   )

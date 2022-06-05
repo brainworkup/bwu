@@ -50,7 +50,7 @@ dt %>%
   glue::glue_data() %>%
   purrr::modify(lift(paste0)) %>%
   cat(dt$result,
-    file = "2_adhd.md",
+    file = "2.10_adhd.md",
     fill = TRUE,
     append = TRUE
   )

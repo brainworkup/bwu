@@ -33,7 +33,7 @@ dt %>%
   glue::glue_data() %>%
   purrr::modify(lift(paste0)) %>%
   cat(dt$result,
-    file = "2_motor.md",
+    file = "2.8_motor.md",
     fill = TRUE,
     append = TRUE
   )

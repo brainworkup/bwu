@@ -34,7 +34,7 @@ dt %>%
   glue::glue_data() %>%
   purrr::modify(lift(paste0)) %>%
   cat(dt$result,
-    file = "2_iq.md",
+    file = "2.2_iq.md",
     fill = TRUE,
     append = TRUE
   )
