@@ -10,7 +10,7 @@ params:
 
 ## Setup
 
-```{r setup, include=FALSE}
+```{r setup, include = FALSE}
 Sys.setenv(JAVA_HOME = "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home")
 options(java.parameters = "-Xmx16000m")
 knitr::opts_chunk$set(
@@ -55,7 +55,7 @@ Specify date range to exclude entire database.
 Copy over to pre_csv.
 
 ```{r pluck}
-plucked_table <- vroom::vroom(here::here(patient, "pre_csv", "pariconnectexportPAI.csv"), delim = ",", col_name = TRUE)
+plucked_table <- vroom::vroom(here::here(patient, "pre_csv", "pariconnectexportPAI.csv"), delim = ",", col_names = TRUE)
 ```
 
 ## PAI Index and Subscale Scores
@@ -368,11 +368,23 @@ table <-
   )
 ```
 
-### Slice
+## Slice
 
 ```{r slice}
 slice.pai <- c(1:49)
 table <- table |> dplyr::slice(slice.pai)
+```
+
+## Glue results
+
+```{r result}
+table <-
+  table %>%
+  dplyr::mutate(
+    result = glue::glue(
+      "{patient}'s score on {scale} (i.e., {description}) was {range}."
+    )
+  )
 ```
 
 # Finalize and save

@@ -632,6 +632,29 @@ knitr::include_graphics("plot_narrow.png", auto_pdf = TRUE)
 knitr::include_graphics("plot_broad.png", auto_pdf = TRUE)
 ```
 
+```{r, read-extra, cache = F, eval=FALSE}
+patient <- params$patient
+
+read_extra <- function(patient, test) {
+  test <- 
+    readr::read_csv(here::here(patient, "csv", test)) |> 
+    dplyr::mutate(result = glue::glue(
+      "{description} as measured by the {scale} subtest was {range} relative to same-age peers."))
+}
+
+examiner <- read_extra(patient, "examiner.csv")
+pegboard <- read_extra(patient, "pegboard.csv")
+rocf <- read_extra(patient, "rocf.csv")
+topf <- read_extra(patient, "topf.csv")
+wiat4 <- read_extra(patient, "wiat4.csv")
+
+readr::write_csv(examiner, here::here(patient, "csv", "examiner.csv"))
+readr::write_csv(pegboard, here::here(patient, "csv", "pegboard.csv"))
+readr::write_csv(rocf, here::here(patient, "csv", "rocf.csv"))
+readr::write_csv(topf, here::here(patient, "csv", "topf.csv"))
+readr::write_csv(wiat4, here::here(patient, "csv", "wiat4.csv"))
+```
+
 ```{r read-csv, cache = F}
 library(tidyverse)
 data_path <- here::here(patient, "csv")
