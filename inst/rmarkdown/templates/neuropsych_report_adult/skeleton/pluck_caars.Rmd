@@ -303,13 +303,13 @@ if (params$test == "caars_sr") {
     mutate(
       description = case_when(
         scale == "ADHD Index" ~ "composite indicator for identifying individuals 'at-risk' for ADHD",
-        scale == "Inattention/Memory Problems" ~ "trouble concentrating, difficulty planning or completing tasks, forgetfulness, absent-mindedness, being disorganized",
-        scale == "Hyperactivity/Restlessness" ~ "problems with working at the same task for long periods of time, feeling more restless than others seems to be, fidgeting",
-        scale == "Impulsivity/Emotional Lability" ~ "engaging in more impulsive acts than others do, low frustration tolerance, quick and frequent mood changes, feeling easily angered and irritated by people",
-        scale == "Problems with Self-Concept" ~ "poor social relationships, low observer-esteem and observer confidence",
-        scale == "DSM-5 Inattentive Symptoms" ~ "behave in a manner consistent with the Inattentive Presentation of ADHD, described in the DSM-5",
-        scale == "DSM-5 Hyperactive-Impulsive Symptoms" ~ "behave in a manner consistent with the Hyperactive-Impulsive Presentation of ADHD, described in the DSM-5",
-        scale == "DSM-5 ADHD Symptoms Total" ~ "behave in a manner consistent with the DSM-5 diagnostic criteria for Combined Presentation of ADHD",
+        scale == "Inattention/Memory Problems" ~ "i.e., trouble concentrating, difficulty planning or completing tasks, forgetfulness, absent-mindedness, being disorganized",
+        scale == "Hyperactivity/Restlessness" ~ "i.e., problems with working at the same task for long periods of time, feeling more restless than others seems to be, fidgeting",
+        scale == "Impulsivity/Emotional Lability" ~ "i.e., engaging in more impulsive acts than others do, low frustration tolerance, quick and frequent mood changes, feeling easily angered and irritated by people",
+        scale == "Problems with Self-Concept" ~ "i.e., poor social relationships, low observer-esteem and observer confidence",
+        scale == "DSM-5 Inattentive Symptoms" ~ "i.e., behave in a manner consistent with the Inattentive Presentation of ADHD, described in the DSM-5",
+        scale == "DSM-5 Hyperactive-Impulsive Symptoms" ~ "i.e., behave in a manner consistent with the Hyperactive-Impulsive Presentation of ADHD, described in the DSM-5",
+        scale == "DSM-5 ADHD Symptoms Total" ~ "i.e., behave in a manner consistent with the DSM-5 diagnostic criteria for Combined Presentation of ADHD",
         scale == "Inconsistency Index" ~ "there may be some inconsistency in the responses",
         TRUE ~ as.character(description)
       )
@@ -319,14 +319,14 @@ if (params$test == "caars_sr") {
     table |>
     mutate(
       description = case_when(
-        scale == "ADHD Index" ~ "composite indicator for identifying individuals 'at-risk' for ADHD (observer)",
-        scale == "Inattention/Memory Problems" ~ "trouble concentrating, difficulty planning or completing tasks, forgetfulness, absent-mindedness, being disorganized (observer)",
-        scale == "Hyperactivity/Restlessness" ~ "problems with working at the same task for long periods of time, feeling more restless than others seems to be, fidgeting (observer)",
-        scale == "Impulsivity/Emotional Lability" ~ "engaging in more impulsive acts than others do, low frustration tolerance, quick and frequent mood changes, feeling easily angered and irritated by people (observer)",
-        scale == "Problems with Self-Concept" ~ "poor social relationships, low observer-esteem and observer confidence (observer)",
-        scale == "DSM-5 Inattentive Symptoms" ~ "behave in a manner consistent with the Inattentive Presentation of ADHD, described in the DSM-5 (observer)",
-        scale == "DSM-5 Hyperactive-Impulsive Symptoms" ~ "behave in a manner consistent with the Hyperactive-Impulsive Presentation of ADHD, described in the DSM-5 (observer)",
-        scale == "DSM-5 ADHD Symptoms Total" ~ "behave in a manner consistent with the DSM-5 diagnostic criteria for Combined Presentation of ADHD (observer)",
+        scale == "ADHD Index" ~ "composite indicator for identifying individuals 'at-risk' for ADHD",
+        scale == "Inattention/Memory Problems" ~ "i.e., trouble concentrating, difficulty planning or completing tasks, forgetfulness, absent-mindedness, being disorganized (observer)",
+        scale == "Hyperactivity/Restlessness" ~ "i.e., problems with working at the same task for long periods of time, feeling more restless than others seems to be, fidgeting (observer)",
+        scale == "Impulsivity/Emotional Lability" ~ "i.e., engaging in more impulsive acts than others do, low frustration tolerance, quick and frequent mood changes, feeling easily angered and irritated by people (observer)",
+        scale == "Problems with Self-Concept" ~ "i.e., poor social relationships, low observer-esteem and observer confidence (observer)",
+        scale == "DSM-5 Inattentive Symptoms" ~ "i.e., behave in a manner consistent with the Inattentive Presentation of ADHD, described in the DSM-5 (observer)",
+        scale == "DSM-5 Hyperactive-Impulsive Symptoms" ~ "i.e., behave in a manner consistent with the Hyperactive-Impulsive Presentation of ADHD, described in the DSM-5 (observer)",
+        scale == "DSM-5 ADHD Symptoms Total" ~ "i.e., behave in a manner consistent with the DSM-5 diagnostic criteria for Combined Presentation of ADHD (observer)",
         scale == "Inconsistency Index" ~ "there may be some inconsistency in the responses (observer)",
         TRUE ~ as.character(description)
       )

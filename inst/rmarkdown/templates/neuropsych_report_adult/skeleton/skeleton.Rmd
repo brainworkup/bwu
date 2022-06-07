@@ -816,7 +816,7 @@ knitr::read_chunk(here::here(patient, "2.3_academics.R"))
 ```{r 03-table-academics, eval = params$eval_academics}
 ```
 
-```{r 04-kable-academics, eval = params$eval_academics, double_escape = T, escape = F, fig.fullwidth = TRUE}
+```{r 04-kable-academics, eval = params$eval_academics, double_escape = TRUE, escape = FALSE, fig.fullwidth = TRUE}
 ```
 
 ```{r 05-df-academics, eval = params$eval_academics}
@@ -902,6 +902,8 @@ knitr::read_chunk(here::here(patient, "2.5_spatial.R"))
 
 <!-- ### Attention/Executive -->
 
+(ref:unstructured-task) This was a novel planning task published as part of the NIH EXAMINER Executive Function Battery [@kramer2014]. The task allows the examinee to choose which problems they want to work on to maximize points earned. In doing so, examinees need to plan ahead, avoid items that are strategically poor choices, and be cognizant of when a particular booklet offers diminishing returns. (ref:first-name) performed this task effortlessly.
+
 (ref:fn-exe) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
 ```{r, executive, results='asis', eval = params$eval_executive}
@@ -956,7 +958,7 @@ knitr::read_chunk(here::here(patient, "2.7_memory.R"))
 ```{r 03-table-memory, eval = params$eval_memory}
 ```
 
-```{r 04-kable-memory, eval = params$eval_memory, double_escape = T, escape = F, fig.fullwidth = TRUE}
+```{r 04-kable-memory, eval = params$eval_memory, double_escape = TRUE, escape = FALSE, fig.fullwidth = TRUE}
 ```
 
 ```{r 05-df-memory, eval = params$eval_memory}
@@ -991,7 +993,7 @@ knitr::read_chunk(here::here(patient, "2.8_motor.R"))
 ```{r 03-table-motor, eval = params$eval_motor}
 ```
 
-```{r 04-kable-motor, eval = params$eval_motor, double_escape = T, escape = F, fig.fullwidth = TRUE}
+```{r 04-kable-motor, eval = params$eval_motor, double_escape = TRUE, escape = FALSE, fig.fullwidth = TRUE}
 ```
 
 ```{r 05-df-motor, eval = params$eval_motor}
@@ -1026,7 +1028,7 @@ knitr::read_chunk(here::here(patient, "2.9_social.R"))
 ```{r 03-table-social, eval = params$eval_social}
 ```
 
-```{r 04-kable-social, eval = params$eval_social, double_escape = T, escape = F, fig.fullwidth = TRUE}
+```{r 04-kable-social, eval = params$eval_social, double_escape = TRUE, escape = FALSE, fig.fullwidth = TRUE}
 ```
 
 ```{r 05-df-social, eval = params$eval_social}
@@ -1044,8 +1046,8 @@ knitr::read_chunk(here::here(patient, "2.9_social.R"))
 
 (ref:att-ef) Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other.
 
-(ref:fn-adhd) Standard Score (M = 100, SD = 15) or *T* Score (M = 50, SD = 10) 
-ex
+(ref:fn-adhd) Standard Score (M = 100, SD = 15) or *T* Score (M = 50, SD = 10)
+
 ```{r, adhd, results='asis', eval = params$eval_adhd}
 cat(readLines("2.10_adhd.md"), sep = "\n")
 ```
@@ -1057,19 +1059,22 @@ knitr::read_chunk(here::here(patient, "2.10_adhd.R"))
 ```{r 01-filter-adhd, eval = params$eval_adhd}
 ```
 
-```{r 02-glue-adhd, eval = params$eval_adhd, cache = TRUE}
+```{r 02-glue-adhd-sr, eval = params$eval_adhd, cache = TRUE}
+```
+
+```{r 02-glue-adhd-or, eval = params$eval_adhd, cache = TRUE}
 ```
 
 ```{r 03-table-adhd, eval = params$eval_adhd}
 ```
 
-```{r 04-kable-adhd, eval = params$eval_adhd, double_escape = T, escape = F, fig.fullwidth = T}
+```{r 04-kable-adhd, eval = params$eval_adhd, double_escape = TRUE, escape = FALSE, fig.fullwidth = TRUE}
 ```
 
 ```{r 05-df-adhd, eval = params$eval_adhd}
 ```
 
-```{r 06-plot-adhd-adhd, eval = params$eval_adhd, fig.cap='(ref:adhd-ef)'}
+```{r 06-plot-adhd-adhd, eval = params$eval_adhd, fig.cap='(ref:caars)'}
 ```
 
 ```{r 07-df-adhd, eval = params$eval_adhd}
@@ -1119,7 +1124,7 @@ knitr::read_chunk(here::here(patient, "2.11_emotion.R"))
 
 (ref:domain) **Key Findings** General intellectual functioning is a strength. Verbal skills are significantly stronger than nonverbal/spatial processing skills. Attentional fluency (i.e., working memory and processing speed) and abstract reasoning are areas of weakness. Notably, even `r params$first_name`'s normatively average scores reflect performances that are well below cognitive expectations for `r params$him_her`. *Note:* *z* = 0 (mean) ± 1 (sd)
 
-```{r domain-df, cache = TRUE}
+```{r domain-df, cache = FALSE}
 domain <-
   neurocog %>%
   dplyr::filter(test_type == "npsych_test") %>%
@@ -1137,7 +1142,7 @@ bwu::dotplot(
 
 (ref:pass) **PASS Cognitive Process Model** Sequential and Simultaneous processing are areas of strengths, and Attention is an area of weakness.
 
-```{r pass-df, cache = TRUE}
+```{r pass-df, cache = FALSE}
 pass <-
   neurocog %>%
   dplyr::filter(test_type == "npsych_test") %>%
@@ -1155,7 +1160,7 @@ bwu::dotplot(
 
 (ref:nonverbal) **Verbal vs. Nonverbal Tests** Scores on verbal tasks are slightly higher than scores on nonverbal/spatial processing tasks.
 
-```{r nonverbal-df, cache = TRUE}
+```{r nonverbal-df, cache = FALSE}
 nonverbal <-
   neurocog %>%
   dplyr::filter(test_type == "npsych_test") %>%
@@ -1173,7 +1178,7 @@ bwu::dotplot(
 
 (ref:timed) **Timed vs. Untimed Tests** `r params$first_name` performs more than a half of a standard deviation better on tasks that are untimed compared to tasks that require `r params$him_her` to respond both accurately and quickly.
 
-```{r timed-df, cache = TRUE}
+```{r timed-df, cache = FALSE}
 timed <-
   neurocog %>%
   dplyr::filter(test_type == "npsych_test") %>%
@@ -1231,7 +1236,7 @@ CA License PSY29212
 
 # APPENDIX
 
-```{r results = 'asis', cache = TRUE}
+```{r telemed, results = 'asis', cache = TRUE}
 cat(readLines("telehealth_statement.md"), sep = "\n")
 ```
 
