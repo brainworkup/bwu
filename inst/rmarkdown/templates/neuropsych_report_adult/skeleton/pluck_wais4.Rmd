@@ -1171,6 +1171,18 @@ wais4 <-
   dplyr::bind_rows(table1, table2, table3, table6, table4, table7, table5)
 ```
 
+## Glue results
+
+```{r result}
+wais4 <-
+  wais4 %>%
+  dplyr::mutate(
+    result = glue::glue(
+      "{description} as measured by the {scale} subtest was {range} relative to same-age peers."
+    )
+  )
+```
+
 ## Slice to reorder subtests/scales
 
 ```{r slice}
