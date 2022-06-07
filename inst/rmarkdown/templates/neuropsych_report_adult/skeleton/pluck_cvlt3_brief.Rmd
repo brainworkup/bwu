@@ -409,8 +409,8 @@ table1 <- bwu::gpluck_make_columns(
   table1,
   range = "",
   ci_95 = "",
-  test = "cvlt3_brief",
-  test_name = "CVLT-3 Brief",
+  test = params$test,
+  test_name = params$test_name,
   domain = "Memory",
   subdomain = "Learning Efficiency",
   narrow = "Word List Learning",
@@ -419,7 +419,8 @@ table1 <- bwu::gpluck_make_columns(
   timed = "Untimed",
   test_type = "npsych_test",
   score_type = "scaled_score",
-  description = ""
+  description = "",
+  result = ""
 )
 ```
 
@@ -428,8 +429,8 @@ table2 <- bwu::gpluck_make_columns(
   table2,
   range = "",
   ci_95 = "",
-  test = "cvlt3_brief",
-  test_name = "CVLT-3 Brief",
+  test = params$test,
+  test_name = params$test_name,
   domain = "Memory",
   subdomain = "Learning Efficiency",
   narrow = "Word List Learning",
@@ -438,7 +439,8 @@ table2 <- bwu::gpluck_make_columns(
   timed = "Untimed",
   test_type = "npsych_test",
   score_type = "standard_score",
-  description = ""
+  description = "",
+  result = ""
 )
 ```
 
@@ -447,8 +449,8 @@ table3 <- bwu::gpluck_make_columns(
   table3,
   range = "",
   ci_95 = "",
-  test = "cvlt3_brief",
-  test_name = "CVLT-3 Brief",
+  test = params$test,
+  test_name = params$test_name,
   domain = "Memory",
   subdomain = "Long-Term Memory",
   narrow = "Free-Recall Memory",
@@ -457,7 +459,8 @@ table3 <- bwu::gpluck_make_columns(
   timed = "Untimed",
   test_type = "npsych_test",
   score_type = "scaled_score",
-  description = ""
+  description = "",
+  result = ""
 )
 ```
 
@@ -466,8 +469,8 @@ table4 <- bwu::gpluck_make_columns(
   table4,
   range = "",
   ci_95 = "",
-  test = test,
-  test_name = test_name,
+  test = params$test,
+  test_name = params$test_name,
   domain = "Memory",
   subdomain = "Long-Term Memory",
   narrow = "Recognition Memory",
@@ -476,7 +479,8 @@ table4 <- bwu::gpluck_make_columns(
   timed = "Untimed",
   test_type = "npsych_test",
   score_type = "scaled_score",
-  description = ""
+  description = "",
+  result = ""
 )
 ```
 
@@ -485,8 +489,8 @@ table5 <- bwu::gpluck_make_columns(
   table5,
   range = "",
   ci_95 = "",
-  test = "cvlt3_brief",
-  test_name = "CVLT-3 Brief",
+  test = params$test,
+  test_name = params$test_name,
   domain = "Memory",
   subdomain = "Response Monitoring",
   narrow = "Response Monitoring",
@@ -495,7 +499,8 @@ table5 <- bwu::gpluck_make_columns(
   timed = "Untimed",
   test_type = "npsych_test",
   score_type = "scaled_score",
-  description = ""
+  description = "",
+  result = ""
 )
 ```
 
@@ -504,8 +509,8 @@ table6 <- bwu::gpluck_make_columns(
   table6,
   range = "",
   ci_95 = "",
-  test = "cvlt3_brief",
-  test_name = "CVLT-3 Brief",
+  test = params$test,
+  test_name = params$test_name,
   domain = "Memory",
   subdomain = "Response Monitoring",
   narrow = "Response Monitoring",
@@ -514,7 +519,8 @@ table6 <- bwu::gpluck_make_columns(
   timed = "Untimed",
   test_type = "npsych_test",
   score_type = "scaled_score",
-  description = ""
+  description = "",
+  result = ""
 )
 ```
 
@@ -525,8 +531,8 @@ table7 <- bwu::gpluck_make_columns(
   percentile = NA_integer_,
   range = "",
   ci_95 = "",
-  test = "cvlt3_brief",
-  test_name = "CVLT-3 Brief",
+  test = params$test,
+  test_name = params$test_name,
   domain = "Memory",
   subdomain = "Effort/Validity",
   narrow = "Effort/Validity",
@@ -535,7 +541,8 @@ table7 <- bwu::gpluck_make_columns(
   timed = "Untimed",
   test_type = "npsych_test",
   score_type = "scaled_score",
-  description = ""
+  description = "",
+  result = ""
 )
 ```
 
@@ -672,6 +679,18 @@ table7 <- table7 |> relocate(c(raw_score, score, percentile, range, ci_95), .bef
 
 ```{r bind-rows}
 cvlt3_brief <- dplyr::bind_rows(table1, table2, table3, table4, table5, table6, table7)
+```
+
+## Glue results
+
+```{r}
+cvlt3_brief <-
+  cvlt3_brief %>%
+  dplyr::mutate(
+    result = glue::glue(
+      "{patient}'s ability to {description} as measured by the {scale} subtest was {range} relative to same-age peers."
+    )
+  )
 ```
 
 ### write out final csv
