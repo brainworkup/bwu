@@ -29,7 +29,7 @@ params:
 
 ## Load libraries
 
-```{r setup, include=FALSE}
+```{r setup, include = FALSE}
 Sys.setenv(JAVA_HOME = "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home")
 options(java.parameters = "-Xmx16000m")
 knitr::opts_chunk$set(
@@ -92,7 +92,7 @@ writeLines(file, here::here(patient, "pre_csv", paste0(test, ".pdf")))
 ```
 
 ```{r read-file}
-#test <- readLines(here::here(patient, "pre_csv", paste0(test, ".pdf")))
+# test <- readLines(here::here(patient, "pre_csv", paste0(test, ".pdf")))
 ```
 
 ## Locate areas
@@ -116,7 +116,7 @@ saveRDS(area, here::here(patient, "pre_csv", paste0(test, "_area.rds")))
 ```
 
 ```{r read-area}
-#area <- readRDS(here::here(patient, "pre_csv", paste0(test, "_area.rds")))
+# area <- readRDS(here::here(patient, "pre_csv", paste0(test, "_area.rds")))
 ```
 
 ## Extract table
@@ -155,7 +155,7 @@ colnames2 <- c(
 )
 ```
 
-# CEFI Full Scale
+## CEFI Full Scale
 
 ```{r pluck1}
 table1 <- tibble::as_tibble(plucked_table[[1]])
@@ -166,8 +166,9 @@ table1 <- dplyr::na_if(table1, "-")
 table1 <- dplyr::na_if(table1, "--")
 table1 <- dplyr::na_if(table1, "---")
 to_double <- c("score", "percentile")
-table1 <- table1 |> hablar::convert(dbl(all_of(to_double))) %>% 
-  dplyr::mutate(scale = "") %>% 
+table1 <- table1 |>
+  hablar::convert(dbl(all_of(to_double))) %>%
+  dplyr::mutate(scale = "") %>%
   dplyr::relocate(scale, .before = score)
 ```
 
@@ -175,7 +176,7 @@ table1 <- table1 |> hablar::convert(dbl(all_of(to_double))) %>%
 table1[1, 1] <- c("Full Scale")
 ```
 
-# CEFI Subscales
+## CEFI Subscales
 
 ```{r pluck2}
 table2 <- as_tibble(plucked_table[[2]])
@@ -189,7 +190,7 @@ to_double <- c("score", "percentile")
 table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
 ```
 
-```{r rownames2}
+```{r rename2}
 table2[1, 1] <- c("Attention")
 table2[2, 1] <- c("Emotion Regulation")
 table2[3, 1] <- c("Flexibility")
@@ -213,7 +214,7 @@ table2 <- table2 |> dplyr::select(all_of(keep))
 table <- dplyr::bind_rows(table1, table2)
 ```
 
-# Format Tables
+## Mutate columns
 
 ```{r mutate}
 table <- bwu::gpluck_make_columns(
@@ -231,7 +232,8 @@ table <- bwu::gpluck_make_columns(
   timed = "",
   test_type = "rating_scale",
   score_type = "standard_score",
-  description = ""
+  description = "",
+  result = ""
 )
 ```
 
@@ -269,9 +271,9 @@ table <-
 if (params$test == "cefi_sr") {
   table <-
     table |>
-    mutate(
-      description = case_when(
-        scale == "Full Scale" ~ "overall level of executive function",
+    dplyr::mutate(
+      description = dplyr::case_when(
+        scale == "Full Scale" ~ "overall level of executive functioning",
         scale == "Attention" ~ "avoid distractions, concentrate on tasks, and sustain attention",
         scale == "Emotion Regulation" ~ "control and manage emotions, including staying calm when handling small problems and reacting with the right level of emotion",
         scale == "Flexibility" ~ "adjust behavior to meet circumstances, including coming up with different ways to solve problems, changing behavior when needed, and being able to come up with new ways to reach a goal",
@@ -289,7 +291,7 @@ if (params$test == "cefi_sr") {
     table |>
     mutate(
       description = case_when(
-        scale == "Full Scale" ~ "overall level of executive function (observer)",
+        scale == "Full Scale" ~ "overall level of executive functioning (observer)",
         scale == "Attention" ~ "avoid distractions, concentrate on tasks, and sustain attention (observer)",
         scale == "Emotion Regulation" ~ "control and manage emotions, including staying calm when handling small problems and reacting with the right level of emotion (observer)",
         scale == "Flexibility" ~ "adjust behavior to meet circumstances, including coming up with different ways to solve problems, changing behavior when needed, and being able to come up with new ways to reach a goal (observer)",
@@ -300,6 +302,88 @@ if (params$test == "cefi_sr") {
         scale == "Self-Monitoring" ~ "evaluate own behavior in order to determine when a different approach is necessary, including noticing and fixing mistakes, knowing when help is required, and understanding when a task is completed (observer)",
         scale == "Working Memory" ~ "keep information in mind that is important for knowing what to do and how to do it, including remembering important things, instructions, and steps (observer)",
         TRUE ~ as.character(description)
+      )
+    )
+}
+```
+
+## Glue results
+
+```{r result}
+if (params$test == "cefi_sr") {
+  table <-
+    table |>
+    dplyr::mutate(
+      result = dplyr::case_when(
+        scale == "Full Scale" ~ glue::glue(
+          "- {patient}'s {description} based on (ref:his-her) self-report fell within the {range} range.\n"
+        ),
+        scale == "Attention" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
+        ),
+        scale == "Emotion Regulation" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
+        ),
+        scale == "Flexibility" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
+        ),
+        scale == "Inhibitory Control" ~ glue::glue(
+          "- {scale} ({description})\n"
+        ),
+        scale == "Initiation" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
+        ),
+        scale == "Organization" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
+        ),
+        scale == "Planning" ~ glue::glue(
+          "- {scale} ({description}\n"
+        ),
+        scale == "Self-Monitoring" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
+        ),
+        scale == "Working Memory" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
+        ),
+        TRUE ~ as.character(result)
+      )
+    )
+} else {
+  table <-
+    table |>
+    mutate(
+      result = case_when(
+        scale == "Full Scale" ~ glue::glue(
+          "- {patient}'s {description} based on (ref:his-her) observer-report fell within the {range} range.\n"
+        ),
+        scale == "Attention" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
+        ),
+        scale == "Emotion Regulation" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
+        ),
+        scale == "Flexibility" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
+        ),
+        scale == "Inhibitory Control" ~ glue::glue(
+          "- {scale} ({description})\n"
+        ),
+        scale == "Initiation" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
+        ),
+        scale == "Organization" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
+        ),
+        scale == "Planning" ~ glue::glue(
+          "- {scale} ({description}\n"
+        ),
+        scale == "Self-Monitoring" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
+        ),
+        scale == "Working Memory" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
+        ),
+        TRUE ~ as.character(result)
       )
     )
 }

@@ -25,7 +25,7 @@ params:
   pages: [3,3,3]
 ---
 
-# CAARS Long Version
+# CAARS Long Version SR/OR
 
 ## Load libraries
 
@@ -92,7 +92,7 @@ writeLines(file, here::here(patient, "pre_csv", paste0(test, ".pdf")))
 ```
 
 ```{r read-file}
-#test <- readLines(here::here(patient, "pre_csv", paste0(test, ".pdf")))
+# test <- readLines(here::here(patient, "pre_csv", paste0(test, ".pdf")))
 ```
 
 ## Locate areas
@@ -100,8 +100,9 @@ writeLines(file, here::here(patient, "pre_csv", paste0(test, ".pdf")))
 ```{r area-known}
 area <- list(
   c(155, 73, 647, 208),
-  c(155, 209, 647, 246), 
-  c(155, 247, 647, 283))
+  c(155, 209, 647, 246),
+  c(155, 247, 647, 283)
+)
 ```
 
 ```{r area-unknown, eval=FALSE}
@@ -116,7 +117,7 @@ saveRDS(area, here::here(patient, "pre_csv", paste0(test, "_area.rds")))
 ```
 
 ```{r read-area}
-#area <- readRDS(here::here(patient, "pre_csv", paste0(test, "_area.rds")))
+# area <- readRDS(here::here(patient, "pre_csv", paste0(test, "_area.rds")))
 ```
 
 ## Extract table
@@ -142,7 +143,7 @@ colnames2 <- c("raw_score")
 colnames3 <- c("score")
 ```
 
-### To pluck individual columns
+## Pluck individual columns
 
 ```{r pluck1}
 table1 <- dplyr::as_tibble(plucked_table[[1]])
@@ -207,7 +208,7 @@ keep <- c("scale", "raw_score", "score")
 table <- table %>% dplyr::select(all_of(keep))
 ```
 
-## Format Tables
+## Mutate columns
 
 ```{r mutate}
 table <- bwu::gpluck_make_columns(
@@ -225,7 +226,8 @@ table <- bwu::gpluck_make_columns(
   timed = "",
   test_type = "rating_scale",
   score_type = "t_score",
-  description = ""
+  description = "",
+  result = ""
 )
 ```
 
@@ -234,7 +236,7 @@ table <- bwu::gpluck_make_columns(
 ```{r percentile}
 table <- table %>%
   dplyr::mutate(z = (score - 50) / 10) %>%
-  dplyr::mutate(percentile = trunc(pnorm(z) * 100)) %>% 
+  dplyr::mutate(percentile = trunc(pnorm(z) * 100)) %>%
   dplyr::select(-z)
 # caars_sr[1, 4] <- 99
 ```
@@ -245,7 +247,7 @@ table <- table %>%
 table <- bwu::gpluck_make_score_ranges(table = table, test_type = "npsych_test")
 ```
 
-## Domain
+## Domains
 
 ```{r domain}
 table <-
@@ -258,7 +260,7 @@ table <-
   )
 ```
 
-## Subdomain
+## Subdomains
 
 ```{r subdomain}
 table <-
@@ -295,28 +297,20 @@ table <-
 ## Scale descriptions
 
 ```{r description}
-if (params$test == "caars_or") {
+if (params$test == "caars_sr") {
   table <-
     table |>
     mutate(
       description = case_when(
-        scale == "Inattention/Memory Problems" ~ "trouble concentrating, difficulty planning or completing tasks, forgetfulness, absent-mindedness, being disorganized (observer)",
-        
-        scale == "Hyperactivity/Restlessness" ~ "problems with working at the same task for long periods of time, feeling more restless than others seems to be, fidgeting (observer)",
-        
-        scale == "Impulsivity/Emotional Lability" ~ "engaging in more impulsive acts than others do, low frustration tolerance, quick and frequent mood changes, feeling easily angered and irritated by people (observer)",
-        
-        scale == "Problems with Self-Concept" ~ "poor social relationships, low observer-esteem and observer confidence (observer)",
-        
-        scale == "DSM-5 Inattentive Symptoms" ~ "behave in a manner consistent with the Inattentive Presentation of ADHD, described in the DSM-5 (observer)",
-        
-        scale == "DSM-5 Hyperactive-Impulsive Symptoms" ~ "behave in a manner consistent with the Hyperactive-Impulsive Presentation of ADHD, described in the DSM-5 (observer)",
-        
-        scale == "DSM-5 ADHD Symptoms Total" ~ "behave in a manner consistent with the DSM-5 diagnostic criteria for Combined Presentation of ADHD (observer)",
-        
-        scale == "ADHD Index" ~ "composite indicator for identifying individuals 'at-risk' for ADHD (observer)",
-        
-        scale == "Inconsistency Index" ~ "there may be some inconsistency in the responses (observer)",
+        scale == "ADHD Index" ~ "composite indicator for identifying individuals 'at-risk' for ADHD",
+        scale == "Inattention/Memory Problems" ~ "trouble concentrating, difficulty planning or completing tasks, forgetfulness, absent-mindedness, being disorganized",
+        scale == "Hyperactivity/Restlessness" ~ "problems with working at the same task for long periods of time, feeling more restless than others seems to be, fidgeting",
+        scale == "Impulsivity/Emotional Lability" ~ "engaging in more impulsive acts than others do, low frustration tolerance, quick and frequent mood changes, feeling easily angered and irritated by people",
+        scale == "Problems with Self-Concept" ~ "poor social relationships, low observer-esteem and observer confidence",
+        scale == "DSM-5 Inattentive Symptoms" ~ "behave in a manner consistent with the Inattentive Presentation of ADHD, described in the DSM-5",
+        scale == "DSM-5 Hyperactive-Impulsive Symptoms" ~ "behave in a manner consistent with the Hyperactive-Impulsive Presentation of ADHD, described in the DSM-5",
+        scale == "DSM-5 ADHD Symptoms Total" ~ "behave in a manner consistent with the DSM-5 diagnostic criteria for Combined Presentation of ADHD",
+        scale == "Inconsistency Index" ~ "there may be some inconsistency in the responses",
         TRUE ~ as.character(description)
       )
     )
@@ -325,24 +319,88 @@ if (params$test == "caars_or") {
     table |>
     mutate(
       description = case_when(
-        scale == "Inattention/Memory Problems" ~ "trouble concentrating, difficulty planning or completing tasks, forgetfulness, absent-mindedness, being disorganized",
-        
-        scale == "Hyperactivity/Restlessness" ~ "problems with working at the same task for long periods of time, feeling more restless than others seems to be, fidgeting",
-        
-        scale == "Impulsivity/Emotional Lability" ~ "engaging in more impulsive acts than others do, low frustration tolerance, quick and frequent mood changes, feeling easily angered and irritated by people",
-        
-        scale == "Problems with Self-Concept" ~ "poor social relationships, low observer-esteem and observer confidence",
-        
-        scale == "DSM-5 Inattentive Symptoms" ~ "behave in a manner consistent with the Inattentive Presentation of ADHD, described in the DSM-5",
-        
-        scale == "DSM-5 Hyperactive-Impulsive Symptoms" ~ "behave in a manner consistent with the Hyperactive-Impulsive Presentation of ADHD, described in the DSM-5",
-        
-        scale == "DSM-5 ADHD Symptoms Total" ~ "behave in a manner consistent with the DSM-5 diagnostic criteria for Combined Presentation of ADHD",
-        
-        scale == "ADHD Index" ~ "composite indicator for identifying individuals 'at-risk' for ADHD",
-        
-        scale == "Inconsistency Index" ~ "there may be some inconsistency in the responses",
+        scale == "ADHD Index" ~ "composite indicator for identifying individuals 'at-risk' for ADHD (observer)",
+        scale == "Inattention/Memory Problems" ~ "trouble concentrating, difficulty planning or completing tasks, forgetfulness, absent-mindedness, being disorganized (observer)",
+        scale == "Hyperactivity/Restlessness" ~ "problems with working at the same task for long periods of time, feeling more restless than others seems to be, fidgeting (observer)",
+        scale == "Impulsivity/Emotional Lability" ~ "engaging in more impulsive acts than others do, low frustration tolerance, quick and frequent mood changes, feeling easily angered and irritated by people (observer)",
+        scale == "Problems with Self-Concept" ~ "poor social relationships, low observer-esteem and observer confidence (observer)",
+        scale == "DSM-5 Inattentive Symptoms" ~ "behave in a manner consistent with the Inattentive Presentation of ADHD, described in the DSM-5 (observer)",
+        scale == "DSM-5 Hyperactive-Impulsive Symptoms" ~ "behave in a manner consistent with the Hyperactive-Impulsive Presentation of ADHD, described in the DSM-5 (observer)",
+        scale == "DSM-5 ADHD Symptoms Total" ~ "behave in a manner consistent with the DSM-5 diagnostic criteria for Combined Presentation of ADHD (observer)",
+        scale == "Inconsistency Index" ~ "there may be some inconsistency in the responses (observer)",
         TRUE ~ as.character(description)
+      )
+    )
+}
+```
+
+## Glue results
+
+```{r result}
+if (params$test == "caars_sr") {
+  table <-
+    table |>
+    dplyr::mutate(
+      result = dplyr::case_when(
+        scale == "ADHD Index" ~ glue::glue(
+          "- {patient}'s {description} based on (ref:his-her)
+           self-report fell within the {range} range.\n"
+        ),
+        scale == "Inattention/Memory Problems" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
+        ),
+        scale == "Hyperactivity/Restlessness" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
+        ),
+        scale == "Impulsivity/Emotional Lability" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
+        ),
+        scale == "Problems with Self-Concept" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
+        ),
+        scale == "DSM-5 Inattentive Symptoms" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
+        ),
+        scale == "DSM-5 Hyperactive-Impulsive Symptoms" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
+        ),
+        scale == "DSM-5 ADHD Symptoms Total" ~ glue::glue(
+          "- {scale} ({description} was {range}\n"
+        ),
+        TRUE ~ as.character(result)
+      )
+    )
+} else {
+  table <-
+    table |>
+    mutate(
+      result = case_when(
+        scale == "ADHD Index" ~ glue::glue(
+          "- {patient}'s {description} based on (ref:his-her)
+           observer-report fell within the {range} range.\n"
+        ),
+        scale == "Inattention/Memory Problems" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
+        ),
+        scale == "Hyperactivity/Restlessness" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
+        ),
+        scale == "Impulsivity/Emotional Lability" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
+        ),
+        scale == "Problems with Self-Concept" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
+        ),
+        scale == "DSM-5 Inattentive Symptoms" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
+        ),
+        scale == "DSM-5 Hyperactive-Impulsive Symptoms" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
+        ),
+        scale == "DSM-5 ADHD Symptoms Total" ~ glue::glue(
+          "- {scale} ({description} was {range}\n"
+        ),
+        TRUE ~ as.character(result)
       )
     )
 }
