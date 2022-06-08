@@ -1,5 +1,5 @@
 ---
-title: "Pluck Tables from CVLT-3 Brief"
+title: "Pluck Tables from CVLT-3/CVLT-3 Brief"
 params:
   patient: "Biggie"
   test:
@@ -24,7 +24,7 @@ params:
     input: file
   pages: [9,11,9,9,9,12,9]
   table1:
-    label: "Immediate Recall"
+    label: "Learning Trials:"
     value: Trial 1 Correct
     input: select
     multiple: yes
@@ -35,27 +35,27 @@ params:
       - Trial 4 Correct
       - Trial 5 Correct
   table2:
-    label: "Standard Score Summary"
+    label: "Immediate Recall:"
     value: Trials 1-4 Correct
     input: select
     multiple: yes
     choices:
       - Trials 1-4 Correct
-      - Trials 1-5 Correct
-      - Delayed Recall Correct
-      - Total Recall Correct
+      - Trials 1-5 Correct # CVLT
+      - Delayed Recall Correct # leave out for now
+      - Total Recall Correct # leave out for now
   table3:
-    label: "DELAYED RECALL"
+    label: "Delayed Recall:"
     value: Short Delay Free Recall
     input: select
     multiple: yes
     choices:
       - Short Delay Free Recall
-      #- Short Delay Cued Recall
+      - Short Delay Cued Recall # CVLT
       - Long Delay Free Recall
       - Long Delay Cued Recall
   table4:
-    label: "Yes/No Recognition"
+    label: "Yes/No Recognition:"
     value: Total Hits
     input: select
     multiple: yes
@@ -65,28 +65,28 @@ params:
       - Recognition Discriminability (d')
       - Recognition Discriminability Nonparametric
   table5:
-    label: "Recall Errors"
+    label: "Recall Errors: Intrusions"
     value: Total Intrusions
     input: select
     multiple: yes
     choices:
       - Total Intrusions
   table6:
-    label: "Repetition Errors"
+    label: "Recall Errors: Repetitions"
     value: Total Repetitions
     input: select
     multiple: yes
     choices:
       - Total Repetitions
   table7:
-    label: "Forced Choice Recognition"
+    label: "Forced-Choice Recognition:"
     value: Forced-Choice Recognition Hits
     input: select
     multiple: yes
     choices:
       - Forced-Choice Recognition Hits
   colnames1:
-    label: "Tables 1-6 Column Names"
+    label: "Tables 1-6 Column Names:"
     value: scale
     input: select
     multiple: yes
@@ -96,7 +96,7 @@ params:
       - score
       - percentile
   colnames2:
-    label: "Table 7"
+    label: "Table 7 Column Names:"
     value: scale
     input: select
     multiple: yes
@@ -105,7 +105,7 @@ params:
       - raw_score
       - base_rate
   keep1:
-    label: "Variables to Keep, Set 1"
+    label: "Variables to Keep, Set 1:"
     value: scale
     input: select
     multiple: yes
@@ -115,7 +115,7 @@ params:
       - score
       - percentile
   keep2:
-    label: "Variables to Keep, Set 2"
+    label: "Variables to Keep, Set 2:"
     value: scale
     input: select
     multiple: yes
@@ -124,7 +124,7 @@ params:
       - raw_score
 ---
 
-# CVLT-3 Brief
+# CVLT-3/CVLT-3 Brief
 
 ## Setup
 
@@ -181,11 +181,11 @@ pages <- params$pages
 ```
 
 ```{r save}
-writeLines(file, here::here(patient, "pre_csv", "cvlt3_brief_pdf"))
+writeLines(file, here::here(patient, "pre_csv", "cvlt3_pdf"))
 ```
 
 ```{r read}
-# file <- readLines(here::here(patient, "pre_csv", "cvlt3_brief_pdf"))
+# file <- readLines(here::here(patient, "pre_csv", "cvlt3_pdf"))
 ```
 
 ## Locate areas
@@ -211,11 +211,11 @@ area <- list(
 ```
 
 ```{r save-areas}
-saveRDS(area, here::here(patient, "pre_csv", "area_cvlt3_brief.rds"))
+saveRDS(area, here::here(patient, "pre_csv", "area_cvlt3.rds"))
 ```
 
 ```{r read-areas}
-# area <- readRDS(here::here(patient, "pre_csv", "area_cvlt3_brief.rds"))
+# area <- readRDS(here::here(patient, "pre_csv", "area_cvlt3.rds"))
 ```
 
 ## Extract table
@@ -277,7 +277,7 @@ table2 <-
 ```
 
 ```{r rename2}
-# table2[1, 1] <- c("Trials 1-4 Correct")
+table2[1, 1] <- c("Trials 1-4 Correct")
 ```
 
 # Table 3
@@ -491,7 +491,7 @@ table5 <- bwu::gpluck_make_columns(
   ci_95 = "",
   test = params$test,
   test_name = params$test_name,
-  domain = "Memory",
+  domain = "Attention/Executive",
   subdomain = "Response Monitoring",
   narrow = "Response Monitoring",
   pass = "Attention",
@@ -511,7 +511,7 @@ table6 <- bwu::gpluck_make_columns(
   ci_95 = "",
   test = params$test,
   test_name = params$test_name,
-  domain = "Memory",
+  domain = "Attention/Executive",
   subdomain = "Response Monitoring",
   narrow = "Response Monitoring",
   pass = "Attention",
@@ -565,6 +565,7 @@ table3 <-
   mutate(
     narrow = case_when(
       scale == "Short Delay Free Recall" ~ "Free-Recall Memory",
+      scale == "Short Delay Cued Recall" ~ "Free-Recall Memory",
       scale == "Long Delay Free Recall" ~ "Free-Recall Memory",
       scale == "Long Delay Cued Recall" ~ "Free-Recall Memory",
       TRUE ~ as.character(narrow)
@@ -579,10 +580,22 @@ table1 <-
   table1 |>
   mutate(
     description = case_when(
-      scale == "Trial 1 Correct" ~ "word list first trial",
-      scale == "Trial 2 Correct" ~ "word list second trial",
-      scale == "Trial 3 Correct" ~ "word list third trial",
-      scale == "Trial 4 Correct" ~ "word list fourth trial",
+      scale ==
+        "Trial 1 Correct" ~
+        "Correct number of words learned on the first trial",
+      scale ==
+        "Trial 2 Correct" ~
+        "Correct number of words learned on the second trial",
+      scale ==
+        "Trial 3 Correct" ~
+        "Correct number of words learned on the third trial",
+      scale ==
+        "Trial 4 Correct" ~
+        "Correct number of words learned on the fourth trial",
+      # CVLT
+      scale ==
+        "Trial 5 Correct" ~
+        "Correct number of words learned on the fifth trial",
       TRUE ~ as.character(description)
     )
   )
@@ -593,7 +606,18 @@ table2 <-
   table2 |>
   dplyr::mutate(
     description = dplyr::case_when(
-      scale == "Trials 1-4 Correct" ~ "word list total words learned trials 1-4",
+      scale ==
+        "Trials 1-4 Correct" ~
+        "Learning and recall of rote verbal information (word list)",
+      scale ==
+        "Trials 1-5 Correct" ~
+        "Learning and recall of rote verbal information (word list)",
+      scale ==
+        "Delayed Recall Correct" ~
+        "Delayed recall total correct",
+      scale ==
+        "Total Recall Correct" ~
+        "Total number of words correctly learned and remembered across all trials",
       TRUE ~ as.character(description)
     )
   )
@@ -604,9 +628,18 @@ table3 <-
   table3 |>
   mutate(
     description = case_when(
-      scale == "Short Delay Free Recall" ~ "immediate free recall of a word list",
-      scale == "Long Delay Free Recall" ~ "long-term delayed free recall of a word list",
-      scale == "Long Delay Cued Recall" ~ "long-term delayed cued recall of a word list",
+      scale ==
+        "Short Delay Free Recall" ~
+        "Recall of the list after a short delay",
+      scale ==
+        "Short Delay Cued Recall" ~
+        "Recall of the list after a short delay with cues",
+      scale ==
+        "Long Delay Free Recall" ~
+        "Recall of the list after a long delay",
+      scale ==
+        "Long Delay Cued Recall" ~
+        "Recall of the list after a long delay with cues",
       TRUE ~ as.character(description)
     )
   )
@@ -617,10 +650,18 @@ table4 <-
   table4 %>%
   dplyr::mutate(
     description = case_when(
-      scale == "Total Hits" ~ "yes/no recognition total hits",
-      scale == "Total False Positives" ~ "yes/no recognition total false positives",
-      scale == "Recognition Discriminability (d')" ~ "yes/no recognition discriminability",
-      scale == "Recognition Discriminability Nonparametric" ~ "yes/no recognition discriminability (nonparametric)",
+      scale ==
+        "Total Hits" ~
+        "Yes/no recognition total hits",
+      scale ==
+        "Total False Positives" ~
+        "Yes/no recognition total false positives",
+      scale ==
+        "Recognition Discriminability (d')" ~
+        "Yes/no recognition discriminability",
+      scale ==
+        "Recognition Discriminability Nonparametric" ~
+        "Yes/no recognition discriminability (nonparametric)",
       TRUE ~ as.character(description)
     )
   )
@@ -631,7 +672,9 @@ table5 <-
   table5 |>
   mutate(
     description = case_when(
-      scale == "Total Intrusions" ~ "total number of intrusive response errors",
+      scale ==
+        "Total Intrusions" ~
+        "Total number of intrusive response errors",
       TRUE ~ as.character(description)
     )
   )
@@ -642,7 +685,9 @@ table6 <-
   table6 |>
   mutate(
     description = case_when(
-      scale == "Total Repetitions" ~ "total number of repetitive response errors",
+      scale ==
+        "Total Repetitions" ~
+        "Total number of repetitive response errors",
       TRUE ~ as.character(description)
     )
   )
@@ -653,7 +698,9 @@ table7 <-
   table7 |>
   mutate(
     description = case_when(
-      scale == "Forced-Choice Recognition Hits" ~ "total number of hits forced-choice recognition",
+      scale ==
+        "Forced-Choice Recognition Hits" ~
+        "Number of hits on forced-choice recognition trials (raw score)",
       TRUE ~ as.character(description)
     )
   )
@@ -664,44 +711,85 @@ table7 <-
 ## Relocate variables
 
 ```{r relocate}
-table1 <- table1 |> relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
-table2 <- table2 |> relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
-table3 <- table3 |> relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
-table4 <- table4 |> relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
-table5 <- table5 |> relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
-table6 <- table6 |> relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
-table7 <- table7 |> relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+table1 <-
+  table1 |>
+  relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+table2 <-
+  table2 |>
+  relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+table3 <-
+  table3 |>
+  relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+table4 <-
+  table4 |>
+  relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+table5 <-
+  table5 |>
+  relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+table6 <-
+  table6 |>
+  relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+table7 <-
+  table7 |>
+  relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
-## Merge tables
-
-## Row bind
+## Merge tables/bind rows
 
 ```{r bind-rows}
-cvlt3_brief <- dplyr::bind_rows(table1, table2, table3, table4, table5, table6, table7)
+if (params$test == "cvlt3") {
+  cvlt3 <-
+    dplyr::bind_rows(table1, table2, table3, table4, table5, table6, table7)
+} else {
+  cvlt3_brief <-
+    dplyr::bind_rows(table1, table2, table3, table4, table5, table6, table7)
+}
 ```
 
 ## Glue results
 
 ```{r result}
-#TODO
-cvlt3_brief <-
-  cvlt3_brief %>%
-  dplyr::mutate(
-    result = glue::glue(
-      "{description} as measured by the {scale} subtest was {range}."
+if (params$test == "cvlt3") {
+  cvlt3 <-
+    cvlt3 %>%
+    dplyr::mutate(
+      result = glue::glue(
+        "{description} was {range}."
+      )
     )
-  )
+} else {
+  cvlt3_brief <-
+    cvlt3_brief %>%
+    dplyr::mutate(
+      result = glue::glue(
+        "{description} was {range}."
+      )
+    )
+}
 ```
 
 ## Write out final csv
 
 ```{r write-csv}
-readr::write_csv(cvlt3_brief, here::here(patient, "csv", "cvlt3_brief.csv"), col_names = TRUE, na = "")
+if (params$test == "cvlt3") {
+  readr::write_csv(
+    cvlt3, here::here(
+      patient, "csv", "cvlt3.csv"
+    ),
+    col_names = TRUE, na = ""
+  )
+} else {
+  readr::write_csv(
+    cvlt3_brief, here::here(
+      patient, "csv", "cvlt3_brief.csv"
+    ),
+    col_names = TRUE, na = ""
+  )
+}
 ```
 
 ## Cleanup
 
 ```{r cleanup}
-rm(table1, table2, table3, table4, table5, table6, area, table, table7)
+rm(area, table, table1, table2, table3, table4, table5, table6, table7)
 ```

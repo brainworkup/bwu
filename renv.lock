@@ -322,7 +322,7 @@
       "Repository": "https://r-lib.r-universe.dev",
       "RemoteUrl": "https://github.com/r-lib/covr",
       "RemoteRef": "HEAD",
-      "RemoteSha": "bf2b2f3067ccf02935e498f547e4ef17852bdbcf",
+      "RemoteSha": "d8fdaa99334d43fee124fb59d705d61e5abdacee",
       "Hash": "5f0aed0c23794598d465e70fd9cec336",
       "Requirements": [
         "crayon",
@@ -1138,14 +1138,14 @@
     },
     "pkgload": {
       "Package": "pkgload",
-      "Version": "1.2.4.9000",
+      "Version": "1.2.4.9001",
       "Source": "Repository",
       "Repository": "https://r-lib.r-universe.dev",
-      "RemoteType": "repository",
+      "Remotes": "r-lib/rlang",
       "RemoteUrl": "https://github.com/r-lib/pkgload",
       "RemoteRef": "HEAD",
-      "RemoteSha": "fa04ba54ef389060ada12ab2b4d48682ba22d541",
-      "Hash": "6c60be67a73d327d394dc8964b281de1",
+      "RemoteSha": "78d5cb174c5cb7c298265ea953a038b57e640911",
+      "Hash": "310c0126ed8152a46fc5de9f967c9c8e",
       "Requirements": [
         "cli",
         "crayon",
@@ -1372,13 +1372,13 @@
     },
     "rlang": {
       "Package": "rlang",
-      "Version": "1.0.2.9002",
+      "Version": "1.0.2.9003",
       "Source": "Repository",
       "Repository": "https://r-lib.r-universe.dev",
       "RemoteUrl": "https://github.com/r-lib/rlang",
       "RemoteRef": "HEAD",
-      "RemoteSha": "a627703da96775cf9eb8faca6693b359bdcdf97d",
-      "Hash": "4843614abeb04361575ece21c45c95e1",
+      "RemoteSha": "8016ca412c300517aacb81221e309ec1b7734508",
+      "Hash": "1000da2dabe1e3e2410d0fcc6cfe5561",
       "Requirements": []
     },
     "rlist": {
