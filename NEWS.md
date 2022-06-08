@@ -1,13 +1,13 @@
 ---
-output: 
-  html_document: 
+output:
+  html_document:
     fig_caption: yes
     keep_md: yes
     toc: yes
     highlight: pygments
     theme: flatly
     number_sections: yes
-  pdf_document: 
+  pdf_document:
     fig_caption: yes
     latex_engine: xelatex
     keep_tex: yes
@@ -58,4 +58,10 @@ output:
 -   added read_npsych function to glue non-PDF tables together
 -   updated .csv files in skeleton (topf, rcft, etc)
 -   added pluck-test.Rmd for topf, rocf, examiner, pegboard
-- changed read_npsych to read_npsych_csv
+
+## bwu 1.1.1.9000
+
+-   changed read_npsych.R to read_npsych_csv.R
+-   added pluck_npsych_csv.Rmd
+-   changed version
+-   added t2z2p function to convert t-scores to z-scores to percentiles

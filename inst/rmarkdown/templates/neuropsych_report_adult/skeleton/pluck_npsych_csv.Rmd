@@ -1,0 +1,95 @@
+---
+title: "Pluck Additional Neuropsych Measures/Tests"
+params:
+  patient: "Biggie"
+  test:
+    label: "Test/Measure"
+    value: examiner.csv
+    input: select
+    multiple: no
+    choices:
+      - examiner.csv
+      - pegboard.csv
+      - rocf.csv
+      - topf.csv
+      - tmt.csv
+  test_name:
+    label: "Test Name:"
+    value: NIH EXAMINER
+    input: select
+    multiple: no
+    choices:
+      - NIH EXAMINER
+      - Grooved Pegboard
+      - Rey Complex Figure
+      - Test of Premorbid Functioning
+      - Trail Making Test
+  file:
+    label: "No file selected"
+    value: file
+    input: file
+---
+
+## Setup
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  root.dir = normalizePath("./"),
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  error = TRUE
+)
+library(bwu)
+library(dplyr)
+library(hablar)
+library(here)
+library(knitr)
+library(magrittr)
+library(readr)
+library(rmarkdown)
+library(shiny)
+library(tabulizer)
+library(tabulizerjars)
+library(tibble)
+library(tidyr)
+library(vroom)
+```
+
+## Test
+
+```{r test}
+test <- params$test
+```
+
+## Patient
+
+```{r patient}
+patient <- params$patient
+```
+
+# Glue result
+
+## Import csv
+
+```{r source}
+table <- bwu::read_npsych_csv(patient, test)
+```
+
+## Convert T scores to z scores to percentiles
+
+```{r convert}
+table <- bwu::t2z2p()
+```
+
+## Test score ranges
+
+```{r range}
+table <- bwu::gpluck_make_score_ranges(table = table, test_type = "npsych_test")
+```
+
+## Write out final csv
+
+```{r writeout}
+write.csv(table, here::here(patient, "csv", test), colnames = TRUE, na = "")
+```
