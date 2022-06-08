@@ -55,26 +55,22 @@ read_npsych <- function(patient, test) {
   test <-
     readr::read_csv(
       here::here(
-        patient, "csv", test)) |>
+        patient, "csv", test
+      )
+    ) |>
     dplyr::mutate(
-      result = glue::glue("{description} as measured by the {scale} subtest was {range}.")
+      result = glue::glue("{description} was {range}.")
     )
-  }
+}
 ```
 
 ```{r pluck}
 test <- "rocf.csv"
-patient <- "Leslie"
+patient <- "Biggie"
 ```
 
 ```{r result}
 table <- read_npsych(patient, test)
-```
-
-## Outport csv
-
-```{r out}
-readr::write_csv(table, here::here(patient, "csv", test))
 ```
 
 ### Convert T scores to z scores to percentiles
@@ -86,8 +82,8 @@ table <- table %>%
   dplyr::select(scale, score, percentile)
 ```
 
-## Write out final csv
+## Write out csv
 
 ```{r writeout}
-readr::write_csv(pai, here::here(patient, "csv", "pai.csv"), col_names = TRUE, na = "")
+readr::write_csv(table, here::here(patient, "csv", test), col_names = TRUE, na = "")
 ```

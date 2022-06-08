@@ -165,6 +165,7 @@ params:
 ---
 
 # WAIS-IV
+<!-- Remember to use the VCI/PRI comparison output from Q-Interactive so tables don't shift on the page. -->
 
 ## Load libraries
 
@@ -748,7 +749,7 @@ table3 <-
 ## Glue results
 
 ```{r result3}
-#TODO
+# TODO
 table3 <-
   table3 %>%
   dplyr::mutate(
@@ -1033,7 +1034,7 @@ table5 <-
 ## Glue results
 
 ```{r result5}
-#TODO
+# TODO
 table5 <-
   table5 %>%
   dplyr::mutate(
@@ -1272,7 +1273,7 @@ table7 <-
 ## Glue results
 
 ```{r result7}
-#TODO
+# TODO
 table7 <-
   table7 %>%
   dplyr::mutate(

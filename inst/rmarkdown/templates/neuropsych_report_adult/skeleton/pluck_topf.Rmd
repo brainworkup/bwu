@@ -55,16 +55,18 @@ read_npsych <- function(patient, test) {
   test <-
     readr::read_csv(
       here::here(
-        patient, "csv", test)) |>
+        patient, "csv", test
+      )
+    ) |>
     dplyr::mutate(
-      result = glue::glue("{description} as measured by the {scale} subtest was {range}.")
+      result = glue::glue("{description} was {range}.")
     )
-  }
+}
 ```
 
 ```{r pluck}
 test <- "topf.csv"
-patient <- "Leslie"
+patient <- "Biggie"
 ```
 
 ```{r result}
@@ -83,5 +85,5 @@ table <- table %>%
 ## Write out final csv
 
 ```{r writeout}
-readr::write_csv(table, here::here(patient, "csv", "topf.csv"), col_names = TRUE, na = "")
+readr::write_csv(table, here::here(patient, "csv", test), col_names = TRUE, na = "")
 ```

@@ -1,9 +1,7 @@
-﻿scale,raw_score,score,percentile
-Color Naming,,,
-Word Reading,,,
-Inhibition,,,
-Inhibition/Switching,,,
-Color Naming Total Errors,,,
-Word Reading Total Errors,,,
-Inhibition Total Errors,,,
-Inhibition/Switching Total Errors,,,
+scale,raw_score,score,percentile,range,ci_95,test,test_name,domain,subdomain,narrow,pass,verbal,timed,test_type,score_type,absort,description
+D-KEFS Color Naming,,,,,,dkefs_cwi,D-KEFS Color-Word Interference,Verbal/Language,Retrieval Fluency,Naming Facility,Attention,Verbal,Timed,npsych_test,scaled_score,dkefs_cwi_1,Rapid color naming
+D-KEFS Word Reading,,,,,,dkefs_cwi,D-KEFS Color-Word Interference,Verbal/Language,Retrieval Fluency,Naming Facility,Attention,Verbal,Timed,npsych_test,scaled_score,dkefs_cwi_2,Rapid word reading
+D-KEFS Inhibition,,,,,,dkefs_cwi,D-KEFS Color-Word Interference,Attention/Executive,Cognitive Control,Inhibition,Attention,Verbal,Timed,npsych_test,scaled_score,dkefs_cwi_3,Inhibition/cognitive control
+D-KEFS Switching,,,,,,dkefs_cwi,D-KEFS Color-Word Interference,Attention/Executive,Cognitive Flexibility,Set-Shifting,Attention,Verbal,Timed,npsych_test,scaled_score,dkefs_cwi_4,Set-shifting/cognitive flexibility
+D-KEFS Inhibition Total Errors,,,,,,dkefs_cwi,D-KEFS Color-Word Interference,Attention/Executive,Response Monitoring,Response Monitoring,Attention,Verbal,Timed,npsych_test,scaled_score,dkefs_cwi_5,Response monitoring during an inhibition task
+D-KEFS Switching Total Errors,,,,,,dkefs_cwi,D-KEFS Color-Word Interference,Attention/Executive,Response Monitoring,Response Monitoring,Attention,Verbal,Timed,npsych_test,scaled_score,dkefs_cwi_6,Response monitoring during a set-shifting task
