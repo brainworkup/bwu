@@ -72,6 +72,18 @@ params:
     label: "Date of Birth:"
     value: !r Sys.Date()
     input: date
+  doe1:
+    label: "DOE 1st visit (NSE):"
+    value: !r Sys.Date()
+    input: date
+  doe2:
+    label: "DOE 2nd visit (NT1):"
+    value: !r Sys.Date()
+    input: date
+  doe3:
+    label: "DOE 3rd visit (SIRF):"
+    value: !r Sys.Date()
+    input: date
   sex:
     label: "Sex/Gender:"
     value: Male
@@ -81,6 +93,48 @@ params:
       - Female
       - Nonbinary
       - Prefer not to answer
+  he_she:
+    label: "he/she Pronoun:"
+    value: he
+    input: radio
+    choices:
+      - he
+      - she
+  his_her:
+    label: "his/her Pronoun:"
+    value: his
+    input: radio
+    choices:
+      - his
+      - her
+  him_her:
+    label: "him/her Pronoun:"
+    value: him
+    input: radio
+    choices:
+      - him
+      - her
+  he_she_cap:
+    label: "He/She Pronoun:"
+    value: He
+    input: radio
+    choices:
+      - He
+      - She
+  his_her_cap:
+    label: "His/Her Pronoun:"
+    value: His
+    input: radio
+    choices:
+      - His
+      - Her
+  him_her_cap:
+    label: "Him/Her Pronoun:"
+    value: Him
+    input: radio
+    choices:
+      - Him
+      - Her
   race:
     label: "Race/Ethnicity:"
     value: White/Caucasian
@@ -129,60 +183,6 @@ params:
       - Medical degree
       - Doctoral degree
       - Other
-  doe1:
-    label: "DOE 1st visit (NSE):"
-    value: !r Sys.Date()
-    input: date
-  doe2:
-    label: "DOE 2nd visit (NT1):"
-    value: !r Sys.Date()
-    input: date
-  doe3:
-    label: "DOE 3rd visit (SIRF):"
-    value: !r Sys.Date()
-    input: date
-  he_she:
-    label: "he/she Pronoun:"
-    value: he
-    input: radio
-    choices:
-      - he
-      - she
-  his_her:
-    label: "his/her Pronoun:"
-    value: his
-    input: radio
-    choices:
-      - his
-      - her
-  him_her:
-    label: "him/her Pronoun:"
-    value: him
-    input: radio
-    choices:
-      - him
-      - her
-  he_she_cap:
-    label: "He/She Pronoun:"
-    value: He
-    input: radio
-    choices:
-      - He
-      - She
-  his_her_cap:
-    label: "His/Her Pronoun:"
-    value: His
-    input: radio
-    choices:
-      - His
-      - Her
-  him_her_cap:
-    label: "Him/Her Pronoun:"
-    value: Him
-    input: radio
-    choices:
-      - Him
-      - Her
   dx1:
     label: "Diagnosis/Disorder 1:"
     value: ADHD
@@ -505,13 +505,13 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:efficiency) *Efficiency* reflects how long it takes to complete a task with the highest number of correct responses.
 
-(ref:psi) The Processing Speed Index (PSI) is primarily a measure of Processing Speed (Gs). Gs refers to the efficiency of cognitive processing or speed of mental activity. It involves the ability to perform simple clerical-type tasks quickly, especially when under pressure to maintain attention and concentration. The difference between the scores that comprise the PSI is statistically significant and a difference of this size occurs in less than 10% of the general population which means the difference is relatively uncommon. This means that although the composite is likely a psychometrically sound estimate of Processing Speed, it may not be a good clinical summary because it may obscure an important and meaningful difference within this domain, which often occurs when one score is below average and the other score(s) is at least average relative to most people. (ref:patient)'s Gs-PSI score of {{{ score }}} ({{{ ci_95 }}}) is classified as {{{ range }}} and is ranked at the {{{ percentile }}}rd percentile, indicating performance as good as or better than {{{ percentile }}}% of same age peers from the general population.
+(ref:psi) The Processing Speed Index (PSI) is primarily a measure of Processing Speed (Gs). Gs refers to the efficiency of cognitive processing or speed of mental activity. It involves the ability to perform simple clerical-type tasks quickly, especially when under pressure to maintain attention and concentration. The difference between the scores that comprise the PSI is statistically significant and a difference of this size occurs in less than 10% of the general population which means the difference is relatively uncommon. This means that although the composite is likely a psychometrically sound estimate of Processing Speed, it may not be a good clinical summary because it may obscure an important and meaningful difference within this domain, which often occurs when one score is below average and the other score(s) is at least average relative to most people.
 
-(ref:vci) The Verbal Comprehension Index (VCI) is primarily a measure of Comprehension and Knowledge (Gc). Gc refers to an individual's knowledge base (or general fund of information) that develops as a result of exposure to language, culture, general life experiences, and formal schooling. The size of the difference between the lowest and highest scores that comprise the VCI occurs in at least 10% of the general population, which makes the difference relatively common. This means that the VCI is a good psychometric summary of Comprehension and Knowledge. Additionally, information regarding where the subtest scores fall relative to each other and relative to most people may not add clinically relevant information above and beyond the VCI. (ref:patient)'s VCI-Gc score of {{ score }} ({{ ci_95 }}) is classified as {{ range }} and is ranked at the {{ percentile }}rd percentile, indicating performance as good as or better than {{ percentile }}% of same age peers from the general population.
+(ref:vci) The Verbal Comprehension Index (VCI) is primarily a measure of Comprehension and Knowledge (Gc). Gc refers to an individual's knowledge base (or general fund of information) that develops as a result of exposure to language, culture, general life experiences, and formal schooling. The size of the difference between the lowest and highest scores that comprise the VCI occurs in at least 10% of the general population, which makes the difference relatively common. This means that the VCI is a good psychometric summary of Comprehension and Knowledge. Additionally, information regarding where the subtest scores fall relative to each other and relative to most people may not add clinically relevant information above and beyond the VCI.
 
-(ref:fri) The Gf-Nonverbal Fluid Reasoning Index (FRI) is primarily a measure of Fluid Reasoning (Gf). Gf refers to a type of thinking that an individual may use when faced with a relatively new or novel task that cannot be performed automatically. (ref:patient)'s FRI-Gf score of {{ score }} ({{ ci_95 }}) is classified as {{ range }} and is ranked at the {{ percentile }}rd percentile, indicating performance as good as or better than {{ percentile }}% of same age peers from the general population.
+(ref:fri) The Gf-Nonverbal Fluid Reasoning Index (FRI) is primarily a measure of Fluid Reasoning (Gf). Gf refers to a type of thinking that an individual may use when faced with a relatively new or novel task that cannot be performed automatically.
 
-(ref:vsi) The Gv-Visual Processing Index (VSI) is primarily a measure of Visual Processing (Gv). Gv Refers to an individuals ability to generate visual images and perceive and analyze visual patterns and visual information. (ref:patient)'s VSI-Gv score of {{ score }} ({{ ci_95 }}) is classified as {{ range }} and is ranked at the {{ percentile }}rd percentile, indicating performance as good as or better than {{ percentile }}% of same age peers from the general population.
+(ref:vsi) The Gv-Visual Processing Index (VSI) is primarily a measure of Visual Processing (Gv). Gv Refers to an individuals ability to generate visual images and perceive and analyze visual patterns and visual information.
 
 (ref:first-name) `r params$first_name`
 
@@ -573,7 +573,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 **Evaluation Dates:** (ref:doe)
 ```
 
-```{r nse, results = 'asis', cache = TRUE}
+```{r nse, results = 'asis', cache = FALSE}
 cat(readLines("1.2_nse.md"), sep = "\n")
 ```
 
@@ -607,7 +607,7 @@ cat(readLines("1.2_nse.md"), sep = "\n")
   - (ref:cefi-or)
 - (ref:pai)
 
-```{r nt-obs, results = 'asis', cache = TRUE}
+```{r nt-obs, results = 'asis', cache = FALSE}
 cat(readLines("2.1_nt-obs.md"), sep = "\n")
 ```
 
@@ -632,30 +632,7 @@ knitr::include_graphics("plot_narrow.png", auto_pdf = TRUE)
 knitr::include_graphics("plot_broad.png", auto_pdf = TRUE)
 ```
 
-```{r, read-extra, cache = F, eval=FALSE}
-patient <- params$patient
-
-read_extra <- function(patient, test) {
-  test <- 
-    readr::read_csv(here::here(patient, "csv", test)) |> 
-    dplyr::mutate(result = glue::glue(
-      "{description} as measured by the {scale} subtest was {range} relative to same-age peers."))
-}
-
-examiner <- read_extra(patient, "examiner.csv")
-pegboard <- read_extra(patient, "pegboard.csv")
-rocf <- read_extra(patient, "rocf.csv")
-topf <- read_extra(patient, "topf.csv")
-wiat4 <- read_extra(patient, "wiat4.csv")
-
-readr::write_csv(examiner, here::here(patient, "csv", "examiner.csv"))
-readr::write_csv(pegboard, here::here(patient, "csv", "pegboard.csv"))
-readr::write_csv(rocf, here::here(patient, "csv", "rocf.csv"))
-readr::write_csv(topf, here::here(patient, "csv", "topf.csv"))
-readr::write_csv(wiat4, here::here(patient, "csv", "wiat4.csv"))
-```
-
-```{r read-csv, cache = F}
+```{r read-csv, cache = FALSE}
 library(tidyverse)
 data_path <- here::here(patient, "csv")
 files <- dir(data_path, pattern = "*.csv")
@@ -678,7 +655,7 @@ neuropsych <-
   dplyr::mutate(timed = forcats::as_factor(timed))
 ```
 
-```{r, make-factors-neurocog, cache = F}
+```{r, make-factors-neurocog, cache = FALSE}
 # Subset neurocognitive data
 neurocog <-
   neuropsych %>%
@@ -725,17 +702,9 @@ neurocog <-
   dplyr::filter(!is.na(percentile)) %>%
   dplyr::mutate(z_mean_timed = mean(z), z_sd_timed = sd(z)) %>%
   dplyr::ungroup()
-# result text
-neurocog <-
-  neurocog %>%
-  dplyr::mutate(
-    result = glue::glue(
-      "{patient}'s ability to {description} as measured by the {scale} subtest was {range} relative to same-age peers."
-    )
-  )
 ```
 
-```{r, make-factors-neurobehav, cache = F}
+```{r, make-factors-neurobehav, cache = FALSE}
 # Subset neurobehavioral data
 neurobehav <-
   neuropsych %>%
@@ -761,14 +730,6 @@ neurobehav <-
   dplyr::filter(!is.na(score)) %>%
   dplyr::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) %>%
   dplyr::ungroup()
-# result text
-neurobehav <-
-  neurobehav %>%
-  dplyr::mutate(
-    result = glue::glue(
-      "{patient}'s score on {scale} (i.e., {description}) was {range}."
-    )
-  )
 ```
 
 ```{r, write-data, cache = F}
@@ -1154,7 +1115,7 @@ domain <-
   dplyr::filter(!is.na(domain))
 ```
 
-```{r domain-plot, fig.cap = '(ref:domain)', fig.height = 3.5}
+```{r domain-plot, fig.cap = '(ref:domain)', fig.height = 3.5, cache = FALSE}
 bwu::dotplot(
   data = domain,
   x = domain$z_mean_dom,
@@ -1217,7 +1178,7 @@ bwu::dotplot(
 )
 ```
 
-```{r, sirf, results = 'asis'}
+```{r, sirf, results = 'asis', cache = FALSE}
 cat(readLines("3_sirf.md"), sep = "\n")
 ```
 
@@ -1227,7 +1188,7 @@ cat(readLines("3_sirf.md"), sep = "\n")
 Links highlighted in \textcolor{blue}{blue} should be clickable to the online content.
 ```
 
-```{r, recs, results = 'asis'}
+```{r, recs, results = 'asis', cache = FALSE}
 cat(readLines("4_recs.md"), sep = "\n")
 ```
 
@@ -1277,7 +1238,10 @@ Although standardized scores provide the clinician with an important and necessa
 ## Conversion of Test Scores
 
 ```{r ranges, double_escape = TRUE, escape = FALSE, fig.fullwidth = FALSE, cache = TRUE}
-range <- vroom::vroom(here::here(patient, "test_score_ranges.csv"), show_col_types = FALSE)
+range <-
+  vroom::vroom(here::here(
+    patient, "test_score_ranges.csv"
+  ), show_col_types = FALSE)
 gt::gt(range) %>%
   gt::tab_header(., title = "Test Score Labels/Ranges") %>%
   gt::cols_align(., align = "center")
