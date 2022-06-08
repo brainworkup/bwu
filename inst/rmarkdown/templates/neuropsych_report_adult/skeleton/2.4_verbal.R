@@ -15,7 +15,7 @@ filter_domain <- c(
   "Writing",
   "Bill Payment",
   ## from EF
-  "Word Generation", 
+  "Word Generation",
   ## WAIS/WISC/WPPSI
   "Information",
   "Similarities",
@@ -27,8 +27,8 @@ filter_domain <- c(
   "Receptive Vocabulary",
   "Picture Naming",
   # DKEFS
-  "Color Naming",
-  "Word Reading",
+  "D-KEFS Color Naming",
+  "D-KEFS Word Reading",
   # NEPSY
   "Comprehension of Instructions",
   "Word Generation-Semantic",
