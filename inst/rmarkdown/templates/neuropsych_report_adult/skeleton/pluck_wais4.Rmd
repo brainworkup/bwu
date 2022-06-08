@@ -318,8 +318,15 @@ table1 <- bwu::gpluck_make_columns(
   timed = "",
   test_type = "npsych_test",
   score_type = "standard_score",
-  description = ""
+  description = "",
+  result = ""
 )
+```
+
+## Test score ranges
+
+```{r range1}
+table1 <- bwu::gpluck_make_score_ranges(table = table1, test_type = "npsych_test")
 ```
 
 ## Domains
@@ -438,7 +445,7 @@ table1 <-
   dplyr::mutate(
     description = dplyr::case_when(
       scale == "Full Scale IQ (FSIQ)" ~ "General intelligence",
-      scale == "General Ability (GAI)" ~ "General intelligence with reduced influences of working memory and processing speed",
+      scale == "General Ability (GAI)" ~ "General intelligence",
       scale == "Verbal Comprehension (VCI)" ~ "An estimate of Crystallized Intelligence (Gc)",
       scale == "Perceptual Reasoning (PRI)" ~ "Fluid Reasoning (Gf)",
       scale == "Working Memory (WMI)" ~ "An estimate of Short-Term Working Memory (Gsm), which refers to the ability to hold information in immediate awareness and then manipulate or transform it in some way within a few seconds",
@@ -459,7 +466,7 @@ table1 <-
         "{description} was {range} overall.\n"
       ),
       scale == "General Ability (GAI)" ~ glue::glue(
-        "{description} was {range} overall.\n"
+        "{description} was classified as {range} and ranked at the {percentile}th percentile, indicating performance as good as or better than {percentile}% of same age peers from the general population.\n"
       ),
       scale == "Verbal Comprehension (VCI)" ~ glue::glue(
         "{description} was classified as {range} and ranked at the {percentile}th percentile, indicating performance as good as or better than {percentile}% of same age peers from the general population.\n"
@@ -476,12 +483,6 @@ table1 <-
       TRUE ~ as.character(result)
     )
   )
-```
-
-## Test score ranges
-
-```{r range1}
-table1 <- bwu::gpluck_make_score_ranges(table = table1, test_type = "npsych_test")
 ```
 
 ## Relocate variables
@@ -535,7 +536,8 @@ table2 <- bwu::gpluck_make_columns(
   timed = "Untimed",
   test_type = "npsych_test",
   score_type = "scaled_score",
-  description = ""
+  description = "",
+  result = ""
 )
 ```
 
@@ -584,8 +586,8 @@ table2 <-
   table2 |>
   dplyr::mutate(
     description = dplyr::case_when(
-      scale == "Similarities" ~ "Reasoning with words",
-      scale == "Vocabulary" ~ "Word knowledge",
+      scale == "Similarities" ~ "Verbal inductive reasoning",
+      scale == "Vocabulary" ~ "Word/lexical knowledge",
       scale == "Information" ~ "Acquired knowledge/ability to acquire, retain, and retrieve general factual knowledge",
       scale == "Comprehension" ~ "Practical knowledge and judgment of general principles and social situations",
       TRUE ~ as.character(description)
@@ -595,12 +597,22 @@ table2 <-
 
 ## Glue results
 
-```{r result2}
+```{r}
+table2 <-
+  table2 %>%
+  dplyr::mutate(
+    result = glue::glue(
+      "{description} was {range}.\n"
+    )
+  )
+```
+
+```{r result2, eval=FALSE}
 # TODO
 table2 <-
   table2 %>%
   dplyr::mutate(
-    result = glue::glue_data(
+    result = glue::glue(
       "{description} as measured by the {scale} subtest was {range}.\n",
       TRUE ~ as.character(result)
     )
@@ -658,7 +670,8 @@ table3 <- bwu::gpluck_make_columns(
   pass = "Simultaneous",
   test_type = "npsych_test",
   score_type = "scaled_score",
-  description = ""
+  description = "",
+  result = ""
 )
 ```
 
@@ -735,13 +748,12 @@ table3 <-
 ## Glue results
 
 ```{r result3}
-# TODO
+#TODO
 table3 <-
   table3 %>%
   dplyr::mutate(
     result = glue::glue(
-      "{description} as measured by the {scale} subtest was {range}.\n",
-      TRUE ~ as.character(result)
+      "{description} was {range}.\n"
     )
   )
 ```
@@ -797,7 +809,8 @@ table4 <- bwu::gpluck_make_columns(
   timed = "Untimed",
   test_type = "npsych_test",
   score_type = "scaled_score",
-  description = ""
+  description = "",
+  result = ""
 )
 ```
 
@@ -874,9 +887,9 @@ table4 <-
   table4 |>
   dplyr::mutate(
     description = dplyr::case_when(
-      scale == "Digit Span" ~ "{patient}'s ability to register, maintain, and manipulate auditory information",
-      scale == "Arithmetic" ~ "{patient}'s ability to solve math word problems in working memory",
-      scale == "Letter-Number Sequencing" ~ "{patient}'s ability to register, maintain, manipulate, and resequence series of numbers and letters in working memory",
+      scale == "Digit Span" ~ "Registering, maintaining, and manipulating auditory information",
+      scale == "Arithmetic" ~ "Solving math word problems in working memory",
+      scale == "Letter-Number Sequencing" ~ "Working memory maintenance and resequencing of progressively lengthier number and letter strings in working memory",
       TRUE ~ as.character(description)
     )
   )
@@ -890,8 +903,7 @@ table4 <-
   table4 %>%
   dplyr::mutate(
     result = glue::glue(
-      "{description} was {range}.\n",
-      TRUE ~ as.character(result)
+      "{description} was {range}.\n"
     )
   )
 ```
@@ -947,7 +959,8 @@ table5 <- bwu::gpluck_make_columns(
   timed = "Timed",
   test_type = "npsych_test",
   score_type = "scaled_score",
-  description = ""
+  description = "",
+  result = ""
 )
 ```
 
@@ -1020,13 +1033,12 @@ table5 <-
 ## Glue results
 
 ```{r result5}
-# TODO
+#TODO
 table5 <-
   table5 %>%
   dplyr::mutate(
     result = glue::glue(
-      "{description} was {range}.\n",
-      TRUE ~ as.character(result)
+      "{description} was {range}.\n"
     )
   )
 ```
@@ -1082,7 +1094,8 @@ table6 <- bwu::gpluck_make_columns(
   pass = "Simultaneous",
   test_type = "npsych_test",
   score_type = "scaled_score",
-  description = ""
+  description = "",
+  result = ""
 )
 ```
 
@@ -1108,13 +1121,12 @@ table6 <-
 ## Glue results
 
 ```{r result6}
-# TODO
+# result text
 table6 <-
   table6 %>%
   dplyr::mutate(
     result = glue::glue(
-      "{description} was {range}.\n",
-      TRUE ~ as.character(result)
+      "{description} was {range}.\n"
     )
   )
 ```
@@ -1170,7 +1182,8 @@ table7 <- bwu::gpluck_make_columns(
   timed = "Untimed",
   test_type = "npsych_test",
   score_type = "",
-  description = ""
+  description = "",
+  result = ""
 )
 ```
 
@@ -1244,7 +1257,7 @@ table7 <-
   table7 |>
   dplyr::mutate(
     description = dplyr::case_when(
-      scale == "Digit Span Forward" ~ "{patient}'s ability to register, maintain, and manipulate auditory information",
+      scale == "Digit Span Forward" ~ "Forward digit span/attention span",
       scale == "Digit Span Backward" ~ "Verbal working memory",
       scale == "Digit Span Sequencing" ~ "Verbal working memory and sequencing",
       scale == "Longest Digit Span Forward" ~ "Auditory attentional capacity",
@@ -1259,13 +1272,12 @@ table7 <-
 ## Glue results
 
 ```{r result7}
-# TODO
+#TODO
 table7 <-
   table7 %>%
   dplyr::mutate(
     result = glue::glue(
-      "{description} was {range}.\n",
-      TRUE ~ as.character(result)
+      "{description} was {range}.\n"
     )
   )
 ```
@@ -1294,7 +1306,7 @@ wais4 <- wais4 %>% dplyr::slice(5, 1, 6:7, 2, 9, 8, 10, 3, 12, 11, 13:15, 4, 21,
 ## Write out final csv
 
 ```{r write}
-readr::write_csv(wais4, here::here(patient, "csv", "wais4.csv"), col_names = TRUE, na = "", delim = ", ")
+readr::write_csv(wais4, here::here(patient, "csv", "wais4.csv"), col_names = TRUE, na = "")
 ```
 
 ## Cleanup
