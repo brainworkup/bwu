@@ -168,7 +168,7 @@ params:
 
 ## Load libraries
 
-```{r setup, include=FALSE}
+```{r setup, include = FALSE}
 Sys.setenv(JAVA_HOME = "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home")
 options(java.parameters = "-Xmx16000m")
 knitr::opts_chunk$set(
@@ -437,13 +437,43 @@ table1 <-
   table1 |>
   dplyr::mutate(
     description = dplyr::case_when(
-      scale == "Verbal Comprehension (VCI)" ~ "The VCI provides an estimate of Crystallized Intelligence (Gc). Gc refers to an individual's knowledge base (or general fund of information) that develops as a result of exposure to language, culture, general life experiences, and formal schooling.",
-      scale == "Perceptual Reasoning (PRI)" ~ "The PRI provides an estimate of Fluid Reasoning (Gf). Gf refers to a type of thinking that an individual may use when faced with a relatively new or novel task that cannot be performed automatically.",
-      scale == "Working Memory (WMI)" ~ "The WMI provides an estimate of Short-term Working Memory (Gsm). Gsm refers to the ability to hold information in immediate awareness and then manipulate or transform it in some way within a few seconds.",
-      scale == "Processing Speed (PSI)" ~ "The PSI provides an estimate of Processing Speed (Gs). Gs refers to the efficiency of cognitive processing or speed of mental activity. It involves the ability to perform simple clerical-type tasks quickly, especially when under pressure to maintain attention and concentration.",
-      scale == "Full Scale IQ (FSIQ)" ~ "general level of intellectual functioning",
-      scale == "General Ability (GAI)" ~ "a subset of intellectual functioning with reduced influences of working memory and processing speed",
+      scale == "Full Scale IQ (FSIQ)" ~ "General intelligence",
+      scale == "General Ability (GAI)" ~ "General intelligence with reduced influences of working memory and processing speed",
+      scale == "Verbal Comprehension (VCI)" ~ "An estimate of Crystallized Intelligence (Gc)",
+      scale == "Perceptual Reasoning (PRI)" ~ "Fluid Reasoning (Gf)",
+      scale == "Working Memory (WMI)" ~ "An estimate of Short-Term Working Memory (Gsm), which refers to the ability to hold information in immediate awareness and then manipulate or transform it in some way within a few seconds",
+      scale == "Processing Speed (PSI)" ~ "Processing Speed (Gs) performance (i.e., the efficiency of cognitive processing or speed of mental activity, especially when under pressure to maintain attention and concentration)",
       TRUE ~ as.character(description)
+    )
+  )
+```
+
+## Glue result
+
+```{r result1}
+table1 <-
+  table1 |>
+  dplyr::mutate(
+    result = dplyr::case_when(
+      scale == "Full Scale IQ (FSIQ)" ~ glue::glue(
+        "{description} was {range} overall.\n"
+      ),
+      scale == "General Ability (GAI)" ~ glue::glue(
+        "{description} was {range} overall.\n"
+      ),
+      scale == "Verbal Comprehension (VCI)" ~ glue::glue(
+        "{description} was classified as {range} and ranked at the {percentile}th percentile, indicating performance as good as or better than {percentile}% of same age peers from the general population.\n"
+      ),
+      scale == "Perceptual Reasoning (PRI)" ~ glue::glue(
+        "{description} was classified as {range} and ranked at the {percentile}th percentile, indicating performance as good as or better than {percentile}% of same age peers from the general population.\n"
+      ),
+      scale == "Working Memory (WMI)" ~ glue::glue(
+        "{description}, was a relative [strength/weakness], falling in the {range} range.\n"
+      ),
+      scale == "Processing Speed (PSI)" ~ glue::glue(
+        "{description}, was {range} and a relative [strength/weakness], higher than {percentile}% of same-age peers.\n"
+      ),
+      TRUE ~ as.character(result)
     )
   )
 ```
@@ -554,11 +584,25 @@ table2 <-
   table2 |>
   dplyr::mutate(
     description = dplyr::case_when(
-      scale == "Similarities" ~ "reasoning with words",
-      scale == "Vocabulary" ~ "word knowledge",
-      scale == "Information" ~ "acquired knowledge/ability to acquire, retain, and retrieve general factual knowledge",
-      scale == "Comprehension" ~ "practical knowledge and judgment of general principles and social situations",
+      scale == "Similarities" ~ "Reasoning with words",
+      scale == "Vocabulary" ~ "Word knowledge",
+      scale == "Information" ~ "Acquired knowledge/ability to acquire, retain, and retrieve general factual knowledge",
+      scale == "Comprehension" ~ "Practical knowledge and judgment of general principles and social situations",
       TRUE ~ as.character(description)
+    )
+  )
+```
+
+## Glue results
+
+```{r result2}
+# TODO
+table2 <-
+  table2 %>%
+  dplyr::mutate(
+    result = glue::glue_data(
+      "{description} as measured by the {scale} subtest was {range}.\n",
+      TRUE ~ as.character(result)
     )
   )
 ```
@@ -679,11 +723,25 @@ table3 <-
   table3 |>
   dplyr::mutate(
     description = dplyr::case_when(
-      scale == "Block Design" ~ "understand visual-spatial relationships to construct geometric designs from a model",
-      scale == "Matrix Reasoning" ~ "inductive reasoning",
-      scale == "Visual Puzzles" ~ "generate visual images in the mind's eye",
-      scale == "Figure Weights" ~ "general sequential (deductive) reasoning and quantitative reasoning",
+      scale == "Block Design" ~ "Understand visual-spatial relationships to construct geometric designs from a model",
+      scale == "Matrix Reasoning" ~ "Inductive reasoning",
+      scale == "Visual Puzzles" ~ "Generate visual images in the mind's eye",
+      scale == "Figure Weights" ~ "General sequential (deductive) reasoning and quantitative reasoning",
       TRUE ~ as.character(description)
+    )
+  )
+```
+
+## Glue results
+
+```{r result3}
+# TODO
+table3 <-
+  table3 %>%
+  dplyr::mutate(
+    result = glue::glue(
+      "{description} as measured by the {scale} subtest was {range}.\n",
+      TRUE ~ as.character(result)
     )
   )
 ```
@@ -816,10 +874,24 @@ table4 <-
   table4 |>
   dplyr::mutate(
     description = dplyr::case_when(
-      scale == "Digit Span" ~ "register, maintain, and manipulate auditory information",
-      scale == "Arithmetic" ~ "solve math word problems in working memory",
-      scale == "Letter-Number Sequencing" ~ "register, maintain, manipulate, and resequence series of numbers and letters in working memory",
+      scale == "Digit Span" ~ "{patient}'s ability to register, maintain, and manipulate auditory information",
+      scale == "Arithmetic" ~ "{patient}'s ability to solve math word problems in working memory",
+      scale == "Letter-Number Sequencing" ~ "{patient}'s ability to register, maintain, manipulate, and resequence series of numbers and letters in working memory",
       TRUE ~ as.character(description)
+    )
+  )
+```
+
+## Glue results
+
+```{r result4}
+# TODO
+table4 <-
+  table4 %>%
+  dplyr::mutate(
+    result = glue::glue(
+      "{description} was {range}.\n",
+      TRUE ~ as.character(result)
     )
   )
 ```
@@ -937,10 +1009,24 @@ table5 <-
   table5 |>
   dplyr::mutate(
     description = dplyr::case_when(
-      scale == "Coding" ~ "psychomotor speed, visual scanning ability, and visual-motor coordination",
-      scale == "Symbol Search" ~ "visual-perceptual/decision-making speed",
-      scale == "Cancellation" ~ "selective visual attention, visual discrimination, and visual-perceptual processing",
+      scale == "Coding" ~ "Psychomotor speed, visual scanning ability, and visual-motor coordination",
+      scale == "Symbol Search" ~ "Visual-perceptual decision-making speed",
+      scale == "Cancellation" ~ "Selective visual attention, visual discrimination, and visual-perceptual processing",
       TRUE ~ as.character(description)
+    )
+  )
+```
+
+## Glue results
+
+```{r result5}
+# TODO
+table5 <-
+  table5 %>%
+  dplyr::mutate(
+    result = glue::glue(
+      "{description} was {range}.\n",
+      TRUE ~ as.character(result)
     )
   )
 ```
@@ -1013,8 +1099,22 @@ table6 <-
   table6 |>
   dplyr::mutate(
     description = dplyr::case_when(
-      scale == "Block Design No Time Bonus" ~ "understand visual-spatial relationships to construct geometric designs from a model (untimed)",
+      scale == "Block Design No Time Bonus" ~ "Untimed Block Design performance",
       TRUE ~ as.character(description)
+    )
+  )
+```
+
+## Glue results
+
+```{r result6}
+# TODO
+table6 <-
+  table6 %>%
+  dplyr::mutate(
+    result = glue::glue(
+      "{description} was {range}.\n",
+      TRUE ~ as.character(result)
     )
   )
 ```
@@ -1084,7 +1184,7 @@ table7 <- bwu::gpluck_make_score_ranges(table = table7, test_type = "npsych_test
 
 ```{r narrow7}
 table7 <-
-  table7 %>% 
+  table7 %>%
   dplyr::mutate(
     narrow = dplyr::case_when(
       scale == "Digit Span Forward" ~ "Memory Span",
@@ -1144,14 +1244,28 @@ table7 <-
   table7 |>
   dplyr::mutate(
     description = dplyr::case_when(
-      scale == "Digit Span Forward" ~ "recall of digits forward",
-      scale == "Digit Span Backward" ~ "recall of digits backward",
-      scale == "Digit Span Sequencing" ~ "recall of digits sequencing",
-      scale == "Longest Digit Span Forward" ~ "recall of digits forward (span)",
-      scale == "Longest Digit Span Backward" ~ "recall of digits backward (span)",
-      scale == "Longest Digit Span Sequence" ~ "recall of digits sequence (span)",
+      scale == "Digit Span Forward" ~ "{patient}'s ability to register, maintain, and manipulate auditory information",
+      scale == "Digit Span Backward" ~ "Verbal working memory",
+      scale == "Digit Span Sequencing" ~ "Verbal working memory and sequencing",
+      scale == "Longest Digit Span Forward" ~ "Auditory attentional capacity",
+      scale == "Longest Digit Span Backward" ~ "Working memory for orally presented information",
+      scale == "Longest Digit Span Sequence" ~ "Recall of digits sequences/resequencing",
       scale == "Longest Letter-Number Sequence" ~ "longest letter-number sequence (span)",
       TRUE ~ as.character(description)
+    )
+  )
+```
+
+## Glue results
+
+```{r result7}
+# TODO
+table7 <-
+  table7 %>%
+  dplyr::mutate(
+    result = glue::glue(
+      "{description} was {range}.\n",
+      TRUE ~ as.character(result)
     )
   )
 ```
@@ -1171,28 +1285,16 @@ wais4 <-
   dplyr::bind_rows(table1, table2, table3, table6, table4, table7, table5)
 ```
 
-## Glue results
-
-```{r result}
-wais4 <-
-  wais4 %>%
-  dplyr::mutate(
-    result = glue::glue(
-      "{description} as measured by the {scale} subtest was {range} relative to same-age peers."
-    )
-  )
-```
-
 ## Slice to reorder subtests/scales
 
 ```{r slice}
-wais4 <- wais4 %>% dplyr::slice(5,1,6:7,2,9,8,10,3,12,11,13:15,4,21,20)
+wais4 <- wais4 %>% dplyr::slice(5, 1, 6:7, 2, 9, 8, 10, 3, 12, 11, 13:15, 4, 21, 20)
 ```
 
 ## Write out final csv
 
 ```{r write}
-vroom::vroom_write(wais4, here::here(patient, "csv", "wais4.csv"), col_names = TRUE, na = "", delim = ", ")
+readr::write_csv(wais4, here::here(patient, "csv", "wais4.csv"), col_names = TRUE, na = "", delim = ", ")
 ```
 
 ## Cleanup
