@@ -58,3 +58,4 @@ output:
 -   added read_npsych function to glue non-PDF tables together
 -   updated .csv files in skeleton (topf, rcft, etc)
 -   added pluck-test.Rmd for topf, rocf, examiner, pegboard
+- changed read_npsych to read_npsych_csv

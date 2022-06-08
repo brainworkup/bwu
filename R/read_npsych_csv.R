@@ -9,5 +9,5 @@
 read_npsych <- function(patient, test) {
   test <-
     readr::read_csv(here::here(patient, "csv", test)) |>
-    dplyr::mutate(result = glue::glue("{description} as measured by the {scale} subtest was {range}."))
+    dplyr::mutate(result = glue::glue("{description} was {range}."))
 }
