@@ -128,7 +128,7 @@ params:
 
 ## Setup
 
-```{r setup, include=F}
+```{r setup, include = FALSE}
 Sys.setenv(JAVA_HOME = "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home")
 options(java.parameters = "-Xmx16000m")
 knitr::opts_chunk$set(
@@ -402,7 +402,7 @@ table6 <- table6 |> dplyr::select(all_of(params$keep1))
 table7 <- table7 |> dplyr::select(all_of(params$keep2))
 ```
 
-# Create/Insert/Mutate new columns in tables
+## Create/Insert/Mutate new columns in tables
 
 ```{r mutate1}
 table1 <- bwu::gpluck_make_columns(
@@ -546,7 +546,7 @@ table7 <- bwu::gpluck_make_columns(
 )
 ```
 
-### Test score ranges
+## Test score ranges
 
 ```{r ranges}
 table1 <- bwu::gpluck_make_score_ranges(table = table1, test_type = "npsych_test")
@@ -557,7 +557,7 @@ table5 <- bwu::gpluck_make_score_ranges(table = table5, test_type = "npsych_test
 table6 <- bwu::gpluck_make_score_ranges(table = table6, test_type = "npsych_test")
 ```
 
-### Narrow subdomains
+## Narrow subdomains
 
 ```{r subdomain3}
 table3 <-
@@ -572,7 +572,7 @@ table3 <-
   )
 ```
 
-### Scale descriptions
+## Scale descriptions
 
 ```{r desc1}
 table1 <-
@@ -659,9 +659,9 @@ table7 <-
   )
 ```
 
-## Finalize and save
+# Finalize and save
 
-### Relocate variables
+## Relocate variables
 
 ```{r relocate}
 table1 <- table1 |> relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
@@ -675,7 +675,7 @@ table7 <- table7 |> relocate(c(raw_score, score, percentile, range, ci_95), .bef
 
 ## Merge tables
 
-### Row bind
+## Row bind
 
 ```{r bind-rows}
 cvlt3_brief <- dplyr::bind_rows(table1, table2, table3, table4, table5, table6, table7)
@@ -683,23 +683,24 @@ cvlt3_brief <- dplyr::bind_rows(table1, table2, table3, table4, table5, table6, 
 
 ## Glue results
 
-```{r}
+```{r result}
+#TODO
 cvlt3_brief <-
   cvlt3_brief %>%
   dplyr::mutate(
     result = glue::glue(
-      "{patient}'s ability to {description} as measured by the {scale} subtest was {range} relative to same-age peers."
+      "{description} as measured by the {scale} subtest was {range}."
     )
   )
 ```
 
-### write out final csv
+## Write out final csv
 
 ```{r write-csv}
 readr::write_csv(cvlt3_brief, here::here(patient, "csv", "cvlt3_brief.csv"), col_names = TRUE, na = "")
 ```
 
-### Cleanup
+## Cleanup
 
 ```{r cleanup}
 rm(table1, table2, table3, table4, table5, table6, area, table, table7)
