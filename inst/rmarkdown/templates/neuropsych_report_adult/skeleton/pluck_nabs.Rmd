@@ -538,12 +538,18 @@ table6 <- bwu::gpluck_make_columns(
 ## Test score ranges
 
 ```{r ranges}
-table1 <- bwu::gpluck_make_score_ranges(table = table1, test_type = "npsych_test")
-table2 <- bwu::gpluck_make_score_ranges(table = table2, test_type = "npsych_test")
-table3 <- bwu::gpluck_make_score_ranges(table = table3, test_type = "npsych_test")
-table4 <- bwu::gpluck_make_score_ranges(table = table4, test_type = "npsych_test")
-table5 <- bwu::gpluck_make_score_ranges(table = table5, test_type = "npsych_test")
-table6 <- bwu::gpluck_make_score_ranges(table = table6, test_type = "npsych_test")
+table1 <-
+  bwu::gpluck_make_score_ranges(table = table1, test_type = "npsych_test")
+table2 <-
+  bwu::gpluck_make_score_ranges(table = table2, test_type = "npsych_test")
+table3 <-
+  bwu::gpluck_make_score_ranges(table = table3, test_type = "npsych_test")
+table4 <-
+  bwu::gpluck_make_score_ranges(table = table4, test_type = "npsych_test")
+table5 <-
+  bwu::gpluck_make_score_ranges(table = table5, test_type = "npsych_test")
+table6 <-
+  bwu::gpluck_make_score_ranges(table = table6, test_type = "npsych_test")
 ```
 
 ## Domains
@@ -1140,8 +1146,7 @@ table3 <-
     description = case_when(
       scale ==
         "Auditory Comprehension" ~
-        "Auditory comprehension (i.e., the ability to receive, process,
-        and execute oral instructions of increasing syntactic complexity)",
+        "Auditory comprehension (i.e., the ability to receive, process, and execute oral instructions of increasing syntactic complexity)",
       scale ==
         "Naming" ~
         "Visual confrontation naming/word-finding",
@@ -1160,12 +1165,10 @@ table4 <-
         "Learning and recognition of visual material (abstract shapes)",
       scale ==
         "Shape Learning Delayed Recognition" ~
-        "Recognition of the target visual material among nontarget distractors
-        after a delay period",
+        "Recognition of the target visual material among nontarget distractors after a delay period",
       scale ==
         "Shape Learning Percent Retention" ~
-        "Percentage of visual detail retained over time,
-         scaled to how much was initially learned",
+        "Percentage of visual detail retained over time, scaled to how much was initially learned",
       scale ==
         "Story Learning Immediate Recall" ~
         "Memory recall of more complex verbal information (short stories)",
@@ -1174,8 +1177,7 @@ table4 <-
         "Delayed recall of the story details over time",
       scale ==
         "Story Learning Percent Retention" ~
-        "Percentage of story detail retained over time,
-         scaled to how much was initially learned",
+        "Percentage of story detail retained over time, scaled to how much was initially learned",
       TRUE ~ as.character(description)
     )
   )
@@ -1188,10 +1190,10 @@ table5 <-
     description = case_when(
       scale ==
         "Visual Discrimination" ~
-        "Visual perception and discrimination of abstract visual images",
+        "Perceptual processing, discrimination, and pattern matching of visual details from a series of abstract visual images",
       scale ==
         "Design Construction" ~
-        "Visual construction and integration of abstract visual shapes",
+        "Constructing and recreating abstract visual designs from a model using flat polygons (called tans)",
       TRUE ~ as.character(description)
     )
   )
@@ -1204,8 +1206,7 @@ table6 <-
     description = case_when(
       scale ==
         "Mazes" ~
-        "Planning, foresight, and adaptive abilities
-         examined through a series of maze-tracing tasks",
+        "Planning, foresight, and adaptive abilities examined through a series of maze-tracing tasks",
       scale ==
         "Word Generation" ~
         "Spontaneous word retrieval fluency/generativity",
@@ -1234,7 +1235,7 @@ table1 <-
       ),
       scale ==
         "NAB Language Index" ~ glue::glue(
-        "{description} was {range}.\n"
+        "{description} fell in the {range} classification range.\n"
       ),
       scale ==
         "NAB Memory Index" ~ glue::glue(
@@ -1260,7 +1261,7 @@ table2 <-
     result = dplyr::case_when(
       scale ==
         "Orientation" ~
-        glue::glue("{description} was {range}/intact.\n"),
+        glue::glue("{description} was [intact/impaired].\n"),
       scale ==
         "Digits Forward Longest Span" ~
         glue::glue("{description} was {range} ({raw_score} digits forward).\n"),
@@ -1272,7 +1273,7 @@ table2 <-
         glue::glue("{description} was {range}.\n"),
       scale ==
         "Numbers & Letters Part B Efficiency" ~
-        glue::glue("{description} was {range} relative to same-aged peers.\n"),
+        glue::glue("{description} was {range}.\n"),
       TRUE ~ as.character(result)
     )
   )
@@ -1285,11 +1286,10 @@ table3 <-
     result = case_when(
       scale ==
         "Auditory Comprehension" ~
-        glue::glue("{description} were {range}.\n"),
+        glue::glue("{description} was {range}.\n"),
       scale ==
         "Naming" ~
-        glue::glue("{description} was {range},
-        with no obvious deficits in conversational/informal expression.\n"),
+        glue::glue("{description} was {range}, with no obvious deficits in conversational/informal expression.\n"),
       TRUE ~ as.character(result)
     )
   )

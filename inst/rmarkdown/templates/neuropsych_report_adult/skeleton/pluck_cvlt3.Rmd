@@ -791,5 +791,5 @@ if (params$test == "cvlt3") {
 ## Cleanup
 
 ```{r cleanup}
-rm(area, table, table1, table2, table3, table4, table5, table6, table7)
+rm(area, table1, table2, table3, table4, table5, table6, table7)
 ```
