@@ -1,0 +1,87 @@
+---
+title: "D-KEFS Color-Word Interference"
+params:
+  patient: "Biggie"
+  test: dkefs_cwi
+  test_name: D-KEFS Color-Word Interference
+---
+
+# DKEFS CWI
+
+## Setup
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  root.dir = normalizePath("./"),
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  error = TRUE
+)
+library(bwu)
+library(dplyr)
+library(hablar)
+library(here)
+library(knitr)
+library(magrittr)
+library(readr)
+library(rmarkdown)
+library(shiny)
+library(tabulizer)
+library(tabulizerjars)
+library(tibble)
+library(tidyr)
+library(vroom)
+```
+
+## Test
+
+```{r test}
+test <- params$test
+```
+
+## Patient
+
+```{r patient}
+patient <- params$patient
+```
+
+# Glue result
+
+## Import csv
+
+```{r source}
+read_npsych <- function(patient, test) {
+  test <-
+    readr::read_csv(
+      here::here(
+        patient, "csv", test)) |>
+    dplyr::mutate(
+      result = glue::glue("{description} was {range}.")
+    )
+  }
+```
+
+```{r pluck}
+test <- "dkefs_cwi.csv"
+patient <- "Alex"
+```
+
+```{r result}
+table <- read_npsych(patient, test)
+```
+
+## Convert T scores to z scores to percentiles
+
+```{r t2z2p}
+table <- table %>%
+  dplyr::mutate(z = (score - 50) / 10) %>%
+  dplyr::mutate(percentile = trunc(pnorm(z) * 100)) %>%
+  dplyr::select(scale, score, percentile)
+```
+
+## Write out csv
+
+```{r writeout}
+readr::write_csv(table, here::here(patient, "csv", test), col_names = TRUE, na = "")
+```
