@@ -1,3 +1,18 @@
+---
+output: 
+  html_document: 
+    fig_caption: yes
+    keep_md: yes
+    toc: yes
+    highlight: pygments
+    theme: flatly
+    number_sections: yes
+  pdf_document: 
+    fig_caption: yes
+    latex_engine: xelatex
+    keep_tex: yes
+---
+
 ## bwu 1.0.0.9000 (UNRELEASED)
 
 -   updated to R 4.2
@@ -41,5 +56,5 @@
 ## bwu 1.1.0.9003
 
 -   added read_npsych function to glue non-PDF tables together
-
 -   updated .csv files in skeleton (topf, rcft, etc)
+-   added pluck-test.Rmd for topf, rocf, examiner, pegboard
