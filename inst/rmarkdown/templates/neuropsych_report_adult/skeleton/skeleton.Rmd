@@ -774,7 +774,7 @@ knitr::read_chunk(here::here(patient, "2.2_iq.R"))
 ```{r 06-plot-subdomain-iq, eval = params$eval_iq, fig.cap = '(ref:g) (ref:gc) (ref:gf)'}
 ```
 
-```{r 07-plot-narrow-iq, eval = FALSE, fig.cap = '(ref:g) (ref:gc) (ref:gf)'}
+```{r 07-plot-narrow-iq, eval = F, fig.cap = '(ref:g) (ref:gc) (ref:gf)'}
 ```
 
 \newpage

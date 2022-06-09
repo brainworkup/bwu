@@ -1190,7 +1190,7 @@ table5 <-
     description = case_when(
       scale ==
         "Visual Discrimination" ~
-        "Perceptual processing, discrimination, and pattern matching of visual details from a series of abstract visual images",
+        "Perceptual processing, discrimination, and pattern matching of visual details from a series of abstract visual images requiring close attention to visual detail",
       scale ==
         "Design Construction" ~
         "Constructing and recreating abstract visual designs from a model using flat polygons (called tans)",

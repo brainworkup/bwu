@@ -449,7 +449,7 @@ table1 <-
       scale == "General Ability (GAI)" ~ "General intelligence",
       scale == "Verbal Comprehension (VCI)" ~ "An estimate of Crystallized Intelligence (Gc)",
       scale == "Perceptual Reasoning (PRI)" ~ "Fluid Reasoning (Gf)",
-      scale == "Working Memory (WMI)" ~ "An estimate of Short-Term Working Memory (Gsm), which refers to the ability to hold information in immediate awareness and then manipulate or transform it in some way within a few seconds",
+      scale == "Working Memory (WMI)" ~ "Working Memory (Gwm), which refers to the ability to hold information in immediate awareness and then manipulate or transform it in some way within a few seconds",
       scale == "Processing Speed (PSI)" ~ "Processing Speed (Gs) performance (i.e., the efficiency of cognitive processing or speed of mental activity, especially when under pressure to maintain attention and concentration)",
       TRUE ~ as.character(description)
     )
@@ -467,13 +467,13 @@ table1 <-
         "{description} was {range} overall.\n"
       ),
       scale == "General Ability (GAI)" ~ glue::glue(
-        "{description} was classified as {range} and ranked at the {percentile}th percentile, indicating performance as good as or better than {percentile}% of same age peers from the general population.\n"
+        "{description} was classified as {range} and ranked at the {percentile}th percentile, indicating performance as good as or better than {percentile}% of same-age peers from the general population.\n"
       ),
       scale == "Verbal Comprehension (VCI)" ~ glue::glue(
-        "{description} was classified as {range} and ranked at the {percentile}th percentile, indicating performance as good as or better than {percentile}% of same age peers from the general population.\n"
+        "{description} was classified as {range} and ranked at the {percentile}th percentile, indicating performance as good as or better than {percentile}% of same-age peers from the general population.\n"
       ),
       scale == "Perceptual Reasoning (PRI)" ~ glue::glue(
-        "{description} was classified as {range} and ranked at the {percentile}th percentile, indicating performance as good as or better than {percentile}% of same age peers from the general population.\n"
+        "{description} was classified as {range} and ranked at the {percentile}th percentile, indicating performance as good as or better than {percentile}% of same-age peers from the general population.\n"
       ),
       scale == "Working Memory (WMI)" ~ glue::glue(
         "{description}, was a relative [strength/weakness], falling in the {range} range.\n"
@@ -890,7 +890,7 @@ table4 <-
     description = dplyr::case_when(
       scale == "Digit Span" ~ "Registering, maintaining, and manipulating auditory information",
       scale == "Arithmetic" ~ "Solving math word problems in working memory",
-      scale == "Letter-Number Sequencing" ~ "Working memory maintenance and resequencing of progressively lengthier number and letter strings in working memory",
+      scale == "Letter-Number Sequencing" ~ "Maintenance and resequencing of progressively lengthier number and letter strings in working memory",
       TRUE ~ as.character(description)
     )
   )
