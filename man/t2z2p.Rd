@@ -4,13 +4,7 @@
 \alias{t2z2p}
 \title{Convert T-score to z-score to percentile}
 \usage{
-t2z2p(
-  table = table,
-  score = score,
-  z = z,
-  scale = scale,
-  percentile = percentile
-)
+t2z2p(table, score, z, scale, percentile)
 }
 \arguments{
 \item{table}{Name of table}

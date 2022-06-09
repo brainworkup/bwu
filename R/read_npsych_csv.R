@@ -6,10 +6,10 @@
 #' @return CSV file with new column 'result'
 #' @export
 #'
-read_npsych <- function(patient, test) {
-  test <-
-    readr::read_csv(here::here(patient, "csv", test)) |>
-    dplyr::mutate(result = glue::glue("{description} was {range}."))
+read_npsych_csv <- function(patient, test) {
+  table <-
+    test |>
+    readr::read_csv(here::here(patient, "csv", test))
 
   return(table)
 }

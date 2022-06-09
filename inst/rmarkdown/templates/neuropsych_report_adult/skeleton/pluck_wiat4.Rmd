@@ -380,6 +380,13 @@ table <- bwu::gpluck_make_columns(
 )
 ```
 
+## Test score ranges
+
+```{r range}
+table <- bwu::gpluck_make_score_ranges(table = table, test_type = "npsych_test")
+```
+
+
 ## Subdomain
 
 ```{r subdomain1}
@@ -620,11 +627,7 @@ table <-
   )
 ```
 
-## Test score ranges
 
-```{r range}
-table <- bwu::gpluck_make_score_ranges(table = table, test_type = "npsych_test")
-```
 
 ## Relocate variables
 
