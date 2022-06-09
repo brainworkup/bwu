@@ -1,41 +1,41 @@
-#' Convert T-score to z-score to percentile
+#' @title Convert T-score to z-score to percentile
 #'
+#' @param table Name of data table
 #' @param score T-score value
-#' @param table Name of table
 #' @param ... More expressions
 #'
 #' @return A tidy csv file
 #' @export
 #'
 t2z2p <-
-  function(table,
-           score,
-           ...) {
+  function(...,
+           table,
+           score) {
     table <-
       table |>
       dplyr::mutate(z = (score - 50) / 10) %>%
-      dplyr::mutate(pct = round(stats::pnorm(z) * 100, 1)) |>
-      dplyr::mutate(pct2 = dplyr::case_when(
-        pct < 1 ~ ceiling(pct),
-        pct > 99 ~ floor(pct),
-        TRUE ~ round(pct)
-      )) |>
-      dplyr::mutate(percentile1 = pct2) |>
+      dplyr::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) |>
+      dplyr::mutate(pct2 = dplyr::case_when(pct1 < 1 ~ ceiling(pct1),
+                                            pct1 > 99 ~ floor(pct1),
+                                            TRUE ~ round(pct1))) |>
+
+      dplyr::mutate(pct3 = pct2) |>
       dplyr::mutate(
         range = dplyr::case_when(
-          percentile1 >= 98 ~ "Exceptionally High",
-          percentile1 %in% 91:97 ~ "Above Average",
-          percentile1 %in% 75:90 ~ "High Average",
-          percentile1 %in% 25:74 ~ "Average",
-          percentile1 %in% 9:24 ~ "Low Average",
-          percentile1 %in% 2:8 ~ "Below Average",
-          percentile1 < 2 ~ "Exceptionally Low",
+          pct3 >= 98 ~ "Exceptionally High",
+          pct3 %in% 91:97 ~ "Above Average",
+          pct3 %in% 75:90 ~ "High Average",
+          pct3 %in% 25:74 ~ "Average",
+          pct3 %in% 9:24 ~ "Low Average",
+          pct3 %in% 2:8 ~ "Below Average",
+          pct3 < 2 ~ "Exceptionally Low",
           TRUE ~ as.character(range)
         )
       ) |>
-      dplyr::mutate(percentile = pct) |>
+      dplyr::mutate(percentile = pct1) |>
       dplyr::mutate(result = glue::glue("{description} was {range}.")) |>
-      dplyr::select(-c(pct, z, pct2, percentile1))
+      dplyr::select(-c(z, pct1, pct2, pct3))
 
     return(table)
+
   }

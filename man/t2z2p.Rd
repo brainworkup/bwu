@@ -4,18 +4,14 @@
 \alias{t2z2p}
 \title{Convert T-score to z-score to percentile}
 \usage{
-t2z2p(table, score, z, scale, percentile)
+t2z2p(..., table, score)
 }
 \arguments{
-\item{table}{Name of table}
+\item{...}{More expressions}
+
+\item{table}{Name of data table}
 
 \item{score}{T-score value}
-
-\item{z}{z-score value}
-
-\item{scale}{Name of scale/measure/subtest}
-
-\item{percentile}{Percentile rank}
 }
 \value{
 A tidy csv file

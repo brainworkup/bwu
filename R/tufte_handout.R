@@ -13,8 +13,7 @@
 #' @references See \url{https://rstudio.github.io/tufte/} for an example.
 #' @export
 #' @examples library(tufte)
-tufte_handout <- function(fig_width = 4, fig_height = 2.5, fig_crop = TRUE, dev = "pdf",
-                          highlight = "default", ...) {
+tufte_handout <- function(fig_width = 4, fig_height = 2.5, fig_crop = TRUE, dev = "pdf", highlight = "default", ...) {
   tufte_pdf("tufte-handout", fig_width, fig_height, fig_crop, dev, highlight, ...)
 }
 
@@ -25,9 +24,7 @@ tufte_book <- function(fig_width = 4, fig_height = 2.5, fig_crop = TRUE, dev = "
   tufte_pdf("tufte-book", fig_width, fig_height, fig_crop, dev, highlight, ...)
 }
 
-tufte_pdf <- function(documentclass = c("tufte-handout", "tufte-book"), fig_width = 4, fig_height = 2.5,
-                      fig_crop = TRUE, dev = "pdf", highlight = "default",
-                      template = template_resources("tufte_handout", "tufte-handout.tex"), ...) {
+tufte_pdf <- function(documentclass = c("tufte-handout", "tufte-book"), fig_width = 4, fig_height = 2.5, fig_crop = TRUE, dev = "pdf", highlight = "default", template = template_resources("tufte_handout", "tufte-handout.tex"), ...) {
 
   # resolve default highlight
   if (identical(highlight, "default")) highlight <- "pygments"

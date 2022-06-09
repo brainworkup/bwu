@@ -34,10 +34,11 @@ Use a consistent set of ranges for performance on neuropsychological testing.
 }
 \examples{
 neurocog <- gpluck_make_score_ranges(
-table = neurocog,
-score = 50,
-percentile = 50,
-range = "",
-test_type = "npsych_test")
+  table = neurocog,
+  score = 50,
+  percentile = 50,
+  range = "",
+  test_type = "npsych_test"
+)
 
 }

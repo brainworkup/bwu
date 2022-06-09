@@ -65,3 +65,8 @@ output:
 -   added pluck_npsych_csv.Rmd
 -   changed version
 -   added t2z2p function to convert t-scores to z-scores to percentiles
+
+## bwu 1.1.1.9001
+
+-   recoded t2z2p function to more inclusive
+
