@@ -4,6 +4,17 @@ params:
   patient: "Biggie"
   test:
     label: "Test/Measure"
+    value: examiner
+    input: select
+    multiple: no
+    choices:
+      - examiner
+      - pegboard
+      - rocf
+      - topf
+      - tmt
+  battery:
+    label: "Test Battery"
     value: examiner.csv
     input: select
     multiple: no
@@ -35,7 +46,7 @@ params:
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   root.dir = normalizePath("./"),
-  echo = FALSE,
+  echo = TRUE,
   message = FALSE,
   warning = FALSE,
   error = TRUE
@@ -49,17 +60,9 @@ library(magrittr)
 library(readr)
 library(rmarkdown)
 library(shiny)
-library(tabulizer)
-library(tabulizerjars)
 library(tibble)
 library(tidyr)
 library(vroom)
-```
-
-## Test
-
-```{r test}
-test <- params$test
 ```
 
 ## Patient
@@ -68,28 +71,40 @@ test <- params$test
 patient <- params$patient
 ```
 
-# Glue result
+## Test
+
+```{r test}
+test <- params$test
+```
+
+## Battery
+
+```{r battery}
+battery <- params$battery
+```
 
 ## Import csv
 
-```{r source}
-table <- bwu::read_npsych_csv(patient, test)
+```{r read}
+table <- readr::read_csv(here::here(patient, "pre_csv", battery))
 ```
 
-## Convert T scores to z scores to percentiles
+## Convert T scores to z scores to percentiles and glue result
 
 ```{r convert}
-table <- bwu::t2z2p()
+table <- bwu::gpluck_t2z2p(table = table, score = score)
 ```
 
-## Test score ranges
+## Write out
 
-```{r range}
-table <- bwu::gpluck_make_score_ranges(table = table, test_type = "npsych_test")
+### RDS
+
+```{r saverds}
+saveRDS(table, file = here::here(patient, "csv", paste0(test, ".rds")), compress = FALSE)
 ```
 
-## Write out final csv
+### CSV
 
 ```{r writeout}
-write.csv(table, here::here(patient, "csv", test), colnames = TRUE, na = "")
+readr::write_csv(table, here::here(patient, "csv", battery), col_names = TRUE, na = "")
 ```

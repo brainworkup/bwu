@@ -70,3 +70,7 @@ output:
 
 -   recoded t2z2p function to more inclusive
 
+## bwu 1.1.1.9002
+
+-   gpluck_t2z2p works!
+-   also added pluck_npsych_csv.Rmd
