@@ -13,6 +13,7 @@ params:
       - rocf
       - topf
       - tmt
+      - dkefs_cwi
   battery:
     label: "Test Battery"
     value: examiner.csv
@@ -24,6 +25,7 @@ params:
       - rocf.csv
       - topf.csv
       - tmt.csv
+      - dkefs_cwi.csv
   test_name:
     label: "Test Name:"
     value: NIH EXAMINER
@@ -35,10 +37,14 @@ params:
       - Rey Complex Figure
       - Test of Premorbid Functioning
       - Trail Making Test
+      - D-KEFS Color-Word Interference
   file:
     label: "No file selected"
     value: file
     input: file
+output:
+  rmdformats::robobook:
+    highlight: kate
 ---
 
 ## Setup
