@@ -7,7 +7,7 @@
 #' @return A tidy csv file
 #' @export
 #'
-t2z2p <-
+gpluck_t2z2p <-
   function(...,
            table,
            score) {
@@ -15,10 +15,11 @@ t2z2p <-
       table |>
       dplyr::mutate(z = (score - 50) / 10) %>%
       dplyr::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) |>
-      dplyr::mutate(pct2 = dplyr::case_when(pct1 < 1 ~ ceiling(pct1),
-                                            pct1 > 99 ~ floor(pct1),
-                                            TRUE ~ round(pct1))) |>
-
+      dplyr::mutate(pct2 = dplyr::case_when(
+        pct1 < 1 ~ ceiling(pct1),
+        pct1 > 99 ~ floor(pct1),
+        TRUE ~ round(pct1)
+      )) |>
       dplyr::mutate(pct3 = pct2) |>
       dplyr::mutate(
         range = dplyr::case_when(
@@ -37,5 +38,4 @@ t2z2p <-
       dplyr::select(-c(z, pct1, pct2, pct3))
 
     return(table)
-
   }
