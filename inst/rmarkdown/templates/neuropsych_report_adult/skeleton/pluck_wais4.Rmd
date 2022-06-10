@@ -1113,7 +1113,9 @@ table6 <-
   table6 |>
   dplyr::mutate(
     description = dplyr::case_when(
-      scale == "Block Design No Time Bonus" ~ "Untimed Block Design performance",
+      scale ==
+        "Block Design No Time Bonus" ~
+        "Untimed Block Design performance",
       TRUE ~ as.character(description)
     )
   )
@@ -1201,10 +1203,10 @@ table7 <-
   table7 %>%
   dplyr::mutate(
     narrow = dplyr::case_when(
-      scale == "Digit Span Forward" ~ "Memory Span",
+      scale == "Digit Span Forward" ~ "Attention Span",
       scale == "Digit Span Backward" ~ "Working Memory",
       scale == "Digit Span Sequencing" ~ "Working Memory",
-      scale == "Longest Digit Span Forward" ~ "Memory Span",
+      scale == "Longest Digit Span Forward" ~ "Attention Span",
       scale == "Longest Digit Span Backward" ~ "Working Memory",
       scale == "Longest Digit Span Sequence" ~ "Working Memory",
       scale == "Longest Letter-Number Sequence" ~ "Working Memory",
@@ -1258,13 +1260,27 @@ table7 <-
   table7 |>
   dplyr::mutate(
     description = dplyr::case_when(
-      scale == "Digit Span Forward" ~ "Forward digit span/attention span",
-      scale == "Digit Span Backward" ~ "Verbal working memory",
-      scale == "Digit Span Sequencing" ~ "Verbal working memory and sequencing",
-      scale == "Longest Digit Span Forward" ~ "Auditory attentional capacity",
-      scale == "Longest Digit Span Backward" ~ "Working memory for orally presented information",
-      scale == "Longest Digit Span Sequence" ~ "Recall of digits sequences/resequencing",
-      scale == "Longest Letter-Number Sequence" ~ "longest letter-number sequence (span)",
+      scale ==
+        "Digit Span Forward" ~
+        "Forward digit span/attention span",
+      scale ==
+        "Digit Span Backward" ~
+        "Verbal working memory",
+      scale ==
+        "Digit Span Sequencing" ~
+        "Verbal working memory and sequencing",
+      scale ==
+        "Longest Digit Span Forward" ~
+        "Auditory attentional capacity",
+      scale ==
+        "Longest Digit Span Backward" ~
+        "Working memory for orally presented information",
+      scale ==
+        "Longest Digit Span Sequence" ~
+        "Recall of digits sequences/resequencing",
+      scale ==
+        "Longest Letter-Number Sequence" ~
+        "longest letter-number sequence (span)",
       TRUE ~ as.character(description)
     )
   )

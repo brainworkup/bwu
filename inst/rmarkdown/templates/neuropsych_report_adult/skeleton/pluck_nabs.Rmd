@@ -630,7 +630,7 @@ table2 <-
   mutate(
     subdomain = case_when(
       scale %in% orientation ~ "Orientation",
-      scale %in% dsf ~ "Memory Span",
+      scale %in% dsf ~ "Attention Span",
       scale %in% dsb ~ "Working Memory",
       scale %in% nlt ~ "Processing Speed",
       scale %in% nle ~ "Response Monitoring",
@@ -712,7 +712,7 @@ table2 <-
   mutate(
     narrow = case_when(
       scale %in% orientation ~ "General Verbal Information",
-      scale %in% dsf ~ "Auditory Attention",
+      scale %in% dsf ~ "Attention Span",
       scale %in% dsb ~ "Verbal Working Memory",
       scale %in% nlt ~ "Psychomotor Speed",
       scale %in% nle ~ "Response Monitoring",
