@@ -162,6 +162,9 @@ params:
       - raw_score
       - score
       - percentile
+output:
+  rmdformats::robobook:
+    highlight: kate
 ---
 
 # WAIS-IV
@@ -183,12 +186,11 @@ library(bwu)
 library(dplyr)
 library(hablar)
 library(here)
-library(knitr)
 library(magrittr)
-library(miniUI)
 library(readr)
 library(rJava)
 library(rmarkdown)
+library(rmdformats)
 library(shiny)
 library(tabulizer)
 library(tabulizerjars)

@@ -80,6 +80,9 @@ params:
     multiple: yes
     choices: [attention, language, memory, spatial, executive, index]
   slice: TRUE
+output:
+  rmdformats::robobook:
+    highlight: kate
 ---
 
 # NAB Screener
@@ -103,12 +106,11 @@ library(bwu)
 library(dplyr)
 library(hablar)
 library(here)
-library(knitr)
 library(magrittr)
-library(miniUI)
 library(readr)
 library(rJava)
 library(rmarkdown)
+library(rmdformats)
 library(shiny)
 library(tabulizer)
 library(tabulizerjars)

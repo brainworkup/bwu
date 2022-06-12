@@ -4,6 +4,9 @@ params:
   patient: "Biggie"
   test: pai
   test_name: PAI
+output:
+  rmdformats::robobook:
+    highlight: kate
 ---
 
 # PAI
@@ -24,12 +27,11 @@ library(bwu)
 library(dplyr)
 library(hablar)
 library(here)
-library(knitr)
 library(magrittr)
-library(miniUI)
 library(readr)
 library(rJava)
 library(rmarkdown)
+library(rmdformats)
 library(shiny)
 library(tabulizer)
 library(tabulizerjars)

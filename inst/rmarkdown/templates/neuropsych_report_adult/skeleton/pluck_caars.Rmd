@@ -23,6 +23,9 @@ params:
     value: file
     input: file
   pages: [3,3,3]
+output:
+  rmdformats::robobook:
+    highlight: kate
 ---
 
 # CAARS Long Version SR/OR
@@ -43,12 +46,11 @@ library(bwu)
 library(dplyr)
 library(hablar)
 library(here)
-library(knitr)
 library(magrittr)
-library(miniUI)
 library(readr)
 library(rJava)
 library(rmarkdown)
+library(rmdformats)
 library(shiny)
 library(tabulizer)
 library(tabulizerjars)

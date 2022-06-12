@@ -23,6 +23,9 @@ params:
     value: file
     input: file
   pages: [3,3]
+output:
+  rmdformats::robobook:
+    highlight: kate
 ---
 
 # CEFI SR/OR
@@ -30,7 +33,10 @@ params:
 ## Load libraries
 
 ```{r setup, include = FALSE}
-Sys.setenv(JAVA_HOME = "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home")
+Sys.setenv(
+  JAVA_HOME =
+    "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home"
+)
 options(java.parameters = "-Xmx16000m")
 knitr::opts_chunk$set(
   root.dir = normalizePath("./"),

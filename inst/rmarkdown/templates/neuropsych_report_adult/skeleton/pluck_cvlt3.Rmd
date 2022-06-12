@@ -122,6 +122,9 @@ params:
     choices:
       - scale
       - raw_score
+output:
+  rmdformats::robobook:
+    highlight: kate
 ---
 
 # CVLT-3/CVLT-3 Brief
