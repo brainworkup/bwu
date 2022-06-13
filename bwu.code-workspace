@@ -19,7 +19,9 @@
       "[Hyper Dracula]": {
         "scrollbar.shadow": "#0d0d0d"
       },
-      "tab.activeBorder": "#d1f0ee"
+      "tab.activeBorder": "#d1f0ee",
+      "editorGroup.border": "#d1f0ee",
+      "sash.hoverBorder": "#d1f0ee"
     },
     "peacock.color": "#abe3df",
     "makefile.extensionOutputFolder": "./.vscode",
