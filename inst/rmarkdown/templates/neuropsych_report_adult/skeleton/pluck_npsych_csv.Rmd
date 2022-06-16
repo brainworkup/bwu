@@ -16,16 +16,16 @@ params:
       - dkefs_cwi
   battery:
     label: "Test Battery"
-    value: examiner.csv
+    value: pre_examiner.csv
     input: select
     multiple: no
     choices:
-      - examiner.csv
-      - pegboard.csv
-      - rocf.csv
-      - topf.csv
-      - tmt.csv
-      - dkefs_cwi.csv
+      - pre_examiner.csv
+      - pre_pegboard.csv
+      - pre_rocf.csv
+      - pre_topf.csv
+      - pre_tmt.csv
+      - pre_dkefs_cwi.csv
   test_name:
     label: "Test Name:"
     value: NIH EXAMINER
@@ -112,5 +112,5 @@ saveRDS(table, file = here::here(patient, "csv", paste0(test, ".rds")), compress
 ### CSV
 
 ```{r writeout}
-readr::write_csv(table, here::here(patient, "csv", battery), col_names = TRUE, na = "")
+readr::write_csv(table, here::here(patient, "csv", paste0(test, ".csv")), col_names = TRUE, na = "")
 ```
