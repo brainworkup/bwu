@@ -22,7 +22,7 @@ params:
     label: "No file selected"
     value: file
     input: file
-  pages: [9,11,9,9,9,12,9]
+  pages: [18,20,18,18,18,22]
   table1:
     label: "Learning Trials:"
     value: Trial 1 Correct
@@ -34,6 +34,7 @@ params:
       - Trial 3 Correct
       - Trial 4 Correct
       - Trial 5 Correct
+      - List B Correct
   table2:
     label: "Immediate Recall:"
     value: Trials 1-4 Correct
@@ -193,28 +194,29 @@ writeLines(file, here::here(patient, "pre_csv", "cvlt3_pdf"))
 
 ## Locate areas
 
-```{r areas}
+```{r areas-known}
 area <- list(
-  c(166, 52, 237, 560),
+  c(166, 52, 265, 560),
   c(159, 52, 185, 560),
-  c(289, 52, 343, 560),
-  c(397, 52, 467, 560),
-  c(520, 52, 544, 560),
-  c(273, 52, 296, 560),
-  c(597, 52, 619, 459)
+  c(320, 52, 390, 560),
+  c(445, 52, 514, 560),
+  c(571, 52, 590, 560),
+  c(570, 52, 589, 560)
 )
 ```
 
-```{r areas2, eval=FALSE}
+```{r areas-get, eval=FALSE}
 # if unknown
-# area2 <- gpluck_locate_areas(
+# patient <- "Rubaya"
+# file <- file.choose()
+# area <- bwu::gpluck_locate_areas(
 #   file = file,
-#   pages = c(9)
+#   pages = c(18,20,18,18,18,22)
 # )
 ```
 
 ```{r save-areas}
-saveRDS(area, here::here(patient, "pre_csv", "area_cvlt3.rds"))
+# saveRDS(area, here::here(patient, "pre_csv", "area_cvlt3.rds"))
 ```
 
 ```{r read-areas}
@@ -235,7 +237,7 @@ plucked_table <-
   )
 ```
 
-# Tables 1
+# Table 1
 
 ```{r table1}
 table1 <- tibble::as_tibble(plucked_table[[1]])
@@ -371,28 +373,6 @@ table6 <-
   tibble::rownames_to_column(., var = "scale")
 ```
 
-# Table 7
-
-```{r pluck7}
-table7 <- tibble::as_tibble(plucked_table[[7]])
-colnames(table7) <- params$colnames2
-table7 <- dplyr::na_if(table7, "")
-table7 <- dplyr::na_if(table7, "NA")
-table7 <- dplyr::na_if(table7, "-")
-table7 <- dplyr::na_if(table7, "--")
-table7 <- dplyr::na_if(table7, "---")
-to_double <- c("raw_score", "base_rate")
-table7 <- table7 |> hablar::convert(dbl(all_of(to_double)))
-```
-
-```{r rownames7}
-rownames(table7) <- params$table7
-table7 <-
-  table7 %>%
-  dplyr::rename(scale2 = scale) %>%
-  tibble::rownames_to_column(., var = "scale")
-```
-
 ## Select to Keep
 
 ```{r keep}
@@ -402,7 +382,6 @@ table3 <- table3 |> dplyr::select(all_of(params$keep1))
 table4 <- table4 |> dplyr::select(all_of(params$keep1))
 table5 <- table5 |> dplyr::select(all_of(params$keep1))
 table6 <- table6 |> dplyr::select(all_of(params$keep1))
-table7 <- table7 |> dplyr::select(all_of(params$keep2))
 ```
 
 ## Create/Insert/Mutate new columns in tables
@@ -517,28 +496,6 @@ table6 <- bwu::gpluck_make_columns(
   domain = "Attention/Executive",
   subdomain = "Response Monitoring",
   narrow = "Response Monitoring",
-  pass = "Attention",
-  verbal = "Verbal",
-  timed = "Untimed",
-  test_type = "npsych_test",
-  score_type = "scaled_score",
-  description = "",
-  result = ""
-)
-```
-
-```{r mutate7}
-table7 <- bwu::gpluck_make_columns(
-  table7,
-  score = NA_integer_,
-  percentile = NA_integer_,
-  range = "",
-  ci_95 = "",
-  test = params$test,
-  test_name = params$test_name,
-  domain = "Memory",
-  subdomain = "Effort/Validity",
-  narrow = "Effort/Validity",
   pass = "Attention",
   verbal = "Verbal",
   timed = "Untimed",
@@ -696,19 +653,6 @@ table6 <-
   )
 ```
 
-```{r desc7}
-table7 <-
-  table7 |>
-  mutate(
-    description = case_when(
-      scale ==
-        "Forced-Choice Recognition Hits" ~
-        "Number of hits on forced-choice recognition trials (raw score)",
-      TRUE ~ as.character(description)
-    )
-  )
-```
-
 # Finalize and save
 
 ## Relocate variables
@@ -732,9 +676,6 @@ table5 <-
 table6 <-
   table6 |>
   relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
-table7 <-
-  table7 |>
-  relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
 ## Merge tables/bind rows
@@ -742,10 +683,10 @@ table7 <-
 ```{r bind-rows}
 if (params$test == "cvlt3") {
   cvlt3 <-
-    dplyr::bind_rows(table1, table2, table3, table4, table5, table6, table7)
+    dplyr::bind_rows(table1, table2, table3, table4, table5, table6)
 } else {
   cvlt3_brief <-
-    dplyr::bind_rows(table1, table2, table3, table4, table5, table6, table7)
+    dplyr::bind_rows(table1, table2, table3, table4, table5, table6)
 }
 ```
 
@@ -794,5 +735,5 @@ if (params$test == "cvlt3") {
 ## Cleanup
 
 ```{r cleanup}
-rm(area, table1, table2, table3, table4, table5, table6, table7)
+rm(area, table1, table2, table3, table4, table5, table6)
 ```
