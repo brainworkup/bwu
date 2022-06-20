@@ -35,3 +35,5 @@
 ^docs$
 ^revdep$
 ^Makefile$
+^hex-bwu\.hex$
+^hex-bwu\.png$
