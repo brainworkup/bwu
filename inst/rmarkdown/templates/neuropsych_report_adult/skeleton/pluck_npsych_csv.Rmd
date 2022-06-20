@@ -106,11 +106,20 @@ table <- bwu::gpluck_t2z2p(table = table, score = score)
 ### RDS
 
 ```{r saverds}
-saveRDS(table, file = here::here(patient, "csv", paste0(test, ".rds")), compress = FALSE)
+saveRDS(
+  table,
+  file = here::here(patient, "csv", paste0(test, ".rds")),
+  compress = FALSE
+)
 ```
 
 ### CSV
 
 ```{r writeout}
-readr::write_csv(table, here::here(patient, "csv", paste0(test, ".csv")), col_names = TRUE, na = "")
+readr::write_csv(
+  table,
+  here::here(patient, "csv", paste0(test, ".csv")),
+  col_names = TRUE,
+  na = ""
+)
 ```

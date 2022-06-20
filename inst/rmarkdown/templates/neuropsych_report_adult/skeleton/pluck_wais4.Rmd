@@ -481,7 +481,7 @@ table1 <-
         "{description}, was a relative [strength/weakness], falling in the {range} range.\n"
       ),
       scale == "Processing Speed (PSI)" ~ glue::glue(
-        "{description}, was {range} and a relative [strength/weakness], higher than {percentile}% of same-age peers.\n"
+        "{description}, was {range} and a relative [strength/weakness].\n"
       ),
       TRUE ~ as.character(result)
     )
@@ -600,23 +600,12 @@ table2 <-
 
 ## Glue results
 
-```{r}
+```{r result2}
 table2 <-
   table2 %>%
   dplyr::mutate(
     result = glue::glue(
-      "{description} was {range}.\n"
-    )
-  )
-```
-
-```{r result2, eval=FALSE}
-# TODO
-table2 <-
-  table2 %>%
-  dplyr::mutate(
-    result = glue::glue(
-      "{description} as measured by the {scale} subtest was {range}.\n",
+      "{description} was {range}.\n",
       TRUE ~ as.character(result)
     )
   )
@@ -739,8 +728,8 @@ table3 <-
   table3 |>
   dplyr::mutate(
     description = dplyr::case_when(
-      scale == "Block Design" ~ "Understand visual-spatial relationships to construct geometric designs from a model",
-      scale == "Matrix Reasoning" ~ "Inductive reasoning",
+      scale == "Block Design" ~ "Understanding visual-spatial relationships to construct geometric designs from a model",
+      scale == "Matrix Reasoning" ~ "Inductive reasoning and nonverbal problem-solving",
       scale == "Visual Puzzles" ~ "Generate visual images in the mind's eye",
       scale == "Figure Weights" ~ "General sequential (deductive) reasoning and quantitative reasoning",
       TRUE ~ as.character(description)
@@ -751,12 +740,12 @@ table3 <-
 ## Glue results
 
 ```{r result3}
-# TODO
 table3 <-
   table3 %>%
   dplyr::mutate(
     result = glue::glue(
-      "{description} was {range}.\n"
+      "{description} was {range}.\n",
+      TRUE ~ as.character(result)
     )
   )
 ```
@@ -901,12 +890,12 @@ table4 <-
 ## Glue results
 
 ```{r result4}
-# TODO
 table4 <-
   table4 %>%
   dplyr::mutate(
     result = glue::glue(
-      "{description} was {range}.\n"
+      "{description} was {range}.\n",
+      TRUE ~ as.character(result)
     )
   )
 ```
@@ -1036,12 +1025,12 @@ table5 <-
 ## Glue results
 
 ```{r result5}
-# TODO
 table5 <-
   table5 %>%
   dplyr::mutate(
     result = glue::glue(
-      "{description} was {range}.\n"
+      "{description} was {range}.\n",
+      TRUE ~ as.character(result)
     )
   )
 ```
@@ -1131,7 +1120,8 @@ table6 <-
   table6 %>%
   dplyr::mutate(
     result = glue::glue(
-      "{description} was {range}.\n"
+      "{description} was {range}.\n",
+      TRUE ~ as.character(result)
     )
   )
 ```
@@ -1291,12 +1281,12 @@ table7 <-
 ## Glue results
 
 ```{r result7}
-# TODO
 table7 <-
   table7 %>%
   dplyr::mutate(
     result = glue::glue(
-      "{description} was {range}.\n"
+      "{description} was {range}.\n",
+      TRUE ~ as.character(result)
     )
   )
 ```
