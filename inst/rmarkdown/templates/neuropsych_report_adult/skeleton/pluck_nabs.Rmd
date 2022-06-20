@@ -1132,7 +1132,7 @@ table2 <-
         "Response/error monitoring during a selective attention task",
       scale ==
         "Numbers & Letters Part A Efficiency" ~
-        "Psychomotor speed requring fluent selective and sustained attention/concentration",
+        "Psychomotor speed requiring fluent selective and sustained attention/concentration",
       scale ==
         "Numbers & Letters Part B Efficiency" ~
         "Cognitive efficiency requiring divided attention, rapid set-shifting, and inhibitory control",

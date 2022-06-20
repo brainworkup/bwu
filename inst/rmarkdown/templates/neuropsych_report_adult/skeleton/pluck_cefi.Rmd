@@ -279,16 +279,36 @@ if (params$test == "cefi_sr") {
     table |>
     dplyr::mutate(
       description = dplyr::case_when(
-        scale == "Full Scale" ~ "overall level of executive functioning",
-        scale == "Attention" ~ "i.e., avoid distractions, concentrate on tasks, and sustain attention",
-        scale == "Emotion Regulation" ~ "i.e., control and manage emotions, including staying calm when handling small problems and reacting with the right level of emotion",
-        scale == "Flexibility" ~ "i.e., adjust behavior to meet circumstances, including coming up with different ways to solve problems, changing behavior when needed, and being able to come up with new ways to reach a goal",
-        scale == "Inhibitory Control" ~ "i.e., control behavior or impulses, including thinking about consequences before acting, maintaining self-control, and thinking before speaking",
-        scale == "Initiation" ~ "i.e., begin tasks or projects on own, including starting tasks easily, being motivated, and taking the initiative when needed",
-        scale == "Organization" ~ "i.e., manage personal effects, work, or multiple tasks, including organizing tasks and thoughts well, managing time effectively, and working neatly",
-        scale == "Planning" ~ "i.e., develop and implement strategies to accomplish tasks, including planning ahead and making good decisions",
-        scale == "Self-Monitoring" ~ "i.e., evaluate own behavior in order to determine when a different approach is necessary, including noticing and fixing mistakes, knowing when help is required, and understanding when a task is completed",
-        scale == "Working Memory" ~ "i.e., keep information in mind that is important for knowing what to do and how to do it, including remembering important things, instructions, and steps",
+        scale ==
+          "Full Scale" ~
+          "overall level of executive functioning",
+        scale ==
+          "Attention" ~
+          "i.e., avoid distractions, concentrate on tasks, and sustain attention",
+        scale ==
+          "Emotion Regulation" ~
+          "i.e., control and manage emotions, including staying calm when handling small problems and reacting with the right level of emotion",
+        scale ==
+          "Flexibility" ~
+          "i.e., adjust behavior to meet circumstances, including coming up with different ways to solve problems, changing behavior when needed, and being able to come up with new ways to reach a goal",
+        scale ==
+          "Inhibitory Control" ~
+          "i.e., control behavior or impulses, including thinking about consequences before acting, maintaining self-control, and thinking before speaking",
+        scale ==
+          "Initiation" ~
+          "i.e., begin tasks or projects on own, including starting tasks easily, being motivated, and taking the initiative when needed",
+        scale ==
+          "Organization" ~
+          "i.e., manage personal effects, work, or multiple tasks, including organizing tasks and thoughts well, managing time effectively, and working neatly",
+        scale ==
+          "Planning" ~
+          "i.e., develop and implement strategies to accomplish tasks, including planning ahead and making good decisions",
+        scale ==
+          "Self-Monitoring" ~
+          "i.e., evaluate own behavior in order to determine when a different approach is necessary, including noticing and fixing mistakes, knowing when help is required, and understanding when a task is completed",
+        scale ==
+          "Working Memory" ~
+          "i.e., keep information in mind that is important for knowing what to do and how to do it, including remembering important things, instructions, and steps",
         TRUE ~ as.character(description)
       )
     )
@@ -297,16 +317,36 @@ if (params$test == "cefi_sr") {
     table |>
     mutate(
       description = case_when(
-        scale == "Full Scale" ~ "overall level of executive functioning (observer)",
-        scale == "Attention" ~ "i.e., avoid distractions, concentrate on tasks, and sustain attention (observer)",
-        scale == "Emotion Regulation" ~ "i.e., control and manage emotions, including staying calm when handling small problems and reacting with the right level of emotion (observer)",
-        scale == "Flexibility" ~ "i.e., adjust behavior to meet circumstances, including coming up with different ways to solve problems, changing behavior when needed, and being able to come up with new ways to reach a goal (observer)",
-        scale == "Inhibitory Control" ~ "i.e., control behavior or impulses, including thinking about consequences before acting, maintaining self-control, and thinking before speaking (observer)",
-        scale == "Initiation" ~ "i.e., begin tasks or projects on own, including starting tasks easily, being motivated, and taking the initiative when needed (observer)",
-        scale == "Organization" ~ "i.e., manage personal effects, work, or multiple tasks, including organizing tasks and thoughts well, managing time effectively, and working neatly (observer)",
-        scale == "Planning" ~ "i.e., develop and implement strategies to accomplish tasks, including planning ahead and making good decisions (observer)",
-        scale == "Self-Monitoring" ~ "i.e., evaluate own behavior in order to determine when a different approach is necessary, including noticing and fixing mistakes, knowing when help is required, and understanding when a task is completed (observer)",
-        scale == "Working Memory" ~ "i.e., keep information in mind that is important for knowing what to do and how to do it, including remembering important things, instructions, and steps (observer)",
+        scale ==
+          "Full Scale" ~
+          "overall level of executive functioning (observer)",
+        scale ==
+          "Attention" ~
+          "i.e., avoid distractions, concentrate on tasks, and sustain attention (observer)",
+        scale ==
+          "Emotion Regulation" ~
+          "i.e., control and manage emotions, including staying calm when handling small problems and reacting with the right level of emotion (observer)",
+        scale ==
+          "Flexibility" ~
+          "i.e., adjust behavior to meet circumstances, including coming up with different ways to solve problems, changing behavior when needed, and being able to come up with new ways to reach a goal (observer)",
+        scale ==
+          "Inhibitory Control" ~
+          "i.e., control behavior or impulses, including thinking about consequences before acting, maintaining self-control, and thinking before speaking (observer)",
+        scale ==
+          "Initiation" ~
+          "i.e., begin tasks or projects on own, including starting tasks easily, being motivated, and taking the initiative when needed (observer)",
+        scale ==
+          "Organization" ~
+          "i.e., manage personal effects, work, or multiple tasks, including organizing tasks and thoughts well, managing time effectively, and working neatly (observer)",
+        scale ==
+          "Planning" ~
+          "i.e., develop and implement strategies to accomplish tasks, including planning ahead and making good decisions (observer)",
+        scale ==
+          "Self-Monitoring" ~
+          "i.e., evaluate own behavior in order to determine when a different approach is necessary, including noticing and fixing mistakes, knowing when help is required, and understanding when a task is completed (observer)",
+        scale ==
+          "Working Memory" ~
+          "i.e., keep information in mind that is important for knowing what to do and how to do it, including remembering important things, instructions, and steps (observer)",
         TRUE ~ as.character(description)
       )
     )
@@ -322,7 +362,7 @@ if (params$test == "cefi_sr") {
     dplyr::mutate(
       result = dplyr::case_when(
         scale == "Full Scale" ~ glue::glue(
-          "- {patient}'s {description} based on (ref:his-her) self-report fell within the {range} range.\n"
+          "- {patient}'s {description} was {range}.\n"
         ),
         scale == "Attention" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
@@ -343,7 +383,7 @@ if (params$test == "cefi_sr") {
           "- {scale} ({description}) was {range}\n"
         ),
         scale == "Planning" ~ glue::glue(
-          "- {scale} ({description} was {range}\n"
+          "- {scale} ({description}) was {range}\n"
         ),
         scale == "Self-Monitoring" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
@@ -360,7 +400,7 @@ if (params$test == "cefi_sr") {
     mutate(
       result = case_when(
         scale == "Full Scale" ~ glue::glue(
-          "- {patient}'s {description} based on (ref:his-her) observer-report fell within the {range} range.\n"
+          "- {patient}'s {description} was {range}.\n"
         ),
         scale == "Attention" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
@@ -381,7 +421,7 @@ if (params$test == "cefi_sr") {
           "- {scale} ({description}) was {range}\n"
         ),
         scale == "Planning" ~ glue::glue(
-          "- {scale} ({description} was {range}\n"
+          "- {scale} ({description}) was {range}\n"
         ),
         scale == "Self-Monitoring" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
