@@ -1346,13 +1346,13 @@
     },
     "renv": {
       "Package": "renv",
-      "Version": "0.15.5-25",
+      "Version": "0.15.5-26",
       "Source": "Repository",
       "Repository": "https://rstudio.r-universe.dev",
       "RemoteUrl": "https://github.com/rstudio/renv",
       "RemoteRef": "HEAD",
-      "RemoteSha": "a237255833088864c22d9db66cb6c19862b7577d",
-      "Hash": "5f54d0caaddb9e3f8b041a8a21f2c02d",
+      "RemoteSha": "183839b9757fd68d0468102e0df2acd09885bd0a",
+      "Hash": "63592bffef83cf53d85574950cc5c1b8",
       "Requirements": []
     },
     "rex": {

@@ -22,7 +22,7 @@ params:
     label: "No file selected"
     value: file
     input: file
-  pages: [18,20,18,18,18,22]
+  pages: [9,11,9,9,9,12,9]
   table1:
     label: "Learning Trials:"
     value: Trial 1 Correct
@@ -196,27 +196,28 @@ writeLines(file, here::here(patient, "pre_csv", "cvlt3_pdf"))
 
 ```{r areas-known}
 area <- list(
-  c(166, 52, 265, 560),
+  c(166, 52, 237, 560),
   c(159, 52, 185, 560),
-  c(320, 52, 390, 560),
-  c(445, 52, 514, 560),
-  c(571, 52, 590, 560),
-  c(570, 52, 589, 560)
+  c(289, 52, 343, 560),
+  c(397, 52, 467, 560),
+  c(520, 52, 544, 560),
+  c(273, 52, 296, 560),
+  c(597, 52, 619, 459)
 )
 ```
 
 ```{r areas-get, eval=FALSE}
 # if unknown
-# patient <- "Rubaya"
+# patient <- "Biggie"
 # file <- file.choose()
 # area <- bwu::gpluck_locate_areas(
 #   file = file,
-#   pages = c(18,20,18,18,18,22)
+#   pages = c(18,20,18,18,18,22) # CVLT-3 full
 # )
 ```
 
 ```{r save-areas}
-# saveRDS(area, here::here(patient, "pre_csv", "area_cvlt3.rds"))
+saveRDS(area, here::here(patient, "pre_csv", "area_cvlt3.rds"))
 ```
 
 ```{r read-areas}
