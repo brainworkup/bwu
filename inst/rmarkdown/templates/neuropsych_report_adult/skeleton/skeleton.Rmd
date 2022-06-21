@@ -503,7 +503,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:planning) *Planning* is a neurocognitive ability used to determine, select, and apply strategies to solve problems where initiation, self-monitoring, and self-correction or especially important.
 
-(ref:efficiency) *Efficiency* reflects how long it takes to complete a task with the highest number of correct responses.
+(ref:efficiency) *Efficiency* reflects how long it takes to complete a task with the highest number of correct responses. Efficiency is not the same as speed. Efficiency is a ratio of outcome to effort, with time as a proxy for effort.
 
 (ref:psi) The Processing Speed Index (PSI) is primarily a measure of Processing Speed (Gs). Gs refers to the efficiency of cognitive processing or speed of mental activity. It involves the ability to perform simple clerical-type tasks quickly, especially when under pressure to maintain attention and concentration. The difference between the scores that comprise the PSI is statistically significant and a difference of this size occurs in less than 10% of the general population which means the difference is relatively uncommon. This means that although the composite is likely a psychometrically sound estimate of Processing Speed, it may not be a good clinical summary because it may obscure an important and meaningful difference within this domain, which often occurs when one score is below average and the other score(s) is at least average relative to most people.
 
