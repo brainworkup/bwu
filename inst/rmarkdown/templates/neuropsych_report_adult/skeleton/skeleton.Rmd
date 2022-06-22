@@ -9,10 +9,9 @@ output:
     citation_package: biblatex
     number_sections: false
     keep_md: true
-    keep_tex: true
+    keep_tex: false
     always_allow_html: true
 site: bookdown::bookdown_site
-#knit: bwu::knit_with_date
 editor_options:
   markdown:
     references:
@@ -237,7 +236,7 @@ patient <- params$first_name
 pronoun <- params$his_her
 ```
 
-```{r, setup, include = FALSE}
+```{r, setup, include = FALSE, results = 'hide', warning = FALSE}
 library(knitr)
 knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
 knitr::knit_hooks$set(optipng = knitr::hook_optipng)
@@ -252,7 +251,7 @@ knitr::opts_chunk$set(
   cache = FALSE,
   cache.path = ".cache/",
   crop = TRUE,
-  dev = c("CairoPNG", "CairoPDF", "svg"),
+  dev = c("CairoPNG", "CairoPDF"),
   dev.args = list(pointsize = 8),
   dpi = 300,
   echo = FALSE,
@@ -589,7 +588,6 @@ cat(readLines("1.2_nse.md"), sep = "\n")
 - (ref:wais4)
 - (ref:wiat4)
 - (ref:wrat5): Green/Blue Form
-- (ref:ktea3): Form A/B
 - (ref:nabs): Form 1/2
 - (ref:nab): Form 1/2
 - (ref:examiner)
@@ -617,8 +615,7 @@ cat(readLines("2.1_nt-obs.md"), sep = "\n")
 
 \autoref{fig:gauss-plot-narrow} can be used as a guide to help interpret individual test scores in terms of the degree of distance a score fell in relation to normative and developmental expectations (i.e., the mean).
 \autoref{fig:gauss-plot-broad} can be used to help interpret broad domains in terms of the degree of clinical severity.
-Test scores are easiest to interpret as percentiles[^1], which are provided in the tables below, and as *z*-scores (M = 0, SD = 1)[^2], which are used to plot the various test and domain scores below
-.
+Test scores are easiest to interpret as percentiles[^1], which are provided in the tables below, and as *z*-scores (M = 0, SD = 1)[^2], which are used to plot the various test and domain scores below.
 
 (ref:gauss-plot-narrow) Classification of neuropsychological test scores that are normally distributed in the general population [@guilmetteAmericanAcademyClinical2020].
 
@@ -632,7 +629,7 @@ knitr::include_graphics("plot_narrow.png", auto_pdf = TRUE)
 knitr::include_graphics("plot_broad.png", auto_pdf = TRUE)
 ```
 
-```{r read-csv, cache = FALSE}
+```{r read-csv}
 library(tidyverse)
 data_path <- here::here(patient, "csv")
 files <- dir(data_path, pattern = "*.csv")
@@ -732,13 +729,13 @@ neurobehav <-
   dplyr::ungroup()
 ```
 
-```{r, write-data, cache = F}
+```{r, write-neuro-data}
 readr::write_csv(neuropsych, here::here(patient, "neuropsych.csv"))
 readr::write_csv(neurocog, here::here(patient, "neurocog.csv"))
 readr::write_csv(neurobehav, here::here(patient, "neurobehav.csv"))
 ```
 
-```{r, read-data, cache = F}
+```{r, read-neuro-data}
 neuropsych <- readr::read_csv(here::here(patient, "neuropsych.csv"))
 neurocog <- readr::read_csv(here::here(patient, "neurocog.csv"))
 neurobehav <- readr::read_csv(here::here(patient, "neurobehav.csv"))
@@ -916,7 +913,7 @@ knitr::read_chunk(here::here(patient, "2.6_executive.R"))
 ```{r 06-plot-subdomain-executive, eval = params$eval_executive, fig.cap = '(ref:att-exe)'}
 ```
 
-```{r 07-plot-narrow-executive, eval=F, fig.cap = '(ref:att-exe)'}
+```{r 07-plot-narrow-executive, eval = F, fig.cap = '(ref:att-exe)'}
 ```
 
 \newpage
@@ -983,7 +980,7 @@ knitr::read_chunk(here::here(patient, "2.8_motor.R"))
 ```{r 05-df-motor, eval = params$eval_motor}
 ```
 
-```{r 06-plot-subdomain-motor, eval=F, fig.cap = '(ref:mtr)'}
+```{r 06-plot-subdomain-motor, eval = F, fig.cap = '(ref:mtr)'}
 ```
 
 ```{r 07-plot-narrow-motor, eval = params$eval_motor, fig.cap = '(ref:mtr)'}
@@ -1018,7 +1015,7 @@ knitr::read_chunk(here::here(patient, "2.9_social.R"))
 ```{r 05-df-social, eval = params$eval_social}
 ```
 
-```{r 06-plot-subdomain-social, eval=F, fig.cap = '(ref:soc-cog)'}
+```{r 06-plot-subdomain-social, eval= F , fig.cap = '(ref:soc-cog)'}
 ```
 
 ```{r 07-plot-narrow-social, eval = params$eval_social, fig.cap = '(ref:soc-cog)'}
@@ -1049,16 +1046,16 @@ knitr::read_chunk(here::here(patient, "2.10_adhd.R"))
 ```{r 02-glue-adhd-or, eval = params$eval_adhd, cache = TRUE}
 ```
 
-```{r 03-table-adhd, eval = params$eval_adhd}
-```
-
-```{r 04-kable-adhd, eval = params$eval_adhd, double_escape = TRUE, escape = FALSE, fig.fullwidth = TRUE}
-```
-
 ```{r 05-df-adhd, eval = params$eval_adhd}
 ```
 
 ```{r 06-plot-adhd-adhd, eval = params$eval_adhd, fig.cap='(ref:caars)'}
+```
+
+```{r 03-table-adhd, eval = params$eval_adhd}
+```
+
+```{r 04-kable-adhd, eval = params$eval_adhd, double_escape = TRUE, escape = FALSE, fig.fullwidth = TRUE}
 ```
 
 ```{r 07-df-adhd, eval = params$eval_adhd}
@@ -1237,9 +1234,9 @@ Although standardized scores provide the clinician with an important and necessa
 
 ## Conversion of Test Scores
 
-```{r ranges, double_escape = TRUE, escape = FALSE, fig.fullwidth = FALSE, cache = TRUE}
+```{r ranges, double_escape = TRUE, escape = FALSE, fig.fullwidth = FALSE}
 range <-
-  vroom::vroom(here::here(
+  readr::read_csv(here::here(
     patient, "test_score_ranges.csv"
   ), show_col_types = FALSE)
 gt::gt(range) %>%
