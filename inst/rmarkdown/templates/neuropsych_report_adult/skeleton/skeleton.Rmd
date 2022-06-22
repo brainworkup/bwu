@@ -11,6 +11,7 @@ output:
     keep_md: true
     keep_tex: true
     always_allow_html: true
+site: bookdown::bookdown_site
 #knit: bwu::knit_with_date
 editor_options:
   markdown:
@@ -19,14 +20,14 @@ editor_options:
       prefix: "np"
 header-includes:
   - \usepackage{titling}
-  - \pretitle{\begin{center}}
+  - \pretitle{\begin{center}
     \includegraphics[width=6in,height=2in]{logo.png}\LARGE\\}
   - \posttitle{\end{center}}
   - \usepackage{svg}
   - \usepackage{wasysym}
   - \usepackage{float}
-  - \usepackage{hyperref}
-  - \hypersetup{colorlinks = true, linkcolor = blue, urlcolor = blue}
+  - \usepackage {hyperref}
+  - \hypersetup {colorlinks = true, linkcolor = blue, urlcolor = blue}
 toc: false
 highlight: yes
 bibliography: brainworkup.bib
@@ -270,7 +271,6 @@ knitr::opts_knit$set(width = 50)
 options(digits = 1, warnPartialMatchArgs = FALSE)
 options(knitr.kable.NA = "--")
 options(readr.show_col_types = FALSE)
-options(tinytex.verbose = TRUE)
 ```
 
 ```{r margin-figure-engine}
@@ -503,7 +503,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:planning) *Planning* is a neurocognitive ability used to determine, select, and apply strategies to solve problems where initiation, self-monitoring, and self-correction or especially important.
 
-(ref:efficiency) *Efficiency* reflects how long it takes to complete a task with the highest number of correct responses. Efficiency is not the same as speed. Efficiency is a ratio of outcome to effort, with time as a proxy for effort.
+(ref:efficiency) *Efficiency* reflects how long it takes to complete a task with the highest number of correct responses.
 
 (ref:psi) The Processing Speed Index (PSI) is primarily a measure of Processing Speed (Gs). Gs refers to the efficiency of cognitive processing or speed of mental activity. It involves the ability to perform simple clerical-type tasks quickly, especially when under pressure to maintain attention and concentration. The difference between the scores that comprise the PSI is statistically significant and a difference of this size occurs in less than 10% of the general population which means the difference is relatively uncommon. This means that although the composite is likely a psychometrically sound estimate of Processing Speed, it may not be a good clinical summary because it may obscure an important and meaningful difference within this domain, which often occurs when one score is below average and the other score(s) is at least average relative to most people.
 
@@ -732,13 +732,13 @@ neurobehav <-
   dplyr::ungroup()
 ```
 
-```{r, write-neuro-data}
+```{r, write-data, cache = F}
 readr::write_csv(neuropsych, here::here(patient, "neuropsych.csv"))
 readr::write_csv(neurocog, here::here(patient, "neurocog.csv"))
 readr::write_csv(neurobehav, here::here(patient, "neurobehav.csv"))
 ```
 
-```{r, read-neuro-data}
+```{r, read-data, cache = F}
 neuropsych <- readr::read_csv(here::here(patient, "neuropsych.csv"))
 neurocog <- readr::read_csv(here::here(patient, "neurocog.csv"))
 neurobehav <- readr::read_csv(here::here(patient, "neurobehav.csv"))

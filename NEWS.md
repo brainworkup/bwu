@@ -84,6 +84,3 @@ output:
 
 -   did not mean to issue a "1.x" release; backtracking now
 
-## bwu 0.1.1.9005
-
-- mufucka will not work now
