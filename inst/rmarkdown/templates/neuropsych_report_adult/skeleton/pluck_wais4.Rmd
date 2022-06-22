@@ -1,8 +1,5 @@
 ---
 title: "Pluck Tables from WAIS-IV"
-output:
-  rmdformats::robobook:
-    highlight: kate
 params:
   patient: "Biggie"
   test:
@@ -173,6 +170,9 @@ params:
   eval_tb6: TRUE
   eval_tb7: TRUE
   slice: TRUE
+output:
+  rmdformats::robobook:
+    highlight: kate
 ---
 
 # WAIS-IV
