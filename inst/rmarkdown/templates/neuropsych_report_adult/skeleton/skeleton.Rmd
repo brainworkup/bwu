@@ -9,7 +9,7 @@ output:
     citation_package: biblatex
     number_sections: false
     keep_md: true
-    keep_tex: false
+    keep_tex: true
     always_allow_html: true
 site: bookdown::bookdown_site
 editor_options:
@@ -25,8 +25,8 @@ header-includes:
   - \usepackage{svg}
   - \usepackage{wasysym}
   - \usepackage{float}
-  - \usepackage {hyperref}
-  - \hypersetup {colorlinks = true, linkcolor = blue, urlcolor = blue}
+  - \usepackage{hyperref}
+  - \hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
 toc: false
 highlight: yes
 bibliography: brainworkup.bib
@@ -270,6 +270,7 @@ knitr::opts_knit$set(width = 50)
 options(digits = 1, warnPartialMatchArgs = FALSE)
 options(knitr.kable.NA = "--")
 options(readr.show_col_types = FALSE)
+options(tinytex.verbose = TRUE)
 ```
 
 ```{r margin-figure-engine}
@@ -454,7 +455,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:read) *Reading ability* can be described as consisting of three interrelated abilities: decoding (the ability to recognize and pronounce written words presented without context), comprehension (the ability not only to understand the facts presented in the text but also the ability to figure out things in the text that are not directly stated), and fluency (the ability to decode and understand simple written information in a rapid and fluent manner).
 
-(ref:write) *Writing ability* can be described in terms of spelling, grammar, expression of ideas, and writing fluency. Spelling ability and writing fluency help one write quickly and with quality. If these lower-level skills don't flow easily, they can take up attention and working memory space so that more important skills such as making good choices about words and meaning (i.e., expression), and capitalizing on background grammar knowledge to construct good pieces of writing cannot be used as easily.
+(ref:write) *Writing ability* can be described in terms of spelling, grammar, expression of ideas, and writing fluency. Spelling ability and writing fluency help one write quickly and with quality. If these lower-level skills do not flow easily, they can take up attention and working memory space so that more important skills such as making good choices about words and meaning (i.e., expression), and capitalizing on background grammar knowledge to construct good pieces of writing cannot be used as easily.
 
 (ref:math) *Math ability* can be described in terms of calculation skills, applied problem solving (e.g., word problems), and math fluency.
 
@@ -482,7 +483,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:adhd) *ADHD* is a lifelong disorder characterized by symptoms of inattention (not being able to keep focus), hyperactivity (excess movement that is not fitting to the setting) and impulsivity (hasty acts that occur in the moment without thought). Many ADHD symptoms, such as high activity levels, difficulty remaining still for long periods of time, and limited attention span, are common from time to time in everyone. The difference in individuals with ADHD is that their inattention, poor impulse control, and hyperactivity are substantially greater than expected for their age and cause distress and/or problems functioning at home, at school, at work, and/or with friends.
 
-(ref:dysgraphia) *Dysgraphia* is an impairment in writing, including problems with letter formation/legibility, letter spacing, spelling, fine motor coordination, rate of writing, grammar, and composition. DSM-5 categorizes writing impairment as a "specific learning disability with impairment in written expression" (spelling accuracy, grammar and punctuation accuracy, and clarity and organization of written expression) [@chungDisorderWrittenExpression2020].
+(ref:dysgraphia) *Dysgraphia* is an impairment in writing, including problems with letter formation/legibility, letter spacing, spelling, fine motor coordination, rate of writing, grammar, and composition. DSM-5 categorizes writing impairment as a *specific learning disability with impairment in written expression* (spelling accuracy, grammar and punctuation accuracy, and clarity and organization of written expression) [@chungDisorderWrittenExpression2020].
 
 (ref:odd) *Oppositional defiant disorder (ODD)* is a tendency to oppose and defy. DSM-5 categorizes ODD under Disruptive, impulse-control, and conduct disorder. It is described as a pattern of persistent anger, hostility, and argumentative behavior that persists for more than six months.
 
@@ -496,7 +497,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:driving) *Driving Scenes* Created to reflect situational daily living and patient proficiency with such, this assessment ascertains a combination of visual working memory, visual scanning, attention to detail, and selective attention. Visual working memory is the ability to recognize, remember, and then retrieve visually presented information for use in the short-term. Visual scanning is the ability to use vision to search in a systematic manner. Selective attention is the capacity for or process of reacting to certain stimuli selectively when several occur simultaneously. Attention to detail is the ability to achieve thoroughness and accuracy when accomplishing a task. A combination of these cognitive processes enable daily functioning. As this exam demonstrates, the ability to scan surroundings, take notice of selectively important visual details, and then quickly recall such for use in applicable situations, such as when driving, is integral to modern human independence. Below average scores reflect limited ability to safely and proficiently perform tasks associated with typical daily life.
 
-(ref:bills) *Bill Payment* Purporting a necessary daily living function, this piece of the module evaluates auditory language comprehension, bill payment skills, simple calculation ability, and speech output. The patient is handed a bill statement, a check with accompanying check ledger, and an envelope. Questions are posited orally by the test administrator regarding the presented materials. Following the question and answer portion, patients are then given more complex, multistep commands involving physically responding to directives. For instance, during this phase, directions to adhere to and complete the billing instructions as they appear on the billing statement are given, complete with the need to fill out the check and assure the bill would be paid. Each requisite step, when explicitly performed, is awarded one point. Thus, (ref:first-name)'s score of 8 shows that (ref:he-she) accurately completed the same number of steps towards bill payment achievement. This score leads to placement in the severely impaired interpretive category. Auditory comprehension is the ability to understand what is heard, including the tone of voice, pauses between words, emphasis used, and the rhythm and pattern of speech, and attach meaning to it. This is a foundational skill originating in early infancy that, ideally, builds with exposure and learning processes. Bill payment skills refer to the wherewithal to complete the processes surrounding proper bill satisfaction and related financial responsibility. Calculation is a deliberate process that transforms one or more inputs into one or more results. In this instance, simple calculation relates to the capacity to accurately and effectively use numerical information to maintain financial balance and responsibility utilizing only basic mathematical skills. Speech output is simply defined as the ability to put thoughts to words. The nature of this exam exhibits the potential negative ramifications in these cognitive functions. Not only will fiscal responsibility suffer deleteriously, similar or related tasks required for independent living and satisfactory life stability will also show negative effects.
+(ref:bills) *Bill Payment* Purporting a necessary daily living function, this piece of the module evaluates auditory language comprehension, bill payment skills, simple calculation ability, and speech output. The patient is handed a bill statement, a check with accompanying check ledger, and an envelope. Questions are posited orally by the test administrator regarding the presented materials. Following the question and answer portion, patients are then given more complex, multistep commands involving physically responding to directives. For instance, during this phase, directions to adhere to and complete the billing instructions as they appear on the billing statement are given, complete with the need to fill out the check and assure the bill would be paid. Each requisite step, when explicitly performed, is awarded one point. Thus, (ref:first-name)'s score of XX shows that (ref:he-she) accurately completed the same number of steps towards bill payment achievement. This score leads to placement in the severely impaired interpretive category. Auditory comprehension is the ability to understand what is heard, including the tone of voice, pauses between words, emphasis used, and the rhythm and pattern of speech, and attach meaning to it. This is a foundational skill originating in early infancy that, ideally, builds with exposure and learning processes. Bill payment skills refer to the wherewithal to complete the processes surrounding proper bill satisfaction and related financial responsibility. Calculation is a deliberate process that transforms one or more inputs into one or more results. In this instance, simple calculation relates to the capacity to accurately and effectively use numerical information to maintain financial balance and responsibility utilizing only basic mathematical skills. Speech output is simply defined as the ability to put thoughts to words. The nature of this exam exhibits the potential negative ramifications in these cognitive functions. Not only will fiscal responsibility suffer deleteriously, similar or related tasks required for independent living and satisfactory life stability will also show negative effects.
 
 (ref:aud-comp) *Auditory Comprehension* is the ability to understand what is heard, including the tone of voice, pauses between words, emphasis used, and the rhythm and pattern of speech, and attach meaning to it. This is a foundational skill originating in early infancy that, ideally, builds with exposure and learning processes.
 
