@@ -51,9 +51,9 @@ filter_domain <- c(
   "Dominance",
   "Warmth",
   # BDI-2
-  "Total Score",
+  "BID-2 Total Score",
   # BAI-2
-  "Total Score"
+  "BAI-2 Total Score"
 )
 
 ## ---- 02-glue-emotion ------------
