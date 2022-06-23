@@ -1,5 +1,5 @@
 ## ---- 01-filter-emotion ---------
-filter_domain <- list(
+filter_domain <- c(
   # PAI
   "Somatic Complaints",
   "Conversion",
