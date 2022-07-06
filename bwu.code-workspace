@@ -7,7 +7,7 @@
   ],
   "settings": {
     "window.zoomLevel": 1,
-    "files.autoSave": "afterDelay",
+    "files.autoSave": "onFocusChange",
     "workbench.colorCustomizations": {
       "activityBar.activeBackground": "#d1f0ee",
       "activityBar.activeBorder": "#d387d8",

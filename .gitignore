@@ -75,6 +75,7 @@ inst/rmarkdown/templates/npsychreport/skeleton/dsm5_icd10_diagnoses.pdf
 R-CMD-check.yaml
 renv/.DS_Store
 inst/doc
+<<<<<<< HEAD
 
 .Rproj.user
 .Rhistory
@@ -93,4 +94,6 @@ revdep
 inst/doc
 
 /*.tar.gz
+=======
+>>>>>>> 56651b7b (wtf is happening; nightmare; all my credentials are f'd up after vacation July 2022)
 bwu.code-workspace
