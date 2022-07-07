@@ -384,6 +384,28 @@ table6 <-
   tibble::rownames_to_column(., var = "scale")
 ```
 
+# Table 7
+
+```{r pluck7}
+table7 <- tibble::as_tibble(plucked_table[[7]])
+colnames(table7) <- params$colnames2
+table7 <- dplyr::na_if(table7, "")
+table7 <- dplyr::na_if(table7, "NA")
+table7 <- dplyr::na_if(table7, "-")
+table7 <- dplyr::na_if(table7, "--")
+table7 <- dplyr::na_if(table7, "---")
+to_double <- c("raw_score", "base_rate")
+table7 <- table7 |> hablar::convert(dbl(all_of(to_double)))
+```
+
+```{r rownames7}
+rownames(table7) <- params$table7
+table7 <-
+  table7 %>%
+  dplyr::rename(scale2 = scale) %>%
+  tibble::rownames_to_column(., var = "scale")
+```
+
 ## Select to Keep
 
 ```{r keep}
@@ -393,6 +415,7 @@ table3 <- table3 |> dplyr::select(all_of(params$keep1))
 table4 <- table4 |> dplyr::select(all_of(params$keep1))
 table5 <- table5 |> dplyr::select(all_of(params$keep1))
 table6 <- table6 |> dplyr::select(all_of(params$keep1))
+table7 <- table7 |> dplyr::select(all_of(params$keep2))
 ```
 
 ## Create/Insert/Mutate new columns in tables
@@ -517,6 +540,28 @@ table6 <- bwu::gpluck_make_columns(
 )
 ```
 
+```{r mutate7}
+table7 <- bwu::gpluck_make_columns(
+  table7,
+  score = NA_integer_,
+  percentile = NA_integer_,
+  range = "",
+  ci_95 = "",
+  test = params$test,
+  test_name = params$test_name,
+  domain = "Memory",
+  subdomain = "Effort/Validity",
+  narrow = "Effort/Validity",
+  pass = "Attention",
+  verbal = "Verbal",
+  timed = "Untimed",
+  test_type = "npsych_test",
+  score_type = "scaled_score",
+  description = "",
+  result = ""
+)
+```
+
 ## Test score ranges
 
 ```{r ranges}
@@ -567,6 +612,9 @@ table1 <-
       scale ==
         "Trial 5 Correct" ~
         "Correct number of words learned on the fifth trial",
+      scale ==
+        "List B Correct" ~
+        "Correct number of words learned on List B",
       TRUE ~ as.character(description)
     )
   )
@@ -607,10 +655,10 @@ table3 <-
         "Recall of the list after a short delay with cues",
       scale ==
         "Long Delay Free Recall" ~
-        "Recall of the list after a long delay",
+        "Recall of the list after a long (20-minute) delay",
       scale ==
         "Long Delay Cued Recall" ~
-        "Recall of the list after a long delay with cues",
+        "Recall of the list after a long (20-minute) delay with cues",
       TRUE ~ as.character(description)
     )
   )
@@ -664,6 +712,19 @@ table6 <-
   )
 ```
 
+```{r desc7}
+table7 <-
+  table7 |>
+  mutate(
+    description = case_when(
+      scale ==
+        "Forced-Choice Recognition Hits" ~
+        "Number of hits on forced-choice recognition trials (raw score)",
+      TRUE ~ as.character(description)
+    )
+  )
+```
+
 # Finalize and save
 
 ## Relocate variables
@@ -687,6 +748,9 @@ table5 <-
 table6 <-
   table6 |>
   relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+table7 <-
+  table7 |>
+  relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
 ## Merge tables/bind rows
@@ -697,13 +761,13 @@ if (params$test == "cvlt3") {
     dplyr::bind_rows(table1, table2, table3, table4, table5, table6)
 } else {
   cvlt3_brief <-
-    dplyr::bind_rows(table1, table2, table3, table4, table5, table6)
+    dplyr::bind_rows(table1, table2, table3, table4, table5, table6, table7)
 }
 ```
 
 ## Glue results
 
-```{r result}
+```{r glue-result}
 if (params$test == "cvlt3") {
   cvlt3 <-
     cvlt3 %>%
@@ -746,5 +810,5 @@ if (params$test == "cvlt3") {
 ## Cleanup
 
 ```{r cleanup}
-rm(area, table1, table2, table3, table4, table5, table6)
+rm(area, table1, table2, table3, table4, table5, table6, table7)
 ```
