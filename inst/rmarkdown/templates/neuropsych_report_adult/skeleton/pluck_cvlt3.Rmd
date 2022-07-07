@@ -549,7 +549,7 @@ table7 <- bwu::gpluck_make_columns(
   ci_95 = "",
   test = params$test,
   test_name = params$test_name,
-  domain = "Memory",
+  domain = "Effort/Validity",
   subdomain = "Effort/Validity",
   narrow = "Effort/Validity",
   pass = "Attention",
