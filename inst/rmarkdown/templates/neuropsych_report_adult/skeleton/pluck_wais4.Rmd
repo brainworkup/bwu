@@ -223,12 +223,12 @@ file <- params$file
 pages <- params$pages
 ```
 
-```{r w-file}
+```{r write-file}
 writeLines(file, here::here(patient, "pre_csv", "wais4_pdf"))
 ```
 
-```{r r-file}
-file <- readLines(here::here(patient, "pre_csv", "wais4_pdf"))
+```{r read-file}
+# file <- readLines(here::here(patient, "pre_csv", "wais4_pdf"))
 ```
 
 ## Locate areas
@@ -256,12 +256,12 @@ area <- list(
 # )
 ```
 
-```{r w-area}
+```{r write-area}
 saveRDS(area, file = here::here(patient, "pre_csv", "area_wais4.rds"), compress = FALSE)
 ```
 
-```{r r-area}
-area <- readRDS(here::here(patient, "pre_csv", "area_wais4.rds"))
+```{r read-area}
+# area <- readRDS(here::here(patient, "pre_csv", "area_wais4.rds"))
 ```
 
 ## Extract tables
@@ -447,12 +447,24 @@ table1 <-
   table1 |>
   dplyr::mutate(
     description = dplyr::case_when(
-      scale == "Full Scale IQ (FSIQ)" ~ "General intelligence",
-      scale == "General Ability (GAI)" ~ "General intelligence",
-      scale == "Verbal Comprehension (VCI)" ~ "An estimate of Crystallized Intelligence (Gc)",
-      scale == "Perceptual Reasoning (PRI)" ~ "Fluid Reasoning (Gf)",
-      scale == "Working Memory (WMI)" ~ "Working Memory (Gwm), which refers to the ability to hold information in immediate awareness and then manipulate or transform it in some way within a few seconds",
-      scale == "Processing Speed (PSI)" ~ "Processing Speed (Gs) performance (i.e., the efficiency of cognitive processing or speed of mental activity, especially when under pressure to maintain attention and concentration)",
+      scale ==
+        "Full Scale IQ (FSIQ)" ~
+        "General intelligence",
+      scale ==
+        "General Ability (GAI)" ~
+        "General intelligence",
+      scale ==
+        "Verbal Comprehension (VCI)" ~
+        "An estimate of Crystallized Intelligence (Gc)",
+      scale ==
+        "Perceptual Reasoning (PRI)" ~
+        "Fluid Reasoning (Gf)",
+      scale ==
+        "Working Memory (WMI)" ~
+        "Working Memory (Gwm), which refers to the ability to hold information in immediate awareness and then manipulate or transform it in some way within a few seconds",
+      scale ==
+        "Processing Speed (PSI)" ~
+        "Processing Speed (Gs) performance (i.e., the efficiency of cognitive processing or speed of mental activity, especially when under pressure to maintain attention and concentration)",
       TRUE ~ as.character(description)
     )
   )
@@ -478,10 +490,10 @@ table1 <-
         "{description} was classified as {range} and ranked at the {percentile}th percentile, indicating performance as good as or better than {percentile}% of same-age peers from the general population.\n"
       ),
       scale == "Working Memory (WMI)" ~ glue::glue(
-        "{description}, was a relative [strength/weakness], falling in the {range} range.\n"
+        "{description} was a relative strength/weakness, falling in the {range} range.\n"
       ),
       scale == "Processing Speed (PSI)" ~ glue::glue(
-        "{description}, was {range} and a relative [strength/weakness].\n"
+        "{description} was {range} and a relative strength/weakness.\n"
       ),
       TRUE ~ as.character(result)
     )
@@ -589,10 +601,14 @@ table2 <-
   table2 |>
   dplyr::mutate(
     description = dplyr::case_when(
-      scale == "Similarities" ~ "Verbal inductive reasoning",
-      scale == "Vocabulary" ~ "Word/lexical knowledge",
-      scale == "Information" ~ "Acquired knowledge/ability to acquire, retain, and retrieve general factual knowledge",
-      scale == "Comprehension" ~ "Practical knowledge and judgment of general principles and social situations",
+      scale ==
+        "Similarities" ~ "Verbal inductive reasoning",
+      scale ==
+        "Vocabulary" ~ "Word/lexical knowledge",
+      scale ==
+        "Information" ~ "Acquired knowledge/ability to acquire, retain, and retrieve general factual knowledge",
+      scale ==
+        "Comprehension" ~ "Practical knowledge and judgment of general principles and social situations",
       TRUE ~ as.character(description)
     )
   )
@@ -605,8 +621,7 @@ table2 <-
   table2 %>%
   dplyr::mutate(
     result = glue::glue(
-      "{description} was {range}.\n",
-      TRUE ~ as.character(result)
+      "{description} was {range}.\n"
     )
   )
 ```
@@ -894,8 +909,7 @@ table4 <-
   table4 %>%
   dplyr::mutate(
     result = glue::glue(
-      "{description} was {range}.\n",
-      TRUE ~ as.character(result)
+      "{description} was {range}.\n"
     )
   )
 ```
@@ -1029,8 +1043,7 @@ table5 <-
   table5 %>%
   dplyr::mutate(
     result = glue::glue(
-      "{description} was {range}.\n",
-      TRUE ~ as.character(result)
+      "{description} was {range}.\n"
     )
   )
 ```
@@ -1120,8 +1133,7 @@ table6 <-
   table6 %>%
   dplyr::mutate(
     result = glue::glue(
-      "{description} was {range}.\n",
-      TRUE ~ as.character(result)
+      "{description} was {range}.\n"
     )
   )
 ```
@@ -1285,8 +1297,7 @@ table7 <-
   table7 %>%
   dplyr::mutate(
     result = glue::glue(
-      "{description} was {range}.\n",
-      TRUE ~ as.character(result)
+      "{description} was {range}.\n"
     )
   )
 ```
