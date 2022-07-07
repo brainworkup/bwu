@@ -4,7 +4,7 @@
 \alias{gpluck_t2z2p}
 \title{Convert T-score to z-score to percentile}
 \usage{
-gpluck_t2z2p(..., table, score)
+gpluck_t2z2p(..., table, score = NULL, score_type)
 }
 \arguments{
 \item{...}{More expressions}
@@ -12,6 +12,8 @@ gpluck_t2z2p(..., table, score)
 \item{table}{Name of data table}
 
 \item{score}{T-score value}
+
+\item{score_type}{Type of score}
 }
 \value{
 A tidy csv file
