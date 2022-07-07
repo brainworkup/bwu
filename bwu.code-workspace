@@ -6,8 +6,13 @@
     }
   ],
   "settings": {
+<<<<<<< HEAD
     "window.zoomLevel": 1,
     "files.autoSave": "onFocusChange",
+=======
+    "window.zoomLevel": 0,
+    "files.autoSave": "afterDelay",
+>>>>>>> 318326b (cannot open terminal in code now wtf)
     "workbench.colorCustomizations": {
       "activityBar.activeBackground": "#d1f0ee",
       "activityBar.activeBorder": "#d387d8",
