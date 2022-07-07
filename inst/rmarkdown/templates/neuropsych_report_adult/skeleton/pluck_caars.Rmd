@@ -330,10 +330,10 @@ if (params$test == "caars_sr") {
           "i.e., poor social relationships, low observer-esteem and observer confidence",
         scale ==
           "DSM-5 Inattentive Symptoms" ~
-          "i.e., behave in a manner consistent with the Inattentive Presentation of ADHD, described in the DSM-5",
+          "i.e., behave in a manner consistent with the DSM-5 Inattentive Presentation of ADHD",
         scale ==
           "DSM-5 Hyperactive-Impulsive Symptoms" ~
-          "i.e., behave in a manner consistent with the Hyperactive-Impulsive Presentation of ADHD, described in the DSM-5",
+          "i.e., behave in a manner consistent with the DSM-5 Hyperactive-Impulsive Presentation of ADHD",
         scale ==
           "DSM-5 ADHD Symptoms Total" ~
           "i.e., behave in a manner consistent with the DSM-5 diagnostic criteria for Combined Presentation of ADHD",
@@ -411,7 +411,7 @@ if (params$test == "caars_sr") {
           "- {scale} ({description}) was {range}\n"
         ),
         scale == "DSM-5 ADHD Symptoms Total" ~ glue::glue(
-          "- {scale} ({description} was {range}\n"
+          "- {scale} ({description}) was {range}\n"
         ),
         TRUE ~ as.character(result)
       )
@@ -443,7 +443,7 @@ if (params$test == "caars_sr") {
           "- {scale} ({description}) was {range}\n"
         ),
         scale == "DSM-5 ADHD Symptoms Total" ~ glue::glue(
-          "- {scale} ({description} was {range}\n"
+          "- {scale} ({description}) was {range}\n"
         ),
         TRUE ~ as.character(result)
       )
