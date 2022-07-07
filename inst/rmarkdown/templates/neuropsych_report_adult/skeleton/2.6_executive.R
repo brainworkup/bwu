@@ -3,7 +3,7 @@ filter_domain <- c(
   ## NAB
   "NAB Attention Index",
   "Attention Domain",
-  "Orientation",
+  # "Orientation",
   # "Digits Forward",
   "Digits Forward Longest Span",
   # "Digits Backward",

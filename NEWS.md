@@ -84,3 +84,8 @@ output:
 
 -   did not mean to issue a "1.x" release; backtracking now
 
+## bwu 0.1.1.9005
+
+-   fixed a bunch of bugs, but not sure if they are stable fixes yet
+-   most bugs were in pluck .rmd files
+-   also fixed skeleton (minor)
