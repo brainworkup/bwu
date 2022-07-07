@@ -743,10 +743,14 @@ table3 <-
   table3 |>
   dplyr::mutate(
     description = dplyr::case_when(
-      scale == "Block Design" ~ "Understanding visual-spatial relationships to construct geometric designs from a model",
-      scale == "Matrix Reasoning" ~ "Inductive reasoning and nonverbal problem-solving",
-      scale == "Visual Puzzles" ~ "Generate visual images in the mind's eye",
-      scale == "Figure Weights" ~ "General sequential (deductive) reasoning and quantitative reasoning",
+      scale ==
+        "Block Design" ~ "Understanding visual-spatial relationships to construct geometric designs from a model",
+      scale ==
+        "Matrix Reasoning" ~ "Inductive reasoning and nonverbal problem-solving",
+      scale ==
+        "Visual Puzzles" ~ "Generate visual images in the mind's eye",
+      scale ==
+        "Figure Weights" ~ "General sequential (deductive) reasoning and quantitative reasoning",
       TRUE ~ as.character(description)
     )
   )
@@ -759,8 +763,7 @@ table3 <-
   table3 %>%
   dplyr::mutate(
     result = glue::glue(
-      "{description} was {range}.\n",
-      TRUE ~ as.character(result)
+      "{description} was {range}.\n"
     )
   )
 ```
