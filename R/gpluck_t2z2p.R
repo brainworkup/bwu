@@ -35,9 +35,11 @@ gpluck_t2z2p <-
             pct3 < 2 ~ "Exceptionally Low",
             TRUE ~ as.character(range)
           )
-        )
+        ) |>
+        dplyr::mutate(percentile = pct1) |>
+        dplyr::mutate(result = glue::glue("{description} was {range}.")) |>
+        dplyr::select(-c(z, pct1, pct2, pct3))
     } else if (score_type == "standard_score") {
-      {
         table <-
           table |>
           dplyr::mutate(z = (score - 100) / 15) %>%
@@ -60,11 +62,9 @@ gpluck_t2z2p <-
               TRUE ~ as.character(range)
             )
           )
-      } |>
+        |>
         dplyr::mutate(percentile = pct1) |>
         dplyr::mutate(result = glue::glue("{description} was {range}.")) |>
         dplyr::select(-c(z, pct1, pct2, pct3))
-    }
-
-    return(table)
-  }
+      } 
+ }
