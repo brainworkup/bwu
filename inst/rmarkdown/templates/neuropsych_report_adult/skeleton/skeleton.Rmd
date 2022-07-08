@@ -1105,7 +1105,7 @@ knitr::read_chunk(here::here(patient, "2.11_emotion.R"))
 
 # SUMMARY/IMPRESSION
 
-(ref:domain) **Key Findings** General intellectual functioning is a strength. Verbal skills are significantly stronger than nonverbal/spatial processing skills. Attentional fluency (i.e., working memory and processing speed) and abstract reasoning are areas of weakness. Notably, even `r params$first_name`'s normatively average scores reflect performances that are well below cognitive expectations for `r params$him_her`. *Note:* *z* = 0 (mean) ± 1 (sd)
+(ref:domain) *Key Findings* General intellectual functioning is a strength. Verbal skills are significantly stronger than nonverbal/spatial processing skills. Attentional fluency (i.e., working memory and processing speed) and abstract reasoning are areas of weakness. Notably, even `r params$first_name`'s normatively average scores reflect performances that are well below cognitive expectations for `r params$him_her`. *Note:* *z* = 0 (mean) ± 1 (s.d.)
 
 ```{r domain-df, cache = FALSE}
 domain <-
@@ -1178,7 +1178,7 @@ bwu::dotplot(
 ```
 
 ```{r, sirf, results = 'asis', cache = FALSE}
-cat(readLines("3_sirf.md"), sep = "\n")
+cat(readLines("3.0_sirf.md"), sep = "\n")
 ```
 
 # RECOMMENDATIONS
@@ -1188,7 +1188,7 @@ Links highlighted in \textcolor{blue}{blue} should be clickable to the online co
 ```
 
 ```{r, recs, results = 'asis', cache = FALSE}
-cat(readLines("4_recs.md"), sep = "\n")
+cat(readLines("4.0_recs.md"), sep = "\n")
 ```
 
 It was a pleasure to work with `r params$first_name`.

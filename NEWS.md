@@ -89,3 +89,8 @@ output:
 -   fixed a bunch of bugs, but not sure if they are stable fixes yet
 -   most bugs were in pluck .rmd files
 -   also fixed skeleton (minor)
+
+## bwu 0.1.2.9000
+
+-   changed name of nse, sirf, etc
+-   many other tweaks
