@@ -98,60 +98,6 @@
 - 312.89 (F91.8) Other Specified Disruptive, Impulse-Control, and Conduct Disorder
 - 312.9 (F91.9) Unspecified Disruptive, Impulse-Control, and Conduct Disorder
 
-## Schizophrenia Spectrum and Other Psychotic Disorders
-
----
-
-- 301.22 (F21) Schizotypal (Personality) Disorder
-- 297.1 (F22) Delusional Disorder
-- 298.8 (F23) Brief Psychotic Disorder
-- 295.40 (F20.81) Schizophreniform Disorder
-- 295.90 (F20.9) Schizophrenia
-- 295.70 (F25.0) Schizoaffective Disorder, Bipolar type
-- 295.70 (F25.1) Schizoaffective Disorder, Depressive type
-- 293.81 (F06.2) Psychotic Disorder Due to Another Medical Condition, With delusions
-- 293.82 (F06.0) Psychotic Disorder Due to Another Medical Condition, With hallucinations
-- 293.89 (F06.1) Catatonia Associated With Another Mental Disorder (Catatonia Specifier)
-- 293.89 (F06.1) Catatonic Disorder Due to Another Medical Condition
-- 293.89 (F06.1) Unspecified Catatonia
-- 298.8 (F28) Other Specified Schizophrenia Spectrum and Other Psychotic Disorder
-- 298.9 (F29) Unspecified Schizophrenia Spectrum and Other Psychotic Disorder
-
-## Bipolar and Related Disorders
-
----
-
-### Current or most recent episode manic
-
-- 296.41 (F31.11) Bipolar I Disorder, Mild
-- 296.42 (F31.12) Bipolar I Disorder, Moderate
-- 296.43 (F31.13) Bipolar I Disorder, Severe
-- 296.44 (F31.2) Bipolar I Disorder, With psychotic features
-- 296.45 (F31.73) Bipolar I Disorder, In partial remission
-- 296.46 (F31.74) Bipolar I Disorder, In full remission
-- 296.40 (F31.9) Bipolar I Disorder, Unspecified
-- 296.40 (F31.0) Bipolar I Disorder, Current or most recent episode hypomanic
-- 296.45 (F31.71) Bipolar I Disorder, In partial remission
-- 296.46 (F31.72) Bipolar I Disorder, In full remission
-
-### Current or most recent episode depressed
-
-- 296.51 (F31.31) Bipolar I Disorder, Mild
-- 296.52 (F31.32) Bipolar I Disorder, Moderate
-- 296.53 (F31.4) Bipolar I Disorder, Severe
-- 296.54 (F31.5) Bipolar I Disorder, With psychotic features
-- 296.55 (F31.75) Bipolar I Disorder, In partial remission
-- 296.56 (F31.76) Bipolar I Disorder, In full remission
-- 296.50 (F31.9) Bipolar I Disorder, Unspecified
-- 296.7 (F31.9) Bipolar I Disorder, Current or most recent episode unspecified
-- 296.89 (F31.81) Bipolar II Disorder
-- 301.13 (F34.0) Cyclothymic Disorder, Specify if: With anxious distress
-- XXX.XX (F06.33) Bipolar and Related Disorder Due to Another Medical Condition, With manic features
-- XXX.XX (F06.33) Bipolar and Related Disorder Due to Another Medical Condition, With manic- or hypomanic-like episode
-- XXX.XX (F06.34) Bipolar and Related Disorder Due to Another Medical Condition, With mixed features
-- 296.89 (F31.89) Other Specified Bipolar and Related Disorder
-- 296.80 (F31.9) Unspecified Bipolar and Related Disorder
-
 ## Depressive Disorders
 
 ---
@@ -234,16 +180,70 @@
 - 309.89 (F43.8) Other Specified Trauma- and Stressor-Related Disorder
 - 309.9 (F43.9) Unspecified Trauma- and Stressor-Related Disorder
 
+## Schizophrenia Spectrum and Other Psychotic Disorders
+
+---
+
+- 301.22 (F21) Schizotypal (Personality) Disorder
+- 297.1 (F22) Delusional Disorder
+- 298.8 (F23) Brief Psychotic Disorder
+- 295.40 (F20.81) Schizophreniform Disorder
+- 295.90 (F20.9) Schizophrenia
+- 295.70 (F25.0) Schizoaffective Disorder, Bipolar type
+- 295.70 (F25.1) Schizoaffective Disorder, Depressive type
+- 293.81 (F06.2) Psychotic Disorder Due to Another Medical Condition, With delusions
+- 293.82 (F06.0) Psychotic Disorder Due to Another Medical Condition, With hallucinations
+- 293.89 (F06.1) Catatonia Associated With Another Mental Disorder (Catatonia Specifier)
+- 293.89 (F06.1) Catatonic Disorder Due to Another Medical Condition
+- 293.89 (F06.1) Unspecified Catatonia
+- 298.8 (F28) Other Specified Schizophrenia Spectrum and Other Psychotic Disorder
+- 298.9 (F29) Unspecified Schizophrenia Spectrum and Other Psychotic Disorder
+
+## Bipolar and Related Disorders
+
+---
+
+### Current or most recent episode manic
+
+- 296.41 (F31.11) Bipolar I Disorder, Mild
+- 296.42 (F31.12) Bipolar I Disorder, Moderate
+- 296.43 (F31.13) Bipolar I Disorder, Severe
+- 296.44 (F31.2) Bipolar I Disorder, With psychotic features
+- 296.45 (F31.73) Bipolar I Disorder, In partial remission
+- 296.46 (F31.74) Bipolar I Disorder, In full remission
+- 296.40 (F31.9) Bipolar I Disorder, Unspecified
+- 296.40 (F31.0) Bipolar I Disorder, Current or most recent episode hypomanic
+- 296.45 (F31.71) Bipolar I Disorder, In partial remission
+- 296.46 (F31.72) Bipolar I Disorder, In full remission
+
+### Current or most recent episode depressed
+
+- 296.51 (F31.31) Bipolar I Disorder, Mild
+- 296.52 (F31.32) Bipolar I Disorder, Moderate
+- 296.53 (F31.4) Bipolar I Disorder, Severe
+- 296.54 (F31.5) Bipolar I Disorder, With psychotic features
+- 296.55 (F31.75) Bipolar I Disorder, In partial remission
+- 296.56 (F31.76) Bipolar I Disorder, In full remission
+- 296.50 (F31.9) Bipolar I Disorder, Unspecified
+- 296.7 (F31.9) Bipolar I Disorder, Current or most recent episode unspecified
+- 296.89 (F31.81) Bipolar II Disorder
+- 301.13 (F34.0) Cyclothymic Disorder, Specify if: With anxious distress
+- XXX.XX (F06.33) Bipolar and Related Disorder Due to Another Medical Condition, With manic features
+- XXX.XX (F06.33) Bipolar and Related Disorder Due to Another Medical Condition, With manic- or hypomanic-like episode
+- XXX.XX (F06.34) Bipolar and Related Disorder Due to Another Medical Condition, With mixed features
+- 296.89 (F31.89) Other Specified Bipolar and Related Disorder
+- 296.80 (F31.9) Unspecified Bipolar and Related Disorder
+
 ## Dissociative Disorders
 
 ---
 
-300.14 (F44.81) Dissociative Identity Disorder
-300.12 (F44.0) Dissociative Amnesia
-300.13 (F44.1) Dissociative Amnesia, With dissociative fugue
-300.6 (F48.1) Depersonalization/Derealization Disorder
-300.15 (F44.89) Other Specified Dissociative Disorder
-300.15 (F44.9) Unspecified Dissociative Disorder
+- 300.14 (F44.81) Dissociative Identity Disorder
+- 300.12 (F44.0) Dissociative Amnesia
+- 300.13 (F44.1) Dissociative Amnesia, With dissociative fugue
+- 300.6 (F48.1) Depersonalization/Derealization Disorder
+- 300.15 (F44.89) Other Specified Dissociative Disorder
+- 300.15 (F44.9) Unspecified Dissociative Disorder
 
 ## Somatic Symptom and Related Disorders
 

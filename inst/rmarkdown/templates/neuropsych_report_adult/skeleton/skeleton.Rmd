@@ -463,7 +463,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:spt) *Visuoperception, visuoconstruction, and visuospatial processing* refer to abilities such as mentally visualizing how objects should look from different angles, visualizing how to put objects together so that they fit correctly, and being able to accurately and efficiently copy and/or reproduce visual-spatial information onto paper.
 
-(ref:att-exe) *Attentional* and *executive functions* underlie most, if not all, domains of cognitive performance. These are behaviors and skills that allow individuals to successfully carry-out instrumental and social activities, academic work, engage with others effectively, problem solve, and successfully interact with the environment to get needs met.
+(ref:att-exe) *Attentional and executive functions* underlie most, if not all, domains of cognitive performance. These are behaviors and skills that allow individuals to successfully carry-out instrumental and social activities, academic work, engage with others effectively, problem solve, and successfully interact with the environment to get needs met.
 
 (ref:att) *Attention* is a basic function that underlies most, if not all, domains of neurocognitive functioning. If an individual has limited attentional capacity, an inability to sustain or divide attentional focus, or a reduced ability to selectively attend to competing stimuli, then they would likely be unable to interact with the environment to an adequate degree and, thus have limited functioning in other, higher-order areas.
 
@@ -503,7 +503,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:planning) *Planning* is a neurocognitive ability used to determine, select, and apply strategies to solve problems where initiation, self-monitoring, and self-correction or especially important.
 
-(ref:efficiency) *Efficiency* reflects how long it takes to complete a task with the highest number of correct responses.
+(ref:efficiency) *Efficiency* is not the same as speed. Efficiency is a ratio of outcome to effort, with time as a proxy for effort.
 
 (ref:psi) The Processing Speed Index (PSI) is primarily a measure of Processing Speed (Gs). Gs refers to the efficiency of cognitive processing or speed of mental activity. It involves the ability to perform simple clerical-type tasks quickly, especially when under pressure to maintain attention and concentration. The difference between the scores that comprise the PSI is statistically significant and a difference of this size occurs in less than 10% of the general population which means the difference is relatively uncommon. This means that although the composite is likely a psychometrically sound estimate of Processing Speed, it may not be a good clinical summary because it may obscure an important and meaningful difference within this domain, which often occurs when one score is below average and the other score(s) is at least average relative to most people.
 
@@ -574,7 +574,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 ```
 
 ```{r nse, results = 'asis', cache = FALSE}
-cat(readLines("1.2_nse.md"), sep = "\n")
+cat(readLines("2.0_nse.md"), sep = "\n")
 ```
 
 \newpage
@@ -583,6 +583,13 @@ cat(readLines("1.2_nse.md"), sep = "\n")
 
 ## Test Battery
 
+- (ref:caadid)
+- (ref:caars):
+  - (ref:caars-sr)
+  - (ref:caars-or)
+- (ref:cefi):
+  - (ref:cefi-sr)
+  - (ref:cefi-or)
 - (ref:acs):
   - (ref:acs-topf)
   - (ref:acs-word-choice)
@@ -597,13 +604,6 @@ cat(readLines("1.2_nse.md"), sep = "\n")
 - (ref:rocf)
 - (ref:tmt)
 - (ref:pegboard)
-- (ref:caadid)
-- (ref:caars):
-  - (ref:caars-sr)
-  - (ref:caars-or)
-- (ref:cefi):
-  - (ref:cefi-sr)
-  - (ref:cefi-or)
 - (ref:pai)
 
 ```{r nt-obs, results = 'asis', cache = FALSE}
@@ -614,8 +614,7 @@ cat(readLines("2.1_nt-obs.md"), sep = "\n")
 
 ## Test Results
 
-\autoref{fig:gauss-plot-narrow} can be used as a guide to help interpret individual test scores in terms of the degree of distance a score fell in relation to normative and developmental expectations (i.e., the mean).
-\autoref{fig:gauss-plot-broad} can be used to help interpret broad domains in terms of the degree of clinical severity.
+\autoref{fig:gauss-plot-narrow} and \autoref{fig:gauss-plot-broad} can be used as guides to help interpret individual test scores in terms of the degree of distance a score fell in relation to normative and developmental expectations (i.e., the mean) and the magnitude of clinical severity.
 Test scores are easiest to interpret as percentiles[^1], which are provided in the tables below, and as *z*-scores (M = 0, SD = 1)[^2], which are used to plot the various test and domain scores below.
 
 (ref:gauss-plot-narrow) Classification of neuropsychological test scores that are normally distributed in the general population [@guilmetteAmericanAcademyClinical2020].
@@ -884,9 +883,9 @@ knitr::read_chunk(here::here(patient, "2.5_spatial.R"))
 
 <!-- ### Attention/Executive -->
 
-(ref:unstructured-task) This was a novel planning task published as part of the NIH EXAMINER Executive Function Battery [@kramer2014]. The task allows the examinee to choose which problems they want to work on to maximize points earned. In doing so, examinees need to plan ahead, avoid items that are strategically poor choices, and be cognizant of when a particular booklet offers diminishing returns. (ref:first-name) performed this task effortlessly.
-
 (ref:fn-exe) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
+
+(ref:unstructured-task) This was a novel planning task published as part of the NIH EXAMINER Executive Function Battery [@kramer2014]. The task allows the examinee to choose which problems they want to work on to maximize points earned. In doing so, examinees need to plan ahead, avoid items that are strategically poor choices, and be cognizant of when a particular booklet offers diminishing returns. (ref:first-name) performed this task effortlessly.
 
 ```{r, executive, results='asis', eval = params$eval_executive}
 cat(readLines("2.6_executive.md"), sep = "\n")
@@ -956,7 +955,7 @@ knitr::read_chunk(here::here(patient, "2.7_memory.R"))
 
 <!-- ### Motor -->
 
-(ref:fn-mtr) *T* Score (M = 50, SD = 10) or Scaled Score (M = 10, SD = 3)
+(ref:fn-mtr) *T* Score (M = 50, SD = 10)
 
 ```{r, motor, results='asis', eval = params$eval_motor}
 cat(readLines("2.8_motor.md"), sep = "\n")
@@ -1026,9 +1025,11 @@ knitr::read_chunk(here::here(patient, "2.9_social.R"))
 
 <!-- ### ADHD/Executive Functioning -->
 
+(ref:fn-adhd) Standard Score (M = 100, SD = 15) or *T* Score (M = 50, SD = 10)
+
 (ref:att-ef) Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other.
 
-(ref:fn-adhd) Standard Score (M = 100, SD = 15) or *T* Score (M = 50, SD = 10)
+(ref:caars-cefi) *Note* On the CAARS, higher scores reflect worse functioning in a given area, but on the CEFI, higher scores reflect better functioning in a given area.
 
 ```{r, adhd, results='asis', eval = params$eval_adhd}
 cat(readLines("2.10_adhd.md"), sep = "\n")
@@ -1094,10 +1095,10 @@ knitr::read_chunk(here::here(patient, "2.11_emotion.R"))
 ```{r 05-df-emotion, eval = params$eval_emotion}
 ```
 
-```{r 06-plot-subdomain-emotion, eval = params$eval_emotion, fig.cap='(ref:emotion)'}
+```{r 06-plot-subdomain-emotion, eval = TRUE, fig.cap='(ref:emotion)'}
 ```
 
-```{r 07-plot-narrow-emotion, eval = F, fig.cap='(ref:emotion)'}
+```{r 07-plot-narrow-emotion, eval = FALSE, fig.cap='(ref:emotion)'}
 ```
 
 \newpage

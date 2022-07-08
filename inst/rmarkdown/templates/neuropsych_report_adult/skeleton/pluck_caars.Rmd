@@ -321,7 +321,7 @@ if (params$test == "caars_sr") {
           "i.e., trouble concentrating, difficulty planning or completing tasks, forgetfulness, absent-mindedness, being disorganized",
         scale ==
           "Hyperactivity/Restlessness" ~
-          "i.e., problems with working at the same task for long periods of time, feeling more restless than others seems to be, fidgeting",
+          "i.e., problems with working at the same task for long periods of time, feeling more restless than others seem to be, fidgeting",
         scale ==
           "Impulsivity/Emotional Lability" ~
           "i.e., engaging in more impulsive acts than others do, low frustration tolerance, quick and frequent mood changes, feeling easily angered and irritated by people",
@@ -356,7 +356,7 @@ if (params$test == "caars_sr") {
           "i.e., trouble concentrating, difficulty planning or completing tasks, forgetfulness, absent-mindedness, being disorganized",
         scale ==
           "Hyperactivity/Restlessness" ~
-          "i.e., problems with working at the same task for long periods of time, feeling more restless than others seems to be, fidgeting",
+          "i.e., problems with working at the same task for long periods of time, feeling more restless than others seem to be, fidgeting",
         scale ==
           "Impulsivity/Emotional Lability" ~
           "i.e., engaging in more impulsive acts than others do, low frustration tolerance, quick and frequent mood changes, feeling easily angered and irritated by people",
