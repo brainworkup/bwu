@@ -350,7 +350,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:nab) Neuropsychological Assessment Battery (NAB)
 
-(ref:nabs) Neuropsychological Assessment Battery (NAB), Screener
+(ref:nabs) Neuropsychological Assessment Battery, Screener (NAB)
 
 (ref:rbans) Repeatable Repeatable Battery for the Assessment of Neuropsychological Status Update (RBANS)
 
@@ -440,7 +440,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:social) Social Cognition
 
-(ref:adhd-ef) ADHD/Executive Functioning
+(ref:adhd-ef) ADHD and Executive Functioning
 
 (ref:emotion) Behavioral, Personality, and Emotional Functioning
 
