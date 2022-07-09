@@ -1,12 +1,14 @@
 ---
 title: "Pluck Additional Neuropsych Measures/Tests"
 params:
-  patient: "Biggie"
+  patient:
+    label: "Patient First Name:"
+    value: Biggie
+    input: text
   test:
-    label: "Test/Measure"
+    label: "Test/Measure:"
     value: examiner
-    input: select
-    multiple: no
+    input: radio
     choices:
       - examiner
       - pegboard
@@ -14,11 +16,10 @@ params:
       - topf
       - tmt
       - dkefs_cwi
-  battery:
-    label: "Test Battery"
+  raw_data:
+    label: "Test/Measure Raw Score:"
     value: pre_examiner.csv
-    input: select
-    multiple: no
+    input: radio
     choices:
       - pre_examiner.csv
       - pre_pegboard.csv
@@ -27,10 +28,9 @@ params:
       - pre_tmt.csv
       - pre_dkefs_cwi.csv
   test_name:
-    label: "Test Name:"
+    label: "Full Test Name:"
     value: NIH EXAMINER
-    input: select
-    multiple: no
+    input: radio
     choices:
       - NIH EXAMINER
       - Grooved Pegboard
@@ -38,9 +38,22 @@ params:
       - Test of Premorbid Functioning
       - Trail Making Test
       - D-KEFS Color-Word Interference
+  score_type:
+    label: "Type of Test Score:"
+    value: t_score
+    input: radio
+    choices:
+      - raw_score
+      - z_score
+      - scaled_score
+      - t_score
+      - standard_score
+  mean: 50
+  stdev: 10
+  cronbach: 0.89
   file:
-    label: "No file selected"
-    value: file
+    label: "Select Pre-CSV File"
+    value: File
     input: file
 output:
   rmdformats::robobook:
@@ -83,22 +96,37 @@ patient <- params$patient
 test <- params$test
 ```
 
-## Battery
+## Raw Data
 
-```{r battery}
-battery <- params$battery
+```{r raw}
+raw_data <- params$raw_data
 ```
 
 ## Import csv
 
 ```{r read}
-table <- readr::read_csv(here::here(patient, "pre_csv", battery))
+table <- readr::read_csv(here::here(patient, "pre_csv", raw_data))
 ```
 
 ## Convert T scores to z scores to percentiles and glue result
 
 ```{r convert}
-table <- bwu::gpluck_t2z2p(table = table, score = score)
+table <- bwu::gpluck_t2z2p(
+  table = table,
+  score = score,
+  score_type = params$score_type
+)
+```
+
+## Compute CI 95%
+
+```{r ci}
+table$ci_95 <- bwu::ci(
+  x = as.numeric(table$score),
+  m = params$mean,
+  sd = params$stdev,
+  rel = params$cronbach
+)
 ```
 
 ## Write out
