@@ -19,8 +19,8 @@ params:
       - CVLT-3 Brief
       - CVLT-3
   file:
-    label: "No file selected"
-    value: file
+    label: "Select File:"
+    value: File
     input: file
   pages: [9,11,9,9,9,12,9]
   table1:
@@ -468,7 +468,7 @@ table3 <- bwu::gpluck_make_columns(
   test = params$test,
   test_name = params$test_name,
   domain = "Memory",
-  subdomain = "Long-Term Memory",
+  subdomain = "Delayed Recall",
   narrow = "Free-Recall Memory",
   pass = "Sequential",
   verbal = "Verbal",
@@ -488,7 +488,7 @@ table4 <- bwu::gpluck_make_columns(
   test = params$test,
   test_name = params$test_name,
   domain = "Memory",
-  subdomain = "Long-Term Memory",
+  subdomain = "Delayed Recall",
   narrow = "Recognition Memory",
   pass = "Sequential",
   verbal = "Verbal",

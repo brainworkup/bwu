@@ -121,7 +121,7 @@ raw_data <- params$raw_data
 table <- readr::read_csv(here::here(patient, "pre_csv", raw_data))
 ```
 
-## Convert T scores to z scores to percentiles and glue result
+## Convert z/ss/T/SS scores to percentiles and glue result
 
 ```{r convert}
 table <- bwu::gpluck_t2z2p(
