@@ -219,16 +219,37 @@ params:
       - spouse
       - guardian
       - other
-  eval_iq: TRUE
-  eval_academics: TRUE
-  eval_verbal: TRUE
-  eval_spatial: TRUE
-  eval_executive: TRUE
-  eval_memory: TRUE
-  eval_motor: TRUE
-  eval_social: TRUE
-  eval_adhd: TRUE
-  eval_emotion: TRUE
+# Domains to evaluate or not
+  eval_iq:
+    label: "Intelligence/General Ability"
+    value: TRUE
+  eval_academics:
+    label: "Academic Skills"
+    value: TRUE
+  eval_verbal:
+    label: "Verbal/Language"
+    value: TRUE
+  eval_spatial:
+    label: "Visual Perception/Construction"
+    value: TRUE
+  eval_executive:
+    label: "Attention/Executive"
+    value: TRUE
+  eval_memory:
+    label: "Memory"
+    value: TRUE
+  eval_motor:
+    label: "Motor"
+    value: TRUE
+  eval_social:
+    label: "Social Cognition"
+    value: TRUE
+  eval_adhd:
+    label: "ADHD/Executive Functioning"
+    value: TRUE
+  eval_emotion:
+    label: "Emotional/Behavioral/Personality"
+    value: TRUE
 ---
 
 ```{r patient, include = FALSE}
