@@ -57,7 +57,12 @@ Specify date range to exclude entire database.
 Copy over to pre_csv.
 
 ```{r pluck}
-plucked_table <- vroom::vroom(here::here(patient, "pre_csv", "pariconnectexportPAI.csv"), delim = ",", col_names = TRUE)
+plucked_table <-
+  vroom::vroom(
+    here::here(patient, "pre_csv", "pariconnectexportPAI.csv"),
+    delim = ",",
+    col_names = TRUE
+  )
 ```
 
 ## PAI Index and Subscale Scores

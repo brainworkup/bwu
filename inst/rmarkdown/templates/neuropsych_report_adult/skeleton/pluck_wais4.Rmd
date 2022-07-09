@@ -162,6 +162,10 @@ params:
       - raw_score
       - score
       - percentile
+  slice:
+    label: "Subset Rows"
+    input: checkbox
+    value: TRUE
 output:
   rmdformats::robobook:
     highlight: kate
@@ -1031,7 +1035,7 @@ table5 <-
   table5 |>
   dplyr::mutate(
     description = dplyr::case_when(
-      scale == "Coding" ~ "Psychomotor speed, visual scanning ability, and visual-motor coordination",
+      scale == "Coding" ~ "Efficiency of psychomotor speed, visual scanning ability, and visual-motor coordination",
       scale == "Symbol Search" ~ "Visual-perceptual decision-making speed",
       scale == "Cancellation" ~ "Selective visual attention, visual discrimination, and visual-perceptual processing",
       TRUE ~ as.character(description)
@@ -1211,12 +1215,12 @@ table7 <-
   dplyr::mutate(
     narrow = dplyr::case_when(
       scale == "Digit Span Forward" ~ "Attention Span",
-      scale == "Digit Span Backward" ~ "Working Memory",
-      scale == "Digit Span Sequencing" ~ "Working Memory",
+      scale == "Digit Span Backward" ~ "Verbal Working Memory",
+      scale == "Digit Span Sequencing" ~ "Verbal Working Memory",
       scale == "Longest Digit Span Forward" ~ "Attention Span",
-      scale == "Longest Digit Span Backward" ~ "Working Memory",
-      scale == "Longest Digit Span Sequence" ~ "Working Memory",
-      scale == "Longest Letter-Number Sequence" ~ "Working Memory",
+      scale == "Longest Digit Span Backward" ~ "Verbal Working Memory",
+      scale == "Longest Digit Span Sequence" ~ "Verbal Working Memory",
+      scale == "Longest Letter-Number Sequence" ~ "Verbal Working Memory",
       TRUE ~ as.character(narrow)
     )
   )
@@ -1272,7 +1276,7 @@ table7 <-
         "Forward digit span/attention span",
       scale ==
         "Digit Span Backward" ~
-        "Verbal working memory",
+        "Verbal working memory manipulation",
       scale ==
         "Digit Span Sequencing" ~
         "Verbal working memory and sequencing",
@@ -1287,7 +1291,7 @@ table7 <-
         "Recall of digits sequences/resequencing",
       scale ==
         "Longest Letter-Number Sequence" ~
-        "longest letter-number sequence (span)",
+        "longest letter-number sequence span",
       TRUE ~ as.character(description)
     )
   )
@@ -1322,8 +1326,16 @@ wais4 <-
 
 ## Slice to reorder subtests/scales
 
-```{r slice}
-wais4 <- wais4 %>% dplyr::slice(5, 1, 6:7, 2, 9, 8, 10, 3, 12, 11, 13:15, 4, 21, 20)
+```{r slice, eval = params$slice}
+wais4 <-
+  wais4 |>
+  dplyr::slice(
+    iq = (5),
+    vci = c(1, 6:7),
+    pri = c(2, 9, 8, 10),
+    wmi = c(3, 12, 11, 13:15),
+    psi = c(4, 21, 20)
+  )
 ```
 
 ## Write out final csv

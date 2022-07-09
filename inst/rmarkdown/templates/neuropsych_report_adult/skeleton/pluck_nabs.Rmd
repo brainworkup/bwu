@@ -1395,15 +1395,16 @@ nabs <- dplyr::bind_rows(
 ## Slice/Reorder table
 
 ```{r reorder, eval = params$slice}
-nabs <- dplyr::slice(
-  nabs,
-  index = (6),
-  att = c(1, 7, 13:19),
-  lan = c(2, 20, 24),
-  mem = c(3, 27:32),
-  spt = c(4, 33, 34),
-  exe = c(5, 35, 36, 37)
-)
+nabs <-
+  nabs |>
+  dplyr::slice(
+    index = (6),
+    att = c(1, 7, 13:19),
+    lan = c(2, 20, 24),
+    mem = c(3, 27:32),
+    spt = c(4, 33, 34),
+    exe = c(5, 35, 36, 37)
+  )
 ```
 
 ## Write final csv table
