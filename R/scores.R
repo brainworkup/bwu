@@ -30,7 +30,7 @@ pred <- function(x, y, r, m, ...) {
 #' @param ... Additional arguments
 #' @return Returns confidence interval
 #' @examples
-#' ci(x = 88, m = 100, sd = 15, rel = .80)
+#' ci_95 <- ci(x = 88, m = 100, sd = 15, rel = .80)
 #' @export
 ci <- function(x, m, sd, rel, level = 0.95, ...) {
   sem <- sd * sqrt(1 - rel)
@@ -39,7 +39,7 @@ ci <- function(x, m, sd, rel, level = 0.95, ...) {
   error <- z * sem
   ci_lo <- round(true_score - error, 0)
   ci_hi <- round(true_score + error, 0)
-  ci <- paste0(true_score, " ", "(", ci_lo, "-", ci_hi, ")")
+  ci <- paste0(true_score, " ", "[", ci_lo, " - ", ci_hi, "]")
 }
 
 #' Convert T scores to z scores to percentiles.

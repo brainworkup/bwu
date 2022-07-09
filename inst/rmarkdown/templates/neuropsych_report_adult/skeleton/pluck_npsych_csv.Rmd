@@ -5,8 +5,19 @@ params:
     label: "Patient First Name:"
     value: Biggie
     input: text
+  test_name:
+    label: "Full Name of Test/Test Battery:"
+    value: NIH EXAMINER
+    input: radio
+    choices:
+      - NIH EXAMINER
+      - Grooved Pegboard
+      - Rey Complex Figure
+      - Test of Premorbid Functioning
+      - Trail Making Test
+      - D-KEFS Color-Word Interference
   test:
-    label: "Test/Measure:"
+    label: "Test/Measure File Name:"
     value: examiner
     input: radio
     choices:
@@ -17,7 +28,7 @@ params:
       - tmt
       - dkefs_cwi
   raw_data:
-    label: "Test/Measure Raw Score:"
+    label: "Test/Measure Raw Score File:"
     value: pre_examiner.csv
     input: radio
     choices:
@@ -27,30 +38,32 @@ params:
       - pre_topf.csv
       - pre_tmt.csv
       - pre_dkefs_cwi.csv
-  test_name:
-    label: "Full Test Name:"
-    value: NIH EXAMINER
-    input: radio
-    choices:
-      - NIH EXAMINER
-      - Grooved Pegboard
-      - Rey Complex Figure
-      - Test of Premorbid Functioning
-      - Trail Making Test
-      - D-KEFS Color-Word Interference
   score_type:
     label: "Type of Test Score:"
     value: t_score
     input: radio
     choices:
-      - raw_score
       - z_score
       - scaled_score
       - t_score
       - standard_score
-  mean: 50
-  stdev: 10
-  cronbach: 0.89
+  mean:
+    label: "Mean:"
+    value: 50
+    input: radio
+    choices: [0, 10, 50, 100]
+  stdev:
+    label: "Standard Deviation:"
+    value: 10
+    input: radio
+    choices: [1, 3, 10, 15]
+  reliability:
+    label: "Reliability:"
+    value: 0.80
+    input: slider
+    min: 0
+    max: 1
+    step: 0.01
   file:
     label: "Select Pre-CSV File"
     value: File
@@ -123,9 +136,9 @@ table <- bwu::gpluck_t2z2p(
 ```{r ci}
 table$ci_95 <- bwu::ci(
   x = as.numeric(table$score),
-  m = params$mean,
-  sd = params$stdev,
-  rel = params$cronbach
+  m = as.numeric(params$mean),
+  sd = as.numeric(params$stdev),
+  rel = as.numeric(params$reliability)
 )
 ```
 
