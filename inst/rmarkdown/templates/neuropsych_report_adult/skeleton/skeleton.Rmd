@@ -502,7 +502,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:cog-ctrl) *Cognitive control* guides behavior by controlling what, when, and how information is represented in the brain. Cognitive control is associated with a wide range of processes and is not restricted to a particular cognitive domain. Impairments in cognitive control functions are associated with specific deficits in attention, memory, language comprehension and emotional processing.
 
-(ref:adhd) *ADHD* is a lifelong disorder characterized by symptoms of inattention (not being able to keep focus), hyperactivity (excess movement that is not fitting to the setting) and impulsivity (hasty acts that occur in the moment without thought). Many ADHD symptoms, such as high activity levels, difficulty remaining still for long periods of time, and limited attention span, are common from time to time in everyone. The difference in individuals with ADHD is that their inattention, poor impulse control, and hyperactivity are substantially greater than expected for their age and cause distress and/or problems functioning at home, at school, at work, and/or with friends.
+(ref:adhd) *ADHD* is a lifelong disorder characterized by symptoms of inattention (not being able to keep focus), hyperactivity (excess movement that is not fitting to the setting) and impulsivity (hasty acts that occur in the moment without thought). Many ADHD symptoms, such as high activity levels, difficulty remaining still for long periods of time, and limited attention span are common from time to time in everyone. The difference in individuals with ADHD is that their inattention, poor impulse control, and hyperactivity are substantially greater than expected for their age and cause distress and/or problems functioning at home, at school, at work, and/or with friends.
 
 (ref:dysgraphia) *Dysgraphia* is an impairment in writing, including problems with letter formation/legibility, letter spacing, spelling, fine motor coordination, rate of writing, grammar, and composition. DSM-5 categorizes writing impairment as a *specific learning disability with impairment in written expression* (spelling accuracy, grammar and punctuation accuracy, and clarity and organization of written expression) [@chungDisorderWrittenExpression2020].
 
@@ -522,7 +522,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:aud-comp) *Auditory Comprehension* is the ability to understand what is heard, including the tone of voice, pauses between words, emphasis used, and the rhythm and pattern of speech, and attach meaning to it. This is a foundational skill originating in early infancy that, ideally, builds with exposure and learning processes.
 
-(ref:planning) *Planning* is a neurocognitive ability used to determine, select, and apply strategies to solve problems where initiation, self-monitoring, and self-correction or especially important.
+(ref:planning) *Planning* is a neurocognitive ability used to determine, select, and apply strategies to solve problems where initiation, self-monitoring, and self-correction are especially important.
 
 (ref:efficiency) *Efficiency* is not the same as speed. Efficiency is a ratio of outcome to effort, with time as a proxy for effort.
 
