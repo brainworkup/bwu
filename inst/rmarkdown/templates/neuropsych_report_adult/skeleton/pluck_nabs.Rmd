@@ -742,9 +742,10 @@ table2 <-
   mutate(
     narrow = case_when(
       scale %in% orientation ~ "General Verbal Information",
-      scale %in% dsf ~ "Attention Span",
+      scale %in% dsf ~ "Verbal Attention",
       scale %in% dsb ~ "Verbal Working Memory",
-      scale %in% nlt ~ "Psychomotor Speed",
+      scale == "Numbers & Letters Part A Speed" ~ "Psychomotor Speed",
+      scale == "Numbers & Letters Part A Errors" ~ "Response Monitoring",
       scale == "Numbers & Letters Part A Efficiency" ~ "Selective Attention",
       scale == "Numbers & Letters Part B Efficiency" ~ "Divided Attention",
       scale %in% nle ~ "Response Monitoring",
