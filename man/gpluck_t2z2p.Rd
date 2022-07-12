@@ -4,7 +4,7 @@
 \alias{gpluck_t2z2p}
 \title{Convert T-score to z-score to percentile}
 \usage{
-gpluck_t2z2p(..., table, score = NULL, score_type)
+gpluck_t2z2p(..., table, score = NULL, score_type = score_type)
 }
 \arguments{
 \item{...}{More expressions}

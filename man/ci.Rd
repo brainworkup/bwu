@@ -26,5 +26,5 @@ Returns confidence interval
 To compute confidence intervals for test scores.
 }
 \examples{
-ci(x = 88, m = 100, sd = 15, rel = .80)
+ci_95 <- ci(x = 88, m = 100, sd = 15, rel = .80)
 }
