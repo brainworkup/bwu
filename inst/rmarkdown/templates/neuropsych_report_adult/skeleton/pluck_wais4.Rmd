@@ -166,6 +166,28 @@ params:
     label: "Subset Rows"
     input: checkbox
     value: TRUE
+# Domains to evaluate or not
+  eval_iq:
+    label: "Intelligence/General Ability"
+    value: TRUE
+  eval_vci:
+    label: "Verbal/Language"
+    value: TRUE
+  eval_pri:
+    label: "Visual Perception/Construction"
+    value: TRUE
+  eval_wmi:
+    label: "Working Memory"
+    value: TRUE
+  eval_psi:
+    label: "Processing Speed"
+    value: TRUE
+  eval_bd:
+    label: "BD No Time Bonus"
+    value: FALSE
+  eval_span:
+    label: "DS/LNS"
+    value: TRUE
 output:
   rmdformats::robobook:
     highlight: kate
@@ -1065,7 +1087,7 @@ table5 <- table5 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 
 ## Pluck and tidy tables
 
-```{r pluck6}
+```{r pluck6, eval = params$bd}
 table6 <- tibble::as_tibble(plucked_table[[6]])
 colnames(table6) <- params$colnames3
 table6 <- dplyr::na_if(table6, "")
@@ -1079,19 +1101,19 @@ table6 <- table6 %>% hablar::convert(dbl(all_of(to_double)))
 
 ## Scale names
 
-```{r rownames6}
+```{r rownames6, eval = params$bd}
 table6$scale <- params$table6
 ```
 
 ## Select variables to keep
 
-```{r keep6}
+```{r keep6, eval = params$bd}
 table6 <- table6 %>% dplyr::select(all_of(params$keep2))
 ```
 
 ## Mutate columns
 
-```{r mutate6}
+```{r mutate6, eval = params$bd}
 table6 <- bwu::gpluck_make_columns(
   table6,
   range = "",
@@ -1113,13 +1135,13 @@ table6 <- bwu::gpluck_make_columns(
 
 ## Test score ranges
 
-```{r ranges6}
+```{r ranges6, eval = params$bd}
 table6 <- bwu::gpluck_make_score_ranges(table = table6, test_type = "npsych_test")
 ```
 
 ## Scale descriptions
 
-```{r desc6}
+```{r desc6, eval = params$bd}
 table6 <-
   table6 |>
   dplyr::mutate(
@@ -1134,7 +1156,7 @@ table6 <-
 
 ## Glue results
 
-```{r result6}
+```{r result6, eval = params$bd}
 # result text
 table6 <-
   table6 %>%
@@ -1147,7 +1169,7 @@ table6 <-
 
 ## Relocate variables
 
-```{r relocate6}
+```{r relocate6, eval = params$bd}
 table6 <- table6 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
@@ -1155,8 +1177,8 @@ table6 <- table6 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 
 ## Pluck and tidy tables
 
-```{r pluck7}
-table7 <- tibble::as_tibble(plucked_table[[7]])
+```{r pluck7, eval = params$span}
+table7 <- tibble::as_tibble(plucked_table[[6]])
 colnames(table7) <- params$colnames4
 table7 <- dplyr::na_if(table7, "")
 table7 <- dplyr::na_if(table7, "NA")
@@ -1169,19 +1191,19 @@ table7 <- table7 |> hablar::convert(dbl(all_of(to_double)))
 
 ## Scale names
 
-```{r rownames7}
+```{r rownames7, eval = params$span}
 table7$scale <- params$table7
 ```
 
 ## Variables to keep
 
-```{r keep7}
+```{r keep7, eval = params$span}
 table7 <- table7 |> dplyr::select(all_of(params$keep2))
 ```
 
 ## Mutate columns
 
-```{r mutate7}
+```{r mutate7, eval = params$span}
 table7 <- bwu::gpluck_make_columns(
   table7,
   range = "",
@@ -1203,13 +1225,13 @@ table7 <- bwu::gpluck_make_columns(
 
 ## Test score ranges
 
-```{r ranges7}
+```{r ranges7, eval = params$span}
 table7 <- bwu::gpluck_make_score_ranges(table = table7, test_type = "npsych_test")
 ```
 
 ## Narrow subdomains
 
-```{r narrow7}
+```{r narrow7, eval = params$span}
 table7 <-
   table7 %>%
   dplyr::mutate(
@@ -1228,7 +1250,7 @@ table7 <-
 
 ## PASS model
 
-```{r pass7}
+```{r pass7, eval = params$span}
 table7 <-
   table7 |>
   dplyr::mutate(
@@ -1247,7 +1269,7 @@ table7 <-
 
 ## Score type
 
-```{r score7}
+```{r score7, eval = params$span}
 table7 <-
   table7 |>
   dplyr::mutate(
@@ -1266,7 +1288,7 @@ table7 <-
 
 ## Scale descriptions
 
-```{r desc7}
+```{r desc7, eval = params$span}
 table7 <-
   table7 |>
   dplyr::mutate(
@@ -1299,7 +1321,7 @@ table7 <-
 
 ## Glue results
 
-```{r result7}
+```{r result7, eval = params$span}
 table7 <-
   table7 %>%
   dplyr::mutate(
@@ -1311,7 +1333,7 @@ table7 <-
 
 ## Relocate variables
 
-```{r relocate7}
+```{r relocate7, eval = params$span}
 table7 <- table7 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
