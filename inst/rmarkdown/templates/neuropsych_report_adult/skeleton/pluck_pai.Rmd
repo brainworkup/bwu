@@ -60,7 +60,6 @@ Copy over to pre_csv.
 plucked_table <-
   readr::read_csv(
     here::here(patient, "pre_csv", "pariconnectexportPAI.csv"),
-    delim = ",",
     col_names = TRUE
   )
 ```
