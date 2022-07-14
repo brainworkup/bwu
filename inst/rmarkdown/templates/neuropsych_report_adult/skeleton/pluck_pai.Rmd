@@ -58,7 +58,7 @@ Copy over to pre_csv.
 
 ```{r pluck}
 plucked_table <-
-  vroom::vroom(
+  readr::read_csv(
     here::here(patient, "pre_csv", "pariconnectexportPAI.csv"),
     delim = ",",
     col_names = TRUE
@@ -182,7 +182,9 @@ table <- dplyr::mutate(
   timed = "",
   test_type = "rating_scale",
   score_type = "t_score",
-  description = ""
+  absort = paste0(tolower(test), "_", tolower(scale), "_", seq_len(nrow(table))),
+  description = "",
+  result = ""
 )
 ```
 
@@ -328,43 +330,43 @@ table <-
       scale == "Anxiety" ~ "reflecting a generalized impairment associated with anxiety",
       scale == "Cognitive (A)" ~ "elevations indicate worry and concern about current (often uncontrollable) issues that compromise the person's ability to concentrate and attend",
       scale == "Affective (A)" ~ "high scorers experience a great deal of tension, have difficulty with relaxing and tend to be easily fatigued as a result of high-perceived stress",
-      scale == "Physiological (A)" ~ "high scorers my not psychologically experience themselves as anxious, but show physiological signs that most people associate with anxiety. This reflects a repressive style of dealing with stress. When this subscale is elevated, other somatic symptoms are often observed",
+      scale == "Physiological (A)" ~ "high scorers my not psychologically experience themselves as anxious, but show physiological signs that most people associate with anxiety",
       scale == "Anxiety-Related Disorders" ~ "reflecting multiple anxiety-disorder diagnoses and broad impairment associated with anxiety",
-      scale == "Obsessive-Compulsive" ~ "scores marked rigidity and significant ruminative concerns; obsessional defenses are probably finding to control marked anxiety and intrusive thoughts are likely to be present",
+      scale == "Obsessive-Compulsive" ~ "scores marked rigidity and significant ruminative concerns",
       scale == "Phobias" ~ "indicate impairing phobic behaviors, with avoidance of the feared object or situation",
       scale == "Traumatic Stress" ~ "indicate that the trauma (single or multiple) is the overriding focus of the person's life, and views themself as having been severely damages, perhaps irreparably, by having experienced it",
       scale == "Depression" ~ "person feels hopeless, discouraged and useless",
-      scale == "Cognitive (D)" ~ "a higher scorer is likely to report feeling hopeless and as having failed at most important life tasks; he tends to globally attribute negative events in his life to his own incompetence or inadequacy, whereas any positive events are minimized or attributed to some external source",
-      scale == "Affective (D)" ~ "elevations suggest sadness, a loss of interest in normal activities and a loss if one's sense of pleasure in things that were previously enjoyed. This scale is probably one of the most direct measures of overall life satisfaction on the PAI. Moderate elevations can be considered a positive prognostic indicator cause it reflects significant dissatisfaction with current circumstances and such distress can serve as a motivator for change.",
-      scale == "Physiological (D)" ~ "Elevations suggest a change in level of physical functioning, typically with a disturbance in sleep pattern, a decrease in energy and level of sexual interest and a loss of appetite and/or weight loss; motor slowing also may be present",
-      scale == "Mania" ~ "scores are associated with disorders such as mania, hypomania, or cyclothymia; individuals take on more than they can handle and react with frustration and anger to suggestions of reducing activity levels",
-      scale == "Activity Level" ~ "this activity level renders the person confused and difficult to understand; scores in this range are unusual because such people have difficulty focusing their attention for the time required to complete lengthier self-report questionnaires",
-      scale == "Grandiosity" ~ "person may have little capacity to recognize personal limitations, to the point where one is not able to think clearly about one's capabilities; beliefs may border on delusional in terms of having special and unique talents that will lead to fame and fortune; others may view person as self-centered and narcissistic",
-      scale == "Irritability" ~ "person is very volatile in response to frustration and his judgment in such situations may be poor; quality of mood state can change very rapidly, and he is prone to lash out at others who he views as the source of his frustration.",
-      scale == "Paranoia" ~ "individuals are likely to be overtly suspicious and hostile; tend to be distrustful of close interpersonal relationships and probably have few close friends",
-      scale == "Hypervigilance" ~ "suggest a person who is pragmatic and skeptical in relationships; person may be difficult to know well and keep causal acquaintance at arms length",
+      scale == "Cognitive (D)" ~ "a higher scorer is likely to report feeling hopeless and as having failed at most important life tasks",
+      scale == "Affective (D)" ~ "elevations suggest sadness, a loss of interest in normal activities and a loss if one's sense of pleasure in things that were previously enjoyed",
+      scale == "Physiological (D)" ~ "Elevations suggest a change in level of physical functioning, typically with a disturbance in sleep pattern, a decrease in energy and level of sexual interest and a loss of appetite and/or weight loss",
+      scale == "Mania" ~ "scores are associated with disorders such as mania, hypomania, or cyclothymia",
+      scale == "Activity Level" ~ "this activity level renders the person confused and difficult to understand",
+      scale == "Grandiosity" ~ "person may have little capacity to recognize personal limitations, to the point where one is not able to think clearly about one's capabilities",
+      scale == "Irritability" ~ "person is very volatile in response to frustration and his judgment in such situations may be poor",
+      scale == "Paranoia" ~ "individuals are likely to be overtly suspicious and hostile",
+      scale == "Hypervigilance" ~ "suggest a person who is pragmatic and skeptical in relationships",
       scale == "Persecution" ~ "suggest an individual who is quick to feel that they are being treated inequitably and easily believes that there is concerted effort among others to undermine their best interests",
       scale == "Resentment" ~ "increasing tendency to attribute any misfortunes to the neglect of others and to discredit the successes of others as being the result of luck or favoritism",
-      scale == "Schizophrenia" ~ "associated with an active schizophrenic episode; individual is confused, withdrawn and suspicious; person has poor judgment and poor reality testing",
-      scale == "Psychotic Experiences" ~ "person may strike others as peculiar and eccentric; scores indicate the experience of unusual perceptual or sensory events and/or unusual ideas that may involve delusional beliefs",
-      scale == "Social Detachment" ~ "reflects a person who neither desires nor enjoys the meaning to personal relationships; social isolation and detachment may serve o decrease the sense of discomfort that interpersonal contact fosters; lack of interest in others is mirrored in a lack of self-interest",
+      scale == "Schizophrenia" ~ "associated with an active schizophrenic episode",
+      scale == "Psychotic Experiences" ~ "person may strike others as peculiar and eccentric",
+      scale == "Social Detachment" ~ "reflects a person who neither desires nor enjoys the meaning to personal relationships",
       scale == "Thought Disorder" ~ "suggest problems in concentration and decision-making",
-      scale == "Borderline Features" ~ "behaviors typically associated with borderline personality disorder, e.g., individuals are invariably hostile and feel angry and betrayed by the people around them; they often report being very depressed and anxious in response to their circumstances",
+      scale == "Borderline Features" ~ "behaviors typically associated with borderline personality disorder",
       scale == "Affective Instability" ~ "a propensity to experience a particular negative affect (anxiety, depression, or anger is the typical response)",
       scale == "Identity Problems" ~ "suggest uncertainty about major life issues and difficulties in developing and maintaining a sense of purpose",
-      scale == "Negative Relationships" ~ "person is likely to be bitter and resentful about the way past relationships have gone, feeling betrayed by the people who were once closest to him and preoccupied with fears of abandonment or rejection by those currently important to him",
-      scale == "Self-Harm" ~ "reflect levels of impulsivity and recklessness that become more hazardous as scores rise; individuals are impulsive in areas that have high potential for negative consequences",
-      scale == "Antisocial Features" ~ "individuals are likely to be impulsive and hostile, perhaps with a history of reckless and/or antisocial acts; others may seen them as callous in their relationships, and long-lasting friendships tend to be the exception rather than the rule",
-      scale == "Antisocial Behaviors" ~ "scores suggest a history of difficulties with authority and with social convention; A pattern of antisocial behavior was probably first evident in adolescence, and it is likely that this pattern has continued into adulthood",
-      scale == "Egocentricity" ~ "suggest a person who tends to be self-centered and pragmatic in interaction with others; person feels relatively little social anxiety or guilt and he may be effective in superficial social contacts",
-      scale == "Stimulus-Seeking" ~ "patient is likely to manifest behavior that is reckless and potentially dangerous to himself and/or those around him; He craves novelty and stimulation, is easily bored by routine and convention, and he may act impulsively in an effort to stir up excitement. His desire for new experiences may lead to periods of nomadic wandering and make any long-term commitment unlikely; he tends to be less anxious than most people, even when he ends up in situations where some anxiety would be expected",
-      scale == "Aggression" ~ "scores are indicative of an individual who may be seen as impatient, irritable, and quick-tempered; Individuals who score toward the upper end of this range may be increasingly angry and easily provoked by the actions of others around them",
+      scale == "Negative Relationships" ~ "person is likely to be bitter and resentful about the way past relationships have gone",
+      scale == "Self-Harm" ~ "reflect levels of impulsivity and recklessness that become more hazardous as scores rise",
+      scale == "Antisocial Features" ~ "individuals are likely to be impulsive and hostile, perhaps with a history of reckless and/or antisocial acts",
+      scale == "Antisocial Behaviors" ~ "scores suggest a history of difficulties with authority and with social convention",
+      scale == "Egocentricity" ~ "suggest a person who tends to be self-centered and pragmatic in interaction with others",
+      scale == "Stimulus-Seeking" ~ "patient is likely to manifest behavior that is reckless and potentially dangerous to himself and/or those around him",
+      scale == "Aggression" ~ "scores are indicative of an individual who may be seen as impatient, irritable, and quick-tempered",
       scale == "Aggressive Attitude" ~ "suggest an individual who is easily angered and frustrated; others may perceive him as hostile and readily provoked",
       scale == "Verbal Aggression" ~ "reflects a person who is assertive and not intimidated by confrontation and, toward the upper end of this range, he may be verbally aggressive",
-      scale == "Physical Aggression" ~ "suggest that losses of temper are more common and that the person is prone to more physical displays of anger, perhaps breaking objects or engaging in physical confrontations;",
+      scale == "Physical Aggression" ~ "suggest that losses of temper are more common and that the person is prone to more physical displays of anger, perhaps breaking objects or engaging in physical confrontations",
       scale == "Alcohol Problems" ~ "are indicative of an individual who may drink regularly and may have experienced some adverse consequences as a result",
-      scale == "Drug Problems" ~ "scores are indicative of a person who may use drugs on a fairly regular basis and may have experienced some adverse consequences as a result; toward the upper end of this range, there is an increasing likelihood that drug use has caused or is causing problems for the person",
-      scale == "Suicidal Ideation" ~ "scores are typically of an individual who is seen in clinical settings; they suggest a person who entertains periodic and transient thoughts about suicide and is pessimistic and unhappy about prospects for the future; Scores merit some follow-up evaluations",
+      scale == "Drug Problems" ~ "scores are indicative of a person who may use drugs on a fairly regular basis and may have experienced some adverse consequences as a result",
+      scale == "Suicidal Ideation" ~ "scores are typically of an individual who is seen in clinical settings",
       scale == "Stress" ~ "individuals may be experiencing a moderate degree of stress as a result of difficulties in some major life area",
       scale == "Nonsupport" ~ "social relationships are perceived as offering little support - family relationships may be either distant or combative, whereas friends are generally seen as unavailable or not helpful when needed",
       scale == "Treatment Rejection" ~ "average scores suggest a person who acknowledges major difficulties in their functioning, and perceives an acute need for help in dealing with these problems",
@@ -389,7 +391,7 @@ table <-
   table %>%
   dplyr::mutate(
     result = glue::glue(
-      "{patient}'s score on {scale} (i.e., {description}) was {range}."
+      "{patient}'s score on {scale} ({description}) was {range}."
     )
   )
 ```
