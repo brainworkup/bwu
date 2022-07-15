@@ -181,7 +181,9 @@ table <- dplyr::mutate(
   timed = "",
   test_type = "rating_scale",
   score_type = "t_score",
-  absort = paste0(tolower(test), "_", tolower(scale), "_", seq_len(nrow(table))),
+  absort = paste0(
+    tolower(test), "_", tolower(scale), "_", seq_len(nrow(table))
+  ),
   description = "",
   result = ""
 )

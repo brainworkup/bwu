@@ -103,3 +103,7 @@ output:
 
 -   added datasets for ut, letters, categories, pegboard, rocft as .rds files in "inst/extdata"
 
+## bwu 0.1.2.9003
+
+-   switching to tidytable vs tidyverse
+
