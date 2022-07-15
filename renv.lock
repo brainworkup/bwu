@@ -29,6 +29,14 @@
     ]
   },
   "Packages": {
+    "Cairo": {
+      "Package": "Cairo",
+      "Version": "1.6-0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "60aada7beac23aa3e9b219485d6b2da8",
+      "Requirements": []
+    },
     "MASS": {
       "Package": "MASS",
       "Version": "7.3-57",
@@ -69,10 +77,10 @@
     },
     "Rcpp": {
       "Package": "Rcpp",
-      "Version": "1.0.8.3",
+      "Version": "1.0.9",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "32e79b908fda56ee57fe518a8d37b864",
+      "Hash": "e9c08b94391e9f3f97355841229124f2",
       "Requirements": []
     },
     "TTR": {
@@ -261,14 +269,13 @@
     },
     "callr": {
       "Package": "callr",
-      "Version": "3.7.0.9000",
+      "Version": "3.7.1.9000",
       "Source": "Repository",
       "Repository": "https://r-lib.r-universe.dev",
-      "RemoteType": "repository",
       "RemoteUrl": "https://github.com/r-lib/callr",
       "RemoteRef": "HEAD",
-      "RemoteSha": "ba80cc146041ab44280ffe424995d491afb8f209",
-      "Hash": "c63054b3888ff90316b65e628ec5ad12",
+      "RemoteSha": "051de79cbcd7e9ae6519715f44f76e48794e734f",
+      "Hash": "2ebe878be1a8e718664af9e3fa837aaf",
       "Requirements": [
         "R6",
         "processx"
@@ -932,13 +939,13 @@
     },
     "knitr": {
       "Package": "knitr",
-      "Version": "1.39.5",
+      "Version": "1.39.6",
       "Source": "Repository",
       "Repository": "https://yihui.r-universe.dev",
       "RemoteUrl": "https://github.com/yihui/knitr",
       "RemoteRef": "HEAD",
-      "RemoteSha": "0f0c9c26ef126db01d99ebc6008154fe48476cb3",
-      "Hash": "ab925b38aa486be49906717bab7559c0",
+      "RemoteSha": "1edc8b4a04db8c714ce7c7b481ebe28638242e66",
+      "Hash": "9b8defd7f4b6f0c92499433b9124e3f9",
       "Requirements": [
         "evaluate",
         "highr",
@@ -1003,6 +1010,21 @@
         "generics"
       ]
     },
+    "magick": {
+      "Package": "magick",
+      "Version": "2.7.3.9000",
+      "Source": "Repository",
+      "Repository": "https://ropensci.r-universe.dev",
+      "RemoteUrl": "https://github.com/ropensci/magick",
+      "RemoteRef": "master",
+      "RemoteSha": "a48c434e63621e97ed923bd68c012d7db4c92acc",
+      "Hash": "b96ae6070c2cec46c3c0fa43acd301a6",
+      "Requirements": [
+        "Rcpp",
+        "curl",
+        "magrittr"
+      ]
+    },
     "magrittr": {
       "Package": "magrittr",
       "Version": "2.0.3",
@@ -1061,16 +1083,10 @@
     },
     "nlme": {
       "Package": "nlme",
-      "Version": "3.1-158",
+      "Version": "3.1-157",
       "Source": "Repository",
       "Repository": "CRAN",
-      "RemoteType": "standard",
-      "RemotePkgRef": "nlme",
-      "RemoteRef": "nlme",
-      "RemoteRepos": "https://cloud.r-project.org",
-      "RemotePkgPlatform": "x86_64-apple-darwin17.0",
-      "RemoteSha": "3.1-158",
-      "Hash": "9469aeaeddf4f48a7ac70877d0b7ba36",
+      "Hash": "dbca60742be0c9eddc5205e5c7ca1f44",
       "Requirements": [
         "lattice"
       ]
@@ -1087,13 +1103,13 @@
     },
     "pillar": {
       "Package": "pillar",
-      "Version": "1.7.0.9005",
+      "Version": "1.8.0.9000",
       "Source": "Repository",
       "Repository": "https://r-lib.r-universe.dev",
       "RemoteUrl": "https://github.com/r-lib/pillar",
       "RemoteRef": "HEAD",
-      "RemoteSha": "f6996c61df4644493b53dcaad2c085992eb91390",
-      "Hash": "00fc9b07d638839ab4dfac07ad0a0708",
+      "RemoteSha": "19cf5d47c13276064a7745ce160fd75fc9443303",
+      "Hash": "0b8a67a7db7f31a2fd416fef642e6a7f",
       "Requirements": [
         "cli",
         "fansi",
@@ -1194,13 +1210,13 @@
     },
     "processx": {
       "Package": "processx",
-      "Version": "3.6.1.9003",
+      "Version": "3.7.0.9000",
       "Source": "Repository",
       "Repository": "https://r-lib.r-universe.dev",
       "RemoteUrl": "https://github.com/r-lib/processx",
       "RemoteRef": "HEAD",
-      "RemoteSha": "4fa532eca133bec556d1a60f7dcc70dc44842de5",
-      "Hash": "d9a133c63e31e4fc8a680a1ef0ce5d05",
+      "RemoteSha": "53952aa2b1bb1b6dfa20ab400d0bdd2f1abebeda",
+      "Hash": "25a8b34650f799424a795eb8743beff0",
       "Requirements": [
         "R6",
         "ps"
@@ -1347,13 +1363,13 @@
     },
     "renv": {
       "Package": "renv",
-      "Version": "0.15.5-35",
+      "Version": "0.15.5-39",
       "Source": "Repository",
       "Repository": "https://rstudio.r-universe.dev",
       "RemoteUrl": "https://github.com/rstudio/renv",
       "RemoteRef": "HEAD",
-      "RemoteSha": "f01698e541237cbf3f59ad041512de66f67b0e11",
-      "Hash": "3285040679177c23810918172cddda79",
+      "RemoteSha": "ccc67d7f06dfd4633e05bf5bb700089a2efb96da",
+      "Hash": "3ecc121103a638751431fbc889de4026",
       "Requirements": []
     },
     "rex": {
@@ -1378,13 +1394,10 @@
     },
     "rlang": {
       "Package": "rlang",
-      "Version": "1.0.3.9000",
+      "Version": "1.0.4",
       "Source": "Repository",
-      "Repository": "https://r-lib.r-universe.dev",
-      "RemoteUrl": "https://github.com/r-lib/rlang",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "c75b1640d27ae0144006e61040fbf6a7bdf15ed2",
-      "Hash": "213bd9f6e3172c10571b814a39e14f27",
+      "Repository": "CRAN",
+      "Hash": "6539dd8c651e67e3b55b5ffea106362b",
       "Requirements": []
     },
     "rlist": {
@@ -1612,10 +1625,10 @@
     },
     "stringi": {
       "Package": "stringi",
-      "Version": "1.7.6",
+      "Version": "1.7.8",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "bba431031d30789535745a9627ac9271",
+      "Hash": "a68b980681bcbc84c7a67003fa796bfb",
       "Requirements": []
     },
     "stringr": {
@@ -1792,6 +1805,12 @@
         "rlang",
         "vctrs"
       ]
+    },
+    "tidytable": {
+      "Package": "tidytable",
+      "Version": "0.8.0",
+      "Source": "Repository",
+      "Requirements": []
     },
     "tinytex": {
       "Package": "tinytex",
@@ -1991,13 +2010,13 @@
     },
     "xfun": {
       "Package": "xfun",
-      "Version": "0.31.2",
+      "Version": "0.31.3",
       "Source": "Repository",
       "Repository": "https://yihui.r-universe.dev",
       "RemoteUrl": "https://github.com/yihui/xfun",
       "RemoteRef": "HEAD",
-      "RemoteSha": "e7af6826c408063591a58c2f82b07e04853e60db",
-      "Hash": "c21ac8d327c5be0f6f2b1922502b8b3c",
+      "RemoteSha": "8ee35f5a78b55303d57b4e977009cb78105423cb",
+      "Hash": "68204606236918efd5a64f4f5092df51",
       "Requirements": []
     },
     "xml2": {
