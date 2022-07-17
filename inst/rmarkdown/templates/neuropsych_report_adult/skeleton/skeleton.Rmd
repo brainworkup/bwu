@@ -615,15 +615,13 @@ cat(readLines("2.0_nse.md"), sep = "\n")
   - (ref:acs-topf)
   - (ref:acs-word-choice)
 - (ref:wais4)
-- (ref:wiat4)
-- (ref:wrat5): Green/Blue Form
-- (ref:nabs): Form 1/2
-- (ref:nab): Form 1/2
+- (ref:nabs)
+  - Attention, Language, Memory, Spatial, and Executive Functions Modules
 - (ref:examiner)
+  - Unstructured Planning Task
+  - Verbal Fluency
 - (ref:cvlt3-brief)
-- (ref:wms4)
 - (ref:rocf)
-- (ref:tmt)
 - (ref:pegboard)
 - (ref:pai)
 
