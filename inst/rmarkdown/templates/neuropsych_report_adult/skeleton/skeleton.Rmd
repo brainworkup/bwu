@@ -324,6 +324,12 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:examiner) NIH Executive Abilities: Measures and Instruments for Neurobehavioral Evaluation and Research (NIH EXAMINER)
 
+(ref:examiner-ut) Unstructured Planning Task
+
+(ref:examiner-fluency) Verbal Fluency
+
+(ref:examiner-brs) Behavior Rating Scale
+
 (ref:cms) Children's Memory Scale (CMS)
 
 (ref:pegboard) Grooved Pegboard Test
@@ -368,11 +374,11 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:acs) Advanced Clinical Solutions (ACS)
 
-(ref:acs-word-choice) ACS Word Choice Test
+(ref:acs-word-choice) Word Choice Test
 
-(ref:acs-soc-cog) ACS Social Cognition Battery
+(ref:acs-soc-cog) Social Cognition Battery
 
-(ref:acs-topf) ACS Test of Premorbid Functioning (TOPF)
+(ref:acs-topf) Test of Premorbid Functioning (TOPF)
 
 (ref:abas3) Adaptive Behavior Assessment System, 3rd ed (ABAS-3)
 
@@ -512,6 +518,8 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:comp-dyslexia) *Dyslexia* means an individual has a neurobiologically based cognitive processing problem that affects how easily and efficiently they can learn to read. Approximately 24% of individuals diagnosed with dyslexia are able to achieve reading skills commensurate with nondyslexic peers. A concept in the research literature is one of "compensated dyslexia"[@vanviersenHighReadingSkills2016], which is used to describe these individuals because they use strengths in other areas to compensate for deficits in reading. Dyslexia is underidentified in this population because the dyslexia can be masked by strengths in vocabulary and intelligence, making it especially difficult to identify in high-achieving individuals.
 
+(ref:asd) Asperger syndrome (AS) is a developmental disorder and a high-functioning form of an autism spectrum disorder (ASD). AS is a distinct neurological condition characterized by a greater or lesser degree of impairment in social communication skills, as well as repetitive or restrictive patterns of thought and behavior. Unlike people with autism, people with AS retain their early language skills. A distinguishing symptom of AS is an obsessive interest in a single object or topic to the exclusion of any other. Individuals with AS want to know everything about their topic of interest and their conversations with others will be about little else. In children with AS, their expertise, high level of vocabulary, and formal speech patterns make them seem like "little professors." Other characteristics of AS include repetitive routines or rituals; peculiarities in speech and language; socially and emotionally inappropriate behavior and difficulty interacting successfully with peers; problems with non-verbal communication; and clumsy and uncoordinated motor movements.
+
 (ref:mazes) *Mazes* Planning is central to human behavior and illustrates the aptitude to formulate an action in advance of performance or intended performance. Impulse control is the degree to which instant gratification may be controlled. Psychomotor speed indicates the level at which complex visual-perception information is perceived, attended, and responded to with simple fine-motor coordination. To successfully demonstrate this trio of cognitive skills, the patient must plan a course of action for navigation through the maze, while preventing the urge to take erroneous or seemingly simpler paths, all while issuing commands to their hands to physically manifest this decision-making. Tasks involving multitasking and subsequent physical action will be reduced. Sports, writing essays, or creating standardized documents, and adhering to financial institutional regulations (such as ledger maintenance), will show reduced proficiency.
 
 (ref:letter-number) *Numbers & Letters* incorporates letter cancellation and counting tasks to evaluate deficits in attention, the four subtests of this task were developed to measure seven aspects of attention: sustained attention, psychomotor speed, selective attention, divided attention, information processing speed, impulsivity, and disinhibition.
@@ -615,11 +623,12 @@ cat(readLines("2.0_nse.md"), sep = "\n")
   - (ref:acs-topf)
   - (ref:acs-word-choice)
 - (ref:wais4)
-- (ref:nabs)
+- (ref:nabs):
   - Attention, Language, Memory, Spatial, and Executive Functions Modules
-- (ref:examiner)
-  - Unstructured Planning Task
-  - Verbal Fluency
+- (ref:examiner):
+  - (ref:examiner-ut) Unstructured Planning Task
+  - (ref:examiner-fluency) Verbal Fluency
+  - (ref:examiner-brs) Behavior Rating Scale
 - (ref:cvlt3-brief)
 - (ref:rocf)
 - (ref:pegboard)
