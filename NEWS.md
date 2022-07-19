@@ -107,3 +107,10 @@ output:
 
 -   switching to tidytable vs tidyverse
 
+## bwu 0.1.2.9004
+
+-   fixed dotplot; tried to change theme
+
+-   added 'plant_neuropsych' Rmd to create table for individual scores/tests
+
+-   added new function to better compute missing percentiles and ranges

@@ -1,0 +1,426 @@
+---
+title: "Plant CSV file of Neuropsych Measures/Tests"
+params:
+  patient:
+    label: "Patient First Name:"
+    value: Biggie
+    input: text
+  test_name:
+    label: "Full Name of Test/Test Battery:"
+    value: NIH EXAMINER
+    input: radio
+    choices:
+      - NIH EXAMINER
+      - Grooved Pegboard
+      - Rey Complex Figure
+      - Test of Premorbid Functioning
+      - Trail Making Test
+      - D-KEFS Color-Word Interference
+      - NAB
+  test:
+    label: "Test/Measure File Name:"
+    value: examiner
+    input: radio
+    choices:
+      - examiner
+      - pegboard
+      - rocft
+      - topf
+      - tmt
+      - dkefs_cwi
+      - nab
+  scale:
+    label: "Scale/Subtest:"
+    value: ROCFT Copy
+    input: select
+    choices:
+      - ROCFT Copy
+      - ROCFT Delayed Recall
+      - Judgment
+  raw_score:
+    label: "Raw score:"
+    value: 10
+    input: numeric
+  score:
+    label: "Standardized score:"
+    value: 50
+    input: numeric
+  score_type:
+    label: "Type of Test Score:"
+    value: t_score
+    input: radio
+    choices:
+      - z_score
+      - scaled_score
+      - t_score
+      - standard_score
+  domain:
+    label: "Domain:"
+    value: Intelligence/General Ability
+    input: radio
+    choices:
+      - Intelligence/General Ability
+      - Visual Perception/Construction
+      - Attention/Executive
+      - Memory
+  subdomain:
+    label: "Subdomain:"
+    value: Planning
+    input: radio
+    choices:
+      - Planning
+      - Long-Term Memory
+      - Everyday Executive
+  narrow:
+    label: "Narrow subdomain:"
+    value: Perceptual Organization
+    input: radio
+    choices:
+      - Perceptual Organization
+      - Visual Memory
+      - Decision Making
+  pass:
+    label: "PASS:"
+    value: Planning
+    input: radio
+    choices:
+      - Planning
+      - Attention
+      - Sequential
+      - Simultaneous
+      - Knowledge
+  verbal:
+    label: "Verbal or Nonverbal Test:"
+    value: Verbal
+    input: radio
+    choices:
+      - Verbal
+      - Nonverbal
+  timed:
+    label: "Timed or Untimed Test:"
+    value: Timed
+    input: radio
+    choices:
+      - Timed
+      - Untimed
+  mean:
+    label: "Mean:"
+    value: 50
+    input: radio
+    choices: [0, 10, 50, 100]
+  stdev:
+    label: "Standard Deviation:"
+    value: 10
+    input: radio
+    choices: [1, 3, 10, 15]
+  reliability:
+    label: "Reliability:"
+    value: 0.80
+    input: slider
+    min: 0
+    max: 1
+    step: 0.01
+  percentile: NULL
+  range: NULL
+  ci_95: NULL
+  test_type:
+    label: "Test Type:"
+    value: npsych_test
+    input: radio
+    choices:
+      - npsych_test
+      - rating_scale
+  absort:
+  description:
+  result:
+output:
+  rmdformats::robobook:
+    highlight: kate
+---
+
+## Setup
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  root.dir = normalizePath("./"),
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  error = TRUE
+)
+library(bwu)
+library(dplyr, warn.conflicts = FALSE)
+library(hablar)
+library(here)
+library(knitr)
+library(magrittr)
+library(readr)
+library(rmarkdown)
+library(shiny)
+library(tibble)
+library(tidyr)
+library(vroom)
+library(data.table)
+library(tidytable)
+library(gt)
+library(table.glue)
+library(snakecase)
+```
+
+## Patient
+
+```{r patient}
+patient <- params$patient
+```
+
+## Make data.frame
+
+```{r make-df}
+df <- tidytable::tidytable(
+  test = (params$test),
+  test_name = (params$test_name),
+  test_type = (params$test_type),
+  scale = (params$scale),
+  raw_score = as.numeric(params$raw_score),
+  score = as.numeric(params$score),
+  ci_95 = NA,
+  score_adj = NA,
+  ci_95_lower = NA,
+  ci_95_upper = NA,
+  percentile = NA,
+  range = NA,
+  range_lower = NA,
+  range_upper = NA,
+  score_type = (params$score_type),
+  domainLevel0 = (params$domain),
+  domainLevel1 = (params$subdomain),
+  domainLevel2 = (params$narrow),
+  pass = (params$pass),
+  verbal = (params$verbal),
+  timed = (params$timed),
+  absort = NA,
+  description = NA,
+  result = NA
+)
+```
+
+## Function for scale description
+
+```{r func-desc}
+compute_desc <- function(.x, .scale, description, ...) {
+  tidytable::mutate.(.x,
+    description = tidytable::case_when.(
+      .scale ==
+        "ROCFT Copy" ~
+        "Visuoconstructural drawing/copying of a complex figure requiring visuospatial integration, planning and organization, and efficient encoding of visuospatial material",
+      .scale ==
+        "ROCFT Delayed Recall" ~
+        "Spontaneous, long-term delayed recall (20-25 min) recall and reproduction of a complex abstract figure",
+      .scale ==
+        "Judgment" ~
+        "Judgment and decision-making in everyday situations",
+      TRUE ~ as.character(description)
+    )
+  )
+}
+```
+
+```{r compute-desc}
+df1 <- compute_desc(.x = df, .scale = df$scale, description = description)
+```
+
+## Function to compute percentile and range
+
+```{r func-pr}
+compute_pctile_range <-
+  function(.x,
+           .score = NA,
+           .score_type = 
+             c("z_score", "scaled_score", "t_score", "standard_score"),
+           percentile = NA,
+           range = NA,
+           pct1 = NA,
+           pct2 = NA,
+           pct3 = NA,
+           z = NA,
+           ...) {
+    if (.score_type == "z_score") {
+      .x <- 
+        .x |> 
+        tidytable::mutate.(z = (.score - 0) / 1) %>%
+        tidytable::mutate.(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        tidytable::mutate.(pct2 = tidytable::case_when.(
+          pct1 < 1 ~ ceiling(pct1),
+          pct1 > 99 ~ floor(pct1),
+          TRUE ~ round(pct1)
+        )) %>%
+        tidytable::mutate.(pct3 = pct2) %>%
+        tidytable::mutate.(
+          range = tidytable::case_when.(
+            pct3 >= 98 ~ "Exceptionally High",
+            pct3 %in% 91:97 ~ "Above Average",
+            pct3 %in% 75:90 ~ "High Average",
+            pct3 %in% 25:74 ~ "Average",
+            pct3 %in% 9:24 ~ "Low Average",
+            pct3 %in% 2:8 ~ "Below Average",
+            pct3 < 2 ~ "Exceptionally Low",
+            TRUE ~ as.character(range)
+          )
+        ) %>%
+        tidytable::mutate.(percentile = pct1) %>%
+        tidytable::select.(-c(pct1, pct2, pct3))
+    } else if (.score_type == "scaled_score") {
+      .x <- 
+        .x |> 
+        tidytable::mutate.(z = (.score - 10) / 3) %>%
+        tidytable::mutate.(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        tidytable::mutate.(pct2 = tidytable::case_when.(
+          pct1 < 1 ~ ceiling(pct1),
+          pct1 > 99 ~ floor(pct1),
+          TRUE ~ round(pct1)
+        )) %>%
+        tidytable::mutate.(pct3 = pct2) %>%
+        tidytable::mutate.(
+          range = tidytable::case_when.(
+            pct3 >= 98 ~ "Exceptionally High",
+            pct3 %in% 91:97 ~ "Above Average",
+            pct3 %in% 75:90 ~ "High Average",
+            pct3 %in% 25:74 ~ "Average",
+            pct3 %in% 9:24 ~ "Low Average",
+            pct3 %in% 2:8 ~ "Below Average",
+            pct3 < 2 ~ "Exceptionally Low",
+            TRUE ~ as.character(range)
+          )
+        ) %>%
+        tidytable::mutate.(percentile = pct1) %>%
+        tidytable::select.(-c(pct1, pct2, pct3))
+    } else if (.score_type == "t_score") {
+      .x <- 
+        .x |> 
+        tidytable::mutate.(z = (.score - 50) / 10) %>%
+        tidytable::mutate.(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        tidytable::mutate.(pct2 = tidytable::case_when.(
+          pct1 < 1 ~ ceiling(pct1),
+          pct1 > 99 ~ floor(pct1),
+          TRUE ~ round(pct1)
+        )) %>%
+        tidytable::mutate.(pct3 = pct2) %>%
+        tidytable::mutate.(
+          range = tidytable::case_when.(
+            pct3 >= 98 ~ "Exceptionally High",
+            pct3 %in% 91:97 ~ "Above Average",
+            pct3 %in% 75:90 ~ "High Average",
+            pct3 %in% 25:74 ~ "Average",
+            pct3 %in% 9:24 ~ "Low Average",
+            pct3 %in% 2:8 ~ "Below Average",
+            pct3 < 2 ~ "Exceptionally Low",
+            TRUE ~ as.character(range)
+          )
+        ) %>%
+        tidytable::mutate.(percentile = pct1) %>%
+        tidytable::select.(-c(pct1, pct2, pct3))
+    } else if (.score_type == "standard_score") {
+      .x <- 
+        .x |> 
+        tidytable::mutate.(z = (.score - 100) / 15) %>%
+        tidytable::mutate.(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        tidytable::mutate.(pct2 = tidytable::case_when.(
+          pct1 < 1 ~ ceiling(pct1),
+          pct1 > 99 ~ floor(pct1),
+          TRUE ~ round(pct1)
+        )) %>%
+        tidytable::mutate.(pct3 = pct2) %>%
+        tidytable::mutate.(
+          range = tidytable::case_when.(
+            pct3 >= 98 ~ "Exceptionally High",
+            pct3 %in% 91:97 ~ "Above Average",
+            pct3 %in% 75:90 ~ "High Average",
+            pct3 %in% 25:74 ~ "Average",
+            pct3 %in% 9:24 ~ "Low Average",
+            pct3 %in% 2:8 ~ "Below Average",
+            pct3 < 2 ~ "Exceptionally Low",
+            TRUE ~ as.character(range)
+          )
+        ) %>%
+        tidytable::mutate.(percentile = pct1) %>%
+        tidytable::select.(-c(pct1, pct2, pct3))
+    }
+  }
+
+```
+
+## Compute percentile, range
+
+```{r compute-pr}
+df2 <- compute_pctile_range(
+  .x = df1, 
+  .score = df1$score,
+  .score_type = df1$score_type,
+  percentile = percentile,
+  range = range
+  )
+```
+
+## Function to compute and glue result
+
+```{r func-result}
+compute_result <- function(.x, .scale, .description, .range, result, ...) {
+  .x <-
+    tidytable::mutate.(.x,
+      result = tidytable::case_when.(
+        .scale == "ROCFT Copy" ~
+          glue::glue("{.description} was {.range}.\n"),
+        .scale == "ROCFT Delayed Recall" ~
+          glue::glue("{.description} was {.range}.\n"),
+        .scale == "Judgment" ~
+          glue::glue("{.description} was {.range}.\n"),
+        TRUE ~ as.character(result)
+      )
+    )  
+}
+```
+
+```{r compute-result}
+.description <- (df2$description)
+.range <- (df2$range)
+df3 <- compute_result(
+  .x = df2,
+  .scale = df2$scale,
+  .description = .description,
+  .range = .range
+  )
+```
+
+## Compute CI 95%
+
+```{r ci_95}
+df3$ci_95 <- bwu::ci(
+  x = as.numeric(df3$score),
+  m = as.numeric(params$mean),
+  sd = as.numeric(params$stdev),
+  rel = as.numeric(params$reliability)
+)
+```
+
+## Write out CSV
+
+```{r writeout-scale}
+table <- df3
+test <- table$test
+scale <- to_snake_case(table$scale)
+tidytable::fwrite.(
+  table,
+  here::here(patient, "pre_csv", paste0(test, "_", scale, ".csv")),
+  append = FALSE
+  )
+```
+
+```{r writeout-test}
+table <- df3
+test <- table$test
+tidytable::fwrite.(
+  table,
+  here::here(patient, "pre_csv", paste0(test, ".csv")),
+  append = TRUE
+  )
+```
