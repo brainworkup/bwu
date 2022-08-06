@@ -22,7 +22,7 @@ params:
     label: "Select File:"
     value: File
     input: file
-  pages: [9,11,9,9,9,12,9]
+  pages: [9,11,9,9,9,12,9] # full [18,20,18,18,18,22,18]
   table1:
     label: "Learning Trials:"
     value: Trial 1 Correct
@@ -133,7 +133,10 @@ output:
 ## Setup
 
 ```{r setup, include = FALSE}
-Sys.setenv(JAVA_HOME = "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home")
+Sys.setenv(
+  JAVA_HOME =
+    "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home"
+)
 options(java.parameters = "-Xmx16000m")
 knitr::opts_chunk$set(
   root.dir = normalizePath("./"),
@@ -212,17 +215,18 @@ area <- list(
 #   c(320, 52, 390, 560),
 #   c(445, 52, 514, 560),
 #   c(571, 52, 590, 560),
-#   c(570, 52, 589, 560)
+#   c(570, 52, 589, 560),
+#   c(646, 52, 665, 460)
 # )
 ```
 
 ```{r areas-get, eval=FALSE}
 # if unknown
-# patient <- "Rubaya"
+# patient <- "Biggie"
 # file <- file.choose()
 # area <- bwu::gpluck_locate_areas(
 #   file = file,
-#   pages = c(18,20,18,18,18,22)
+#   pages = c(18,20,18,18,18,22,18)
 # )
 ```
 
@@ -293,7 +297,8 @@ table2 <-
 ```
 
 ```{r rename2}
-table2[1, 1] <- c("Trials 1-4 Correct")
+source(here::here("R", "which_cvlt3.R"))
+table2[1, 1] <- which_cvlt3(test)
 ```
 
 # Table 3
@@ -758,8 +763,9 @@ table7 <-
 ```{r bind-rows}
 if (params$test == "cvlt3") {
   cvlt3 <-
-    dplyr::bind_rows(table1, table2, table3, table4, table5, table6)
-} else {
+    dplyr::bind_rows(table1, table2, table3, table4, table5, table6, table7)
+}
+if (params$test == "cvlt3_brief") {
   cvlt3_brief <-
     dplyr::bind_rows(table1, table2, table3, table4, table5, table6, table7)
 }
