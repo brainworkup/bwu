@@ -3,7 +3,7 @@ title: "Plant CSV file of Neuropsych Measures/Tests"
 params:
   patient:
     label: "Patient First Name:"
-    value: Biggie
+    value: Grace
     input: text
   test_name:
     label: "Full Name of Test/Test Battery:"
@@ -36,7 +36,15 @@ params:
     choices:
       - ROCFT Copy
       - ROCFT Delayed Recall
+      - Dominant Hand
+      - Nondominant Hand
       - Judgment
+      - D-KEFS Color Naming
+      - D-KEFS Word Reading
+      - D-KEFS Inhibition
+      - D-KEFS Switching
+      - D-KEFS Inhibition Total Errors
+      - D-KEFS Switching Total Errors
   raw_score:
     label: "Raw score:"
     value: 10
@@ -60,9 +68,12 @@ params:
     input: radio
     choices:
       - Intelligence/General Ability
+      - Academic Skills
+      - Verbal/Language
       - Visual Perception/Construction
       - Attention/Executive
       - Memory
+      - Motor
   subdomain:
     label: "Subdomain:"
     value: Planning
@@ -71,6 +82,11 @@ params:
       - Planning
       - Long-Term Memory
       - Everyday Executive
+      - Retrieval Fluency
+      - Cognitive Control
+      - Cognitive Flexibility
+      - Response Monitoring
+      - Fine Motor Dexterity
   narrow:
     label: "Narrow subdomain:"
     value: Perceptual Organization
@@ -79,6 +95,12 @@ params:
       - Perceptual Organization
       - Visual Memory
       - Decision Making
+      - Naming Facility
+      - Inhibition
+      - Set-Shifting
+      - Response Monitoring
+      - Dominant Hand Dexterity
+      - Nondominant Hand Dexterity
   pass:
     label: "PASS:"
     value: Planning
@@ -219,6 +241,22 @@ compute_desc <- function(.x, .scale, description, ...) {
       .scale ==
         "Judgment" ~
         "Judgment and decision-making in everyday situations",
+      .scale == "D-KEFS Color Naming" ~
+        "Rapid color naming",
+      .scale == "D-KEFS Word Reading" ~
+        "Rapid word reading",
+      .scale == "D-KEFS Inhibition" ~
+        "Inhibition/cognitive control",
+      .scale == "D-KEFS Switching" ~
+        "Set-shifting/cognitive flexibility",
+      .scale == "D-KEFS Inhibition Total Errors" ~
+        "Response monitoring during an inhibition task",
+      .scale == "D-KEFS Switching Total Errors" ~
+        "Response monitoring during a set-shifting task",
+      .scale == "Dominant Hand" ~
+        "Fine-motor dexterity (dominant hand)",
+      .scale == "Nondominant Hand" ~
+        "Nondominant hand dexterity",
       TRUE ~ as.character(description)
     )
   )
@@ -235,7 +273,7 @@ df1 <- compute_desc(.x = df, .scale = df$scale, description = description)
 compute_pctile_range <-
   function(.x,
            .score = NA,
-           .score_type = 
+           .score_type =
              c("z_score", "scaled_score", "t_score", "standard_score"),
            percentile = NA,
            range = NA,
@@ -245,8 +283,8 @@ compute_pctile_range <-
            z = NA,
            ...) {
     if (.score_type == "z_score") {
-      .x <- 
-        .x |> 
+      .x <-
+        .x |>
         tidytable::mutate.(z = (.score - 0) / 1) %>%
         tidytable::mutate.(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
         tidytable::mutate.(pct2 = tidytable::case_when.(
@@ -270,8 +308,8 @@ compute_pctile_range <-
         tidytable::mutate.(percentile = pct1) %>%
         tidytable::select.(-c(pct1, pct2, pct3))
     } else if (.score_type == "scaled_score") {
-      .x <- 
-        .x |> 
+      .x <-
+        .x |>
         tidytable::mutate.(z = (.score - 10) / 3) %>%
         tidytable::mutate.(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
         tidytable::mutate.(pct2 = tidytable::case_when.(
@@ -295,8 +333,8 @@ compute_pctile_range <-
         tidytable::mutate.(percentile = pct1) %>%
         tidytable::select.(-c(pct1, pct2, pct3))
     } else if (.score_type == "t_score") {
-      .x <- 
-        .x |> 
+      .x <-
+        .x |>
         tidytable::mutate.(z = (.score - 50) / 10) %>%
         tidytable::mutate.(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
         tidytable::mutate.(pct2 = tidytable::case_when.(
@@ -320,8 +358,8 @@ compute_pctile_range <-
         tidytable::mutate.(percentile = pct1) %>%
         tidytable::select.(-c(pct1, pct2, pct3))
     } else if (.score_type == "standard_score") {
-      .x <- 
-        .x |> 
+      .x <-
+        .x |>
         tidytable::mutate.(z = (.score - 100) / 15) %>%
         tidytable::mutate.(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
         tidytable::mutate.(pct2 = tidytable::case_when.(
@@ -346,38 +384,56 @@ compute_pctile_range <-
         tidytable::select.(-c(pct1, pct2, pct3))
     }
   }
-
 ```
 
 ## Compute percentile, range
 
 ```{r compute-pr}
 df2 <- compute_pctile_range(
-  .x = df1, 
+  .x = df1,
   .score = df1$score,
   .score_type = df1$score_type,
   percentile = percentile,
   range = range
-  )
+)
 ```
 
 ## Function to compute and glue result
 
 ```{r func-result}
-compute_result <- function(.x, .scale, .description, .range, result, ...) {
-  .x <-
-    tidytable::mutate.(.x,
-      result = tidytable::case_when.(
-        .scale == "ROCFT Copy" ~
-          glue::glue("{.description} was {.range}.\n"),
-        .scale == "ROCFT Delayed Recall" ~
-          glue::glue("{.description} was {.range}.\n"),
-        .scale == "Judgment" ~
-          glue::glue("{.description} was {.range}.\n"),
-        TRUE ~ as.character(result)
+compute_result <-
+  function(.x,
+           .scale,
+           .description,
+           .range,
+           result,
+           ...) {
+    .x <-
+      tidytable::mutate.(
+        .x,
+        result = tidytable::case_when.(
+          .scale == "ROCFT Copy" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "ROCFT Delayed Recall" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "Judgment" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "D-KEFS Color Naming" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "D-KEFS Word Reading" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "D-KEFS Inhibition" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "D-KEFS Switching" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "D-KEFS Inhibition Total Errors" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "D-KEFS Switching Total Errors" ~
+            glue::glue("{.description} was {.range}.\n"),
+          TRUE ~ as.character(result)
+        )
       )
-    )  
-}
+  }
 ```
 
 ```{r compute-result}
@@ -388,7 +444,7 @@ df3 <- compute_result(
   .scale = df2$scale,
   .description = .description,
   .range = .range
-  )
+)
 ```
 
 ## Compute CI 95%
@@ -412,7 +468,7 @@ tidytable::fwrite.(
   table,
   here::here(patient, "pre_csv", paste0(test, "_", scale, ".csv")),
   append = FALSE
-  )
+)
 ```
 
 ```{r writeout-test}
@@ -422,5 +478,5 @@ tidytable::fwrite.(
   table,
   here::here(patient, "pre_csv", paste0(test, ".csv")),
   append = TRUE
-  )
+)
 ```
