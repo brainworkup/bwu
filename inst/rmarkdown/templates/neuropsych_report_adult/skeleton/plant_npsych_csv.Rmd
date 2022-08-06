@@ -3,7 +3,7 @@ title: "Plant CSV file of Neuropsych Measures/Tests"
 params:
   patient:
     label: "Patient First Name:"
-    value: Grace
+    value: Biggie
     input: text
   test_name:
     label: "Full Name of Test/Test Battery:"
@@ -17,6 +17,7 @@ params:
       - Trail Making Test
       - D-KEFS Color-Word Interference
       - NAB
+      - WMS-4
   test:
     label: "Test/Measure File Name:"
     value: examiner
@@ -29,6 +30,7 @@ params:
       - tmt
       - dkefs_cwi
       - nab
+      - wms4
   scale:
     label: "Scale/Subtest:"
     value: ROCFT Copy
