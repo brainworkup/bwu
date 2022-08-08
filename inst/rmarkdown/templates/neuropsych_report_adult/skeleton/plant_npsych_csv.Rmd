@@ -7,7 +7,7 @@ params:
     input: text
   test_name:
     label: "Full Name of Test/Test Battery:"
-    value: NIH EXAMINER
+    value: ""
     input: radio
     choices:
       - NIH EXAMINER
@@ -17,10 +17,10 @@ params:
       - Trail Making Test
       - D-KEFS Color-Word Interference
       - NAB
-      - WMS-4
+      - WMS-IV
   test:
     label: "Test/Measure File Name:"
-    value: examiner
+    value: ""
     input: radio
     choices:
       - examiner
@@ -33,11 +33,12 @@ params:
       - wms4
   scale:
     label: "Scale/Subtest:"
-    value: ROCFT Copy
+    value: ""
     input: select
     choices:
       - ROCFT Copy
       - ROCFT Delayed Recall
+      - TOPF Standard Score
       - Dominant Hand
       - Nondominant Hand
       - Judgment
@@ -57,7 +58,7 @@ params:
     input: numeric
   score_type:
     label: "Type of Test Score:"
-    value: t_score
+    value: ""
     input: radio
     choices:
       - z_score
@@ -66,7 +67,7 @@ params:
       - standard_score
   domain:
     label: "Domain:"
-    value: Intelligence/General Ability
+    value: ""
     input: radio
     choices:
       - Intelligence/General Ability
@@ -76,13 +77,18 @@ params:
       - Attention/Executive
       - Memory
       - Motor
+      - Social Cognition
+      - ADHD/Executive Functioning
+      - Behavioral/Emotional/Social
+      - Effort/Validity
   subdomain:
     label: "Subdomain:"
-    value: Planning
+    value: ""
     input: radio
     choices:
       - Planning
       - Long-Term Memory
+      - Crystallized Intelligence
       - Everyday Executive
       - Retrieval Fluency
       - Cognitive Control
@@ -91,11 +97,12 @@ params:
       - Fine Motor Dexterity
   narrow:
     label: "Narrow subdomain:"
-    value: Perceptual Organization
+    value: ""
     input: radio
     choices:
       - Perceptual Organization
       - Visual Memory
+      - Premorbid Ability
       - Decision Making
       - Naming Facility
       - Inhibition
@@ -105,7 +112,7 @@ params:
       - Nondominant Hand Dexterity
   pass:
     label: "PASS:"
-    value: Planning
+    value: ""
     input: radio
     choices:
       - Planning
@@ -115,14 +122,14 @@ params:
       - Knowledge
   verbal:
     label: "Verbal or Nonverbal Test:"
-    value: Verbal
+    value: ""
     input: radio
     choices:
       - Verbal
       - Nonverbal
   timed:
     label: "Timed or Untimed Test:"
-    value: Timed
+    value: ""
     input: radio
     choices:
       - Timed
@@ -173,7 +180,9 @@ knitr::opts_chunk$set(
   error = TRUE
 )
 library(bwu)
+library(data.table)
 library(dplyr, warn.conflicts = FALSE)
+library(gt)
 library(hablar)
 library(here)
 library(knitr)
@@ -181,14 +190,12 @@ library(magrittr)
 library(readr)
 library(rmarkdown)
 library(shiny)
+library(snakecase)
+library(table.glue)
 library(tibble)
 library(tidyr)
-library(vroom)
-library(data.table)
 library(tidytable)
-library(gt)
-library(table.glue)
-library(snakecase)
+library(vroom)
 ```
 
 ## Patient
@@ -219,10 +226,10 @@ df <- tidytable::tidytable(
   domainLevel0 = (params$domain),
   domainLevel1 = (params$subdomain),
   domainLevel2 = (params$narrow),
-  pass = (params$pass),
-  verbal = (params$verbal),
-  timed = (params$timed),
-  absort = NA,
+  domainPASS = (params$pass),
+  domainVerbal = (params$verbal),
+  domainTimed = (params$timed),
+  absort = paste0(tolower(params$test), "_", tolower(params$scale), "_", seq_len(1)),
   description = NA,
   result = NA
 )
@@ -259,6 +266,8 @@ compute_desc <- function(.x, .scale, description, ...) {
         "Fine-motor dexterity (dominant hand)",
       .scale == "Nondominant Hand" ~
         "Nondominant hand dexterity",
+      .scale == "TOPF Standard Score" ~
+        "An estimate of premorbid verbal ability level",
       TRUE ~ as.character(description)
     )
   )
@@ -279,111 +288,111 @@ compute_pctile_range <-
              c("z_score", "scaled_score", "t_score", "standard_score"),
            percentile = NA,
            range = NA,
-           pct1 = NA,
-           pct2 = NA,
-           pct3 = NA,
+           .pct1 = NA,
+           .pct2 = NA,
+           .pct3 = NA,
            z = NA,
            ...) {
     if (.score_type == "z_score") {
       .x <-
         .x |>
         tidytable::mutate.(z = (.score - 0) / 1) %>%
-        tidytable::mutate.(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
-        tidytable::mutate.(pct2 = tidytable::case_when.(
-          pct1 < 1 ~ ceiling(pct1),
-          pct1 > 99 ~ floor(pct1),
-          TRUE ~ round(pct1)
+        tidytable::mutate.(.pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        tidytable::mutate.(.pct2 = tidytable::case_when.(
+          .pct1 < 1 ~ ceiling(.pct1),
+          .pct1 > 99 ~ floor(.pct1),
+          TRUE ~ round(.pct1)
         )) %>%
-        tidytable::mutate.(pct3 = pct2) %>%
+        tidytable::mutate.(.pct3 = .pct2) %>%
         tidytable::mutate.(
           range = tidytable::case_when.(
-            pct3 >= 98 ~ "Exceptionally High",
-            pct3 %in% 91:97 ~ "Above Average",
-            pct3 %in% 75:90 ~ "High Average",
-            pct3 %in% 25:74 ~ "Average",
-            pct3 %in% 9:24 ~ "Low Average",
-            pct3 %in% 2:8 ~ "Below Average",
-            pct3 < 2 ~ "Exceptionally Low",
+            .pct3 >= 98 ~ "Exceptionally High",
+            .pct3 %in% 91:97 ~ "Above Average",
+            .pct3 %in% 75:90 ~ "High Average",
+            .pct3 %in% 25:74 ~ "Average",
+            .pct3 %in% 9:24 ~ "Low Average",
+            .pct3 %in% 2:8 ~ "Below Average",
+            .pct3 < 2 ~ "Exceptionally Low",
             TRUE ~ as.character(range)
           )
         ) %>%
-        tidytable::mutate.(percentile = pct1) %>%
-        tidytable::select.(-c(pct1, pct2, pct3))
+        tidytable::mutate.(percentile = .pct1) %>%
+        tidytable::select.(-c(.pct1, .pct2, .pct3))
     } else if (.score_type == "scaled_score") {
       .x <-
         .x |>
         tidytable::mutate.(z = (.score - 10) / 3) %>%
-        tidytable::mutate.(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
-        tidytable::mutate.(pct2 = tidytable::case_when.(
-          pct1 < 1 ~ ceiling(pct1),
-          pct1 > 99 ~ floor(pct1),
-          TRUE ~ round(pct1)
+        tidytable::mutate.(.pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        tidytable::mutate.(.pct2 = tidytable::case_when.(
+          .pct1 < 1 ~ ceiling(.pct1),
+          .pct1 > 99 ~ floor(.pct1),
+          TRUE ~ round(.pct1)
         )) %>%
-        tidytable::mutate.(pct3 = pct2) %>%
+        tidytable::mutate.(.pct3 = .pct2) %>%
         tidytable::mutate.(
           range = tidytable::case_when.(
-            pct3 >= 98 ~ "Exceptionally High",
-            pct3 %in% 91:97 ~ "Above Average",
-            pct3 %in% 75:90 ~ "High Average",
-            pct3 %in% 25:74 ~ "Average",
-            pct3 %in% 9:24 ~ "Low Average",
-            pct3 %in% 2:8 ~ "Below Average",
-            pct3 < 2 ~ "Exceptionally Low",
+            .pct3 >= 98 ~ "Exceptionally High",
+            .pct3 %in% 91:97 ~ "Above Average",
+            .pct3 %in% 75:90 ~ "High Average",
+            .pct3 %in% 25:74 ~ "Average",
+            .pct3 %in% 9:24 ~ "Low Average",
+            .pct3 %in% 2:8 ~ "Below Average",
+            .pct3 < 2 ~ "Exceptionally Low",
             TRUE ~ as.character(range)
           )
         ) %>%
-        tidytable::mutate.(percentile = pct1) %>%
-        tidytable::select.(-c(pct1, pct2, pct3))
+        tidytable::mutate.(percentile = .pct1) %>%
+        tidytable::select.(-c(.pct1, .pct2, .pct3))
     } else if (.score_type == "t_score") {
       .x <-
         .x |>
         tidytable::mutate.(z = (.score - 50) / 10) %>%
-        tidytable::mutate.(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
-        tidytable::mutate.(pct2 = tidytable::case_when.(
-          pct1 < 1 ~ ceiling(pct1),
-          pct1 > 99 ~ floor(pct1),
-          TRUE ~ round(pct1)
+        tidytable::mutate.(.pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        tidytable::mutate.(.pct2 = tidytable::case_when.(
+          .pct1 < 1 ~ ceiling(.pct1),
+          .pct1 > 99 ~ floor(.pct1),
+          TRUE ~ round(.pct1)
         )) %>%
-        tidytable::mutate.(pct3 = pct2) %>%
+        tidytable::mutate.(.pct3 = .pct2) %>%
         tidytable::mutate.(
           range = tidytable::case_when.(
-            pct3 >= 98 ~ "Exceptionally High",
-            pct3 %in% 91:97 ~ "Above Average",
-            pct3 %in% 75:90 ~ "High Average",
-            pct3 %in% 25:74 ~ "Average",
-            pct3 %in% 9:24 ~ "Low Average",
-            pct3 %in% 2:8 ~ "Below Average",
-            pct3 < 2 ~ "Exceptionally Low",
+            .pct3 >= 98 ~ "Exceptionally High",
+            .pct3 %in% 91:97 ~ "Above Average",
+            .pct3 %in% 75:90 ~ "High Average",
+            .pct3 %in% 25:74 ~ "Average",
+            .pct3 %in% 9:24 ~ "Low Average",
+            .pct3 %in% 2:8 ~ "Below Average",
+            .pct3 < 2 ~ "Exceptionally Low",
             TRUE ~ as.character(range)
           )
         ) %>%
-        tidytable::mutate.(percentile = pct1) %>%
-        tidytable::select.(-c(pct1, pct2, pct3))
+        tidytable::mutate.(percentile = .pct1) %>%
+        tidytable::select.(-c(.pct1, .pct2, .pct3))
     } else if (.score_type == "standard_score") {
       .x <-
         .x |>
         tidytable::mutate.(z = (.score - 100) / 15) %>%
-        tidytable::mutate.(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
-        tidytable::mutate.(pct2 = tidytable::case_when.(
-          pct1 < 1 ~ ceiling(pct1),
-          pct1 > 99 ~ floor(pct1),
-          TRUE ~ round(pct1)
+        tidytable::mutate.(.pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        tidytable::mutate.(.pct2 = tidytable::case_when.(
+          .pct1 < 1 ~ ceiling(.pct1),
+          .pct1 > 99 ~ floor(.pct1),
+          TRUE ~ round(.pct1)
         )) %>%
-        tidytable::mutate.(pct3 = pct2) %>%
+        tidytable::mutate.(.pct3 = .pct2) %>%
         tidytable::mutate.(
           range = tidytable::case_when.(
-            pct3 >= 98 ~ "Exceptionally High",
-            pct3 %in% 91:97 ~ "Above Average",
-            pct3 %in% 75:90 ~ "High Average",
-            pct3 %in% 25:74 ~ "Average",
-            pct3 %in% 9:24 ~ "Low Average",
-            pct3 %in% 2:8 ~ "Below Average",
-            pct3 < 2 ~ "Exceptionally Low",
+            .pct3 >= 98 ~ "Exceptionally High",
+            .pct3 %in% 91:97 ~ "Above Average",
+            .pct3 %in% 75:90 ~ "High Average",
+            .pct3 %in% 25:74 ~ "Average",
+            .pct3 %in% 9:24 ~ "Low Average",
+            .pct3 %in% 2:8 ~ "Below Average",
+            .pct3 < 2 ~ "Exceptionally Low",
             TRUE ~ as.character(range)
           )
         ) %>%
-        tidytable::mutate.(percentile = pct1) %>%
-        tidytable::select.(-c(pct1, pct2, pct3))
+        tidytable::mutate.(percentile = .pct1) %>%
+        tidytable::select.(-c(.pct1, .pct2, .pct3))
     }
   }
 ```
@@ -432,6 +441,12 @@ compute_result <-
             glue::glue("{.description} was {.range}.\n"),
           .scale == "D-KEFS Switching Total Errors" ~
             glue::glue("{.description} was {.range}.\n"),
+          .scale == "Dominant Hand" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "Nondominant Hand" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "TOPF Standard Score" ~
+            glue::glue("{.description} was {.range}.\n"),
           TRUE ~ as.character(result)
         )
       )
@@ -451,7 +466,7 @@ df3 <- compute_result(
 
 ## Compute CI 95%
 
-```{r ci_95}
+```{r ci95}
 df3$ci_95 <- bwu::ci(
   x = as.numeric(df3$score),
   m = as.numeric(params$mean),
@@ -478,7 +493,17 @@ table <- df3
 test <- table$test
 tidytable::fwrite.(
   table,
-  here::here(patient, "pre_csv", paste0(test, ".csv")),
+  here::here(patient, "csv", paste0(test, ".csv")),
+  append = TRUE
+)
+```
+
+```{r writeout-g}
+table <- df3
+test <- "g"
+tidytable::fwrite.(
+  table,
+  here::here(patient, "csv", paste0(test, ".csv")),
   append = TRUE
 )
 ```

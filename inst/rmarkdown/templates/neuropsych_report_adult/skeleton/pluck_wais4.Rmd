@@ -199,7 +199,8 @@ output:
 ## Load libraries
 
 ```{r setup, include = FALSE}
-Sys.setenv(JAVA_HOME = "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home")
+Sys.setenv(JAVA_HOME =
+ "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home")
 options(java.parameters = "-Xmx16000m")
 knitr::opts_chunk$set(
   root.dir = normalizePath("./"),
@@ -209,19 +210,25 @@ knitr::opts_chunk$set(
   error = TRUE
 )
 library(bwu)
-library(dplyr)
+library(data.table)
+library(dplyr, warn.conflicts = FALSE)
+library(gt)
 library(hablar)
 library(here)
+library(knitr)
 library(magrittr)
 library(readr)
 library(rJava)
 library(rmarkdown)
 library(rmdformats)
 library(shiny)
+library(snakecase)
+library(table.glue)
 library(tabulizer)
 library(tabulizerjars)
 library(tibble)
 library(tidyr)
+library(tidytable)
 library(vroom)
 ```
 
@@ -272,7 +279,7 @@ area <- list(
 )
 ```
 
-```{r areas-get, eval=FALSE}
+```{r areas-get, eval = FALSE}
 # if unknown
 # patient <- "Biggie"
 # file <- file.choose()
@@ -297,13 +304,13 @@ plucked_table <- bwu::gpluck_extract_table(
   file = file,
   pages = pages,
   area = area,
-  guess = NULL,
+  guess = "FALSE",
   method = "stream",
   output = "matrix"
 )
 ```
 
-# Index Scores (Table 1)
+# WAIS-IV Index Scores (Table 1)
 
 ## Pluck and tidy tables
 
@@ -363,8 +370,8 @@ table1 <- bwu::gpluck_make_score_ranges(table = table1, test_type = "npsych_test
 ```{r domain1}
 table1 <-
   table1 |>
-  dplyr::mutate(
-    domain = dplyr::case_when(
+  tidytable::mutate.(
+    domain = tidytable::case_when.(
       scale == "Verbal Comprehension (VCI)" ~ "Intelligence/General Ability",
       scale == "Perceptual Reasoning (PRI)" ~ "Intelligence/General Ability",
       scale == "Working Memory (WMI)" ~ "Intelligence/General Ability",
@@ -381,8 +388,8 @@ table1 <-
 ```{r subdomain1}
 table1 <-
   table1 |>
-  dplyr::mutate(
-    subdomain = dplyr::case_when(
+  tidytable::mutate.(
+    subdomain = tidytable::case_when.(
       scale == "Verbal Comprehension (VCI)" ~ "Crystallized Intelligence",
       scale == "Perceptual Reasoning (PRI)" ~ "Fluid Intelligence",
       scale == "Working Memory (WMI)" ~ "Working Memory",
@@ -399,8 +406,8 @@ table1 <-
 ```{r narrow1}
 table1 <-
   table1 |>
-  dplyr::mutate(
-    narrow = dplyr::case_when(
+  tidytable::mutate.(
+    narrow = tidytable::case_when.(
       scale == "Verbal Comprehension (VCI)" ~ "Crystallized Intelligence",
       scale == "Perceptual Reasoning (PRI)" ~ "Fluid Intelligence",
       scale == "Working Memory (WMI)" ~ "Working Memory",
@@ -417,8 +424,8 @@ table1 <-
 ```{r pass1}
 table1 <-
   table1 |>
-  dplyr::mutate(
-    pass = dplyr::case_when(
+  tidytable::mutate.(
+    pass = tidytable::case_when.(
       scale == "Verbal Comprehension (VCI)" ~ "",
       scale == "Perceptual Reasoning (PRI)" ~ "",
       scale == "Working Memory (WMI)" ~ "",
@@ -435,8 +442,8 @@ table1 <-
 ```{r verbal1}
 table1 <-
   table1 |>
-  dplyr::mutate(
-    verbal = dplyr::case_when(
+  tidytable::mutate.(
+    verbal = tidytable::case_when.(
       scale == "Verbal Comprehension (VCI)" ~ "Verbal",
       scale == "Perceptual Reasoning (PRI)" ~ "Nonverbal",
       scale == "Working Memory (WMI)" ~ "Verbal",
@@ -453,8 +460,8 @@ table1 <-
 ```{r timed1}
 table1 <-
   table1 |>
-  dplyr::mutate(
-    timed = dplyr::case_when(
+  tidytable::mutate.(
+    timed = tidytable::case_when.(
       scale == "Verbal Comprehension (VCI)" ~ "Untimed",
       scale == "Perceptual Reasoning (PRI)" ~ "Timed",
       scale == "Working Memory (WMI)" ~ "Untimed",
@@ -471,8 +478,8 @@ table1 <-
 ```{r desc1}
 table1 <-
   table1 |>
-  dplyr::mutate(
-    description = dplyr::case_when(
+  tidytable::mutate.(
+    description = tidytable::case_when.(
       scale ==
         "Full Scale IQ (FSIQ)" ~
         "General intelligence",
@@ -501,8 +508,8 @@ table1 <-
 ```{r result1}
 table1 <-
   table1 |>
-  dplyr::mutate(
-    result = dplyr::case_when(
+  tidytable::mutate.(
+    result = tidytable::case_when.(
       scale == "Full Scale IQ (FSIQ)" ~ glue::glue(
         "{description} was {range} overall.\n"
       ),
@@ -593,8 +600,8 @@ table2 <- bwu::gpluck_make_score_ranges(table = table2, test_type = "npsych_test
 ```{r subdomain2}
 table2 <-
   table2 |>
-  dplyr::mutate(
-    subdomain = dplyr::case_when(
+  tidytable::mutate.(
+    subdomain = tidytable::case_when.(
       scale == "Similarities" ~ "Acquired Knowledge",
       scale == "Vocabulary" ~ "Acquired Knowledge",
       scale == "Information" ~ "Acquired Knowledge",
@@ -609,8 +616,8 @@ table2 <-
 ```{r narrow2}
 table2 <-
   table2 |>
-  dplyr::mutate(
-    narrow = dplyr::case_when(
+  tidytable::mutate.(
+    narrow = tidytable::case_when.(
       scale == "Similarities" ~ "Verbal Reasoning",
       scale == "Vocabulary" ~ "Lexical Knowledge",
       scale == "Information" ~ "General Verbal Information",
@@ -625,8 +632,8 @@ table2 <-
 ```{r desc2}
 table2 <-
   table2 |>
-  dplyr::mutate(
-    description = dplyr::case_when(
+  tidytable::mutate.(
+    description = tidytable::case_when.(
       scale ==
         "Similarities" ~ "Verbal inductive reasoning",
       scale ==
@@ -645,7 +652,7 @@ table2 <-
 ```{r result2}
 table2 <-
   table2 %>%
-  dplyr::mutate(
+  tidytable::mutate.(
     result = glue::glue(
       "{description} was {range}.\n"
     )
@@ -719,8 +726,8 @@ table3 <- bwu::gpluck_make_score_ranges(table = table3, test_type = "npsych_test
 ```{r subdomain3}
 table3 <-
   table3 |>
-  dplyr::mutate(
-    subdomain = dplyr::case_when(
+  tidytable::mutate.(
+    subdomain = tidytable::case_when.(
       scale == "Block Design" ~ "Visual Processing",
       scale == "Matrix Reasoning" ~ "Fluid Reasoning",
       scale == "Visual Puzzles" ~ "Visual Processing",
@@ -735,8 +742,8 @@ table3 <-
 ```{r narrow3}
 table3 <-
   table3 |>
-  dplyr::mutate(
-    narrow = dplyr::case_when(
+  tidytable::mutate.(
+    narrow = tidytable::case_when.(
       scale == "Block Design" ~ "Visuoconstruction",
       scale == "Matrix Reasoning" ~ "Inductive Reasoning",
       scale == "Visual Puzzles" ~ "Visualization",
@@ -751,8 +758,8 @@ table3 <-
 ```{r timed3}
 table3 <-
   table3 |>
-  dplyr::mutate(
-    timed = dplyr::case_when(
+  tidytable::mutate.(
+    timed = tidytable::case_when.(
       scale == "Block Design" ~ "Timed",
       scale == "Matrix Reasoning" ~ "Untimed",
       scale == "Visual Puzzles" ~ "Timed",
@@ -767,8 +774,8 @@ table3 <-
 ```{r desc3}
 table3 <-
   table3 |>
-  dplyr::mutate(
-    description = dplyr::case_when(
+  tidytable::mutate.(
+    description = tidytable::case_when.(
       scale ==
         "Block Design" ~ "Understanding visual-spatial relationships to construct geometric designs from a model",
       scale ==
@@ -787,7 +794,7 @@ table3 <-
 ```{r result3}
 table3 <-
   table3 %>%
-  dplyr::mutate(
+  tidytable::mutate.(
     result = glue::glue(
       "{description} was {range}.\n"
     )
@@ -861,8 +868,8 @@ table4 <- bwu::gpluck_make_score_ranges(table = table4, test_type = "npsych_test
 ```{r subdomain4}
 table4 <-
   table4 |>
-  dplyr::mutate(
-    subdomain = dplyr::case_when(
+  tidytable::mutate.(
+    subdomain = tidytable::case_when.(
       scale == "Digit Span" ~ "Working Memory",
       scale == "Arithmetic" ~ "Working Memory",
       scale == "Letter-Number Sequencing" ~ "Working Memory",
@@ -876,8 +883,8 @@ table4 <-
 ```{r narrow4}
 table4 <-
   table4 |>
-  dplyr::mutate(
-    narrow = dplyr::case_when(
+  tidytable::mutate.(
+    narrow = tidytable::case_when.(
       scale == "Digit Span" ~ "Working Memory",
       scale == "Arithmetic" ~ "Working Memory",
       scale == "Letter-Number Sequencing" ~ "Working Memory",
@@ -891,8 +898,8 @@ table4 <-
 ```{r timed4}
 table4 <-
   table4 |>
-  dplyr::mutate(
-    timed = dplyr::case_when(
+  tidytable::mutate.(
+    timed = tidytable::case_when.(
       scale == "Digit Span" ~ "Untimed",
       scale == "Arithmetic" ~ "Timed",
       scale == "Letter-Number Sequencing" ~ "Untimed",
@@ -906,8 +913,8 @@ table4 <-
 ```{r pass4}
 table4 <-
   table4 |>
-  dplyr::mutate(
-    pass = dplyr::case_when(
+  tidytable::mutate.(
+    pass = tidytable::case_when.(
       scale == "Digit Span" ~ "Attention",
       scale == "Arithmetic" ~ "Attention",
       scale == "Letter-Number Sequencing" ~ "Attention",
@@ -921,8 +928,8 @@ table4 <-
 ```{r desc4}
 table4 <-
   table4 |>
-  dplyr::mutate(
-    description = dplyr::case_when(
+  tidytable::mutate.(
+    description = tidytable::case_when.(
       scale == "Digit Span" ~ "Registering, maintaining, and manipulating auditory information",
       scale == "Arithmetic" ~ "Solving math word problems in working memory",
       scale == "Letter-Number Sequencing" ~ "Maintenance and resequencing of progressively lengthier number and letter strings in working memory",
@@ -936,7 +943,7 @@ table4 <-
 ```{r result4}
 table4 <-
   table4 %>%
-  dplyr::mutate(
+  tidytable::mutate.(
     result = glue::glue(
       "{description} was {range}.\n"
     )
@@ -1010,8 +1017,8 @@ table5 <- bwu::gpluck_make_score_ranges(table = table5, test_type = "npsych_test
 ```{r subdomain5}
 table5 <-
   table5 |>
-  dplyr::mutate(
-    subdomain = dplyr::case_when(
+  tidytable::mutate.(
+    subdomain = tidytable::case_when.(
       scale == "Coding" ~ "Processing Speed",
       scale == "Symbol Search" ~ "Processing Speed",
       scale == "Cancellation" ~ "Processing Speed",
@@ -1025,8 +1032,8 @@ table5 <-
 ```{r narrow5}
 table5 <-
   table5 |>
-  dplyr::mutate(
-    narrow = dplyr::case_when(
+  tidytable::mutate.(
+    narrow = tidytable::case_when.(
       scale == "Coding" ~ "Cognitive Efficiency",
       scale == "Symbol Search" ~ "Perceptual Speed",
       scale == "Cancellation" ~ "Visual Attention",
@@ -1040,8 +1047,8 @@ table5 <-
 ```{r pass5}
 table5 <-
   table5 |>
-  dplyr::mutate(
-    pass = dplyr::case_when(
+  tidytable::mutate.(
+    pass = tidytable::case_when.(
       scale == "Cancellation" ~ "Attention",
       scale == "Coding" ~ "Planning",
       scale == "Symbol Search" ~ "Attention",
@@ -1055,8 +1062,8 @@ table5 <-
 ```{r desc5}
 table5 <-
   table5 |>
-  dplyr::mutate(
-    description = dplyr::case_when(
+  tidytable::mutate.(
+    description = tidytable::case_when.(
       scale == "Coding" ~ "Efficiency of psychomotor speed, visual scanning ability, and visual-motor coordination",
       scale == "Symbol Search" ~ "Visual-perceptual decision-making speed",
       scale == "Cancellation" ~ "Selective visual attention, visual discrimination, and visual-perceptual processing",
@@ -1070,7 +1077,7 @@ table5 <-
 ```{r result5}
 table5 <-
   table5 %>%
-  dplyr::mutate(
+  tidytable::mutate.(
     result = glue::glue(
       "{description} was {range}.\n"
     )
@@ -1144,8 +1151,8 @@ table6 <- bwu::gpluck_make_score_ranges(table = table6, test_type = "npsych_test
 ```{r desc6, eval = params$bd}
 table6 <-
   table6 |>
-  dplyr::mutate(
-    description = dplyr::case_when(
+  tidytable::mutate.(
+    description = tidytable::case_when.(
       scale ==
         "Block Design No Time Bonus" ~
         "Untimed Block Design performance",
@@ -1160,7 +1167,7 @@ table6 <-
 # result text
 table6 <-
   table6 %>%
-  dplyr::mutate(
+  tidytable::mutate.(
     result = glue::glue(
       "{description} was {range}.\n"
     )
@@ -1234,8 +1241,8 @@ table7 <- bwu::gpluck_make_score_ranges(table = table7, test_type = "npsych_test
 ```{r narrow7, eval = params$span}
 table7 <-
   table7 %>%
-  dplyr::mutate(
-    narrow = dplyr::case_when(
+  tidytable::mutate.(
+    narrow = tidytable::case_when.(
       scale == "Digit Span Forward" ~ "Attention Span",
       scale == "Digit Span Backward" ~ "Verbal Working Memory",
       scale == "Digit Span Sequencing" ~ "Verbal Working Memory",
@@ -1253,8 +1260,8 @@ table7 <-
 ```{r pass7, eval = params$span}
 table7 <-
   table7 |>
-  dplyr::mutate(
-    pass = dplyr::case_when(
+  tidytable::mutate.(
+    pass = tidytable::case_when.(
       scale == "Digit Span Forward" ~ "Sequential",
       scale == "Digit Span Backward" ~ "Attention",
       scale == "Digit Span Sequencing" ~ "Attention",
@@ -1272,8 +1279,8 @@ table7 <-
 ```{r score7, eval = params$span}
 table7 <-
   table7 |>
-  dplyr::mutate(
-    score_type = dplyr::case_when(
+  tidytable::mutate.(
+    score_type = tidytable::case_when.(
       scale == "Digit Span Forward" ~ "scaled_score",
       scale == "Digit Span Backward" ~ "scaled_score",
       scale == "Digit Span Sequencing" ~ "scaled_score",
@@ -1291,8 +1298,8 @@ table7 <-
 ```{r desc7, eval = params$span}
 table7 <-
   table7 |>
-  dplyr::mutate(
-    description = dplyr::case_when(
+  tidytable::mutate.(
+    description = tidytable::case_when.(
       scale ==
         "Digit Span Forward" ~
         "Forward digit span/attention span",
@@ -1324,7 +1331,7 @@ table7 <-
 ```{r result7, eval = params$span}
 table7 <-
   table7 %>%
-  dplyr::mutate(
+  tidytable::mutate.(
     result = glue::glue(
       "{description} was {range}.\n"
     )
@@ -1351,9 +1358,7 @@ wais4 <-
 ```{r match, eval = params$match}
 match_wais4 <- c(
 # IQ
-"Full Scale IQ (FSIQ)",
 "General Ability (GAI)",
-"Cognitive Proficiency (CPI)",
 # VCI
 "Verbal Comprehension (VCI)",
 "Similarities",
@@ -1374,11 +1379,10 @@ match_wais4 <- c(
 "Longest Digit Span Forward",
 "Longest Digit Span Backward",
 "Longest Digit Span Sequence",
-"Arithmetic"
 # PSI
 "Processing Speed (PSI)",
-"Coding"
-"Symbol Search",
+"Coding",
+"Symbol Search"
 )
 wais4 <- wais4[match(
   x = match_wais4, 
