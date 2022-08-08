@@ -1382,9 +1382,8 @@ match_wais4 <- c(
 )
 wais4 <- wais4[match(
   x = match_wais4, 
-  table = wais4$scale),
-  nomatch = "NA",
-   ]
+  table = wais4$scale,
+  nomatch = "NA")]
 ```
 
 ## Write out final csv
