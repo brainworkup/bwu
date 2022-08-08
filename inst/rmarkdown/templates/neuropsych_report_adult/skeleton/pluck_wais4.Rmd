@@ -162,8 +162,8 @@ params:
       - raw_score
       - score
       - percentile
-  slice:
-    label: "Subset Rows"
+  match:
+    label: "Subset/Match Rows"
     input: checkbox
     value: TRUE
 # Domains to evaluate or not
@@ -1346,24 +1346,51 @@ wais4 <-
   dplyr::bind_rows(table1, table2, table3, table6, table4, table7, table5)
 ```
 
-## Slice to reorder subtests/scales
+## Match subtests to include
 
-```{r slice, eval = params$slice}
-wais4 <-
-  wais4 |>
-  dplyr::slice(
-    iq = (5),
-    vci = c(1, 6:7),
-    pri = c(2, 9, 8, 10),
-    wmi = c(3, 12, 11, 13:15),
-    psi = c(4, 21, 20)
-  )
+```{r match, eval = params$match}
+match_wais4 <- c(
+# IQ
+"Full Scale IQ (FSIQ)",
+"General Ability (GAI)",
+"Cognitive Proficiency (CPI)",
+# VCI
+"Verbal Comprehension (VCI)",
+"Similarities",
+"Vocabulary",
+# PRI
+"Perceptual Reasoning (PRI)",
+"Matrix Reasoning",
+"Block Design",
+"Block Design No Time Bonus",
+# WMI
+"Working Memory (WMI)",
+"Letter-Number Sequencing",
+"Longest Letter-Number Sequence",
+"Digit Span",
+"Digit Span Forward",
+"Digit Span Backward",
+"Digit Span Sequencing",
+"Longest Digit Span Forward",
+"Longest Digit Span Backward",
+"Longest Digit Span Sequence",
+"Arithmetic"
+# PSI
+"Processing Speed (PSI)",
+"Coding"
+"Symbol Search",
+)
+wais4 <- wais4[match(
+  x = match_wais4, 
+  table = wais4$scale),
+  nomatch = "NA",
+   ]
 ```
 
 ## Write out final csv
 
 ```{r write}
-readr::write_csv(wais4, here::here(patient, "csv", "wais4.csv"), col_names = TRUE, na = "")
+readr::write_csv(wais4, here::here(patient, "csv", "wais4.csv"))
 ```
 
 ## Cleanup
