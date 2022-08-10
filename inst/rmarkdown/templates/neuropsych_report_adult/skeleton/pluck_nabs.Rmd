@@ -437,6 +437,7 @@ table1 <- bwu::gpluck_make_columns(
   timed = "",
   test_type = "npsych_test",
   score_type = "standard_score",
+  absort = "",
   description = "",
   result = ""
 )
@@ -457,6 +458,7 @@ table2 <- bwu::gpluck_make_columns(
   pass = "Attention",
   test_type = "npsych_test",
   score_type = "t_score",
+  absort = "",
   description = "",
   result = ""
 )
@@ -517,6 +519,7 @@ table5 <- bwu::gpluck_make_columns(
   pass = "Simultaneous",
   test_type = "npsych_test",
   score_type = "t_score",
+  absort = "",
   description = "",
   result = ""
 )
@@ -537,6 +540,7 @@ table6 <- bwu::gpluck_make_columns(
   pass = "Planning",
   test_type = "npsych_test",
   score_type = "t_score",
+  absort = "",
   description = "",
   result = ""
 )
@@ -687,7 +691,6 @@ table4 <-
         "Story Learning Delayed Recall" ~ "Delayed Recall",
       scale ==
         "Story Learning Percent Retention" ~ "Delayed Recall",
-      scale %in% stl ~ "Long-Term Memory",
       TRUE ~ as.character(subdomain)
     )
   )

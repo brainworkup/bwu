@@ -229,7 +229,12 @@ df <- tidytable::tidytable(
   domainPASS = (params$pass),
   domainVerbal = (params$verbal),
   domainTimed = (params$timed),
-  absort = paste0(tolower(params$test), "_", tolower(params$scale), "_", seq_len(1)),
+  absort =
+    paste0(
+      tolower(params$test),
+      "_", tolower(params$scale),
+      "_", seq_len(1)
+    ),
   description = NA,
   result = NA
 )
@@ -446,7 +451,7 @@ compute_result <-
           .scale == "Nondominant Hand" ~
             glue::glue("{.description} was {.range}.\n"),
           .scale == "TOPF Standard Score" ~
-            glue::glue("{.description} was {.range}.\n"),
+            glue::glue("{.description} fell within the {.range} range.\n"),
           TRUE ~ as.character(result)
         )
       )

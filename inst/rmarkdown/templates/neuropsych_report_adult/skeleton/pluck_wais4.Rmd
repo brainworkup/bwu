@@ -199,8 +199,10 @@ output:
 ## Load libraries
 
 ```{r setup, include = FALSE}
-Sys.setenv(JAVA_HOME =
- "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home")
+Sys.setenv(
+  JAVA_HOME =
+    "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home"
+)
 options(java.parameters = "-Xmx16000m")
 knitr::opts_chunk$set(
   root.dir = normalizePath("./"),
@@ -514,10 +516,10 @@ table1 <-
         "{description} was {range} overall.\n"
       ),
       scale == "General Ability (GAI)" ~ glue::glue(
-        "{description} was classified as {range} and ranked at the {percentile}th percentile, indicating performance as good as or better than {percentile}% of same-age peers from the general population.\n"
+        "{description} was {range} and ranked at the {percentile}th percentile, indicating performance as good as or better than {percentile}% of same-age peers from the general population.\n"
       ),
       scale == "Verbal Comprehension (VCI)" ~ glue::glue(
-        "{description} was classified as {range} and ranked at the {percentile}th percentile, indicating performance as good as or better than {percentile}% of same-age peers from the general population.\n"
+        "{description} was classified as {range} and ranked at the {percentile}th percentile.\n"
       ),
       scale == "Perceptual Reasoning (PRI)" ~ glue::glue(
         "{description} was classified as {range} and ranked at the {percentile}th percentile, indicating performance as good as or better than {percentile}% of same-age peers from the general population.\n"
@@ -526,7 +528,7 @@ table1 <-
         "{description} was a relative strength/weakness, falling in the {range} range.\n"
       ),
       scale == "Processing Speed (PSI)" ~ glue::glue(
-        "{description} was {range} and a relative strength/weakness.\n"
+        "{description} was {range} and a relative strength|weakness.\n"
       ),
       TRUE ~ as.character(result)
     )
@@ -1357,37 +1359,38 @@ wais4 <-
 
 ```{r match, eval = params$match}
 match_wais4 <- c(
-# IQ
-"General Ability (GAI)",
-# VCI
-"Verbal Comprehension (VCI)",
-"Similarities",
-"Vocabulary",
-# PRI
-"Perceptual Reasoning (PRI)",
-"Matrix Reasoning",
-"Block Design",
-"Block Design No Time Bonus",
-# WMI
-"Working Memory (WMI)",
-"Letter-Number Sequencing",
-"Longest Letter-Number Sequence",
-"Digit Span",
-"Digit Span Forward",
-"Digit Span Backward",
-"Digit Span Sequencing",
-"Longest Digit Span Forward",
-"Longest Digit Span Backward",
-"Longest Digit Span Sequence",
-# PSI
-"Processing Speed (PSI)",
-"Coding",
-"Symbol Search"
+  # IQ
+  "General Ability (GAI)",
+  # VCI
+  "Verbal Comprehension (VCI)",
+  "Similarities",
+  "Vocabulary",
+  # PRI
+  "Perceptual Reasoning (PRI)",
+  "Matrix Reasoning",
+  "Block Design",
+  "Block Design No Time Bonus",
+  # WMI
+  "Working Memory (WMI)",
+  "Letter-Number Sequencing",
+  "Longest Letter-Number Sequence",
+  "Digit Span",
+  "Digit Span Forward",
+  "Digit Span Backward",
+  "Digit Span Sequencing",
+  "Longest Digit Span Forward",
+  "Longest Digit Span Backward",
+  "Longest Digit Span Sequence",
+  # PSI
+  "Processing Speed (PSI)",
+  "Coding",
+  "Symbol Search"
 )
 wais4 <- wais4[match(
-  x = match_wais4, 
+  x = match_wais4,
   table = wais4$scale,
-  nomatch = "NA")]
+  nomatch = "NA"
+)]
 ```
 
 ## Write out final csv
