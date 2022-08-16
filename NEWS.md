@@ -116,5 +116,7 @@ output:
 -   added new function to better compute missing percentiles and ranges
 
 ## bwu 0.1.2.9005
-TODO:
-- changed names from "pluck_npsych_csv.Rmd" to "pluck_csv.Rmd"
+
+-   changed names from "pluck_npsych_csv.Rmd" to "pluck_csv.Rmd"
+-   other fixes
+

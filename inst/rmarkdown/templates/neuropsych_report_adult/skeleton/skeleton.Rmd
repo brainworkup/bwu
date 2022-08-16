@@ -28,13 +28,14 @@ header-includes:
   - \usepackage{hyperref}
   - \hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
 toc: false
-highlight: yes
-bibliography: brainworkup.bib
+highlight: true
+bibliography: bwu.bib
 biblio-style: apa
-link-citations: yes
-graphics: yes
+link-citations: true
+graphics: true
 fig-caption: true
-self-contained: yes
+embed-resources: true
+standalone: true
 fontpack-libertine: yes
 fontpack-newtx: yes
 fontpack-libertinus-type1: yes
@@ -542,6 +543,8 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:vsi) The Gv-Visual Processing Index (VSI) is primarily a measure of Visual Processing (Gv). Gv Refers to an individuals ability to generate visual images and perceive and analyze visual patterns and visual information.
 
+(ref:iep) Each public school child who receives special education and related services must have an Individualized Education Program (IEP). Each IEP must be designed for one student and must be a truly individualized document. The IEP creates an opportunity for teachers, parents, school administrators, related services personnel, and students (when appropriate) to work together to improve educational results for children with disabilities. The IEP is the cornerstone of a quality education for each child with a disability.
+
 (ref:first-name) `r params$first_name`
 
 (ref:last-name) `r params$last_name`
@@ -613,19 +616,19 @@ cat(readLines("2.0_nse.md"), sep = "\n")
 ## Test Battery
 
 - (ref:caadid)
-- (ref:caars):
+- (ref:caars)
   - (ref:caars-sr)
   - (ref:caars-or)
-- (ref:cefi):
+- (ref:cefi)
   - (ref:cefi-sr)
   - (ref:cefi-or)
-- (ref:acs):
+- (ref:acs)
   - (ref:acs-topf)
   - (ref:acs-word-choice)
 - (ref:wais4)
-- (ref:nabs):
+- (ref:nabs)
   - Attention, Language, Memory, Spatial, and Executive Functions Modules
-- (ref:examiner):
+- (ref:examiner)
   - (ref:examiner-ut) Unstructured Planning Task
   - (ref:examiner-fluency) Verbal Fluency
   - (ref:examiner-brs) Behavior Rating Scale
