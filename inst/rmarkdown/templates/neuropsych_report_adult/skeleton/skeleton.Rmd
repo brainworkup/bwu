@@ -11,7 +11,6 @@ output:
     keep_md: true
     keep_tex: true
     always_allow_html: true
-site: bookdown::bookdown_site
 editor_options:
   markdown:
     references:
@@ -36,10 +35,10 @@ graphics: true
 fig-caption: true
 embed-resources: true
 standalone: true
-fontpack-libertine: yes
-fontpack-newtx: yes
-fontpack-libertinus-type1: yes
-automark: yes
+fontpack-libertine: true
+fontpack-newtx: true
+fontpack-libertinus-type1: true
+automark: true
 classoption:
   - DIV=calc
   - headsepline=true
@@ -64,7 +63,7 @@ params:
     input: text
   mrn:
     label: "Patient ID:"
-    value: 123456789
+    value: [123456789]
     input: numeric
     min: 000000000
     max: 999999999
