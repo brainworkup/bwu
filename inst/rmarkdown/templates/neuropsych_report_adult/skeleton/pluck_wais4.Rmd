@@ -184,7 +184,7 @@ params:
     value: TRUE
   eval_bd:
     label: "BD No Time Bonus"
-    value: FALSE
+    value: TRUE
   eval_span:
     label: "DS/LNS"
     value: TRUE
@@ -1187,7 +1187,7 @@ table6 <- table6 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 ## Pluck and tidy tables
 
 ```{r pluck7, eval = params$span}
-table7 <- tibble::as_tibble(plucked_table[[6]])
+table7 <- tibble::as_tibble(plucked_table[[7]])
 colnames(table7) <- params$colnames4
 table7 <- dplyr::na_if(table7, "")
 table7 <- dplyr::na_if(table7, "NA")
