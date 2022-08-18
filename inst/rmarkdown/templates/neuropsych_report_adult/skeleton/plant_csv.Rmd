@@ -3,7 +3,7 @@ title: "Plant CSV file of Neuropsych Measures/Tests"
 params:
   patient:
     label: "Patient First Name:"
-    value: Biggie
+    value: Alexander
     input: text
   test_name:
     label: "Full Name of Test/Test Battery:"
@@ -48,6 +48,9 @@ params:
       - D-KEFS Switching
       - D-KEFS Inhibition Total Errors
       - D-KEFS Switching Total Errors
+      - Unstructured Task
+      - Letter Fluency
+      - Category Fluency
   raw_score:
     label: "Raw score:"
     value: 10
@@ -87,7 +90,7 @@ params:
     input: radio
     choices:
       - Planning
-      - Long-Term Memory
+      - Delayed Recall
       - Crystallized Intelligence
       - Everyday Executive
       - Retrieval Fluency
@@ -95,6 +98,7 @@ params:
       - Cognitive Flexibility
       - Response Monitoring
       - Fine Motor Dexterity
+      - Fluency
   narrow:
     label: "Narrow subdomain:"
     value: ""
@@ -103,13 +107,16 @@ params:
       - Perceptual Organization
       - Visual Memory
       - Premorbid Ability
-      - Decision Making
+      - Decision-Making
       - Naming Facility
       - Inhibition
       - Set-Shifting
       - Response Monitoring
       - Dominant Hand Dexterity
       - Nondominant Hand Dexterity
+      - Problem-Solving
+      - Phonemic Fluency
+      - Semantic Fluency
   pass:
     label: "PASS:"
     value: ""
@@ -273,6 +280,12 @@ compute_desc <- function(.x, .scale, description, ...) {
         "Nondominant hand dexterity",
       .scale == "TOPF Standard Score" ~
         "An estimate of premorbid verbal ability level",
+      .scale == "Unstructured Task" ~
+        "Planning and organization aptitude to formulate an action in advance of performance or intended performance examined through a 6-minute unstructured task",
+      .scale == "Letter Fluency" ~
+        "Letter/phonemic word fluency",
+      .scale == "Category Fluency" ~
+        "Categorical/semantic word fluency",
       TRUE ~ as.character(description)
     )
   )
@@ -452,6 +465,12 @@ compute_result <-
             glue::glue("{.description} was {.range}.\n"),
           .scale == "TOPF Standard Score" ~
             glue::glue("{.description} fell within the {.range} range.\n"),
+          .scale == "Unstructured Task" ~
+            glue::glue("{.description} fell within the {.range}.\n"),
+          .scale == "Letter Fluency" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "Category Fluency" ~
+            glue::glue("{.description} fell within the {.range}.\n"),
           TRUE ~ as.character(result)
         )
       )

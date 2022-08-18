@@ -298,7 +298,7 @@ table2 <-
 
 ```{r rename2}
 source(here::here("R", "which_cvlt3.R"))
-table2[1, 1] <- which_cvlt3(test)
+table2[1, 1] <- which_cvlt3(params$test)
 ```
 
 # Table 3
