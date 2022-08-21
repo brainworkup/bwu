@@ -544,6 +544,8 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:iep) Each public school child who receives special education and related services must have an Individualized Education Program (IEP). Each IEP must be designed for one student and must be a truly individualized document. The IEP creates an opportunity for teachers, parents, school administrators, related services personnel, and students (when appropriate) to work together to improve educational results for children with disabilities. The IEP is the cornerstone of a quality education for each child with a disability.
 
+(ref:dyscalculia) Developmental dyscalculia is a condition that affects the ability to acquire arithmetical skills. Dyscalculic learners may have difficulty understanding simple number concepts, lack an intuitive grasp of numbers, and have problems learning number facts and procedures. Even if they produce a correct answer or use a correct method, they may do so mechanically and without confidence.
+
 (ref:first-name) `r params$first_name`
 
 (ref:last-name) `r params$last_name`
