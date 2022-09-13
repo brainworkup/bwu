@@ -183,10 +183,10 @@ params:
     label: "Processing Speed"
     value: TRUE
   eval_bd:
-    label: "BD No Time Bonus"
+    label: "Block Design No Time Bonus"
     value: TRUE
   eval_span:
-    label: "DS/LNS"
+    label: "Longest Span Subtests"
     value: TRUE
 output:
   rmdformats::robobook:

@@ -362,7 +362,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:coca) Colorado Cognitive Assessment (CoCA)
 
-(ref:cog-est) Cognitive Estimation Test
+(ref:cet) Cognitive Estimation Test
 
 (ref:celf5) Clinical Evaluation of Language Fundamentals, 5th ed (CELF-5)
 
