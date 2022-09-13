@@ -1322,7 +1322,7 @@ table7 <-
         "Recall of digits sequences/resequencing",
       scale ==
         "Longest Letter-Number Sequence" ~
-        "longest letter-number sequence span",
+        "Longest letter-number sequence span",
       TRUE ~ as.character(description)
     )
   )

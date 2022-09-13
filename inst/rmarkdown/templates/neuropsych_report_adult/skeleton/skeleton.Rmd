@@ -630,9 +630,9 @@ cat(readLines("2.0_nse.md"), sep = "\n")
 - (ref:nabs)
   - Attention, Language, Memory, Spatial, and Executive Functions Modules
 - (ref:examiner)
-  - (ref:examiner-ut) Unstructured Planning Task
-  - (ref:examiner-fluency) Verbal Fluency
-  - (ref:examiner-brs) Behavior Rating Scale
+  - Unstructured Planning Task
+  - Verbal Fluency
+  - Behavior Rating Scale
 - (ref:cvlt3-brief)
 - (ref:rocf)
 - (ref:pegboard)
