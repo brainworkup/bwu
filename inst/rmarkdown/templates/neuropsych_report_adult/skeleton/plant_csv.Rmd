@@ -3,7 +3,7 @@ title: "Plant CSV file of Neuropsych Measures/Tests"
 params:
   patient:
     label: "Patient First Name:"
-    value: Alexander
+    value: Biggie
     input: text
   test_name:
     label: "Full Name of Test/Test Battery:"
@@ -18,6 +18,7 @@ params:
       - D-KEFS Color-Word Interference
       - NAB
       - WMS-IV
+      - Cognitive Estimation Test
   test:
     label: "Test/Measure File Name:"
     value: ""
@@ -31,6 +32,7 @@ params:
       - dkefs_cwi
       - nab
       - wms4
+      - cet
   scale:
     label: "Scale/Subtest:"
     value: ""
@@ -51,6 +53,7 @@ params:
       - Unstructured Task
       - Letter Fluency
       - Category Fluency
+      - Deviation Score
   raw_score:
     label: "Raw score:"
     value: 10
@@ -89,34 +92,36 @@ params:
     value: ""
     input: radio
     choices:
-      - Planning
-      - Delayed Recall
-      - Crystallized Intelligence
-      - Everyday Executive
-      - Retrieval Fluency
       - Cognitive Control
       - Cognitive Flexibility
-      - Response Monitoring
+      - Concept Formation
+      - Crystallized Intelligence
+      - Delayed Recall
+      - Everyday Executive
       - Fine Motor Dexterity
       - Fluency
+      - Planning
+      - Response Monitoring
+      - Retrieval Fluency
   narrow:
     label: "Narrow subdomain:"
     value: ""
     input: radio
     choices:
-      - Perceptual Organization
-      - Visual Memory
-      - Premorbid Ability
+      - Abstract Reasoning
       - Decision-Making
-      - Naming Facility
-      - Inhibition
-      - Set-Shifting
-      - Response Monitoring
       - Dominant Hand Dexterity
+      - Inhibition
+      - Naming Facility
       - Nondominant Hand Dexterity
-      - Problem-Solving
+      - Perceptual Organization
       - Phonemic Fluency
+      - Premorbid Ability
+      - Problem-Solving
+      - Response Monitoring
       - Semantic Fluency
+      - Set-Shifting
+      - Visual Memory
   pass:
     label: "PASS:"
     value: ""
@@ -286,6 +291,8 @@ compute_desc <- function(.x, .scale, description, ...) {
         "Letter/phonemic word fluency",
       .scale == "Category Fluency" ~
         "Categorical/semantic word fluency",
+      .scale == "Deviation Score" ~
+        "Abstract reasoning (hypothesis generation and concept formation)",
       TRUE ~ as.character(description)
     )
   )
@@ -444,9 +451,9 @@ compute_result <-
           .scale == "ROCFT Copy" ~
             glue::glue("{.description} was {.range}.\n"),
           .scale == "ROCFT Delayed Recall" ~
-            glue::glue("{.description} was {.range}.\n"),
+            glue::glue("{.description} fell within the {.range} range.\n"),
           .scale == "Judgment" ~
-            glue::glue("{.description} was {.range}.\n"),
+            glue::glue("{.description} fell within the {.range} range.\n"),
           .scale == "D-KEFS Color Naming" ~
             glue::glue("{.description} was {.range}.\n"),
           .scale == "D-KEFS Word Reading" ~
@@ -466,11 +473,13 @@ compute_result <-
           .scale == "TOPF Standard Score" ~
             glue::glue("{.description} fell within the {.range} range.\n"),
           .scale == "Unstructured Task" ~
-            glue::glue("{.description} fell within the {.range}.\n"),
+            glue::glue("{.description} fell within the {.range} range.\n"),
           .scale == "Letter Fluency" ~
             glue::glue("{.description} was {.range}.\n"),
           .scale == "Category Fluency" ~
-            glue::glue("{.description} fell within the {.range}.\n"),
+            glue::glue("{.description} fell within the {.range} range.\n"),
+          .scale == "Deviation Score" ~
+            glue::glue("{.description} fell within the {.range} range.\n"),
           TRUE ~ as.character(result)
         )
       )
