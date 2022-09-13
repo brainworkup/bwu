@@ -16,9 +16,9 @@ filter_domain <- c(
   "Visual Puzzles",
   "Object Assembly",
   "Picture Concepts",
-  # RCFT
+  # ROCFT
   "ROCF Copy",
-  "RCFT Copy",
+  "ROCFT Copy",
   # NEPSY
   "Design Copying",
   "Design Copying General",

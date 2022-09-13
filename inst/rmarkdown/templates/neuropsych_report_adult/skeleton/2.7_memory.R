@@ -1,7 +1,7 @@
 ## ---- 01-filter-memory -------------
 filter_domain <- c(
-  # RCFT
-  "ROCF Delayed Recall",
+  # ROCFT
+  "ROCFT Delayed Recall",
   "ROCF Memory",
   "RCFT Memory",
   ## NAB/NABS
