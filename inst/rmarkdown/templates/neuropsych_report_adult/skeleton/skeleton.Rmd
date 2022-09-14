@@ -27,6 +27,7 @@ header-includes:
   - \usepackage{hyperref}
   - \hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
 toc: false
+papersize: letter
 highlight: true
 bibliography: bwu.bib
 biblio-style: apa
