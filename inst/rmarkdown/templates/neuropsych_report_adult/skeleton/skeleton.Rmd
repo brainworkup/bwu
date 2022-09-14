@@ -1213,6 +1213,8 @@ bwu::dotplot(
 cat(readLines("3.0_sirf.md"), sep = "\n")
 ```
 
+\newpage
+
 # RECOMMENDATIONS
 
 ```{marginfigure, echo = TRUE}
@@ -1232,7 +1234,7 @@ Department of Psychiatry and the Behavioral Sciences\
 2250 Alcazar St., Suite 2200\
 Los Angeles, CA 90033\
 (323) 442-4000\
-[trampush\@usc.edu](mailto:trampush@usc.edu){.email}\
+[joey.trampush\@med.usc.edu](mailto:joey.trampush@med.usc.edu){.email}\
 ```
 
 Sincerely,
