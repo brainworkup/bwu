@@ -120,3 +120,6 @@ output:
 -   changed names from "pluck_npsych_csv.Rmd" to "pluck_csv.Rmd"
 -   other fixes
 
+## bwu 0.1.2.9006
+
+-   would not compile
