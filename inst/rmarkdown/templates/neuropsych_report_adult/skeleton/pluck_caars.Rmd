@@ -235,8 +235,8 @@ table <- bwu::gpluck_make_score_ranges(table = table, test_type = "npsych_test")
 ```{r domain}
 table <-
   table |>
-  mutate(
-    domain = case_when(
+  tidytable::mutate(
+    domain = tidytable::case_when(
       scale == "Inconsistency Index" ~ "Effort/Validity",
       TRUE ~ as.character(domain)
     )
@@ -248,8 +248,8 @@ table <-
 ```{r subdomain}
 table <-
   table |>
-  mutate(
-    subdomain = case_when(
+  tidytable::mutate(
+    subdomain = tidytable::case_when(
       scale == "Inconsistency Index" ~ "Effort/Validity",
       TRUE ~ as.character(subdomain)
     )
@@ -261,8 +261,8 @@ table <-
 ```{r narrow}
 table <-
   table |>
-  mutate(
-    narrow = case_when(
+  tidytable::mutate(
+    narrow = tidytable::case_when(
       scale ==
         "Inattention/Memory Problems" ~ "Inattention/Memory Problems",
       scale ==
@@ -292,8 +292,8 @@ table <-
 if (params$test == "caars_sr") {
   table <-
     table |>
-    mutate(
-      description = case_when(
+    tidytable::mutate(
+      description = tidytable::case_when(
         scale ==
           "ADHD Index" ~
           "composite indicator for identifying individuals 'at-risk' for ADHD",
@@ -327,8 +327,8 @@ if (params$test == "caars_sr") {
 } else {
   table <-
     table |>
-    mutate(
-      description = case_when(
+    tidytable::mutate(
+      description = tidytable::case_when(
         scale ==
           "ADHD Index" ~
           "composite indicator for identifying individuals 'at-risk' for ADHD",
@@ -400,8 +400,8 @@ if (params$test == "caars_sr") {
 } else {
   table <-
     table |>
-    mutate(
-      result = case_when(
+    tidytable::mutate(
+      result = tidytable::case_when(
         scale == "ADHD Index" ~ glue::glue(
           "- {patient}'s {description} was {range}\n"
         ),
