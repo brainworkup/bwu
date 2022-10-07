@@ -39,7 +39,6 @@ A dotplot using ggplot2
 This is the description.
 }
 \examples{
-require(magrittr)
 make_tibble(tibb = iq, data = neurocog, pheno = "Intelligence/General Ability")
 
 }

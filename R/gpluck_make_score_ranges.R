@@ -1,6 +1,5 @@
 #' @title Make test score range (e.g., Below Average, Above Average).
 #' @description Use a consistent set of ranges for performance on neuropsychological testing.
-#' @import tidytable
 #'
 #' @param table Name of table
 #' @param score Score, raw score, or standard score
@@ -31,8 +30,8 @@ gpluck_make_score_ranges <-
     if (test_type == "npsych_test") {
       table <-
         table %>%
-        tidytable::mutate(
-          range = tidytable::case_when(
+        dplyr::mutate(
+          range = dplyr::case_when(
             percentile >= 98 ~ "Exceptionally High",
             percentile %in% 91:97 ~ "Above Average",
             percentile %in% 75:90 ~ "High Average",
@@ -46,8 +45,8 @@ gpluck_make_score_ranges <-
     } else if (test_type == "rating_scale") {
       table <-
         table %>%
-        tidytable::mutate(
-          range = tidytable::case_when(
+        dplyr::mutate(
+          range = dplyr::case_when(
             score >= 70 ~ "Clinically Significant",
             score %in% 60:69 ~ "At-Risk",
             score %in% 40:59 ~ "Average",
@@ -58,8 +57,8 @@ gpluck_make_score_ranges <-
     } else {
       table <-
         table %>%
-        tidytable::mutate(
-          range = tidytable::case_when(
+        dplyr::mutate(
+          range = dplyr::case_when(
             score >= 60 &
               subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Strength",
             score %in% 40:59 &

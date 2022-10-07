@@ -22,18 +22,6 @@
 #' @param ... Other args
 #'
 #' @return A table for the report
-#' @examples
-#' gpluck_make_columns(
-#'   table = neurocog, scale = "Clock Drawing",
-#'   raw_score = 55, score = 59, range = "Average", ci_95 = NA,
-#'   test = "clock", test_name = "Clock Drawing", domain = "Visual Perception/Construction",
-#'   subdomain = "Visual Processing", narrow = "Visuomotor Integration",
-#'   pass = "Simultaneous", verbal = "Nonverbal", timed = "Untimed",
-#'   test_type = "npsych_test", score_type = "t_score",
-#'   absort = "CLOCK_01", description = "ability to draw an analog spontaneously from memory"
-#' )
-#' require(magrittr)
-#'
 #' @export
 gpluck_make_columns <- function(table,
                                 scale = NULL,
