@@ -33,10 +33,10 @@ filter_domain <- c(
 ## ---- 02-glue-adhd-sr ----
 dt <-
   neurobehav %>%
-  dplyr::filter(scale %in% filter_domain) %>%
-  dplyr::filter(test == "cefi_sr" | test == "caars_sr") %>%
-  dplyr::arrange(desc(percentile)) %>%
-  dplyr::distinct(.keep_all = FALSE)
+  tidytable::filter(scale %in% filter_domain) %>%
+  tidytable::filter(test == "cefi_sr" | test == "caars_sr") %>%
+  tidytable::arrange(desc(percentile)) %>%
+  tidytable::distinct(.keep_all = FALSE)
 
 dt %>%
   glue::glue_data() %>%
@@ -50,10 +50,10 @@ dt %>%
 ## ---- 02-glue-adhd-or -----
 dt <-
   neurobehav %>%
-  dplyr::filter(scale %in% filter_domain) %>%
-  dplyr::filter(test == "cefi_or" | test == "caars_or") %>%
-  dplyr::arrange(desc(percentile)) %>%
-  dplyr::distinct(.keep_all = FALSE)
+  tidytable::filter(scale %in% filter_domain) %>%
+  tidytable::filter(test == "cefi_or" | test == "caars_or") %>%
+  tidytable::arrange(desc(percentile)) %>%
+  tidytable::distinct(.keep_all = FALSE)
 
 dt %>%
   glue::glue_data() %>%
@@ -71,8 +71,8 @@ tb <-
     data = neurobehav,
     pheno = "Behavioral/Emotional/Social"
   ) %>%
-  dplyr::filter(Scale %in% filter_domain) %>%
-  dplyr::arrange(Test)
+  tidytable::filter(Scale %in% filter_domain) %>%
+  tidytable::arrange(Test)
 
 ## ---- 04-kable-adhd ----
 kableExtra::kbl(
@@ -95,10 +95,10 @@ kableExtra::kbl(
 ## ---- 05-df-adhd ----
 df <-
   neurobehav %>%
-  dplyr::filter(domain == "Behavioral/Emotional/Social") %>%
-  dplyr::filter(scale %in% filter_domain) %>%
-  dplyr::filter(!is.na(percentile)) %>%
-  dplyr::filter(filename %in% c("caars_sr.csv", "caars_or.csv"))
+  tidytable::filter(domain == "Behavioral/Emotional/Social") %>%
+  tidytable::filter(scale %in% filter_domain) %>%
+  tidytable::filter(!is.na(percentile)) %>%
+  tidytable::filter(filename %in% c("caars_sr.csv", "caars_or.csv"))
 
 ## ---- 06-plot-adhd-adhd ----
 bwu::dotplot(
@@ -111,10 +111,10 @@ bwu::dotplot(
 ## ---- 07-df-adhd ----
 df <-
   neurobehav %>%
-  dplyr::filter(domain == "Behavioral/Emotional/Social") %>%
-  dplyr::filter(scale %in% filter_domain) %>%
-  dplyr::filter(!is.na(percentile)) %>%
-  dplyr::filter(filename %in% c("cefi_sr.csv", "cefi_or.csv"))
+  tidytable::filter(domain == "Behavioral/Emotional/Social") %>%
+  tidytable::filter(scale %in% filter_domain) %>%
+  tidytable::filter(!is.na(percentile)) %>%
+  tidytable::filter(filename %in% c("cefi_sr.csv", "cefi_or.csv"))
 
 ## ---- 08-plot-executive-adhd -----
 bwu::dotplot(

@@ -146,7 +146,7 @@ knitr::opts_chunk$set(
   error = TRUE
 )
 library(bwu)
-library(dplyr)
+library(tidytable)
 library(hablar)
 library(here)
 library(knitr)
@@ -257,11 +257,11 @@ plucked_table <-
 ```{r table1}
 table1 <- tibble::as_tibble(plucked_table[[1]])
 colnames(table1) <- params$colnames1
-table1 <- dplyr::na_if(table1, "")
-table1 <- dplyr::na_if(table1, "NA")
-table1 <- dplyr::na_if(table1, "-")
-table1 <- dplyr::na_if(table1, "--")
-table1 <- dplyr::na_if(table1, "---")
+table1 <- tidytable::na_if(table1, "")
+table1 <- tidytable::na_if(table1, "NA")
+table1 <- tidytable::na_if(table1, "-")
+table1 <- tidytable::na_if(table1, "--")
+table1 <- tidytable::na_if(table1, "---")
 to_double <- c("raw_score", "score", "percentile")
 table1 <- table1 |> hablar::convert(dbl(all_of(to_double)))
 ```
@@ -270,7 +270,7 @@ table1 <- table1 |> hablar::convert(dbl(all_of(to_double)))
 rownames(table1) <- params$table1
 table1 <-
   table1 %>%
-  dplyr::rename(scale2 = scale) %>%
+  tidytable::rename(scale2 = scale) %>%
   tibble::rownames_to_column(., var = "scale")
 ```
 
@@ -279,11 +279,11 @@ table1 <-
 ```{r table2}
 table2 <- tibble::as_tibble(plucked_table[[2]])
 colnames(table2) <- params$colnames1
-table2 <- dplyr::na_if(table2, "")
-table2 <- dplyr::na_if(table2, "NA")
-table2 <- dplyr::na_if(table2, "-")
-table2 <- dplyr::na_if(table2, "--")
-table2 <- dplyr::na_if(table2, "---")
+table2 <- tidytable::na_if(table2, "")
+table2 <- tidytable::na_if(table2, "NA")
+table2 <- tidytable::na_if(table2, "-")
+table2 <- tidytable::na_if(table2, "--")
+table2 <- tidytable::na_if(table2, "---")
 to_double <- c("raw_score", "score", "percentile")
 table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
 ```
@@ -292,7 +292,7 @@ table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
 rownames(table2) <- params$table2
 table2 <-
   table2 %>%
-  dplyr::rename(scale2 = scale) %>%
+  tidytable::rename(scale2 = scale) %>%
   tibble::rownames_to_column(., var = "scale")
 ```
 
@@ -306,11 +306,11 @@ table2[1, 1] <- which_cvlt3(params$test)
 ```{r table3}
 table3 <- tibble::as_tibble(plucked_table[[3]])
 colnames(table3) <- params$colnames1
-table3 <- dplyr::na_if(table3, "")
-table3 <- dplyr::na_if(table3, "NA")
-table3 <- dplyr::na_if(table3, "-")
-table3 <- dplyr::na_if(table3, "--")
-table3 <- dplyr::na_if(table3, "---")
+table3 <- tidytable::na_if(table3, "")
+table3 <- tidytable::na_if(table3, "NA")
+table3 <- tidytable::na_if(table3, "-")
+table3 <- tidytable::na_if(table3, "--")
+table3 <- tidytable::na_if(table3, "---")
 to_double <- c("raw_score", "score", "percentile")
 table3 <- table3 |> hablar::convert(dbl(all_of(to_double)))
 ```
@@ -319,7 +319,7 @@ table3 <- table3 |> hablar::convert(dbl(all_of(to_double)))
 rownames(table3) <- params$table3
 table3 <-
   table3 %>%
-  dplyr::rename(scale2 = scale) %>%
+  tidytable::rename(scale2 = scale) %>%
   tibble::rownames_to_column(., var = "scale")
 ```
 
@@ -328,11 +328,11 @@ table3 <-
 ```{r table4}
 table4 <- tibble::as_tibble(plucked_table[[4]])
 colnames(table4) <- params$colnames1
-table4 <- dplyr::na_if(table4, "")
-table4 <- dplyr::na_if(table4, "NA")
-table4 <- dplyr::na_if(table4, "-")
-table4 <- dplyr::na_if(table4, "--")
-table4 <- dplyr::na_if(table4, "---")
+table4 <- tidytable::na_if(table4, "")
+table4 <- tidytable::na_if(table4, "NA")
+table4 <- tidytable::na_if(table4, "-")
+table4 <- tidytable::na_if(table4, "--")
+table4 <- tidytable::na_if(table4, "---")
 to_double <- c("raw_score", "score", "percentile")
 table4 <- table4 |> hablar::convert(dbl(all_of(to_double)))
 ```
@@ -341,7 +341,7 @@ table4 <- table4 |> hablar::convert(dbl(all_of(to_double)))
 rownames(table4) <- params$table4
 table4 <-
   table4 %>%
-  dplyr::rename(scale2 = scale) %>%
+  tidytable::rename(scale2 = scale) %>%
   tibble::rownames_to_column(., var = "scale")
 ```
 
@@ -350,11 +350,11 @@ table4 <-
 ```{r table5}
 table5 <- tibble::as_tibble(plucked_table[[5]])
 colnames(table5) <- params$colnames1
-table5 <- dplyr::na_if(table5, "")
-table5 <- dplyr::na_if(table5, "NA")
-table5 <- dplyr::na_if(table5, "-")
-table5 <- dplyr::na_if(table5, "--")
-table5 <- dplyr::na_if(table5, "---")
+table5 <- tidytable::na_if(table5, "")
+table5 <- tidytable::na_if(table5, "NA")
+table5 <- tidytable::na_if(table5, "-")
+table5 <- tidytable::na_if(table5, "--")
+table5 <- tidytable::na_if(table5, "---")
 to_double <- c("raw_score", "score", "percentile")
 table5 <- table5 |> hablar::convert(dbl(all_of(to_double)))
 ```
@@ -363,7 +363,7 @@ table5 <- table5 |> hablar::convert(dbl(all_of(to_double)))
 rownames(table5) <- params$table5
 table5 <-
   table5 %>%
-  dplyr::rename(scale2 = scale) %>%
+  tidytable::rename(scale2 = scale) %>%
   tibble::rownames_to_column(., var = "scale")
 ```
 
@@ -372,11 +372,11 @@ table5 <-
 ```{r pluck6}
 table6 <- tibble::as_tibble(plucked_table[[6]])
 colnames(table6) <- params$colnames1
-table6 <- dplyr::na_if(table6, "")
-table6 <- dplyr::na_if(table6, "NA")
-table6 <- dplyr::na_if(table6, "-")
-table6 <- dplyr::na_if(table6, "--")
-table6 <- dplyr::na_if(table6, "---")
+table6 <- tidytable::na_if(table6, "")
+table6 <- tidytable::na_if(table6, "NA")
+table6 <- tidytable::na_if(table6, "-")
+table6 <- tidytable::na_if(table6, "--")
+table6 <- tidytable::na_if(table6, "---")
 to_double <- c("raw_score", "score", "percentile")
 table6 <- table6 |> hablar::convert(dbl(all_of(to_double)))
 ```
@@ -385,7 +385,7 @@ table6 <- table6 |> hablar::convert(dbl(all_of(to_double)))
 rownames(table6) <- params$table6
 table6 <-
   table6 %>%
-  dplyr::rename(scale2 = scale) %>%
+  tidytable::rename(scale2 = scale) %>%
   tibble::rownames_to_column(., var = "scale")
 ```
 
@@ -394,11 +394,11 @@ table6 <-
 ```{r pluck7}
 table7 <- tibble::as_tibble(plucked_table[[7]])
 colnames(table7) <- params$colnames2
-table7 <- dplyr::na_if(table7, "")
-table7 <- dplyr::na_if(table7, "NA")
-table7 <- dplyr::na_if(table7, "-")
-table7 <- dplyr::na_if(table7, "--")
-table7 <- dplyr::na_if(table7, "---")
+table7 <- tidytable::na_if(table7, "")
+table7 <- tidytable::na_if(table7, "NA")
+table7 <- tidytable::na_if(table7, "-")
+table7 <- tidytable::na_if(table7, "--")
+table7 <- tidytable::na_if(table7, "---")
 to_double <- c("raw_score", "base_rate")
 table7 <- table7 |> hablar::convert(dbl(all_of(to_double)))
 ```
@@ -407,20 +407,20 @@ table7 <- table7 |> hablar::convert(dbl(all_of(to_double)))
 rownames(table7) <- params$table7
 table7 <-
   table7 %>%
-  dplyr::rename(scale2 = scale) %>%
+  tidytable::rename(scale2 = scale) %>%
   tibble::rownames_to_column(., var = "scale")
 ```
 
 ## Select to Keep
 
 ```{r keep}
-table1 <- table1 |> dplyr::select(all_of(params$keep1))
-table2 <- table2 |> dplyr::select(all_of(params$keep1))
-table3 <- table3 |> dplyr::select(all_of(params$keep1))
-table4 <- table4 |> dplyr::select(all_of(params$keep1))
-table5 <- table5 |> dplyr::select(all_of(params$keep1))
-table6 <- table6 |> dplyr::select(all_of(params$keep1))
-table7 <- table7 |> dplyr::select(all_of(params$keep2))
+table1 <- table1 |> tidytable::select(all_of(params$keep1))
+table2 <- table2 |> tidytable::select(all_of(params$keep1))
+table3 <- table3 |> tidytable::select(all_of(params$keep1))
+table4 <- table4 |> tidytable::select(all_of(params$keep1))
+table5 <- table5 |> tidytable::select(all_of(params$keep1))
+table6 <- table6 |> tidytable::select(all_of(params$keep1))
+table7 <- table7 |> tidytable::select(all_of(params$keep2))
 ```
 
 ## Create/Insert/Mutate new columns in tables
@@ -628,8 +628,8 @@ table1 <-
 ```{r desc2}
 table2 <-
   table2 |>
-  dplyr::mutate(
-    description = dplyr::case_when(
+  tidytable::mutate(
+    description = tidytable::case_when(
       scale ==
         "Trials 1-4 Correct" ~
         "Learning and recall of rote verbal information (word list)",
@@ -672,7 +672,7 @@ table3 <-
 ```{r desc4}
 table4 <-
   table4 %>%
-  dplyr::mutate(
+  tidytable::mutate(
     description = case_when(
       scale ==
         "Total Hits" ~
@@ -763,11 +763,11 @@ table7 <-
 ```{r bind-rows}
 if (params$test == "cvlt3") {
   cvlt3 <-
-    dplyr::bind_rows(table1, table2, table3, table4, table5, table6, table7)
+    tidytable::bind_rows(table1, table2, table3, table4, table5, table6, table7)
 }
 if (params$test == "cvlt3_brief") {
   cvlt3_brief <-
-    dplyr::bind_rows(table1, table2, table3, table4, table5, table6, table7)
+    tidytable::bind_rows(table1, table2, table3, table4, table5, table6, table7)
 }
 ```
 
@@ -777,7 +777,7 @@ if (params$test == "cvlt3_brief") {
 if (params$test == "cvlt3") {
   cvlt3 <-
     cvlt3 %>%
-    dplyr::mutate(
+    tidytable::mutate(
       result = glue::glue(
         "{description} was {range}."
       )
@@ -785,7 +785,7 @@ if (params$test == "cvlt3") {
 } else {
   cvlt3_brief <-
     cvlt3_brief %>%
-    dplyr::mutate(
+    tidytable::mutate(
       result = glue::glue(
         "{description} was {range}."
       )

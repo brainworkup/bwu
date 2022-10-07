@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
   error = TRUE
 )
 library(bwu)
-library(dplyr)
+library(tidytable)
 library(hablar)
 library(here)
 library(magrittr)
@@ -70,18 +70,18 @@ plucked_table <-
 
 ```{r subset}
 table <- plucked_table %>%
-  dplyr::select(SOM_T:AGG_P_T) %>%
+  tidytable::select(SOM_T:AGG_P_T) %>%
   tidyr::gather() %>%
-  dplyr::rename(scale = key, score = value)
+  tidytable::rename(scale = key, score = value)
 ```
 
 ### Convert T scores to z scores to percentiles
 
 ```{r t2z2p}
 table <- table %>%
-  dplyr::mutate(z = (score - 50) / 10) %>%
-  dplyr::mutate(percentile = trunc(pnorm(z) * 100)) %>%
-  dplyr::select(scale, score, percentile)
+  tidytable::mutate(z = (score - 50) / 10) %>%
+  tidytable::mutate(percentile = trunc(pnorm(z) * 100)) %>%
+  tidytable::select(scale, score, percentile)
 ```
 
 ### Change scale names
@@ -145,7 +145,7 @@ table[49, 1] <- c("Physical Aggression")
 ### Filter, group, select
 
 ```{r filter}
-table <- table %>% dplyr::slice(
+table <- table %>% tidytable::slice(
   c(
     1, 19:21,
     2, 22:24,
@@ -166,7 +166,7 @@ table <- table %>% dplyr::slice(
 ## Add/mutate columns
 
 ```{r mutate}
-table <- dplyr::mutate(
+table <- tidytable::mutate(
   table,
   raw_score = "",
   range = "",
@@ -382,7 +382,7 @@ table <-
 
 ```{r slice}
 slice.pai <- c(1:49)
-table <- table |> dplyr::slice(slice.pai)
+table <- table |> tidytable::slice(slice.pai)
 ```
 
 ## Glue results
@@ -390,7 +390,7 @@ table <- table |> dplyr::slice(slice.pai)
 ```{r result}
 table <-
   table %>%
-  dplyr::mutate(
+  tidytable::mutate(
     result = glue::glue(
       "{patient}'s score on {scale} ({description}) was {range}."
     )
@@ -402,7 +402,7 @@ table <-
 ## relocate variables
 
 ```{r relocate}
-pai <- table |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+pai <- table |> tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
 ## write out final csv

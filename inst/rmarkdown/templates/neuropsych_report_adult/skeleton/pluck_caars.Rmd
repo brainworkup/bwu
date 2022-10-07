@@ -43,7 +43,6 @@ knitr::opts_chunk$set(
   error = TRUE
 )
 library(bwu)
-library(dplyr)
 library(hablar)
 library(here)
 library(magrittr)
@@ -148,14 +147,14 @@ colnames3 <- c("score")
 ## Pluck individual columns
 
 ```{r pluck1}
-table1 <- dplyr::as_tibble(plucked_table[[1]])
+table1 <- tidytable::as_tibble(plucked_table[[1]])
 colnames(table1) <- colnames1
-table1 <- dplyr::na_if(table1, "")
-table1 <- dplyr::na_if(table1, "NA")
-table1 <- dplyr::na_if(table1, "-")
-table1 <- dplyr::na_if(table1, "--")
-table1 <- dplyr::na_if(table1, "---")
-table1 <- dplyr::na_if(table1, "N/A")
+table1 <- tidytable::na_if(table1, "")
+table1 <- tidytable::na_if(table1, "NA")
+table1 <- tidytable::na_if(table1, "-")
+table1 <- tidytable::na_if(table1, "--")
+table1 <- tidytable::na_if(table1, "---")
+table1 <- tidytable::na_if(table1, "N/A")
 ```
 
 ```{r tb1-rownames}
@@ -174,40 +173,40 @@ table1 <- table1[1:9, ]
 ```{r pluck2}
 table2 <- tibble::as_tibble(plucked_table[[2]])
 colnames(table2) <- colnames2
-table2 <- dplyr::na_if(table2, "")
-table2 <- dplyr::na_if(table2, "NA")
-table2 <- dplyr::na_if(table2, "-")
-table2 <- dplyr::na_if(table2, "--")
-table2 <- dplyr::na_if(table2, "---")
-table2 <- dplyr::na_if(table2, "N/A")
+table2 <- tidytable::na_if(table2, "")
+table2 <- tidytable::na_if(table2, "NA")
+table2 <- tidytable::na_if(table2, "-")
+table2 <- tidytable::na_if(table2, "--")
+table2 <- tidytable::na_if(table2, "---")
+table2 <- tidytable::na_if(table2, "N/A")
 to_double <- c("raw_score")
 table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
 table2 <- table2[1:9, ]
 ```
 
 ```{r pluck3}
-table3 <- dplyr::as_tibble(plucked_table[[3]])
+table3 <- tidytable::as_tibble(plucked_table[[3]])
 colnames(table3) <- colnames3
-table3 <- dplyr::na_if(table3, "")
-table3 <- dplyr::na_if(table3, "NA")
-table3 <- dplyr::na_if(table3, "-")
-table3 <- dplyr::na_if(table3, "--")
-table3 <- dplyr::na_if(table3, "---")
-table3 <- dplyr::na_if(table3, "N/A")
+table3 <- tidytable::na_if(table3, "")
+table3 <- tidytable::na_if(table3, "NA")
+table3 <- tidytable::na_if(table3, "-")
+table3 <- tidytable::na_if(table3, "--")
+table3 <- tidytable::na_if(table3, "---")
+table3 <- tidytable::na_if(table3, "N/A")
 to_double <- c("score")
 table3 <- table3 |> hablar::convert(dbl(all_of(to_double)))
 table3 <- table3[1:9, ]
 ```
 
 ```{r bind}
-table <- dplyr::bind_cols(table1, table2, table3)
+table <- tidytable::bind_cols(table1, table2, table3)
 ```
 
 ## Select variables to keep
 
 ```{r keep}
 keep <- c("scale", "raw_score", "score")
-table <- table %>% dplyr::select(all_of(keep))
+table <- table %>% tidytable::select(all_of(keep))
 ```
 
 ## Mutate columns
@@ -237,9 +236,9 @@ table <- bwu::gpluck_make_columns(
 
 ```{r percentile}
 table <- table %>%
-  dplyr::mutate(z = (score - 50) / 10) %>%
-  dplyr::mutate(percentile = trunc(pnorm(z) * 100)) %>%
-  dplyr::select(-z)
+  tidytable::mutate(z = (score - 50) / 10) %>%
+  tidytable::mutate(percentile = trunc(pnorm(z) * 100)) %>%
+  tidytable::select(-z)
 # caars_sr[1, 4] <- 99
 ```
 
@@ -387,8 +386,8 @@ if (params$test == "caars_sr") {
 if (params$test == "caars_sr") {
   table <-
     table |>
-    dplyr::mutate(
-      result = dplyr::case_when(
+    tidytable::mutate(
+      result = tidytable::case_when(
         scale == "ADHD Index" ~ glue::glue(
           "- {patient}'s {description} was {range}\n"
         ),
@@ -456,7 +455,7 @@ if (params$test == "caars_sr") {
 ## Relocate variables
 
 ```{r relocate}
-table <- table |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95),
+table <- table |> tidytable::relocate(c(raw_score, score, percentile, range, ci_95),
   .before = test
 )
 ```

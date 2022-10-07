@@ -213,7 +213,6 @@ knitr::opts_chunk$set(
 )
 library(bwu)
 library(data.table)
-library(dplyr, warn.conflicts = FALSE)
 library(gt)
 library(hablar)
 library(here)
@@ -319,11 +318,11 @@ plucked_table <- bwu::gpluck_extract_table(
 ```{r pluck1}
 table1 <- tibble::as_tibble(plucked_table[[1]])
 colnames(table1) <- params$colnames1
-table1 <- dplyr::na_if(table1, "")
-table1 <- dplyr::na_if(table1, "NA")
-table1 <- dplyr::na_if(table1, "-")
-table1 <- dplyr::na_if(table1, "--")
-table1 <- dplyr::na_if(table1, "---")
+table1 <- tidytable::na_if(table1, "")
+table1 <- tidytable::na_if(table1, "NA")
+table1 <- tidytable::na_if(table1, "-")
+table1 <- tidytable::na_if(table1, "--")
+table1 <- tidytable::na_if(table1, "---")
 to_double <- c("raw_score", "score", "percentile")
 table1 <- table1 |> hablar::convert(dbl(all_of(to_double)))
 ```
@@ -337,7 +336,7 @@ table1$scale <- params$table1
 ## Select variables to keep
 
 ```{r select1}
-table1 <- table1 |> dplyr::select(all_of(params$keep1))
+table1 <- table1 |> tidytable::select(all_of(params$keep1))
 ```
 
 ## Mutate columns
@@ -538,7 +537,7 @@ table1 <-
 ## Relocate variables
 
 ```{r relocate1}
-table1 <- table1 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+table1 <- table1 |> tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
 # VCI (Table 2)
@@ -548,11 +547,11 @@ table1 <- table1 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 ```{r pluck2}
 table2 <- tibble::as_tibble(plucked_table[[2]])
 colnames(table2) <- params$colnames2
-table2 <- dplyr::na_if(table2, "")
-table2 <- dplyr::na_if(table2, "NA")
-table2 <- dplyr::na_if(table2, "-")
-table2 <- dplyr::na_if(table2, "--")
-table2 <- dplyr::na_if(table2, "---")
+table2 <- tidytable::na_if(table2, "")
+table2 <- tidytable::na_if(table2, "NA")
+table2 <- tidytable::na_if(table2, "-")
+table2 <- tidytable::na_if(table2, "--")
+table2 <- tidytable::na_if(table2, "---")
 to_double <- c("raw_score", "score", "percentile")
 table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
 ```
@@ -566,7 +565,7 @@ table2$scale <- params$table2
 ## Select variables to keep
 
 ```{r keep2}
-table2 <- table2 |> dplyr::select(all_of(params$keep2))
+table2 <- table2 |> tidytable::select(all_of(params$keep2))
 ```
 
 ## Mutate columns
@@ -664,7 +663,7 @@ table2 <-
 ## Relocate variables
 
 ```{r reloc2}
-table2 <- table2 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+table2 <- table2 |> tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
 # PRI (Table 3)
@@ -674,11 +673,11 @@ table2 <- table2 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 ```{r pluck3}
 table3 <- tibble::as_tibble(plucked_table[[3]])
 colnames(table3) <- params$colnames2
-table3 <- dplyr::na_if(table3, "")
-table3 <- dplyr::na_if(table3, "NA")
-table3 <- dplyr::na_if(table3, "-")
-table3 <- dplyr::na_if(table3, "--")
-table3 <- dplyr::na_if(table3, "---")
+table3 <- tidytable::na_if(table3, "")
+table3 <- tidytable::na_if(table3, "NA")
+table3 <- tidytable::na_if(table3, "-")
+table3 <- tidytable::na_if(table3, "--")
+table3 <- tidytable::na_if(table3, "---")
 to_double <- c("raw_score", "score", "percentile")
 table3 <- table3 |> hablar::convert(dbl(all_of(to_double)))
 ```
@@ -692,7 +691,7 @@ table3$scale <- params$table3
 ## Select variables to keep
 
 ```{r keep3}
-table3 <- table3 |> dplyr::select(all_of(params$keep2))
+table3 <- table3 |> tidytable::select(all_of(params$keep2))
 ```
 
 ## Mutate columns
@@ -806,7 +805,7 @@ table3 <-
 ## Relocate variables
 
 ```{r reloc3}
-table3 <- table3 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+table3 <- table3 |> tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
 # WMI (Table 4)
@@ -816,11 +815,11 @@ table3 <- table3 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 ```{r pluck4}
 table4 <- tibble::as_tibble(plucked_table[[4]])
 colnames(table4) <- params$colnames2
-table4 <- dplyr::na_if(table4, "")
-table4 <- dplyr::na_if(table4, "NA")
-table4 <- dplyr::na_if(table4, "-")
-table4 <- dplyr::na_if(table4, "--")
-table4 <- dplyr::na_if(table4, "---")
+table4 <- tidytable::na_if(table4, "")
+table4 <- tidytable::na_if(table4, "NA")
+table4 <- tidytable::na_if(table4, "-")
+table4 <- tidytable::na_if(table4, "--")
+table4 <- tidytable::na_if(table4, "---")
 to_double <- c("raw_score", "score", "percentile")
 table4 <- table4 |> hablar::convert(dbl(all_of(to_double)))
 ```
@@ -834,7 +833,7 @@ table4$scale <- params$table4
 ## Select variables to keep
 
 ```{r keep4}
-table4 <- table4 |> dplyr::select(all_of(params$keep2))
+table4 <- table4 |> tidytable::select(all_of(params$keep2))
 ```
 
 ## Mutate columns
@@ -955,7 +954,7 @@ table4 <-
 ## Relocate variables
 
 ```{r reloc4}
-table4 <- table4 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+table4 <- table4 |> tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
 # PSI (Table 5)
@@ -965,11 +964,11 @@ table4 <- table4 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 ```{r pluck5}
 table5 <- tibble::as_tibble(plucked_table[[5]])
 colnames(table5) <- params$colnames2
-table5 <- dplyr::na_if(table5, "")
-table5 <- dplyr::na_if(table5, "NA")
-table5 <- dplyr::na_if(table5, "-")
-table5 <- dplyr::na_if(table5, "--")
-table5 <- dplyr::na_if(table5, "---")
+table5 <- tidytable::na_if(table5, "")
+table5 <- tidytable::na_if(table5, "NA")
+table5 <- tidytable::na_if(table5, "-")
+table5 <- tidytable::na_if(table5, "--")
+table5 <- tidytable::na_if(table5, "---")
 to_double <- c("raw_score", "score", "percentile")
 table5 <- table5 |> hablar::convert(dbl(all_of(to_double)))
 ```
@@ -983,7 +982,7 @@ table5$scale <- params$table5
 ## Select variables to keep
 
 ```{r keep5}
-table5 <- table5 |> dplyr::select(all_of(params$keep2))
+table5 <- table5 |> tidytable::select(all_of(params$keep2))
 ```
 
 ## Mutate columns
@@ -1089,7 +1088,7 @@ table5 <-
 ## Relocate variables
 
 ```{r relocate5}
-table5 <- table5 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+table5 <- table5 |> tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
 # PRI Process Score Summary (Table 6)
@@ -1099,11 +1098,11 @@ table5 <- table5 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 ```{r pluck6, eval = params$bd}
 table6 <- tibble::as_tibble(plucked_table[[6]])
 colnames(table6) <- params$colnames3
-table6 <- dplyr::na_if(table6, "")
-table6 <- dplyr::na_if(table6, "NA")
-table6 <- dplyr::na_if(table6, "-")
-table6 <- dplyr::na_if(table6, "--")
-table6 <- dplyr::na_if(table6, "---")
+table6 <- tidytable::na_if(table6, "")
+table6 <- tidytable::na_if(table6, "NA")
+table6 <- tidytable::na_if(table6, "-")
+table6 <- tidytable::na_if(table6, "--")
+table6 <- tidytable::na_if(table6, "---")
 to_double <- c("raw_score", "score", "percentile")
 table6 <- table6 %>% hablar::convert(dbl(all_of(to_double)))
 ```
@@ -1117,7 +1116,7 @@ table6$scale <- params$table6
 ## Select variables to keep
 
 ```{r keep6, eval = params$bd}
-table6 <- table6 %>% dplyr::select(all_of(params$keep2))
+table6 <- table6 %>% tidytable::select(all_of(params$keep2))
 ```
 
 ## Mutate columns
@@ -1179,7 +1178,7 @@ table6 <-
 ## Relocate variables
 
 ```{r relocate6, eval = params$bd}
-table6 <- table6 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+table6 <- table6 |> tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
 # WMI Process Score Summary (Table 7)
@@ -1189,11 +1188,11 @@ table6 <- table6 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 ```{r pluck7, eval = params$span}
 table7 <- tibble::as_tibble(plucked_table[[7]])
 colnames(table7) <- params$colnames4
-table7 <- dplyr::na_if(table7, "")
-table7 <- dplyr::na_if(table7, "NA")
-table7 <- dplyr::na_if(table7, "-")
-table7 <- dplyr::na_if(table7, "--")
-table7 <- dplyr::na_if(table7, "---")
+table7 <- tidytable::na_if(table7, "")
+table7 <- tidytable::na_if(table7, "NA")
+table7 <- tidytable::na_if(table7, "-")
+table7 <- tidytable::na_if(table7, "--")
+table7 <- tidytable::na_if(table7, "---")
 to_double <- c("raw_score", "score", "percentile")
 table7 <- table7 |> hablar::convert(dbl(all_of(to_double)))
 ```
@@ -1207,7 +1206,7 @@ table7$scale <- params$table7
 ## Variables to keep
 
 ```{r keep7, eval = params$span}
-table7 <- table7 |> dplyr::select(all_of(params$keep2))
+table7 <- table7 |> tidytable::select(all_of(params$keep2))
 ```
 
 ## Mutate columns
@@ -1343,7 +1342,7 @@ table7 <-
 ## Relocate variables
 
 ```{r relocate7, eval = params$span}
-table7 <- table7 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+table7 <- table7 |> tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
 # Finalize and save csv
@@ -1352,7 +1351,7 @@ table7 <- table7 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 
 ```{r merge}
 wais4 <-
-  dplyr::bind_rows(table1, table2, table3, table6, table4, table7, table5)
+  tidytable::bind_rows(table1, table2, table3, table6, table4, table7, table5)
 ```
 
 ## Match subtests to include

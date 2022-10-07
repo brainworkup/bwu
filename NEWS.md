@@ -123,3 +123,7 @@ output:
 ## bwu 0.1.2.9006
 
 -   would not compile
+
+## bwu 0.1.2.9007
+
+-   created dev branch to fix problems w dplyr and tidytable

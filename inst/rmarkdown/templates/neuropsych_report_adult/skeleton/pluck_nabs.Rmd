@@ -108,7 +108,7 @@ knitr::opts_chunk$set(
   error = TRUE
 )
 library(bwu)
-library(dplyr)
+library(tidytable)
 library(hablar)
 library(here)
 library(magrittr)
@@ -206,21 +206,21 @@ plucked_table <- bwu::gpluck_extract_table(
 ```{r pluck1}
 table1 <- tibble::as_tibble(plucked_table[[1]])
 colnames(table1) <- params$column_names1
-table1 <- dplyr::na_if(table1, "")
-table1 <- dplyr::na_if(table1, "NA")
-table1 <- dplyr::na_if(table1, "-")
-table1 <- dplyr::na_if(table1, "--")
-table1 <- dplyr::na_if(table1, "---")
+table1 <- tidytable::na_if(table1, "")
+table1 <- tidytable::na_if(table1, "NA")
+table1 <- tidytable::na_if(table1, "-")
+table1 <- tidytable::na_if(table1, "--")
+table1 <- tidytable::na_if(table1, "---")
 table1 <-
   table1 %>%
-  dplyr::mutate(raw_score = "") %>%
-  dplyr::relocate(raw_score, .before = score)
+  tidytable::mutate(raw_score = "") %>%
+  tidytable::relocate(raw_score, .before = score)
 to_double <- c("raw_score", "score", "percentile")
 table1 <- table1 |> hablar::convert(dbl(all_of(to_double)))
 ```
 
 ```{r slice1}
-table1 <- table1 %>% dplyr::mutate(absort = paste0(seq_len(nrow(table1))))
+table1 <- table1 %>% tidytable::mutate(absort = paste0(seq_len(nrow(table1))))
 table1$absort <- as.numeric(table1$absort)
 table1 <- table1 |>
   arrange(desc(score)) |>
@@ -243,11 +243,11 @@ table1[6, 1] <- c("NAB Total Index")
 ```{r pluck2}
 table2 <- as_tibble(plucked_table[[2]])
 colnames(table2) <- params$column_names2
-table2 <- dplyr::na_if(table2, "")
-table2 <- dplyr::na_if(table2, "NA")
-table2 <- dplyr::na_if(table2, "-")
-table2 <- dplyr::na_if(table2, "--")
-table2 <- dplyr::na_if(table2, "---")
+table2 <- tidytable::na_if(table2, "")
+table2 <- tidytable::na_if(table2, "NA")
+table2 <- tidytable::na_if(table2, "-")
+table2 <- tidytable::na_if(table2, "--")
+table2 <- tidytable::na_if(table2, "---")
 to_double <- c("raw_score", "z_score", "score", "percentile")
 table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
 ```
@@ -288,12 +288,12 @@ table2[13, 1] <- c("Numbers & Letters Part B Efficiency")
 ```{r pluck3}
 table3 <- as_tibble(plucked_table[[3]])
 colnames(table3) <- params$column_names2
-table3 <- dplyr::na_if(table3, "")
-table3 <- dplyr::na_if(table3, "NA")
-table3 <- dplyr::na_if(table3, "-")
-table3 <- dplyr::na_if(table3, "--")
-table3 <- dplyr::na_if(table3, "---")
-table3 <- dplyr::na_if(table3, "N/A")
+table3 <- tidytable::na_if(table3, "")
+table3 <- tidytable::na_if(table3, "NA")
+table3 <- tidytable::na_if(table3, "-")
+table3 <- tidytable::na_if(table3, "--")
+table3 <- tidytable::na_if(table3, "---")
+table3 <- tidytable::na_if(table3, "N/A")
 to_double <- c("raw_score", "z_score", "score", "percentile")
 table3 <-
   table3 |>
@@ -316,11 +316,11 @@ table3[7, 1] <- c("Naming Phonemic Cuing")
 ```{r pluck4}
 table4 <- as_tibble(plucked_table[[4]])
 colnames(table4) <- params$column_names3
-table4 <- dplyr::na_if(table4, "")
-table4 <- dplyr::na_if(table4, "NA")
-table4 <- dplyr::na_if(table4, "-")
-table4 <- dplyr::na_if(table4, "--")
-table4 <- dplyr::na_if(table4, "---")
+table4 <- tidytable::na_if(table4, "")
+table4 <- tidytable::na_if(table4, "NA")
+table4 <- tidytable::na_if(table4, "-")
+table4 <- tidytable::na_if(table4, "--")
+table4 <- tidytable::na_if(table4, "---")
 to_double <- c("raw_score", "z_score", "score", "percentile")
 table4 <- table4 |> hablar::convert(dbl(all_of(to_double)))
 ```
@@ -350,11 +350,11 @@ table4[6, 1] <- c("Story Learning Percent Retention")
 ```{r pluck5}
 table5 <- as_tibble(plucked_table[[5]])
 colnames(table5) <- params$column_names3
-table5 <- dplyr::na_if(table5, "")
-table5 <- dplyr::na_if(table5, "NA")
-table5 <- dplyr::na_if(table5, "-")
-table5 <- dplyr::na_if(table5, "--")
-table5 <- dplyr::na_if(table5, "---")
+table5 <- tidytable::na_if(table5, "")
+table5 <- tidytable::na_if(table5, "NA")
+table5 <- tidytable::na_if(table5, "-")
+table5 <- tidytable::na_if(table5, "--")
+table5 <- tidytable::na_if(table5, "---")
 to_double <- c("raw_score", "z_score", "score", "percentile")
 table5 <- table5 |> hablar::convert(dbl(all_of(to_double)))
 ```
@@ -380,11 +380,11 @@ table5[2, 1] <- c("Design Construction")
 ```{r pluck6}
 table6 <- as_tibble(plucked_table[[6]])
 colnames(table6) <- params$column_names3
-table6 <- dplyr::na_if(table6, "")
-table6 <- dplyr::na_if(table6, "NA")
-table6 <- dplyr::na_if(table6, "-")
-table6 <- dplyr::na_if(table6, "--")
-table6 <- dplyr::na_if(table6, "---")
+table6 <- tidytable::na_if(table6, "")
+table6 <- tidytable::na_if(table6, "NA")
+table6 <- tidytable::na_if(table6, "-")
+table6 <- tidytable::na_if(table6, "--")
+table6 <- tidytable::na_if(table6, "---")
 to_double <- c("raw_score", "z_score", "score", "percentile")
 table6 <- table6 |> hablar::convert(dbl(all_of(to_double)))
 ```
@@ -413,12 +413,12 @@ table6[3, 1] <- c("Word Generation Perseverations")
 ## Select variables to keep
 
 ```{r keep}
-table1 <- table1 |> dplyr::select(all_of(params$keep1))
-table2 <- table2 |> dplyr::select(all_of(params$keep2))
-table3 <- table3 |> dplyr::select(all_of(params$keep2))
-table4 <- table4 |> dplyr::select(all_of(params$keep2))
-table5 <- table5 |> dplyr::select(all_of(params$keep2))
-table6 <- table6 |> dplyr::select(all_of(params$keep2))
+table1 <- table1 |> tidytable::select(all_of(params$keep1))
+table2 <- table2 |> tidytable::select(all_of(params$keep2))
+table3 <- table3 |> tidytable::select(all_of(params$keep2))
+table4 <- table4 |> tidytable::select(all_of(params$keep2))
+table5 <- table5 |> tidytable::select(all_of(params$keep2))
+table6 <- table6 |> tidytable::select(all_of(params$keep2))
 ```
 
 ## Mutate/Format Tables
@@ -1272,8 +1272,8 @@ table1 <-
 ```{r result2}
 table2 <-
   table2 |>
-  dplyr::mutate(
-    result = dplyr::case_when(
+  tidytable::mutate(
+    result = tidytable::case_when(
       scale ==
         "Orientation" ~
         glue::glue("{description} was intact.\n"),
@@ -1313,8 +1313,8 @@ table3 <-
 ```{r result4}
 table4 <-
   table4 |>
-  dplyr::mutate(
-    result = dplyr::case_when(
+  tidytable::mutate(
+    result = tidytable::case_when(
       scale == "Story Learning Immediate Recall" ~
         glue::glue("{description} was {range}.\n"),
       scale == "Story Learning Delayed Recall" ~
@@ -1331,8 +1331,8 @@ table4 <-
 ```{r result5}
 table5 <-
   table5 |>
-  dplyr::mutate(
-    result = dplyr::case_when(
+  tidytable::mutate(
+    result = tidytable::case_when(
       scale == "Visual Discrimination" ~
         glue::glue("{description} was {range}.\n"),
       scale == "Design Construction" ~
@@ -1345,8 +1345,8 @@ table5 <-
 ```{r result6}
 table6 <-
   table6 |>
-  dplyr::mutate(
-    result = dplyr::case_when(
+  tidytable::mutate(
+    result = tidytable::case_when(
       scale == "Mazes" ~
         glue::glue("{description} was {range}.\n"),
       scale == "Word Generation" ~
@@ -1386,7 +1386,7 @@ table6 <-
 ## Merge NAB tables
 
 ```{r merge}
-nabs <- dplyr::bind_rows(
+nabs <- tidytable::bind_rows(
   table1,
   table2,
   table3,
@@ -1401,7 +1401,7 @@ nabs <- dplyr::bind_rows(
 ```{r reorder, eval = params$slice}
 nabs <-
   nabs |>
-  dplyr::slice(
+  tidytable::slice(
     index = (6),
     att = c(1, 7, 13:19),
     lan = c(2, 20, 24),

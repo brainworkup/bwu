@@ -674,92 +674,92 @@ neuropsych <-
     na = c("", "NA", "--", "-"),
     .id = "filename"
   ) %>%
-  dplyr::filter(!is.na(percentile)) %>%
-  dplyr::distinct() %>%
-  dplyr::mutate(z = qnorm(percentile / 100)) %>%
-  dplyr::mutate(domain = forcats::as_factor(domain)) %>%
-  dplyr::mutate(subdomain = forcats::as_factor(subdomain)) %>%
-  dplyr::mutate(narrow = forcats::as_factor(narrow)) %>%
-  dplyr::mutate(pass = forcats::as_factor(pass)) %>%
-  dplyr::mutate(verbal = forcats::as_factor(verbal)) %>%
-  dplyr::mutate(timed = forcats::as_factor(timed))
+  tidytable::filter(!is.na(percentile)) %>%
+  tidytable::distinct() %>%
+  tidytable::mutate(z = qnorm(percentile / 100)) %>%
+  tidytable::mutate(domain = forcats::as_factor(domain)) %>%
+  tidytable::mutate(subdomain = forcats::as_factor(subdomain)) %>%
+  tidytable::mutate(narrow = forcats::as_factor(narrow)) %>%
+  tidytable::mutate(pass = forcats::as_factor(pass)) %>%
+  tidytable::mutate(verbal = forcats::as_factor(verbal)) %>%
+  tidytable::mutate(timed = forcats::as_factor(timed))
 ```
 
 ```{r, make-factors-neurocog, cache = FALSE}
 # Subset neurocognitive data
 neurocog <-
   neuropsych %>%
-  dplyr::filter(test_type == "npsych_test")
+  tidytable::filter(test_type == "npsych_test")
 # domain
 neurocog <-
   neurocog %>%
-  dplyr::group_by(domain, .add = TRUE) %>%
-  dplyr::filter(!is.na(percentile)) %>%
-  dplyr::mutate(z_mean_dom = mean(z), z_sd_dom = sd(z)) %>%
-  dplyr::ungroup()
+  tidytable::group_by(domain, .add = TRUE) %>%
+  tidytable::filter(!is.na(percentile)) %>%
+  tidytable::mutate(z_mean_dom = mean(z), z_sd_dom = sd(z)) %>%
+  tidytable::ungroup()
 # subdomain
 neurocog <-
   neurocog %>%
-  dplyr::group_by(subdomain, .add = TRUE) %>%
-  dplyr::filter(!is.na(percentile)) %>%
-  dplyr::mutate(z_mean_sub = mean(z), z_sd_sub = sd(z)) %>%
-  dplyr::ungroup()
+  tidytable::group_by(subdomain, .add = TRUE) %>%
+  tidytable::filter(!is.na(percentile)) %>%
+  tidytable::mutate(z_mean_sub = mean(z), z_sd_sub = sd(z)) %>%
+  tidytable::ungroup()
 # narrow
 neurocog <-
   neurocog %>%
-  dplyr::group_by(narrow, .add = TRUE) %>%
-  dplyr::filter(!is.na(percentile)) %>%
-  dplyr::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) %>%
-  dplyr::ungroup()
+  tidytable::group_by(narrow, .add = TRUE) %>%
+  tidytable::filter(!is.na(percentile)) %>%
+  tidytable::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) %>%
+  tidytable::ungroup()
 # pass
 neurocog <-
   neurocog %>%
-  dplyr::group_by(pass, .add = TRUE) %>%
-  dplyr::filter(!is.na(percentile)) %>%
-  dplyr::mutate(z_mean_pass = mean(z), z_sd_pass = sd(z)) %>%
-  dplyr::ungroup()
+  tidytable::group_by(pass, .add = TRUE) %>%
+  tidytable::filter(!is.na(percentile)) %>%
+  tidytable::mutate(z_mean_pass = mean(z), z_sd_pass = sd(z)) %>%
+  tidytable::ungroup()
 # verbal
 neurocog <-
   neurocog %>%
-  dplyr::group_by(verbal, .add = TRUE) %>%
-  dplyr::filter(!is.na(percentile)) %>%
-  dplyr::mutate(z_mean_verbal = mean(z), z_sd_verbal = sd(z)) %>%
-  dplyr::ungroup()
+  tidytable::group_by(verbal, .add = TRUE) %>%
+  tidytable::filter(!is.na(percentile)) %>%
+  tidytable::mutate(z_mean_verbal = mean(z), z_sd_verbal = sd(z)) %>%
+  tidytable::ungroup()
 # timed
 neurocog <-
   neurocog %>%
-  dplyr::group_by(timed, .add = TRUE) %>%
-  dplyr::filter(!is.na(percentile)) %>%
-  dplyr::mutate(z_mean_timed = mean(z), z_sd_timed = sd(z)) %>%
-  dplyr::ungroup()
+  tidytable::group_by(timed, .add = TRUE) %>%
+  tidytable::filter(!is.na(percentile)) %>%
+  tidytable::mutate(z_mean_timed = mean(z), z_sd_timed = sd(z)) %>%
+  tidytable::ungroup()
 ```
 
 ```{r, make-factors-neurobehav, cache = FALSE}
 # Subset neurobehavioral data
 neurobehav <-
   neuropsych %>%
-  dplyr::filter(test_type != "npsych_test")
+  tidytable::filter(test_type != "npsych_test")
 # domain
 neurobehav <-
   neurobehav %>%
-  dplyr::group_by(domain, .add = TRUE) %>%
-  dplyr::filter(!is.na(score)) %>%
-  dplyr::mutate(z_mean_dom = mean(z), z_sd_dom = sd(z)) %>%
-  dplyr::ungroup()
+  tidytable::group_by(domain, .add = TRUE) %>%
+  tidytable::filter(!is.na(score)) %>%
+  tidytable::mutate(z_mean_dom = mean(z), z_sd_dom = sd(z)) %>%
+  tidytable::ungroup()
 # subdomain
 neurobehav <-
   neurobehav %>%
-  dplyr::group_by(subdomain, .add = TRUE) %>%
-  dplyr::filter(!is.na(score)) %>%
-  dplyr::mutate(z_mean_sub = mean(z), z_sd_sub = sd(z)) %>%
-  dplyr::ungroup()
+  tidytable::group_by(subdomain, .add = TRUE) %>%
+  tidytable::filter(!is.na(score)) %>%
+  tidytable::mutate(z_mean_sub = mean(z), z_sd_sub = sd(z)) %>%
+  tidytable::ungroup()
 # narrow
 neurobehav <-
   neurobehav %>%
-  dplyr::group_by(narrow, .add = TRUE) %>%
-  dplyr::filter(!is.na(score)) %>%
-  dplyr::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) %>%
-  dplyr::ungroup()
+  tidytable::group_by(narrow, .add = TRUE) %>%
+  tidytable::filter(!is.na(score)) %>%
+  tidytable::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) %>%
+  tidytable::ungroup()
 ```
 
 ```{r, write-neuro-data}
@@ -1143,8 +1143,8 @@ knitr::read_chunk(here::here(patient, "2.11_emotion.R"))
 ```{r domain-df, cache = FALSE}
 domain <-
   neurocog %>%
-  dplyr::filter(test_type == "npsych_test") %>%
-  dplyr::filter(!is.na(domain))
+  tidytable::filter(test_type == "npsych_test") %>%
+  tidytable::filter(!is.na(domain))
 ```
 
 ```{r domain-plot, fig.cap = '(ref:domain)', fig.height = 3.5, cache = FALSE}
@@ -1161,8 +1161,8 @@ bwu::dotplot(
 ```{r pass-df, cache = FALSE}
 pass <-
   neurocog %>%
-  dplyr::filter(test_type == "npsych_test") %>%
-  dplyr::filter(!is.na(pass))
+  tidytable::filter(test_type == "npsych_test") %>%
+  tidytable::filter(!is.na(pass))
 ```
 
 ```{r pass-plot, eval = T, fig.cap = '(ref:pass)', fig.env = 'marginfigure', fig.height = 5, out.width = '.5\\textwidth', out.extra = '', fig.pos = ''}
@@ -1179,8 +1179,8 @@ bwu::dotplot(
 ```{r nonverbal-df, cache = FALSE}
 nonverbal <-
   neurocog %>%
-  dplyr::filter(test_type == "npsych_test") %>%
-  dplyr::filter(!is.na(verbal))
+  tidytable::filter(test_type == "npsych_test") %>%
+  tidytable::filter(!is.na(verbal))
 ```
 
 ```{r nonverbal-plot, eval = T, fig.cap = '(ref:nonverbal)', fig.env = 'marginfigure', fig.height = 5, out.width = '.5\\textwidth', out.extra = '', fig.pos = ''}
@@ -1197,8 +1197,8 @@ bwu::dotplot(
 ```{r timed-df, cache = FALSE}
 timed <-
   neurocog %>%
-  dplyr::filter(test_type == "npsych_test") %>%
-  dplyr::filter(!is.na(timed))
+  tidytable::filter(test_type == "npsych_test") %>%
+  tidytable::filter(!is.na(timed))
 ```
 
 ```{r timed-plot, eval = T, fig.cap = '(ref:timed)', fig.env='marginfigure', fig.height=5, out.width='.5\\textwidth', out.extra='', fig.pos=''}

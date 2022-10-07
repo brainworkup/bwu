@@ -67,9 +67,9 @@ filter_domain <- c(
 ## ---- 02-glue-verbal ---------------------
 dt <-
   neurocog %>%
-  dplyr::filter(scale %in% filter_domain) %>%
-  dplyr::arrange(desc(percentile)) %>%
-  dplyr::distinct(.keep_all = FALSE)
+  tidytable::filter(scale %in% filter_domain) %>%
+  tidytable::arrange(desc(percentile)) %>%
+  tidytable::distinct(.keep_all = FALSE)
 
 dt %>%
   glue::glue_data() %>%
@@ -87,8 +87,8 @@ tb <-
     data = neurocog,
     pheno = "Verbal/Language"
   ) %>%
-  dplyr::filter(Scale %in% filter_domain) %>%
-  dplyr::arrange(Test)
+  tidytable::filter(Scale %in% filter_domain) %>%
+  tidytable::arrange(Test)
 
 ## ---- 04-kable-verbal -----------------
 kableExtra::kbl(
@@ -114,10 +114,10 @@ kableExtra::kbl(
 ## ---- 05-df-verbal -----------------------------
 df <-
   neurocog %>%
-  dplyr::filter(domain == "Verbal/Language") %>%
-  dplyr::filter(!is.na(percentile)) %>%
-  dplyr::arrange(test_name) %>%
-  dplyr::filter(scale %in% filter_domain)
+  tidytable::filter(domain == "Verbal/Language") %>%
+  tidytable::filter(!is.na(percentile)) %>%
+  tidytable::arrange(test_name) %>%
+  tidytable::filter(scale %in% filter_domain)
 
 ## ---- 06-plot-subdomain-verbal ------------------
 bwu::dotplot(

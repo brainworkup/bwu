@@ -84,7 +84,7 @@ knitr::opts_chunk$set(
   error = TRUE
 )
 library(bwu)
-library(dplyr)
+library(tidytable)
 library(hablar)
 library(here)
 library(knitr)

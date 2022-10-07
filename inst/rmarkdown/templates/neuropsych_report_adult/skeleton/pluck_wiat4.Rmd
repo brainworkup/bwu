@@ -149,7 +149,7 @@ knitr::opts_chunk$set(
   error = TRUE
 )
 library(bwu)
-library(dplyr)
+library(tidytable)
 library(hablar)
 library(here)
 library(knitr)
@@ -229,7 +229,7 @@ saveRDS(area, file = here::here(patient, "pre_csv", "area_wiat4.rds"), compress 
 ```
 
 ```{r r-area}
-#area <- readRDS(here::here(patient, "pre_csv", "area_wiat4.rds"))
+# area <- readRDS(here::here(patient, "pre_csv", "area_wiat4.rds"))
 ```
 
 ## Extract tables
@@ -251,21 +251,21 @@ plucked_table <- bwu::gpluck_extract_table(
 
 ```{r pluck1, eval=F}
 table1 <- as_tibble(plucked_table[[1]])
-table1 <- dplyr::mutate(table1, raw_score = NA_integer_, .before = V2)
+table1 <- tidytable::mutate(table1, raw_score = NA_integer_, .before = V2)
 colnames(table1) <- params$colnames1
 table1$scale <- NA
-table1 <- dplyr::na_if(table1, "")
-table1 <- dplyr::na_if(table1, "NA")
-table1 <- dplyr::na_if(table1, "-")
-table1 <- dplyr::na_if(table1, "--")
-table1 <- dplyr::na_if(table1, "---")
-#table1 <- table1 |> slice(-2) # redundant, change each time to remove rows with extra line
+table1 <- tidytable::na_if(table1, "")
+table1 <- tidytable::na_if(table1, "NA")
+table1 <- tidytable::na_if(table1, "-")
+table1 <- tidytable::na_if(table1, "--")
+table1 <- tidytable::na_if(table1, "---")
+# table1 <- table1 |> slice(-2) # redundant, change each time to remove rows with extra line
 table1 <- table1 |> slice(-c(3, 11))
 to_double <- c("raw_score", "score", "percentile")
-table1 <- 
-  table1 %>% 
-  hablar::convert(dbl(all_of(to_double))) %>% 
-  dplyr::relocate(scale, .before = raw_score)
+table1 <-
+  table1 %>%
+  hablar::convert(dbl(all_of(to_double))) %>%
+  tidytable::relocate(scale, .before = raw_score)
 ```
 
 ## Scale names
@@ -298,15 +298,15 @@ table1$scale <- params$table1
 
 ```{r pluck2}
 table2 <- as_tibble(plucked_table[[1]]) # usually 2
-table2 <- dplyr::mutate(table2, raw_score = NA_integer_, .before = V2)
+table2 <- tidytable::mutate(table2, raw_score = NA_integer_, .before = V2)
 colnames(table2) <- params$colnames2
-table2 <- dplyr::na_if(table2, "")
-table2 <- dplyr::na_if(table2, "NA")
-table2 <- dplyr::na_if(table2, "-")
-table2 <- dplyr::na_if(table2, "--")
-table2 <- dplyr::na_if(table2, "---")
-#table2 <- dplyr::slice(table2, 2) # check each time
-table2 <- dplyr::distinct(table2, .keep_all = FALSE) # check each time
+table2 <- tidytable::na_if(table2, "")
+table2 <- tidytable::na_if(table2, "NA")
+table2 <- tidytable::na_if(table2, "-")
+table2 <- tidytable::na_if(table2, "--")
+table2 <- tidytable::na_if(table2, "---")
+# table2 <- tidytable::slice(table2, 2) # check each time
+table2 <- tidytable::distinct(table2, .keep_all = FALSE) # check each time
 to_double <- c("raw_score", "score", "percentile")
 table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
 ```
@@ -353,10 +353,10 @@ table2$scale <- params$table2
 ## Select variables to keep
 
 ```{r select}
-table1 <- table1 |> dplyr::select(all_of(params$keep1))
-table2 <- table2 |> dplyr::select(all_of(params$keep2))
+table1 <- table1 |> tidytable::select(all_of(params$keep1))
+table2 <- table2 |> tidytable::select(all_of(params$keep2))
 table <- rbind(table1, table2)
-table <- dplyr::distinct(table, .keep_all = FALSE)
+table <- tidytable::distinct(table, .keep_all = FALSE)
 View(table)
 ```
 
@@ -632,9 +632,9 @@ table <-
 ## Relocate variables
 
 ```{r relocate}
-wiat4 <- table |> relocate(c(raw_score, score, percentile, range, ci_95), .before = test) 
-# %>% 
-#   dplyr::slice(4:6, 1:3, 7:10)
+wiat4 <- table |> relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+# %>%
+#   tidytable::slice(4:6, 1:3, 7:10)
 ```
 
 ## Write out final csv

@@ -91,9 +91,9 @@ filter_domain <- c(
 ## ---- 02-glue-executive ------------
 dt <-
   neurocog %>%
-  dplyr::filter(scale %in% filter_domain) %>%
-  dplyr::arrange(desc(percentile)) %>%
-  dplyr::distinct(.keep_all = FALSE)
+  tidytable::filter(scale %in% filter_domain) %>%
+  tidytable::arrange(desc(percentile)) %>%
+  tidytable::distinct(.keep_all = FALSE)
 
 dt %>%
   glue::glue_data() %>%
@@ -111,8 +111,8 @@ tb <-
     data = neurocog,
     pheno = "Attention/Executive"
   ) %>%
-  dplyr::filter(Scale %in% filter_domain) %>%
-  dplyr::arrange(Test)
+  tidytable::filter(Scale %in% filter_domain) %>%
+  tidytable::arrange(Test)
 
 ## ---- 04-kable-executive ------------------
 kableExtra::kbl(
@@ -138,11 +138,11 @@ kableExtra::kbl(
 ## ---- 05-df-executive ------------
 df <-
   neurocog %>%
-  dplyr::filter(domain == "Attention/Executive") %>%
-  dplyr::filter(!is.na(percentile)) %>%
-  dplyr::arrange(test_name) %>%
-  dplyr::filter(scale %in% filter_domain) |>
-  dplyr::filter(scale != "Orientation")
+  tidytable::filter(domain == "Attention/Executive") %>%
+  tidytable::filter(!is.na(percentile)) %>%
+  tidytable::arrange(test_name) %>%
+  tidytable::filter(scale %in% filter_domain) |>
+  tidytable::filter(scale != "Orientation")
 
 ## ---- 06-plot-subdomain-executive -----------------
 bwu::dotplot(

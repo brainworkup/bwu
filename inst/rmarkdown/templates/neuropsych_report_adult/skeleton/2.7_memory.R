@@ -87,9 +87,9 @@ filter_domain <- c(
 ## ---- 02-glue-memory ------------
 dt <-
   neurocog %>%
-  dplyr::filter(scale %in% filter_domain) %>%
-  dplyr::arrange(desc(percentile)) %>%
-  dplyr::distinct(.keep_all = FALSE)
+  tidytable::filter(scale %in% filter_domain) %>%
+  tidytable::arrange(desc(percentile)) %>%
+  tidytable::distinct(.keep_all = FALSE)
 
 dt %>%
   glue::glue_data() %>%
@@ -135,13 +135,13 @@ kableExtra::kbl(
 ## ---- 05-df-memory ------------
 df <-
   neurocog %>%
-  dplyr::filter(domain == "Memory") %>%
-  dplyr::filter(!is.na(percentile)) %>%
-  dplyr::arrange(test_name) %>%
-  dplyr::filter(scale %in% filter_domain) %>%
-  dplyr::filter(scale != "Total Intrusions") %>%
-  dplyr::filter(scale != "Total Repetitions") %>%
-  dplyr::filter(scale != "Forced-Choice Recognition Hits")
+  tidytable::filter(domain == "Memory") %>%
+  tidytable::filter(!is.na(percentile)) %>%
+  tidytable::arrange(test_name) %>%
+  tidytable::filter(scale %in% filter_domain) %>%
+  tidytable::filter(scale != "Total Intrusions") %>%
+  tidytable::filter(scale != "Total Repetitions") %>%
+  tidytable::filter(scale != "Forced-Choice Recognition Hits")
 
 ## ---- 06-plot-subdomain-memory -----------------
 bwu::dotplot(

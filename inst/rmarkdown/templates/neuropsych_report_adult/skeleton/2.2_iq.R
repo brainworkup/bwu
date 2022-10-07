@@ -26,9 +26,9 @@ filter_domain <- c(
 ## ---- 02-glue-iq ------------
 dt <-
   neurocog %>%
-  dplyr::filter(scale %in% filter_domain) %>%
-  dplyr::arrange(desc(percentile)) %>%
-  dplyr::distinct(.keep_all = FALSE)
+  tidytable::filter(scale %in% filter_domain) %>%
+  tidytable::arrange(desc(percentile)) %>%
+  tidytable::distinct(.keep_all = FALSE)
 
 dt %>%
   glue::glue_data() %>%
@@ -46,8 +46,8 @@ tb <-
     data = neurocog,
     pheno = "Intelligence/General Ability"
   ) %>%
-  dplyr::filter(Scale %in% filter_domain) %>%
-  dplyr::arrange(Test)
+  tidytable::filter(Scale %in% filter_domain) %>%
+  tidytable::arrange(Test)
 
 ## ---- 04-kable-iq ------------------
 kableExtra::kbl(
@@ -73,16 +73,16 @@ kableExtra::kbl(
 ## ---- 05-df-iq ------------
 df <-
   neurocog %>%
-  dplyr::filter(domain == "Intelligence/General Ability") %>%
-  dplyr::filter(!is.na(percentile)) %>%
-  dplyr::arrange(test_name) %>%
-  dplyr::filter(scale %in% filter_domain) %>%
-  dplyr::filter(scale != "NAB Total Index") %>%
-  dplyr::filter(scale != "TOPF Standard Score") %>%
-  dplyr::filter(scale != "Working Memory (WMI)") %>%
-  dplyr::filter(scale != "Processing Speed (PSI)")
-# dplyr::filter(scale != "Cognitive Proficiency (CPI)") %>%
-# dplyr::filter(scale != "General Ability (GAI)") %>%
+  tidytable::filter(domain == "Intelligence/General Ability") %>%
+  tidytable::filter(!is.na(percentile)) %>%
+  tidytable::arrange(test_name) %>%
+  tidytable::filter(scale %in% filter_domain) %>%
+  tidytable::filter(scale != "NAB Total Index") %>%
+  tidytable::filter(scale != "TOPF Standard Score") %>%
+  tidytable::filter(scale != "Working Memory (WMI)") %>%
+  tidytable::filter(scale != "Processing Speed (PSI)")
+# tidytable::filter(scale != "Cognitive Proficiency (CPI)") %>%
+# tidytable::filter(scale != "General Ability (GAI)") %>%
 
 ## ---- 06-plot-subdomain-iq --------------------
 bwu::dotplot(

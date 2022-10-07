@@ -59,9 +59,9 @@ filter_domain <- c(
 ## ---- 02-glue-emotion ------------
 dt <-
   neurobehav %>%
-  dplyr::filter(scale %in% filter_domain) %>%
-  dplyr::arrange(desc(percentile)) %>%
-  dplyr::distinct(.keep_all = FALSE)
+  tidytable::filter(scale %in% filter_domain) %>%
+  tidytable::arrange(desc(percentile)) %>%
+  tidytable::distinct(.keep_all = FALSE)
 
 dt %>%
   glue::glue_data() %>%
@@ -79,9 +79,9 @@ tb <-
     data = neurobehav,
     pheno = "Behavioral/Emotional/Social"
   ) %>%
-  dplyr::filter(Scale %in% filter_domain) %>%
-  dplyr::arrange(Test) %>%
-  dplyr::arrange(Subdomain)
+  tidytable::filter(Scale %in% filter_domain) %>%
+  tidytable::arrange(Test) %>%
+  tidytable::arrange(Subdomain)
 
 ## ---- 04-kable-emotion ------------------
 kableExtra::kbl(
@@ -108,8 +108,8 @@ kableExtra::kbl(
 ## ---- 05-df-emotion -----------------------------------
 df <-
   neurobehav %>%
-  dplyr::filter(!is.na(percentile)) %>%
-  dplyr::filter(scale %in% filter_domain)
+  tidytable::filter(!is.na(percentile)) %>%
+  tidytable::filter(scale %in% filter_domain)
 
 ## ---- 06-plot-subdomain-emotion -------------------
 bwu::dotplot(
