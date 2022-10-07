@@ -318,11 +318,11 @@ plucked_table <- bwu::gpluck_extract_table(
 ```{r pluck1}
 table1 <- tibble::as_tibble(plucked_table[[1]])
 colnames(table1) <- params$colnames1
-table1 <- tidytable::na_if(table1, "")
-table1 <- tidytable::na_if(table1, "NA")
-table1 <- tidytable::na_if(table1, "-")
-table1 <- tidytable::na_if(table1, "--")
-table1 <- tidytable::na_if(table1, "---")
+# table1 <- tidytable::na_if(table1, "")
+# table1 <- tidytable::na_if(table1, "NA")
+# table1 <- tidytable::na_if(table1, "-")
+# table1 <- tidytable::na_if(table1, "--")
+# table1 <- tidytable::na_if(table1, "---")
 to_double <- c("raw_score", "score", "percentile")
 table1 <- table1 |> hablar::convert(dbl(all_of(to_double)))
 ```
