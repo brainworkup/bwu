@@ -29,16 +29,16 @@ compute_pctile_range <-
     if (.score_type == "z_score") {
       .x <-
         .x |>
-        tidytable::mutate.(z = (.score - 0) / 1) %>%
-        tidytable::mutate.(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
-        tidytable::mutate.(pct2 = tidytable::case_when.(
+        tidytable::mutate(z = (.score - 0) / 1) %>%
+        tidytable::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        tidytable::mutate(pct2 = tidytable::case_when(
           pct1 < 1 ~ ceiling(pct1),
           pct1 > 99 ~ floor(pct1),
           TRUE ~ round(pct1)
         )) %>%
-        tidytable::mutate.(pct3 = pct2) %>%
-        tidytable::mutate.(
-          range = tidytable::case_when.(
+        tidytable::mutate(pct3 = pct2) %>%
+        tidytable::mutate(
+          range = tidytable::case_when(
             pct3 >= 98 ~ "Exceptionally High",
             pct3 %in% 91:97 ~ "Above Average",
             pct3 %in% 75:90 ~ "High Average",
@@ -49,21 +49,21 @@ compute_pctile_range <-
             TRUE ~ as.character(range)
           )
         ) %>%
-        tidytable::mutate.(percentile = pct1) %>%
-        tidytable::select.(-c(pct1, pct2, pct3))
+        tidytable::mutate(percentile = pct1) %>%
+        tidytable::select(-c(pct1, pct2, pct3))
     } else if (.score_type == "scaled_score") {
       .x <-
         .x |>
-        tidytable::mutate.(z = (.score - 10) / 3) %>%
-        tidytable::mutate.(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
-        tidytable::mutate.(pct2 = tidytable::case_when.(
+        tidytable::mutate(z = (.score - 10) / 3) %>%
+        tidytable::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        tidytable::mutate(pct2 = tidytable::case_when(
           pct1 < 1 ~ ceiling(pct1),
           pct1 > 99 ~ floor(pct1),
           TRUE ~ round(pct1)
         )) %>%
-        tidytable::mutate.(pct3 = pct2) %>%
-        tidytable::mutate.(
-          range = tidytable::case_when.(
+        tidytable::mutate(pct3 = pct2) %>%
+        tidytable::mutate(
+          range = tidytable::case_when(
             pct3 >= 98 ~ "Exceptionally High",
             pct3 %in% 91:97 ~ "Above Average",
             pct3 %in% 75:90 ~ "High Average",
@@ -74,21 +74,21 @@ compute_pctile_range <-
             TRUE ~ as.character(range)
           )
         ) %>%
-        tidytable::mutate.(percentile = pct1) %>%
-        tidytable::select.(-c(pct1, pct2, pct3))
+        tidytable::mutate(percentile = pct1) %>%
+        tidytable::select(-c(pct1, pct2, pct3))
     } else if (.score_type == "t_score") {
       .x <-
         .x |>
-        tidytable::mutate.(z = (.score - 50) / 10) %>%
-        tidytable::mutate.(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
-        tidytable::mutate.(pct2 = tidytable::case_when.(
+        tidytable::mutate(z = (.score - 50) / 10) %>%
+        tidytable::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        tidytable::mutate(pct2 = tidytable::case_when(
           pct1 < 1 ~ ceiling(pct1),
           pct1 > 99 ~ floor(pct1),
           TRUE ~ round(pct1)
         )) %>%
-        tidytable::mutate.(pct3 = pct2) %>%
-        tidytable::mutate.(
-          range = tidytable::case_when.(
+        tidytable::mutate(pct3 = pct2) %>%
+        tidytable::mutate(
+          range = tidytable::case_when(
             pct3 >= 98 ~ "Exceptionally High",
             pct3 %in% 91:97 ~ "Above Average",
             pct3 %in% 75:90 ~ "High Average",
@@ -99,21 +99,21 @@ compute_pctile_range <-
             TRUE ~ as.character(range)
           )
         ) %>%
-        tidytable::mutate.(percentile = pct1) %>%
-        tidytable::select.(-c(pct1, pct2, pct3))
+        tidytable::mutate(percentile = pct1) %>%
+        tidytable::select(-c(pct1, pct2, pct3))
     } else if (.score_type == "standard_score") {
       .x <-
         .x |>
-        tidytable::mutate.(z = (.score - 100) / 15) %>%
-        tidytable::mutate.(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
-        tidytable::mutate.(pct2 = tidytable::case_when.(
+        tidytable::mutate(z = (.score - 100) / 15) %>%
+        tidytable::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        tidytable::mutate(pct2 = tidytable::case_when(
           pct1 < 1 ~ ceiling(pct1),
           pct1 > 99 ~ floor(pct1),
           TRUE ~ round(pct1)
         )) %>%
-        tidytable::mutate.(pct3 = pct2) %>%
-        tidytable::mutate.(
-          range = tidytable::case_when.(
+        tidytable::mutate(pct3 = pct2) %>%
+        tidytable::mutate(
+          range = tidytable::case_when(
             pct3 >= 98 ~ "Exceptionally High",
             pct3 %in% 91:97 ~ "Above Average",
             pct3 %in% 75:90 ~ "High Average",
@@ -124,7 +124,7 @@ compute_pctile_range <-
             TRUE ~ as.character(range)
           )
         ) %>%
-        tidytable::mutate.(percentile = pct1) %>%
-        tidytable::select.(-c(pct1, pct2, pct3))
+        tidytable::mutate(percentile = pct1) %>%
+        tidytable::select(-c(pct1, pct2, pct3))
     }
   }

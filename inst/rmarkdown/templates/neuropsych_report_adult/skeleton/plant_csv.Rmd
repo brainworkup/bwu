@@ -192,7 +192,6 @@ knitr::opts_chunk$set(
   error = TRUE
 )
 library(bwu)
-library(data.table)
 library(gt)
 library(hablar)
 library(here)

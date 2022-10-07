@@ -19,18 +19,18 @@ drilldown <- function(data, patient, ...) {
   # 1. create mean z-scores for domain
   ncog1 <-
     data %>%
-    dplyr::group_by(domain) %>%
-    dplyr::summarize(
+    tidytable::group_by(domain) %>%
+    tidytable::summarize(
       zMean = mean(z),
       zPct = mean(percentile)
     ) %>%
-    dplyr::mutate(range = NA)
+    tidytable::mutate(range = NA)
   ncog1$zMean <- round(ncog1$zMean, 2L)
   ncog1$zPct <- round(ncog1$zPct, 0L)
   ncog1 <-
     ncog1 %>%
-    dplyr::mutate(
-      range = dplyr::case_when(
+    tidytable::mutate(
+      range = tidytable::case_when(
         zPct >= 98 ~ "Exceptionally High",
         zPct %in% 91:97 ~ "Above Average",
         zPct %in% 75:90 ~ "High Average",
@@ -43,7 +43,7 @@ drilldown <- function(data, patient, ...) {
     )
 
   # 2. sort hi to lo
-  ncog1 <- dplyr::arrange(ncog1, desc(zMean))
+  ncog1 <- tidytable::arrange(ncog1, desc(zMean))
 
   # 3. create tibble with new column with domain name lowercase
   ncog_level1_status <- tibble::tibble(
@@ -64,20 +64,20 @@ drilldown <- function(data, patient, ...) {
       # same as above
       ncog2 <-
         ncog2 %>%
-        dplyr::group_by(subdomain) %>%
-        dplyr::summarize(
+        tidytable::group_by(subdomain) %>%
+        tidytable::summarize(
           zMean = mean(z),
           zPct = mean(percentile)
         ) %>%
-        dplyr::mutate(range = NA)
+        tidytable::mutate(range = NA)
 
       # round z-score to 1 decimal
       ncog2$zMean <- round(ncog2$zMean, 2L)
       ncog2$zPct <- round(ncog2$zPct, 0L)
       ncog2 <-
         ncog2 %>%
-        dplyr::mutate(
-          range = dplyr::case_when(
+        tidytable::mutate(
+          range = tidytable::case_when(
             zPct >= 98 ~ "Exceptionally High",
             zPct %in% 91:97 ~ "Above Average",
             zPct %in% 75:90 ~ "High Average",
@@ -90,7 +90,7 @@ drilldown <- function(data, patient, ...) {
         )
 
       # 2. sort hi to lo
-      ncog2 <- dplyr::arrange(ncog2, desc(zMean))
+      ncog2 <- tidytable::arrange(ncog2, desc(zMean))
 
       # 3. create tibble with new column with domain name lowercase
       ncog_level2_status <- tibble::tibble(
@@ -122,17 +122,17 @@ drilldown <- function(data, patient, ...) {
         ncog3 <- subset(ncog2, ncog2$subdomain %in% y_level)
 
         ncog3 <- ncog3 %>%
-          dplyr::group_by(narrow) %>%
-          dplyr::summarize(zMean = mean(z), zPct = mean(percentile)) %>%
-          dplyr::mutate(range = NA)
+          tidytable::group_by(narrow) %>%
+          tidytable::summarize(zMean = mean(z), zPct = mean(percentile)) %>%
+          tidytable::mutate(range = NA)
 
         # round z-score to 1 decimal
         ncog3$zMean <- round(ncog3$zMean, 2L)
         ncog3$zPct <- round(ncog3$zPct, 0L)
         ncog3 <-
           ncog3 %>%
-          dplyr::mutate(
-            range = dplyr::case_when(
+          tidytable::mutate(
+            range = tidytable::case_when(
               zPct >= 98 ~ "Exceptionally High",
               zPct %in% 91:97 ~ "Above Average",
               zPct %in% 75:90 ~ "High Average",
@@ -144,7 +144,7 @@ drilldown <- function(data, patient, ...) {
             )
           )
 
-        ncog3 <- dplyr::arrange(ncog3, desc(zMean))
+        ncog3 <- tidytable::arrange(ncog3, desc(zMean))
 
         ncog_level3_status <- tibble::tibble(
           name = ncog3$narrow,
@@ -177,20 +177,20 @@ drilldown <- function(data, patient, ...) {
 
           ncog4 <-
             ncog4 %>%
-            dplyr::group_by(scale) %>%
-            dplyr::summarize(
+            tidytable::group_by(scale) %>%
+            tidytable::summarize(
               zMean = mean(z),
               zPct = mean(percentile)
             ) %>%
-            dplyr::mutate(range = NA)
+            tidytable::mutate(range = NA)
 
           # round z-score to 1 decimal
           ncog4$zMean <- round(ncog4$zMean, 2L)
           ncog4$zPct <- round(ncog4$zPct, 0L)
           ncog4 <-
             ncog4 %>%
-            dplyr::mutate(
-              range = dplyr::case_when(
+            tidytable::mutate(
+              range = tidytable::case_when(
                 zPct >= 98 ~ "Exceptionally High",
                 zPct %in% 91:97 ~ "Above Average",
                 zPct %in% 75:90 ~ "High Average",
@@ -202,7 +202,7 @@ drilldown <- function(data, patient, ...) {
               )
             )
 
-          ncog4 <- dplyr::arrange(ncog4, desc(zMean))
+          ncog4 <- tidytable::arrange(ncog4, desc(zMean))
 
           ncog_level4_status <- tibble::tibble(
             name = ncog4$scale,

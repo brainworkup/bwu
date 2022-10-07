@@ -66,8 +66,8 @@ params:
     label: "Patient ID:"
     value: [123456789]
     input: numeric
-    min: 000000000
-    max: 999999999
+    min: [000000000]
+    max: [999999999]
   dob:
     label: "Date of Birth:"
     value: !r Sys.Date()
@@ -250,6 +250,22 @@ params:
     value: TRUE
   eval_emotion:
     label: "Emotional/Behavioral/Personality"
+    value: TRUE
+## Plots
+  eval_emotion_plot1:
+    label: "Emotional/Behavioral/Personality Plot 1"
+    value: FALSE
+  eval_emotion_plot2:
+    label: "Emotional/Behavioral/Personality Plot 2"
+    value: FALSE
+  eval_pass_plot:
+    label: "Emotional/Behavioral/Personality Plot 1"
+    value: TRUE
+  eval_verbal_plot:
+    label: "Emotional/Behavioral/Personality Plot 2"
+    value: TRUE
+  eval_timed_plot:
+    label: "Emotional/Behavioral/Personality Plot 1"
     value: TRUE
 ---
 
@@ -1128,10 +1144,10 @@ knitr::read_chunk(here::here(patient, "2.11_emotion.R"))
 ```{r 05-df-emotion, eval = params$eval_emotion}
 ```
 
-```{r 06-plot-subdomain-emotion, eval = TRUE, fig.cap='(ref:emotion)'}
+```{r 06-plot-subdomain-emotion, eval = params$eval_emotion_plot1, fig.cap='(ref:emotion)'}
 ```
 
-```{r 07-plot-narrow-emotion, eval = FALSE, fig.cap='(ref:emotion)'}
+```{r 07-plot-narrow-emotion, eval = params$eval_emotion_plot2, fig.cap='(ref:emotion)'}
 ```
 
 \newpage
