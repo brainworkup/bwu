@@ -206,11 +206,19 @@ plucked_table <- bwu::gpluck_extract_table(
 ```{r pluck1}
 table1 <- tibble::as_tibble(plucked_table[[1]])
 colnames(table1) <- params$column_names1
+<<<<<<< HEAD
 table1 <- tidytable::na_if(table1, "")
 table1 <- tidytable::na_if(table1, "NA")
 table1 <- tidytable::na_if(table1, "-")
 table1 <- tidytable::na_if(table1, "--")
 table1 <- tidytable::na_if(table1, "---")
+=======
+# table1 <- tidytable::na_if(table1, "")
+# table1 <- tidytable::na_if(table1, "NA")
+# table1 <- tidytable::na_if(table1, "-")
+# table1 <- tidytable::na_if(table1, "--")
+# table1 <- tidytable::na_if(table1, "---")
+>>>>>>> 0290d12 (main)
 table1 <-
   table1 %>%
   tidytable::mutate(raw_score = "") %>%
@@ -243,17 +251,25 @@ table1[6, 1] <- c("NAB Total Index")
 ```{r pluck2}
 table2 <- as_tibble(plucked_table[[2]])
 colnames(table2) <- params$column_names2
+<<<<<<< HEAD
 table2 <- tidytable::na_if(table2, "")
 table2 <- tidytable::na_if(table2, "NA")
 table2 <- tidytable::na_if(table2, "-")
 table2 <- tidytable::na_if(table2, "--")
 table2 <- tidytable::na_if(table2, "---")
+=======
+# table2 <- tidytable::na_if(table2, "")
+# table2 <- tidytable::na_if(table2, "NA")
+# table2 <- tidytable::na_if(table2, "-")
+# table2 <- tidytable::na_if(table2, "--")
+# table2 <- tidytable::na_if(table2, "---")
+>>>>>>> 0290d12 (main)
 to_double <- c("raw_score", "z_score", "score", "percentile")
 table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
 ```
 
 ```{r clean2}
-table2 <- table2 |> mutate(absort = paste0(seq_len(nrow(table2))))
+table2 <- table2 |> tidytable::mutate(absort = paste0(seq_len(nrow(table2))))
 table2$absort <- as.numeric(table2$absort)
 table2 <- table2 |>
   arrange(desc(raw_score)) |>
@@ -288,12 +304,21 @@ table2[13, 1] <- c("Numbers & Letters Part B Efficiency")
 ```{r pluck3}
 table3 <- as_tibble(plucked_table[[3]])
 colnames(table3) <- params$column_names2
+<<<<<<< HEAD
 table3 <- tidytable::na_if(table3, "")
 table3 <- tidytable::na_if(table3, "NA")
 table3 <- tidytable::na_if(table3, "-")
 table3 <- tidytable::na_if(table3, "--")
 table3 <- tidytable::na_if(table3, "---")
 table3 <- tidytable::na_if(table3, "N/A")
+=======
+# table3 <- tidytable::na_if(table3, "")
+# table3 <- tidytable::na_if(table3, "NA")
+# table3 <- tidytable::na_if(table3, "-")
+# table3 <- tidytable::na_if(table3, "--")
+# table3 <- tidytable::na_if(table3, "---")
+# table3 <- tidytable::na_if(table3, "N/A")
+>>>>>>> 0290d12 (main)
 to_double <- c("raw_score", "z_score", "score", "percentile")
 table3 <-
   table3 |>
@@ -316,17 +341,25 @@ table3[7, 1] <- c("Naming Phonemic Cuing")
 ```{r pluck4}
 table4 <- as_tibble(plucked_table[[4]])
 colnames(table4) <- params$column_names3
+<<<<<<< HEAD
 table4 <- tidytable::na_if(table4, "")
 table4 <- tidytable::na_if(table4, "NA")
 table4 <- tidytable::na_if(table4, "-")
 table4 <- tidytable::na_if(table4, "--")
 table4 <- tidytable::na_if(table4, "---")
+=======
+# table4 <- tidytable::na_if(table4, "")
+# table4 <- tidytable::na_if(table4, "NA")
+# table4 <- tidytable::na_if(table4, "-")
+# table4 <- tidytable::na_if(table4, "--")
+# table4 <- tidytable::na_if(table4, "---")
+>>>>>>> 0290d12 (main)
 to_double <- c("raw_score", "z_score", "score", "percentile")
 table4 <- table4 |> hablar::convert(dbl(all_of(to_double)))
 ```
 
 ```{r clean4}
-table4 <- table4 |> mutate(absort = paste0(seq_len(nrow(table4))))
+table4 <- table4 |> tidytable::mutate(absort = paste0(seq_len(nrow(table4))))
 table4$absort <- as.numeric(table4$absort)
 table4 <- table4 |>
   arrange(desc(raw_score)) |>
@@ -350,17 +383,25 @@ table4[6, 1] <- c("Story Learning Percent Retention")
 ```{r pluck5}
 table5 <- as_tibble(plucked_table[[5]])
 colnames(table5) <- params$column_names3
+<<<<<<< HEAD
 table5 <- tidytable::na_if(table5, "")
 table5 <- tidytable::na_if(table5, "NA")
 table5 <- tidytable::na_if(table5, "-")
 table5 <- tidytable::na_if(table5, "--")
 table5 <- tidytable::na_if(table5, "---")
+=======
+# table5 <- tidytable::na_if(table5, "")
+# table5 <- tidytable::na_if(table5, "NA")
+# table5 <- tidytable::na_if(table5, "-")
+# table5 <- tidytable::na_if(table5, "--")
+# table5 <- tidytable::na_if(table5, "---")
+>>>>>>> 0290d12 (main)
 to_double <- c("raw_score", "z_score", "score", "percentile")
 table5 <- table5 |> hablar::convert(dbl(all_of(to_double)))
 ```
 
 ```{r clean-table5}
-table5 <- table5 |> mutate(absort = paste0(seq_len(nrow(table5))))
+table5 <- table5 |> tidytable::mutate(absort = paste0(seq_len(nrow(table5))))
 table5$absort <- as.numeric(table5$absort)
 table5 <- table5 |>
   arrange(desc(raw_score)) |>
@@ -380,17 +421,25 @@ table5[2, 1] <- c("Design Construction")
 ```{r pluck6}
 table6 <- as_tibble(plucked_table[[6]])
 colnames(table6) <- params$column_names3
+<<<<<<< HEAD
 table6 <- tidytable::na_if(table6, "")
 table6 <- tidytable::na_if(table6, "NA")
 table6 <- tidytable::na_if(table6, "-")
 table6 <- tidytable::na_if(table6, "--")
 table6 <- tidytable::na_if(table6, "---")
+=======
+# table6 <- tidytable::na_if(table6, "")
+# table6 <- tidytable::na_if(table6, "NA")
+# table6 <- tidytable::na_if(table6, "-")
+# table6 <- tidytable::na_if(table6, "--")
+# table6 <- tidytable::na_if(table6, "---")
+>>>>>>> 0290d12 (main)
 to_double <- c("raw_score", "z_score", "score", "percentile")
 table6 <- table6 |> hablar::convert(dbl(all_of(to_double)))
 ```
 
 ```{r clean-table6}
-table6 <- table6 |> mutate(absort = paste0(seq_len(nrow(table6))))
+table6 <- table6 |> tidytable::mutate(absort = paste0(seq_len(nrow(table6))))
 table6$absort <- as.numeric(table6$absort)
 table6 <- table6 |>
   arrange(desc(raw_score)) |>
@@ -568,8 +617,8 @@ table6 <-
 ```{r domain1}
 table1 <-
   table1 |>
-  mutate(
-    domain = case_when(
+  tidytable::mutate(
+    domain = tidytable::case_when(
       scale == "NAB Attention Index" ~ "Attention/Executive",
       scale == "NAB Language Index" ~ "Verbal/Language",
       scale == "NAB Memory Index" ~ "Memory",
@@ -584,8 +633,8 @@ table1 <-
 ```{r domain6}
 table6 <-
   table6 |>
-  mutate(
-    domain = case_when(
+  tidytable::mutate(
+    domain = tidytable::case_when(
       scale == "Word Generation" ~ "Verbal/Language",
       TRUE ~ as.character(domain)
     )
@@ -597,8 +646,8 @@ table6 <-
 ```{r subdomain1}
 table1 <-
   table1 |>
-  mutate(
-    subdomain = case_when(
+  tidytable::mutate(
+    subdomain = tidytable::case_when(
       scale == "NAB Attention Index" ~ "Attention/Executive",
       scale == "NAB Language Index" ~ "Language Index",
       scale == "NAB Memory Index" ~ "Memory Index",
@@ -649,8 +698,8 @@ stl <- c(
 ```{r subdomain2}
 table2 <-
   table2 |>
-  mutate(
-    subdomain = case_when(
+  tidytable::mutate(
+    subdomain = tidytable::case_when(
       scale %in% orientation ~ "Orientation",
       scale %in% dsf ~ "Attention Span",
       scale %in% dsb ~ "Working Memory",
@@ -665,20 +714,22 @@ table2 <-
 ```{r subdomain3}
 table3 <-
   table3 |>
-  mutate(
-    subdomain = case_when(
+  tidytable::mutate(
+    subdomain = tidytable::case_when(
       scale %in% c("Auditory Comprehension") ~ "Comprehension",
       scale %in% c("Naming") ~ "Expression",
       TRUE ~ as.character(subdomain)
     )
   )
 ```
+
 Learning Efficiency
+
 ```{r subdomain4}
 table4 <-
   table4 |>
-  mutate(
-    subdomain = case_when(
+  tidytable::mutate(
+    subdomain = tidytable::case_when(
       scale ==
         "Shape Learning Immediate Recognition" ~ "Learning Efficiency",
       scale ==
@@ -699,8 +750,8 @@ table4 <-
 ```{r subdomain5}
 table5 <-
   table5 |>
-  mutate(
-    subdomain = case_when(
+  tidytable::mutate(
+    subdomain = tidytable::case_when(
       scale == "Visual Discrimination" ~ "Visual Processing",
       scale == "Design Construction" ~ "Visual Processing",
       TRUE ~ as.character(subdomain)
@@ -711,8 +762,8 @@ table5 <-
 ```{r subdomain6}
 table6 <-
   table6 |>
-  mutate(
-    subdomain = case_when(
+  tidytable::mutate(
+    subdomain = tidytable::case_when(
       scale == "Mazes" ~ "Planning",
       scale == "Word Generation" ~ "Verbal Fluency",
       scale == "Word Generation Perseverations" ~ "Response Monitoring",
@@ -726,8 +777,8 @@ table6 <-
 ```{r narrow1}
 table1 <-
   table1 |>
-  mutate(
-    narrow = case_when(
+  tidytable::mutate(
+    narrow = tidytable::case_when(
       scale == "NAB Attention Index" ~ "Attention Index",
       scale == "NAB Language Index" ~ "Language Index",
       scale == "NAB Memory Index" ~ "Memory Index",
@@ -742,8 +793,8 @@ table1 <-
 ```{r narrow2}
 table2 <-
   table2 |>
-  mutate(
-    narrow = case_when(
+  tidytable::mutate(
+    narrow = tidytable::case_when(
       scale %in% orientation ~ "General Verbal Information",
       scale %in% dsf ~ "Verbal Attention",
       scale %in% dsb ~ "Verbal Working Memory",
@@ -760,8 +811,8 @@ table2 <-
 ```{r narrow3}
 table3 <-
   table3 |>
-  mutate(
-    narrow = case_when(
+  tidytable::mutate(
+    narrow = tidytable::case_when(
       scale == "Auditory Comprehension" ~ "Listening Ability",
       scale == "Naming" ~ "Word Retrieval",
       TRUE ~ as.character(narrow)
@@ -772,8 +823,8 @@ table3 <-
 ```{r narrow4}
 table4 <-
   table4 |>
-  mutate(
-    narrow = case_when(
+  tidytable::mutate(
+    narrow = tidytable::case_when(
       scale %in% shl ~ "Visual Memory",
       scale %in% stl ~ "Story Memory",
       TRUE ~ as.character(narrow)
@@ -784,8 +835,8 @@ table4 <-
 ```{r narrow5}
 table5 <-
   table5 |>
-  mutate(
-    narrow = case_when(
+  tidytable::mutate(
+    narrow = tidytable::case_when(
       scale == "Visual Discrimination" ~ "Visuoperception",
       scale == "Design Construction" ~ "Visuoconstruction",
       TRUE ~ as.character(narrow)
@@ -796,8 +847,8 @@ table5 <-
 ```{r narrow6}
 table6 <-
   table6 |>
-  mutate(
-    narrow = case_when(
+  tidytable::mutate(
+    narrow = tidytable::case_when(
       scale == "Mazes" ~ "Problem Solving",
       scale == "Word Generation" ~ "Ideational Fluency",
       scale == "Word Generation Perseverations" ~ "Response Monitoring",
@@ -811,8 +862,8 @@ table6 <-
 ```{r pass1}
 table1 <-
   table1 |>
-  mutate(
-    pass = case_when(
+  tidytable::mutate(
+    pass = tidytable::case_when(
       scale == "NAB Attention Index" ~ "Attention",
       scale == "NAB Language Index" ~ "",
       scale == "NAB Memory Index" ~ "",
@@ -827,8 +878,8 @@ table1 <-
 ```{r pass2}
 table2 <-
   table2 |>
-  mutate(
-    pass = case_when(
+  tidytable::mutate(
+    pass = tidytable::case_when(
       scale %in% orientation ~ "Attention",
       scale %in% dsf ~ "Sequential",
       scale %in% dsb ~ "Attention",
@@ -842,8 +893,8 @@ table2 <-
 ```{r pass3}
 table3 <-
   table3 |>
-  mutate(
-    pass = case_when(
+  tidytable::mutate(
+    pass = tidytable::case_when(
       scale == "Auditory Comprehension" ~ "Sequential",
       scale == "Naming" ~ "Knowledge",
       TRUE ~ as.character(pass)
@@ -854,8 +905,8 @@ table3 <-
 ```{r pass4}
 table4 <-
   table4 |>
-  mutate(
-    pass = case_when(
+  tidytable::mutate(
+    pass = tidytable::case_when(
       scale %in% shl ~ "Simultaneous",
       scale %in% stl ~ "Sequential",
       TRUE ~ as.character(pass)
@@ -866,8 +917,8 @@ table4 <-
 ```{r pass5}
 table5 <-
   table5 |>
-  mutate(
-    pass = case_when(
+  tidytable::mutate(
+    pass = tidytable::case_when(
       scale == "Visual Discrimination" ~ "Simultaneous",
       scale == "Design Construction" ~ "Simultaneous",
       TRUE ~ as.character(pass)
@@ -878,8 +929,8 @@ table5 <-
 ```{r pass6}
 table6 <-
   table6 |>
-  mutate(
-    pass = case_when(
+  tidytable::mutate(
+    pass = tidytable::case_when(
       scale == "Mazes" ~ "Planning",
       scale == "Word Generation" ~ "Sequential",
       scale == "Word Generation Perseverations" ~ "Attention",
@@ -893,8 +944,8 @@ table6 <-
 ```{r verbal-table1}
 table1 <-
   table1 |>
-  mutate(
-    verbal = case_when(
+  tidytable::mutate(
+    verbal = tidytable::case_when(
       scale == "NAB Attention Index" ~ "",
       scale == "NAB Language Index" ~ "Verbal",
       scale == "NAB Memory Index" ~ "",
@@ -909,8 +960,8 @@ table1 <-
 ```{r verbal2}
 table2 <-
   table2 |>
-  mutate(
-    verbal = case_when(
+  tidytable::mutate(
+    verbal = tidytable::case_when(
       scale %in% orientation ~ "Verbal",
       scale %in% dsf ~ "Verbal",
       scale %in% dsb ~ "Verbal",
@@ -921,12 +972,11 @@ table2 <-
   )
 ```
 
-
 ```{r verbal4}
 table4 <-
   table4 |>
-  mutate(
-    verbal = case_when(
+  tidytable::mutate(
+    verbal = tidytable::case_when(
       scale %in% shl ~ "Nonverbal",
       scale %in% stl ~ "Verbal",
       TRUE ~ as.character(verbal)
@@ -934,12 +984,11 @@ table4 <-
   )
 ```
 
-
 ```{r verbal6}
 table6 <-
   table6 |>
-  mutate(
-    verbal = case_when(
+  tidytable::mutate(
+    verbal = tidytable::case_when(
       scale == "Mazes" ~ "Nonverbal",
       scale == "Word Generation" ~ "Verbal",
       scale == "Word Generation Perseverations" ~ "Verbal",
@@ -953,8 +1002,8 @@ table6 <-
 ```{r timed-table1}
 table1 <-
   table1 |>
-  mutate(
-    timed = case_when(
+  tidytable::mutate(
+    timed = tidytable::case_when(
       scale == "NAB Attention Index" ~ "",
       scale == "NAB Language Index" ~ "Untimed",
       scale == "NAB Memory Index" ~ "",
@@ -969,8 +1018,8 @@ table1 <-
 ```{r timed-table2}
 table2 <-
   table2 |>
-  mutate(
-    timed = case_when(
+  tidytable::mutate(
+    timed = tidytable::case_when(
       scale %in% orientation ~ "Untimed",
       scale %in% dsf ~ "Untimed",
       scale %in% dsb ~ "Untimed",
@@ -984,8 +1033,8 @@ table2 <-
 ```{r timed-table3}
 table3 <-
   table3 |>
-  mutate(
-    timed = case_when(
+  tidytable::mutate(
+    timed = tidytable::case_when(
       scale == "Auditory Comprehension" ~ "Untimed",
       scale == "Naming" ~ "Untimed",
       TRUE ~ as.character(timed)
@@ -996,8 +1045,8 @@ table3 <-
 ```{r timed-table4}
 table4 <-
   table4 |>
-  mutate(
-    timed = case_when(
+  tidytable::mutate(
+    timed = tidytable::case_when(
       scale %in% shl ~ "Untimed",
       scale %in% stl ~ "Untimed",
       TRUE ~ as.character(timed)
@@ -1008,8 +1057,8 @@ table4 <-
 ```{r timed-table5}
 table5 <-
   table5 |>
-  mutate(
-    timed = case_when(
+  tidytable::mutate(
+    timed = tidytable::case_when(
       scale == "Visual Discrimination" ~ "Untimed",
       scale == "Design Construction" ~ "Timed",
       TRUE ~ as.character(timed)
@@ -1020,8 +1069,8 @@ table5 <-
 ```{r timed-table6}
 table6 <-
   table6 |>
-  mutate(
-    timed = case_when(
+  tidytable::mutate(
+    timed = tidytable::case_when(
       scale == "Mazes" ~ "Timed",
       scale == "Word Generation" ~ "Timed",
       scale == "Word Generation Perseverations" ~ "Timed",
@@ -1035,8 +1084,8 @@ table6 <-
 ```{r score-table2}
 table2 <-
   table2 |>
-  mutate(
-    score_type = case_when(
+  tidytable::mutate(
+    score_type = tidytable::case_when(
       scale == "Orientation" ~ "percentile",
       scale == "Orientation to Self" ~ "base_rate",
       scale == "Orientation to Time" ~ "base_rate",
@@ -1052,8 +1101,8 @@ table2 <-
 ```{r score-table3}
 table3 <-
   table3 |>
-  mutate(
-    score_type = case_when(
+  tidytable::mutate(
+    score_type = tidytable::case_when(
       scale == "Auditory Comprehension Colors" ~ "base_rate",
       scale == "Auditory Comprehension Shapes" ~ "base_rate",
       scale == "Auditory Comprehension Colors/Shapes/Numbers" ~ "base_rate",
@@ -1067,8 +1116,8 @@ table3 <-
 ```{r score-table4}
 table4 <-
   table4 |>
-  mutate(
-    score_type = case_when(
+  tidytable::mutate(
+    score_type = tidytable::case_when(
       scale == "Shape Learning Percent Retention" ~ "percentile",
       scale == "Story Learning Percent Retention" ~ "percentile",
       TRUE ~ as.character(score_type)
@@ -1079,8 +1128,8 @@ table4 <-
 ```{r score-table6}
 table6 <-
   table6 |>
-  mutate(
-    score_type = case_when(
+  tidytable::mutate(
+    score_type = tidytable::case_when(
       scale == "Word Generation Perseverations" ~ "percentile",
       TRUE ~ as.character(score_type)
     )
@@ -1092,8 +1141,8 @@ table6 <-
 ```{r description1}
 table1 <-
   table1 |>
-  mutate(
-    description = case_when(
+  tidytable::mutate(
+    description = tidytable::case_when(
       scale ==
         "NAB Total Index" ~
         "Broad neurocognitive functioning (independent of general intelligence) across domains of attentional and executive functioning, language and spatial processing, and learning and memory",
@@ -1120,8 +1169,8 @@ table1 <-
 ```{r description2}
 table2 <-
   table2 |>
-  mutate(
-    description = case_when(
+  tidytable::mutate(
+    description = tidytable::case_when(
       scale ==
         "Orientation" ~
         "Orientation to person, place, time, and situation",
@@ -1157,8 +1206,8 @@ table2 <-
 ```{r description3}
 table3 <-
   table3 |>
-  mutate(
-    description = case_when(
+  tidytable::mutate(
+    description = tidytable::case_when(
       scale ==
         "Auditory Comprehension" ~
         "Auditory comprehension (i.e., the ability to receive, process, and execute oral instructions of increasing syntactic complexity)",
@@ -1173,8 +1222,8 @@ table3 <-
 ```{r description4}
 table4 <-
   table4 |>
-  mutate(
-    description = case_when(
+  tidytable::mutate(
+    description = tidytable::case_when(
       scale ==
         "Shape Learning Immediate Recognition" ~
         "Learning and recognition of visual material (abstract shapes)",
@@ -1201,8 +1250,8 @@ table4 <-
 ```{r description5}
 table5 <-
   table5 |>
-  mutate(
-    description = case_when(
+  tidytable::mutate(
+    description = tidytable::case_when(
       scale ==
         "Visual Discrimination" ~
         "Perceptual processing, discrimination, and pattern matching of a series of abstract images requiring close attention to visual detail",
@@ -1217,8 +1266,8 @@ table5 <-
 ```{r description6}
 table6 <-
   table6 |>
-  mutate(
-    description = case_when(
+  tidytable::mutate(
+    description = tidytable::case_when(
       scale ==
         "Mazes" ~
         "Planning, foresight, and adaptive abilities examined through a series of maze-tracing tasks",
@@ -1238,8 +1287,8 @@ table6 <-
 ```{r result1}
 table1 <-
   table1 |>
-  mutate(
-    result = case_when(
+  tidytable::mutate(
+    result = tidytable::case_when(
       scale ==
         "NAB Total Index" ~ glue::glue(
         "{description} was {range}.\n"
@@ -1297,8 +1346,8 @@ table2 <-
 ```{r result3}
 table3 <-
   table3 |>
-  mutate(
-    result = case_when(
+  tidytable::mutate(
+    result = tidytable::case_when(
       scale ==
         "Auditory Comprehension" ~
         glue::glue("{description} was {range}.\n"),

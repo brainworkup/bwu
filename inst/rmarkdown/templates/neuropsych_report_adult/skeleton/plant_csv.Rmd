@@ -3,7 +3,7 @@ title: "Plant CSV file of Neuropsych Measures/Tests"
 params:
   patient:
     label: "Patient First Name:"
-    value: Biggie
+    value: Manika
     input: text
   test_name:
     label: "Full Name of Test/Test Battery:"
@@ -233,12 +233,12 @@ df <- tidytable::tidytable(
   range_lower = NA,
   range_upper = NA,
   score_type = (params$score_type),
-  domainLevel0 = (params$domain),
-  domainLevel1 = (params$subdomain),
-  domainLevel2 = (params$narrow),
-  domainPASS = (params$pass),
-  domainVerbal = (params$verbal),
-  domainTimed = (params$timed),
+  domain = (params$domain),
+  subdomain = (params$subdomain),
+  narrow = (params$narrow),
+  pass = (params$pass),
+  verbal = (params$verbal),
+  timed = (params$timed),
   absort =
     paste0(
       tolower(params$test),

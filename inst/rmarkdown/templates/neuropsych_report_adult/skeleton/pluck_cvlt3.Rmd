@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from CVLT-3/CVLT-3 Brief"
 params:
-  patient: "Biggie"
+  patient: Manika
   test:
     label: "Test"
     value: cvlt3_brief
@@ -25,7 +25,7 @@ params:
   pages: [9,11,9,9,9,12,9] # full [18,20,18,18,18,22,18]
   table1:
     label: "Learning Trials:"
-    value: Trial 1 Correct
+    value: [Trial 1 Correct, Trial 2 Correct, Trial 3 Correct, Trial 4 Correct]
     input: select
     multiple: yes
     choices:
@@ -37,7 +37,7 @@ params:
       - List B Correct
   table2:
     label: "Immediate Recall:"
-    value: Trials 1-4 Correct
+    value: [Trials 1-4 Correct]
     input: select
     multiple: yes
     choices:
@@ -47,7 +47,7 @@ params:
       - Total Recall Correct # leave out for now
   table3:
     label: "Delayed Recall:"
-    value: Short Delay Free Recall
+    value: [Short Delay Free Recall, Long Delay Free Recall, Long Delay Cued Recall]
     input: select
     multiple: yes
     choices:
@@ -57,7 +57,7 @@ params:
       - Long Delay Cued Recall
   table4:
     label: "Yes/No Recognition:"
-    value: Total Hits
+    value: [Total Hits, Total False Positives, Recognition Discriminability (d'), Recognition Discriminability Nonparametric]
     input: select
     multiple: yes
     choices:
@@ -67,28 +67,28 @@ params:
       - Recognition Discriminability Nonparametric
   table5:
     label: "Recall Errors: Intrusions"
-    value: Total Intrusions
+    value: [Total Intrusions]
     input: select
     multiple: yes
     choices:
       - Total Intrusions
   table6:
     label: "Recall Errors: Repetitions"
-    value: Total Repetitions
+    value: [Total Repetitions]
     input: select
     multiple: yes
     choices:
       - Total Repetitions
   table7:
     label: "Forced-Choice Recognition:"
-    value: Forced-Choice Recognition Hits
+    value: [Forced-Choice Recognition Hits]
     input: select
     multiple: yes
     choices:
       - Forced-Choice Recognition Hits
   colnames1:
     label: "Tables 1-6 Column Names:"
-    value: scale
+    value: [scale, raw_score, score, percentile]
     input: select
     multiple: yes
     choices:
@@ -98,7 +98,7 @@ params:
       - percentile
   colnames2:
     label: "Table 7 Column Names:"
-    value: scale
+    value: [scale, raw_score, base_rate]
     input: select
     multiple: yes
     choices:
@@ -107,7 +107,7 @@ params:
       - base_rate
   keep1:
     label: "Variables to Keep, Set 1:"
-    value: scale
+    value: [scale, raw_score, score, percentile]
     input: select
     multiple: yes
     choices:
@@ -117,7 +117,7 @@ params:
       - percentile
   keep2:
     label: "Variables to Keep, Set 2:"
-    value: scale
+    value: [scale, raw_score]
     input: select
     multiple: yes
     choices:
@@ -178,6 +178,7 @@ test <- params$test
 ## Upload/attach PDF
 
 ```{r choose}
+# file <- file.choose()
 file <- params$file
 ```
 
@@ -257,15 +258,19 @@ plucked_table <-
 ```{r table1}
 table1 <- tibble::as_tibble(plucked_table[[1]])
 colnames(table1) <- params$colnames1
+<<<<<<< HEAD
 table1 <- tidytable::na_if(table1, "")
 table1 <- tidytable::na_if(table1, "NA")
 table1 <- tidytable::na_if(table1, "-")
 table1 <- tidytable::na_if(table1, "--")
 table1 <- tidytable::na_if(table1, "---")
+=======
+>>>>>>> 0290d12 (main)
 to_double <- c("raw_score", "score", "percentile")
 table1 <- table1 |> hablar::convert(dbl(all_of(to_double)))
 ```
 
+<<<<<<< HEAD
 ```{r rownames1}
 rownames(table1) <- params$table1
 table1 <-
@@ -274,20 +279,26 @@ table1 <-
   tibble::rownames_to_column(., var = "scale")
 ```
 
+=======
+>>>>>>> 0290d12 (main)
 # Table 2
 
 ```{r table2}
 table2 <- tibble::as_tibble(plucked_table[[2]])
 colnames(table2) <- params$colnames1
+<<<<<<< HEAD
 table2 <- tidytable::na_if(table2, "")
 table2 <- tidytable::na_if(table2, "NA")
 table2 <- tidytable::na_if(table2, "-")
 table2 <- tidytable::na_if(table2, "--")
 table2 <- tidytable::na_if(table2, "---")
+=======
+>>>>>>> 0290d12 (main)
 to_double <- c("raw_score", "score", "percentile")
 table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
 ```
 
+<<<<<<< HEAD
 ```{r rownames2}
 rownames(table2) <- params$table2
 table2 <-
@@ -296,9 +307,12 @@ table2 <-
   tibble::rownames_to_column(., var = "scale")
 ```
 
+=======
+>>>>>>> 0290d12 (main)
 ```{r rename2}
-source(here::here("R", "which_cvlt3.R"))
-table2[1, 1] <- which_cvlt3(params$test)
+# source(here::here("R", "which_cvlt3.R"))
+# table2[, 1] <- which_cvlt3(params$test)
+table2[, 1] <- c("Trials 1-4 Correct")
 ```
 
 # Table 3
@@ -306,15 +320,19 @@ table2[1, 1] <- which_cvlt3(params$test)
 ```{r table3}
 table3 <- tibble::as_tibble(plucked_table[[3]])
 colnames(table3) <- params$colnames1
+<<<<<<< HEAD
 table3 <- tidytable::na_if(table3, "")
 table3 <- tidytable::na_if(table3, "NA")
 table3 <- tidytable::na_if(table3, "-")
 table3 <- tidytable::na_if(table3, "--")
 table3 <- tidytable::na_if(table3, "---")
+=======
+>>>>>>> 0290d12 (main)
 to_double <- c("raw_score", "score", "percentile")
 table3 <- table3 |> hablar::convert(dbl(all_of(to_double)))
 ```
 
+<<<<<<< HEAD
 ```{r rownames3}
 rownames(table3) <- params$table3
 table3 <-
@@ -323,20 +341,31 @@ table3 <-
   tibble::rownames_to_column(., var = "scale")
 ```
 
+=======
+>>>>>>> 0290d12 (main)
 # Table 4
 
 ```{r table4}
 table4 <- tibble::as_tibble(plucked_table[[4]])
 colnames(table4) <- params$colnames1
+<<<<<<< HEAD
 table4 <- tidytable::na_if(table4, "")
 table4 <- tidytable::na_if(table4, "NA")
 table4 <- tidytable::na_if(table4, "-")
 table4 <- tidytable::na_if(table4, "--")
 table4 <- tidytable::na_if(table4, "---")
+=======
+# table4 <- tidytable::na_if(table4, "")
+# table4 <- tidytable::na_if(table4, "NA")
+# table4 <- tidytable::na_if(table4, "-")
+# table4 <- tidytable::na_if(table4, "--")
+# table4 <- tidytable::na_if(table4, "---")
+>>>>>>> 0290d12 (main)
 to_double <- c("raw_score", "score", "percentile")
 table4 <- table4 |> hablar::convert(dbl(all_of(to_double)))
 ```
 
+<<<<<<< HEAD
 ```{r rownames4}
 rownames(table4) <- params$table4
 table4 <-
@@ -345,20 +374,31 @@ table4 <-
   tibble::rownames_to_column(., var = "scale")
 ```
 
+=======
+>>>>>>> 0290d12 (main)
 # Table 5
 
 ```{r table5}
 table5 <- tibble::as_tibble(plucked_table[[5]])
 colnames(table5) <- params$colnames1
+<<<<<<< HEAD
 table5 <- tidytable::na_if(table5, "")
 table5 <- tidytable::na_if(table5, "NA")
 table5 <- tidytable::na_if(table5, "-")
 table5 <- tidytable::na_if(table5, "--")
 table5 <- tidytable::na_if(table5, "---")
+=======
+# table5 <- tidytable::na_if(table5, "")
+# table5 <- tidytable::na_if(table5, "NA")
+# table5 <- tidytable::na_if(table5, "-")
+# table5 <- tidytable::na_if(table5, "--")
+# table5 <- tidytable::na_if(table5, "---")
+>>>>>>> 0290d12 (main)
 to_double <- c("raw_score", "score", "percentile")
 table5 <- table5 |> hablar::convert(dbl(all_of(to_double)))
 ```
 
+<<<<<<< HEAD
 ```{r rownames5}
 rownames(table5) <- params$table5
 table5 <-
@@ -367,20 +407,26 @@ table5 <-
   tibble::rownames_to_column(., var = "scale")
 ```
 
+=======
+>>>>>>> 0290d12 (main)
 # Table 6
 
 ```{r pluck6}
 table6 <- tibble::as_tibble(plucked_table[[6]])
 colnames(table6) <- params$colnames1
+<<<<<<< HEAD
 table6 <- tidytable::na_if(table6, "")
 table6 <- tidytable::na_if(table6, "NA")
 table6 <- tidytable::na_if(table6, "-")
 table6 <- tidytable::na_if(table6, "--")
 table6 <- tidytable::na_if(table6, "---")
+=======
+>>>>>>> 0290d12 (main)
 to_double <- c("raw_score", "score", "percentile")
 table6 <- table6 |> hablar::convert(dbl(all_of(to_double)))
 ```
 
+<<<<<<< HEAD
 ```{r rownames6}
 rownames(table6) <- params$table6
 table6 <-
@@ -389,26 +435,36 @@ table6 <-
   tibble::rownames_to_column(., var = "scale")
 ```
 
+=======
+>>>>>>> 0290d12 (main)
 # Table 7
 
 ```{r pluck7}
 table7 <- tibble::as_tibble(plucked_table[[7]])
 colnames(table7) <- params$colnames2
+<<<<<<< HEAD
 table7 <- tidytable::na_if(table7, "")
 table7 <- tidytable::na_if(table7, "NA")
 table7 <- tidytable::na_if(table7, "-")
 table7 <- tidytable::na_if(table7, "--")
 table7 <- tidytable::na_if(table7, "---")
+=======
+>>>>>>> 0290d12 (main)
 to_double <- c("raw_score", "base_rate")
 table7 <- table7 |> hablar::convert(dbl(all_of(to_double)))
 ```
 
+<<<<<<< HEAD
 ```{r rownames7}
 rownames(table7) <- params$table7
 table7 <-
   table7 %>%
   tidytable::rename(scale2 = scale) %>%
   tibble::rownames_to_column(., var = "scale")
+=======
+```{r rename7}
+table7[, 1] <- c("Forced-Choice Recognition Hits")
+>>>>>>> 0290d12 (main)
 ```
 
 ## Select to Keep
@@ -578,13 +634,17 @@ table5 <- bwu::gpluck_make_score_ranges(table = table5, test_type = "npsych_test
 table6 <- bwu::gpluck_make_score_ranges(table = table6, test_type = "npsych_test")
 ```
 
+```{r ranges7}
+table7 <- bwu::gpluck_make_score_ranges(table = table7, test_type = "npsych_test")
+```
+
 ## Narrow subdomains
 
 ```{r subdomain3}
 table3 <-
   table3 |>
-  mutate(
-    narrow = case_when(
+  tidytable::mutate(
+    narrow = tidytable::case_when(
       scale == "Short Delay Free Recall" ~ "Free-Recall Memory",
       scale == "Short Delay Cued Recall" ~ "Free-Recall Memory",
       scale == "Long Delay Free Recall" ~ "Free-Recall Memory",
@@ -599,8 +659,8 @@ table3 <-
 ```{r desc1}
 table1 <-
   table1 |>
-  mutate(
-    description = case_when(
+  tidytable::mutate(
+    description = tidytable::case_when(
       scale ==
         "Trial 1 Correct" ~
         "Correct number of words learned on the first trial",
@@ -650,8 +710,8 @@ table2 <-
 ```{r desc3}
 table3 <-
   table3 |>
-  mutate(
-    description = case_when(
+  tidytable::mutate(
+    description = tidytable::case_when(
       scale ==
         "Short Delay Free Recall" ~
         "Recall of the list after a short delay",
@@ -673,7 +733,11 @@ table3 <-
 table4 <-
   table4 %>%
   tidytable::mutate(
+<<<<<<< HEAD
     description = case_when(
+=======
+    description = tidytable::case_when(
+>>>>>>> 0290d12 (main)
       scale ==
         "Total Hits" ~
         "Yes/no recognition total hits",
@@ -694,8 +758,8 @@ table4 <-
 ```{r desc5}
 table5 <-
   table5 |>
-  mutate(
-    description = case_when(
+  tidytable::mutate(
+    description = tidytable::case_when(
       scale ==
         "Total Intrusions" ~
         "Total number of intrusive response errors",
@@ -707,8 +771,8 @@ table5 <-
 ```{r desc6}
 table6 <-
   table6 |>
-  mutate(
-    description = case_when(
+  tidytable::mutate(
+    description = tidytable::case_when(
       scale ==
         "Total Repetitions" ~
         "Total number of repetitive response errors",
@@ -720,8 +784,8 @@ table6 <-
 ```{r desc7}
 table7 <-
   table7 |>
-  mutate(
-    description = case_when(
+  tidytable::mutate(
+    description = tidytable::case_when(
       scale ==
         "Forced-Choice Recognition Hits" ~
         "Number of hits on forced-choice recognition trials (raw score)",
@@ -737,25 +801,25 @@ table7 <-
 ```{r relocate}
 table1 <-
   table1 |>
-  relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+  tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 table2 <-
   table2 |>
-  relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+  tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 table3 <-
   table3 |>
-  relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+  tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 table4 <-
   table4 |>
-  relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+  tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 table5 <-
   table5 |>
-  relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+  tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 table6 <-
   table6 |>
-  relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+  tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 table7 <-
   table7 |>
-  relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+  tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
 ## Merge tables/bind rows

@@ -14,6 +14,10 @@ Depends:
     R (>= 3.10)
 Imports:
     bookdown,
+<<<<<<< HEAD
+=======
+    dplyr,    
+>>>>>>> 0290d12 (main)
     ggplot2,
     ggthemes,
     highcharter,

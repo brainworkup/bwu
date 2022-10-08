@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from CEFI"
 params:
-  patient: "Biggie"
+  patient: Biggie
   test:
     label: "Test"
     value: cefi_sr
@@ -165,11 +165,19 @@ colnames2 <- c(
 ```{r pluck1}
 table1 <- tibble::as_tibble(plucked_table[[1]])
 colnames(table1) <- colnames1
+<<<<<<< HEAD
 table1 <- tidytable::na_if(table1, "")
 table1 <- tidytable::na_if(table1, "NA")
 table1 <- tidytable::na_if(table1, "-")
 table1 <- tidytable::na_if(table1, "--")
 table1 <- tidytable::na_if(table1, "---")
+=======
+# table1 <- tidytable::na_if(table1, "")
+# table1 <- tidytable::na_if(table1, "NA")
+# table1 <- tidytable::na_if(table1, "-")
+# table1 <- tidytable::na_if(table1, "--")
+# table1 <- tidytable::na_if(table1, "---")
+>>>>>>> 0290d12 (main)
 to_double <- c("score", "percentile")
 table1 <- table1 |>
   hablar::convert(dbl(all_of(to_double))) %>%
@@ -186,11 +194,19 @@ table1[1, 1] <- c("Full Scale")
 ```{r pluck2}
 table2 <- as_tibble(plucked_table[[2]])
 colnames(table2) <- colnames2
+<<<<<<< HEAD
 table2 <- tidytable::na_if(table2, "")
 table2 <- tidytable::na_if(table2, "NA")
 table2 <- tidytable::na_if(table2, "-")
 table2 <- tidytable::na_if(table2, "--")
 table2 <- tidytable::na_if(table2, "---")
+=======
+# table2 <- tidytable::na_if(table2, "")
+# table2 <- tidytable::na_if(table2, "NA")
+# table2 <- tidytable::na_if(table2, "-")
+# table2 <- tidytable::na_if(table2, "--")
+# table2 <- tidytable::na_if(table2, "---")
+>>>>>>> 0290d12 (main)
 to_double <- c("score", "percentile")
 table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
 ```
@@ -253,8 +269,8 @@ table <- bwu::gpluck_make_score_ranges(table = table, test_type = "npsych_test")
 ```{r narrow}
 table <-
   table |>
-  mutate(
-    narrow = case_when(
+  tidytable::mutate(
+    narrow = tidytable::case_when(
       scale == "Full Scale" ~ "Full Scale",
       scale == "Attention" ~ "Attention",
       scale == "Emotion Regulation" ~ "Emotion Regulation",
@@ -314,8 +330,8 @@ if (params$test == "cefi_sr") {
 } else {
   table <-
     table |>
-    mutate(
-      description = case_when(
+    tidytable::mutate(
+      description = tidytable::case_when(
         scale ==
           "Full Scale" ~
           "overall level of executive functioning (observer)",
@@ -396,8 +412,8 @@ if (params$test == "cefi_sr") {
 } else {
   table <-
     table |>
-    mutate(
-      result = case_when(
+    tidytable::mutate(
+      result = tidytable::case_when(
         scale == "Full Scale" ~ glue::glue(
           "- {patient}'s {description} was {range}.\n"
         ),
