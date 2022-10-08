@@ -257,7 +257,7 @@ params:
     value: FALSE
   eval_emotion_plot2:
     label: "Emotional/Behavioral/Personality Plot 2"
-    value: FALSE
+    value: TRUE
   eval_pass_plot:
     label: "Emotional/Behavioral/Personality Plot 1"
     value: TRUE
