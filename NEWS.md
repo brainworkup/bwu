@@ -127,3 +127,7 @@ output:
 ## bwu 0.1.2.9007
 
 -   created dev branch to fix problems w dplyr and tidytable
+
+## bwu 0.1.2.9008
+
+-   using quarto for nse 1
