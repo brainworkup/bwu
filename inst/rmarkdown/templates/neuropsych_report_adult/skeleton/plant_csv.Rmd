@@ -3,7 +3,7 @@ title: "Plant CSV file of Neuropsych Measures/Tests"
 params:
   patient:
     label: "Patient First Name:"
-    value: Manika
+    value: Tianyu
     input: text
   test_name:
     label: "Full Name of Test/Test Battery:"
@@ -469,7 +469,7 @@ compute_result <-
           .scale == "Nondominant Hand" ~
             glue::glue("{.description} was {.range}.\n"),
           .scale == "TOPF Standard Score" ~
-            glue::glue("{.description} fell within the {.range} range.\n"),
+            glue::glue("{.description} fell within the {.range} range.^[(ref:premorbid)]\n"),
           .scale == "Unstructured Task" ~
             glue::glue("{.description} fell within the {.range} range.\n"),
           .scale == "Letter Fluency" ~
