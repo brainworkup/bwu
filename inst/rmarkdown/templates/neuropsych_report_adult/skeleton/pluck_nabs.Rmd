@@ -206,19 +206,6 @@ plucked_table <- bwu::gpluck_extract_table(
 ```{r pluck1}
 table1 <- tibble::as_tibble(plucked_table[[1]])
 colnames(table1) <- params$column_names1
-<<<<<<< HEAD
-table1 <- tidytable::na_if(table1, "")
-table1 <- tidytable::na_if(table1, "NA")
-table1 <- tidytable::na_if(table1, "-")
-table1 <- tidytable::na_if(table1, "--")
-table1 <- tidytable::na_if(table1, "---")
-=======
-# table1 <- tidytable::na_if(table1, "")
-# table1 <- tidytable::na_if(table1, "NA")
-# table1 <- tidytable::na_if(table1, "-")
-# table1 <- tidytable::na_if(table1, "--")
-# table1 <- tidytable::na_if(table1, "---")
->>>>>>> 0290d12 (main)
 table1 <-
   table1 %>%
   tidytable::mutate(raw_score = "") %>%
@@ -251,19 +238,6 @@ table1[6, 1] <- c("NAB Total Index")
 ```{r pluck2}
 table2 <- as_tibble(plucked_table[[2]])
 colnames(table2) <- params$column_names2
-<<<<<<< HEAD
-table2 <- tidytable::na_if(table2, "")
-table2 <- tidytable::na_if(table2, "NA")
-table2 <- tidytable::na_if(table2, "-")
-table2 <- tidytable::na_if(table2, "--")
-table2 <- tidytable::na_if(table2, "---")
-=======
-# table2 <- tidytable::na_if(table2, "")
-# table2 <- tidytable::na_if(table2, "NA")
-# table2 <- tidytable::na_if(table2, "-")
-# table2 <- tidytable::na_if(table2, "--")
-# table2 <- tidytable::na_if(table2, "---")
->>>>>>> 0290d12 (main)
 to_double <- c("raw_score", "z_score", "score", "percentile")
 table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
 ```
@@ -304,21 +278,6 @@ table2[13, 1] <- c("Numbers & Letters Part B Efficiency")
 ```{r pluck3}
 table3 <- as_tibble(plucked_table[[3]])
 colnames(table3) <- params$column_names2
-<<<<<<< HEAD
-table3 <- tidytable::na_if(table3, "")
-table3 <- tidytable::na_if(table3, "NA")
-table3 <- tidytable::na_if(table3, "-")
-table3 <- tidytable::na_if(table3, "--")
-table3 <- tidytable::na_if(table3, "---")
-table3 <- tidytable::na_if(table3, "N/A")
-=======
-# table3 <- tidytable::na_if(table3, "")
-# table3 <- tidytable::na_if(table3, "NA")
-# table3 <- tidytable::na_if(table3, "-")
-# table3 <- tidytable::na_if(table3, "--")
-# table3 <- tidytable::na_if(table3, "---")
-# table3 <- tidytable::na_if(table3, "N/A")
->>>>>>> 0290d12 (main)
 to_double <- c("raw_score", "z_score", "score", "percentile")
 table3 <-
   table3 |>
@@ -341,19 +300,6 @@ table3[7, 1] <- c("Naming Phonemic Cuing")
 ```{r pluck4}
 table4 <- as_tibble(plucked_table[[4]])
 colnames(table4) <- params$column_names3
-<<<<<<< HEAD
-table4 <- tidytable::na_if(table4, "")
-table4 <- tidytable::na_if(table4, "NA")
-table4 <- tidytable::na_if(table4, "-")
-table4 <- tidytable::na_if(table4, "--")
-table4 <- tidytable::na_if(table4, "---")
-=======
-# table4 <- tidytable::na_if(table4, "")
-# table4 <- tidytable::na_if(table4, "NA")
-# table4 <- tidytable::na_if(table4, "-")
-# table4 <- tidytable::na_if(table4, "--")
-# table4 <- tidytable::na_if(table4, "---")
->>>>>>> 0290d12 (main)
 to_double <- c("raw_score", "z_score", "score", "percentile")
 table4 <- table4 |> hablar::convert(dbl(all_of(to_double)))
 ```
@@ -383,19 +329,6 @@ table4[6, 1] <- c("Story Learning Percent Retention")
 ```{r pluck5}
 table5 <- as_tibble(plucked_table[[5]])
 colnames(table5) <- params$column_names3
-<<<<<<< HEAD
-table5 <- tidytable::na_if(table5, "")
-table5 <- tidytable::na_if(table5, "NA")
-table5 <- tidytable::na_if(table5, "-")
-table5 <- tidytable::na_if(table5, "--")
-table5 <- tidytable::na_if(table5, "---")
-=======
-# table5 <- tidytable::na_if(table5, "")
-# table5 <- tidytable::na_if(table5, "NA")
-# table5 <- tidytable::na_if(table5, "-")
-# table5 <- tidytable::na_if(table5, "--")
-# table5 <- tidytable::na_if(table5, "---")
->>>>>>> 0290d12 (main)
 to_double <- c("raw_score", "z_score", "score", "percentile")
 table5 <- table5 |> hablar::convert(dbl(all_of(to_double)))
 ```
@@ -421,19 +354,6 @@ table5[2, 1] <- c("Design Construction")
 ```{r pluck6}
 table6 <- as_tibble(plucked_table[[6]])
 colnames(table6) <- params$column_names3
-<<<<<<< HEAD
-table6 <- tidytable::na_if(table6, "")
-table6 <- tidytable::na_if(table6, "NA")
-table6 <- tidytable::na_if(table6, "-")
-table6 <- tidytable::na_if(table6, "--")
-table6 <- tidytable::na_if(table6, "---")
-=======
-# table6 <- tidytable::na_if(table6, "")
-# table6 <- tidytable::na_if(table6, "NA")
-# table6 <- tidytable::na_if(table6, "-")
-# table6 <- tidytable::na_if(table6, "--")
-# table6 <- tidytable::na_if(table6, "---")
->>>>>>> 0290d12 (main)
 to_double <- c("raw_score", "z_score", "score", "percentile")
 table6 <- table6 |> hablar::convert(dbl(all_of(to_double)))
 ```
@@ -1452,11 +1372,11 @@ nabs <-
   nabs |>
   tidytable::slice(
     index = (6),
-    att = c(1, 7, 13:19),
+    att = c(1, 7, 12:19),
     lan = c(2, 20, 24),
     mem = c(3, 27:32),
-    spt = c(4, 33, 34),
-    exe = c(5, 35, 36, 37)
+    spt = c(4, 33:34),
+    exe = c(5, 35:37)
   )
 ```
 

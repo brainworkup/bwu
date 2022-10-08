@@ -165,19 +165,6 @@ colnames2 <- c(
 ```{r pluck1}
 table1 <- tibble::as_tibble(plucked_table[[1]])
 colnames(table1) <- colnames1
-<<<<<<< HEAD
-table1 <- tidytable::na_if(table1, "")
-table1 <- tidytable::na_if(table1, "NA")
-table1 <- tidytable::na_if(table1, "-")
-table1 <- tidytable::na_if(table1, "--")
-table1 <- tidytable::na_if(table1, "---")
-=======
-# table1 <- tidytable::na_if(table1, "")
-# table1 <- tidytable::na_if(table1, "NA")
-# table1 <- tidytable::na_if(table1, "-")
-# table1 <- tidytable::na_if(table1, "--")
-# table1 <- tidytable::na_if(table1, "---")
->>>>>>> 0290d12 (main)
 to_double <- c("score", "percentile")
 table1 <- table1 |>
   hablar::convert(dbl(all_of(to_double))) %>%
@@ -194,19 +181,6 @@ table1[1, 1] <- c("Full Scale")
 ```{r pluck2}
 table2 <- as_tibble(plucked_table[[2]])
 colnames(table2) <- colnames2
-<<<<<<< HEAD
-table2 <- tidytable::na_if(table2, "")
-table2 <- tidytable::na_if(table2, "NA")
-table2 <- tidytable::na_if(table2, "-")
-table2 <- tidytable::na_if(table2, "--")
-table2 <- tidytable::na_if(table2, "---")
-=======
-# table2 <- tidytable::na_if(table2, "")
-# table2 <- tidytable::na_if(table2, "NA")
-# table2 <- tidytable::na_if(table2, "-")
-# table2 <- tidytable::na_if(table2, "--")
-# table2 <- tidytable::na_if(table2, "---")
->>>>>>> 0290d12 (main)
 to_double <- c("score", "percentile")
 table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
 ```
