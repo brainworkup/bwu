@@ -271,12 +271,8 @@ colnames(table2) <- params$colnames1
 to_double <- c("raw_score", "score", "percentile")
 table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
 table2[, 1] <- (params$table2)
-```
-
-```{r rename2}
-# source(here::here("R", "which_cvlt3.R"))
-# table2[, 1] <- which_cvlt3(params$test)
-#table2[, 1] <- c("Trials 1-4 Correct")
+to_double <- c("raw_score", "score", "percentile")
+table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
 ```
 
 # Table 3
@@ -318,7 +314,6 @@ to_double <- c("raw_score", "score", "percentile")
 table6 <- table6 |> hablar::convert(dbl(all_of(to_double)))
 table6[, 1] <- (params$table6)
 ```
-
 # Table 7
 
 ```{r pluck7}
