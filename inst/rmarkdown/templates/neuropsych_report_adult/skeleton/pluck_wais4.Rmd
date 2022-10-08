@@ -318,11 +318,11 @@ plucked_table <- bwu::gpluck_extract_table(
 ```{r pluck1}
 table1 <- tibble::as_tibble(plucked_table[[1]])
 colnames(table1) <- params$colnames1
-table1 <- tidytable::na_if(table1, "")
-table1 <- tidytable::na_if(table1, "NA")
-table1 <- tidytable::na_if(table1, "-")
-table1 <- tidytable::na_if(table1, "--")
-table1 <- tidytable::na_if(table1, "---")
+# table1 <- tidytable::na_if(table1, "")
+# table1 <- tidytable::na_if(table1, "NA")
+# table1 <- tidytable::na_if(table1, "-")
+# table1 <- tidytable::na_if(table1, "--")
+# table1 <- tidytable::na_if(table1, "---")
 to_double <- c("raw_score", "score", "percentile")
 table1 <- table1 |> hablar::convert(dbl(all_of(to_double)))
 ```
@@ -547,11 +547,11 @@ table1 <- table1 |> tidytable::relocate(c(raw_score, score, percentile, range, c
 ```{r pluck2}
 table2 <- tibble::as_tibble(plucked_table[[2]])
 colnames(table2) <- params$colnames2
-table2 <- tidytable::na_if(table2, "")
-table2 <- tidytable::na_if(table2, "NA")
-table2 <- tidytable::na_if(table2, "-")
-table2 <- tidytable::na_if(table2, "--")
-table2 <- tidytable::na_if(table2, "---")
+# table2 <- tidytable::na_if(table2, "")
+# table2 <- tidytable::na_if(table2, "NA")
+# table2 <- tidytable::na_if(table2, "-")
+# table2 <- tidytable::na_if(table2, "--")
+# table2 <- tidytable::na_if(table2, "---")
 to_double <- c("raw_score", "score", "percentile")
 table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
 ```
@@ -673,11 +673,6 @@ table2 <- table2 |> tidytable::relocate(c(raw_score, score, percentile, range, c
 ```{r pluck3}
 table3 <- tibble::as_tibble(plucked_table[[3]])
 colnames(table3) <- params$colnames2
-table3 <- tidytable::na_if(table3, "")
-table3 <- tidytable::na_if(table3, "NA")
-table3 <- tidytable::na_if(table3, "-")
-table3 <- tidytable::na_if(table3, "--")
-table3 <- tidytable::na_if(table3, "---")
 to_double <- c("raw_score", "score", "percentile")
 table3 <- table3 |> hablar::convert(dbl(all_of(to_double)))
 ```
@@ -815,11 +810,6 @@ table3 <- table3 |> tidytable::relocate(c(raw_score, score, percentile, range, c
 ```{r pluck4}
 table4 <- tibble::as_tibble(plucked_table[[4]])
 colnames(table4) <- params$colnames2
-table4 <- tidytable::na_if(table4, "")
-table4 <- tidytable::na_if(table4, "NA")
-table4 <- tidytable::na_if(table4, "-")
-table4 <- tidytable::na_if(table4, "--")
-table4 <- tidytable::na_if(table4, "---")
 to_double <- c("raw_score", "score", "percentile")
 table4 <- table4 |> hablar::convert(dbl(all_of(to_double)))
 ```
@@ -964,11 +954,6 @@ table4 <- table4 |> tidytable::relocate(c(raw_score, score, percentile, range, c
 ```{r pluck5}
 table5 <- tibble::as_tibble(plucked_table[[5]])
 colnames(table5) <- params$colnames2
-table5 <- tidytable::na_if(table5, "")
-table5 <- tidytable::na_if(table5, "NA")
-table5 <- tidytable::na_if(table5, "-")
-table5 <- tidytable::na_if(table5, "--")
-table5 <- tidytable::na_if(table5, "---")
 to_double <- c("raw_score", "score", "percentile")
 table5 <- table5 |> hablar::convert(dbl(all_of(to_double)))
 ```
@@ -1098,11 +1083,6 @@ table5 <- table5 |> tidytable::relocate(c(raw_score, score, percentile, range, c
 ```{r pluck6, eval = params$bd}
 table6 <- tibble::as_tibble(plucked_table[[6]])
 colnames(table6) <- params$colnames3
-table6 <- tidytable::na_if(table6, "")
-table6 <- tidytable::na_if(table6, "NA")
-table6 <- tidytable::na_if(table6, "-")
-table6 <- tidytable::na_if(table6, "--")
-table6 <- tidytable::na_if(table6, "---")
 to_double <- c("raw_score", "score", "percentile")
 table6 <- table6 %>% hablar::convert(dbl(all_of(to_double)))
 ```
@@ -1188,11 +1168,6 @@ table6 <- table6 |> tidytable::relocate(c(raw_score, score, percentile, range, c
 ```{r pluck7, eval = params$span}
 table7 <- tibble::as_tibble(plucked_table[[7]])
 colnames(table7) <- params$colnames4
-table7 <- tidytable::na_if(table7, "")
-table7 <- tidytable::na_if(table7, "NA")
-table7 <- tidytable::na_if(table7, "-")
-table7 <- tidytable::na_if(table7, "--")
-table7 <- tidytable::na_if(table7, "---")
 to_double <- c("raw_score", "score", "percentile")
 table7 <- table7 |> hablar::convert(dbl(all_of(to_double)))
 ```

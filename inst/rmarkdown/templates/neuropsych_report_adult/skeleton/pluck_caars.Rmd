@@ -149,12 +149,6 @@ colnames3 <- c("score")
 ```{r pluck1}
 table1 <- tidytable::as_tibble(plucked_table[[1]])
 colnames(table1) <- colnames1
-table1 <- tidytable::na_if(table1, "")
-table1 <- tidytable::na_if(table1, "NA")
-table1 <- tidytable::na_if(table1, "-")
-table1 <- tidytable::na_if(table1, "--")
-table1 <- tidytable::na_if(table1, "---")
-table1 <- tidytable::na_if(table1, "N/A")
 ```
 
 ```{r tb1-rownames}
@@ -173,12 +167,6 @@ table1 <- table1[1:9, ]
 ```{r pluck2}
 table2 <- tibble::as_tibble(plucked_table[[2]])
 colnames(table2) <- colnames2
-table2 <- tidytable::na_if(table2, "")
-table2 <- tidytable::na_if(table2, "NA")
-table2 <- tidytable::na_if(table2, "-")
-table2 <- tidytable::na_if(table2, "--")
-table2 <- tidytable::na_if(table2, "---")
-table2 <- tidytable::na_if(table2, "N/A")
 to_double <- c("raw_score")
 table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
 table2 <- table2[1:9, ]
@@ -187,12 +175,6 @@ table2 <- table2[1:9, ]
 ```{r pluck3}
 table3 <- tidytable::as_tibble(plucked_table[[3]])
 colnames(table3) <- colnames3
-table3 <- tidytable::na_if(table3, "")
-table3 <- tidytable::na_if(table3, "NA")
-table3 <- tidytable::na_if(table3, "-")
-table3 <- tidytable::na_if(table3, "--")
-table3 <- tidytable::na_if(table3, "---")
-table3 <- tidytable::na_if(table3, "N/A")
 to_double <- c("score")
 table3 <- table3 |> hablar::convert(dbl(all_of(to_double)))
 table3 <- table3[1:9, ]
@@ -253,8 +235,8 @@ table <- bwu::gpluck_make_score_ranges(table = table, test_type = "npsych_test")
 ```{r domain}
 table <-
   table |>
-  mutate(
-    domain = case_when(
+  tidytable::mutate(
+    domain = tidytable::case_when(
       scale == "Inconsistency Index" ~ "Effort/Validity",
       TRUE ~ as.character(domain)
     )
@@ -266,8 +248,8 @@ table <-
 ```{r subdomain}
 table <-
   table |>
-  mutate(
-    subdomain = case_when(
+  tidytable::mutate(
+    subdomain = tidytable::case_when(
       scale == "Inconsistency Index" ~ "Effort/Validity",
       TRUE ~ as.character(subdomain)
     )
@@ -279,8 +261,8 @@ table <-
 ```{r narrow}
 table <-
   table |>
-  mutate(
-    narrow = case_when(
+  tidytable::mutate(
+    narrow = tidytable::case_when(
       scale ==
         "Inattention/Memory Problems" ~ "Inattention/Memory Problems",
       scale ==
@@ -310,8 +292,8 @@ table <-
 if (params$test == "caars_sr") {
   table <-
     table |>
-    mutate(
-      description = case_when(
+    tidytable::mutate(
+      description = tidytable::case_when(
         scale ==
           "ADHD Index" ~
           "composite indicator for identifying individuals 'at-risk' for ADHD",
@@ -345,8 +327,8 @@ if (params$test == "caars_sr") {
 } else {
   table <-
     table |>
-    mutate(
-      description = case_when(
+    tidytable::mutate(
+      description = tidytable::case_when(
         scale ==
           "ADHD Index" ~
           "composite indicator for identifying individuals 'at-risk' for ADHD",
@@ -418,8 +400,8 @@ if (params$test == "caars_sr") {
 } else {
   table <-
     table |>
-    mutate(
-      result = case_when(
+    tidytable::mutate(
+      result = tidytable::case_when(
         scale == "ADHD Index" ~ glue::glue(
           "- {patient}'s {description} was {range}\n"
         ),

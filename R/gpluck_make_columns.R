@@ -84,7 +84,7 @@ gpluck_make_columns <- function(table,
                                 description = NULL,
                                 ...) {
   table <-
-    tidytable::mutate(
+    dplyr::mutate(
       table,
       scale = scale,
       raw_score = raw_score,
