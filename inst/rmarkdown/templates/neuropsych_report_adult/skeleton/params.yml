@@ -1,0 +1,16 @@
+params:
+  lastname: Trampush
+  firstname: Joey
+  dob: 1979-01-01
+  mrn: 123456789
+  sex: male
+  sex_cap: Male
+  age: 29
+  educyrs: 14
+  doe1: 2022-100-09
+  he_she: he
+  he_she_cap: He
+  his_her: his
+  his_her_cap: His
+  him_her: him
+  him_her_cap: Him

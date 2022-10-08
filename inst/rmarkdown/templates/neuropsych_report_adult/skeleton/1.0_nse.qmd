@@ -1,0 +1,184 @@
+---
+author: Joey W. Trampush, Ph.D.
+format:
+    pdf: default
+    html: 
+      self-contained: true
+params:
+  lastname: Smalls
+  firstname: Biggie
+  dob: 1979-01-01
+  mrn: 123456789
+  sex: male
+  sex_cap: Male
+  age: 29
+  educyrs: 14
+  doe1: 2022-100-09
+  he_she: he
+  he_she_cap: He
+  his_her: his
+  his_her_cap: His
+  him_her: him
+  him_her_cap: Him
+reference-location: document
+citation-location: document
+bibliography: bwu.bib
+---
+
+![](logo.png)
+
+# NEUROBEHAVIORAL STATUS EXAM
+
+## Identifying Information
+
+**Patient:** `r params$lastname`, `r params$firstname`\
+**Date of Birth:** `r params$dob`\
+**MRN:** `r params$mrn`\
+**Gender:** `r params$sex`\
+**Age:** `r params$age`\
+**Date of Evaluation:** `r params$doe`
+
+## Measures Administered
+
+- Conners' Adult ADHD Diagnostic Interview for DSM-IV (CAADID), Part I: History
+- Conners' Adult ADHD Rating Scales–Self-Report: Long Version (CAARS–S:L)
+- Conners' Adult ADHD Rating Scales–Observer Report: Long Version (CAARS–O:L)
+- Comprehensive Executive Function Inventory Adult (CEFI Adult) Self-Report Form
+- Comprehensive Executive Function Inventory Adult (CEFI Adult) Observer Form
+
+## Reason for Referral
+
+`r params$firstname` `r params$lastname` is a `r params$age`-year-old `r params$sex_cap`
+self-referred for evaluation to assess `r params$his_her` current cognitive and
+emotional functioning and to develop an intervention plan. `r params$firstname`
+reports a history of mood dysregulation, performance anxiety,
+attention/organization problems, and social-emotional difficulties. This report
+is based on a review of available medical records and information gathered
+across a 1-hour neurobehavioral exam conducted with the patient via telemedicine
+on `r params$doe1`.
+
+## Relevant History
+
+### Developmental/Medical
+
+`r params$firstname` was born full-term following an uncomplicated pregnancy, labor,
+and delivery. Major developmental milestones were achieved within expected
+timeframes.
+
+Medical history includes x, y, and z. `r params$his_her_cap` medical history also
+includes attention problems, which were longstanding but first treated after
+`r params$his_her` 20XX concussion. `r params$his_her_cap` now takes Concerta. However,
+`r params$his_her` mother reported ongoing difficulties with focus/concentration and
+forgetfulness. `r params$he_she_cap` said `r params$he_she` struggles to remember tasks
+`r params$he_she` needs to do and forgets to complete and turn in homework.
+`r params$he_she_cap` also reported that it has been difficult to get`r params$firstname`
+to take `r params$his_her` medications if `r params$he_she` is not there to remind
+`r params$him_her`. `r params$he_she_cap` has told `r params$his_her` that `r params$he_she` would
+like to stop taking all medication. Previous medication includes Ritalin
+(stopped because of low appetite). There are no current concerns with hearing,
+vision, sleep, or appetite. `r params$he_she_cap` also denies current headaches or
+pain. Family medical history includes x, y, and z. Surgical history includes x,
+y, and z.
+
+### Academics
+
+`r params$firstname` recently completed `r params$educyrs` at Local High School.
+`r params$he_she_cap` earned C's, D's, and F's in `r params$his_her` classes.
+`r params$his_her_cap` mother reported that `r params$he_she` is frustrated with
+`r params$his_her` grades, as `r params$he_she` has been an A/B student in the past.
+`r params$he_she_cap` said that `r params$he_she` has trouble with daily work as well as
+quizzes/tests. `r params$his_her_cap` teachers have reported poor participation in
+class.
+
+### Behavioral/Emotional/Social
+
+`r params$firstname` reported that `r params$he_she` has struggled with depression over
+the years. `r params$he_she_cap` was especially upset at no longer being allowed to
+play sports after `r params$his_her` previous concussions. `r params$he_she_cap` noted
+that `r params$his_her` mood has been better and `r params$he_she` has not been as
+withdrawn since increasing `r params$his_her` dose of Effexor XR. `r params$he_she_cap`
+denied concerns about `r params$him_her` harming `r params$him_her`self or others.
+`r params$he_she_cap` expressed concern about `r params$his_her` coping skills.
+`r params$he_she_cap` also said that `r params$he_she` has always tended to want things a
+certain way, in a certain order. However, this has not caused problems in daily
+life. `r params$he_she_cap` denied any other anxiety.
+
+`r params$firstname` has many friends. `r params$he_she_cap` enjoys pick-up basketball
+and watching basketball games. `r params$his_her_cap` mother reported that
+`r params$he_she` recently got `r params$his_her` driver's license and is looking for a
+job.
+
+### Family
+
+`r params$firstname` lives with `r params$his_her` parents and older brother and sister
+in City, State. Both parents graduated from high school. Recent stressors
+include a family member's illness. Family mental health history includes
+depression.
+
+## Prior Testing
+
+`r params$firstname` had a previous neuropsychological evaluation (Month 20XX),
+shortly following `r params$his_her` 20XX concussion. Results at that time indicated
+age-appropriate intelligence, but weaknesses in attention, executive skills,
+memory, fine motor speed, and word-finding. Of note, on the day of that prior
+testing `r params$he_she` had not taken stimulant medication and reported continuous
+headache.
+
+## Mental Status & Behavioral Observations During Interview
+
+`r params$firstname` arrived on time to the telemedicine interview. `r params$he_she_cap`
+was alert, oriented to the situation, and appeared to understand the questions
+that were being asked of `r params$him_her`. `r params$he_she_cap` was articulate,
+demonstrated a clear and logical thought process, and `r params$his_her` speech was
+normal in rate, pitch, and prosody. `r params$his_her_cap` affect was normal in range
+and expression.
+
+## Summary/Impression
+
+`r params$firstname` `r params$lastname` is a `r params$age`-year-old, (ref:hand)-handed
+`r params$sex` with a history of (ref:dx1) and (ref:dx1). `r params$he_she_cap` is
+motivated to complete the evaluation and to use the information gained to
+develop tailored plans for psychiatric intervention and school accommodations.
+
+### Diagnostic Considerations
+
+- [DSM-5/ICD-10 Codes][dsm5_icd10_diagnoses.md]
+
+## Recommendations/Plan
+
+1. Proceed with comprehensive neuropsychological, academic, and personality
+   assessments;
+2. Develop targeted intervention plan and academic plan based on results of
+   testing.
+
+_Note:_ Evaluation is ongoing. Full report and recommendations to follow.
+
+Please contact me with any questions or concerns regarding this patient.
+
+Neurobehavioral status exam and clinical documentation by Neuropsychologist
+(96116 x 1, 96121 x 1): 2 hr, 5 min.
+
+TRAMPUSH PH.D., JOEY W
+
+### Telemedicine Statement
+
+_I connected with the Patient by a video enabled telemedicine application and
+verified that I am speaking with the correct person using two identifiers. I
+discussed the limitations of evaluation and management by telemedicine and the
+availability of in-person appointments. The patient expressed understanding and
+agreed to proceed. I have verified this to be the correct patient and obtained
+verbal consent from the patient to perform this voluntary telemedicine visit and
+evaluation (including obtaining history from the patient). The patient has the
+right to refuse this evaluation. I have explained risks (including potential
+loss of confidentiality), benefits, alternatives, and the potential need for
+subsequent face-to-face care. The patient understands that there is a risk of
+medical inaccuracies given that our recommendations will be made based on
+reported data (and we must therefore assume this information is accurate).
+Knowing that there is a risk that this information is not reported accurately,
+and that the telemedicine video, audio, or data feed may be incomplete, the
+patient agrees to proceed with evaluation and holds Keck Medicine of USC
+harmless knowing these risks. I have notified the patient that other healthcare
+professionals (including students, residents, and technical personnel) may be
+involved in this audio-video evaluation. All laws concerning medical records
+apply to telemedicine. The patient has received the Keck Medicine of USC Notice
+of Privacy Practices._
