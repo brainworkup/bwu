@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from WAIS-IV"
 params:
-  patient: Tianyu
+  patient: Biggie
   test:
     label: "Test"
     value: wais4
@@ -12,7 +12,7 @@ params:
       - wisc5
   test_name:
     label: "Test Name"
-    value: WAIS-IV
+    value: [WAIS-IV]
     input: select
     multiple: no
     choices:
@@ -22,7 +22,7 @@ params:
     label: "No file selected"
     value: file
     input: file
-  pages: [2,3,3,3,3,5,5]
+  pages: [2,4,4,4,4,6,6]
   table1:
     label: "Index Scores"
     value: [Verbal Comprehension (VCI)]
@@ -57,7 +57,7 @@ params:
       - Figure Weights
   table4:
     label: "Working Memory (WMI)"
-    value: Digit Span
+    value: [Digit Span]
     input: select
     multiple: yes
     choices:
@@ -66,7 +66,7 @@ params:
       - Letter-Number Sequencing
   table5:
     label: "Processing Speed (PSI)"
-    value: Symbol Search
+    value: [Symbol Search]
     input: select
     multiple: yes
     choices:
@@ -75,14 +75,14 @@ params:
       - Cancellation
   table6:
     label: "Perceptual Reasoning Process Score Summary"
-    value: Block Design No Time Bonus
+    value: [Block Design No Time Bonus]
     input: select
     multiple: yes
     choices:
       - Block Design No Time Bonus
   table7:
     label: "Working Memory Process Score Summary"
-    value: Digit Span Forward
+    value: [Digit Span Forward]
     input: select
     multiple: yes
     choices:
@@ -120,7 +120,7 @@ params:
       - sem
   colnames3:
     label: "Table 6 Column Names"
-    value: scale
+    value: [scale]
     input: select
     multiple: yes
     choices:
@@ -131,7 +131,7 @@ params:
       - sem
   colnames4:
     label: "Table 7 Column Names"
-    value: scale
+    value: [scale]
     input: select
     multiple: yes
     choices:
@@ -143,7 +143,7 @@ params:
       - sem
   keep1:
     label: "Variables to Keep, Set 1"
-    value: scale
+    value: [scale]
     input: select
     multiple: yes
     choices:
@@ -154,7 +154,7 @@ params:
       - ci_95
   keep2:
     label: "Variables to Keep, Set 2"
-    value: scale
+    value: [scale]
     input: select
     multiple: yes
     choices:
@@ -162,10 +162,6 @@ params:
       - raw_score
       - score
       - percentile
-  match:
-    label: "Subset/Match Rows"
-    input: checkbox
-    value: TRUE
 # Domains to evaluate or not
   eval_iq:
     label: "Intelligence/General Ability"
@@ -187,6 +183,10 @@ params:
     value: TRUE
   eval_span:
     label: "Longest Span Subtests"
+    value: TRUE
+  match:
+    label: "Subset/Match Rows"
+    input: checkbox
     value: TRUE
 output:
   rmdformats::robobook:
@@ -213,7 +213,6 @@ knitr::opts_chunk$set(
   error = TRUE
 )
 library(bwu)
-library(data.table)
 library(gt)
 library(hablar)
 library(here)
@@ -263,27 +262,27 @@ writeLines(file, here::here(patient, "pre_csv", "wais4_pdf"))
 ```
 
 ```{r read-file}
-file <- readLines(here::here(patient, "pre_csv", "wais4_pdf"))
+# file <- readLines(here::here(patient, "pre_csv", "wais4_pdf"))
 ```
 
 ## Locate areas
 
 ```{r areas-known}
 # if known
-# area <- list(
-#   index = c(133, 50, 212, 560),
-#   vci = c(347, 50, 382, 560),
-#   pri = c(434, 50, 468, 560),
-#   wmi = c(521, 50, 553, 560),
-#   psi = c(605, 50, 639, 560),
-#   bd = c(377, 50, 398, 560),
-#   ds = c(460, 50, 570, 560)
-# )
+area <- list(
+  index = c(133, 50, 212, 560),
+  vci = c(347, 50, 382, 560),
+  pri = c(434, 50, 468, 560),
+  wmi = c(521, 50, 553, 560),
+  psi = c(605, 50, 639, 560),
+  bd = c(377, 50, 398, 560),
+  ds = c(460, 50, 570, 560)
+)
 ```
 
 ```{r areas-get, eval = FALSE}
 # if unknown
-# patient <- "Tianyu"
+# patient <- "Biggie"
 # file <- file.choose()
 # area <- bwu::gpluck_locate_areas(
 #   file = file,
@@ -292,11 +291,11 @@ file <- readLines(here::here(patient, "pre_csv", "wais4_pdf"))
 ```
 
 ```{r write-area}
-# saveRDS(area, file = here::here(patient, "pre_csv", "area_wais4.rds"), compress = FALSE)
+saveRDS(area, file = here::here(patient, "pre_csv", "area_wais4.rds"), compress = FALSE)
 ```
 
 ```{r read-area}
-area <- readRDS(here::here(patient, "pre_csv", "area_wais4.rds"))
+# area <- readRDS(here::here(patient, "pre_csv", "area_wais4.rds"))
 ```
 
 ## Extract tables
@@ -322,12 +321,6 @@ colnames(table1) <- params$colnames1
 to_double <- c("raw_score", "score", "percentile")
 table1 <- table1 |> hablar::convert(dbl(all_of(to_double)))
 table1[, 1] <- (params$table1)
-```
-
-## Scale names
-
-```{r rownames1}
-# table1$scale <- params$table1
 ```
 
 ## Select variables to keep
@@ -521,10 +514,10 @@ table1 <-
         "{description} was classified as {range} and ranked at the {percentile}th percentile.\n"
       ),
       scale == "Working Memory (WMI)" ~ glue::glue(
-        "{description} was a relative strength|weakness, falling in the {range} range.\n"
+        "{description} fell in the {range} range.^[(ref:working-memory)]\n"
       ),
       scale == "Processing Speed (PSI)" ~ glue::glue(
-        "{description} was {range} and a relative strength|weakness.\n"
+        "{description} was {range} and a relative strength|weakness.^[(ref:processing-speed)]\n"
       ),
       TRUE ~ as.character(result)
     )
