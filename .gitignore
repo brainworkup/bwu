@@ -74,3 +74,4 @@ inst/doc
 /*.tar.gz
 bwu.code-workspace
 renv/.DS_Store
+bwu.builds/
