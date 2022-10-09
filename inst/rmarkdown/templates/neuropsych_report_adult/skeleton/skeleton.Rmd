@@ -259,13 +259,13 @@ params:
     label: "Emotional/Behavioral/Personality Plot 2"
     value: TRUE
   eval_pass_plot:
-    label: "Emotional/Behavioral/Personality Plot 1"
+    label: "PASS Plot"
     value: TRUE
   eval_nonverbal_plot:
-    label: "Emotional/Behavioral/Personality Plot 2"
+    label: "Verbal/Nonverbal Plot"
     value: TRUE
   eval_timed_plot:
-    label: "Emotional/Behavioral/Personality Plot 1"
+    label: "Timed/Untimed Plot"
     value: TRUE
 ---
 

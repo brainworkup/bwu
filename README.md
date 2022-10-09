@@ -1,14 +1,8 @@
----
-editor_options: 
-  markdown: 
-    wrap: 80
----
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# bwu: BrainWorkUp neuropsychological package
+# bRAINwORKuP (bwu)
 
-# Neuropsychological Testing Data Package
+## Neuropsychological Testing Data Package
 
 <!-- badges: start -->
 

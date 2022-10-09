@@ -485,10 +485,10 @@ table1 <-
         "Fluid Reasoning (*G*f)",
       scale ==
         "Working Memory (WMI)" ~
-        "Working Memory (*G*wm), which refers to the ability to hold information in immediate awareness and then manipulate or transform it in some way within a few seconds",
+        "Working Memory (*G*wm)^[(ref:working-memory)]",
       scale ==
         "Processing Speed (PSI)" ~
-        "Processing Speed (*G*s) performance (i.e., the efficiency of cognitive processing or speed of mental activity, especially when under pressure to maintain attention and concentration)",
+        "Processing Speed (*G*s)^[(ref:processing-speed)]",
       TRUE ~ as.character(description)
     )
   )
@@ -514,10 +514,10 @@ table1 <-
         "{description} was classified as {range} and ranked at the {percentile}th percentile.\n"
       ),
       scale == "Working Memory (WMI)" ~ glue::glue(
-        "{description} fell in the {range} range.^[(ref:working-memory)]\n"
+        "{description} fell in the {range} range.\n"
       ),
       scale == "Processing Speed (PSI)" ~ glue::glue(
-        "{description} was {range} and a relative strength|weakness.^[(ref:processing-speed)]\n"
+        "{description} was {range} and a relative strength|weakness.\n"
       ),
       TRUE ~ as.character(result)
     )
