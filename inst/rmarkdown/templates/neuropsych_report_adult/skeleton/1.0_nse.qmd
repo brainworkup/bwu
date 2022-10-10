@@ -13,6 +13,7 @@ params:
   sex_cap: Male
   age: 29
   educyrs: 14
+  hand: right
   doe1: 2022-100-09
   refdoc: Dr. Dre
   he_she: he
@@ -21,6 +22,7 @@ params:
   his_her_cap: His
   him_her: him
   him_her_cap: Him
+  dx1: ADHD
 reference-location: document
 citation-location: document
 bibliography: bwu.bib
@@ -49,13 +51,12 @@ bibliography: bwu.bib
 
 ## Reason for Referral
 
-`r params$firstname` `r params$lastname` is a `r params$age`-year-old `r params$sex` referred for evaluation by `r params$refdoc` to assess `r params$his_her` current cognitive and
-emotional functioning and to develop an intervention plan. `r params$firstname`
+`r params$firstname` is an undergraduate student at USC referred for evaluation by `r params$refdoc` to assess `r params$his_her` current cognitive and emotional functioning in relation to `r params$dx1` and to develop an intervention plan.
+He reports ongoing difficulties with attention/organization and lack of behavioral activation that are making it difficult to finish school.
+`r params$firstname`
 reports a history of mood dysregulation, performance anxiety,
-attention/organization problems, and social-emotional difficulties. This report
-is based on a review of available medical records and information gathered
-across a 1-hour neurobehavioral exam conducted with the patient via telemedicine
-on `r params$doe1`.
+attention/organization problems, and social-emotional difficulties.
+This report is based on a review of available medical records and information gathered across a 1-hour neurobehavioral exam conducted with the patient via telemedicine on `r params$doe1`.
 
 ## Relevant History
 
@@ -66,19 +67,13 @@ and delivery. Major developmental milestones were achieved within expected
 timeframes.
 
 Medical history includes x, y, and z. `r params$his_her_cap` medical history also
-includes attention problems, which were longstanding but first treated after
-`r params$his_her` 20XX concussion. `r params$his_her_cap` now takes Concerta. However,
-`r params$his_her` mother reported ongoing difficulties with focus/concentration and
-forgetfulness. `r params$he_she_cap` said `r params$he_she` struggles to remember tasks
+includes attention problems.
+`r params$he_she_cap` struggles to remember tasks
 `r params$he_she` needs to do and forgets to complete and turn in homework.
-`r params$he_she_cap` also reported that it has been difficult to get`r params$firstname`
-to take `r params$his_her` medications if `r params$he_she` is not there to remind
-`r params$him_her`. `r params$he_she_cap` has told `r params$his_her` that `r params$he_she` would
-like to stop taking all medication. Previous medication includes Ritalin
-(stopped because of low appetite). There are no current concerns with hearing,
-vision, sleep, or appetite. `r params$he_she_cap` also denies current headaches or
-pain. Family medical history includes x, y, and z. Surgical history includes x,
-y, and z.
+Previous medication includes Ritalin (stopped because of low appetite). 
+There are no current concerns with hearing, vision, sleep, or appetite.
+`r params$he_she_cap` also denies current headaches or pain.
+Family medical history includes x, y, and z. Surgical history includes x, y, and z.
 
 ### Academics
 
