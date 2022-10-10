@@ -14,6 +14,7 @@ params:
   age: 29
   educyrs: 14
   doe1: 2022-100-09
+  refdoc: Dr. Dre
   he_she: he
   he_she_cap: He
   his_her: his
@@ -34,7 +35,7 @@ bibliography: bwu.bib
 **Patient:** `r params$lastname`, `r params$firstname`\
 **Date of Birth:** `r params$dob`\
 **MRN:** `r params$mrn`\
-**Gender:** `r params$sex`\
+**Gender:** `r params$sex_cap`\
 **Age:** `r params$age`\
 **Date of Evaluation:** `r params$doe`
 
@@ -48,8 +49,7 @@ bibliography: bwu.bib
 
 ## Reason for Referral
 
-`r params$firstname` `r params$lastname` is a `r params$age`-year-old `r params$sex_cap`
-self-referred for evaluation to assess `r params$his_her` current cognitive and
+`r params$firstname` `r params$lastname` is a `r params$age`-year-old `r params$sex` referred for evaluation by `r params$refdoc` to assess `r params$his_her` current cognitive and
 emotional functioning and to develop an intervention plan. `r params$firstname`
 reports a history of mood dysregulation, performance anxiety,
 attention/organization problems, and social-emotional difficulties. This report
