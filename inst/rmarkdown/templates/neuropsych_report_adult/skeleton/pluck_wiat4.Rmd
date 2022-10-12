@@ -600,7 +600,7 @@ table <-
       scale == "Essay Composition" ~ "spontaneous writing fluency at the discourse level",
       scale == "Basic Reading" ~ "composite measure of phonological skills, phonic decoding, and single-word reading skills",
       scale == "Decoding" ~ "composite estimate of decontextualized phonic decoding and word reading skills",
-      scale == "Pseudoword Decoding" ~ "phonic decoding skills by reading aloud a list of pseudowords",
+      scale == "Pseudoword Decoding" ~ "phonic decoding skills as assessed by reading aloud a list of pseudowords",
       scale == "Decoding Fluency" ~ "phonic decoding fluency",
       scale == "Phonemic Proficiency" ~ "speed and accuracy of phonological/phonemic skills including elision, substitution, and reversal",
       scale == "Phonological Processing" ~ "phonological processing composite measure of phonemic proficiency and phonic decoding skills",
