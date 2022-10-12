@@ -8,24 +8,23 @@ params:
   lastname: Smalls
   firstname: Biggie
   dob: 1979-01-01
-  mrn: 123456789
+  mrn: [123456789]
   sex: male
   sex_cap: Male
   age: 29
   educyrs: 14
   hand: right
-  doe1: 2022-100-09
+  doe1: 2022-01-01
   refdoc: Dr. Dre
-  he_she: he
-  he_she_cap: He
-  his_her: his
-  his_her_cap: His
-  him_her: him
-  him_her_cap: Him
+  he_she: he/she
+  he_she_cap: He/She
+  his_her: his/her
+  his_her_cap: His/Her
+  him_her: him/her
+  him_her_cap: Him/Her
   dx1: ADHD
 reference-location: document
 citation-location: document
-bibliography: bwu.bib
 ---
 
 ![](logo.png)
@@ -39,7 +38,7 @@ bibliography: bwu.bib
 **MRN:** `r params$mrn`\
 **Gender:** `r params$sex_cap`\
 **Age:** `r params$age`\
-**Date of Evaluation:** `r params$doe`
+**Date of Evaluation:** `r params$doe1`
 
 ## Measures Administered
 

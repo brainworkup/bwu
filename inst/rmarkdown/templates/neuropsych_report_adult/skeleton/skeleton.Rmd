@@ -355,7 +355,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:bicycle) Bicycle Drawing Task
 
-(ref:rocf) Rey-Osterrieth Complex Figure Test (ROCFT)
+(ref:rocft) Rey-Osterrieth Complex Figure Test (ROCFT)
 
 (ref:ravlt) Rey Auditory Verbal Learning Test (RAVLT)
 
@@ -651,7 +651,7 @@ cat(readLines("2.0_nse.md"), sep = "\n")
   - Verbal Fluency
   - Behavior Rating Scale
 - (ref:cvlt3-brief)
-- (ref:rocf)
+- (ref:rocft)
 - (ref:pegboard)
 - (ref:pai)
 
