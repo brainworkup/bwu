@@ -1,5 +1,4 @@
 ---
-author: Joey W. Trampush, Ph.D.
 format:
     pdf: default
     html: 
@@ -9,10 +8,10 @@ params:
   last_name: Smalls
   dob: 1979-01-01
   mrn: [123456789]
-  sex: male
-  sex_cap: Male
-  age: 29
-  educyrs: 14
+  sex: male/female
+  sex_cap: Male/Female
+  age: 18
+  educyrs: 12
   hand: right
   doe1: 2022-01-01
   refdoc: Dr. Dre
@@ -50,16 +49,10 @@ citation-location: document
 
 ## Reason for Referral
 
-`r params$first_name` is an undergraduate student at USC referred for evaluation by `r params$refdoc` to assess `r params$his_her` current cognitive and emotional functioning in relation to `r params$dx1` and to develop an intervention plan.
-He reports ongoing difficulties with attention/organization and lack of behavioral activation that are making it difficult to finish school.
-`r params$first_name`
-reports a history of mood dysregulation, performance anxiety,
+`r params$first_name` is a student at USC referred for evaluation by `r params$refdoc` to assess `r params$his_her` current cognitive and emotional functioning in relation to `r params$dx1` and to develop an intervention plan.
+`r params$first_name` reports ongoing difficulties with attention/organization and lack of behavioral activation that are making it difficult to finish school, a history of mood dysregulation, performance anxiety,
 attention/organization problems, and social-emotional difficulties.
 This report is based on a review of available medical records and information gathered across a 1-hour neurobehavioral exam conducted with the patient via telemedicine on `r params$doe1`.
-
-## Background
-
-`r params$first_name` presents with complaints of x, y, and z.
 
 ## Relevant History
 
@@ -81,12 +74,8 @@ Family medical history includes x, y, and z. Surgical history includes x, y, and
 ### Academics
 
 `r params$first_name` recently completed `r params$educyrs` at Local High School.
-`r params$he_she_cap` earned C's, D's, and F's in `r params$his_her` classes.
-`r params$his_her_cap` mother reported that `r params$he_she` is frustrated with
-`r params$his_her` grades, as `r params$he_she` has been an A/B student in the past.
-`r params$he_she_cap` said that `r params$he_she` has trouble with daily work as well as
-quizzes/tests. `r params$his_her_cap` teachers have reported poor participation in
-class.
+`r params$he_she_cap` is frustrated with `r params$his_her` grades, as `r params$he_she` has been an A/B student in the past.
+`r params$he_she_cap` said that `r params$he_she` has trouble with daily work as well as quizzes/tests.
 
 ### Behavioral/Emotional/Social
 
@@ -140,7 +129,7 @@ develop tailored plans for psychiatric intervention and school accommodations.
 
 ### Diagnostic Considerations
 
-- [DSM-5/ICD-10 Codes][dsm5_icd10_diagnoses.md]
+- [DSM-5/ICD-10 Codes](dsm5_icd10_diagnoses.md)
 
 ## Recommendations/Plan
 
