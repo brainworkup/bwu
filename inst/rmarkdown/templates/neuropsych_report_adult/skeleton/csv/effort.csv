@@ -1,5 +1,5 @@
-scale,raw_score,score,percentile,range,ci_95,test,test_name,domain,subdomain,narrow,pass,verbal,timed,test_type,score_type,absort,description
-Word Choice,,,,,,acs_effort,ACS Word Choice,Validity/Effort,Validity/Effort,Validity/Effort,,Verbal,Untimed,npsych_test,raw_score,acs_effort_1,effort test (word choice)
-Reliable Digit Span,,,,,,acs_effort,Reliable Digit Span,Validity/Effort,Validity/Effort,Validity/Effort,,Verbal,Untimed,npsych_test,raw_score,acs_effort_2,reliable digit span
-TOMM Trial 1,,,,,,,,,,,,,,,,,
-TOMM Trial 2,,,,,,,,,,,,,,,,,
+scale,raw_score,score,percentile,range,ci_95,test,test_name,domain,subdomain,narrow,pass,verbal,timed,test_type,score_type,absort,description,result
+Word Choice,,,,,,word_choice,ACS Word Choice,Validity/Effort,Validity/Effort,Validity/Effort,,,,npsych_test,raw_score,word_choice_1,effort test (word choice),Word choice was WNL.
+Reliable Digit Span,,,,,,wais4_rds,WIAS-IV Reliable Digit Span,Validity/Effort,Validity/Effort,Validity/Effort,,,,npsych_test,raw_score,wais4_rds_1,reliable digit span,RDS was WNL.
+TOMM Trial 1,,,,,,tomm,Test of Memory Malingering,Validity/Effort,Validity/Effort,Validity/Effort,,,,npsych_test,raw_score,tomm_1,TOMM first trial,TOMM first trial was WNL.
+TOMM Trial 2,,,,,,tomm,Test of Memory Malingering,Validity/Effort,Validity/Effort,Validity/Effort,,,,npsych_test,raw_score,tomm_2,TOMM second trial,TOMM second trial was WNL.

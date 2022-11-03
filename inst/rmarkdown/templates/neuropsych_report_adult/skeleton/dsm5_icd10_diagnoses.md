@@ -1308,3 +1308,8 @@ vascular disease)._
 - V65.2 (Z76.5) Malingering
 - V40.31 (Z91.83) Wandering Associated With a Mental Disorder
 - V62.89 (R41.83) Borderline Intellectual Functioning
+
+## Diagnoses Deferred
+
+- Axis I: 799.9 Diagnosis or Condition Deferred on Axis I
+- Axis II: 799.9 Diagnosis Deferred on Axis II
