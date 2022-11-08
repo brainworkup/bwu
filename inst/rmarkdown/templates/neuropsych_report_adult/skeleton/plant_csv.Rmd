@@ -3,7 +3,7 @@ title: "Plant CSV file of Neuropsych Measures/Tests"
 params:
   patient:
     label: "Patient First Name:"
-    value: Biggie
+    value: Kira
     input: text
   test_name:
     label: "Full Name of Test/Test Battery:"
@@ -19,6 +19,7 @@ params:
       - NAB
       - WMS-IV
       - Cognitive Estimation Test
+      - KTEA-3
   test:
     label: "Test/Measure File Name:"
     value: ""
@@ -33,6 +34,7 @@ params:
       - nab
       - wms4
       - cet
+      - ktea3
   scale:
     label: "Scale/Subtest:"
     value: ""
@@ -54,6 +56,9 @@ params:
       - Letter Fluency
       - Category Fluency
       - Deviation Score
+      - Nonsense Word Decoding
+      - Decoding Fluency
+      - Reading Comprehension
   raw_score:
     label: "Raw score:"
     value: 10
@@ -103,6 +108,7 @@ params:
       - Planning
       - Response Monitoring
       - Retrieval Fluency
+      - Reading
   narrow:
     label: "Narrow subdomain:"
     value: ""
@@ -122,6 +128,10 @@ params:
       - Semantic Fluency
       - Set-Shifting
       - Visual Memory
+      - Reading Decoding
+      - Reading Speed
+      - Planning
+      - Reading Comprehension
   pass:
     label: "PASS:"
     value: ""
@@ -284,13 +294,19 @@ compute_desc <- function(.x, .scale, description, ...) {
       .scale == "TOPF Standard Score" ~
         "An estimate of premorbid verbal ability level",
       .scale == "Unstructured Task" ~
-        "Planning and organization aptitude to formulate an action in advance of performance or intended performance examined through a 6-minute unstructured task",
+        "Strategic planning and organization aptitude to formulate an action in advance of performance or intended performance",
       .scale == "Letter Fluency" ~
         "Letter/phonemic word fluency",
       .scale == "Category Fluency" ~
         "Categorical/semantic word fluency",
       .scale == "Deviation Score" ~
         "Abstract reasoning (hypothesis generation and concept formation)",
+      .scale == "Nonsense Word Decoding" ~
+        "Phonic decoding skills as assessed by reading aloud a list of pseudowords",
+      .scale == "Decoding Fluency" ~
+        "Phonic decoding fluency",
+      .scale == "Reading Comprehension" ~
+        "Reading comprehension skills at the level of the word, sentence, and passage",
       TRUE ~ as.character(description)
     )
   )
@@ -478,6 +494,12 @@ compute_result <-
             glue::glue("{.description} fell within the {.range} range.\n"),
           .scale == "Deviation Score" ~
             glue::glue("{.description} fell within the {.range} range.\n"),
+          .scale == "Nonsense Word Decoding" ~
+            glue::glue("{.description} were {.range}.\n"),
+          .scale == "Decoding Fluency" ~
+            glue::glue("{.description} fell within the {.range} range.\n"),
+          .scale == "Reading Comprehension" ~
+            glue::glue("{.description} was {.range}.\n"),
           TRUE ~ as.character(result)
         )
       )
