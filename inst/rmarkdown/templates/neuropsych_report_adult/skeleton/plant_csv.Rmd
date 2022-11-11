@@ -11,11 +11,12 @@ params:
     input: radio
     choices:
       - NIH EXAMINER
-      - Grooved Pegboard
       - Rey Complex Figure
       - Test of Premorbid Functioning
       - Trail Making Test
       - D-KEFS Color-Word Interference
+      - Grooved Pegboard
+      - KTEA-3
       - NAB
       - WMS-IV
       - Cognitive Estimation Test
@@ -25,11 +26,12 @@ params:
     input: radio
     choices:
       - examiner
-      - pegboard
       - rocft
       - topf
       - tmt
       - dkefs_cwi
+      - pegboard
+      - ktea3
       - nab
       - wms4
       - cet
@@ -38,21 +40,27 @@ params:
     value: ""
     input: select
     choices:
+      - Unstructured Task
+      - Letter Fluency
+      - Category Fluency
       - ROCFT Copy
       - ROCFT Delayed Recall
       - TOPF Standard Score
       - Dominant Hand
       - Nondominant Hand
       - Judgment
+      - Trails A
+      - Trails B
       - D-KEFS Color Naming
       - D-KEFS Word Reading
       - D-KEFS Inhibition
       - D-KEFS Switching
       - D-KEFS Inhibition Total Errors
       - D-KEFS Switching Total Errors
-      - Unstructured Task
-      - Letter Fluency
-      - Category Fluency
+      - Nonsense Word Decoding
+      - Decoding Fluency
+      - Reading Comprehension
+      - Symbol Span
       - Deviation Score
   raw_score:
     label: "Raw score:"
@@ -103,6 +111,9 @@ params:
       - Planning
       - Response Monitoring
       - Retrieval Fluency
+      - Reading
+      - Processing Speed
+      - Working Memory
   narrow:
     label: "Narrow subdomain:"
     value: ""
@@ -112,6 +123,7 @@ params:
       - Decision-Making
       - Dominant Hand Dexterity
       - Inhibition
+      - Judgment
       - Naming Facility
       - Nondominant Hand Dexterity
       - Perceptual Organization
@@ -122,6 +134,13 @@ params:
       - Semantic Fluency
       - Set-Shifting
       - Visual Memory
+      - Reading Decoding
+      - Reading Speed
+      - Planning
+      - Reading Comprehension
+      - Psychomotor Speed
+      - Cognitive Efficiency
+      - Nonverbal Working Memory
   pass:
     label: "PASS:"
     value: ""
@@ -284,13 +303,25 @@ compute_desc <- function(.x, .scale, description, ...) {
       .scale == "TOPF Standard Score" ~
         "An estimate of premorbid verbal ability level",
       .scale == "Unstructured Task" ~
-        "Planning and organization aptitude to formulate an action in advance of performance or intended performance examined through a 6-minute unstructured task",
+        "Strategic planning and organization aptitude to formulate an action in advance of performance or intended performance",
       .scale == "Letter Fluency" ~
         "Letter/phonemic word fluency",
       .scale == "Category Fluency" ~
         "Categorical/semantic word fluency",
       .scale == "Deviation Score" ~
         "Abstract reasoning (hypothesis generation and concept formation)",
+      .scale == "Nonsense Word Decoding" ~
+        "Phonic decoding skills as assessed by reading aloud a list of pseudowords",
+      .scale == "Decoding Fluency" ~
+        "Phonic decoding fluency",
+      .scale == "Reading Comprehension" ~
+        "Reading comprehension skills at the level of the word, sentence, and passage",
+      .scale == "Trails A" ~
+        "Rapid numerical sequencing and psychomotor speed",
+      .scale == "Trails B" ~
+        "Rapid number-to-letter sequencing/switching and divided attention",
+      .scale == "Symbol Span" ~
+        "Nonverbal working memory",
       TRUE ~ as.character(description)
     )
   )
@@ -478,6 +509,18 @@ compute_result <-
             glue::glue("{.description} fell within the {.range} range.\n"),
           .scale == "Deviation Score" ~
             glue::glue("{.description} fell within the {.range} range.\n"),
+          .scale == "Nonsense Word Decoding" ~
+            glue::glue("{.description} were {.range}.\n"),
+          .scale == "Decoding Fluency" ~
+            glue::glue("{.description} fell within the {.range} range.\n"),
+          .scale == "Reading Comprehension" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "Trails A" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "Trails B" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "Symbol Span" ~
+            glue::glue("{.description} was {.range}.\n"),
           TRUE ~ as.character(result)
         )
       )
