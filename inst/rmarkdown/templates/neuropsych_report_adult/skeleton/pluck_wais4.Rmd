@@ -108,7 +108,7 @@ params:
       - category
   colnames2:
     label: "Tables 2-5 Column Names"
-    value: [scale]
+    value: [scale, raw_score, score, percentile, ref_group_ss, sem]
     input: select
     multiple: yes
     choices:
@@ -120,7 +120,7 @@ params:
       - sem
   colnames3:
     label: "Table 6 Column Names"
-    value: [scale]
+    value: [scale, raw_score, score, percentile, sem]
     input: select
     multiple: yes
     choices:
@@ -131,7 +131,7 @@ params:
       - sem
   colnames4:
     label: "Table 7 Column Names"
-    value: [scale]
+    value: [scale, raw_score, score, percentile, base_rate, sem]
     input: select
     multiple: yes
     choices:
@@ -143,7 +143,7 @@ params:
       - sem
   keep1:
     label: "Variables to Keep, Set 1"
-    value: [scale]
+    value: [scale, raw_score, score, percentile, ci_95]
     input: select
     multiple: yes
     choices:
@@ -154,7 +154,7 @@ params:
       - ci_95
   keep2:
     label: "Variables to Keep, Set 2"
-    value: [scale]
+    value: [scale, raw_score, score, percentile]
     input: select
     multiple: yes
     choices:
@@ -282,7 +282,6 @@ area <- list(
 
 ```{r areas-get, eval = FALSE}
 # if unknown
-# patient <- "Biggie"
 # file <- file.choose()
 # area <- bwu::gpluck_locate_areas(
 #   file = file,
@@ -539,12 +538,13 @@ table2 <- tibble::as_tibble(plucked_table[[2]])
 colnames(table2) <- params$colnames2
 to_double <- c("raw_score", "score", "percentile")
 table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
+table2[, 1] <- (params$table2)
 ```
 
 ## Scale names
 
 ```{r rownames2}
-table2$scale <- params$table2
+# table2$scale <- params$table2
 ```
 
 ## Select variables to keep

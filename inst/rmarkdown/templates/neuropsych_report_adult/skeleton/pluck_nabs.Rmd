@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from NAB Screener"
 params:
-  patient: "Biggie"
+  patient: Julie
   test:
     label: "Test"
     value: nabs
@@ -23,7 +23,7 @@ params:
   pages: [2,5,6,7,8,8]
   column_names1:
     label: "Table 1 Column Names"
-    value: scale
+    value: [scale, score, percentile, ci_95, category]
     input: select
     multiple: yes
     choices:
@@ -34,7 +34,7 @@ params:
       - category
   column_names2:
     label: "Tables 2-3, 5 Column Names"
-    value: scale
+    value: [scale, raw_score, z_score, score, percentile, base_rate, category]
     input: select
     multiple: yes
     choices:
@@ -47,7 +47,7 @@ params:
       - category
   column_names3:
     label: "Tables 4, 6 Column Names"
-    value: scale
+    value: [scale, raw_score, z_score, score, percentile, category]
     input: select
     multiple: yes
     choices:
@@ -59,7 +59,7 @@ params:
       - category
   keep1:
     label: "Variables to Keep, Set 1"
-    value: scale
+    value: [scale, raw_score, score, percentile, ci_95]
     input: select
     multiple: yes
     choices:
@@ -70,7 +70,7 @@ params:
       - ci_95
   keep2:
     label: "Variables to Keep, Set 2"
-    value: scale
+    value: [scale, raw_score, score, percentile]
     input: select
     multiple: yes
     choices:
@@ -153,7 +153,7 @@ writeLines(file, here::here(patient, "pre_csv", "nabs_pdf"))
 ```
 
 ```{r rfile}
-file <- readLines(here::here(patient, "pre_csv", "nabs_pdf"))
+# file <- readLines(here::here(patient, "pre_csv", "nabs_pdf"))
 ```
 
 ## Locate areas
@@ -720,8 +720,8 @@ table2 <-
       scale %in% dsb ~ "Verbal Working Memory",
       scale == "Numbers & Letters Part A Speed" ~ "Psychomotor Speed",
       scale == "Numbers & Letters Part A Errors" ~ "Response Monitoring",
-      scale == "Numbers & Letters Part A Efficiency" ~ "Selective Attention",
-      scale == "Numbers & Letters Part B Efficiency" ~ "Divided Attention",
+      scale == "Numbers & Letters Part A Efficiency" ~ "Psychomotor Speed",
+      scale == "Numbers & Letters Part B Efficiency" ~ "Cognitive Efficiency",
       scale %in% nle ~ "Response Monitoring",
       TRUE ~ as.character(narrow)
     )
@@ -769,7 +769,7 @@ table6 <-
   table6 |>
   tidytable::mutate(
     narrow = tidytable::case_when(
-      scale == "Mazes" ~ "Problem Solving",
+      scale == "Mazes" ~ "Problem-Solving",
       scale == "Word Generation" ~ "Ideational Fluency",
       scale == "Word Generation Perseverations" ~ "Response Monitoring",
       TRUE ~ as.character(narrow)

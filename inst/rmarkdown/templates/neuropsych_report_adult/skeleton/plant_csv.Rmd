@@ -3,7 +3,7 @@ title: "Plant CSV file of Neuropsych Measures/Tests"
 params:
   patient:
     label: "Patient First Name:"
-    value: Kira
+    value: Biggie
     input: text
   test_name:
     label: "Full Name of Test/Test Battery:"
@@ -11,54 +11,57 @@ params:
     input: radio
     choices:
       - NIH EXAMINER
-      - Grooved Pegboard
       - Rey Complex Figure
       - Test of Premorbid Functioning
       - Trail Making Test
       - D-KEFS Color-Word Interference
+      - Grooved Pegboard
+      - KTEA-3
       - NAB
       - WMS-IV
       - Cognitive Estimation Test
-      - KTEA-3
   test:
     label: "Test/Measure File Name:"
     value: ""
     input: radio
     choices:
       - examiner
-      - pegboard
       - rocft
       - topf
       - tmt
       - dkefs_cwi
+      - pegboard
+      - ktea3
       - nab
       - wms4
       - cet
-      - ktea3
   scale:
     label: "Scale/Subtest:"
     value: ""
     input: select
     choices:
+      - Unstructured Task
+      - Letter Fluency
+      - Category Fluency
       - ROCFT Copy
       - ROCFT Delayed Recall
       - TOPF Standard Score
       - Dominant Hand
       - Nondominant Hand
       - Judgment
+      - Trails A
+      - Trails B
       - D-KEFS Color Naming
       - D-KEFS Word Reading
       - D-KEFS Inhibition
       - D-KEFS Switching
       - D-KEFS Inhibition Total Errors
       - D-KEFS Switching Total Errors
-      - Unstructured Task
-      - Letter Fluency
-      - Category Fluency
-      - Deviation Score
       - Nonsense Word Decoding
       - Decoding Fluency
       - Reading Comprehension
+      - Symbol Span
+      - Deviation Score
   raw_score:
     label: "Raw score:"
     value: 10
@@ -109,6 +112,8 @@ params:
       - Response Monitoring
       - Retrieval Fluency
       - Reading
+      - Processing Speed
+      - Working Memory
   narrow:
     label: "Narrow subdomain:"
     value: ""
@@ -118,6 +123,7 @@ params:
       - Decision-Making
       - Dominant Hand Dexterity
       - Inhibition
+      - Judgment
       - Naming Facility
       - Nondominant Hand Dexterity
       - Perceptual Organization
@@ -132,6 +138,9 @@ params:
       - Reading Speed
       - Planning
       - Reading Comprehension
+      - Psychomotor Speed
+      - Cognitive Efficiency
+      - Nonverbal Working Memory
   pass:
     label: "PASS:"
     value: ""
@@ -307,6 +316,12 @@ compute_desc <- function(.x, .scale, description, ...) {
         "Phonic decoding fluency",
       .scale == "Reading Comprehension" ~
         "Reading comprehension skills at the level of the word, sentence, and passage",
+      .scale == "Trails A" ~
+        "Rapid numerical sequencing and psychomotor speed",
+      .scale == "Trails B" ~
+        "Rapid number-to-letter sequencing/switching and divided attention",
+      .scale == "Symbol Span" ~
+        "Nonverbal working memory",
       TRUE ~ as.character(description)
     )
   )
@@ -499,6 +514,12 @@ compute_result <-
           .scale == "Decoding Fluency" ~
             glue::glue("{.description} fell within the {.range} range.\n"),
           .scale == "Reading Comprehension" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "Trails A" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "Trails B" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "Symbol Span" ~
             glue::glue("{.description} was {.range}.\n"),
           TRUE ~ as.character(result)
         )
