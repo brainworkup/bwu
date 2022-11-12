@@ -19,6 +19,7 @@
 #' @param score_type Score type
 #' @param absort Sort file
 #' @param description Description of scale and ability it measures
+#' @param result Performance on this scale
 #' @param ... Other args
 #'
 #' @return A table for the report
@@ -82,6 +83,7 @@ gpluck_make_columns <- function(table,
                                 ),
                                 absort = NULL,
                                 description = NULL,
+                                result = NULL
                                 ...) {
   table <-
     dplyr::mutate(
@@ -102,8 +104,13 @@ gpluck_make_columns <- function(table,
       timed = timed,
       test_type = test_type,
       score_type = score_type,
-      absort = paste0(tolower(test), "_", tolower(scale), "_", seq_len(nrow(table))),
+      absort = 
+        paste0(tolower(test), 
+          "_", tolower(scale), 
+          "_", seq_len(nrow(table))
+          ),
       description = description,
+      result = result
       ...
     )
 }

@@ -4,7 +4,7 @@ params:
   patient: Biggie
   test:
     label: "CAARS"
-    value: caars_sr
+    value: [caars_sr]
     input: select
     multiple: no
     choices:
@@ -12,7 +12,7 @@ params:
       - caars_or
   test_name:
     label: "Test Name:"
-    value: CAARS Self-Report
+    value: [CAARS Self-Report]
     input: select
     multiple: no
     choices:
@@ -55,7 +55,7 @@ library(tabulizer)
 library(tabulizerjars)
 library(tibble)
 library(tidyr)
-library(vroom)
+library(tidytable)
 ```
 
 ## Patient
@@ -79,6 +79,7 @@ test_name <- params$test_name
 ## Upload/attach PDF
 
 ```{r file}
+# file <- file.choose()
 file <- params$file
 ```
 
@@ -99,11 +100,20 @@ writeLines(file, here::here(patient, "pre_csv", paste0(test, ".pdf")))
 ## Locate areas
 
 ```{r area-known}
-area <- list(
-  c(155, 73, 647, 208),
-  c(155, 209, 647, 246),
-  c(155, 247, 647, 283)
-)
+if (params$test == "caars_sr") {
+  area <- list(
+    c(155, 73, 647, 208),
+    c(155, 209, 647, 246),
+    c(155, 247, 647, 283)
+  )
+}
+if (params$test == "caars_or") {
+  area <- list(
+    c(155, 73, 650, 210),
+    c(155, 209, 650, 246),
+    c(155, 247, 650, 283)
+  )
+}
 ```
 
 ```{r area-unknown, eval=FALSE}
@@ -178,17 +188,11 @@ colnames(table3) <- colnames3
 to_double <- c("score")
 table3 <- table3 |> hablar::convert(dbl(all_of(to_double)))
 table3 <- table3[1:9, ]
+table3[9, 1] <- 50
 ```
 
 ```{r bind}
 table <- tidytable::bind_cols(table1, table2, table3)
-```
-
-## Select variables to keep
-
-```{r keep}
-keep <- c("scale", "raw_score", "score")
-table <- table %>% tidytable::select(all_of(keep))
 ```
 
 ## Mutate columns
@@ -221,7 +225,6 @@ table <- table %>%
   tidytable::mutate(z = (score - 50) / 10) %>%
   tidytable::mutate(percentile = trunc(pnorm(z) * 100)) %>%
   tidytable::select(-z)
-# caars_sr[1, 4] <- 99
 ```
 
 ## Test score ranges
@@ -320,7 +323,7 @@ if (params$test == "caars_sr") {
           "i.e., behave in a manner consistent with the DSM-5 diagnostic criteria for Combined Presentation of ADHD",
         scale ==
           "Inconsistency Index" ~
-          "there may be some inconsistency in the responses",
+          "There may be some inconsistency in the responses",
         TRUE ~ as.character(description)
       )
     )
@@ -355,7 +358,7 @@ if (params$test == "caars_sr") {
           "i.e., behave in a manner consistent with the DSM-5 diagnostic criteria for Combined Presentation of ADHD",
         scale ==
           "Inconsistency Index" ~
-          "there may be some inconsistency in the responses",
+          "There was no inconsistency in the responses",
         TRUE ~ as.character(description)
       )
     )
@@ -394,6 +397,9 @@ if (params$test == "caars_sr") {
         scale == "DSM-5 ADHD Symptoms Total" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
+        scale == "Inconsistency Index" ~ glue::glue(
+          "- {description} on {scale}\n"
+        ),
         TRUE ~ as.character(result)
       )
     )
@@ -426,6 +432,9 @@ if (params$test == "caars_sr") {
         scale == "DSM-5 ADHD Symptoms Total" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
+        scale == "Inconsistency Index" ~ glue::glue(
+          "- {description} on {scale}\n"
+        ),
         TRUE ~ as.character(result)
       )
     )
@@ -437,9 +446,11 @@ if (params$test == "caars_sr") {
 ## Relocate variables
 
 ```{r relocate}
-table <- table |> tidytable::relocate(c(raw_score, score, percentile, range, ci_95),
-  .before = test
-)
+table <-
+  table |>
+  tidytable::relocate(
+    c(raw_score, score, percentile, range, ci_95), .before = test
+  )
 ```
 
 ## Write out csv
