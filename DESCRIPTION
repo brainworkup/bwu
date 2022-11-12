@@ -1,7 +1,7 @@
 Type: Package
 Package: bwu
 Title: BrainWorkUp Neuropsychological Report Writing Package
-Version: 0.1.2.9009
+Version: 0.0.1.0013
 Author: person("Joey", "Trampush", email = trampush@usc.edu, role =
     c("aut", "cre"))
 Maintainer: Joey Trampush <trampush@usc.edu>
@@ -29,8 +29,8 @@ Imports:
     stats,
     stringr,
     tabulizer,
-    tidytable,
     tibble
+    tidytable,
 Suggests:
     Cairo,
     covr,
