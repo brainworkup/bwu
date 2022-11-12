@@ -1,20 +1,18 @@
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# bRAINwORKuP (bwu)
-
-## Neuropsychological Testing Data Package
+# bwu
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/brainworkup/bwu/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/brainworkup/bwu/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/brainworkup/bwu/actions/workflows/r.yml/badge.svg)](https://github.com/brainworkup/bwu/actions/workflows/r.yml)
 <!-- badges: end -->
 
 The goal of bwu is to …
 
 ## Installation
 
-You can install the developmental version of bwu from
-[GitHub](https://github.com) with:
+You can install the development version of brainworkupr like so:
 
 ``` r
 devtools::install_github("brainworkup/bwu")
@@ -24,14 +22,15 @@ devtools::install_github("brainworkup/bwu")
 
 This is a basic example which shows you how to solve a common problem:
 
-```r
+``` r
 library(bwu)
+## basic example code
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can
-include R chunks like so:
+What is special about using `README.Rmd` instead of just `README.md`?
+You can include R chunks like so:
 
-```r
+``` r
 summary(dots)
 #>       raw             age          percentile             n        
 #>  Min.   : 1.00   Min.   : 3.50   Min.   :0.001355   Min.   :152.0  
@@ -50,14 +49,18 @@ summary(dots)
 ```
 
 You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this. You could also use
-GitHub Actions to re-render `README.Rmd` every time you push. An example
-workflow can be found here:
-<https://github.com/r-lib/actions/tree/master/examples>.
+up-to-date. `devtools::build_readme()` is handy for this. You could also
+use GitHub Actions to re-render `README.Rmd` every time you push. An
+example workflow can be found here:
+<https://github.com/r-lib/actions/tree/v1/examples>.
 
 You can also embed plots, for example:
 
-<img src="man/figures/README-dots-plot-1.png" width="100%"/>
+You can also embed plots, for example:
 
-In that case, don’t forget to commit and push the resulting figure files, so
-they display on GitHub and CRAN.
+| <img src="man/figures/README-wm-1.svg" width="100%"/>              |
+|--------------------------------------------------------------------|
+| <img src="man/figures/README-unnamed-chunk-4-1.gif" width="100%"/> |
+
+In that case, don’t forget to commit and push the resulting figure
+files, so they display on GitHub and CRAN.
