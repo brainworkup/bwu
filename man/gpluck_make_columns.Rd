@@ -27,6 +27,7 @@ gpluck_make_columns(
     "percentile", "base_rate", NA),
   absort = NULL,
   description = NULL,
+  result = NULL,
   ...
 )
 }
@@ -68,6 +69,8 @@ gpluck_make_columns(
 \item{absort}{Sort file}
 
 \item{description}{Description of scale and ability it measures}
+
+\item{result}{Performance on this scale}
 
 \item{...}{Other args}
 }

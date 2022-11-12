@@ -13,9 +13,11 @@ output:
     always_allow_html: true
 editor_options:
   markdown:
+    wrap: 80
     references:
-      location: block
-      prefix: "np"
+      location: document
+      prefix: "ref"
+    canonical: true
 header-includes:
   - \usepackage{titling}
   - \pretitle{\begin{center}
@@ -614,6 +616,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 (ref:doe) `r params$doe1`, `r params$doe2`, and `r params$doe3`
 
 ```{marginfigure, echo = TRUE}
+**Patient:** (ref:patient)\
 **MRN:** (ref:mrn)\
 **DOB:** (ref:dob)\
 **Age:** (ref:age)\
@@ -652,7 +655,9 @@ cat(readLines("2.0_nse.md"), sep = "\n")
   - Behavior Rating Scale
 - (ref:cvlt3-brief)
 - (ref:rocft)
-- (ref:pegboard)
+- (ref: tmt)
+- (ref:wms4)
+  - Symbol Span
 - (ref:pai)
 
 ```{r nt-obs, results = 'asis', cache = FALSE}

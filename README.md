@@ -1,11 +1,14 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+<img src="hex-bwu.png" width="20%"/>
+
 # bwu
 
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/brainworkup/bwu/actions/workflows/r.yml/badge.svg)](https://github.com/brainworkup/bwu/actions/workflows/r.yml)
+
 <!-- badges: end -->
 
 The goal of bwu is to …
@@ -58,9 +61,15 @@ You can also embed plots, for example:
 
 You can also embed plots, for example:
 
-| <img src="man/figures/README-wm-1.svg" width="100%"/>              |
-|--------------------------------------------------------------------|
-| <img src="man/figures/README-unnamed-chunk-4-1.gif" width="100%"/> |
+------------------------------------------------------------------------
+
+<img src="man/figures/README-wm-1.svg" width="50%" align="center/"/>
+
+------------------------------------------------------------------------
+
+<img src="man/figures/README-unnamed-chunk-4-1.gif" width="50%" align="center/"/>
+
+------------------------------------------------------------------------
 
 In that case, don’t forget to commit and push the resulting figure
 files, so they display on GitHub and CRAN.

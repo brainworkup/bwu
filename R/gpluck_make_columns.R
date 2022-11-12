@@ -83,7 +83,7 @@ gpluck_make_columns <- function(table,
                                 ),
                                 absort = NULL,
                                 description = NULL,
-                                result = NULL
+                                result = NULL,
                                 ...) {
   table <-
     dplyr::mutate(
@@ -104,13 +104,13 @@ gpluck_make_columns <- function(table,
       timed = timed,
       test_type = test_type,
       score_type = score_type,
-      absort = 
-        paste0(tolower(test), 
-          "_", tolower(scale), 
+      absort =
+        paste0(tolower(test),
+          "_", tolower(scale),
           "_", seq_len(nrow(table))
           ),
       description = description,
-      result = result
+      result = result,
       ...
     )
 }
