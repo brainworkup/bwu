@@ -4,7 +4,7 @@ params:
   patient: Biggie
   test:
     label: "Test"
-    value: cefi_sr
+    value: [cefi_sr]
     input: select
     multiple: no
     choices:
@@ -12,7 +12,7 @@ params:
       - cefi_or
   test_name:
     label: "Test Name:"
-    value: CEFI Self-Report
+    value: [CEFI Self-Report]
     input: select
     multiple: no
     choices:
@@ -22,7 +22,7 @@ params:
     label: "No file selected"
     value: file
     input: file
-  pages: [3,3]
+  pages: [3, 3]
 output:
   rmdformats::robobook:
     highlight: kate
@@ -59,6 +59,7 @@ library(tabulizer)
 library(tabulizerjars)
 library(tibble)
 library(tidyr)
+library(tidytable)
 library(vroom)
 ```
 
@@ -83,6 +84,7 @@ test_name <- params$test_name
 ## Upload/attach PDF
 
 ```{r file}
+# file <- file.choose()
 file <- params$file
 ```
 
@@ -141,7 +143,7 @@ plucked_table <- bwu::gpluck_extract_table(
 
 ## Column names per test/subtest/measure
 
-```{r colnam}
+```{r colname}
 colnames1 <- c(
   "score",
   "ci_95",
@@ -170,9 +172,6 @@ table1 <- table1 |>
   hablar::convert(dbl(all_of(to_double))) %>%
   tidytable::mutate(scale = "") %>%
   tidytable::relocate(scale, .before = score)
-```
-
-```{r rename1}
 table1[1, 1] <- c("Full Scale")
 ```
 
@@ -308,34 +307,34 @@ if (params$test == "cefi_sr") {
       description = tidytable::case_when(
         scale ==
           "Full Scale" ~
-          "overall level of executive functioning (observer)",
+          "overall level of executive functioning",
         scale ==
           "Attention" ~
-          "i.e., avoid distractions, concentrate on tasks, and sustain attention (observer)",
+          "i.e., avoid distractions, concentrate on tasks, and sustain attention",
         scale ==
           "Emotion Regulation" ~
-          "i.e., control and manage emotions, including staying calm when handling small problems and reacting with the right level of emotion (observer)",
+          "i.e., control and manage emotions, including staying calm when handling small problems and reacting with the right level of emotion",
         scale ==
           "Flexibility" ~
-          "i.e., adjust behavior to meet circumstances, including coming up with different ways to solve problems, changing behavior when needed, and being able to come up with new ways to reach a goal (observer)",
+          "i.e., adjust behavior to meet circumstances, including coming up with different ways to solve problems, changing behavior when needed, and being able to come up with new ways to reach a goal",
         scale ==
           "Inhibitory Control" ~
-          "i.e., control behavior or impulses, including thinking about consequences before acting, maintaining self-control, and thinking before speaking (observer)",
+          "i.e., control behavior or impulses, including thinking about consequences before acting, maintaining self-control, and thinking before speaking",
         scale ==
           "Initiation" ~
-          "i.e., begin tasks or projects on own, including starting tasks easily, being motivated, and taking the initiative when needed (observer)",
+          "i.e., begin tasks or projects on own, including starting tasks easily, being motivated, and taking the initiative when needed",
         scale ==
           "Organization" ~
-          "i.e., manage personal effects, work, or multiple tasks, including organizing tasks and thoughts well, managing time effectively, and working neatly (observer)",
+          "i.e., manage personal effects, work, or multiple tasks, including organizing tasks and thoughts well, managing time effectively, and working neatly",
         scale ==
           "Planning" ~
-          "i.e., develop and implement strategies to accomplish tasks, including planning ahead and making good decisions (observer)",
+          "i.e., develop and implement strategies to accomplish tasks, including planning ahead and making good decisions",
         scale ==
           "Self-Monitoring" ~
-          "i.e., evaluate own behavior in order to determine when a different approach is necessary, including noticing and fixing mistakes, knowing when help is required, and understanding when a task is completed (observer)",
+          "i.e., evaluate own behavior in order to determine when a different approach is necessary, including noticing and fixing mistakes, knowing when help is required, and understanding when a task is completed",
         scale ==
           "Working Memory" ~
-          "i.e., keep information in mind that is important for knowing what to do and how to do it, including remembering important things, instructions, and steps (observer)",
+          "i.e., keep information in mind that is important for knowing what to do and how to do it, including remembering important things, instructions, and steps",
         TRUE ~ as.character(description)
       )
     )
@@ -429,7 +428,10 @@ if (params$test == "cefi_sr") {
 ## Relocate variables
 
 ```{r relocate}
-table <- table |> tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+table <-
+  table |>
+  tidytable::relocate(
+    c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
 ## Write csv
