@@ -47,7 +47,7 @@ classoption:
   - headsepline=true
 header:
   - pos: ro
-    next: "`r params$last_name`, `r params$first_name`"
+    next: "`r params$lastname`, `r params$firstname`"
 caption:
   - labelfont=bf
   - labelsep=period
@@ -56,11 +56,11 @@ setkomafont:
   - element: descriptionlabel
     commands: \normalfont\scshape\bfseries
 params:
-  first_name:
+  firstname:
     label: "First Name:"
     value: Biggie
     input: text
-  last_name:
+  lastname:
     label: "Last Name:"
     value: Smalls
     input: text
@@ -228,7 +228,7 @@ params:
     value: TRUE
   eval_academics:
     label: "Academic Skills"
-    value: TRUE
+    value: FALSE
   eval_verbal:
     label: "Verbal/Language"
     value: TRUE
@@ -243,10 +243,10 @@ params:
     value: TRUE
   eval_motor:
     label: "Motor"
-    value: TRUE
+    value: FALSE
   eval_social:
     label: "Social Cognition"
-    value: TRUE
+    value: FALSE
   eval_adhd:
     label: "ADHD/Executive Functioning"
     value: TRUE
@@ -272,7 +272,7 @@ params:
 ---
 
 ```{r patient, include = FALSE}
-patient <- params$first_name
+patient <- params$firstname
 pronoun <- params$his_her
 ```
 
@@ -479,7 +479,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:zplot) *z* = -1 (16th percentile), *z* = 0 (50th percentile), and *z* = 1 (84th percentile)
 
-(ref:pct) A *percentile* shows `r params$first_name`'s standing relative to peers. For example, a percentile rank of 70 means `r params$first_name` performed as well as or better than 70% of individuals the same age.
+(ref:pct) A *percentile* shows `r params$firstname`'s standing relative to peers. For example, a percentile rank of 70 means `r params$firstname` performed as well as or better than 70% of individuals the same age.
 
 (ref:br) A *base rate* is the prevalence of score in the general population. If a score is rare, defined as a base rate of less than 10%, it is considered *clinically significant*, and that area of functioning is probably causing problems in daily life.
 
@@ -537,7 +537,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:comp-dyslexia) *Dyslexia* means an individual has a neurobiologically based cognitive processing problem that affects how easily and efficiently they can learn to read. Approximately 24% of individuals diagnosed with dyslexia are able to achieve reading skills commensurate with nondyslexic peers. A concept in the research literature is one of "compensated dyslexia"[@vanviersenHighReadingSkills2016], which is used to describe these individuals because they use strengths in other areas to compensate for deficits in reading. Dyslexia is underidentified in this population because the dyslexia can be masked by strengths in vocabulary and intelligence, making it especially difficult to identify in high-achieving individuals.
 
-(ref:asd) Asperger syndrome (AS) is a developmental disorder and a high-functioning form of an autism spectrum disorder (ASD). AS is a distinct neurological condition characterized by a greater or lesser degree of impairment in social communication skills, as well as repetitive or restrictive patterns of thought and behavior. Unlike people with autism, people with AS retain their early language skills. A distinguishing symptom of AS is an obsessive interest in a single object or topic to the exclusion of any other. Individuals with AS want to know everything about their topic of interest and their conversations with others will be about little else. In children with AS, their expertise, high level of vocabulary, and formal speech patterns make them seem like "little professors." Other characteristics of AS include repetitive routines or rituals; peculiarities in speech and language; socially and emotionally inappropriate behavior and difficulty interacting successfully with peers; problems with non-verbal communication; and clumsy and uncoordinated motor movements.
+(ref:asd) *Asperger syndrome (AS)* is a developmental disorder and a high-functioning form of an autism spectrum disorder (ASD). AS is a distinct neurological condition characterized by a greater or lesser degree of impairment in social communication skills, as well as repetitive or restrictive patterns of thought and behavior. Unlike people with autism, people with AS retain their early language skills. A distinguishing symptom of AS is an obsessive interest in a single object or topic to the exclusion of any other. Individuals with AS want to know everything about their topic of interest and their conversations with others will be about little else. In children with AS, their expertise, high level of vocabulary, and formal speech patterns make them seem like "little professors." Other characteristics of AS include repetitive routines or rituals; peculiarities in speech and language; socially and emotionally inappropriate behavior and difficulty interacting successfully with peers; problems with non-verbal communication; and clumsy and uncoordinated motor movements.
 
 (ref:mazes) *Mazes* Planning is central to human behavior and illustrates the aptitude to formulate an action in advance of performance or intended performance. Impulse control is the degree to which instant gratification may be controlled. Psychomotor speed indicates the level at which complex visual-perception information is perceived, attended, and responded to with simple fine-motor coordination. To successfully demonstrate this trio of cognitive skills, the patient must plan a course of action for navigation through the maze, while preventing the urge to take erroneous or seemingly simpler paths, all while issuing commands to their hands to physically manifest this decision-making. Tasks involving multitasking and subsequent physical action will be reduced. Sports, writing essays, or creating standardized documents, and adhering to financial institutional regulations (such as ledger maintenance), will show reduced proficiency.
 
@@ -545,7 +545,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:driving) *Driving Scenes* Created to reflect situational daily living and patient proficiency with such, this assessment ascertains a combination of visual working memory, visual scanning, attention to detail, and selective attention. Visual working memory is the ability to recognize, remember, and then retrieve visually presented information for use in the short-term. Visual scanning is the ability to use vision to search in a systematic manner. Selective attention is the capacity for or process of reacting to certain stimuli selectively when several occur simultaneously. Attention to detail is the ability to achieve thoroughness and accuracy when accomplishing a task. A combination of these cognitive processes enable daily functioning. As this exam demonstrates, the ability to scan surroundings, take notice of selectively important visual details, and then quickly recall such for use in applicable situations, such as when driving, is integral to modern human independence. Below average scores reflect limited ability to safely and proficiently perform tasks associated with typical daily life.
 
-(ref:bills) *Bill Payment* Purporting a necessary daily living function, this piece of the module evaluates auditory language comprehension, bill payment skills, simple calculation ability, and speech output. The patient is handed a bill statement, a check with accompanying check ledger, and an envelope. Questions are posited orally by the test administrator regarding the presented materials. Following the question and answer portion, patients are then given more complex, multistep commands involving physically responding to directives. For instance, during this phase, directions to adhere to and complete the billing instructions as they appear on the billing statement are given, complete with the need to fill out the check and assure the bill would be paid. Each requisite step, when explicitly performed, is awarded one point. Thus, (ref:first-name)'s score of XX shows that (ref:he-she) accurately completed the same number of steps towards bill payment achievement. This score leads to placement in the severely impaired interpretive category. Auditory comprehension is the ability to understand what is heard, including the tone of voice, pauses between words, emphasis used, and the rhythm and pattern of speech, and attach meaning to it. This is a foundational skill originating in early infancy that, ideally, builds with exposure and learning processes. Bill payment skills refer to the wherewithal to complete the processes surrounding proper bill satisfaction and related financial responsibility. Calculation is a deliberate process that transforms one or more inputs into one or more results. In this instance, simple calculation relates to the capacity to accurately and effectively use numerical information to maintain financial balance and responsibility utilizing only basic mathematical skills. Speech output is simply defined as the ability to put thoughts to words. The nature of this exam exhibits the potential negative ramifications in these cognitive functions. Not only will fiscal responsibility suffer deleteriously, similar or related tasks required for independent living and satisfactory life stability will also show negative effects.
+(ref:bills) *Bill Payment* Purporting a necessary daily living function, this piece of the module evaluates auditory language comprehension, bill payment skills, simple calculation ability, and speech output. The patient is handed a bill statement, a check with accompanying check ledger, and an envelope. Questions are posited orally by the test administrator regarding the presented materials. Following the question and answer portion, patients are then given more complex, multistep commands involving physically responding to directives. For instance, during this phase, directions to adhere to and complete the billing instructions as they appear on the billing statement are given, complete with the need to fill out the check and assure the bill would be paid. Each requisite step, when explicitly performed, is awarded one point. Thus, (ref:firstname)'s score of XX shows that (ref:he-she) accurately completed the same number of steps towards bill payment achievement. This score leads to placement in the severely impaired interpretive category. Auditory comprehension is the ability to understand what is heard, including the tone of voice, pauses between words, emphasis used, and the rhythm and pattern of speech, and attach meaning to it. This is a foundational skill originating in early infancy that, ideally, builds with exposure and learning processes. Bill payment skills refer to the wherewithal to complete the processes surrounding proper bill satisfaction and related financial responsibility. Calculation is a deliberate process that transforms one or more inputs into one or more results. In this instance, simple calculation relates to the capacity to accurately and effectively use numerical information to maintain financial balance and responsibility utilizing only basic mathematical skills. Speech output is simply defined as the ability to put thoughts to words. The nature of this exam exhibits the potential negative ramifications in these cognitive functions. Not only will fiscal responsibility suffer deleteriously, similar or related tasks required for independent living and satisfactory life stability will also show negative effects.
 
 (ref:aud-comp) *Auditory Comprehension* is the ability to understand what is heard, including the tone of voice, pauses between words, emphasis used, and the rhythm and pattern of speech, and attach meaning to it. This is a foundational skill originating in early infancy that, ideally, builds with exposure and learning processes.
 
@@ -565,9 +565,9 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:dyscalculia) Developmental dyscalculia is a condition that affects the ability to acquire arithmetical skills. Dyscalculic learners may have difficulty understanding simple number concepts, lack an intuitive grasp of numbers, and have problems learning number facts and procedures. Even if they produce a correct answer or use a correct method, they may do so mechanically and without confidence.
 
-(ref:first-name) `r params$first_name`
+(ref:first-name) `r params$firstname`
 
-(ref:last-name) `r params$last_name`
+(ref:last-name) `r params$lastname`
 
 (ref:he-she) `r params$he_she`
 
@@ -597,7 +597,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 # NEUROBEHAVIORAL STATUS EXAM
 
-(ref:patient) `r params$first_name` `r params$last_name`
+(ref:patient) `r params$firstname` `r params$lastname`
 
 (ref:mrn) `r params$mrn`
 
@@ -655,7 +655,7 @@ cat(readLines("2.0_nse.md"), sep = "\n")
   - Behavior Rating Scale
 - (ref:cvlt3-brief)
 - (ref:rocft)
-- (ref: tmt)
+- (ref:tmt)
 - (ref:wms4)
   - Symbol Span
 - (ref:pai)
@@ -939,7 +939,7 @@ knitr::read_chunk(here::here(patient, "2.5_spatial.R"))
 
 (ref:fn-exe) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
-(ref:unstructured-task) This was a novel planning task published as part of the NIH EXAMINER Executive Function Battery [@kramer2014]. The task allows the examinee to choose which problems they want to work on to maximize points earned. In doing so, examinees need to plan ahead, avoid items that are strategically poor choices, and be cognizant of when a particular booklet offers diminishing returns. (ref:first-name) performed this task effortlessly.
+(ref:unstructured-task) This was a novel planning task published as part of the NIH EXAMINER Executive Function Battery [@kramer2014]. The task allows the examinee to choose which problems they want to work on to maximize points earned. In doing so, examinees need to plan ahead, avoid items that are strategically poor choices, and be cognizant of when a particular booklet offers diminishing returns. (ref:firstname) performed this task effortlessly.
 
 ```{r, executive, results='asis', eval = params$eval_executive}
 cat(readLines("2.6_executive.md"), sep = "\n")
@@ -1159,7 +1159,7 @@ knitr::read_chunk(here::here(patient, "2.11_emotion.R"))
 
 # SUMMARY/IMPRESSION
 
-(ref:domain) *Key Findings* General intellectual functioning is a strength. Verbal skills are significantly stronger than nonverbal/spatial processing skills. Attentional fluency (i.e., working memory and processing speed) and abstract reasoning are areas of weakness. Notably, even `r params$first_name`'s normatively average scores reflect performances that are well below cognitive expectations for `r params$him_her`. *Note:* *z* = 0 (mean) ± 1 (s.d.)
+(ref:domain) *Key Findings* General intellectual functioning is a strength. Verbal skills are significantly stronger than nonverbal/spatial processing skills. Attentional fluency (i.e., working memory and processing speed) and abstract reasoning are areas of weakness. Notably, even `r params$firstname`'s normatively average scores reflect performances that are well below cognitive expectations for `r params$him_her`. *Note:* *z* = 0 (mean) ± 1 (s.d.)
 
 ```{r domain-df, cache = FALSE}
 domain <-
@@ -1213,7 +1213,7 @@ bwu::dotplot(
 )
 ```
 
-(ref:timed) **Timed vs. Untimed Tests** `r params$first_name` performs more than a half of a standard deviation better on tasks that are untimed compared to tasks that require `r params$him_her` to respond both accurately and quickly.
+(ref:timed) **Timed vs. Untimed Tests** `r params$firstname` performs more than a half of a standard deviation better on tasks that are untimed compared to tasks that require `r params$him_her` to respond both accurately and quickly.
 
 ```{r timed-df, cache = FALSE}
 timed <-
@@ -1247,7 +1247,7 @@ Links highlighted in \textcolor{blue}{blue} should be clickable to the online co
 cat(readLines("4.0_recs.md"), sep = "\n")
 ```
 
-It was a pleasure to work with `r params$first_name`.
+It was a pleasure to work with `r params$firstname`.
 Please contact me with any questions or concerns regarding this patient.
 
 ```{marginfigure, echo = TRUE}
