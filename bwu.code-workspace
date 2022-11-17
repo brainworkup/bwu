@@ -65,6 +65,9 @@
         "value": "#42b883"
       }
     ],
-    "peacock.surpriseMeOnStartup": false
+    "peacock.surpriseMeOnStartup": false,
+    "githubPullRequests.ignoredPullRequestBranches": [
+      "main"
+    ]
   }
 }

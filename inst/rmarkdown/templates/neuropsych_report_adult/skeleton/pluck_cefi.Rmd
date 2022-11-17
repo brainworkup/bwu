@@ -168,9 +168,10 @@ colnames2 <- c(
 table1 <- tibble::as_tibble(plucked_table[[1]])
 colnames(table1) <- colnames1
 to_double <- c("score", "percentile")
-table1 <- table1 |>
-  hablar::convert(dbl(all_of(to_double))) %>%
-  tidytable::mutate(scale = "") %>%
+table1 <-
+  table1 |>
+  hablar::convert(dbl(all_of(to_double))) |>
+  tidytable::mutate(scale = "") |>
   tidytable::relocate(scale, .before = score)
 table1[1, 1] <- c("Full Scale")
 ```
@@ -182,9 +183,7 @@ table2 <- as_tibble(plucked_table[[2]])
 colnames(table2) <- colnames2
 to_double <- c("score", "percentile")
 table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
-```
-
-```{r rename2}
+# rename
 table2[1, 1] <- c("Attention")
 table2[2, 1] <- c("Emotion Regulation")
 table2[3, 1] <- c("Flexibility")
@@ -198,11 +197,8 @@ table2[9, 1] <- c("Working Memory")
 
 ## Select variables to keep
 
-```{r keep}
-keep <- c("scale", "score", "percentile", "ci_95")
-```
-
 ```{r select}
+keep <- c("scale", "score", "percentile", "ci_95")
 table1 <- table1 |> tidytable::select(all_of(keep))
 table2 <- table2 |> tidytable::select(all_of(keep))
 table <- tidytable::bind_rows(table1, table2)
@@ -436,6 +432,7 @@ table <-
 
 ## Write csv
 
-```{r write}
-readr::write_csv(table, here::here(patient, "csv", paste0(test, ".csv")), col_names = TRUE, na = "")
+```{r writeout}
+readr::write_csv(
+  table, here::here(patient, "csv", paste0(test, ".csv")), col_names = TRUE, na = "")
 ```
