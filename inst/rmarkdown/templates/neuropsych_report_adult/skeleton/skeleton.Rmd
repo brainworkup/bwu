@@ -825,7 +825,7 @@ knitr::read_chunk(here::here(patient, "2.2_iq.R"))
 ```{r 06-plot-subdomain-iq, eval = params$eval_iq, fig.cap = '(ref:g) (ref:gc) (ref:gf)'}
 ```
 
-```{r 07-plot-narrow-iq, eval = F, fig.cap = '(ref:g) (ref:gc) (ref:gf)'}
+```{r 07-plot-narrow-iq, eval = FALSE, fig.cap = '(ref:g) (ref:gc) (ref:gf)'}
 ```
 
 \newpage
@@ -860,7 +860,7 @@ knitr::read_chunk(here::here(patient, "2.3_academics.R"))
 ```{r 06-plot-subdomain-academics, eval = params$eval_academics, fig.cap = '(ref:acad)'}
 ```
 
-```{r 07-plot-narrow-academics, eval = F, fig.cap = '(ref:acad)'}
+```{r 07-plot-narrow-academics, eval = FALSE, fig.cap = '(ref:acad)'}
 ```
 
 \newpage
@@ -869,7 +869,7 @@ knitr::read_chunk(here::here(patient, "2.3_academics.R"))
 
 (ref:fn-vrb) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
-```{r, verbal, results='asis', eval = params$eval_verbal}
+```{r, verbal, results = "asis", eval = params$eval_verbal}
 cat(readLines("2.4_verbal.md"), sep = "\n")
 ```
 
@@ -892,7 +892,7 @@ knitr::read_chunk(here::here(patient, "2.4_verbal.R"))
 ```{r 05-df-verbal, eval = params$eval_verbal}
 ```
 
-```{r 06-plot-subdomain-verbal, eval = F, fig.cap = '(ref:vrb)'}
+```{r 06-plot-subdomain-verbal, eval = FALSE, fig.cap = '(ref:vrb)'}
 ```
 
 ```{r 07-plot-narrow-verbal, eval = params$eval_verbal, fig.cap = '(ref:vrb)'}
@@ -904,7 +904,7 @@ knitr::read_chunk(here::here(patient, "2.4_verbal.R"))
 
 (ref:fn-spt) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
-```{r, spatial, results='asis', eval = params$eval_spatial}
+```{r, spatial, results = "asis", eval = params$eval_spatial}
 cat(readLines("2.5_spatial.md"), sep = "\n")
 ```
 
@@ -927,7 +927,7 @@ knitr::read_chunk(here::here(patient, "2.5_spatial.R"))
 ```{r 05-df-spatial, eval = params$eval_spatial}
 ```
 
-```{r 06-plot-subdomain-spatial, eval = F, fig.cap = '(ref:spt)'}
+```{r 06-plot-subdomain-spatial, eval = FALSE, fig.cap = '(ref:spt)'}
 ```
 
 ```{r 07-plot-narrow-spatial, eval = params$eval_spatial, fig.cap = '(ref:spt)'}
@@ -941,7 +941,7 @@ knitr::read_chunk(here::here(patient, "2.5_spatial.R"))
 
 (ref:unstructured-task) This was a novel planning task published as part of the NIH EXAMINER Executive Function Battery [@kramer2014]. The task allows the examinee to choose which problems they want to work on to maximize points earned. In doing so, examinees need to plan ahead, avoid items that are strategically poor choices, and be cognizant of when a particular booklet offers diminishing returns. (ref:firstname) performed this task effortlessly.
 
-```{r, executive, results='asis', eval = params$eval_executive}
+```{r, executive, results = "asis", eval = params$eval_executive}
 cat(readLines("2.6_executive.md"), sep = "\n")
 ```
 
@@ -967,7 +967,7 @@ knitr::read_chunk(here::here(patient, "2.6_executive.R"))
 ```{r 06-plot-subdomain-executive, eval = params$eval_executive, fig.cap = '(ref:att-exe)'}
 ```
 
-```{r 07-plot-narrow-executive, eval = F, fig.cap = '(ref:att-exe)'}
+```{r 07-plot-narrow-executive, eval = FALSE, fig.cap = '(ref:att-exe)'}
 ```
 
 \newpage
@@ -976,7 +976,7 @@ knitr::read_chunk(here::here(patient, "2.6_executive.R"))
 
 (ref:fn-memory) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
-```{r, memory, results='asis', eval = params$eval_memory}
+```{r, memory, results = "asis", eval = params$eval_memory}
 cat(readLines("2.7_memory.md"), sep = "\n")
 ```
 
@@ -999,7 +999,7 @@ knitr::read_chunk(here::here(patient, "2.7_memory.R"))
 ```{r 05-df-memory, eval = params$eval_memory}
 ```
 
-```{r 06-plot-subdomain-memory, eval = F, fig.cap = '(ref:mem)'}
+```{r 06-plot-subdomain-memory, eval = FALSE, fig.cap = '(ref:mem)'}
 ```
 
 ```{r 07-plot-narrow-memory, eval = params$eval_memory, fig.cap = '(ref:mem)'}
@@ -1011,7 +1011,7 @@ knitr::read_chunk(here::here(patient, "2.7_memory.R"))
 
 (ref:fn-mtr) *T* Score (M = 50, SD = 10)
 
-```{r, motor, results='asis', eval = params$eval_motor}
+```{r, motor, results = "asis", eval = params$eval_motor}
 cat(readLines("2.8_motor.md"), sep = "\n")
 ```
 
@@ -1034,7 +1034,7 @@ knitr::read_chunk(here::here(patient, "2.8_motor.R"))
 ```{r 05-df-motor, eval = params$eval_motor}
 ```
 
-```{r 06-plot-subdomain-motor, eval = F, fig.cap = '(ref:mtr)'}
+```{r 06-plot-subdomain-motor, eval = FALSE, fig.cap = '(ref:mtr)'}
 ```
 
 ```{r 07-plot-narrow-motor, eval = params$eval_motor, fig.cap = '(ref:mtr)'}
@@ -1046,7 +1046,7 @@ knitr::read_chunk(here::here(patient, "2.8_motor.R"))
 
 (ref:fn-soc) Scaled Score (M = 10, SD = 3)
 
-```{r, social, results='asis', eval = params$eval_social}
+```{r, social, results = "asis", eval = params$eval_social}
 cat(readLines("2.9_social.md"), sep = "\n")
 ```
 
@@ -1085,7 +1085,7 @@ knitr::read_chunk(here::here(patient, "2.9_social.R"))
 
 (ref:caars-cefi) *Note* On the CAARS, higher scores reflect worse functioning in a given area, but on the CEFI, higher scores reflect better functioning in a given area.
 
-```{r, adhd, results='asis', eval = params$eval_adhd}
+```{r, adhd, results = "asis", eval = params$eval_adhd}
 cat(readLines("2.10_adhd.md"), sep = "\n")
 ```
 
@@ -1126,7 +1126,7 @@ knitr::read_chunk(here::here(patient, "2.10_adhd.R"))
 
 (ref:fn-emo) *T* Score (M = 50, SD = 10)
 
-```{r, emotion, results='asis', eval = params$eval_emotion}
+```{r, emotion, results = "asis", eval = params$eval_emotion}
 cat(readLines("2.11_emotion.md"), sep = "\n")
 ```
 
