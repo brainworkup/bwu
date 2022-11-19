@@ -1161,14 +1161,14 @@ knitr::read_chunk(here::here(patient, "2.11_emotion.R"))
 
 (ref:domain) *Key Findings* General intellectual functioning is a strength. Verbal skills are significantly stronger than nonverbal/spatial processing skills. Attentional fluency (i.e., working memory and processing speed) and abstract reasoning are areas of weakness. Notably, even `r params$firstname`'s normatively average scores reflect performances that are well below cognitive expectations for `r params$him_her`. *Note:* *z* = 0 (mean) ± 1 (s.d.)
 
-```{r domain-df, cache = FALSE}
+```{r domain-df}
 domain <-
   neurocog %>%
   dplyr::filter(test_type == "npsych_test") %>%
   dplyr::filter(!is.na(domain))
 ```
 
-```{r domain-plot, fig.cap = '(ref:domain)', fig.height = 3.5, cache = FALSE}
+```{r domain-plot, fig.cap = '(ref:domain)', fig.height = 3.5}
 bwu::dotplot(
   data = domain,
   x = domain$z_mean_dom,
@@ -1179,7 +1179,7 @@ bwu::dotplot(
 
 (ref:pass) **PASS Cognitive Process Model** Sequential and Simultaneous processing are areas of strengths, and Attention is an area of weakness.
 
-```{r pass-df, cache = FALSE}
+```{r pass-df}
 pass <-
   neurocog %>%
   dplyr::filter(test_type == "npsych_test") %>%
@@ -1197,7 +1197,7 @@ bwu::dotplot(
 
 (ref:nonverbal) **Verbal vs. Nonverbal Tests** Scores on verbal tasks are slightly higher than scores on nonverbal/spatial processing tasks.
 
-```{r nonverbal-df, cache = FALSE}
+```{r nonverbal-df}
 nonverbal <-
   neurocog %>%
   dplyr::filter(test_type == "npsych_test") %>%
@@ -1215,7 +1215,7 @@ bwu::dotplot(
 
 (ref:timed) **Timed vs. Untimed Tests** `r params$firstname` performs more than a half of a standard deviation better on tasks that are untimed compared to tasks that require `r params$him_her` to respond both accurately and quickly.
 
-```{r timed-df, cache = FALSE}
+```{r timed-df}
 timed <-
   neurocog %>%
   dplyr::filter(test_type == "npsych_test") %>%
@@ -1231,7 +1231,7 @@ bwu::dotplot(
 )
 ```
 
-```{r, sirf, results = 'asis', cache = FALSE}
+```{r, sirf, results = 'asis'}
 cat(readLines("3.0_sirf.md"), sep = "\n")
 ```
 
@@ -1243,7 +1243,7 @@ cat(readLines("3.0_sirf.md"), sep = "\n")
 Links highlighted in \textcolor{blue}{blue} should be clickable to the online content.
 ```
 
-```{r, recs, results = 'asis', cache = FALSE}
+```{r, recs, results = 'asis'}
 cat(readLines("4.0_recs.md"), sep = "\n")
 ```
 
