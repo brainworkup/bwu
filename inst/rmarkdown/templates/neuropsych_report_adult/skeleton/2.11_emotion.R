@@ -58,14 +58,14 @@ filter_domain <- c(
 
 ## ---- 02-glue-emotion ------------
 dt <-
-  neurobehav %>%
-  tidytable::filter(scale %in% filter_domain) %>%
-  tidytable::arrange(desc(percentile)) %>%
+  neurobehav |>
+  tidytable::filter(scale %in% filter_domain) |>
+  tidytable::arrange(desc(percentile)) |>
   tidytable::distinct(.keep_all = FALSE)
 
-dt %>%
-  glue::glue_data() %>%
-  purrr::modify(lift(paste0)) %>%
+dt |>
+  glue::glue_data() |>
+  purrr::modify(purrr::lift(paste0)) |>
   cat(dt$result,
     file = "2.11_emotion.md",
     fill = TRUE,
@@ -78,9 +78,9 @@ tb <-
     tibb = tb,
     data = neurobehav,
     pheno = "Behavioral/Emotional/Social"
-  ) %>%
-  tidytable::filter(Scale %in% filter_domain) %>%
-  tidytable::arrange(Test) %>%
+  ) |>
+  tidytable::filter(Scale %in% filter_domain) |>
+  tidytable::arrange(Test) |>
   tidytable::arrange(Subdomain)
 
 ## ---- 04-kable-emotion ------------------
@@ -92,23 +92,23 @@ kableExtra::kbl(
   booktabs = TRUE,
   linesep = "",
   align = c("lccc")
-) %>%
-  kableExtra::kable_paper(., lightable_options = "basic") %>%
+) |>
+  kableExtra::kable_paper(., lightable_options = "basic") |>
   kableExtra::kable_styling(., latex_options = c(
     "scale_down",
     "HOLD_position",
     "striped"
-  )) %>%
-  kableExtra::column_spec(., 1, width = "8cm") %>%
-  kableExtra::pack_rows(., index = table(tb$Test)) %>%
-  kableExtra::pack_rows(., index = table(tb$Subdomain)) %>%
-  kableExtra::row_spec(., row = 0, bold = TRUE) %>%
+  )) |>
+  kableExtra::column_spec(., 1, width = "8cm") |>
+  kableExtra::pack_rows(., index = table(tb$Test)) |>
+  kableExtra::pack_rows(., index = table(tb$Subdomain)) |>
+  kableExtra::row_spec(., row = 0, bold = TRUE) |>
   kableExtra::add_footnote("(ref:fn-emo)")
 
 ## ---- 05-df-emotion -----------------------------------
 df <-
-  neurobehav %>%
-  tidytable::filter(!is.na(percentile)) %>%
+  neurobehav |>
+  tidytable::filter(!is.na(percentile)) |>
   tidytable::filter(scale %in% filter_domain)
 
 ## ---- 06-plot-subdomain-emotion -------------------

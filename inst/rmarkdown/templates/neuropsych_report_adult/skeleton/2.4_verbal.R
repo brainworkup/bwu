@@ -66,14 +66,14 @@ filter_domain <- c(
 
 ## ---- 02-glue-verbal ---------------------
 dt <-
-  neurocog %>%
-  tidytable::filter(scale %in% filter_domain) %>%
-  tidytable::arrange(desc(percentile)) %>%
+  neurocog |>
+  tidytable::filter(scale %in% filter_domain) |>
+  tidytable::arrange(desc(percentile)) |>
   tidytable::distinct(.keep_all = FALSE)
 
-dt %>%
-  glue::glue_data() %>%
-  purrr::modify(lift(paste0)) %>%
+dt |>
+  glue::glue_data() |>
+  purrr::modify(purrr::lift(paste0)) |>
   cat(dt$result,
     file = "2.4_verbal.md",
     fill = TRUE,
@@ -86,8 +86,8 @@ tb <-
     tibb = verbal,
     data = neurocog,
     pheno = "Verbal/Language"
-  ) %>%
-  tidytable::filter(Scale %in% filter_domain) %>%
+  ) |>
+  tidytable::filter(Scale %in% filter_domain) |>
   tidytable::arrange(Test)
 
 ## ---- 04-kable-verbal -----------------
@@ -99,24 +99,24 @@ kableExtra::kbl(
   linesep = "",
   align = c("lccc"),
   caption = "(ref:verbal)"
-) %>%
-  kableExtra::kable_paper(., lightable_options = "basic") %>%
+) |>
+  kableExtra::kable_paper(., lightable_options = "basic") |>
   kableExtra::kable_styling(., latex_options = c(
     "scale_down",
     "HOLD_position",
     "striped"
-  )) %>%
-  kableExtra::column_spec(., 1, width = "8cm") %>%
-  kableExtra::pack_rows(., index = table(tb$Test)) %>%
-  kableExtra::row_spec(., row = 0, bold = TRUE) %>%
+  )) |>
+  kableExtra::column_spec(., 1, width = "8cm") |>
+  kableExtra::pack_rows(., index = table(tb$Test)) |>
+  kableExtra::row_spec(., row = 0, bold = TRUE) |>
   kableExtra::add_footnote("(ref:fn-vrb)")
 
 ## ---- 05-df-verbal -----------------------------
 df <-
-  neurocog %>%
-  tidytable::filter(domain == "Verbal/Language") %>%
-  tidytable::filter(!is.na(percentile)) %>%
-  tidytable::arrange(test_name) %>%
+  neurocog |>
+  tidytable::filter(domain == "Verbal/Language") |>
+  tidytable::filter(!is.na(percentile)) |>
+  tidytable::arrange(test_name) |>
   tidytable::filter(scale %in% filter_domain)
 
 ## ---- 06-plot-subdomain-verbal ------------------

@@ -32,15 +32,15 @@ filter_domain <- c(
 
 ## ---- 02-glue-adhd-sr ----
 dt <-
-  neurobehav %>%
-  tidytable::filter(scale %in% filter_domain) %>%
-  tidytable::filter(test == "cefi_sr" | test == "caars_sr") %>%
-  tidytable::arrange(desc(percentile)) %>%
+  neurobehav |>
+  tidytable::filter(scale %in% filter_domain) |>
+  tidytable::filter(test == "cefi_sr" | test == "caars_sr") |>
+  tidytable::arrange(desc(percentile)) |>
   tidytable::distinct(.keep_all = FALSE)
 
-dt %>%
-  glue::glue_data() %>%
-  purrr::modify(lift(paste0)) %>%
+dt |>
+  glue::glue_data() |>
+  purrr::modify(purrr::lift(paste0)) |>
   cat(dt$result,
     file = "2.10_adhd.md",
     fill = TRUE,
@@ -49,15 +49,15 @@ dt %>%
 
 ## ---- 02-glue-adhd-or -----
 dt <-
-  neurobehav %>%
-  tidytable::filter(scale %in% filter_domain) %>%
-  tidytable::filter(test == "cefi_or" | test == "caars_or") %>%
-  tidytable::arrange(desc(percentile)) %>%
+  neurobehav |>
+  tidytable::filter(scale %in% filter_domain) |>
+  tidytable::filter(test == "cefi_or" | test == "caars_or") |>
+  tidytable::arrange(desc(percentile)) |>
   tidytable::distinct(.keep_all = FALSE)
 
-dt %>%
-  glue::glue_data() %>%
-  purrr::modify(lift(paste0)) %>%
+dt |>
+  glue::glue_data() |>
+  purrr::modify(lift(paste0)) |>
   cat(dt$result,
     file = "2.10_adhd.md",
     fill = TRUE,
@@ -70,8 +70,8 @@ tb <-
     tibb = adhd,
     data = neurobehav,
     pheno = "Behavioral/Emotional/Social"
-  ) %>%
-  tidytable::filter(Scale %in% filter_domain) %>%
+  ) |>
+  tidytable::filter(Scale %in% filter_domain) |>
   tidytable::arrange(Test)
 
 ## ---- 04-kable-adhd ----
@@ -82,22 +82,22 @@ kableExtra::kbl(
   linesep = "",
   align = c("lccc"),
   caption = "(ref:adhd-ef)"
-) %>%
-  kableExtra::kable_paper(., lightable_options = "basic") %>%
+) |>
+  kableExtra::kable_paper(., lightable_options = "basic") |>
   kableExtra::kable_styling(., latex_options = c(
     "scale_down", "HOLD_position", "striped"
-  )) %>%
-  kableExtra::column_spec(., 1, width = "8cm") %>%
-  kableExtra::pack_rows(., index = table(tb$Test)) %>%
-  kableExtra::row_spec(., row = 0, bold = TRUE) %>%
+  )) |>
+  kableExtra::column_spec(., 1, width = "8cm") |>
+  kableExtra::pack_rows(., index = table(tb$Test)) |>
+  kableExtra::row_spec(., row = 0, bold = TRUE) |>
   kableExtra::add_footnote("(ref:fn-adhd)")
 
 ## ---- 05-df-adhd ----
 df <-
-  neurobehav %>%
-  tidytable::filter(domain == "Behavioral/Emotional/Social") %>%
-  tidytable::filter(scale %in% filter_domain) %>%
-  tidytable::filter(!is.na(percentile)) %>%
+  neurobehav |>
+  tidytable::filter(domain == "Behavioral/Emotional/Social") |>
+  tidytable::filter(scale %in% filter_domain) |>
+  tidytable::filter(!is.na(percentile)) |>
   tidytable::filter(filename %in% c("caars_sr.csv", "caars_or.csv"))
 
 ## ---- 06-plot-adhd-adhd ----
@@ -110,10 +110,10 @@ bwu::dotplot(
 
 ## ---- 07-df-adhd ----
 df <-
-  neurobehav %>%
-  tidytable::filter(domain == "Behavioral/Emotional/Social") %>%
-  tidytable::filter(scale %in% filter_domain) %>%
-  tidytable::filter(!is.na(percentile)) %>%
+  neurobehav |>
+  tidytable::filter(domain == "Behavioral/Emotional/Social") |>
+  tidytable::filter(scale %in% filter_domain) |>
+  tidytable::filter(!is.na(percentile)) |>
   tidytable::filter(filename %in% c("cefi_sr.csv", "cefi_or.csv"))
 
 ## ---- 08-plot-executive-adhd -----
