@@ -39,3 +39,4 @@
 ^hex-bwu\.png$
 ^_pkgdown\.yml$
 ^bwu\.builds$
+^_extensions$
