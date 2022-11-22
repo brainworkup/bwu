@@ -25,14 +25,14 @@ filter_domain <- c(
 
 ## ---- 02-glue-iq ------------
 dt <-
-  neurocog %>%
-  tidytable::filter(scale %in% filter_domain) %>%
-  tidytable::arrange(desc(percentile)) %>%
+  neurocog |>
+  tidytable::filter(scale %in% filter_domain) |>
+  tidytable::arrange(desc(percentile)) |>
   tidytable::distinct(.keep_all = FALSE)
 
-dt %>%
-  glue::glue_data() %>%
-  purrr::modify(lift(paste0)) %>%
+dt |>
+  glue::glue_data() |>
+  purrr::modify(purrr::lift(paste0)) |>
   cat(dt$result,
     file = "2.2_iq.md",
     fill = TRUE,
@@ -45,8 +45,8 @@ tb <-
     tibb = tb,
     data = neurocog,
     pheno = "Intelligence/General Ability"
-  ) %>%
-  tidytable::filter(Scale %in% filter_domain) %>%
+  ) |>
+  tidytable::filter(Scale %in% filter_domain) |>
   tidytable::arrange(Test)
 
 ## ---- 04-kable-iq ------------------
@@ -58,31 +58,31 @@ kableExtra::kbl(
   linesep = "",
   align = c("lccc"),
   caption = "(ref:iq)"
-) %>%
-  kableExtra::kable_paper(., lightable_options = "basic") %>%
+) |>
+  kableExtra::kable_paper(., lightable_options = "basic") |>
   kableExtra::kable_styling(., latex_options = c(
     "scale_down",
     "HOLD_position",
     "striped"
-  )) %>%
-  kableExtra::column_spec(., 1, width = "8cm") %>%
-  kableExtra::pack_rows(., index = table(tb$Test)) %>%
-  kableExtra::row_spec(., row = 0, bold = TRUE) %>%
+  )) |>
+  kableExtra::column_spec(., 1, width = "8cm") |>
+  kableExtra::pack_rows(., index = table(tb$Test)) |>
+  kableExtra::row_spec(., row = 0, bold = TRUE) |>
   kableExtra::add_footnote("(ref:fn-iq)")
 
 ## ---- 05-df-iq ------------
 df <-
-  neurocog %>%
-  tidytable::filter(domain == "Intelligence/General Ability") %>%
-  tidytable::filter(!is.na(percentile)) %>%
-  tidytable::arrange(test_name) %>%
-  tidytable::filter(scale %in% filter_domain) %>%
-  tidytable::filter(scale != "NAB Total Index") %>%
-  tidytable::filter(scale != "TOPF Standard Score") %>%
-  tidytable::filter(scale != "Working Memory (WMI)") %>%
+  neurocog |>
+  tidytable::filter(domain == "Intelligence/General Ability") |>
+  tidytable::filter(!is.na(percentile)) |>
+  tidytable::arrange(test_name) |>
+  tidytable::filter(scale %in% filter_domain) |>
+  tidytable::filter(scale != "NAB Total Index") |>
+  tidytable::filter(scale != "TOPF Standard Score") |>
+  tidytable::filter(scale != "Working Memory (WMI)") |>
   tidytable::filter(scale != "Processing Speed (PSI)")
-# tidytable::filter(scale != "Cognitive Proficiency (CPI)") %>%
-# tidytable::filter(scale != "General Ability (GAI)") %>%
+# tidytable::filter(scale != "Cognitive Proficiency (CPI)") |>
+# tidytable::filter(scale != "General Ability (GAI)") |>
 
 ## ---- 06-plot-subdomain-iq --------------------
 bwu::dotplot(
