@@ -40,3 +40,6 @@
 ^_pkgdown\.yml$
 ^bwu\.builds$
 ^_extensions$
+^\.lintr$
+^\.luarc\.json$
+^\.trunk$
