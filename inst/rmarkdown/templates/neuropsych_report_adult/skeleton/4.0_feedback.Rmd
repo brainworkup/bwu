@@ -86,7 +86,6 @@ background-color: var(--usc-black)
 ### `r rmarkdown::metadata$institute`
 ### `r rmarkdown::metadata$date`
 
-
 ---
 
 name: gauss1
@@ -121,12 +120,15 @@ background-color: var(--near-black)
 
 ```{r, read-data}
 neuropsych <-
-  vroom::vroom(here::here(patient, "neuropsych.csv"), show_col_types = FALSE)
+  vroom::vroom(
+    here::here(patient, "neuropsych.csv"), show_col_types = FALSE)
 neurocog <-
-  vroom::vroom(here::here(patient, "neurocog.csv"), show_col_types = FALSE) |>
+  vroom::vroom(
+    here::here(patient, "neurocog.csv"), show_col_types = FALSE) |>
   tidytable::filter(domain != "Effort/Validity")
 neurobehav <-
-  vroom::vroom(here::here(patient, "neurobehav.csv"), show_col_types = FALSE)
+  vroom::vroom(
+    here::here(patient, "neurobehav.csv"), show_col_types = FALSE) |> tidytable::filter(domain != "Effort/Validity")
 ```
 
 ```{r drilldown-level1}
