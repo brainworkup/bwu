@@ -725,6 +725,16 @@ if (params$test == "cvlt3") {
 }
 ```
 
+```{r writeout-g}
+table <- cvlt3_brief
+test <- "g"
+tidytable::fwrite(
+  table,
+  here::here(patient, "csv", paste0(test, ".csv")),
+  append = TRUE
+)
+```
+
 ## Cleanup
 
 ```{r cleanup}

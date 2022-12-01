@@ -623,7 +623,7 @@ table2 <-
       scale %in% orientation ~ "Orientation",
       scale %in% dsf ~ "Attention Span",
       scale %in% dsb ~ "Working Memory",
-      scale %in% nlt ~ "Cognitive Efficiency",
+      scale %in% nlt ~ "Processing Speed",
       scale == "Numbers & Letters Part A Speed" ~ "Psychomotor Speed",
       scale %in% nle ~ "Response Monitoring",
       TRUE ~ as.character(subdomain)
@@ -685,7 +685,7 @@ table6 <-
   tidytable::mutate(
     subdomain = tidytable::case_when(
       scale == "Mazes" ~ "Planning",
-      scale == "Word Generation" ~ "Verbal Fluency",
+      scale == "Word Generation" ~ "Fluency",
       scale == "Word Generation Perseverations" ~ "Response Monitoring",
       TRUE ~ as.character(subdomain)
     )
@@ -769,7 +769,7 @@ table6 <-
   table6 |>
   tidytable::mutate(
     narrow = tidytable::case_when(
-      scale == "Mazes" ~ "Problem-Solving",
+      scale == "Mazes" ~ "Problem Solving",
       scale == "Word Generation" ~ "Ideational Fluency",
       scale == "Word Generation Perseverations" ~ "Response Monitoring",
       TRUE ~ as.character(narrow)
@@ -1388,6 +1388,16 @@ readr::write_csv(
     patient, "csv", "nabs.csv"
   ),
   col_names = TRUE, na = ""
+)
+```
+
+```{r writeout-g}
+table <- nabs
+test <- "g"
+tidytable::fwrite(
+  table,
+  here::here(patient, "csv", paste0(test, ".csv")),
+  append = TRUE
 )
 ```
 

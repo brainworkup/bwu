@@ -10,14 +10,14 @@ params:
     value: ""
     input: radio
     choices:
-      - NIH EXAMINER
-      - Rey Complex Figure
-      - Test of Premorbid Functioning
-      - Trail Making Test
       - D-KEFS Color-Word Interference
       - Grooved Pegboard
       - KTEA-3
       - NAB
+      - NIH EXAMINER
+      - Rey Complex Figure
+      - Test of Premorbid Functioning
+      - Trail Making Test
       - WMS-IV
       - Cognitive Estimation Test
   test:
@@ -25,14 +25,14 @@ params:
     value: ""
     input: radio
     choices:
-      - examiner
-      - rocft
-      - topf
-      - tmt
       - dkefs_cwi
-      - pegboard
+      - examiner
       - ktea3
       - nab
+      - pegboard
+      - rocft
+      - tmt
+      - topf
       - wms4
       - cet
   scale:
@@ -43,24 +43,24 @@ params:
       - Unstructured Task
       - Letter Fluency
       - Category Fluency
-      - ROCFT Copy
-      - ROCFT Delayed Recall
-      - TOPF Standard Score
-      - Dominant Hand
-      - Nondominant Hand
-      - Judgment
-      - Trails A
-      - Trails B
       - D-KEFS Color Naming
       - D-KEFS Word Reading
       - D-KEFS Inhibition
       - D-KEFS Switching
       - D-KEFS Inhibition Total Errors
       - D-KEFS Switching Total Errors
-      - Nonsense Word Decoding
       - Decoding Fluency
+      - Dominant Hand
+      - Nondominant Hand
+      - Judgment
+      - Nonsense Word Decoding
       - Reading Comprehension
+      - ROCFT Copy
+      - ROCFT Delayed Recall
       - Symbol Span
+      - TOPF Standard Score
+      - Trails A
+      - Trails B
       - Deviation Score
   raw_score:
     label: "Raw score:"
@@ -105,14 +105,15 @@ params:
       - Concept Formation
       - Crystallized Intelligence
       - Delayed Recall
+      - Judgment
       - Everyday Executive
       - Fine Motor Dexterity
       - Fluency
       - Planning
+      - Processing Speed
+      - Reading
       - Response Monitoring
       - Retrieval Fluency
-      - Reading
-      - Processing Speed
       - Working Memory
   narrow:
     label: "Narrow subdomain:"
@@ -120,27 +121,28 @@ params:
     input: radio
     choices:
       - Abstract Reasoning
+      - Cognitive Efficiency
       - Decision-Making
       - Dominant Hand Dexterity
       - Inhibition
       - Judgment
       - Naming Facility
       - Nondominant Hand Dexterity
+      - Nonverbal Working Memory
       - Perceptual Organization
       - Phonemic Fluency
+      - Planning
       - Premorbid Ability
-      - Problem-Solving
+      - Problem Solving
+      - Psychomotor Speed
+      - Reading Comprehension
+      - Reading Decoding
+      - Reading Speed
       - Response Monitoring
       - Semantic Fluency
       - Set-Shifting
       - Visual Memory
-      - Reading Decoding
-      - Reading Speed
-      - Planning
-      - Reading Comprehension
-      - Psychomotor Speed
-      - Cognitive Efficiency
-      - Nonverbal Working Memory
+      - Strategic Planning
   pass:
     label: "PASS:"
     value: ""
@@ -177,7 +179,7 @@ params:
     choices: [1, 3, 10, 15]
   reliability:
     label: "Reliability:"
-    value: 0.80
+    value: 0.90
     input: slider
     min: 0
     max: 1
@@ -317,9 +319,9 @@ compute_desc <- function(.x, .scale, description, ...) {
       .scale == "Reading Comprehension" ~
         "Reading comprehension skills at the level of the word, sentence, and passage",
       .scale == "Trails A" ~
-        "Rapid numerical sequencing and psychomotor speed",
+        "Basic psychomotor speed",
       .scale == "Trails B" ~
-        "Rapid number-to-letter sequencing/switching and divided attention",
+        "Rapid number-letter sequencing and set-shifting",
       .scale == "Symbol Span" ~
         "Nonverbal working memory",
       TRUE ~ as.character(description)
@@ -350,14 +352,14 @@ compute_pctile_range <-
     if (.score_type == "z_score") {
       .x <-
         .x |>
-        tidytable::mutate(z = (.score - 0) / 1) %>%
-        tidytable::mutate(.pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        tidytable::mutate(z = (.score - 0) / 1) |>
+        tidytable::mutate(.pct1 = round(stats::pnorm(z) * 100, 1)) |>
         tidytable::mutate(.pct2 = tidytable::case_when(
           .pct1 < 1 ~ ceiling(.pct1),
           .pct1 > 99 ~ floor(.pct1),
           TRUE ~ round(.pct1)
-        )) %>%
-        tidytable::mutate(.pct3 = .pct2) %>%
+        )) |>
+        tidytable::mutate(.pct3 = .pct2) |>
         tidytable::mutate(
           range = tidytable::case_when(
             .pct3 >= 98 ~ "Exceptionally High",
@@ -369,20 +371,20 @@ compute_pctile_range <-
             .pct3 < 2 ~ "Exceptionally Low",
             TRUE ~ as.character(range)
           )
-        ) %>%
-        tidytable::mutate(percentile = .pct1) %>%
+        ) |>
+        tidytable::mutate(percentile = .pct1) |>
         tidytable::select(-c(.pct1, .pct2, .pct3))
     } else if (.score_type == "scaled_score") {
       .x <-
         .x |>
-        tidytable::mutate(z = (.score - 10) / 3) %>%
-        tidytable::mutate(.pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        tidytable::mutate(z = (.score - 10) / 3) |>
+        tidytable::mutate(.pct1 = round(stats::pnorm(z) * 100, 1)) |>
         tidytable::mutate(.pct2 = tidytable::case_when(
           .pct1 < 1 ~ ceiling(.pct1),
           .pct1 > 99 ~ floor(.pct1),
           TRUE ~ round(.pct1)
-        )) %>%
-        tidytable::mutate(.pct3 = .pct2) %>%
+        )) |>
+        tidytable::mutate(.pct3 = .pct2) |>
         tidytable::mutate(
           range = tidytable::case_when(
             .pct3 >= 98 ~ "Exceptionally High",
@@ -394,20 +396,20 @@ compute_pctile_range <-
             .pct3 < 2 ~ "Exceptionally Low",
             TRUE ~ as.character(range)
           )
-        ) %>%
-        tidytable::mutate(percentile = .pct1) %>%
+        ) |>
+        tidytable::mutate(percentile = .pct1) |>
         tidytable::select(-c(.pct1, .pct2, .pct3))
     } else if (.score_type == "t_score") {
       .x <-
         .x |>
-        tidytable::mutate(z = (.score - 50) / 10) %>%
-        tidytable::mutate(.pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        tidytable::mutate(z = (.score - 50) / 10) |>
+        tidytable::mutate(.pct1 = round(stats::pnorm(z) * 100, 1)) |>
         tidytable::mutate(.pct2 = tidytable::case_when(
           .pct1 < 1 ~ ceiling(.pct1),
           .pct1 > 99 ~ floor(.pct1),
           TRUE ~ round(.pct1)
-        )) %>%
-        tidytable::mutate(.pct3 = .pct2) %>%
+        )) |>
+        tidytable::mutate(.pct3 = .pct2) |>
         tidytable::mutate(
           range = tidytable::case_when(
             .pct3 >= 98 ~ "Exceptionally High",
@@ -419,20 +421,20 @@ compute_pctile_range <-
             .pct3 < 2 ~ "Exceptionally Low",
             TRUE ~ as.character(range)
           )
-        ) %>%
-        tidytable::mutate(percentile = .pct1) %>%
+        ) |>
+        tidytable::mutate(percentile = .pct1) |>
         tidytable::select(-c(.pct1, .pct2, .pct3))
     } else if (.score_type == "standard_score") {
       .x <-
         .x |>
-        tidytable::mutate(z = (.score - 100) / 15) %>%
-        tidytable::mutate(.pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        tidytable::mutate(z = (.score - 100) / 15) |>
+        tidytable::mutate(.pct1 = round(stats::pnorm(z) * 100, 1)) |>
         tidytable::mutate(.pct2 = tidytable::case_when(
           .pct1 < 1 ~ ceiling(.pct1),
           .pct1 > 99 ~ floor(.pct1),
           TRUE ~ round(.pct1)
-        )) %>%
-        tidytable::mutate(.pct3 = .pct2) %>%
+        )) |>
+        tidytable::mutate(.pct3 = .pct2) |>
         tidytable::mutate(
           range = tidytable::case_when(
             .pct3 >= 98 ~ "Exceptionally High",
@@ -444,8 +446,8 @@ compute_pctile_range <-
             .pct3 < 2 ~ "Exceptionally Low",
             TRUE ~ as.character(range)
           )
-        ) %>%
-        tidytable::mutate(percentile = .pct1) %>%
+        ) |>
+        tidytable::mutate(percentile = .pct1) |>
         tidytable::select(-c(.pct1, .pct2, .pct3))
     }
   }
@@ -454,7 +456,7 @@ compute_pctile_range <-
 ## Compute percentile, range
 
 ```{r compute-pr}
-df2 <- compute_pctile_range(
+df2 <- bwu::compute_pctile_range(
   .x = df1,
   .score = df1$score,
   .score_type = df1$score_type,
@@ -530,7 +532,7 @@ compute_result <-
 ```{r compute-result}
 .description <- (df2$description)
 .range <- (df2$range)
-df3 <- compute_result(
+df3 <- bwu::compute_result(
   .x = df2,
   .scale = df2$scale,
   .description = .description,
@@ -554,8 +556,8 @@ df3$ci_95 <- bwu::ci(
 ```{r writeout-scale}
 table <- df3
 test <- table$test
-scale <- to_snake_case(table$scale)
-tidytable::fwrite.(
+scale <- snakecase::to_snake_case(table$scale)
+tidytable::fwrite(
   table,
   here::here(patient, "pre_csv", paste0(test, "_", scale, ".csv")),
   append = FALSE
@@ -565,7 +567,7 @@ tidytable::fwrite.(
 ```{r writeout-test}
 table <- df3
 test <- table$test
-tidytable::fwrite.(
+tidytable::fwrite(
   table,
   here::here(patient, "csv", paste0(test, ".csv")),
   append = TRUE
@@ -575,7 +577,7 @@ tidytable::fwrite.(
 ```{r writeout-g}
 table <- df3
 test <- "g"
-tidytable::fwrite.(
+tidytable::fwrite(
   table,
   here::here(patient, "csv", paste0(test, ".csv")),
   append = TRUE
