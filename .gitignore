@@ -75,3 +75,5 @@ inst/doc
 bwu.code-workspace
 renv/.DS_Store
 bwu.builds/
+
+/.luarc.json
