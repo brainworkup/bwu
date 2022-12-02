@@ -120,15 +120,13 @@ background-color: var(--near-black)
 
 ```{r, read-data}
 neuropsych <-
-  vroom::vroom(
-    here::here(patient, "neuropsych.csv"), show_col_types = FALSE)
+  vroom::vroom(here::here(patient, "neuropsych.csv"), show_col_types = FALSE)
 neurocog <-
-  vroom::vroom(
-    here::here(patient, "neurocog.csv"), show_col_types = FALSE) |>
+  vroom::vroom(here::here(patient, "neurocog.csv"), show_col_types = FALSE) |>
   tidytable::filter(domain != "Effort/Validity")
 neurobehav <-
-  vroom::vroom(
-    here::here(patient, "neurobehav.csv"), show_col_types = FALSE) |> tidytable::filter(domain != "Effort/Validity")
+  vroom::vroom(here::here(patient, "neurobehav.csv"), show_col_types = FALSE) |>
+  tidytable::filter(domain != "Effort/Validity")
 ```
 
 ```{r drilldown-level1}
@@ -351,50 +349,38 @@ tt <- tooltip_table(x, y)
 ## Create drilldown bar plot zscores
 plot1 <-
   highcharter::highchart() |>
-  highcharter::hc_title(
-    text = patient,
-    style = list(
-      fontSize = "15px")) |>
-  highcharter::hc_add_series(
-    ncog_level1_status,
-    type = "bar",
-    name = "Neuropsychological Test Scores",
-    hcaes(x = name, y = y)) |>
+  highcharter::hc_title(text = patient,
+                        style = list(fontSize = "15px")) |>
+  highcharter::hc_add_series(ncog_level1_status,
+                             type = "bar",
+                             name = "Neuropsychological Test Scores",
+                             hcaes(x = name, y = y)) |>
   highcharter::hc_xAxis(
     type = "category",
-    title = list(
-      text = "Domain"),
-    categories = .$name) |>
-  highcharter::hc_yAxis(
-    title = list(
-      text = "Z-Score (M = 0, SD = 1)"),
-    labels = list(
-      format = "{value}")) |>
-  highcharter::hc_tooltip(
-    pointFormat = tt,
-    useHTML = TRUE,
-    valueDecimals = 1) |>
-  highcharter::hc_plotOptions(
-    series = list(
-      colorByPoint = TRUE,
-      allowPointSelect = TRUE,
-      dataLabels = TRUE)) |>
+    title = list(text = "Domain"),
+    categories = .$name
+  ) |>
+  highcharter::hc_yAxis(title = list(text = "Z-Score (M = 0, SD = 1)"),
+                        labels = list(format = "{value}")) |>
+  highcharter::hc_tooltip(pointFormat = tt,
+                          useHTML = TRUE,
+                          valueDecimals = 1) |>
+  highcharter::hc_plotOptions(series = list(
+    colorByPoint = TRUE,
+    allowPointSelect = TRUE,
+    dataLabels = TRUE
+  )) |>
   highcharter::hc_drilldown(
     allowPointDrilldown = TRUE,
-    series = c(
-      ncog_level2_drill,
-      ncog_level3_drill,
-      ncog_level4_drill)) |>
-  highcharter::hc_colorAxis(
-    minColor = "red",
-    maxColor = "blue") |>
-  highcharter::hc_add_theme(
-    theme_merge) |>
-  highcharter::hc_chart(
-    style = list(
-      fontFamily = "Cabin"),
-    backgroundColor = list("gray")
-  )
+    series = c(ncog_level2_drill,
+               ncog_level3_drill,
+               ncog_level4_drill)
+  ) |>
+  highcharter::hc_colorAxis(minColor = "red",
+                            maxColor = "blue") |>
+  highcharter::hc_add_theme(theme_merge) |>
+  highcharter::hc_chart(style = list(fontFamily = "Cabin"),
+                        backgroundColor = list("gray"))
 plot1
 ```
 
