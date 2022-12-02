@@ -731,8 +731,8 @@ if (params$test == "cvlt3") {
 experimental for now...
 
 ```{r writeout-g}
-table <- cvlt3_brief |> tidytable::filter(scale %in% c("Trial 4 Correct", "Trials 1-4 Correct", "Short Delay Free Recall", "Long Delay Free Recall"))
-table <- table
+mem <- c("Trial 4 Correct", "Trials 1-4 Correct", "Short Delay Free Recall", "Long Delay Free Recall")
+table <- cvlt3_brief |> tidytable::filter(scale %in% mem)
 test <- "g"
 tidytable::fwrite(
   table,
