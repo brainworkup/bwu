@@ -1,5 +1,5 @@
 ---
-title: "Import csv from Personality Assessment Inventory (PAI)"
+title: "Import CSV file from Personality Assessment Inventory (PAI)"
 params:
   patient: "Biggie"
   test: pai
@@ -24,7 +24,6 @@ knitr::opts_chunk$set(
   error = TRUE
 )
 library(bwu)
-library(tidytable)
 library(hablar)
 library(here)
 library(magrittr)
@@ -38,6 +37,7 @@ library(tabulizerjars)
 library(tibble)
 library(tidyr)
 library(vroom)
+library(tidytable)
 ```
 
 ## Patient
@@ -48,9 +48,9 @@ patient <- params$patient
 
 ## Export PAI CSV file from PARiConnect
 
-Need to export csv file from PARiConnect before processing.
-"Export Client Data" tab, then click "Univ of Southern Cali" then "PAI".
-Specify date range to exclude entire database.
+Need to export csv file from PARiConnect before processing. "Export Client Data"
+tab, then click "Univ of Southern Cali" then "PAI". Specify date range to
+exclude entire database.
 
 ## Import PAI CSV file from PARiConnect
 
@@ -69,18 +69,18 @@ plucked_table <-
 ### Subset and rename columns
 
 ```{r subset}
-table <- plucked_table %>%
-  tidytable::select(SOM_T:AGG_P_T) %>%
-  tidyr::gather() %>%
+table <- plucked_table |>
+  tidytable::select(SOM_T:AGG_P_T) |>
+  tidyr::gather() |>
   tidytable::rename(scale = key, score = value)
 ```
 
 ### Convert T scores to z scores to percentiles
 
 ```{r t2z2p}
-table <- table %>%
-  tidytable::mutate(z = (score - 50) / 10) %>%
-  tidytable::mutate(percentile = trunc(pnorm(z) * 100)) %>%
+table <- table |>
+  tidytable::mutate(z = (score - 50) / 10) |>
+  tidytable::mutate(percentile = trunc(pnorm(z) * 100)) |>
   tidytable::select(scale, score, percentile)
 ```
 
@@ -145,7 +145,7 @@ table[49, 1] <- c("Physical Aggression")
 ### Filter, group, select
 
 ```{r filter}
-table <- table %>% tidytable::slice(
+table <- table |> tidytable::slice(
   c(
     1, 19:21,
     2, 22:24,
@@ -166,7 +166,7 @@ table <- table %>% tidytable::slice(
 ## Add/mutate columns
 
 ```{r mutate}
-table <- tidytable::mutate(
+table <- bwu::gpluck_make_columns(
   table,
   raw_score = "",
   range = "",
@@ -200,8 +200,8 @@ table <- bwu::gpluck_make_score_ranges(table = table, test_type = "npsych_test")
 ```{r subdomain}
 table <-
   table |>
-  mutate(
-    subdomain = case_when(
+  tidytable::mutate(
+    subdomain = tidytable::case_when(
       scale == "Somatic Complaints" ~ "Somatic Symptom Disorder",
       scale == "Conversion" ~ "Somatic Symptom Disorder",
       scale == "Somatization" ~ "Somatic Symptom Disorder",
@@ -261,8 +261,8 @@ table <-
 ```{r narrow}
 table <-
   table |>
-  mutate(
-    narrow = case_when(
+  tidytable::mutate(
+    narrow = tidytable::case_when(
       scale == "Somatic Complaints" ~ "Somatic Symptom Disorder",
       scale == "Conversion" ~ "Somatic Symptom Disorder",
       scale == "Somatization" ~ "Somatic Symptom Disorder",
@@ -322,8 +322,8 @@ table <-
 ```{r description}
 table <-
   table |>
-  mutate(
-    description = case_when(
+  tidytable::mutate(
+    description = tidytable::case_when(
       scale == "Somatic Complaints" ~ "degree of concern about physical functioning and health matters and the extent of perceived impairment arising from somatic symptoms",
       scale == "Conversion" ~ "moderate elevations may be seen in neurological disorders with CNS impairment involving sensorimotor problems, MS, CVA/stroke, or neuropsychological associated with chronic alcoholism",
       scale == "Somatization" ~ "high scorers describe general lethargy and malaise, and the presentation is one of complaintiveness and dissatisfaction",
@@ -389,12 +389,8 @@ table <- table |> tidytable::slice(slice.pai)
 
 ```{r result}
 table <-
-  table %>%
-  tidytable::mutate(
-    result = glue::glue(
-      "{patient}'s score on {scale} ({description}) was {range}."
-    )
-  )
+  table |>
+  tidytable::mutate(result = glue::glue("{patient}'s score on {scale} ({description}) was {range}."))
 ```
 
 # Finalize and save
