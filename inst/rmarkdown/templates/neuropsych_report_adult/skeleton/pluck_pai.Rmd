@@ -58,9 +58,8 @@ Copy over to pre_csv.
 
 ```{r pluck}
 plucked_table <-
-  readr::read_csv(
-    here::here(patient, "pre_csv", "pariconnectexportPAI.csv"),
-    col_names = TRUE
+  tidytable::fread(
+    here::here(patient, "pre_csv", "pariconnectexportPAI.csv")
   )
 ```
 
