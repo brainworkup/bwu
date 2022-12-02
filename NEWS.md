@@ -143,3 +143,4 @@ output:
 ## bwu 0.0.0.9014
 
 - Trying to fix bugs in .Rmd files
+- This includes switching to data.table and data.frame from tibble

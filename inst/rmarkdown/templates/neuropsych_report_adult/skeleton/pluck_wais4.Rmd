@@ -276,7 +276,7 @@ writeLines(file, here::here(patient, "pre_csv", "wais4_pdf"))
 ```
 
 ```{r read-file}
-#file <- readLines(here::here(patient, "pre_csv", "wais4_pdf"))
+# file <- readLines(here::here(patient, "pre_csv", "wais4_pdf"))
 ```
 
 ## Locate areas
@@ -1295,12 +1295,12 @@ table7 <-
 
 ```{r merge}
 if (params$version == "full") {
-wais4 <-
-  tidytable::bind_rows(table1, table2, table3, table6, table4, table7, table5)
+  wais4 <-
+    tidytable::bind_rows(table1, table2, table3, table6, table4, table7, table5)
 }
 if (params$version == "brief") {
-wais4 <-
-  tidytable::bind_rows(table2, table3, table4, table5)
+  wais4 <-
+    tidytable::bind_rows(table2, table3, table4, table5)
 }
 ```
 
@@ -1338,7 +1338,7 @@ match_wais4 <- c(
 wais4 <- wais4[match(
   x = match_wais4,
   table = wais4$scale,
-  nomatch = "NA"
+  nomatch = NULL # this might not work, used to be "NA"
 )]
 ```
 
@@ -1351,5 +1351,5 @@ readr::write_csv(wais4, here::here(patient, "csv", "wais4.csv"))
 ## Cleanup
 
 ```{r cleanup}
-# rm(area, plucked_table, table1, table2, table3, table4, table5, table6, table7)
+rm(area, plucked_table, table1, table2, table3, table4, table5, table6, table7)
 ```
