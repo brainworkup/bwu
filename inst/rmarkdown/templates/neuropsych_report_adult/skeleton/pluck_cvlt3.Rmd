@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from CVLT-3/CVLT-3 Brief"
 params:
-  patient: Biggie
+  patient: Charles
   test:
     label: "Test"
     value: cvlt3_brief
@@ -12,7 +12,7 @@ params:
       - cvlt3
   test_name:
     label: "Test Name"
-    value: CVLT-3 Brief
+    value: "CVLT-3 Brief"
     input: select
     multiple: no
     choices:
@@ -22,7 +22,7 @@ params:
     label: "Select File:"
     value: File
     input: file
-  pages: [9,11,9,9,9,12,9] # full [18,20,18,18,18,22,18]
+  pages: [8,10,8,8,8,11,8] # full [18,20,18,18,18,22,18]
   table1:
     label: "Learning Trials:"
     value: [Trial 1 Correct, Trial 2 Correct, Trial 3 Correct, Trial 4 Correct]
@@ -198,26 +198,27 @@ writeLines(file, here::here(patient, "pre_csv", "cvlt3_pdf"))
 ## Locate areas
 
 ```{r areas-known}
-# cvlt3-brief
-area <- list(
-  c(166, 52, 237, 560),
-  c(159, 52, 185, 560),
-  c(289, 52, 343, 560),
-  c(397, 52, 467, 560),
-  c(520, 52, 544, 560),
-  c(273, 52, 296, 560),
-  c(597, 52, 619, 459)
-)
-# cvlt3
-# area <- list(
-#   c(166, 52, 265, 560),
-#   c(159, 52, 185, 560),
-#   c(320, 52, 390, 560),
-#   c(445, 52, 514, 560),
-#   c(571, 52, 590, 560),
-#   c(570, 52, 589, 560),
-#   c(646, 52, 665, 460)
-# )
+if (params$test == "cvlt3") {
+  area <- list(
+    c(166, 52, 265, 560),
+    c(159, 52, 185, 560),
+    c(320, 52, 390, 560),
+    c(445, 52, 514, 560),
+    c(571, 52, 590, 560),
+    c(570, 52, 589, 560),
+    c(646, 52, 665, 460)
+  )
+} else if (params$test == "cvlt3_brief") {
+  area <- list(
+    c(166, 52, 237, 560),
+    c(159, 52, 185, 560),
+    c(289, 52, 343, 560),
+    c(397, 52, 467, 560),
+    c(520, 52, 544, 560),
+    c(273, 52, 296, 560),
+    c(597, 52, 619, 459)
+  )
+}
 ```
 
 ```{r areas-get, eval=FALSE}
@@ -255,7 +256,7 @@ plucked_table <-
 # Table 1
 
 ```{r table1}
-table1 <- tibble::as_tibble(plucked_table[[1]])
+table1 <- as.data.frame(plucked_table[[1]])
 colnames(table1) <- params$colnames1
 to_double <- c("raw_score", "score", "percentile")
 table1 <- table1 |> hablar::convert(dbl(all_of(to_double)))
@@ -265,7 +266,7 @@ table1[, 1] <- (params$table1)
 # Table 2
 
 ```{r table2}
-table2 <- tibble::as_tibble(plucked_table[[2]])
+table2 <- as.data.frame(plucked_table[[2]])
 colnames(table2) <- params$colnames1
 to_double <- c("raw_score", "score", "percentile")
 table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
@@ -275,7 +276,7 @@ table2[, 1] <- (params$table2)
 # Table 3
 
 ```{r table3}
-table3 <- tibble::as_tibble(plucked_table[[3]])
+table3 <- as.data.frame(plucked_table[[3]])
 colnames(table3) <- params$colnames1
 to_double <- c("raw_score", "score", "percentile")
 table3 <- table3 |> hablar::convert(dbl(all_of(to_double)))
@@ -285,7 +286,7 @@ table3[, 1] <- (params$table3)
 # Table 4
 
 ```{r table4}
-table4 <- tibble::as_tibble(plucked_table[[4]])
+table4 <- as.data.frame(plucked_table[[4]])
 colnames(table4) <- params$colnames1
 to_double <- c("raw_score", "score", "percentile")
 table4 <- table4 |> hablar::convert(dbl(all_of(to_double)))
@@ -295,7 +296,7 @@ table4[, 1] <- (params$table4)
 # Table 5
 
 ```{r table5}
-table5 <- tibble::as_tibble(plucked_table[[5]])
+table5 <- as.data.frame(plucked_table[[5]])
 colnames(table5) <- params$colnames1
 to_double <- c("raw_score", "score", "percentile")
 table5 <- table5 |> hablar::convert(dbl(all_of(to_double)))
@@ -305,7 +306,7 @@ table5[, 1] <- (params$table5)
 # Table 6
 
 ```{r pluck6}
-table6 <- tibble::as_tibble(plucked_table[[6]])
+table6 <- as.data.frame(plucked_table[[6]])
 colnames(table6) <- params$colnames1
 to_double <- c("raw_score", "score", "percentile")
 table6 <- table6 |> hablar::convert(dbl(all_of(to_double)))
@@ -315,7 +316,7 @@ table6[, 1] <- (params$table6)
 # Table 7
 
 ```{r pluck7}
-table7 <- tibble::as_tibble(plucked_table[[7]])
+table7 <- as.data.frame(plucked_table[[7]])
 colnames(table7) <- params$colnames2
 to_double <- c("raw_score", "base_rate")
 table7 <- table7 |> hablar::convert(dbl(all_of(to_double)))
@@ -725,8 +726,13 @@ if (params$test == "cvlt3") {
 }
 ```
 
+## Write to "g"
+
+experimental for now...
+
 ```{r writeout-g}
-table <- cvlt3_brief
+table <- cvlt3_brief |> tidytable::filter(scale %in% c("Trial 4 Correct", "Trials 1-4 Correct", "Short Delay Free Recall", "Long Delay Free Recall"))
+table <- table
 test <- "g"
 tidytable::fwrite(
   table,
