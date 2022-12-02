@@ -405,3 +405,17 @@ pai <- table |> tidytable::relocate(c(raw_score, score, percentile, range, ci_95
 ```{r writeout}
 readr::write_csv(pai, here::here(patient, "csv", "pai.csv"), col_names = TRUE, na = "")
 ```
+
+# Experimental
+
+## Pluck Text
+
+```{r text}
+file <- file.choose()
+
+pai_text <- tabulizer::extract_text(file, pages = 9:14)
+
+cat(pai_text, sep = "\n")
+
+readr::write_lines(pai_text, here::here(patient, "pai_text.md"), sep = "\n")
+```
