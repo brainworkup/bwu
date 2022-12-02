@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from WAIS-IV"
 params:
-  patient: Biggie
+  patient: Charles
   test:
     label: "Test"
     value: wais4
@@ -30,7 +30,7 @@ params:
     label: "No file selected"
     value: file
     input: file
-  pages: [2,4,4,4,4,6,6]
+  pages: [3,3,3,3]
   table1:
     label: "Index Scores"
     value: [Verbal Comprehension (VCI)]
@@ -65,7 +65,7 @@ params:
       - Figure Weights
   table4:
     label: "Working Memory (WMI)"
-    value: [Digit Span]
+    value: [Letter-Number Sequencing]
     input: select
     multiple: yes
     choices:
@@ -74,7 +74,7 @@ params:
       - Letter-Number Sequencing
   table5:
     label: "Processing Speed (PSI)"
-    value: [Symbol Search]
+    value: [Coding]
     input: select
     multiple: yes
     choices:
@@ -232,13 +232,12 @@ library(rmarkdown)
 library(rmdformats)
 library(shiny)
 library(snakecase)
-library(table.glue)
 library(tabulizer)
 library(tabulizerjars)
 library(tibble)
 library(tidyr)
-library(tidytable)
 library(vroom)
+library(tidytable)
 ```
 
 ## Patient
@@ -253,9 +252,16 @@ patient <- params$patient
 test <- params$test
 ```
 
+## Version
+
+```{r version}
+version <- params$version
+```
+
 ## Upload/attach PDF
 
 ```{r choose}
+# file <- file.choose()
 file <- params$file
 ```
 
@@ -270,7 +276,7 @@ writeLines(file, here::here(patient, "pre_csv", "wais4_pdf"))
 ```
 
 ```{r read-file}
-# file <- readLines(here::here(patient, "pre_csv", "wais4_pdf"))
+#file <- readLines(here::here(patient, "pre_csv", "wais4_pdf"))
 ```
 
 ## Locate areas
@@ -287,7 +293,7 @@ if (params$version == "full") {
     bd = c(377, 50, 398, 560),
     ds = c(460, 50, 570, 560)
   )
-} if (params$version == "brief") {
+} else if (params$version == "brief") {
   area <- list(
     vci = c(168, 50, 189, 560),
     pri = c(238, 50, 260, 560),
@@ -546,7 +552,11 @@ table1 <- table1 |> tidytable::relocate(c(raw_score, score, percentile, range, c
 ## Pluck and tidy tables
 
 ```{r pluck2, eval = params$eval_vci}
-table2 <- tibble::as_tibble(plucked_table[[2]])
+if (params$version == "brief") {
+  table2 <- as.data.frame(plucked_table[[1]])
+} else if (params$version == "full") {
+  table2 <- as.data.frame(plucked_table[[2]])
+}
 colnames(table2) <- params$colnames2
 to_double <- c("raw_score", "score", "percentile")
 table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
@@ -656,8 +666,12 @@ table2 <- table2 |> tidytable::relocate(c(raw_score, score, percentile, range, c
 
 ## Pluck and tidy tables
 
-```{r pluck3, eval = params$eval_vci}
-table3 <- tibble::as_tibble(plucked_table[[3]])
+```{r pluck3, eval = params$eval_pri}
+if (params$version == "brief") {
+  table3 <- as.data.frame(plucked_table[[2]])
+} else if (params$version == "full") {
+  table3 <- as.data.frame(plucked_table[[3]])
+}
 colnames(table3) <- params$colnames2
 to_double <- c("raw_score", "score", "percentile")
 table3 <- table3 |> hablar::convert(dbl(all_of(to_double)))
@@ -667,7 +681,7 @@ table3 <- table3 |> tidytable::select(all_of(params$keep2))
 
 ## Mutate columns
 
-```{r mutate3, eval = params$eval_vci}
+```{r mutate3, eval = params$eval_pri}
 table3 <- bwu::gpluck_make_columns(
   table3,
   range = "",
@@ -689,13 +703,13 @@ table3 <- bwu::gpluck_make_columns(
 
 ## Test score ranges
 
-```{r ranges3, eval = params$eval_vci}
+```{r ranges3, eval = params$eval_pri}
 table3 <- bwu::gpluck_make_score_ranges(table = table3, test_type = "npsych_test")
 ```
 
 ## Subdomains
 
-```{r subdomain3, eval = params$eval_vci}
+```{r subdomain3, eval = params$eval_pri}
 table3 <-
   table3 |>
   tidytable::mutate(
@@ -711,7 +725,7 @@ table3 <-
 
 ## Narrow subdomain
 
-```{r narrow3, eval = params$eval_vci}
+```{r narrow3, eval = params$eval_pri}
 table3 <-
   table3 |>
   tidytable::mutate(
@@ -727,7 +741,7 @@ table3 <-
 
 ## Timed vs Untimed
 
-```{r timed3, eval = params$eval_vci}
+```{r timed3, eval = params$eval_pri}
 table3 <-
   table3 |>
   tidytable::mutate(
@@ -743,7 +757,7 @@ table3 <-
 
 ## Description
 
-```{r desc3, eval = params$eval_vci}
+```{r desc3, eval = params$eval_pri}
 table3 <-
   table3 |>
   tidytable::mutate(
@@ -763,7 +777,7 @@ table3 <-
 
 ## Glue results
 
-```{r result3, eval = params$eval_vci}
+```{r result3, eval = params$eval_pri}
 table3 <-
   table3 %>%
   tidytable::mutate(
@@ -775,7 +789,7 @@ table3 <-
 
 ## Relocate variables
 
-```{r reloc3, eval = params$eval_vci}
+```{r reloc3, eval = params$eval_pri}
 table3 <- table3 |> tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
@@ -783,8 +797,12 @@ table3 <- table3 |> tidytable::relocate(c(raw_score, score, percentile, range, c
 
 ## Pluck and tidy tables
 
-```{r pluck4, eval = params$eval_vci}
-table4 <- tibble::as_tibble(plucked_table[[4]])
+```{r pluck4, eval = params$eval_wmi}
+if (params$version == "brief") {
+  table4 <- as.data.frame(plucked_table[[3]])
+} else if (params$version == "full") {
+  table4 <- as.data.frame(plucked_table[[4]])
+}
 colnames(table4) <- params$colnames2
 to_double <- c("raw_score", "score", "percentile")
 table4 <- table4 |> hablar::convert(dbl(all_of(to_double)))
@@ -794,7 +812,7 @@ table4 <- table4 |> tidytable::select(all_of(params$keep2))
 
 ## Mutate columns
 
-```{r mutate4, eval = params$eval_vci}
+```{r mutate4, eval = params$eval_wmi}
 table4 <- bwu::gpluck_make_columns(
   table4,
   range = "",
@@ -816,13 +834,13 @@ table4 <- bwu::gpluck_make_columns(
 
 ## Test score ranges
 
-```{r ranges4, eval = params$eval_vci}
+```{r ranges4, eval = params$eval_wmi}
 table4 <- bwu::gpluck_make_score_ranges(table = table4, test_type = "npsych_test")
 ```
 
 ## Subdomains
 
-```{r subdomain4, eval = params$eval_vci}
+```{r subdomain4, eval = params$eval_wmi}
 table4 <-
   table4 |>
   tidytable::mutate(
@@ -837,7 +855,7 @@ table4 <-
 
 ## Narrow subdomains
 
-```{r narrow4, eval = params$eval_vci}
+```{r narrow4, eval = params$eval_wmi}
 table4 <-
   table4 |>
   tidytable::mutate(
@@ -852,7 +870,7 @@ table4 <-
 
 ## Timed vs Untimed
 
-```{r timed4, eval = params$eval_vci}
+```{r timed4, eval = params$eval_wmi}
 table4 <-
   table4 |>
   tidytable::mutate(
@@ -867,7 +885,7 @@ table4 <-
 
 ## PASS model
 
-```{r pass4, eval = params$eval_vci}
+```{r pass4, eval = params$eval_wmi}
 table4 <-
   table4 |>
   tidytable::mutate(
@@ -882,7 +900,7 @@ table4 <-
 
 ## Scale descriptions
 
-```{r desc4, eval = params$eval_vci}
+```{r desc4, eval = params$eval_wmi}
 table4 <-
   table4 |>
   tidytable::mutate(
@@ -897,7 +915,7 @@ table4 <-
 
 ## Glue results
 
-```{r result4, eval = params$eval_vci}
+```{r result4, eval = params$eval_wmi}
 table4 <-
   table4 %>%
   tidytable::mutate(
@@ -909,7 +927,7 @@ table4 <-
 
 ## Relocate variables
 
-```{r reloc, eval = params$eval_vci4}
+```{r reloc, eval = params$eval_wmi}
 table4 <- table4 |> tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
@@ -917,8 +935,12 @@ table4 <- table4 |> tidytable::relocate(c(raw_score, score, percentile, range, c
 
 ## Pluck and tidy tables
 
-```{r pluck5, eval = params$eval_vci}
-table5 <- tibble::as_tibble(plucked_table[[5]])
+```{r pluck5, eval = params$eval_psi}
+if (params$version == "brief") {
+  table5 <- as.data.frame(plucked_table[[4]])
+} else if (params$version == "full") {
+  table5 <- as.data.frame(plucked_table[[5]])
+}
 colnames(table5) <- params$colnames2
 to_double <- c("raw_score", "score", "percentile")
 table5 <- table5 |> hablar::convert(dbl(all_of(to_double)))
@@ -928,7 +950,7 @@ table5 <- table5 |> tidytable::select(all_of(params$keep2))
 
 ## Mutate columns
 
-```{r mutate5, eval = params$eval_vci}
+```{r mutate5, eval = params$eval_wmi}
 table5 <- bwu::gpluck_make_columns(
   table5,
   range = "",
@@ -950,13 +972,13 @@ table5 <- bwu::gpluck_make_columns(
 
 ## Test score ranges
 
-```{r ranges5, eval = params$eval_vci}
+```{r ranges5, eval = params$eval_wmi}
 table5 <- bwu::gpluck_make_score_ranges(table = table5, test_type = "npsych_test")
 ```
 
 ## Subdomains
 
-```{r subdomain5, eval = params$eval_vci}
+```{r subdomain5, eval = params$eval_wmi}
 table5 <-
   table5 |>
   tidytable::mutate(
@@ -971,7 +993,7 @@ table5 <-
 
 ## Narrow subdomains
 
-```{r narrow5, eval = params$eval_vci}
+```{r narrow5, eval = params$eval_psi}
 table5 <-
   table5 |>
   tidytable::mutate(
@@ -986,7 +1008,7 @@ table5 <-
 
 ## PASS model
 
-```{r pass5, eval = params$eval_vci}
+```{r pass5, eval = params$eval_psi}
 table5 <-
   table5 |>
   tidytable::mutate(
@@ -1001,7 +1023,7 @@ table5 <-
 
 ## Scale descriptions
 
-```{r desc5, eval = params$eval_vci}
+```{r desc5, eval = params$eval_psi}
 table5 <-
   table5 |>
   tidytable::mutate(
@@ -1016,7 +1038,7 @@ table5 <-
 
 ## Glue results
 
-```{r result5, eval = params$eval_vci}
+```{r result5, eval = params$eval_psi}
 table5 <-
   table5 %>%
   tidytable::mutate(
@@ -1028,7 +1050,7 @@ table5 <-
 
 ## Relocate variables
 
-```{r relocate5, eval = params$eval_vci}
+```{r relocate5, eval = params$eval_psi}
 table5 <- table5 |> tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
@@ -1037,7 +1059,11 @@ table5 <- table5 |> tidytable::relocate(c(raw_score, score, percentile, range, c
 ## Pluck and tidy tables
 
 ```{r pluck6, eval = params$eval_bd}
-table6 <- tibble::as_tibble(plucked_table[[6]])
+if (params$version == "brief") {
+  table6 <- as.data.frame(plucked_table[[5]])
+} else if (params$version == "full") {
+  table6 <- as.data.frame(plucked_table[[6]])
+}
 colnames(table6) <- params$colnames3
 to_double <- c("raw_score", "score", "percentile")
 table6 <- table6 %>% hablar::convert(dbl(all_of(to_double)))
@@ -1112,7 +1138,11 @@ table6 <- table6 |> tidytable::relocate(c(raw_score, score, percentile, range, c
 ## Pluck and tidy tables
 
 ```{r pluck7, eval = params$eval_span}
-table7 <- tibble::as_tibble(plucked_table[[7]])
+if (params$version == "brief") {
+  table7 <- as.data.frame(plucked_table[[6]])
+} else if (params$version == "full") {
+  table7 <- as.data.frame(plucked_table[[7]])
+}
 colnames(table7) <- params$colnames4
 to_double <- c("raw_score", "score", "percentile")
 table7 <- table7 |> hablar::convert(dbl(all_of(to_double)))
@@ -1318,18 +1348,8 @@ wais4 <- wais4[match(
 readr::write_csv(wais4, here::here(patient, "csv", "wais4.csv"))
 ```
 
-```{r writeout-g}
-table <- wais4
-test <- "g"
-tidytable::fwrite(
-  table,
-  here::here(patient, "csv", paste0(test, ".csv")), # might not work
-  append = TRUE
-)
-```
-
 ## Cleanup
 
 ```{r cleanup}
-rm(area, plucked_table, table1, table2, table3, table4, table5, table6, table7)
+# rm(area, plucked_table, table1, table2, table3, table4, table5, table6, table7)
 ```
