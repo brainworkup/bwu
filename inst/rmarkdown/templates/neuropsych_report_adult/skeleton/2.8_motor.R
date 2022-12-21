@@ -58,15 +58,15 @@ kableExtra::kbl(
   align = c("lccc"),
   caption = "(ref:motor)"
 ) |>
-  kableExtra::kable_paper(., lightable_options = "basic") |>
-  kableExtra::kable_styling(., latex_options = c(
+  kableExtra::kable_paper(lightable_options = "basic") |>
+  kableExtra::kable_styling(latex_options = c(
     "scale_down",
     "HOLD_position",
     "striped"
   )) |>
-  kableExtra::column_spec(., 1, width = "8cm") |>
-  kableExtra::pack_rows(., index = table(tb$Test)) |>
-  kableExtra::row_spec(., row = 0, bold = TRUE) |>
+  kableExtra::column_spec(1, width = "8cm") |>
+  kableExtra::pack_rows(index = table(tb$Test)) |>
+  kableExtra::row_spec(row = 0, bold = TRUE) |>
   kableExtra::add_footnote("(ref:fn-mtr)")
 
 ## ---- 05-df-motor ------------
