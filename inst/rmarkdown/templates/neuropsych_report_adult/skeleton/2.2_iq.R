@@ -21,8 +21,12 @@ filter_domain <- c(
   "Nonverbal (NVI)",
   "Processing Speed (PSI)",
   "Working Memory (WMI)",
-  "Similarities",
-  "Matrix Reasoning"
+  ## composite scores
+  "General Intelligence",
+  "Crystallized Knowledge",
+  "Fluid Reasoning",
+  "Cognitive Efficiency",
+  "Working Memory"
 )
 
 ## ---- 02-glue-iq ------------
