@@ -22,10 +22,12 @@ filter_domain <- c(
   "Processing Speed (PSI)",
   "Working Memory (WMI)",
   ## composite scores
-  "General Intelligence",
+  "Cognitive Efficiency",
+  "Cognitive Proficiency",
   "Crystallized Knowledge",
   "Fluid Reasoning",
-  "Cognitive Efficiency",
+  "General Ability",
+  "General Intelligence",
   "Working Memory"
 )
 
@@ -88,17 +90,19 @@ df <-
   tidytable::filter(scale != "Working Memory (WMI)") |>
   tidytable::filter(scale != "Working Memory") |>
   tidytable::filter(scale != "Processing Speed (PSI)") |>
-  tidytable::filter(scale != "Cognitive Efficiency")
-# tidytable::filter(scale != "General Ability (GAI)") |>
-# tidytable::filter(scale != "Cognitive Proficiency (CPI)") |>
+  tidytable::filter(scale != "Processing Speed") |>
+  tidytable::filter(scale != "Cognitive Efficiency") |>
+  tidytable::filter(scale != "Cognitive Proficiency (CPI)") |>
+  tidytable::filter(scale != "Cognitive Proficiency") |>
+  # tidytable::filter(scale != "General Ability (GAI)") |>
 
-## ---- 06-plot-subdomain-iq --------------------
-bwu::dotplot(
-  data = df,
-  x = df$z_mean_sub,
-  y = df$subdomain,
-  domain = "iq"
-)
+  ## ---- 06-plot-subdomain-iq --------------------
+  bwu::dotplot(
+    data = df,
+    x = df$z_mean_sub,
+    y = df$subdomain,
+    domain = "iq"
+  )
 
 ## ---- 07-plot-narrow-iq -------------------
 bwu::dotplot(
