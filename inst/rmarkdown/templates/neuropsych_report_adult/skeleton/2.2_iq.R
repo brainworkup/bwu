@@ -86,9 +86,11 @@ df <-
   tidytable::filter(scale != "NAB Total Index") |>
   tidytable::filter(scale != "TOPF Standard Score") |>
   tidytable::filter(scale != "Working Memory (WMI)") |>
-  tidytable::filter(scale != "Processing Speed (PSI)")
-# tidytable::filter(scale != "Cognitive Proficiency (CPI)") |>
+  tidytable::filter(scale != "Working Memory") |>
+  tidytable::filter(scale != "Processing Speed (PSI)") |>
+  tidytable::filter(scale != "Cognitive Efficiency")
 # tidytable::filter(scale != "General Ability (GAI)") |>
+# tidytable::filter(scale != "Cognitive Proficiency (CPI)") |>
 
 ## ---- 06-plot-subdomain-iq --------------------
 bwu::dotplot(
