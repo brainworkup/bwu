@@ -20,7 +20,9 @@ filter_domain <- c(
   "Vocabulary Acquisition (VAI)",
   "Nonverbal (NVI)",
   "Processing Speed (PSI)",
-  "Working Memory (WMI)"
+  "Working Memory (WMI)",
+  "Similarities",
+  "Matrix Reasoning"
 )
 
 ## ---- 02-glue-iq ------------
