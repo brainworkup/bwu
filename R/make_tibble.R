@@ -44,6 +44,7 @@ make_tibble <- function(tibb = NULL,
                         ...) {
 
   data <- as.data.frame(data)
+  tibb <- as.data.frame(tibb)
 
   tibb <-
     data |>

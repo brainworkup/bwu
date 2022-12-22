@@ -94,7 +94,7 @@ df <-
   tidytable::filter(scale != "Cognitive Efficiency") |>
   tidytable::filter(scale != "Cognitive Proficiency (CPI)") |>
   tidytable::filter(scale != "Cognitive Proficiency")
-# tidytable::filter(scale != "General Ability (GAI)") |>
+# tidytable::filter(scale != "General Ability (GAI)")
 
 ## ---- 06-plot-subdomain-iq --------------------
 bwu::dotplot(
