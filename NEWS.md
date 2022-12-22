@@ -144,3 +144,7 @@ output:
 
 - Trying to fix bugs in .Rmd files
 - This includes switching to data.table and data.frame from tibble
+
+## bwu 0.0.1.900
+
+- Added function to incoporate index-scores from Excel neuropsych app

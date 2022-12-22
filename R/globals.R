@@ -1,1 +1,1 @@
-utils::globalVariables(c("domain", "z", "percentile", "desc", "zMean", "tibble", "name", "neurocog", "list_parse", ".", "hc_theme_sandsignika", "narrow", "subdomain", "patient", "test", "test_name", "neurobehav", "neuropsych", "range"))
+utils::globalVariables(c("domain", "z", "percentile", "desc", "zMean", "tibble", "name", "neurocog", "list_parse", ".", "hc_theme_sandsignika", "narrow", "subdomain", "patient", "test", "test_name", "neurobehav", "neuropsych", "range", "raw_score", "score", "ci_95", "scaled_score", "t_score", "reliability", "composition", "result"))

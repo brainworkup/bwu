@@ -1,16 +1,16 @@
 #' Import/Tidy Excel Index Score File
 #'
-#' @param patient
+#' @param patient Name of patient
+#' @importFrom readxl read_xlsx
+#' @importFrom janitor clean_names
 #'
-#' @return
+#' @return A csv table
 #' @export
-#'
-#' @examples
 bwu_import_index_score <- function(patient) {
   patient <- patient
-  
+
   ## Import data
-  
+
   df <-
     readxl::read_xlsx(here::here(patient, paste0(patient, "_", "index_scores.xlsx"))) |>
     janitor::clean_names()
@@ -27,9 +27,9 @@ bwu_import_index_score <- function(patient) {
     )
   names(df) <- names
   df <- as.data.frame(df)
-  
+
   ## Mutate columns
-  
+
   df <- bwu::gpluck_make_columns(
     table = df,
     raw_score = "",
@@ -48,14 +48,14 @@ bwu_import_index_score <- function(patient) {
     description = "",
     result = ""
   )
-  
+
   ## Test score ranges
-  
+
   df <-
     bwu::gpluck_make_score_ranges(table = df, test_type = "npsych_test")
-  
+
   ## Domains
-  
+
   df <-
     df |>
     tidytable::mutate(
@@ -70,9 +70,9 @@ bwu_import_index_score <- function(patient) {
         TRUE ~ as.character(domain)
       )
     )
-  
+
   ## Subdomain
-  
+
   df <-
     df |>
     tidytable::mutate(
@@ -87,9 +87,9 @@ bwu_import_index_score <- function(patient) {
         TRUE ~ as.character(subdomain)
       )
     )
-  
+
   ## Narrow subdomain
-  
+
   df <-
     df |>
     tidytable::mutate(
@@ -104,9 +104,9 @@ bwu_import_index_score <- function(patient) {
         TRUE ~ as.character(narrow)
       )
     )
-  
+
   ## PASS model
-  
+
   df <-
     df |>
     tidytable::mutate(
@@ -121,9 +121,9 @@ bwu_import_index_score <- function(patient) {
         TRUE ~ as.character(pass)
       )
     )
-  
+
   ## Verbal vs Nonverbal
-  
+
   df <-
     df |>
     tidytable::mutate(
@@ -138,9 +138,9 @@ bwu_import_index_score <- function(patient) {
         TRUE ~ as.character(verbal)
       )
     )
-  
+
   ## Timed vs Untimed
-  
+
   df <-
     df |>
     tidytable::mutate(
@@ -155,9 +155,9 @@ bwu_import_index_score <- function(patient) {
         TRUE ~ as.character(timed)
       )
     )
-  
+
   ## Scale descriptions
-  
+
   df <-
     df |>
     tidytable::mutate(
@@ -186,9 +186,9 @@ bwu_import_index_score <- function(patient) {
         TRUE ~ as.character(description)
       )
     )
-  
+
   ## Glue result
-  
+
   df <-
     df |>
     tidytable::mutate(
@@ -213,19 +213,19 @@ bwu_import_index_score <- function(patient) {
         TRUE ~ as.character(result)
       )
     )
-  
+
   ## Relocate variables
-  
+
   g <-
     df |> tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test) |>
     tidytable::relocate(c(scaled_score, t_score, reliability, composition), .after = result)
-  
+
   ## Write out CSV
-  
+
   readr::write_csv(g,
                    here::here(patient, "csv", "g.csv"),
                    append = TRUE,
                    col_names = TRUE)
-  
-  
+
+
 }

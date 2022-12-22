@@ -1,7 +1,7 @@
 Type: Package
 Package: bwu
 Title: BrainWorkUp Neuropsychological Report Writing Package
-Version: 0.0.1.9014
+Version: 0.0.2.9000
 Author: person("Joey", "Trampush", email = trampush@usc.edu, role =
     c("aut", "cre"))
 Maintainer: Joey Trampush <trampush@usc.edu>
@@ -31,7 +31,9 @@ Imports:
     stringr,
     dplyr,
     rJava,
-    tabulizer
+    tabulizer,
+    janitor,
+    readxl
 Suggests:
     Cairo,
     glue,
@@ -63,4 +65,4 @@ Encoding: UTF-8
 Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.2.9000
+RoxygenNote: 7.2.3.9000
