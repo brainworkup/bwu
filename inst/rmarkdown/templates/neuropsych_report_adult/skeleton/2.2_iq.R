@@ -35,7 +35,7 @@ filter_domain <- c(
 dt <-
   neurocog |>
   tidytable::filter(scale %in% filter_domain) |>
-  tidytable::arrange(desc(percentile)) |>
+  tidytable::arrange(tidytable::desc(percentile)) |>
   tidytable::distinct(.keep_all = FALSE)
 
 dt |>
@@ -93,16 +93,16 @@ df <-
   tidytable::filter(scale != "Processing Speed") |>
   tidytable::filter(scale != "Cognitive Efficiency") |>
   tidytable::filter(scale != "Cognitive Proficiency (CPI)") |>
-  tidytable::filter(scale != "Cognitive Proficiency") |>
-  # tidytable::filter(scale != "General Ability (GAI)") |>
+  tidytable::filter(scale != "Cognitive Proficiency")
+# tidytable::filter(scale != "General Ability (GAI)") |>
 
-  ## ---- 06-plot-subdomain-iq --------------------
-  bwu::dotplot(
-    data = df,
-    x = df$z_mean_sub,
-    y = df$subdomain,
-    domain = "iq"
-  )
+## ---- 06-plot-subdomain-iq --------------------
+bwu::dotplot(
+  data = df,
+  x = df$z_mean_sub,
+  y = df$subdomain,
+  domain = "iq"
+)
 
 ## ---- 07-plot-narrow-iq -------------------
 bwu::dotplot(

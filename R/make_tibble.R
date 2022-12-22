@@ -13,13 +13,15 @@
 #'
 #' @return A dotplot using ggplot2
 #' @examples
-
-
-#' make_tibble(tibb = iq, data = neurocog, pheno = "Intelligence/General Ability")
+#' make_tibble(
+#'   tibb = iq,
+#'   data = neurocog,
+#'   pheno = "Intelligence/General Ability"
+#' )
 #'
 #' @export
-make_tibble <- function(tibb,
-                        data = c("neurocog", "neurobehav"),
+make_tibble <- function(tibb = NULL,
+                        data = ".",
                         pheno = NULL,
                         domain = NULL,
                         columns = c(
@@ -40,6 +42,9 @@ make_tibble <- function(tibb,
                           "Test"
                         ),
                         ...) {
+
+  data <- as.data.frame(data)
+
   tibb <-
     data |>
     dplyr::filter(domain == pheno) |>
