@@ -66,7 +66,7 @@ bwu_import_index_score <- function(patient) {
         scale == "Crystallized Knowledge" ~ "Intelligence/General Ability",
         scale == "Fluid Reasoning" ~ "Intelligence/General Ability",
         scale == "Working Memory" ~ "Attention/Executive",
-        scale == "Cognitive Efficiency" ~ "Attention/Executive",
+        scale == "Processing Speed" ~ "Attention/Executive",
         TRUE ~ as.character(domain)
       )
     )
@@ -80,10 +80,10 @@ bwu_import_index_score <- function(patient) {
         scale == "Crystallized Knowledge" ~ "Crystallized Intelligence",
         scale == "Fluid Reasoning" ~ "Fluid Intelligence",
         scale == "Working Memory" ~ "Working Memory",
-        scale == "Cognitive Efficiency" ~ "Processing Speed",
+        scale == "Processing Speed" ~ "Processing Speed",
         scale == "General Intelligence" ~ "General Intelligence",
         scale == "General Ability" ~ "General Intelligence",
-        scale == "Cognitive Proficiency" ~ "General Intelligence",
+        scale == "Cognitive Proficiency" ~ "Cognitive Proficiency",
         TRUE ~ as.character(subdomain)
       )
     )
@@ -97,10 +97,10 @@ bwu_import_index_score <- function(patient) {
         scale == "Crystallized Knowledge" ~ "Crystallized Intelligence",
         scale == "Fluid Reasoning" ~ "Fluid Intelligence",
         scale == "Working Memory" ~ "Working Memory",
-        scale == "Cognitive Efficiency" ~ "Cognitive Efficiency",
+        scale == "Processing Speed" ~ "Cognitive Efficiency",
         scale == "General Intelligence" ~ "General Intelligence",
         scale == "General Ability" ~ "General Intelligence",
-        scale == "Cognitive Proficiency" ~ "General Intelligence",
+        scale == "Cognitive Proficiency" ~ "Cognitive Proficiency",
         TRUE ~ as.character(narrow)
       )
     )
@@ -114,7 +114,7 @@ bwu_import_index_score <- function(patient) {
         scale == "Crystallized Knowledge" ~ "",
         scale == "Fluid Reasoning" ~ "",
         scale == "Working Memory" ~ "",
-        scale == "Cognitive Efficiency" ~ "",
+        scale == "Processing Speed" ~ "",
         scale == "General Intelligence" ~ "",
         scale == "General Ability" ~ "",
         scale == "Cognitive Proficiency" ~ "",
@@ -131,7 +131,7 @@ bwu_import_index_score <- function(patient) {
         scale == "Crystallized Knowledge" ~ "Verbal",
         scale == "Fluid Reasoning" ~ "Nonverbal",
         scale == "Working Memory" ~ "Verbal",
-        scale == "Cognitive Efficiency" ~ "Nonverbal",
+        scale == "Processing Speed" ~ "Nonverbal",
         scale == "General Intelligence" ~ "",
         scale == "General Ability" ~ "",
         scale == "Cognitive Proficiency" ~ "",
@@ -148,7 +148,7 @@ bwu_import_index_score <- function(patient) {
         scale == "Crystallized Knowledge" ~ "Untimed",
         scale == "Fluid Reasoning" ~ "Timed",
         scale == "Working Memory" ~ "Untimed",
-        scale == "Cognitive Efficiency" ~ "Timed",
+        scale == "Processing Speed" ~ "Timed",
         scale == "General Intelligence" ~ "",
         scale == "General Ability" ~ "",
         scale == "Cognitive Proficiency" ~ "",
@@ -181,8 +181,8 @@ bwu_import_index_score <- function(patient) {
           "Working Memory" ~
           "A composite estimate of short-term working memory^[(ref:working-memory)]",
         scale ==
-          "Cognitive Efficiency" ~
-          "A composite estimate of complex processing speed and efficiency^[(ref:efficiency)]",
+          "Processing Speed" ~
+          "A composite estimate of complex processing speed and efficiency^[(ref:processing-speed)]",
         TRUE ~ as.character(description)
       )
     )
@@ -203,8 +203,9 @@ bwu_import_index_score <- function(patient) {
         scale == "Fluid Reasoning" ~ glue::glue(
           "{description} was classified as {range} and ranked at the {percentile}th percentile.\n"
         ),
-        scale == "Working Memory" ~ glue::glue("{description} fell in the {range} range.\n"),
-        scale == "Cognitive Efficiency" ~ glue::glue(
+        scale == "Working Memory" ~ glue::glue("{description} fell in the {range} range and was and a relative strength|weakness.\n"
+        ),
+        scale == "Processing Speed" ~ glue::glue(
           "{description} was {range} and a relative strength|weakness.\n"
         ),
         scale == "Cognitive Proficiency" ~ glue::glue(
@@ -223,9 +224,9 @@ bwu_import_index_score <- function(patient) {
   ## Write out CSV
 
   readr::write_csv(g,
-                   here::here(patient, "csv", "g.csv"),
-                   append = TRUE,
-                   col_names = TRUE)
+    here::here(patient, "csv", "g.csv"),
+    append = TRUE,
+    col_names = TRUE)
 
 
 }
