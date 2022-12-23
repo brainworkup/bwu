@@ -20,7 +20,11 @@
         "scrollbar.shadow": "#0d0d0d"
       },
       "tab.activeBorder": "#d1f0ee",
-      "sideBar.border": "#d1f0ee"
+      "editorError.foreground": "#000000ff",
+      "editorGroup.border": "#d1f0ee",
+      "editorInfo.foreground": "#000000ff",
+      "editorWarning.foreground": "#000000ff",
+      "sash.hoverBorder": "#d1f0ee"
     },
     "peacock.color": "#abe3df",
     "makefile.extensionOutputFolder": "./.vscode",

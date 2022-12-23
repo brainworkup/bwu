@@ -20,7 +20,7 @@
 #' )
 #'
 #' @export
-make_tibble <- function(tibb = NULL,
+make_tibble <- function(tibb,
                         data = ".",
                         pheno = NULL,
                         domain = NULL,
@@ -44,7 +44,6 @@ make_tibble <- function(tibb = NULL,
                         ...) {
 
   data <- as.data.frame(data)
-  tibb <- as.data.frame(tibb)
 
   tibb <-
     data |>
