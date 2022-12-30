@@ -4,7 +4,7 @@ params:
   first_name: Biggie
   last_name: Smalls
   dob: "2000-01-01"
-  mrn: [004216512]
+  mrn: [000000000]
   sex: male
   sex_cap: Male
   age: 22
