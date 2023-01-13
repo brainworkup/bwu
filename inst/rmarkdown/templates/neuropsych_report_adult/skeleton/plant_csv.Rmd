@@ -213,8 +213,6 @@ knitr::opts_chunk$set(
   error = TRUE
 )
 library(bwu)
-library(gt)
-library(hablar)
 library(here)
 library(knitr)
 library(magrittr)
@@ -226,7 +224,6 @@ library(table.glue)
 library(tibble)
 library(tidyr)
 library(tidytable)
-library(vroom)
 ```
 
 ## Patient
@@ -456,7 +453,7 @@ compute_pctile_range <-
 ## Compute percentile, range
 
 ```{r compute-pr}
-df2 <- bwu::compute_pctile_range(
+df2 <- compute_pctile_range(
   .x = df1,
   .score = df1$score,
   .score_type = df1$score_type,
@@ -532,7 +529,7 @@ compute_result <-
 ```{r compute-result}
 .description <- (df2$description)
 .range <- (df2$range)
-df3 <- bwu::compute_result(
+df3 <- compute_result(
   .x = df2,
   .scale = df2$scale,
   .description = .description,

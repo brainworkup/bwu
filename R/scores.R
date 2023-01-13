@@ -58,4 +58,5 @@ ci <- function(x, m, sd, rel, level = 0.95, ...) {
 pct <- function(x, m, sd) {
   z <- (x - m) / sd
   percentile <- round(stats::pnorm(z) * 100, 0)
+  return(percentile)
 }
