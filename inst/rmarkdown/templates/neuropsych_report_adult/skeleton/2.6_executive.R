@@ -64,11 +64,13 @@ filter_domain <- c(
   ## TMT
   "TMT, Part A",
   "TMT, Part B",
+  "Trails A",
+  "Trails B",
   ## Clock Drawing Test
   "Clock Drawing",
   ## DKEFS
-  # "D-KEFS Color Naming",
-  # "D-KEFS Word Reading",
+  "D-KEFS Color Naming",
+  "D-KEFS Word Reading",
   "D-KEFS Inhibition",
   "D-KEFS Switching",
   "D-KEFS Inhibition Total Errors",
@@ -81,8 +83,8 @@ filter_domain <- c(
   "ROCFT Copy",
   ## NIH EXAMINER
   "Unstructured Task",
-  # "Letter Fluency",
-  # "Category Fluency",
+  "Letter Fluency",
+  "Category Fluency",
   ## WMS-4 Working Memory
   "Spatial Addition",
   "Picture Span"
