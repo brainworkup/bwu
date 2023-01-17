@@ -1,0 +1,77 @@
+# TMT predicted score
+
+## Trails A
+## Ages 16 - 89
+
+#' Trails A Standardized Score
+#'
+#' @param rawScore Patients raw score
+#' @param age Patients age
+#'
+#' @return A printed score
+#' @export
+#'
+#' @examples
+#' tmt_a_tscore <- tmtA(rawScore = 25, age = 21)
+tmtA <- function(rawScore, age) {
+  predictedScore <-
+    26.50094 - (0.2665049 * age) + (0.0069935 * (age * age))
+  
+  predictedSD <-
+    8.760348 - (0.1138093 * age) + (0.0028324 * (age * age))
+  
+  if (rawScore < predictedScore) {
+    zScore <- (rawScore - predictedScore) / predictedSD
+  }
+  if (rawScore > predictedScore) {
+    zScore <- ((rawScore - predictedScore) / predictedSD) * -1
+  }
+  
+  tScore <- (zScore * 10) + 50
+  
+  tScore <- round(tScore, digits = 0)
+  zScore <- round(zScore, digits = 2)
+  predictedScore <- round(predictedScore, digits = 2)
+  predictedSD <- round(predictedSD, digits = 2)
+  
+  paste0(tScore, ", ", zScore, ", ", predictedScore, ", ", predictedSD)
+  
+}
+ 
+## Trails B
+## Ages 16 - 89
+
+#' Trails B Standardized Score
+#'
+#' @param rawScore Patients raw score (seconds) on Trails B
+#' @param age Patient's age
+#'
+#' @return A tscore of TMTB
+#' @export
+#'
+#' @examples
+#' tmt_b_tscore <- tmtB(rawScore = 75, age = 21)
+tmtB <- function(rawScore, age) {
+  predictedScore <-
+    64.07469 - (0.9881013 * age) + (0.0235581 * (age * age))
+  
+  predictedSD <-
+    29.8444 - (0.8080508 * age) + (0.0148732 * (age * age))
+  
+  if (rawScore < predictedScore) {
+    zScore <- (rawScore - predictedScore) / predictedSD
+  }
+  if (rawScore > predictedScore) {
+    zScore <- ((rawScore - predictedScore) / predictedSD) * -1
+  }
+  
+  tScore <- (zScore * 10) + 50
+
+  tScore <- round(tScore, digits = 0)
+  zScore <- round(zScore, digits = 2)
+  predictedScore <- round(predictedScore, digits = 2)
+  predictedSD <- round(predictedSD, digits = 2)
+  
+  paste0(tScore, ", ", zScore, ", ", predictedScore, ", ", predictedSD)
+  
+}

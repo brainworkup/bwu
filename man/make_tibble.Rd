@@ -6,7 +6,7 @@
 \usage{
 make_tibble(
   tibb,
-  data = c("neurocog", "neurobehav"),
+  data = ".",
   pheno = NULL,
   domain = NULL,
   columns = c("scale", "score", "percentile", "range", "subdomain", "test_name"),
@@ -39,6 +39,10 @@ A dotplot using ggplot2
 This is the description.
 }
 \examples{
-make_tibble(tibb = iq, data = neurocog, pheno = "Intelligence/General Ability")
+make_tibble(
+  tibb = iq,
+  data = neurocog,
+  pheno = "Intelligence/General Ability"
+)
 
 }

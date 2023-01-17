@@ -78,7 +78,7 @@ filter_domain <- c(
   # "Total Repetitions",
   ## RCFT
   "ROCF Copy",
-  "RCFT Copy",
+  "ROCFT Copy",
   ## NIH EXAMINER
   "Unstructured Task",
   # "Letter Fluency",

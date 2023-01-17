@@ -1,3 +1,0 @@
-﻿scale,raw_score,score,percentile,range,ci_95,test,test_name,domain,subdomain,narrow,pass,verbal,timed,test_type,score_type,absort,description
-ROCF Copy,,,,,,rocf,Rey Complex Figure,Visual Perception/Construction,Planning,Perceptual Organization,Planning,Nonverbal,Untimed,npsych_test,t_score,ROCF_1,"Visuoconstructural drawing/copying of a complex figure requiring visuospatial integration, planning and organization, and efficient encoding of visuospatial material"
-ROCF Delayed Recall,,,,,,rocf,Rey Complex Figure,Memory,Long-Term Memory,Visual Memory,Simultaneous,Nonverbal,Untimed,npsych_test,t_score,ROCF_2,"Spontaneous, long-term delayed recall (20-25 min) recall and reproduction of a complex abstract figure"
