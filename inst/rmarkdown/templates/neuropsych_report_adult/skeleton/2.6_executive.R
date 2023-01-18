@@ -21,7 +21,7 @@ filter_domain <- c(
   "Executive Functions Domain",
   "Mazes",
   "Categories",
-  # "Word Generation",
+  "Word Generation",
   "Word Generation Perseverations",
   "Judgment",
   ## RBANS
