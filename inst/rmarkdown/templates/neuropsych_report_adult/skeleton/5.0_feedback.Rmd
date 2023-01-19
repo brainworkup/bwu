@@ -1,7 +1,7 @@
 ---
 title: "Neuropsychological Evaluation Results/Feedback"
 patient: Biggie
-date: "2022-01-01"
+date: "2023-01-19"
 author: "Joey Trampush, PhD"
 institute: "Department of Psychiatry and the Behavioral Sciences"
 output:
@@ -39,31 +39,32 @@ library(gifski)
 library(highcharter)
 library(htmlwidgets)
 library(knitr)
+library(languageserver)
 library(manipulateWidget)
 library(reactable)
 library(revealjs)
 library(rmarkdown)
 library(svglite)
 library(tibble)
+library(tidyverse)
 library(vroom)
 library(widgetframe)
 library(xaringan)
 library(xaringanExtra)
 library(xaringanthemer)
-library(tidytable)
 ## knitr options
 options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(
   fig.path = "figs/",
-  fig.width = 12,
-  fig.height = 4,
-  fig.asp = .5,
+  # fig.width = 12,
+  # fig.height = 4,
+  # fig.asp = .5,
   fig.retina = 3,
   out.width = "100%",
   fig.showtext = TRUE,
   comment = NULL,
   cache = FALSE,
-  cache.path = "cache/",
+  cache.path = ".cache/",
   echo = FALSE,
   message = FALSE,
   warning = FALSE,
@@ -71,6 +72,7 @@ knitr::opts_chunk$set(
   hiline = TRUE
 )
 ```
+
 
 name: title
 class: title-slide, center, middle
@@ -80,11 +82,13 @@ background-repeat: no-repeat
 background-size: 25%
 background-color: var(--usc-black)
 
+
 # `r rmarkdown::metadata$title`
 ## `r rmarkdown::metadata$patient`
 ### `r rmarkdown::metadata$author`
 ### `r rmarkdown::metadata$institute`
 ### `r rmarkdown::metadata$date`
+
 
 ---
 
@@ -96,19 +100,6 @@ background-size: contain
 
 ```{r gauss-plot1, fig.cap='Statistical classification of neuropsychological test scores in the general population.', fig.retina=3, fig.asp=0.5, out.width = '50%'}
 knitr::include_graphics("plot_narrow.png", auto_pdf = TRUE)
-```
-
----
-
-name: gauss2
-class: middle center
-background-size: contain
-
-### Distribution of Scores: _Clinical-level Interpretation_
-
-
-```{r gauss-plot2, fig.cap='General clinical interpretation of performance for individual test scores and broader neuropsychological domains', fig.retina=3, fig.asp=0.5, out.width='50%'}
-knitr::include_graphics("plot_broad.png", auto_pdf = TRUE)
 ```
 
 ---
@@ -133,14 +124,15 @@ neurobehav <-
 ## Level 1
 ## Domain scores
 # 1. create mean z-scores for domain
-ncog1 <- neurocog |>
-  tidytable::group_by(domain) |>
-  tidytable::summarize(zMean = mean(z), zPct = mean(percentile)) |>
+ncog1 <- neurocog %>%
+  tidytable::group_by(domain) %>%
+  tidytable::summarize(zMean = mean(z),
+    zPct = mean(percentile)) %>%
   tidytable::mutate(range = NA)
 ncog1$zMean <- round(ncog1$zMean, 2L)
 ncog1$zPct <- round(ncog1$zPct, 0L)
 ncog1 <-
-  ncog1 |>
+  ncog1 %>%
   tidytable::mutate(
     range = tidytable::case_when(
       zPct >= 98 ~ "Exceptionally High",
@@ -155,10 +147,10 @@ ncog1 <-
   )
 
 # 2. sort hi to lo
-ncog1 <- tidytable::arrange(ncog1, tidytable::desc(zMean))
+ncog1 <- arrange(ncog1, desc(zMean))
 
 # 3. create tibble with new column with domain name lowercase
-ncog_level1_status <- tibble::tibble(
+ncog_level1_status <- tibble(
   name = ncog1$domain,
   y = ncog1$zMean,
   y2 = ncog1$zPct,
@@ -177,16 +169,17 @@ ncog_level2_drill <-
 
     # same as above
     ncog2 <-
-      ncog2 |>
-      tidytable::group_by(subdomain) |>
-      tidytable::summarize(zMean = mean(z), zPct = mean(percentile)) |>
-      tidytable::mutate(range = NA)
+      ncog2 %>%
+      group_by(subdomain) %>%
+      summarize(zMean = mean(z),
+        zPct = mean(percentile)) %>%
+      mutate(range = NA)
 
     # round z-score to 1 decimal
     ncog2$zMean <- round(ncog2$zMean, 2L)
     ncog2$zPct <- round(ncog2$zPct, 0L)
     ncog2 <-
-      ncog2 |>
+      ncog2 %>%
       tidytable::mutate(
         range = tidytable::case_when(
           zPct >= 98 ~ "Exceptionally High",
@@ -201,10 +194,10 @@ ncog_level2_drill <-
       )
 
     # 2. sort hi to lo
-    ncog2 <- tidytable::arrange(ncog2, tidytable::desc(zMean))
+    ncog2 <- arrange(ncog2, desc(zMean))
 
     # 3. create tibble with new column with domain name lowercase
-    ncog_level2_status <- tibble::tibble(
+    ncog_level2_status <- tibble(
       name = ncog2$subdomain,
       y = ncog2$zMean,
       y2 = ncog2$zPct,
@@ -234,16 +227,16 @@ ncog_level3_drill <-
       # ncog3 becomes pronoun for domain
       ncog3 <- subset(ncog2, ncog2$subdomain %in% y_level)
 
-      ncog3 <- ncog3 |>
-        tidytable::group_by(narrow) |>
-        tidytable::summarize(zMean = mean(z), zPct = mean(percentile)) |>
-        tidytable::mutate(range = NA)
+      ncog3 <- ncog3 %>%
+        group_by(narrow) %>%
+        summarize(zMean = mean(z), zPct = mean(percentile)) %>%
+        mutate(range = NA)
 
       # round z-score to 1 decimal
       ncog3$zMean <- round(ncog3$zMean, 2L)
       ncog3$zPct <- round(ncog3$zPct, 0L)
       ncog3 <-
-        ncog3 |>
+        ncog3 %>%
         tidytable::mutate(
           range = tidytable::case_when(
             zPct >= 98 ~ "Exceptionally High",
@@ -257,9 +250,9 @@ ncog_level3_drill <-
           )
         )
 
-      ncog3 <- tidytable::arrange(ncog3, tidytable::desc(zMean))
+      ncog3 <- arrange(ncog3, desc(zMean))
 
-      ncog_level3_status <- tibble::tibble(
+      ncog_level3_status <- tibble(
         name = ncog3$narrow,
         y = ncog3$zMean,
         y2 = ncog3$zPct,
@@ -273,7 +266,7 @@ ncog_level3_drill <-
         data = list_parse(ncog_level3_status)
       )
     })
-  }) |> unlist(recursive = FALSE)
+  }) %>% unlist(recursive = FALSE)
 ```
 
 ```{r drilldown-level4}
@@ -291,16 +284,17 @@ ncog_level4_drill <-
         ncog4 <- subset(ncog3, ncog3$narrow %in% z_level)
 
         ncog4 <-
-          ncog4 |>
-          tidytable::group_by(scale) |>
-          tidytable::summarize(zMean = mean(z), zPct = mean(percentile)) |>
-          tidytable::mutate(range = NA)
+          ncog4 %>%
+          group_by(scale) %>%
+          summarize(zMean = mean(z),
+            zPct = mean(percentile)) %>%
+          mutate(range = NA)
 
         # round z-score to 1 decimal
         ncog4$zMean <- round(ncog4$zMean, 2L)
         ncog4$zPct <- round(ncog4$zPct, 0L)
         ncog4 <-
-          ncog4 |>
+          ncog4 %>%
           tidytable::mutate(
             range = tidytable::case_when(
               zPct >= 98 ~ "Exceptionally High",
@@ -314,9 +308,9 @@ ncog_level4_drill <-
             )
           )
 
-        ncog4 <- tidytable::arrange(ncog4, tidytable::desc(zMean))
+        ncog4 <- arrange(ncog4, desc(zMean))
 
-        ncog_level4_status <- tibble::tibble(
+        ncog_level4_status <- tibble(
           name = ncog4$scale,
           y = ncog4$zMean,
           y2 = ncog4$zPct,
@@ -329,18 +323,18 @@ ncog_level4_drill <-
           data = list_parse(ncog_level4_status)
         )
       })
-    }) |> unlist(recursive = FALSE)
-  }) |> unlist(recursive = FALSE)
+    }) %>% unlist(recursive = FALSE)
+  }) %>% unlist(recursive = FALSE)
 ```
 
-```{r theme-merge1}
-theme_merge <- highcharter::hc_theme_merge(
-  highcharter::hc_theme_monokai(),
-  highcharter::hc_theme_darkunica()
+```{r}
+thm_merge <- hc_theme_merge(
+  hc_theme_monokai(),
+  hc_theme_darkunica()
 )
 ```
 
-```{r drilldown-plot, fig.cap='HighchartR Drilldown'}
+```{r drilldown-plot, fig.cap='HighchartR Drilldown', fig.width=12, fig.height=8, fig.retina=3, out.width = "100%"}
 # Tooltip
 x <- c("Name", "Score", "Percentile", "Range")
 y <- c("{point.name}", "{point.y}", "{point.y2}", "{point.range}")
@@ -348,39 +342,51 @@ tt <- tooltip_table(x, y)
 
 ## Create drilldown bar plot zscores
 plot1 <-
-  highcharter::highchart() |>
-  highcharter::hc_title(text = patient,
-    style = list(fontSize = "15px")) |>
-  highcharter::hc_add_series(ncog_level1_status,
+  highchart() %>%
+  hc_title(
+    text = patient,
+    style = list(
+      fontSize = "15px")) %>%
+  hc_add_series(
+    ncog_level1_status,
     type = "bar",
     name = "Neuropsychological Test Scores",
-    hcaes(x = name, y = y)) |>
-  highcharter::hc_xAxis(
+    hcaes(x = name, y = y)) %>%
+  hc_xAxis(
     type = "category",
-    title = list(text = "Domain"),
-    categories = ncog_level1_status$name
-  ) |>
-  highcharter::hc_yAxis(title = list(text = "Z-Score (M = 0, SD = 1)"),
-    labels = list(format = "{value}")) |>
-  highcharter::hc_tooltip(pointFormat = tt,
+    title = list(
+      text = "Domain"),
+    categories = .$name) %>%
+  hc_yAxis(
+    title = list(
+      text = "Z-Score (M = 0, SD = 1)"),
+    labels = list(
+      format = "{value}")) %>%
+  hc_tooltip(
+    pointFormat = tt,
     useHTML = TRUE,
-    valueDecimals = 1) |>
-  highcharter::hc_plotOptions(series = list(
-    colorByPoint = TRUE,
-    allowPointSelect = TRUE,
-    dataLabels = TRUE
-  )) |>
-  highcharter::hc_drilldown(
+    valueDecimals = 1) %>%
+  hc_plotOptions(
+    series = list(
+      colorByPoint = TRUE,
+      allowPointSelect = TRUE,
+      dataLabels = TRUE)) %>%
+  hc_drilldown(
     allowPointDrilldown = TRUE,
-    series = c(ncog_level2_drill,
+    series = c(
+      ncog_level2_drill,
       ncog_level3_drill,
-      ncog_level4_drill)
-  ) |>
-  highcharter::hc_colorAxis(minColor = "red",
-    maxColor = "blue") |>
-  highcharter::hc_add_theme(theme_merge) |>
-  highcharter::hc_chart(style = list(fontFamily = "Cabin"),
-    backgroundColor = list("gray"))
+      ncog_level4_drill)) %>%
+  hc_colorAxis(
+    minColor = "red",
+    maxColor = "blue") %>%
+  hc_add_theme(
+    thm_merge) %>%
+  hc_chart(
+    style = list(
+      fontFamily = "Cabin"),
+    backgroundColor = list("gray")
+  )
 plot1
 ```
 
@@ -395,14 +401,15 @@ background-color: var(--near-black)
 ## Level 1
 ## Domain scores
 # 1. create mean z-scores for domain
-nbhv1 <- neurobehav |>
-  tidytable::group_by(domain) |>
-  tidytable::summarize(zMean = mean(z), zPct = mean(percentile)) |>
+nbhv1 <- neurobehav %>%
+  tidytable::group_by(domain) %>%
+  tidytable::summarize(zMean = mean(z),
+    zPct = mean(percentile)) %>%
   tidytable::mutate(range = NA)
 nbhv1$zMean <- round(nbhv1$zMean, 0L)
 nbhv1$zPct <- round(nbhv1$zPct, 0L)
 nbhv1 <-
-  nbhv1 |>
+  nbhv1 %>%
   tidytable::mutate(
     range = tidytable::case_when(
       zMean >= 3 ~ "Markedly Elevated",
@@ -415,10 +422,10 @@ nbhv1 <-
   )
 
 # 2. sort hi to lo
-nbhv1 <- tidytable::arrange(nbhv1, tidytable::desc(zMean))
+nbhv1 <- arrange(nbhv1, desc(zMean))
 
 # 3. create tibble with new column with domain name lowercase
-nbhv_level1_status <- tibble::tibble(
+nbhv_level1_status <- tibble(
   name = nbhv1$domain,
   y = nbhv1$zMean,
   y2 = nbhv1$zPct,
@@ -437,18 +444,39 @@ nbhv_level2_drill <-
 
     # same as above
     nbhv2 <-
-      nbhv2 |>
-      tidytable::group_by(subdomain) |>
-      tidytable::summarize(zMean = mean(z), zPct = mean(percentile)) |>
-      tidytable::mutate(range = NA)
+      nbhv2 %>%
+      group_by(subdomain) %>%
+      summarize(zMean = mean(z),
+        zPct = mean(percentile)) %>%
+      mutate(range = NA)
 
     # round z-score to 1 decimal
     nbhv2$zMean <- round(nbhv2$zMean, 0L)
     nbhv2$zPct <- round(nbhv2$zPct, 0L)
     nbhv2 <-
-      nbhv2 |>
+      nbhv2 %>%
       tidytable::mutate(
         range = tidytable::case_when(
+          # zMean >= 1 &
+          #   name %in% c("Adaptive Skills", "Personal Adjustment") ~ "Strength",
+          # zMean %in% -1:0.9 &
+          #   name %in% c("Adaptive Skills", "Personal Adjustment") ~ "WNL",
+          # zMean %in% -2:-2.9 &
+          #   name %in% c("Adaptive Skills", "Personal Adjustment") ~ "Mildly Elevated",
+          # zMean %in% -3:-3.9 &
+          #   name %in% c("Adaptive Skills", "Personal Adjustment") ~ "Significantly Elevated",
+          # zMean <= -4 &
+          #   name %in% c("Adaptive Skills", "Personal Adjustment") ~ "Markedly Elevated",
+          # zMean >= 4 &
+          #   name != c("Adaptive Skills", "Personal Adjustment") ~ "Markedly Elevated",
+          # zMean %in% 3:3.9 &
+          #   name != c("Adaptive Skills", "Personal Adjustment") ~ "Significantly Elevated",
+          # zMean %in% 2:2.9 &
+          #   name != c("Adaptive Skills", "Personal Adjustment") ~ "Mildly Elevated",
+          # zMean %in% -1:1.9 &
+          #   name != c("Adaptive Skills", "Personal Adjustment") ~ "WNL",
+          # zMean <= -1.1 &
+          #   name != c("Adaptive Skills", "Personal Adjustment") ~ "Strength",
           zMean >= 3 ~ "Markedly Elevated",
           zMean %in% 2:2.9 ~ "Significantly Elevated",
           zMean %in% 1:1.9 ~ "Mildly Elevated",
@@ -459,10 +487,10 @@ nbhv_level2_drill <-
       )
 
     # 2. sort hi to lo
-    nbhv2 <- tidytable::arrange(nbhv2, tidytable::desc(zMean))
+    nbhv2 <- arrange(nbhv2, desc(zMean))
 
     # 3. create tibble with new column with domain name lowercase
-    nbhv_level2_status <- tibble::tibble(
+    nbhv_level2_status <- tibble(
       name = nbhv2$subdomain,
       y = nbhv2$zMean,
       y2 = nbhv2$zPct,
@@ -492,16 +520,16 @@ nbhv_level3_drill <-
       # nbhv3 becomes pronoun for domain
       nbhv3 <- subset(nbhv2, nbhv2$subdomain %in% y_level)
 
-      nbhv3 <- nbhv3 |>
-        tidytable::group_by(narrow) |>
-        tidytable::summarize(zMean = mean(z), zPct = mean(percentile)) |>
-        tidytable::mutate(range = NA)
+      nbhv3 <- nbhv3 %>%
+        group_by(narrow) %>%
+        summarize(zMean = mean(z), zPct = mean(percentile)) %>%
+        mutate(range = NA)
 
       # round z-score to 1 decimal
       nbhv3$zMean <- round(nbhv3$zMean, 0L)
       nbhv3$zPct <- round(nbhv3$zPct, 0L)
       nbhv3 <-
-        nbhv3 |>
+        nbhv3 %>%
         tidytable::mutate(
           range = tidytable::case_when(
             zMean >= 3 ~ "Markedly Elevated",
@@ -513,9 +541,9 @@ nbhv_level3_drill <-
           )
         )
 
-      nbhv3 <- tidytable::arrange(nbhv3, tidytable::desc(zMean))
+      nbhv3 <- arrange(nbhv3, desc(zMean))
 
-      nbhv_level3_status <- tibble::tibble(
+      nbhv_level3_status <- tibble(
         name = nbhv3$narrow,
         y = nbhv3$zMean,
         y2 = nbhv3$zPct,
@@ -529,7 +557,7 @@ nbhv_level3_drill <-
         data = list_parse(nbhv_level3_status)
       )
     })
-  }) |> unlist(recursive = FALSE)
+  }) %>% unlist(recursive = FALSE)
 ```
 
 ```{r drilldown2-level4}
@@ -547,16 +575,17 @@ nbhv_level4_drill <-
         nbhv4 <- subset(nbhv3, nbhv3$narrow %in% z_level)
 
         nbhv4 <-
-          nbhv4 |>
-          tidytable::group_by(scale) |>
-          tidytable::summarize(zMean = mean(z), zPct = mean(percentile)) |>
-          tidytable::mutate(range = NA)
+          nbhv4 %>%
+          group_by(scale) %>%
+          summarize(zMean = mean(z),
+            zPct = mean(percentile)) %>%
+          mutate(range = NA)
 
         # round z-score to 1 decimal
         nbhv4$zMean <- round(nbhv4$zMean, 0L)
         nbhv4$zPct <- round(nbhv4$zPct, 0L)
         nbhv4 <-
-          nbhv4 |>
+          nbhv4 %>%
           tidytable::mutate(
             range = tidytable::case_when(
               zMean >= 3 ~ "Markedly Elevated",
@@ -568,9 +597,9 @@ nbhv_level4_drill <-
             )
           )
 
-        nbhv4 <- tidytable::arrange(nbhv4, tidytable::desc(zMean))
+        nbhv4 <- arrange(nbhv4, desc(zMean))
 
-        nbhv_level4_status <- tibble::tibble(
+        nbhv_level4_status <- tibble(
           name = nbhv4$scale,
           y = nbhv4$zMean,
           y2 = nbhv4$zPct,
@@ -583,18 +612,18 @@ nbhv_level4_drill <-
           data = list_parse(nbhv_level4_status)
         )
       })
-    }) |> unlist(recursive = FALSE)
-  }) |> unlist(recursive = FALSE)
+    }) %>% unlist(recursive = FALSE)
+  }) %>% unlist(recursive = FALSE)
 ```
 
-```{r theme-merge2}
-theme_merge <- highcharter::hc_theme_merge(
-  highcharter::hc_theme_monokai(),
-  highcharter::hc_theme_darkunica()
+```{r}
+thm_merge <- hc_theme_merge(
+  hc_theme_monokai(),
+  hc_theme_darkunica()
 )
 ```
 
-```{r drilldown2-plot, fig.cap='HighchartR Drilldown'}
+```{r drilldown2-plot, fig.cap='HighchartR Drilldown', fig.width=12, fig.height=8, fig.retina=3, out.width = "100%"}
 # Tooltip
 x <- c("Name", "Score", "Percentile", "Range")
 y <- c("{point.name}", "{point.y}", "{point.y2}", "{point.range}")
@@ -602,47 +631,47 @@ tt <- tooltip_table(x, y)
 
 ## Create drilldown bar plot zscores
 plot2 <-
-  highcharter::highchart() |>
-  highcharter::hc_title(
+  highchart() %>%
+  hc_title(
     text = patient,
     style = list(
-      fontSize = "15px")) |>
-  highcharter::hc_add_series(
+      fontSize = "15px")) %>%
+  hc_add_series(
     nbhv_level1_status,
     type = "bar",
     name = "Behavioral Rating Scales",
-    highcharter::hcaes(x = name, y = y)) |>
-  highcharter::hc_xAxis(
+    hcaes(x = name, y = y)) %>%
+  hc_xAxis(
     type = "category",
     title = list(
       text = "Domain"),
-    categories = nbhv_level1_status$name) |>
-  highcharter::hc_yAxis(
+    categories = .$name) %>%
+  hc_yAxis(
     title = list(
       text = "Z-Score (M = 0, SD = 1)"),
     labels = list(
-      format = "{value}")) |>
-  highcharter::hc_tooltip(
+      format = "{value}")) %>%
+  hc_tooltip(
     pointFormat = tt,
     useHTML = TRUE,
-    valueDecimals = 1) |>
-  highcharter::hc_plotOptions(
+    valueDecimals = 1) %>%
+  hc_plotOptions(
     series = list(
       colorByPoint = TRUE,
       allowPointSelect = TRUE,
-      dataLabels = TRUE)) |>
-  highcharter::hc_drilldown(
+      dataLabels = TRUE)) %>%
+  hc_drilldown(
     allowPointDrilldown = TRUE,
     series = c(
       nbhv_level2_drill,
       nbhv_level3_drill,
-      nbhv_level4_drill)) |>
-  highcharter::hc_colorAxis(
+      nbhv_level4_drill)) %>%
+  hc_colorAxis(
     minColor = "red",
-    maxColor = "blue") |>
-  highcharter::hc_add_theme(
-    theme_merge) |>
-  highcharter::hc_chart(
+    maxColor = "blue") %>%
+  hc_add_theme(
+    thm_merge) %>%
+  hc_chart(
     style = list(
       fontFamily = "Cabin"),
     backgroundColor = list("gray")
