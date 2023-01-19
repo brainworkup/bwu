@@ -334,9 +334,9 @@ ncog_level4_drill <-
 ```
 
 ```{r theme-merge1}
-theme_merge <- highchater::hc_theme_merge(
-  highchater::hc_theme_monokai(),
-  highchater::hc_theme_darkunica()
+theme_merge <- highcharter::hc_theme_merge(
+  highcharter::hc_theme_monokai(),
+  highcharter::hc_theme_darkunica()
 )
 ```
 
@@ -350,21 +350,21 @@ tt <- tooltip_table(x, y)
 plot1 <-
   highcharter::highchart() |>
   highcharter::hc_title(text = patient,
-                        style = list(fontSize = "15px")) |>
+    style = list(fontSize = "15px")) |>
   highcharter::hc_add_series(ncog_level1_status,
-                             type = "bar",
-                             name = "Neuropsychological Test Scores",
-                             hcaes(x = name, y = y)) |>
+    type = "bar",
+    name = "Neuropsychological Test Scores",
+    hcaes(x = name, y = y)) |>
   highcharter::hc_xAxis(
     type = "category",
     title = list(text = "Domain"),
-    categories = .$name
+    categories = ncog_level1_status$name
   ) |>
   highcharter::hc_yAxis(title = list(text = "Z-Score (M = 0, SD = 1)"),
-                        labels = list(format = "{value}")) |>
+    labels = list(format = "{value}")) |>
   highcharter::hc_tooltip(pointFormat = tt,
-                          useHTML = TRUE,
-                          valueDecimals = 1) |>
+    useHTML = TRUE,
+    valueDecimals = 1) |>
   highcharter::hc_plotOptions(series = list(
     colorByPoint = TRUE,
     allowPointSelect = TRUE,
@@ -373,14 +373,14 @@ plot1 <-
   highcharter::hc_drilldown(
     allowPointDrilldown = TRUE,
     series = c(ncog_level2_drill,
-               ncog_level3_drill,
-               ncog_level4_drill)
+      ncog_level3_drill,
+      ncog_level4_drill)
   ) |>
   highcharter::hc_colorAxis(minColor = "red",
-                            maxColor = "blue") |>
+    maxColor = "blue") |>
   highcharter::hc_add_theme(theme_merge) |>
   highcharter::hc_chart(style = list(fontFamily = "Cabin"),
-                        backgroundColor = list("gray"))
+    backgroundColor = list("gray"))
 plot1
 ```
 
@@ -588,9 +588,9 @@ nbhv_level4_drill <-
 ```
 
 ```{r theme-merge2}
-theme_merge <- highchater::hc_theme_merge(
-  highchater::hc_theme_monokai(),
-  highchater::hc_theme_darkunica()
+theme_merge <- highcharter::hc_theme_merge(
+  highcharter::hc_theme_monokai(),
+  highcharter::hc_theme_darkunica()
 )
 ```
 
@@ -602,47 +602,47 @@ tt <- tooltip_table(x, y)
 
 ## Create drilldown bar plot zscores
 plot2 <-
-  highchater::highchart() |>
-  highchater::hc_title(
+  highcharter::highchart() |>
+  highcharter::hc_title(
     text = patient,
     style = list(
       fontSize = "15px")) |>
-  highchater::hc_add_series(
+  highcharter::hc_add_series(
     nbhv_level1_status,
     type = "bar",
     name = "Behavioral Rating Scales",
-    highchater::hcaes(x = name, y = y)) |>
-  highchater::hc_xAxis(
+    highcharter::hcaes(x = name, y = y)) |>
+  highcharter::hc_xAxis(
     type = "category",
     title = list(
       text = "Domain"),
-    categories = .$name) |>
-  highchater::hc_yAxis(
+    categories = nbhv_level1_status$name) |>
+  highcharter::hc_yAxis(
     title = list(
       text = "Z-Score (M = 0, SD = 1)"),
     labels = list(
       format = "{value}")) |>
-  highchater::hc_tooltip(
+  highcharter::hc_tooltip(
     pointFormat = tt,
     useHTML = TRUE,
     valueDecimals = 1) |>
-  highchater::hc_plotOptions(
+  highcharter::hc_plotOptions(
     series = list(
       colorByPoint = TRUE,
       allowPointSelect = TRUE,
       dataLabels = TRUE)) |>
-  highchater::hc_drilldown(
+  highcharter::hc_drilldown(
     allowPointDrilldown = TRUE,
     series = c(
       nbhv_level2_drill,
       nbhv_level3_drill,
       nbhv_level4_drill)) |>
-  highchater::hc_colorAxis(
+  highcharter::hc_colorAxis(
     minColor = "red",
     maxColor = "blue") |>
-  highchater::hc_add_theme(
+  highcharter::hc_add_theme(
     theme_merge) |>
-  highchater::hc_chart(
+  highcharter::hc_chart(
     style = list(
       fontFamily = "Cabin"),
     backgroundColor = list("gray")

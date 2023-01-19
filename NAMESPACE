@@ -3,6 +3,7 @@
 export("%>%")
 export(age)
 export(bwu_import_index_score)
+export(bwu_read_cognition_index_scores)
 export(ci)
 export(compute_pctile_range)
 export(dotplot)

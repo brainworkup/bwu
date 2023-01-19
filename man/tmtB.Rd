@@ -4,10 +4,10 @@
 \alias{tmtB}
 \title{Trails B Standardized Score}
 \usage{
-tmtB(rawScore, age)
+tmtB(raw_score, age)
 }
 \arguments{
-\item{rawScore}{Patients raw score (seconds) on Trails B}
+\item{raw_score}{Patients raw score (seconds) on Trails B}
 
 \item{age}{Patient's age}
 }
@@ -18,5 +18,5 @@ A tscore of TMTB
 Trails B Standardized Score
 }
 \examples{
-tmt_b_tscore <- tmtB(rawScore = 75, age = 21)
+tmt_b_tscore <- tmtB(raw_score = 75, age = 21)
 }

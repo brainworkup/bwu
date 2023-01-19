@@ -4,10 +4,10 @@
 \alias{tmtA}
 \title{Trails A Standardized Score}
 \usage{
-tmtA(rawScore, age)
+tmtA(raw_score, age)
 }
 \arguments{
-\item{rawScore}{Patients raw score}
+\item{raw_score}{Patients raw score}
 
 \item{age}{Patients age}
 }
@@ -18,5 +18,5 @@ A printed score
 Trails A Standardized Score
 }
 \examples{
-tmt_a_tscore <- tmtA(rawScore = 25, age = 21)
+tmt_a_tscore <- tmtA(raw_score = 25, age = 21)
 }
