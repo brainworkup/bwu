@@ -548,7 +548,7 @@ df3$ci_95 <- bwu::ci(
 )
 ```
 
-## Write out CSV
+## Write out CSV and XLSX
 
 ```{r writeout-scale}
 table <- df3
@@ -579,4 +579,5 @@ tidytable::fwrite(
   here::here(patient, "csv", paste0(test, ".csv")),
   append = TRUE
 )
+# need to convert csv to excel
 ```

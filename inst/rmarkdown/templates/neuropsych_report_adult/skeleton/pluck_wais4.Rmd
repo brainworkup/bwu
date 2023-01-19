@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from WAIS-IV"
 params:
-  patient: Biggie
+  patient: "Biggie"
   test:
     label: "Test"
     value: wais4
@@ -19,7 +19,7 @@ params:
       - WAIS-IV
       - WISC-V
   version:
-    label: "Full (8 subtest) or Brief (4 subtest) version"
+    label: "Brief (4 subtest) or Full (8 subtest) version"
     value: brief
     input: select
     multiple: no

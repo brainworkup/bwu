@@ -4,6 +4,11 @@ params:
   patient: "Biggie"
   test: pai
   test_name: PAI
+  file:
+    label: "No file selected"
+    value: file
+    input: file
+  pages: [9:13]
 output:
   rmdformats::robobook:
     highlight: kate
@@ -38,12 +43,32 @@ library(tibble)
 library(tidyr)
 library(vroom)
 library(tidytable)
+library(pdftools)
 ```
 
 ## Patient
 
 ```{r patient}
 patient <- params$patient
+```
+
+## Test
+
+```{r test}
+test <- params$test
+```
+
+## Test Name
+
+```{r testname}
+test_name <- params$test_name
+```
+
+## Upload/attach PDF
+
+```{r file}
+# file <- file.choose()
+file <- params$file
 ```
 
 ## Export PAI CSV file from PARiConnect
@@ -412,8 +437,10 @@ readr::write_csv(pai, here::here(patient, "csv", "pai.csv"), col_names = TRUE, n
 
 ```{r text}
 file <- file.choose()
+patient <- "AJ"
+pages <- params$pages
 
-pai_text <- tabulizer::extract_text(file, pages = 9:14)
+pai_text <- pdftools::pdf_text(file, pages)
 
 cat(pai_text, sep = "\n")
 

@@ -554,7 +554,7 @@ table6 <-
   table6 |>
   tidytable::mutate(
     domain = tidytable::case_when(
-      scale == "Word Generation" ~ "Verbal/Language",
+      scale == "Word Generation" ~ "Attention/Executive",
       TRUE ~ as.character(domain)
     )
   )
