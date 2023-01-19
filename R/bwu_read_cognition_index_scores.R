@@ -56,8 +56,8 @@ bwu_read_cognition_index_scores <- function(patient) {
         scale == "Cognitive Proficiency" ~ "Intelligence/General Ability",
         scale == "Crystallized Knowledge" ~ "Intelligence/General Ability",
         scale == "Fluid Reasoning" ~ "Intelligence/General Ability",
-        scale == "Working Memory" ~ "Intelligence/General Ability",
-        scale == "Processing Speed" ~ "Intelligence/General Ability",
+        scale == "Working Memory" ~ "Attention/Executive",
+        scale == "Processing Speed" ~ "Attention/Executive",
         TRUE ~ as.character(domain)
       )
     )
@@ -69,11 +69,11 @@ bwu_read_cognition_index_scores <- function(patient) {
     dplyr::mutate(
       subdomain = dplyr::case_when(
         scale == "General Ability" ~ "General Intelligence",
-        scale == "Cognitive Proficiency" ~ "Attention/Executive",
+        scale == "Cognitive Proficiency" ~ "Cognitive Proficiency",
         scale == "Crystallized Knowledge" ~ "Crystallized Intelligence",
         scale == "Fluid Reasoning" ~ "Fluid Intelligence",
-        scale == "Working Memory" ~ "Attention/Executive",
-        scale == "Processing Speed" ~ "Attention/Executive",
+        scale == "Working Memory" ~ "Working Memory",
+        scale == "Processing Speed" ~ "Processing Speed",
         TRUE ~ as.character(subdomain)
       )
     )
@@ -85,11 +85,11 @@ bwu_read_cognition_index_scores <- function(patient) {
     dplyr::mutate(
       narrow = dplyr::case_when(
         scale == "General Ability" ~ "General Intelligence",
-        scale == "Cognitive Proficiency" ~ "Attention/Executive",
+        scale == "Cognitive Proficiency" ~ "Cognitive Proficiency",
         scale == "Crystallized Knowledge" ~ "Verbal Comprehension",
         scale == "Fluid Reasoning" ~ "Perceptual Reasoning",
-        scale == "Working Memory" ~ "Working Memory",
-        scale == "Processing Speed" ~ "Cognitive Efficiency",
+        scale == "Working Memory" ~ "Working Memory Index",
+        scale == "Processing Speed" ~ "Processing Speed Index",
         TRUE ~ as.character(narrow)
       )
     )
