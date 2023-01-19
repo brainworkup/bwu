@@ -97,46 +97,52 @@ params:
       - Prefer not to answer
   he_she:
     label: "he/she Pronoun:"
-    value: he
+    value: they
     input: radio
     choices:
       - he
       - she
+      - they
   his_her:
     label: "his/her Pronoun:"
-    value: his
+    value: their
     input: radio
     choices:
       - his
       - her
+      - their
   him_her:
     label: "him/her Pronoun:"
-    value: him
+    value: them
     input: radio
     choices:
       - him
       - her
+      - them
   he_she_cap:
     label: "He/She Pronoun:"
-    value: He
+    value: They
     input: radio
     choices:
       - He
       - She
+      - They
   his_her_cap:
     label: "His/Her Pronoun:"
-    value: His
+    value: Their
     input: radio
     choices:
       - His
       - Her
+      - Their
   him_her_cap:
     label: "Him/Her Pronoun:"
-    value: Him
+    value: Their
     input: radio
     choices:
       - Him
       - Her
+      - Their
   race:
     label: "Race/Ethnicity:"
     value: White/Caucasian
