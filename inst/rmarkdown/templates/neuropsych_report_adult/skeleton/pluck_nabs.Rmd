@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from NAB Screener"
 params:
-  patient: Julie
+  patient: Biggie
   test:
     label: "Test"
     value: nabs
@@ -108,7 +108,6 @@ knitr::opts_chunk$set(
   error = TRUE
 )
 library(bwu)
-library(tidytable)
 library(hablar)
 library(here)
 library(magrittr)
@@ -121,7 +120,7 @@ library(tabulizer)
 library(tabulizerjars)
 library(tibble)
 library(tidyr)
-library(vroom)
+library(tidytable)
 ```
 
 ## Patient

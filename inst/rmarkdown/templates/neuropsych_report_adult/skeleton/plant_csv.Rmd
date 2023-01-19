@@ -10,16 +10,16 @@ params:
     value: ""
     input: radio
     choices:
-      - D-KEFS Color-Word Interference
-      - Grooved Pegboard
-      - KTEA-3
-      - NAB
-      - NIH EXAMINER
-      - Rey Complex Figure
-      - Test of Premorbid Functioning
-      - Trail Making Test
-      - WMS-IV
-      - Cognitive Estimation Test
+      - "D-KEFS Color-Word Interference"
+      - "Grooved Pegboard"
+      - "KTEA-3"
+      - "NAB"
+      - "NIH EXAMINER"
+      - "Rey Complex Figure"
+      - "Test of Premorbid Functioning"
+      - "Trail Making Test"
+      - "WMS-IV"
+      - "Cognitive Estimation Test"
   test:
     label: "Test/Measure File Name:"
     value: ""
@@ -40,28 +40,28 @@ params:
     value: ""
     input: select
     choices:
-      - Unstructured Task
-      - Letter Fluency
-      - Category Fluency
-      - D-KEFS Color Naming
-      - D-KEFS Word Reading
-      - D-KEFS Inhibition
-      - D-KEFS Switching
-      - D-KEFS Inhibition Total Errors
-      - D-KEFS Switching Total Errors
-      - Decoding Fluency
-      - Dominant Hand
-      - Nondominant Hand
-      - Judgment
-      - Nonsense Word Decoding
-      - Reading Comprehension
-      - ROCFT Copy
-      - ROCFT Delayed Recall
-      - Symbol Span
-      - TOPF Standard Score
-      - Trails A
-      - Trails B
-      - Deviation Score
+      - "Unstructured Task"
+      - "Letter Fluency"
+      - "Category Fluency"
+      - "D-KEFS Color Naming"
+      - "D-KEFS Word Reading"
+      - "D-KEFS Inhibition"
+      - "D-KEFS Switching"
+      - "D-KEFS Inhibition Total Errors"
+      - "D-KEFS Switching Total Errors"
+      - "Decoding Fluency"
+      - "Dominant Hand"
+      - "Nondominant Hand"
+      - "Judgment"
+      - "Nonsense Word Decoding"
+      - "Reading Comprehension"
+      - "ROCFT Copy"
+      - "ROCFT Delayed Recall"
+      - "Symbol Span"
+      - "TOPF Standard Score"
+      - "Trails A"
+      - "Trails B"
+      - "Deviation Score"
   raw_score:
     label: "Raw score:"
     value: 10
@@ -84,65 +84,65 @@ params:
     value: ""
     input: radio
     choices:
-      - Intelligence/General Ability
-      - Academic Skills
-      - Verbal/Language
-      - Visual Perception/Construction
-      - Attention/Executive
-      - Memory
-      - Motor
-      - Social Cognition
-      - ADHD/Executive Functioning
-      - Behavioral/Emotional/Social
-      - Effort/Validity
+      - "Intelligence/General Ability"
+      - "Academic Skills"
+      - "Verbal/Language"
+      - "Visual Perception/Construction"
+      - "Attention/Executive"
+      - "Memory"
+      - "Motor"
+      - "Social Cognition"
+      - "ADHD/Executive Functioning"
+      - "Behavioral/Emotional/Social"
+      - "Effort/Validity"
   subdomain:
     label: "Subdomain:"
     value: ""
     input: radio
     choices:
-      - Cognitive Control
-      - Cognitive Flexibility
-      - Concept Formation
-      - Crystallized Intelligence
-      - Delayed Recall
-      - Judgment
-      - Everyday Executive
-      - Fine Motor Dexterity
-      - Fluency
-      - Planning
-      - Processing Speed
-      - Reading
-      - Response Monitoring
-      - Retrieval Fluency
-      - Working Memory
+      - "Cognitive Control"
+      - "Cognitive Flexibility"
+      - "Concept Formation"
+      - "Crystallized Intelligence"
+      - "Delayed Recall"
+      - "Judgment"
+      - "Everyday Executive"
+      - "Fine Motor Dexterity"
+      - "Fluency"
+      - "Planning"
+      - "Processing Speed"
+      - "Reading"
+      - "Response Monitoring"
+      - "Retrieval Fluency"
+      - "Working Memory"
   narrow:
     label: "Narrow subdomain:"
     value: ""
     input: radio
     choices:
-      - Abstract Reasoning
-      - Cognitive Efficiency
-      - Decision-Making
-      - Dominant Hand Dexterity
-      - Inhibition
-      - Judgment
-      - Naming Facility
-      - Nondominant Hand Dexterity
-      - Nonverbal Working Memory
-      - Perceptual Organization
-      - Phonemic Fluency
-      - Planning
-      - Premorbid Ability
-      - Problem Solving
-      - Psychomotor Speed
-      - Reading Comprehension
-      - Reading Decoding
-      - Reading Speed
-      - Response Monitoring
-      - Semantic Fluency
-      - Set-Shifting
-      - Visual Memory
-      - Strategic Planning
+      - "Abstract Reasoning"
+      - "Cognitive Efficiency"
+      - "Decision-Making"
+      - "Dominant Hand Dexterity"
+      - "Inhibition"
+      - "Judgment"
+      - "Naming Facility"
+      - "Nondominant Hand Dexterity"
+      - "Nonverbal Working Memory"
+      - "Perceptual Organization"
+      - "Phonemic Fluency"
+      - "Planning"
+      - "Premorbid Ability"
+      - "Problem Solving"
+      - "Psychomotor Speed"
+      - "Reading Comprehension"
+      - "Reading Decoding"
+      - "Reading Speed"
+      - "Response Monitoring"
+      - "Semantic Fluency"
+      - "Set-Shifting"
+      - "Visual Memory"
+      - "Strategic Planning"
   pass:
     label: "PASS:"
     value: ""
