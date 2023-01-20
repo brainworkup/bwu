@@ -1,5 +1,6 @@
 ---
+title: "BrainWorkUp"
 format: html
 ---
 
-{{< include README.Rmd >}}
+{{< include bwu.qmd >}}
