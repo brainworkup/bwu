@@ -1,7 +1,71 @@
 ---
-title: "bwu"
+output: github_document
 ---
 
-## Quarto
+<!-- README.md is generated from README.Rmd. Please edit that file -->
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+<img src="hex-bwu.png" width="20%"/>
+
+# bwu
+
+<!-- badges: start -->
+
+[![R-CMD-check](https://github.com/brainworkup/bwu/actions/workflows/r.yml/badge.svg)](https://github.com/brainworkup/bwu/actions/workflows/r.yml)
+
+<!-- badges: end -->
+
+The goal of bwu is to ...
+
+## Installation
+
+You can install the development version of brainworkupr like so:
+
+``` r
+devtools::install_github("brainworkup/bwu")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+library(bwu)
+## basic example code
+```
+
+What is special about using `README.Rmd` instead of just `README.md`?
+You can include R chunks like so:
+
+```{r dots}
+summary(dots)
+```
+
+You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date.
+`devtools::build_readme()` is handy for this.
+You could also use GitHub Actions to re-render `README.Rmd` every time you push.
+An example workflow can be found here: <https://github.com/r-lib/actions/tree/v1/examples>.
+
+You can also embed plots, for example:
+
+You can also embed plots, for example:
+
+------------------------------------------------------------------------
+
+<img src="man/figures/README-wm-1.svg" width="50%" align="center/"/>
+
+------------------------------------------------------------------------
+
+<img src="man/figures/README-unnamed-chunk-4-1.gif" width="50%" align="center/"/>
+
+------------------------------------------------------------------------
+
+In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
