@@ -2,11 +2,11 @@ project:
   title: "bwu"
   type: website
   output-dir: docs
-  execute-dir: file # project
+  execute-dir: project #file # project
 
   render:
     - index.qmd
-    # - README.Rmd
+    - README.Rmd
     # - _00_abstract.qmd
     # - _01_intro.qmd
     # - _02_methods.qmd
