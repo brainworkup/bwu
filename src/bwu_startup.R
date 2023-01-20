@@ -23,6 +23,8 @@ update.packages(
 usethis::use_build_ignore("_quarto.yml")
 usethis::use_build_ignore("src/")
 
+devtools::build_readme()
+
 ## renv
 
 renv::update()
