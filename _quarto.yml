@@ -2,7 +2,7 @@ project:
   title: "bwu"
   type: website
   output-dir: docs
-  execute-dir: project #file # project
+  execute-dir: file #project #file # project
 
   render:
     - index.qmd
