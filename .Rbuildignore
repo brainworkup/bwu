@@ -43,3 +43,9 @@
 ^\.lintr$
 ^\.luarc\.json$
 ^\.trunk$
+^pkg\.lock$
+^\.pak$
+^builds\.archived$
+
+^_quarto\.yml$
+^src$

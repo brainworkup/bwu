@@ -77,3 +77,9 @@ renv/.DS_Store
 bwu.builds/
 
 /.luarc.json
+
+/.quarto/
+
+# pak
+.pak/
+.builds.archived

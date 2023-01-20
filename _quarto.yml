@@ -1,0 +1,28 @@
+project:
+  title: "bwu"
+  type: website
+  output-dir: docs
+  execute-dir: file # project
+
+  render:
+    - index.qmd
+    - README.Rmd
+    # - _00_abstract.qmd
+    # - _01_intro.qmd
+    # - _02_methods.qmd
+    # - _03_results.qmd
+    # - _04_discussion.qmd
+    # - _05_acknowledgements.qmd
+    # - _06_references.qmd
+    # - _colophon.qmd
+    # - "!notes/"
+
+website:
+  reader-mode: true
+  site-url: https://brainworkup.github.io/bwu/
+  repo-url: https://github.com/brainworkup/bwu/
+  repo-actions: [edit, issue]
+  search: true
+
+execute:
+  freeze: auto

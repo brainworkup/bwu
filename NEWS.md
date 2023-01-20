@@ -152,3 +152,9 @@ output:
 ## bwu 0.0.1.9001
 
 -   Added TMT scoring function
+
+## bwu 0.0.1.9002
+
+-   switched to pak for package management
+-   creating a new quarto site
+

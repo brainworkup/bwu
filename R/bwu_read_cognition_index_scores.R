@@ -160,6 +160,12 @@ bwu_read_cognition_index_scores <- function(patient) {
         scale ==
           "Fluid Reasoning" ~
           "An estimate of fluid intelligence (*G*f)",
+        scale ==
+          "Working Memory" ~
+          "A composite estimate of short-term working memory^[(ref:working-memory)]",
+        scale ==
+          "Processing Speed" ~
+          "A composite estimate of complex processing speed and efficiency^[(ref:processing-speed)]",
         TRUE ~ as.character(description)
       )
     )
@@ -182,6 +188,11 @@ bwu_read_cognition_index_scores <- function(patient) {
         scale == "Fluid Reasoning" ~ glue::glue(
           "{description} was classified as {range}.\n"
         ),
+        scale == "Working Memory" ~ glue::glue("{description} fell in the {range} range and was and a relative strength|weakness.\n"
+        ),
+        scale == "Processing Speed" ~ glue::glue(
+          "{description} was {range} and a relative strength|weakness.\n"
+        ),
         TRUE ~ as.character(result)
       )
     )
@@ -193,5 +204,5 @@ bwu_read_cognition_index_scores <- function(patient) {
 
   ## Write out CSV
 
-  readr::write_csv(g, here::here(patient, "csv", "g.csv"), append = FALSE)
+  readr::write_csv(g, here::here(patient, "csv", "g.csv"), append = FALSE, col_names = TRUE)
 }
