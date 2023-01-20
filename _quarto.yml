@@ -7,6 +7,8 @@ project:
   render:
     - index.qmd
     - README.Rmd
+    - "!README.md"
+    - "!README.html"
     # - _00_abstract.qmd
     # - _01_intro.qmd
     # - _02_methods.qmd
