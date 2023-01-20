@@ -83,3 +83,4 @@ bwu.builds/
 # pak
 .pak/
 .builds.archived
+src/
