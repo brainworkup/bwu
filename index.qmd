@@ -1,5 +1,4 @@
 ---
-title: "BrainWorkUp"
 format: html
 ---
 
