@@ -10,7 +10,7 @@
 
 <!-- badges: end -->
 
-The goal of bwu is to …
+The goal of `bwu` is to faciliatte neuropsychological evaluation …
 
 ## Installation
 
