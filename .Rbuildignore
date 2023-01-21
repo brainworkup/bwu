@@ -49,3 +49,8 @@
 
 ^_quarto\.yml$
 ^src$
+^_freeze$
+^README_files$
+^bwu\.qmd$
+^index\.qmd$
+^README\.html$
