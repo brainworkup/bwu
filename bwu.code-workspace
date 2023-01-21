@@ -10,17 +10,13 @@
     "files.autoSave": "onFocusChange",
     "workbench.colorCustomizations": {
       "activityBar.activeBackground": "#d1f0ee",
-      "activityBar.activeBorder": "#d387d8",
       "activityBar.background": "#d1f0ee",
       "activityBar.foreground": "#000000",
       "activityBar.inactiveForeground": "#00000099",
       "activityBarBadge.background": "#d387d8",
       "activityBarBadge.foreground": "#000000",
-      "[Hyper Dracula]": {
-        "scrollbar.shadow": "#0d0d0d"
-      },
-      "tab.activeBorder": "#d1f0ee",
-      "sideBar.border": "#d1f0ee"
+      "sideBar.border": "#d1f0ee",
+      "tab.activeBorder": "#d1f0ee"
     },
     "peacock.color": "#abe3df",
     "makefile.extensionOutputFolder": "./.vscode",
