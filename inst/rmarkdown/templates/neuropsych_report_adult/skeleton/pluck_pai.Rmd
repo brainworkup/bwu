@@ -197,7 +197,7 @@ table <- bwu::gpluck_make_columns(
   ci_95 = "",
   test = params$test,
   test_name = params$test_name,
-  domain = "Behavioral/Emotional/Social",
+  domain = "Personality/Emotional/Social",
   subdomain = "",
   narrow = "",
   pass = "",

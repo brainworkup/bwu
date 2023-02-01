@@ -214,8 +214,8 @@ table <- bwu::gpluck_make_columns(
   ci_95 = "",
   test = params$test,
   test_name = params$test_name,
-  domain = "Behavioral/Emotional/Social",
-  subdomain = "Attention/Executive",
+  domain = "Executive Functioning",
+  subdomain = "",
   narrow = "",
   pass = "",
   verbal = "",
@@ -233,13 +233,13 @@ table <- bwu::gpluck_make_columns(
 table <- bwu::gpluck_make_score_ranges(table = table, test_type = "npsych_test")
 ```
 
-## Narrow subdomains
+## Subdomains
 
-```{r narrow}
+```{r subdomain}
 table <-
   table |>
   tidytable::mutate(
-    narrow = tidytable::case_when(
+    subdomain = tidytable::case_when(
       scale == "Full Scale" ~ "Full Scale",
       scale == "Attention" ~ "Attention",
       scale == "Emotion Regulation" ~ "Emotion Regulation",
@@ -250,9 +250,51 @@ table <-
       scale == "Planning" ~ "Planning",
       scale == "Self-Monitoring" ~ "Self-Monitoring",
       scale == "Working Memory" ~ "Working Memory",
-      TRUE ~ as.character(narrow)
+      TRUE ~ as.character(subdomain)
     )
   )
+```
+
+## Narrow subdomains
+
+```{r narrow}
+if (params$test == "cefi_sr") {
+  table <-
+    table |>
+    tidytable::mutate(
+      narrow = tidytable::case_when(
+        scale == "Full Scale" ~ "Full Scale",
+        scale == "Attention" ~ "Attention",
+        scale == "Emotion Regulation" ~ "Emotion Regulation",
+        scale == "Flexibility" ~ "Flexibility",
+        scale == "Inhibitory Control" ~ "Inhibitory Control",
+        scale == "Initiation" ~ "Initiation",
+        scale == "Organization" ~ "Organization",
+        scale == "Planning" ~ "Planning",
+        scale == "Self-Monitoring" ~ "Self-Monitoring",
+        scale == "Working Memory" ~ "Working Memory",
+        TRUE ~ as.character(narrow)
+      )
+    )
+} else {
+  table <-
+    table |>
+    tidytable::mutate(
+      narrow = tidytable::case_when(
+        scale == "Full Scale" ~ "Full Scale (OR)",
+        scale == "Attention" ~ "Attention (OR)",
+        scale == "Emotion Regulation" ~ "Emotion Regulation (OR)",
+        scale == "Flexibility" ~ "Flexibility (OR)",
+        scale == "Inhibitory Control" ~ "Inhibitory Control (OR)",
+        scale == "Initiation" ~ "Initiation (OR)",
+        scale == "Organization" ~ "Organization (OR)",
+        scale == "Planning" ~ "Planning",
+        scale == "Self-Monitoring" ~ "Self-Monitoring (OR)",
+        scale == "Working Memory" ~ "Working Memory (OR)",
+        TRUE ~ as.character(narrow)
+      )
+    )
+}
 ```
 
 ## Scale descriptions

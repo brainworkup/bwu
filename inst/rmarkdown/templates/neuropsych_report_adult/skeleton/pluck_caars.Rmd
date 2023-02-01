@@ -205,8 +205,8 @@ table <- bwu::gpluck_make_columns(
   ci_95 = "",
   test = params$test,
   test_name = params$test_name,
-  domain = "Behavioral/Emotional/Social",
-  subdomain = "Attention/Executive",
+  domain = "ADHD",
+  subdomain = "",
   narrow = "",
   pass = "",
   verbal = "",
@@ -253,19 +253,6 @@ table <-
   table |>
   tidytable::mutate(
     subdomain = tidytable::case_when(
-      scale == "Inconsistency Index" ~ "Effort/Validity",
-      TRUE ~ as.character(subdomain)
-    )
-  )
-```
-
-## Narrow subdomains
-
-```{r narrow}
-table <-
-  table |>
-  tidytable::mutate(
-    narrow = tidytable::case_when(
       scale ==
         "Inattention/Memory Problems" ~ "Inattention/Memory Problems",
       scale ==
@@ -284,9 +271,65 @@ table <-
         "ADHD Index" ~ "ADHD Index",
       scale ==
         "Inconsistency Index" ~ "Effort/Validity",
-      TRUE ~ as.character(narrow)
+      TRUE ~ as.character(subdomain)
     )
   )
+```
+
+## Narrow subdomains
+
+```{r narrow}
+if (params$test == "caars_sr") {
+  table <-
+    table |>
+    tidytable::mutate(
+      narrow = tidytable::case_when(
+        scale ==
+          "Inattention/Memory Problems" ~ "Inattention/Memory Problems",
+        scale ==
+          "Hyperactivity/Restlessness" ~ "Hyperactivity/Restlessness",
+        scale ==
+          "Impulsivity/Emotional Lability" ~ "Impulsivity/Emotional Lability",
+        scale ==
+          "Problems with Self-Concept" ~ "Problems with Self-Concept",
+        scale ==
+          "DSM-5 Inattentive Symptoms" ~ "DSM-5 Inattentive Symptoms",
+        scale ==
+          "DSM-5 Hyperactive-Impulsive Symptoms" ~ "DSM-5 Hyperactive-Impulsive Symptoms",
+        scale ==
+          "DSM-5 ADHD Symptoms Total" ~ "DSM-5 ADHD Symptoms Total",
+        scale ==
+          "ADHD Index" ~ "ADHD Index",
+        scale ==
+          "Inconsistency Index" ~ "Effort/Validity",
+        TRUE ~ as.character(narrow)
+      )
+    )
+} else {
+  table <-
+    table |>
+    tidytable::mutate(
+      narrow = tidytable::case_when(
+        scale ==
+          "Inattention/Memory Problems" ~ "Inattention/Memory Problems (OR)",
+        scale ==
+          "Hyperactivity/Restlessness" ~ "Hyperactivity/Restlessness (OR)",
+        scale ==
+          "Impulsivity/Emotional Lability" ~ "Impulsivity/Emotional Lability (OR)",
+        scale ==
+          "Problems with Self-Concept" ~ "Problems with Self-Concept (OR)",
+        scale ==
+          "DSM-5 Inattentive Symptoms" ~ "DSM-5 Inattentive Symptoms (OR)",
+        scale ==
+          "DSM-5 Hyperactive-Impulsive Symptoms" ~ "DSM-5 Hyperactive-Impulsive Symptoms (OR)",
+        scale ==
+          "DSM-5 ADHD Symptoms Total" ~ "DSM-5 ADHD Symptoms Total (OR)",
+        scale ==
+          "ADHD Index" ~ "ADHD Index (OR)",
+        TRUE ~ as.character(narrow)
+      )
+    )
+}
 ```
 
 ## Scale descriptions

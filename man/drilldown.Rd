@@ -4,12 +4,12 @@
 \alias{drilldown}
 \title{Drilldown on neuropsych domains.}
 \usage{
-drilldown(data, patient, ...)
+drilldown(data, patient = NULL, ...)
 }
 \arguments{
 \item{data}{Dataset to use.}
 
-\item{patient}{Patient initials, 4 letters.}
+\item{patient}{Patient's first name.}
 
 \item{...}{Numeric, complex, or logical vectors.}
 }
