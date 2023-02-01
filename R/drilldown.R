@@ -5,13 +5,13 @@
 #' \code{drilldown} Creates a highcharter drilldown interactive plot.
 #'
 #' @param data Dataset to use.
-#' @param patient Patient initials, 4 letters.
+#' @param patient Patient's first name.
 #' @param ... Numeric, complex, or logical vectors.
 #'
 #' @return A drilldown plot
 #'
 #' @export
-drilldown <- function(data, patient, ...) {
+drilldown <- function(data, patient = NULL, ...) {
 
   # Create 4 levels of dataframes for drilldown -----------------------
   ## Level 1 -------------------------------------------------------

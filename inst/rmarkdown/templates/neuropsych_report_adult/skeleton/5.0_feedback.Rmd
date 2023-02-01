@@ -35,6 +35,7 @@ patient <- rmarkdown::metadata$patient
 ## load libraries
 library(bwu)
 library(crosstalk)
+library(dplyr)
 library(gifski)
 library(highcharter)
 library(htmlwidgets)
@@ -46,7 +47,6 @@ library(revealjs)
 library(rmarkdown)
 library(svglite)
 library(tibble)
-library(tidyverse)
 library(vroom)
 library(widgetframe)
 library(xaringan)
@@ -56,9 +56,9 @@ library(xaringanthemer)
 options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(
   fig.path = "figs/",
-  # fig.width = 12,
-  # fig.height = 4,
-  # fig.asp = .5,
+  fig.width = 12,
+  fig.height = 4,
+  fig.asp = .5,
   fig.retina = 3,
   out.width = "100%",
   fig.showtext = TRUE,
@@ -114,10 +114,10 @@ neuropsych <-
   vroom::vroom(here::here(patient, "neuropsych.csv"), show_col_types = FALSE)
 neurocog <-
   vroom::vroom(here::here(patient, "neurocog.csv"), show_col_types = FALSE) |>
-  tidytable::filter(domain != "Effort/Validity")
+  dplyr::filter(domain != "Effort/Validity")
 neurobehav <-
   vroom::vroom(here::here(patient, "neurobehav.csv"), show_col_types = FALSE) |>
-  tidytable::filter(domain != "Effort/Validity")
+  dplyr::filter(domain != "Effort/Validity")
 ```
 
 ```{r drilldown-level1}
@@ -125,16 +125,15 @@ neurobehav <-
 ## Domain scores
 # 1. create mean z-scores for domain
 ncog1 <- neurocog %>%
-  tidytable::group_by(domain) %>%
-  tidytable::summarize(zMean = mean(z),
-    zPct = mean(percentile)) %>%
-  tidytable::mutate(range = NA)
+  dplyr::group_by(domain) %>%
+  dplyr::summarize(zMean = mean(z), zPct = mean(percentile)) %>%
+  dplyr::mutate(range = NA)
 ncog1$zMean <- round(ncog1$zMean, 2L)
 ncog1$zPct <- round(ncog1$zPct, 0L)
 ncog1 <-
   ncog1 %>%
-  tidytable::mutate(
-    range = tidytable::case_when(
+  dplyr::mutate(
+    range = dplyr::case_when(
       zPct >= 98 ~ "Exceptionally High",
       zPct %in% 91:97 ~ "Above Average",
       zPct %in% 75:90 ~ "High Average",
@@ -170,18 +169,17 @@ ncog_level2_drill <-
     # same as above
     ncog2 <-
       ncog2 %>%
-      group_by(subdomain) %>%
-      summarize(zMean = mean(z),
-        zPct = mean(percentile)) %>%
-      mutate(range = NA)
+      dplyr::group_by(subdomain) %>%
+      dplyr::summarize(zMean = mean(z), zPct = mean(percentile)) %>%
+      dplyr::mutate(range = NA)
 
     # round z-score to 1 decimal
     ncog2$zMean <- round(ncog2$zMean, 2L)
     ncog2$zPct <- round(ncog2$zPct, 0L)
     ncog2 <-
       ncog2 %>%
-      tidytable::mutate(
-        range = tidytable::case_when(
+      dplyr::mutate(
+        range = dplyr::case_when(
           zPct >= 98 ~ "Exceptionally High",
           zPct %in% 91:97 ~ "Above Average",
           zPct %in% 75:90 ~ "High Average",
@@ -228,17 +226,17 @@ ncog_level3_drill <-
       ncog3 <- subset(ncog2, ncog2$subdomain %in% y_level)
 
       ncog3 <- ncog3 %>%
-        group_by(narrow) %>%
-        summarize(zMean = mean(z), zPct = mean(percentile)) %>%
-        mutate(range = NA)
+        dplyr::group_by(narrow) %>%
+        dplyr::summarize(zMean = mean(z), zPct = mean(percentile)) %>%
+        dplyr::mutate(range = NA)
 
       # round z-score to 1 decimal
       ncog3$zMean <- round(ncog3$zMean, 2L)
       ncog3$zPct <- round(ncog3$zPct, 0L)
       ncog3 <-
         ncog3 %>%
-        tidytable::mutate(
-          range = tidytable::case_when(
+        dplyr::mutate(
+          range = dplyr::case_when(
             zPct >= 98 ~ "Exceptionally High",
             zPct %in% 91:97 ~ "Above Average",
             zPct %in% 75:90 ~ "High Average",
@@ -285,18 +283,17 @@ ncog_level4_drill <-
 
         ncog4 <-
           ncog4 %>%
-          group_by(scale) %>%
-          summarize(zMean = mean(z),
-            zPct = mean(percentile)) %>%
-          mutate(range = NA)
+          dplyr::group_by(scale) %>%
+          dplyr::summarize(zMean = mean(z), zPct = mean(percentile)) %>%
+          dplyr::mutate(range = NA)
 
         # round z-score to 1 decimal
         ncog4$zMean <- round(ncog4$zMean, 2L)
         ncog4$zPct <- round(ncog4$zPct, 0L)
         ncog4 <-
           ncog4 %>%
-          tidytable::mutate(
-            range = tidytable::case_when(
+          dplyr::mutate(
+            range = dplyr::case_when(
               zPct >= 98 ~ "Exceptionally High",
               zPct %in% 91:97 ~ "Above Average",
               zPct %in% 75:90 ~ "High Average",
@@ -328,9 +325,9 @@ ncog_level4_drill <-
 ```
 
 ```{r}
-thm_merge <- hc_theme_merge(
-  hc_theme_monokai(),
-  hc_theme_darkunica()
+thm_merge <- highcharter::hc_theme_merge(
+  highcharter::hc_theme_monokai(),
+  highcharter::hc_theme_darkunica()
 )
 ```
 
@@ -338,55 +335,56 @@ thm_merge <- hc_theme_merge(
 # Tooltip
 x <- c("Name", "Score", "Percentile", "Range")
 y <- c("{point.name}", "{point.y}", "{point.y2}", "{point.range}")
-tt <- tooltip_table(x, y)
+tt <- highcharter::tooltip_table(x, y)
 
 ## Create drilldown bar plot zscores
 plot1 <-
-  highchart() %>%
-  hc_title(
+  highcharter::highchart() %>%
+  highcharter::hc_title(
     text = patient,
     style = list(
       fontSize = "15px")) %>%
-  hc_add_series(
+  highcharter::hc_add_series(
     ncog_level1_status,
     type = "bar",
     name = "Neuropsychological Test Scores",
-    hcaes(x = name, y = y)) %>%
-  hc_xAxis(
+    highcharter::hcaes(x = name, y = y)) %>%
+  highcharter::hc_xAxis(
     type = "category",
     title = list(
       text = "Domain"),
     categories = .$name) %>%
-  hc_yAxis(
+  highcharter::hc_yAxis(
     title = list(
       text = "Z-Score (M = 0, SD = 1)"),
     labels = list(
       format = "{value}")) %>%
-  hc_tooltip(
+  highcharter::hc_tooltip(
     pointFormat = tt,
     useHTML = TRUE,
     valueDecimals = 1) %>%
-  hc_plotOptions(
+  highcharter::hc_plotOptions(
     series = list(
       colorByPoint = TRUE,
       allowPointSelect = TRUE,
       dataLabels = TRUE)) %>%
-  hc_drilldown(
+  highcharter::hc_drilldown(
     allowPointDrilldown = TRUE,
     series = c(
       ncog_level2_drill,
       ncog_level3_drill,
       ncog_level4_drill)) %>%
-  hc_colorAxis(
+  highcharter::hc_colorAxis(
     minColor = "red",
     maxColor = "blue") %>%
-  hc_add_theme(
+  highcharter::hc_add_theme(
     thm_merge) %>%
-  hc_chart(
+  highcharter::hc_chart(
     style = list(
       fontFamily = "Cabin"),
     backgroundColor = list("gray")
   )
+
 plot1
 ```
 
@@ -402,21 +400,22 @@ background-color: var(--near-black)
 ## Domain scores
 # 1. create mean z-scores for domain
 nbhv1 <- neurobehav %>%
-  tidytable::group_by(domain) %>%
-  tidytable::summarize(zMean = mean(z),
-    zPct = mean(percentile)) %>%
-  tidytable::mutate(range = NA)
+  dplyr::group_by(domain) %>%
+  dplyr::summarize(zMean = mean(z), zPct = mean(percentile)) %>%
+  dplyr::mutate(range = NA)
 nbhv1$zMean <- round(nbhv1$zMean, 0L)
 nbhv1$zPct <- round(nbhv1$zPct, 0L)
 nbhv1 <-
   nbhv1 %>%
-  tidytable::mutate(
-    range = tidytable::case_when(
-      zMean >= 3 ~ "Markedly Elevated",
-      zMean %in% 2:2.9 ~ "Significantly Elevated",
-      zMean %in% 1:1.9 ~ "Mildly Elevated",
-      zMean %in% -1:0.9 ~ "Average",
-      zMean <= -1.1 ~ "Below Average",
+  dplyr::mutate(
+    range = dplyr::case_when(
+      zPct >= 98 ~ "Exceptionally High",
+      zPct %in% 91:97 ~ "Above Average",
+      zPct %in% 75:90 ~ "High Average",
+      zPct %in% 25:74 ~ "Average",
+      zPct %in% 9:24 ~ "Low Average",
+      zPct %in% 2:8 ~ "Below Average",
+      zPct < 2 ~ "Exceptionally Low",
       TRUE ~ as.character(range)
     )
   )
@@ -445,43 +444,24 @@ nbhv_level2_drill <-
     # same as above
     nbhv2 <-
       nbhv2 %>%
-      group_by(subdomain) %>%
-      summarize(zMean = mean(z),
-        zPct = mean(percentile)) %>%
-      mutate(range = NA)
+      dplyr::group_by(subdomain) %>%
+      dplyr::summarize(zMean = mean(z), zPct = mean(percentile)) %>%
+      dplyr::mutate(range = NA)
 
     # round z-score to 1 decimal
     nbhv2$zMean <- round(nbhv2$zMean, 0L)
     nbhv2$zPct <- round(nbhv2$zPct, 0L)
     nbhv2 <-
       nbhv2 %>%
-      tidytable::mutate(
-        range = tidytable::case_when(
-          # zMean >= 1 &
-          #   name %in% c("Adaptive Skills", "Personal Adjustment") ~ "Strength",
-          # zMean %in% -1:0.9 &
-          #   name %in% c("Adaptive Skills", "Personal Adjustment") ~ "WNL",
-          # zMean %in% -2:-2.9 &
-          #   name %in% c("Adaptive Skills", "Personal Adjustment") ~ "Mildly Elevated",
-          # zMean %in% -3:-3.9 &
-          #   name %in% c("Adaptive Skills", "Personal Adjustment") ~ "Significantly Elevated",
-          # zMean <= -4 &
-          #   name %in% c("Adaptive Skills", "Personal Adjustment") ~ "Markedly Elevated",
-          # zMean >= 4 &
-          #   name != c("Adaptive Skills", "Personal Adjustment") ~ "Markedly Elevated",
-          # zMean %in% 3:3.9 &
-          #   name != c("Adaptive Skills", "Personal Adjustment") ~ "Significantly Elevated",
-          # zMean %in% 2:2.9 &
-          #   name != c("Adaptive Skills", "Personal Adjustment") ~ "Mildly Elevated",
-          # zMean %in% -1:1.9 &
-          #   name != c("Adaptive Skills", "Personal Adjustment") ~ "WNL",
-          # zMean <= -1.1 &
-          #   name != c("Adaptive Skills", "Personal Adjustment") ~ "Strength",
-          zMean >= 3 ~ "Markedly Elevated",
-          zMean %in% 2:2.9 ~ "Significantly Elevated",
-          zMean %in% 1:1.9 ~ "Mildly Elevated",
-          zMean %in% -1:0.9 ~ "Average",
-          zMean <= -1.1 ~ "Below Average",
+      dplyr::mutate(
+        range = dplyr::case_when(
+          zPct >= 98 ~ "Exceptionally High",
+          zPct %in% 91:97 ~ "Above Average",
+          zPct %in% 75:90 ~ "High Average",
+          zPct %in% 25:74 ~ "Average",
+          zPct %in% 9:24 ~ "Low Average",
+          zPct %in% 2:8 ~ "Below Average",
+          zPct < 2 ~ "Exceptionally Low",
           TRUE ~ as.character(range)
         )
       )
@@ -521,22 +501,24 @@ nbhv_level3_drill <-
       nbhv3 <- subset(nbhv2, nbhv2$subdomain %in% y_level)
 
       nbhv3 <- nbhv3 %>%
-        group_by(narrow) %>%
-        summarize(zMean = mean(z), zPct = mean(percentile)) %>%
-        mutate(range = NA)
+        dplyr::group_by(narrow) %>%
+        dplyr::summarize(zMean = mean(z), zPct = mean(percentile)) %>%
+        dplyr::mutate(range = NA)
 
       # round z-score to 1 decimal
       nbhv3$zMean <- round(nbhv3$zMean, 0L)
       nbhv3$zPct <- round(nbhv3$zPct, 0L)
       nbhv3 <-
         nbhv3 %>%
-        tidytable::mutate(
-          range = tidytable::case_when(
-            zMean >= 3 ~ "Markedly Elevated",
-            zMean %in% 2:2.9 ~ "Significantly Elevated",
-            zMean %in% 1:1.9 ~ "Mildly Elevated",
-            zMean %in% -1:0.9 ~ "Average",
-            zMean <= -1.1 ~ "Below Average",
+        dplyr::mutate(
+          range = dplyr::case_when(
+            zPct >= 98 ~ "Exceptionally High",
+            zPct %in% 91:97 ~ "Above Average",
+            zPct %in% 75:90 ~ "High Average",
+            zPct %in% 25:74 ~ "Average",
+            zPct %in% 9:24 ~ "Low Average",
+            zPct %in% 2:8 ~ "Below Average",
+            zPct < 2 ~ "Exceptionally Low",
             TRUE ~ as.character(range)
           )
         )
@@ -576,23 +558,24 @@ nbhv_level4_drill <-
 
         nbhv4 <-
           nbhv4 %>%
-          group_by(scale) %>%
-          summarize(zMean = mean(z),
-            zPct = mean(percentile)) %>%
-          mutate(range = NA)
+          dplyr::group_by(scale) %>%
+          dplyr::summarize(zMean = mean(z), zPct = mean(percentile)) %>%
+          dplyr::mutate(range = NA)
 
         # round z-score to 1 decimal
         nbhv4$zMean <- round(nbhv4$zMean, 0L)
         nbhv4$zPct <- round(nbhv4$zPct, 0L)
         nbhv4 <-
           nbhv4 %>%
-          tidytable::mutate(
-            range = tidytable::case_when(
-              zMean >= 3 ~ "Markedly Elevated",
-              zMean %in% 2:2.9 ~ "Significantly Elevated",
-              zMean %in% 1:1.9 ~ "Mildly Elevated",
-              zMean %in% -1:0.9 ~ "Average",
-              zMean <= -1.1 ~ "Below Average",
+          dplyr::mutate(
+            range = dplyr::case_when(
+              zPct >= 98 ~ "Exceptionally High",
+              zPct %in% 91:97 ~ "Above Average",
+              zPct %in% 75:90 ~ "High Average",
+              zPct %in% 25:74 ~ "Average",
+              zPct %in% 9:24 ~ "Low Average",
+              zPct %in% 2:8 ~ "Below Average",
+              zPct < 2 ~ "Exceptionally Low",
               TRUE ~ as.character(range)
             )
           )
@@ -617,9 +600,9 @@ nbhv_level4_drill <-
 ```
 
 ```{r}
-thm_merge <- hc_theme_merge(
-  hc_theme_monokai(),
-  hc_theme_darkunica()
+thm_merge <- highcharter::hc_theme_merge(
+  highcharter::hc_theme_monokai(),
+  highcharter::hc_theme_darkunica()
 )
 ```
 
@@ -627,54 +610,55 @@ thm_merge <- hc_theme_merge(
 # Tooltip
 x <- c("Name", "Score", "Percentile", "Range")
 y <- c("{point.name}", "{point.y}", "{point.y2}", "{point.range}")
-tt <- tooltip_table(x, y)
+tt <- highcharter::tooltip_table(x, y)
 
 ## Create drilldown bar plot zscores
 plot2 <-
-  highchart() %>%
-  hc_title(
+  highcharter::highchart() %>%
+  highcharter::hc_title(
     text = patient,
     style = list(
       fontSize = "15px")) %>%
-  hc_add_series(
+  highcharter::hc_add_series(
     nbhv_level1_status,
     type = "bar",
     name = "Behavioral Rating Scales",
-    hcaes(x = name, y = y)) %>%
-  hc_xAxis(
+    highcharter::hcaes(x = name, y = y)) %>%
+  highcharter::hc_xAxis(
     type = "category",
     title = list(
       text = "Domain"),
     categories = .$name) %>%
-  hc_yAxis(
+  highcharter::hc_yAxis(
     title = list(
       text = "Z-Score (M = 0, SD = 1)"),
     labels = list(
       format = "{value}")) %>%
-  hc_tooltip(
+  highcharter::hc_tooltip(
     pointFormat = tt,
     useHTML = TRUE,
     valueDecimals = 1) %>%
-  hc_plotOptions(
+  highcharter::hc_plotOptions(
     series = list(
       colorByPoint = TRUE,
       allowPointSelect = TRUE,
       dataLabels = TRUE)) %>%
-  hc_drilldown(
+  highcharter::hc_drilldown(
     allowPointDrilldown = TRUE,
     series = c(
       nbhv_level2_drill,
       nbhv_level3_drill,
       nbhv_level4_drill)) %>%
-  hc_colorAxis(
+  highcharter::hc_colorAxis(
     minColor = "red",
     maxColor = "blue") %>%
-  hc_add_theme(
+  highcharter::hc_add_theme(
     thm_merge) %>%
-  hc_chart(
+  highcharter::hc_chart(
     style = list(
       fontFamily = "Cabin"),
     backgroundColor = list("gray")
   )
+
 plot2
 ```
