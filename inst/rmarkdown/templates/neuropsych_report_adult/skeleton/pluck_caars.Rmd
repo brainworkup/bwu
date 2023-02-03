@@ -285,23 +285,23 @@ if (params$test == "caars_sr") {
     tidytable::mutate(
       narrow = tidytable::case_when(
         scale ==
-          "Inattention/Memory Problems" ~ "Inattention/Memory Problems",
+          "Inattention/Memory Problems" ~ "Inattention/Memory Problems (Self)",
         scale ==
-          "Hyperactivity/Restlessness" ~ "Hyperactivity/Restlessness",
+          "Hyperactivity/Restlessness" ~ "Hyperactivity/Restlessness (Self)",
         scale ==
-          "Impulsivity/Emotional Lability" ~ "Impulsivity/Emotional Lability",
+          "Impulsivity/Emotional Lability" ~ "Impulsivity/Emotional Lability (Self)",
         scale ==
-          "Problems with Self-Concept" ~ "Problems with Self-Concept",
+          "Problems with Self-Concept" ~ "Problems with Self-Concept (Self)",
         scale ==
-          "DSM-5 Inattentive Symptoms" ~ "DSM-5 Inattentive Symptoms",
+          "DSM-5 Inattentive Symptoms" ~ "DSM-5 Inattentive Symptoms (Self)",
         scale ==
-          "DSM-5 Hyperactive-Impulsive Symptoms" ~ "DSM-5 Hyperactive-Impulsive Symptoms",
+          "DSM-5 Hyperactive-Impulsive Symptoms" ~ "DSM-5 Hyperactive-Impulsive Symptoms (Self)",
         scale ==
-          "DSM-5 ADHD Symptoms Total" ~ "DSM-5 ADHD Symptoms Total",
+          "DSM-5 ADHD Symptoms Total" ~ "DSM-5 ADHD Symptoms Total (Self)",
         scale ==
-          "ADHD Index" ~ "ADHD Index",
+          "ADHD Index" ~ "ADHD Index (Self)",
         scale ==
-          "Inconsistency Index" ~ "Effort/Validity",
+          "Inconsistency Index" ~ "Effort/Validity (Self)",
         TRUE ~ as.character(narrow)
       )
     )
@@ -311,21 +311,23 @@ if (params$test == "caars_sr") {
     tidytable::mutate(
       narrow = tidytable::case_when(
         scale ==
-          "Inattention/Memory Problems" ~ "Inattention/Memory Problems (OR)",
+          "Inattention/Memory Problems" ~ "Inattention/Memory Problems (Observer)",
         scale ==
-          "Hyperactivity/Restlessness" ~ "Hyperactivity/Restlessness (OR)",
+          "Hyperactivity/Restlessness" ~ "Hyperactivity/Restlessness (Observer)",
         scale ==
-          "Impulsivity/Emotional Lability" ~ "Impulsivity/Emotional Lability (OR)",
+          "Impulsivity/Emotional Lability" ~ "Impulsivity/Emotional Lability (Observer)",
         scale ==
-          "Problems with Self-Concept" ~ "Problems with Self-Concept (OR)",
+          "Problems with Self-Concept" ~ "Problems with Self-Concept (Observer)",
         scale ==
-          "DSM-5 Inattentive Symptoms" ~ "DSM-5 Inattentive Symptoms (OR)",
+          "DSM-5 Inattentive Symptoms" ~ "DSM-5 Inattentive Symptoms (Observer)",
         scale ==
-          "DSM-5 Hyperactive-Impulsive Symptoms" ~ "DSM-5 Hyperactive-Impulsive Symptoms (OR)",
+          "DSM-5 Hyperactive-Impulsive Symptoms" ~ "DSM-5 Hyperactive-Impulsive Symptoms (Observer)",
         scale ==
-          "DSM-5 ADHD Symptoms Total" ~ "DSM-5 ADHD Symptoms Total (OR)",
+          "DSM-5 ADHD Symptoms Total" ~ "DSM-5 ADHD Symptoms Total (Observer)",
         scale ==
-          "ADHD Index" ~ "ADHD Index (OR)",
+          "ADHD Index" ~ "ADHD Index (Observer)",
+        scale ==
+          "Inconsistency Index" ~ "Effort/Validity (Observer)",
         TRUE ~ as.character(narrow)
       )
     )

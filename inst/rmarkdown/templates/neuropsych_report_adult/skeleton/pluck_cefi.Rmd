@@ -214,7 +214,7 @@ table <- bwu::gpluck_make_columns(
   ci_95 = "",
   test = params$test,
   test_name = params$test_name,
-  domain = "Executive Functioning",
+  domain = "Executive Functions",
   subdomain = "",
   narrow = "",
   pass = "",
@@ -263,16 +263,16 @@ if (params$test == "cefi_sr") {
     table |>
     tidytable::mutate(
       narrow = tidytable::case_when(
-        scale == "Full Scale" ~ "Full Scale",
-        scale == "Attention" ~ "Attention",
-        scale == "Emotion Regulation" ~ "Emotion Regulation",
-        scale == "Flexibility" ~ "Flexibility",
-        scale == "Inhibitory Control" ~ "Inhibitory Control",
-        scale == "Initiation" ~ "Initiation",
-        scale == "Organization" ~ "Organization",
-        scale == "Planning" ~ "Planning",
-        scale == "Self-Monitoring" ~ "Self-Monitoring",
-        scale == "Working Memory" ~ "Working Memory",
+        scale == "Full Scale" ~ "Full Scale (Self)",
+        scale == "Attention" ~ "Attention (Self)",
+        scale == "Emotion Regulation" ~ "Emotion Regulation (Self)",
+        scale == "Flexibility" ~ "Flexibility (Self)",
+        scale == "Inhibitory Control" ~ "Inhibitory Control (Self)",
+        scale == "Initiation" ~ "Initiation (Self)",
+        scale == "Organization" ~ "Organization (Self)",
+        scale == "Planning" ~ "Planning (Self)",
+        scale == "Self-Monitoring" ~ "Self-Monitoring (Self)",
+        scale == "Working Memory" ~ "Working Memory (Self)",
         TRUE ~ as.character(narrow)
       )
     )
@@ -281,16 +281,16 @@ if (params$test == "cefi_sr") {
     table |>
     tidytable::mutate(
       narrow = tidytable::case_when(
-        scale == "Full Scale" ~ "Full Scale (OR)",
-        scale == "Attention" ~ "Attention (OR)",
-        scale == "Emotion Regulation" ~ "Emotion Regulation (OR)",
-        scale == "Flexibility" ~ "Flexibility (OR)",
-        scale == "Inhibitory Control" ~ "Inhibitory Control (OR)",
-        scale == "Initiation" ~ "Initiation (OR)",
-        scale == "Organization" ~ "Organization (OR)",
-        scale == "Planning" ~ "Planning",
-        scale == "Self-Monitoring" ~ "Self-Monitoring (OR)",
-        scale == "Working Memory" ~ "Working Memory (OR)",
+        scale == "Full Scale" ~ "Full Scale (Observer)",
+        scale == "Attention" ~ "Attention (Observer)",
+        scale == "Emotion Regulation" ~ "Emotion Regulation (Observer)",
+        scale == "Flexibility" ~ "Flexibility (Observer)",
+        scale == "Inhibitory Control" ~ "Inhibitory Control (Observer)",
+        scale == "Initiation" ~ "Initiation (Observer)",
+        scale == "Organization" ~ "Organization (Observer)",
+        scale == "Planning" ~ "Planning (Observer)",
+        scale == "Self-Monitoring" ~ "Self-Monitoring (Observer)",
+        scale == "Working Memory" ~ "Working Memory (Observer)",
         TRUE ~ as.character(narrow)
       )
     )

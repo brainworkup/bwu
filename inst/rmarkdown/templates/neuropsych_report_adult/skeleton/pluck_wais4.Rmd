@@ -1346,8 +1346,9 @@ wais4 <- wais4[match(
 readr::write_csv(wais4, here::here(patient, "csv", "wais4.csv"))
 ```
 
+# Experimental
+
 ## Write to "g"
-experimental ... 
 ```{r writeout-g}
 table <- wais4
 test <- "g"

@@ -1,14 +1,14 @@
 ---
 title: "Import CSV file from Personality Assessment Inventory (PAI)"
 params:
-  patient: "Biggie"
+  patient: Biggie
   test: pai
   test_name: PAI
   file:
     label: "No file selected"
     value: file
     input: file
-  pages: [9:13]
+  #pages: [9:13]
 output:
   rmdformats::robobook:
     highlight: kate
@@ -197,7 +197,7 @@ table <- bwu::gpluck_make_columns(
   ci_95 = "",
   test = params$test,
   test_name = params$test_name,
-  domain = "Personality/Emotional/Social",
+  domain = "",
   subdomain = "",
   narrow = "",
   pass = "",
@@ -219,7 +219,68 @@ table <- bwu::gpluck_make_columns(
 table <- bwu::gpluck_make_score_ranges(table = table, test_type = "npsych_test")
 ```
 
-### Subdomains
+## Domains
+
+```{r domains}
+table <-
+  table |>
+  tidytable::mutate(
+    domain = tidytable::case_when(
+      scale == "Somatic Complaints" ~ "Psychiatric/Axis I",
+      scale == "Conversion" ~ "Psychiatric/Axis I",
+      scale == "Somatization" ~ "Psychiatric/Axis I",
+      scale == "Health Concerns" ~ "Psychiatric/Axis I",
+      scale == "Anxiety" ~ "Psychiatric/Axis I",
+      scale == "Cognitive (A)" ~ "Psychiatric/Axis I",
+      scale == "Affective (A)" ~ "Psychiatric/Axis I",
+      scale == "Physiological (A)" ~ "Psychiatric/Axis I",
+      scale == "Anxiety-Related Disorders" ~ "Psychiatric/Axis I",
+      scale == "Obsessive-Compulsive" ~ "Psychiatric/Axis I",
+      scale == "Phobias" ~ "Psychiatric/Axis I",
+      scale == "Traumatic Stress" ~ "Psychiatric/Axis I",
+      scale == "Depression" ~ "Psychiatric/Axis I",
+      scale == "Cognitive (D)" ~ "Psychiatric/Axis I",
+      scale == "Affective (D)" ~ "Psychiatric/Axis I",
+      scale == "Physiological (D)" ~ "Psychiatric/Axis I",
+      scale == "Mania" ~ "Psychiatric/Axis I",
+      scale == "Activity Level" ~ "Psychiatric/Axis I",
+      scale == "Grandiosity" ~ "Psychiatric/Axis I",
+      scale == "Irritability" ~ "Psychiatric/Axis I",
+      scale == "Paranoia" ~ "Psychiatric/Axis I",
+      scale == "Hypervigilance" ~ "Psychiatric/Axis I",
+      scale == "Persecution" ~ "Psychiatric/Axis I",
+      scale == "Resentment" ~ "Psychiatric/Axis I",
+      scale == "Schizophrenia" ~ "Psychiatric/Axis I",
+      scale == "Psychotic Experiences" ~ "Psychiatric/Axis I",
+      scale == "Social Detachment" ~ "Psychiatric/Axis I",
+      scale == "Thought Disorder" ~ "Psychiatric/Axis I",
+      scale == "Aggression" ~ "Psychiatric/Axis I",
+      scale == "Aggressive Attitude" ~ "Psychiatric/Axis I",
+      scale == "Verbal Aggression" ~ "Psychiatric/Axis I",
+      scale == "Physical Aggression" ~ "Psychiatric/Axis I",
+      scale == "Suicidal Ideation" ~ "Psychiatric/Axis I",
+      scale == "Stress" ~ "Psychiatric/Axis I",
+      scale == "Nonsupport" ~ "Psychiatric/Axis I",
+      scale == "Treatment Rejection" ~ "Psychiatric/Axis I",
+      scale == "Dominance" ~ "Psychiatric/Axis I",
+      scale == "Warmth" ~ "Psychiatric/Axis I",
+      scale == "Borderline Features" ~ "Personality/Axis II",
+      scale == "Affective Instability" ~ "Personality/Axis II",
+      scale == "Identity Problems" ~ "Personality/Axis II",
+      scale == "Negative Relationships" ~ "Personality/Axis II",
+      scale == "Self-Harm" ~ "Personality/Axis II",
+      scale == "Antisocial Features" ~ "Personality/Axis II",
+      scale == "Antisocial Behaviors" ~ "Personality/Axis II",
+      scale == "Egocentricity" ~ "Personality/Axis II",
+      scale == "Stimulus-Seeking" ~ "Personality/Axis II",
+      scale == "Alcohol Problems" ~ "Drug/Alcohol",
+      scale == "Drug Problems" ~ "Drug/Alcohol",
+      TRUE ~ as.character(domain)
+    )
+  )
+```
+
+## Subdomains
 
 ```{r subdomain}
 table <-
@@ -280,7 +341,7 @@ table <-
   )
 ```
 
-### Narrow subdomains
+## Narrow subdomains
 
 ```{r narrow}
 table <-
@@ -435,9 +496,9 @@ readr::write_csv(pai, here::here(patient, "csv", "pai.csv"), col_names = TRUE, n
 
 ## Pluck Text
 
-```{r text}
-file <- file.choose()
-patient <- "AJ"
+```{r text, eval=FALSE}
+#file <- file.choose()
+patient <- params$patient
 pages <- params$pages
 
 pai_text <- pdftools::pdf_text(file, pages)

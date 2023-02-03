@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from CVLT-3/CVLT-3 Brief"
 params:
-  patient: "Biggie"
+  patient: Biggie
   test:
     label: "Test"
     value: cvlt3_brief
@@ -736,7 +736,7 @@ table <- cvlt3_brief |> tidytable::filter(scale %in% mem)
 test <- "g"
 tidytable::fwrite(
   table,
-  here::here(patient, "csv", paste0(test, ".csv")),
+  here::here(patient, "csv", paste0(test, ".txt")),
   append = TRUE
 )
 ```
