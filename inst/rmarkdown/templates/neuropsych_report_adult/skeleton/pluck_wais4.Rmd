@@ -1353,7 +1353,7 @@ table <- wais4
 test <- "g"
 tidytable::fwrite(
   table,
-  here::here(patient, "csv", paste0(test, ".csv")),
+  here::here(patient, "csv", paste0(test, ".txt")),
   append = TRUE
 )
 ```

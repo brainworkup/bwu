@@ -567,12 +567,12 @@ table1 <-
   table1 |>
   tidytable::mutate(
     subdomain = tidytable::case_when(
-      scale == "NAB Attention Index" ~ "Attention/Executive",
+      scale == "NAB Attention Index" ~ "Attention",
       scale == "NAB Language Index" ~ "Language Index",
       scale == "NAB Memory Index" ~ "Memory Index",
       scale == "NAB Spatial Index" ~ "Spatial Index",
-      scale == "NAB Executive Functions Index" ~ "Attention/Executive",
-      scale == "NAB Total Index" ~ "Neurocognitive Index",
+      scale == "NAB Executive Functions Index" ~ "Executive Functions",
+      scale == "NAB Total Index" ~ "General Cognitive Function",
       TRUE ~ as.character(subdomain)
     )
   )
@@ -619,12 +619,12 @@ table2 <-
   table2 |>
   tidytable::mutate(
     subdomain = tidytable::case_when(
-      scale %in% orientation ~ "Orientation",
-      scale %in% dsf ~ "Attention Span",
+      scale %in% orientation ~ "Attention",
+      scale %in% dsf ~ "Attention",
       scale %in% dsb ~ "Working Memory",
       scale %in% nlt ~ "Processing Speed",
-      scale == "Numbers & Letters Part A Speed" ~ "Psychomotor Speed",
-      scale %in% nle ~ "Response Monitoring",
+      scale == "Numbers & Letters Part A Speed" ~ "Processing Speed",
+      scale %in% nle ~ "Attention",
       TRUE ~ as.character(subdomain)
     )
   )
@@ -683,9 +683,9 @@ table6 <-
   table6 |>
   tidytable::mutate(
     subdomain = tidytable::case_when(
-      scale == "Mazes" ~ "Planning",
-      scale == "Word Generation" ~ "Fluency",
-      scale == "Word Generation Perseverations" ~ "Response Monitoring",
+      scale == "Mazes" ~ "Executive Functions",
+      scale == "Word Generation" ~ "Executive Functions",
+      scale == "Word Generation Perseverations" ~ "Attention",
       TRUE ~ as.character(subdomain)
     )
   )
@@ -714,14 +714,13 @@ table2 <-
   table2 |>
   tidytable::mutate(
     narrow = tidytable::case_when(
-      scale %in% orientation ~ "General Verbal Information",
+      scale %in% orientation ~ "Orientation",
       scale %in% dsf ~ "Verbal Attention",
       scale %in% dsb ~ "Verbal Working Memory",
       scale == "Numbers & Letters Part A Speed" ~ "Psychomotor Speed",
       scale == "Numbers & Letters Part A Errors" ~ "Response Monitoring",
       scale == "Numbers & Letters Part A Efficiency" ~ "Psychomotor Speed",
       scale == "Numbers & Letters Part B Efficiency" ~ "Cognitive Efficiency",
-      scale %in% nle ~ "Response Monitoring",
       TRUE ~ as.character(narrow)
     )
   )
@@ -768,7 +767,7 @@ table6 <-
   table6 |>
   tidytable::mutate(
     narrow = tidytable::case_when(
-      scale == "Mazes" ~ "Problem Solving",
+      scale == "Mazes" ~ "Cognitive Efficiency",
       scale == "Word Generation" ~ "Ideational Fluency",
       scale == "Word Generation Perseverations" ~ "Response Monitoring",
       TRUE ~ as.character(narrow)
@@ -1064,7 +1063,7 @@ table1 <-
     description = tidytable::case_when(
       scale ==
         "NAB Total Index" ~
-        "Broad neurocognitive functioning (independent of general intelligence) across domains of attentional and executive functioning, language and spatial processing, and learning and memory",
+        "Finally, broad neurocognitive functioning (independent of general intelligence) across domains of attentional and executive functioning, language and spatial processing, and learning and memory",
       scale ==
         "NAB Attention Index" ~
         "A composite index of both basic and complex verbal and nonverbal attentional capacity/functioning",
@@ -1395,7 +1394,7 @@ table <- nabs
 test <- "g"
 tidytable::fwrite(
   table,
-  here::here(patient, "csv", paste0(test, ".csv")),
+  here::here(patient, "csv", paste0(test, ".txt")),
   append = TRUE
 )
 ```
