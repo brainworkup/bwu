@@ -65,14 +65,27 @@ dt |>
   )
 
 ## ---- 03-table-adhd ----
-tb <-
+tb1 <-
   bwu::make_tibble(
     tibb = adhd,
     data = neurobehav,
-    pheno = "Behavioral/Emotional/Social"
+    pheno = "ADHD"
   ) |>
   tidytable::filter(Scale %in% filter_domain) |>
   tidytable::arrange(Test)
+
+## ---- 03-table-executive ----
+tb2 <-
+  bwu::make_tibble(
+    tibb = adhd,
+    data = neurobehav,
+    pheno = "Executive Functions"
+  ) |>
+  tidytable::filter(Scale %in% filter_domain) |>
+  tidytable::arrange(Test)
+
+## ---- 03-table-merge ----
+tb <- rbind(tb1, tb2)
 
 ## ---- 04-kable-adhd ----
 kableExtra::kbl(
@@ -95,31 +108,47 @@ kableExtra::kbl(
 ## ---- 05-df-adhd ----
 df <-
   neurobehav |>
-  tidytable::filter(domain == "Behavioral/Emotional/Social") |>
+  tidytable::filter(domain == "ADHD") |>
   tidytable::filter(scale %in% filter_domain) |>
   tidytable::filter(!is.na(percentile)) |>
   tidytable::filter(filename %in% c("caars_sr.csv", "caars_or.csv"))
 
-## ---- 06-plot-adhd-adhd ----
+## ---- 06-plot-adhd-adhd-subdomain ----
+bwu::dotplot(
+  data = df,
+  x = df$z_mean_sub,
+  y = df$subdomain,
+  domain = "ADHD"
+)
+
+## ---- 06-plot-adhd-adhd-narrow ----
 bwu::dotplot(
   data = df,
   x = df$z_mean_narrow,
   y = df$narrow,
-  domain = "attention/executive"
+  domain = "Executive Functions"
 )
 
 ## ---- 07-df-adhd ----
-df <-
+df2 <-
   neurobehav |>
-  tidytable::filter(domain == "Behavioral/Emotional/Social") |>
+  tidytable::filter(domain == "Executive Functions") |>
   tidytable::filter(scale %in% filter_domain) |>
   tidytable::filter(!is.na(percentile)) |>
   tidytable::filter(filename %in% c("cefi_sr.csv", "cefi_or.csv"))
 
-## ---- 08-plot-executive-adhd -----
+## ---- 08-plot-executive-adhd-subdomain -----
 bwu::dotplot(
-  data = df,
-  x = df$z_mean_narrow,
-  y = df$narrow,
-  domain = "attention/executive"
+  data = df2,
+  x = df2$z_mean_sub,
+  y = df2$subdomain,
+  domain = "Executive Functions"
+)
+
+## ---- 08-plot-executive-adhd-narrow -----
+bwu::dotplot(
+  data = df2,
+  x = df2$z_mean_narrow,
+  y = df2$narrow,
+  domain = "Executive Functions"
 )

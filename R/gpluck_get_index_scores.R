@@ -5,7 +5,7 @@
 #' @return A table
 #' @export
 #'
-bwu_read_cognition_index_scores <- function(patient) {
+gpluck_get_index_scores <- function(patient) {
   ## Import/Tidy Excel Index Score File
 
   patient <- patient
@@ -56,8 +56,8 @@ bwu_read_cognition_index_scores <- function(patient) {
         scale == "Cognitive Proficiency" ~ "Intelligence/General Ability",
         scale == "Crystallized Knowledge" ~ "Intelligence/General Ability",
         scale == "Fluid Reasoning" ~ "Intelligence/General Ability",
-        scale == "Working Memory" ~ "Attention/Executive",
-        scale == "Processing Speed" ~ "Attention/Executive",
+        scale == "Working Memory" ~ "Intelligence/General Ability",
+        scale == "Processing Speed" ~ "Intelligence/General Ability",
         TRUE ~ as.character(domain)
       )
     )
@@ -70,10 +70,10 @@ bwu_read_cognition_index_scores <- function(patient) {
       subdomain = dplyr::case_when(
         scale == "General Ability" ~ "General Intelligence",
         scale == "Cognitive Proficiency" ~ "Cognitive Proficiency",
-        scale == "Crystallized Knowledge" ~ "Crystallized Intelligence",
-        scale == "Fluid Reasoning" ~ "Fluid Intelligence",
-        scale == "Working Memory" ~ "Working Memory",
-        scale == "Processing Speed" ~ "Processing Speed",
+        scale == "Crystallized Knowledge" ~ "General Intelligence",
+        scale == "Fluid Reasoning" ~ "General Intelligence",
+        scale == "Working Memory" ~ "Cognitive Proficiency",
+        scale == "Processing Speed" ~ "Cognitive Proficiency",
         TRUE ~ as.character(subdomain)
       )
     )
@@ -84,10 +84,10 @@ bwu_read_cognition_index_scores <- function(patient) {
     df |>
     dplyr::mutate(
       narrow = dplyr::case_when(
-        scale == "General Ability" ~ "General Intelligence",
-        scale == "Cognitive Proficiency" ~ "Cognitive Proficiency",
-        scale == "Crystallized Knowledge" ~ "Verbal Comprehension",
-        scale == "Fluid Reasoning" ~ "Perceptual Reasoning",
+        scale == "General Ability" ~ "General Ability Index",
+        scale == "Cognitive Proficiency" ~ "Cognitive Proficiency Index",
+        scale == "Crystallized Knowledge" ~ "Crystallized Knowledge Index",
+        scale == "Fluid Reasoning" ~ "Fluid Reasoning Index",
         scale == "Working Memory" ~ "Working Memory Index",
         scale == "Processing Speed" ~ "Processing Speed Index",
         TRUE ~ as.character(narrow)
@@ -199,8 +199,11 @@ bwu_read_cognition_index_scores <- function(patient) {
 
   ## Relocate variables
 
-  g <- df |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test) |>
-    dplyr::relocate(c(scaled_score, t_score, reliability, composition), .after = result)
+  g <-
+    df |>
+    dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test) |>
+    dplyr::relocate(c(scaled_score, t_score, reliability, composition), .after = result) |>
+    dplyr::filter(scale == "General Ability" & scale == "Cognitive Proficiency" & scale == "Crystallized Knowledge" & scale == "Fluid Reasoning" & scale == "Working Memory" & scale == "Processing Speed")
 
   ## Write out CSV
 

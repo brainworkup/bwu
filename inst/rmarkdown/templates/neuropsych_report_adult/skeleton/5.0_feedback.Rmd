@@ -35,6 +35,7 @@ patient <- rmarkdown::metadata$patient
 ## load libraries
 library(bwu)
 library(crosstalk)
+library(data.table)
 library(dplyr)
 library(gifski)
 library(highcharter)
@@ -127,9 +128,11 @@ neurobehav <-
 ncog1 <- neurocog %>%
   dplyr::group_by(domain) %>%
   dplyr::summarize(zMean = mean(z), zPct = mean(percentile)) %>%
-  dplyr::mutate(range = NA)
+  dplyr::mutate(range = NA) 
+
 ncog1$zMean <- round(ncog1$zMean, 2L)
 ncog1$zPct <- round(ncog1$zPct, 0L)
+
 ncog1 <-
   ncog1 %>%
   dplyr::mutate(
@@ -146,7 +149,7 @@ ncog1 <-
   )
 
 # 2. sort hi to lo
-ncog1 <- arrange(ncog1, desc(zMean))
+ncog1 <- arrange(ncog1, desc(zPct))
 
 # 3. create tibble with new column with domain name lowercase
 ncog_level1_status <- tibble(
@@ -192,7 +195,7 @@ ncog_level2_drill <-
       )
 
     # 2. sort hi to lo
-    ncog2 <- arrange(ncog2, desc(zMean))
+    ncog2 <- arrange(ncog2, desc(zPct))
 
     # 3. create tibble with new column with domain name lowercase
     ncog_level2_status <- tibble(
@@ -248,7 +251,7 @@ ncog_level3_drill <-
           )
         )
 
-      ncog3 <- arrange(ncog3, desc(zMean))
+      ncog3 <- arrange(ncog3, desc(zPct))
 
       ncog_level3_status <- tibble(
         name = ncog3$narrow,
@@ -305,7 +308,7 @@ ncog_level4_drill <-
             )
           )
 
-        ncog4 <- arrange(ncog4, desc(zMean))
+        ncog4 <- arrange(ncog4, desc(zPct))
 
         ncog_level4_status <- tibble(
           name = ncog4$scale,
@@ -324,14 +327,15 @@ ncog_level4_drill <-
   }) %>% unlist(recursive = FALSE)
 ```
 
-```{r}
+```{r theme-merge}
 thm_merge <- highcharter::hc_theme_merge(
   highcharter::hc_theme_monokai(),
   highcharter::hc_theme_darkunica()
 )
 ```
 
-```{r drilldown-plot, fig.cap='HighchartR Drilldown', fig.width=12, fig.height=8, fig.retina=3, out.width = "100%"}
+
+```{r drilldown-plot1, fig.cap='HighchartR Drilldown', fig.width=12, fig.height=8, fig.retina=3, out.width = "100%"}
 # Tooltip
 x <- c("Name", "Score", "Percentile", "Range")
 y <- c("{point.name}", "{point.y}", "{point.y2}", "{point.range}")
@@ -340,50 +344,40 @@ tt <- highcharter::tooltip_table(x, y)
 ## Create drilldown bar plot zscores
 plot1 <-
   highcharter::highchart() %>%
-  highcharter::hc_title(
-    text = patient,
-    style = list(
-      fontSize = "15px")) %>%
+  highcharter::hc_title(text = patient,
+                        style = list(fontSize = "15px")) %>%
   highcharter::hc_add_series(
     ncog_level1_status,
     type = "bar",
     name = "Neuropsychological Test Scores",
-    highcharter::hcaes(x = name, y = y)) %>%
+    highcharter::hcaes(x = name, y = y)
+  ) %>%
   highcharter::hc_xAxis(
     type = "category",
-    title = list(
-      text = "Domain"),
-    categories = .$name) %>%
-  highcharter::hc_yAxis(
-    title = list(
-      text = "Z-Score (M = 0, SD = 1)"),
-    labels = list(
-      format = "{value}")) %>%
-  highcharter::hc_tooltip(
-    pointFormat = tt,
-    useHTML = TRUE,
-    valueDecimals = 1) %>%
-  highcharter::hc_plotOptions(
-    series = list(
-      colorByPoint = TRUE,
-      allowPointSelect = TRUE,
-      dataLabels = TRUE)) %>%
+    title = list(text = "Scale"),
+    categories = .$name
+  ) %>%
+  highcharter::hc_yAxis(title = list(text = "Z-Score (M = 0, SD = 1)"),
+                        labels = list(format = "{value}")) %>%
+  highcharter::hc_tooltip(pointFormat = tt,
+                          useHTML = TRUE,
+                          valueDecimals = 1) %>%
+  highcharter::hc_plotOptions(series = list(
+    colorByPoint = TRUE,
+    allowPointSelect = TRUE,
+    dataLabels = TRUE
+  )) %>%
   highcharter::hc_drilldown(
     allowPointDrilldown = TRUE,
-    series = c(
-      ncog_level2_drill,
-      ncog_level3_drill,
-      ncog_level4_drill)) %>%
-  highcharter::hc_colorAxis(
-    minColor = "red",
-    maxColor = "blue") %>%
-  highcharter::hc_add_theme(
-    thm_merge) %>%
-  highcharter::hc_chart(
-    style = list(
-      fontFamily = "Cabin"),
-    backgroundColor = list("gray")
-  )
+    series = c(ncog_level2_drill,
+               ncog_level3_drill,
+               ncog_level4_drill)
+  ) %>%
+  highcharter::hc_colorAxis(minColor = "red",
+                            maxColor = "blue") %>%
+  highcharter::hc_add_theme(thm_merge) %>%
+  highcharter::hc_chart(style = list(fontFamily = "Cabin"),
+                        backgroundColor = list("gray"))
 
 plot1
 ```
@@ -421,7 +415,7 @@ nbhv1 <-
   )
 
 # 2. sort hi to lo
-nbhv1 <- arrange(nbhv1, desc(zMean))
+nbhv1 <- arrange(nbhv1, desc(zPct))
 
 # 3. create tibble with new column with domain name lowercase
 nbhv_level1_status <- tibble(
@@ -467,7 +461,7 @@ nbhv_level2_drill <-
       )
 
     # 2. sort hi to lo
-    nbhv2 <- arrange(nbhv2, desc(zMean))
+    nbhv2 <- arrange(nbhv2, desc(zPct))
 
     # 3. create tibble with new column with domain name lowercase
     nbhv_level2_status <- tibble(
@@ -523,7 +517,7 @@ nbhv_level3_drill <-
           )
         )
 
-      nbhv3 <- arrange(nbhv3, desc(zMean))
+      nbhv3 <- arrange(nbhv3, desc(zPct))
 
       nbhv_level3_status <- tibble(
         name = nbhv3$narrow,
@@ -580,7 +574,7 @@ nbhv_level4_drill <-
             )
           )
 
-        nbhv4 <- arrange(nbhv4, desc(zMean))
+        nbhv4 <- arrange(nbhv4, desc(zPct))
 
         nbhv_level4_status <- tibble(
           name = nbhv4$scale,
@@ -599,14 +593,7 @@ nbhv_level4_drill <-
   }) %>% unlist(recursive = FALSE)
 ```
 
-```{r}
-thm_merge <- highcharter::hc_theme_merge(
-  highcharter::hc_theme_monokai(),
-  highcharter::hc_theme_darkunica()
-)
-```
-
-```{r drilldown2-plot, fig.cap='HighchartR Drilldown', fig.width=12, fig.height=8, fig.retina=3, out.width = "100%"}
+```{r drilldown-plot2, fig.cap='HighchartR Drilldown', fig.width=12, fig.height=8, fig.retina=3, out.width = "100%"}
 # Tooltip
 x <- c("Name", "Score", "Percentile", "Range")
 y <- c("{point.name}", "{point.y}", "{point.y2}", "{point.range}")
@@ -627,7 +614,7 @@ plot2 <-
   highcharter::hc_xAxis(
     type = "category",
     title = list(
-      text = "Domain"),
+      text = "Scale"),
     categories = .$name) %>%
   highcharter::hc_yAxis(
     title = list(

@@ -47,7 +47,7 @@ classoption:
   - headsepline=true
 header:
   - pos: ro
-    next: "`r params$lastname`, `r params$firstname`"
+    next: "`r params$last_name`, `r params$first_name`"
 caption:
   - labelfont=bf
   - labelsep=period
@@ -56,11 +56,11 @@ setkomafont:
   - element: descriptionlabel
     commands: \normalfont\scshape\bfseries
 params:
-  firstname:
+  first_name:
     label: "First Name:"
     value: Biggie
     input: text
-  lastname:
+  last_name:
     label: "Last Name:"
     value: Smalls
     input: text
@@ -97,7 +97,7 @@ params:
       - Prefer not to answer
   he_she:
     label: "he/she Pronoun:"
-    value: they
+    value: she
     input: radio
     choices:
       - he
@@ -105,7 +105,7 @@ params:
       - they
   his_her:
     label: "his/her Pronoun:"
-    value: their
+    value: her
     input: radio
     choices:
       - his
@@ -113,7 +113,7 @@ params:
       - their
   him_her:
     label: "him/her Pronoun:"
-    value: them
+    value: her
     input: radio
     choices:
       - him
@@ -121,7 +121,7 @@ params:
       - them
   he_she_cap:
     label: "He/She Pronoun:"
-    value: They
+    value: She
     input: radio
     choices:
       - He
@@ -129,7 +129,7 @@ params:
       - They
   his_her_cap:
     label: "His/Her Pronoun:"
-    value: Their
+    value: Her
     input: radio
     choices:
       - His
@@ -137,7 +137,7 @@ params:
       - Their
   him_her_cap:
     label: "Him/Her Pronoun:"
-    value: Their
+    value: Her
     input: radio
     choices:
       - Him
@@ -211,7 +211,7 @@ params:
       - depression
   refdoc:
     label: "Referral Source:"
-    value: Dr Dre
+    value: Dr. Dre
     input: text
   family:
     label: "Family Member:"
@@ -278,7 +278,7 @@ params:
 ---
 
 ```{r patient, include = FALSE}
-patient <- params$firstname
+patient <- params$first_name
 pronoun <- params$his_her
 ```
 
@@ -485,7 +485,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:zplot) *z* = -1 (16th percentile), *z* = 0 (50th percentile), and *z* = 1 (84th percentile)
 
-(ref:pct) A *percentile* shows `r params$firstname`'s standing relative to peers. For example, a percentile rank of 70 means `r params$firstname` performed as well as or better than 70% of individuals the same age.
+(ref:pct) A *percentile* shows `r params$first_name`'s standing relative to peers. For example, a percentile rank of 70 means `r params$first_name` performed as well as or better than 70% of individuals the same age.
 
 (ref:br) A *base rate* is the prevalence of score in the general population. If a score is rare, defined as a base rate of less than 10%, it is considered *clinically significant*, and that area of functioning is probably causing problems in daily life.
 
@@ -551,7 +551,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:driving) *Driving Scenes* Created to reflect situational daily living and patient proficiency with such, this assessment ascertains a combination of visual working memory, visual scanning, attention to detail, and selective attention. Visual working memory is the ability to recognize, remember, and then retrieve visually presented information for use in the short-term. Visual scanning is the ability to use vision to search in a systematic manner. Selective attention is the capacity for or process of reacting to certain stimuli selectively when several occur simultaneously. Attention to detail is the ability to achieve thoroughness and accuracy when accomplishing a task. A combination of these cognitive processes enable daily functioning. As this exam demonstrates, the ability to scan surroundings, take notice of selectively important visual details, and then quickly recall such for use in applicable situations, such as when driving, is integral to modern human independence. Below average scores reflect limited ability to safely and proficiently perform tasks associated with typical daily life.
 
-(ref:bills) *Bill Payment* Purporting a necessary daily living function, this piece of the module evaluates auditory language comprehension, bill payment skills, simple calculation ability, and speech output. The patient is handed a bill statement, a check with accompanying check ledger, and an envelope. Questions are posited orally by the test administrator regarding the presented materials. Following the question and answer portion, patients are then given more complex, multistep commands involving physically responding to directives. For instance, during this phase, directions to adhere to and complete the billing instructions as they appear on the billing statement are given, complete with the need to fill out the check and assure the bill would be paid. Each requisite step, when explicitly performed, is awarded one point. Thus, (ref:firstname)'s score of XX shows that (ref:he-she) accurately completed the same number of steps towards bill payment achievement. This score leads to placement in the severely impaired interpretive category. Auditory comprehension is the ability to understand what is heard, including the tone of voice, pauses between words, emphasis used, and the rhythm and pattern of speech, and attach meaning to it. This is a foundational skill originating in early infancy that, ideally, builds with exposure and learning processes. Bill payment skills refer to the wherewithal to complete the processes surrounding proper bill satisfaction and related financial responsibility. Calculation is a deliberate process that transforms one or more inputs into one or more results. In this instance, simple calculation relates to the capacity to accurately and effectively use numerical information to maintain financial balance and responsibility utilizing only basic mathematical skills. Speech output is simply defined as the ability to put thoughts to words. The nature of this exam exhibits the potential negative ramifications in these cognitive functions. Not only will fiscal responsibility suffer deleteriously, similar or related tasks required for independent living and satisfactory life stability will also show negative effects.
+(ref:bills) *Bill Payment* Purporting a necessary daily living function, this piece of the module evaluates auditory language comprehension, bill payment skills, simple calculation ability, and speech output. The patient is handed a bill statement, a check with accompanying check ledger, and an envelope. Questions are posited orally by the test administrator regarding the presented materials. Following the question and answer portion, patients are then given more complex, multistep commands involving physically responding to directives. For instance, during this phase, directions to adhere to and complete the billing instructions as they appear on the billing statement are given, complete with the need to fill out the check and assure the bill would be paid. Each requisite step, when explicitly performed, is awarded one point. Thus, (ref:first-name)'s score of XX shows that (ref:he-she) accurately completed the same number of steps towards bill payment achievement. This score leads to placement in the severely impaired interpretive category. Auditory comprehension is the ability to understand what is heard, including the tone of voice, pauses between words, emphasis used, and the rhythm and pattern of speech, and attach meaning to it. This is a foundational skill originating in early infancy that, ideally, builds with exposure and learning processes. Bill payment skills refer to the wherewithal to complete the processes surrounding proper bill satisfaction and related financial responsibility. Calculation is a deliberate process that transforms one or more inputs into one or more results. In this instance, simple calculation relates to the capacity to accurately and effectively use numerical information to maintain financial balance and responsibility utilizing only basic mathematical skills. Speech output is simply defined as the ability to put thoughts to words. The nature of this exam exhibits the potential negative ramifications in these cognitive functions. Not only will fiscal responsibility suffer deleteriously, similar or related tasks required for independent living and satisfactory life stability will also show negative effects.
 
 (ref:aud-comp) *Auditory Comprehension* is the ability to understand what is heard, including the tone of voice, pauses between words, emphasis used, and the rhythm and pattern of speech, and attach meaning to it. This is a foundational skill originating in early infancy that, ideally, builds with exposure and learning processes.
 
@@ -571,9 +571,9 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:dyscalculia) Developmental dyscalculia is a condition that affects the ability to acquire arithmetical skills. Dyscalculic learners may have difficulty understanding simple number concepts, lack an intuitive grasp of numbers, and have problems learning number facts and procedures. Even if they produce a correct answer or use a correct method, they may do so mechanically and without confidence.
 
-(ref:first-name) `r params$firstname`
+(ref:first-name) `r params$first_name`
 
-(ref:last-name) `r params$lastname`
+(ref:last-name) `r params$last_name`
 
 (ref:he-she) `r params$he_she`
 
@@ -603,7 +603,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 # NEUROBEHAVIORAL STATUS EXAM
 
-(ref:patient) `r params$firstname` `r params$lastname`
+(ref:patient) `r params$first_name` `r params$last_name`
 
 (ref:mrn) `r params$mrn`
 
@@ -622,7 +622,7 @@ knitr::knit_engines$set(marginfigure = function(options) {
 (ref:doe) `r params$doe1`, `r params$doe2`, and `r params$doe3`
 
 ```{marginfigure, echo = TRUE}
-**Patient:** (ref:patient)\
+**Name:** (ref:patient)\
 **MRN:** (ref:mrn)\
 **DOB:** (ref:dob)\
 **Age:** (ref:age)\
@@ -945,7 +945,7 @@ knitr::read_chunk(here::here(patient, "2.5_spatial.R"))
 
 (ref:fn-exe) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
-(ref:unstructured-task) This was a novel planning task published as part of the NIH EXAMINER Executive Function Battery [@kramer2014]. The task allows the examinee to choose which problems they want to work on to maximize points earned. In doing so, examinees need to plan ahead, avoid items that are strategically poor choices, and be cognizant of when a particular booklet offers diminishing returns. (ref:firstname) performed this task effortlessly.
+(ref:unstructured-task) This was a novel planning task published as part of the NIH EXAMINER Executive Function Battery [@kramer2014]. The task allows the examinee to choose which problems they want to work on to maximize points earned. In doing so, examinees need to plan ahead, avoid items that are strategically poor choices, and be cognizant of when a particular booklet offers diminishing returns. (ref:first-name) performed this task effortlessly.
 
 ```{r, executive, results = 'asis', eval = params$eval_executive}
 cat(readLines("2.6_executive.md"), sep = "\n")
@@ -1111,10 +1111,19 @@ knitr::read_chunk(here::here(patient, "2.10_adhd.R"))
 ```{r 05-df-adhd, eval = params$eval_adhd}
 ```
 
-```{r 06-plot-adhd-adhd, eval = params$eval_adhd, fig.cap='(ref:caars)'}
+```{r 06-plot-adhd-adhd-subdomain, eval = params$eval_adhd, fig.cap='(ref:caars)'}
+```
+
+```{r 06-plot-adhd-adhd-narrow, eval = FALSE, fig.cap='(ref:caars)'}
 ```
 
 ```{r 03-table-adhd, eval = params$eval_adhd}
+```
+
+```{r 03-table-executive, eval = params$eval_adhd}
+```
+
+```{r 03-table-merge, eval = params$eval_adhd}
 ```
 
 ```{r 04-kable-adhd, eval = params$eval_adhd, double_escape = TRUE, escape = FALSE, fig.fullwidth = TRUE}
@@ -1123,7 +1132,10 @@ knitr::read_chunk(here::here(patient, "2.10_adhd.R"))
 ```{r 07-df-adhd, eval = params$eval_adhd}
 ```
 
-```{r 08-plot-executive-adhd, eval = params$eval_adhd, fig.cap='(ref:att-ef)'}
+```{r 08-plot-executive-adhd-subdomain, eval = params$eval_adhd, fig.cap='(ref:att-ef)'}
+```
+
+```{r 08-plot-executive-adhd-narrow, eval = FALSE, fig.cap='(ref:att-ef)'}
 ```
 
 \newpage
@@ -1165,7 +1177,7 @@ knitr::read_chunk(here::here(patient, "2.11_emotion.R"))
 
 # SUMMARY/IMPRESSION
 
-(ref:domain) *Key Findings* General intellectual functioning is a strength. Verbal skills are significantly stronger than nonverbal/spatial processing skills. Attentional fluency (i.e., working memory and processing speed) and abstract reasoning are areas of weakness. Notably, even `r params$firstname`'s normatively average scores reflect performances that are well below cognitive expectations for `r params$him_her`. *Note:* *z* = 0 (mean) ± 1 (s.d.)
+(ref:domain) *Key Findings* General intellectual functioning is a strength. Verbal skills are significantly stronger than nonverbal/spatial processing skills. Attentional fluency (i.e., working memory and processing speed) and abstract reasoning are areas of weakness. Notably, even `r params$first_name`'s normatively average scores reflect performances that are well below cognitive expectations for `r params$him_her`. *Note:* *z* = 0 (mean) ± 1 (s.d.)
 
 ```{r domain-df}
 domain <-
@@ -1220,7 +1232,7 @@ bwu::dotplot(
 )
 ```
 
-(ref:timed) **Timed vs. Untimed Tests** `r params$firstname` performs more than a half of a standard deviation better on tasks that are untimed compared to tasks that require `r params$him_her` to respond both accurately and quickly.
+(ref:timed) **Timed vs. Untimed Tests** `r params$first_name` performs more than a half of a standard deviation better on tasks that are untimed compared to tasks that require `r params$him_her` to respond both accurately and quickly.
 
 ```{r timed-df}
 timed <-
@@ -1254,7 +1266,7 @@ Links highlighted in \textcolor{blue}{blue} should be clickable to the online co
 cat(readLines("4.0_recs.md"), sep = "\n")
 ```
 
-It was a pleasure to work with `r params$firstname`.
+It was a pleasure to work with `r params$first_name`.
 Please contact me with any questions or concerns regarding this patient.
 
 ```{marginfigure, echo = TRUE}
