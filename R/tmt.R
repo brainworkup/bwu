@@ -46,23 +46,19 @@ tmtA <- function(raw_score, age) {
     8.760348 - (0.1138093 * age) + (0.0028324 * (age * age))
 
   if (raw_score < predictedScore) {
-    zScore <- ((raw_score - predictedScore) / predictedSD) * -1
-  }
-  if (raw_score > predictedScore) {
     zScore <- (raw_score - predictedScore) / predictedSD
+  }
+  else if (raw_score > predictedScore) {
+    zScore <- ((raw_score - predictedScore) / predictedSD) * -1
   }
 
   tScore <- (zScore * 10) + 50
-
   tScore <- round(tScore, digits = 0)
-
   zScore <- round(zScore, digits = 2)
-
   predictedScore <- round(predictedScore, digits = 2)
-
   predictedSD <- round(predictedSD, digits = 2)
 
-  paste0(tScore, ", ", zScore, ", ", predictedScore, ", ", predictedSD)
+  paste0("T-score = ", tScore, ", z-score = ", zScore, ", Predicted score = ", predictedScore, ", Predicted SD = ", predictedSD)
 
 }
 
@@ -112,10 +108,10 @@ tmtB <- function(raw_score, age) {
     29.8444 - (0.8080508 * age) + (0.0148732 * (age * age))
 
   if (raw_score < predictedScore) {
-    zScore <- ((raw_score - predictedScore) / predictedSD) * -1
-  }
-  if (raw_score > predictedScore) {
     zScore <- (raw_score - predictedScore) / predictedSD
+  }
+  else if (raw_score > predictedScore) {
+    zScore <- ((raw_score - predictedScore) / predictedSD) * -1
   }
 
   tScore <- (zScore * 10) + 50
@@ -128,6 +124,6 @@ tmtB <- function(raw_score, age) {
 
   predictedSD <- round(predictedSD, digits = 2)
 
-  paste0(tScore, ", ", zScore, ", ", predictedScore, ", ", predictedSD)
+  paste0("T-score = ", tScore, ", z-score = ", zScore, ", Predicted score = ", predictedScore, ", Predicted SD = ", predictedSD)
 
 }
