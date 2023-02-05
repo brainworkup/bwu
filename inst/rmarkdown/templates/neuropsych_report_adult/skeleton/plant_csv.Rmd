@@ -3,7 +3,7 @@ title: "Plant CSV file of Neuropsych Measures/Tests"
 params:
   patient:
     label: "Patient First Name:"
-    value: Biggie
+    value: Anna
     input: text
   test_name:
     label: "Full Name of Test/Test Battery:"
@@ -37,33 +37,45 @@ params:
       - cet
   scale:
     label: "Scale/Subtest:"
-    value: ""
+    value: Select Scale
     input: select
     choices:
-      - "Unstructured Task"
-      - "Letter Fluency"
-      - "Category Fluency"
-      - "ROCFT Copy"
-      - "ROCFT Delayed Recall"
-      - "Symbol Span"
-      - "TOPF Standard Score"
-      - "Trails A"
-      - "Trails B"
-      - "Judgment"
-      - "D-KEFS Color Naming"
-      - "D-KEFS Word Reading"
-      - "D-KEFS Inhibition"
-      - "D-KEFS Switching"
-      - "D-KEFS Inhibition Total Errors"
-      - "D-KEFS Switching Total Errors"
-      - "Decoding Fluency"
-      - "Dominant Hand"
-      - "Nondominant Hand"
-      - "Nonsense Word Decoding"
-      - "Reading Comprehension"
-      - "TMT, Part A"
-      - "TMT, Part B"
-      - "Deviation Score"
+      ACS:
+        - "TOPF Standard Score"
+        - "Word Choice"
+      Examiner:
+        - "Unstructured Task"
+        - "Letter Fluency"
+        - "Category Fluency"
+      Rey Complex Figure:
+        - "ROCFT Copy"
+        - "ROCFT Delayed Recall"
+      Trail Making Test:
+        - "Trails A"
+        - "Trails B"
+      NAB:
+        - "Judgment"
+        - "Mazes"
+      DKEFS:
+        - "D-KEFS Color Naming"
+        - "D-KEFS Word Reading"
+        - "D-KEFS Inhibition"
+        - "D-KEFS Switching"
+        - "D-KEFS Inhibition Total Errors"
+        - "D-KEFS Switching Total Errors"
+      WMS-IV:
+        - "Symbol Span"
+        - "Spatial Addition"
+      Grooved Pegboard:
+        - "Dominant Hand"
+        - "Nondominant Hand"
+      KTEA-3:
+        - "Decoding Fluency"
+        - "Nonsense Word Decoding"
+        - "Reading Comprehension"
+      Cognitive Estimation:
+        - "Deviation Score"
+        - ""
   raw_score:
     label: "Raw score:"
     value: 10
@@ -83,7 +95,7 @@ params:
       - standard_score
   domain:
     label: "Domain:"
-    value: ""
+    value: Select domain
     input: radio
     choices:
       - "Intelligence/General Ability"
@@ -99,76 +111,83 @@ params:
       - "Effort/Validity"
   subdomain:
     label: "Subdomain:"
-    value: ""
-    input: radio
+    value: "NULL"
+    input: select
     choices:
-      ## General Ability
-      - "Crystallized Intelligence"
-      ## Attention/Executive
-      - "Attention"
-      - "Executive Functions"
-      - "Working Memory"
-      - "Processing Speed"
-      ## Other
-      - "Visuomotor Integration"
-      - "Fluency"
-      - "Retrieval Fluency"
-      - "Delayed Recall"
-      - "Fine Motor Dexterity"
-      - "Cognitive Control"
-      - "Cognitive Flexibility"
-      - "Concept Formation"
-      - "Judgment"
-      - "Planning"
-      - "Reading"
-      - "Response Monitoring"
+      General Ability:
+        - "Crystallized Intelligence"
+        - "Cognitive Proficiency"
+      Attention/Executive:
+        - "Attention"
+        - "Executive Functions"
+        - "Working Memory"
+        - "Processing Speed"
+      Other:
+        - "Visuomotor Integration"
+        - "Fluency"
+        - "Retrieval Fluency"
+        - "Delayed Recall"
+        - "Fine Motor Dexterity"
+        - "Cognitive Control"
+        - "Cognitive Flexibility"
+        - "Concept Formation"
+        - "Judgment"
+        - "Planning"
+        - "Reading"
+        - "Response Monitoring"
   narrow:
     label: "Narrow subdomain:"
-    value: ""
-    input: radio
+    value: Select domain
+    input: select
     choices:
-      ## General Ability
-      - "Premorbid Ability"
-      ## Attention
-      - "Attention Index"
-      - "Attention Span"
-      - "Divided Attention"
-      - "Response Monitoring"
-      - "Selective Attention"
-      - "Spatial Attention"
-      - "Verbal Attention"
-      - "Visual Attention"
-      ## EF
-      - "Executive Functions Index"
-      - "Judgment"
-      - "Phonemic Fluency"
-      - "Semantic Fluency"
-      - "Planning"
-      - "Strategic Planning"
-      - "Abstract Reasoning"
-      - "Inhibition"
-      - "Set-Shifting"
-      - "Decision-Making"
-      ## Working Memory
-      - "Working Memory Index"
-      - "Verbal Working Memory"
-      - "Nonverbal Working Memory"
-      ## Processing Speed
-      - "Processing Speed Index"
-      - "Psychomotor Speed"
-      - "Cognitive Efficiency"
-      ## Spatial
-      - "Perceptual Organization"
-      ## Memory
-      - "Visual Memory"
-      ## Motor
-      - "Dominant Hand Dexterity"
-      - "Nondominant Hand Dexterity"
-      - "Naming Facility"
-      - "Problem-Solving"
-      - "Reading Comprehension"
-      - "Reading Decoding"
-      - "Reading Speed"
+      General Cognition:
+        - "General Ability"
+        - "Premorbid Ability"
+      Attention:
+        - "Attention Index"
+        - "Attention Span"
+        - "Divided Attention"
+        - "Response Monitoring"
+        - "Selective Attention"
+        - "Spatial Attention"
+        - "Verbal Attention"
+        - "Visual Attention"
+      Exec Fx:
+        - "Executive Functions Index"
+        - "Judgment"
+        - "Phonemic Fluency"
+        - "Semantic Fluency"
+        - "Planning"
+        - "Strategic Planning"
+        - "Abstract Reasoning"
+        - "Inhibition"
+        - "Set-Shifting"
+        - "Decision-Making"
+      Working Memory:
+        - "Working Memory Index"
+        - "Verbal Working Memory"
+        - "Nonverbal Working Memory"
+      Processing Speed:
+        - "Processing Speed Index"
+        - "Psychomotor Speed"
+        - "Cognitive Efficiency"
+      Spatial:
+        - "Perceptual Organization"
+        - Visuomotor
+      Memory:
+        - Learning Efficiency
+        - Delayed Recall
+        - Visual Memory
+        - Story Memory
+      Motor:
+        - "Dominant Hand Dexterity"
+        - "Nondominant Hand Dexterity"
+      Other:
+        - "Naming Facility"
+        - "Problem-Solving"
+        - "Reading Comprehension"
+        - "Reading Decoding"
+        - "Reading Speed"
   pass:
     label: "PASS:"
     value: ""
@@ -302,13 +321,13 @@ compute_desc <- function(.x, .scale, description, ...) {
     description = tidytable::case_when(
       .scale ==
         "ROCFT Copy" ~
-        "Visuoconstructural drawing/copying of a complex figure requiring visuospatial integration, planning and organization, and efficient encoding of visuospatial material",
+        "Copying of a complex figure requiring visuospatial integration, planning and organization, and efficient encoding of visuospatial material",
       .scale ==
         "ROCFT Delayed Recall" ~
         "Spontaneous, long-term delayed recall (20-25 min) recall and reproduction of a complex abstract figure",
       .scale ==
         "Judgment" ~
-        "Judgment and decision-making in everyday situations",
+        "Judgment and decisional capacity about issues and situations likely to be encountered in daily life",
       .scale == "D-KEFS Color Naming" ~
         "Rapid color naming",
       .scale == "D-KEFS Word Reading" ~
@@ -342,9 +361,9 @@ compute_desc <- function(.x, .scale, description, ...) {
       .scale == "Reading Comprehension" ~
         "Reading comprehension skills at the level of the word, sentence, and passage",
       .scale == "Trails A" ~
-        "Basic psychomotor speed",
+        "Basic psychomotor processing speed",
       .scale == "Trails B" ~
-        "Rapid number-letter sequencing and set-shifting",
+        "Scanning, visuomotor tracking, divided attention, and cognitive flexibility",
       .scale == "Symbol Span" ~
         "Nonverbal working memory",
       TRUE ~ as.character(description)
@@ -602,7 +621,7 @@ table <- df3
 test <- "g"
 tidytable::fwrite(
   table,
-  here::here(patient, "csv", paste0(test, ".csv")),
+  here::here(patient, "csv", paste0(test, ".txt")),
   append = TRUE
 )
 # need to convert csv to excel
