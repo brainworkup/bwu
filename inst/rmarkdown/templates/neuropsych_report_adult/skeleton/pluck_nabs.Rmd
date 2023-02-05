@@ -568,11 +568,11 @@ table1 <-
   tidytable::mutate(
     subdomain = tidytable::case_when(
       scale == "NAB Attention Index" ~ "Attention",
-      scale == "NAB Language Index" ~ "Language Index",
-      scale == "NAB Memory Index" ~ "Memory Index",
-      scale == "NAB Spatial Index" ~ "Spatial Index",
+      scale == "NAB Language Index" ~ "Language",
+      scale == "NAB Memory Index" ~ "Memory",
+      scale == "NAB Spatial Index" ~ "Spatial",
       scale == "NAB Executive Functions Index" ~ "Executive Functions",
-      scale == "NAB Total Index" ~ "General Cognitive Function",
+      scale == "NAB Total Index" ~ "Overall Neuropsychological Functioning",
       TRUE ~ as.character(subdomain)
     )
   )
@@ -594,14 +594,6 @@ dsb <- c(
   "Digits Backward",
   "Digits Backward Longest Span"
 )
-nlt <- c(
-  "Numbers & Letters Part A Speed",
-  "Numbers & Letters Part A Efficiency",
-  "Numbers & Letters Part B Efficiency"
-)
-nle <- c(
-  "Numbers & Letters Part A Errors"
-)
 shl <- c(
   "Shape Learning Immediate Recognition",
   "Shape Learning Delayed Recognition",
@@ -622,9 +614,10 @@ table2 <-
       scale %in% orientation ~ "Attention",
       scale %in% dsf ~ "Attention",
       scale %in% dsb ~ "Working Memory",
-      scale %in% nlt ~ "Processing Speed",
       scale == "Numbers & Letters Part A Speed" ~ "Processing Speed",
-      scale %in% nle ~ "Attention",
+      scale == "Numbers & Letters Part A Errors" ~ "Attention",
+      scale == "Numbers & Letters Part A Efficiency" ~ "Processing Speed",
+      scale == "Numbers & Letters Part B Efficiency" ~ "Attention",
       TRUE ~ as.character(subdomain)
     )
   )
@@ -698,12 +691,12 @@ table1 <-
   table1 |>
   tidytable::mutate(
     narrow = tidytable::case_when(
-      scale == "NAB Attention Index" ~ "Attention Index",
-      scale == "NAB Language Index" ~ "Language Index",
-      scale == "NAB Memory Index" ~ "Memory Index",
-      scale == "NAB Spatial Index" ~ "Spatial Index",
-      scale == "NAB Executive Functions Index" ~ "Executive Functions Index",
-      scale == "NAB Total Index" ~ "Neurocognitive Index",
+      scale == "NAB Attention Index" ~ "Screening Attention Domain",
+      scale == "NAB Language Index" ~ "Screening Language Domain",
+      scale == "NAB Memory Index" ~ "Screening Memory Domain",
+      scale == "NAB Spatial Index" ~ "Screening Spatial Domain",
+      scale == "NAB Executive Functions Index" ~ "Screening Executive Functions Domain",
+      scale == "NAB Total Index" ~ "Neuropsychological Functioning",
       TRUE ~ as.character(narrow)
     )
   )
@@ -715,12 +708,12 @@ table2 <-
   tidytable::mutate(
     narrow = tidytable::case_when(
       scale %in% orientation ~ "Orientation",
-      scale %in% dsf ~ "Verbal Attention",
-      scale %in% dsb ~ "Verbal Working Memory",
+      scale %in% dsf ~ "Auditory Attentional Capacity",
+      scale %in% dsb ~ "Working Memory Capacity",
       scale == "Numbers & Letters Part A Speed" ~ "Psychomotor Speed",
       scale == "Numbers & Letters Part A Errors" ~ "Response Monitoring",
-      scale == "Numbers & Letters Part A Efficiency" ~ "Psychomotor Speed",
-      scale == "Numbers & Letters Part B Efficiency" ~ "Cognitive Efficiency",
+      scale == "Numbers & Letters Part A Efficiency" ~ "Cognitive Efficiency",
+      scale == "Numbers & Letters Part B Efficiency" ~ "Divided Attention",
       TRUE ~ as.character(narrow)
     )
   )
@@ -767,8 +760,8 @@ table6 <-
   table6 |>
   tidytable::mutate(
     narrow = tidytable::case_when(
-      scale == "Mazes" ~ "Cognitive Efficiency",
-      scale == "Word Generation" ~ "Ideational Fluency",
+      scale == "Mazes" ~ "Planning and Foresight",
+      scale == "Word Generation" ~ "Ideational Fluency/Generativity",
       scale == "Word Generation Perseverations" ~ "Response Monitoring",
       TRUE ~ as.character(narrow)
     )
@@ -1063,22 +1056,27 @@ table1 <-
     description = tidytable::case_when(
       scale ==
         "NAB Total Index" ~
-        "Finally, broad neurocognitive functioning (independent of general intelligence) across domains of attentional and executive functioning, language and spatial processing, and learning and memory",
+        "Finally, an omnibus meaures of neuropsychological functioning
+        (independent of general intelligence) in the domains of attentional
+        and executive functioning, language, spatial processing, and memory",
       scale ==
         "NAB Attention Index" ~
-        "A composite index of both basic and complex verbal and nonverbal attentional capacity/functioning",
+        "An overall screening measure of the examinee's attentional functioning",
       scale ==
         "NAB Language Index" ~
-        "General screening index of expressive/receptive language skills",
+        "A composite screening measure of the examinee's language comprehension
+        and word-finding abilities",
       scale ==
         "NAB Memory Index" ~
-        "Overall learning efficiency and longer-term memory functioning",
+        "A composite measure of the examinee's verbal and visual memory functioning",
       scale ==
         "NAB Spatial Index" ~
-        "Overall performance across measures of visual perception, construction, motor integration, and spatial awareness",
+        "A composite measure of the examinee's visuoperceptual skills, attention
+        to detail, and visuoconstructional skills",
       scale ==
         "NAB Executive Functions Index" ~
-        "A composite index of higher executive skills",
+        "A composite measure of executive skills involving planning, inhibition,
+        speed/fluency, and generativity",
       TRUE ~ as.character(description)
     )
   )
