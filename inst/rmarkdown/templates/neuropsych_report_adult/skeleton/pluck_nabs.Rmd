@@ -1092,13 +1092,14 @@ table2 <-
         "Orientation to person, place, time, and situation",
       scale ==
         "Digits Forward" ~
-        "The ability to register, maintain, and manipulate auditory information",
+        "Auditory attentional capacity, or how much information can be processed
+        at once",
       scale ==
         "Digits Forward Longest Span" ~
         "Auditory attentional capacity",
       scale ==
         "Digits Backward" ~
-        "Verbal working memory",
+        "A measure of both attentional capacity and working memory",
       scale ==
         "Digits Backward Longest Span" ~
         "Working memory for orally presented information",
@@ -1107,13 +1108,15 @@ table2 <-
         "Psychomotor speed",
       scale ==
         "Numbers & Letters Part A Errors" ~
-        "Response/error monitoring during a selective attention task",
+        "A marker of reduced focus, or selective attention, distractibility, or reduced concentration, and diminished sustained attention",
       scale ==
         "Numbers & Letters Part A Efficiency" ~
-        "Psychomotor speed requiring selective attention/concentration and vigilance",
+        "An overall measure of efficiency in performing a
+        selective attention task",
       scale ==
         "Numbers & Letters Part B Efficiency" ~
-        "Cognitive efficiency requiring divided attention, rapid set-shifting, and inhibitory control",
+        "Speed and accuracy on a measure of divided attention and information
+        processing speed",
       TRUE ~ as.character(description)
     )
   )
@@ -1129,7 +1132,8 @@ table3 <-
         "Auditory comprehension (i.e., the ability to receive, process, and execute oral instructions of increasing syntactic complexity)",
       scale ==
         "Naming" ~
-        "Visual confrontation naming/word-finding",
+        "Word-finding ability/retrieval fluency on an 10-item visual
+        confrontation naming task",
       TRUE ~ as.character(description)
     )
   )
@@ -1151,13 +1155,14 @@ table4 <-
         "Percentage of visual detail retained over time, scaled to how much was initially learned",
       scale ==
         "Story Learning Immediate Recall" ~
-        "Memory recall of more complex verbal information (short stories)",
+        "Performance on a more complex one-trial verbal learning and recall task
+        (story learning)",
       scale ==
         "Story Learning Delayed Recall" ~
         "Delayed recall of the story details over time",
       scale ==
         "Story Learning Percent Retention" ~
-        "Percentage of story detail retained over time, scaled to how much was initially learned",
+        "The percentage of story detail retained over time, scaled to how much was initially learned",
       TRUE ~ as.character(description)
     )
   )
@@ -1170,10 +1175,12 @@ table5 <-
     description = tidytable::case_when(
       scale ==
         "Visual Discrimination" ~
-        "Perceptual processing, discrimination, and pattern matching of a series of abstract images requiring close attention to visual detail",
+        "Perceptual processing, discrimination, and pattern matching of a series
+        of abstract images requiring close attention to visual detail",
       scale ==
         "Design Construction" ~
-        "Constructing and recreating abstract visual designs from a model using flat polygons ('tans')",
+        'Constructing and recreating abstract visual designs (tangrams) from a
+        model using flat polygons (tans) to reproduce each stimulus,
       TRUE ~ as.character(description)
     )
   )
@@ -1186,13 +1193,13 @@ table6 <-
     description = tidytable::case_when(
       scale ==
         "Mazes" ~
-        "Planning, foresight, and adaptive abilities examined through a series of maze-tracing tasks",
+        "Planning and foresight, inhibition, and psychomotor speed examined through a series of maze-tracing tasks",
       scale ==
         "Word Generation" ~
-        "Spontaneous word retrieval fluency/generativity",
+        "Retrieval fluency, ideational fluency, and generativity",
       scale ==
         "Word Generation Perseverations" ~
-        "Response/error monitoring during a word generation task",
+        "Self-monitoring and perseverative tendencies",
       TRUE ~ as.character(description)
     )
   )
@@ -1207,7 +1214,7 @@ table1 <-
     result = tidytable::case_when(
       scale ==
         "NAB Total Index" ~ glue::glue(
-        "{description} was {range}.\n"
+        "{description} fell in the {range} range.\n"
       ),
       scale ==
         "NAB Attention Index" ~ glue::glue(
@@ -1223,11 +1230,11 @@ table1 <-
       ),
       scale ==
         "NAB Spatial Index" ~ glue::glue(
-        "{description} was {range}.\n"
+        "{description} fell in the {range} classification range.\n"
       ),
       scale ==
         "NAB Executive Functions Index" ~ glue::glue(
-        "{description} was {range}.\n"
+        "{description} fell in the {range} range.\n"
       ),
       TRUE ~ as.character(result)
     )
@@ -1280,14 +1287,18 @@ table4 <-
   table4 |>
   tidytable::mutate(
     result = tidytable::case_when(
-      scale == "Story Learning Immediate Recall" ~
-        glue::glue("{description} was {range}.\n"),
-      scale == "Story Learning Delayed Recall" ~
-        glue::glue("{description} was {range}.\n"),
       scale == "Shape Learning Immediate Recognition" ~
         glue::glue("{description} was {range}.\n"),
       scale == "Shape Learning Delayed Recognition" ~
         glue::glue("{description} was {range}.\n"),
+      scale == "Shape Learning Percent Retention" ~
+        glue::glue("{description} fell in the {range} range.\n"),
+      scale == "Story Learning Immediate Recall" ~
+        glue::glue("{description} was {range}.\n"),
+      scale == "Story Learning Delayed Recall" ~
+        glue::glue("{description} was {range}.\n"),
+      scale == "Story Learning Percent Retention" ~
+        glue::glue("{description} fell in the {range} range.\n"),
       TRUE ~ as.character(result)
     )
   )
@@ -1301,7 +1312,7 @@ table5 <-
       scale == "Visual Discrimination" ~
         glue::glue("{description} was {range}.\n"),
       scale == "Design Construction" ~
-        glue::glue("{description} was {range}.\n"),
+        glue::glue("{description} fell in the {range} range.\n"),
       TRUE ~ as.character(result)
     )
   )
@@ -1313,7 +1324,7 @@ table6 <-
   tidytable::mutate(
     result = tidytable::case_when(
       scale == "Mazes" ~
-        glue::glue("{description} was {range}.\n"),
+        glue::glue("{description} fell in the {range} range.\n"),
       scale == "Word Generation" ~
         glue::glue("{description} was {range}.\n"),
       scale == "Word Generation Perseverations" ~
