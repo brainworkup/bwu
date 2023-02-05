@@ -171,10 +171,8 @@ area <- list(
 ```{r areas-get, eval = FALSE}
 # if unknown
 file <- file.choose()
-area6 <- bwu::gpluck_locate_areas(
-  file = file,
-  pages = c(2, 5, 6, 7, 8, 8)
-)
+area2 <- bwu::gpluck_locate_areas(file = file,
+  pages = c(2, 5, 6, 7, 8, 8))
 ```
 
 ```{r s-area}
@@ -200,23 +198,20 @@ plucked_table <- bwu::gpluck_extract_table(
 
 # NAB Index Score
 
-## Pluck and format tables
-
 ```{r pluck1}
 table1 <- tibble::as_tibble(plucked_table[[1]])
 colnames(table1) <- params$column_names1
-table1 <-
-  table1 %>%
-  tidytable::mutate(raw_score = "") %>%
-  tidytable::relocate(raw_score, .before = score)
+table1$raw_score <- ""
 to_double <- c("raw_score", "score", "percentile")
-table1 <- table1 |> hablar::convert(dbl(all_of(to_double)))
+table1 <- table1 |> hablar::convert(dbl(all_of(to_double))) |>
+  tidytable::relocate(raw_score, .before = score)
 ```
 
 ```{r slice1}
 table1 <- table1 %>% tidytable::mutate(absort = paste0(seq_len(nrow(table1))))
 table1$absort <- as.numeric(table1$absort)
-table1 <- table1 |>
+table1 <-
+  table1 |>
   arrange(desc(score)) |>
   arrange(desc(percentile)) |>
   slice(1:6) |>
@@ -267,10 +262,8 @@ table2[10, 1] <- c("Numbers & Letters Part A Speed")
 table2[11, 1] <- c("Numbers & Letters Part A Errors")
 table2[12, 1] <- c("Numbers & Letters Part A Efficiency")
 table2[13, 1] <- c("Numbers & Letters Part B Efficiency")
-```
 
-```{r mutate-value}
-# table2[13, 5] <- 0.5
+table2[13, 5] <- 1
 ```
 
 # NAB Language
@@ -347,6 +340,7 @@ table5 <- table5 |>
 ```{r scales-table5}
 table5[1, 1] <- c("Visual Discrimination")
 table5[2, 1] <- c("Design Construction")
+# table5[1, 5] <- 1
 ```
 
 # NAB Executive Functions
@@ -373,10 +367,7 @@ table6 <- table6 |>
 table6[1, 1] <- c("Mazes")
 table6[2, 1] <- c("Word Generation")
 table6[3, 1] <- c("Word Generation Perseverations")
-```
-
-```{r mutate-value6, eval=F}
-# table6[3, 5] <- 0.5
+table6[1, 5] <- 1
 ```
 
 ## Select variables to keep
@@ -506,7 +497,7 @@ table6 <- bwu::gpluck_make_columns(
   narrow = "",
   timed = "Timed",
   verbal = "",
-  pass = "Planning",
+  pass = "",
   test_type = "npsych_test",
   score_type = "t_score",
   absort = "",
@@ -769,7 +760,7 @@ table6 <-
   table6 |>
   tidytable::mutate(
     narrow = tidytable::case_when(
-      scale == "Mazes" ~ "Planning and Foresight",
+      scale == "Mazes" ~ "Planning",
       scale == "Word Generation" ~ "Ideational Fluency/Generativity",
       scale == "Word Generation Perseverations" ~ "Response Monitoring",
       TRUE ~ as.character(narrow)
@@ -1363,6 +1354,10 @@ readr::write_csv(
   ),
   col_names = TRUE, na = ""
 )
+
+if (any(is.na(nabs$percentile))) {
+  stop("STOP!!! NA value found in percentile column. Please fill in missing values.")
+}
 ```
 
 ```{r writeout-g}
