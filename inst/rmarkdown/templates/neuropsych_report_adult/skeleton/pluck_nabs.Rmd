@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from NAB Screener"
 params:
-  patient: Summer
+  patient: Biggie
   test:
     label: "Test"
     value: nabs
@@ -173,7 +173,7 @@ area <- list(
 file <- file.choose()
 area6 <- bwu::gpluck_locate_areas(
   file = file,
-  pages = c(2,5,6,7,8,8)
+  pages = c(2, 5, 6, 7, 8, 8)
 )
 ```
 
@@ -244,7 +244,7 @@ table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
 ```{r clean2}
 table2 <- table2 |> tidytable::mutate(absort = paste0(seq_len(nrow(table2))))
 table2$absort <- as.numeric(table2$absort)
-table2 <- 
+table2 <-
   table2 |>
   arrange(desc(raw_score)) |>
   arrange(desc(score)) |>
