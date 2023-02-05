@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from NAB Screener"
 params:
-  patient: Biggie
+  patient: Summer
   test:
     label: "Test"
     value: nabs
@@ -151,8 +151,8 @@ pages <- params$pages
 writeLines(file, here::here(patient, "pre_csv", "nabs_pdf"))
 ```
 
-```{r rfile}
-# file <- readLines(here::here(patient, "pre_csv", "nabs_pdf"))
+```{r, readfile, eval=FALSE}
+file <- readLines(here::here(patient, "pre_csv", "nabs_pdf"))
 ```
 
 ## Locate areas
@@ -170,19 +170,19 @@ area <- list(
 
 ```{r areas-get, eval = FALSE}
 # if unknown
-# file <- file.choose()
-# area6 <- bwu::gpluck_locate_areas(
-#   file = file,
-#   pages = c(2,5,6,7,8,8)
-# )
+file <- file.choose()
+area6 <- bwu::gpluck_locate_areas(
+  file = file,
+  pages = c(2,5,6,7,8,8)
+)
 ```
 
 ```{r s-area}
 saveRDS(area, here::here(patient, "pre_csv", "area_nabs.rds"))
 ```
 
-```{r r-area}
-# area <- readRDS(here::here(patient, "pre_csv", "area_nabs.rds"))
+```{r r-area, eval=FALSE}
+area <- readRDS(here::here(patient, "pre_csv", "area_nabs.rds"))
 ```
 
 ## Extract tables
@@ -244,7 +244,8 @@ table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
 ```{r clean2}
 table2 <- table2 |> tidytable::mutate(absort = paste0(seq_len(nrow(table2))))
 table2$absort <- as.numeric(table2$absort)
-table2 <- table2 |>
+table2 <- 
+  table2 |>
   arrange(desc(raw_score)) |>
   arrange(desc(score)) |>
   arrange(desc(percentile)) |>
@@ -538,12 +539,12 @@ table1 <-
   table1 |>
   tidytable::mutate(
     domain = tidytable::case_when(
+      scale == "NAB Total Index" ~ "Intelligence/General Ability",
       scale == "NAB Attention Index" ~ "Attention/Executive",
       scale == "NAB Language Index" ~ "Verbal/Language",
       scale == "NAB Memory Index" ~ "Memory",
       scale == "NAB Spatial Index" ~ "Visual Perception/Construction",
       scale == "NAB Executive Functions Index" ~ "Attention/Executive",
-      scale == "NAB Total Index" ~ "Intelligence/General Ability",
       TRUE ~ as.character(domain)
     )
   )
@@ -572,7 +573,7 @@ table1 <-
       scale == "NAB Memory Index" ~ "Memory",
       scale == "NAB Spatial Index" ~ "Spatial",
       scale == "NAB Executive Functions Index" ~ "Executive Functions",
-      scale == "NAB Total Index" ~ "Overall Neuropsychological Functioning",
+      scale == "NAB Total Index" ~ "Neuropsychological Functioning",
       TRUE ~ as.character(subdomain)
     )
   )
@@ -593,6 +594,14 @@ dsf <- c(
 dsb <- c(
   "Digits Backward",
   "Digits Backward Longest Span"
+)
+nlt <- c(
+  "Numbers & Letters Part A Speed",
+  "Numbers & Letters Part A Efficiency",
+  "Numbers & Letters Part B Efficiency"
+)
+nle <- c(
+  "Numbers & Letters Part A Errors"
 )
 shl <- c(
   "Shape Learning Immediate Recognition",
@@ -696,7 +705,7 @@ table1 <-
       scale == "NAB Memory Index" ~ "Screening Memory Domain",
       scale == "NAB Spatial Index" ~ "Screening Spatial Domain",
       scale == "NAB Executive Functions Index" ~ "Screening Executive Functions Domain",
-      scale == "NAB Total Index" ~ "Neuropsychological Functioning",
+      scale == "NAB Total Index" ~ "Overall Neuropsychological Functioning",
       TRUE ~ as.character(narrow)
     )
   )
@@ -1055,28 +1064,17 @@ table1 <-
   tidytable::mutate(
     description = tidytable::case_when(
       scale ==
-        "NAB Total Index" ~
-        "Finally, an omnibus meaures of neuropsychological functioning
-        (independent of general intelligence) in the domains of attentional
-        and executive functioning, language, spatial processing, and memory",
+        "NAB Total Index" ~ "Finally, a comprehensive measure of neuropsychological functioning (independent of general intelligence) in the domains of attentional and executive functioning, language, spatial processing, and memory",
       scale ==
-        "NAB Attention Index" ~
-        "An overall screening measure of the examinee's attentional functioning",
+        "NAB Attention Index" ~ "An overall screening measure of the examinee's attentional functioning",
       scale ==
-        "NAB Language Index" ~
-        "A composite screening measure of the examinee's language comprehension
-        and word-finding abilities",
+        "NAB Language Index" ~ "A composite screening measure of language comprehension and word-finding abilities",
       scale ==
-        "NAB Memory Index" ~
-        "A composite measure of the examinee's verbal and visual memory functioning",
+        "NAB Memory Index" ~ "A composite measure of the examinee's verbal and visual memory functioning",
       scale ==
-        "NAB Spatial Index" ~
-        "A composite measure of the examinee's visuoperceptual skills, attention
-        to detail, and visuoconstructional skills",
+        "NAB Spatial Index" ~ "A composite measure of (ref:first-name)'s visuoperceptual skills, attention to detail, and visuoconstructional skills",
       scale ==
-        "NAB Executive Functions Index" ~
-        "A composite measure of executive skills involving planning, inhibition,
-        speed/fluency, and generativity",
+        "NAB Executive Functions Index" ~ "A composite measure of executive skills involving planning, inhibition, speed/fluency, and generativity",
       TRUE ~ as.character(description)
     )
   )
@@ -1088,35 +1086,23 @@ table2 <-
   tidytable::mutate(
     description = tidytable::case_when(
       scale ==
-        "Orientation" ~
-        "Orientation to person, place, time, and situation",
+        "Orientation" ~ "Orientation to person, place, time, and situation",
       scale ==
-        "Digits Forward" ~
-        "Auditory attentional capacity, or how much information can be processed
-        at once",
+        "Digits Forward" ~ "Auditory attentional capacity, or how much information can be processed at once",
       scale ==
-        "Digits Forward Longest Span" ~
-        "Auditory attentional capacity",
+        "Digits Forward Longest Span" ~ "Auditory attentional capacity",
       scale ==
-        "Digits Backward" ~
-        "A measure of both attentional capacity and working memory",
+        "Digits Backward" ~ "A measure of both attentional capacity and working memory",
       scale ==
-        "Digits Backward Longest Span" ~
-        "Working memory for orally presented information",
+        "Digits Backward Longest Span" ~ "Working memory for orally presented information",
       scale ==
-        "Numbers & Letters Part A Speed" ~
-        "Psychomotor speed",
+        "Numbers & Letters Part A Speed" ~ "Psychomotor speed",
       scale ==
-        "Numbers & Letters Part A Errors" ~
-        "A marker of reduced focus, or selective attention, distractibility, or reduced concentration, and diminished sustained attention",
+        "Numbers & Letters Part A Errors" ~ "A marker of reduced focus, or selective attention, distractibility, or reduced concentration, and diminished sustained attention",
       scale ==
-        "Numbers & Letters Part A Efficiency" ~
-        "An overall measure of efficiency in performing a
-        selective attention task",
+        "Numbers & Letters Part A Efficiency" ~ "An overall measure of efficiency in performing a selective attention task",
       scale ==
-        "Numbers & Letters Part B Efficiency" ~
-        "Speed and accuracy on a measure of divided attention and information
-        processing speed",
+        "Numbers & Letters Part B Efficiency" ~ "(ref:first-name)'s performance on a complex measure of divided attention and information processing speed",
       TRUE ~ as.character(description)
     )
   )
@@ -1128,12 +1114,9 @@ table3 <-
   tidytable::mutate(
     description = tidytable::case_when(
       scale ==
-        "Auditory Comprehension" ~
-        "Auditory comprehension (i.e., the ability to receive, process, and execute oral instructions of increasing syntactic complexity)",
+        "Auditory Comprehension" ~ "Auditory comprehension (i.e., the ability to receive, process, and execute oral instructions of increasing syntactic complexity)",
       scale ==
-        "Naming" ~
-        "Word-finding ability/retrieval fluency on an 10-item visual
-        confrontation naming task",
+        "Naming" ~ "Word-finding ability and retrieval fluency on a 10-item visual confrontation naming task",
       TRUE ~ as.character(description)
     )
   )
@@ -1145,24 +1128,17 @@ table4 <-
   tidytable::mutate(
     description = tidytable::case_when(
       scale ==
-        "Shape Learning Immediate Recognition" ~
-        "Learning and recognition of visual material (abstract shapes)",
+        "Shape Learning Immediate Recognition" ~ "Learning and recognition of visual material (abstract shapes)",
       scale ==
-        "Shape Learning Delayed Recognition" ~
-        "Recognition of the target visual material among nontarget distractors after a delay period",
+        "Shape Learning Delayed Recognition" ~ "Recognition of the target visual material among nontarget distractors after a delay period",
       scale ==
-        "Shape Learning Percent Retention" ~
-        "Percentage of visual detail retained over time, scaled to how much was initially learned",
+        "Shape Learning Percent Retention" ~ "Percentage of visual detail retained over time, scaled to how much was initially learned",
       scale ==
-        "Story Learning Immediate Recall" ~
-        "Performance on a more complex one-trial verbal learning and recall task
-        (story learning)",
+        "Story Learning Immediate Recall" ~ "Performance on a more complex one-trial verbal learning and recall task (story learning)",
       scale ==
-        "Story Learning Delayed Recall" ~
-        "Delayed recall of the story details over time",
+        "Story Learning Delayed Recall" ~ "Delayed recall of the story details over time",
       scale ==
-        "Story Learning Percent Retention" ~
-        "The percentage of story detail retained over time, scaled to how much was initially learned",
+        "Story Learning Percent Retention" ~ "The percentage of story detail retained over time, scaled to how much was initially learned",
       TRUE ~ as.character(description)
     )
   )
@@ -1174,13 +1150,9 @@ table5 <-
   tidytable::mutate(
     description = tidytable::case_when(
       scale ==
-        "Visual Discrimination" ~
-        "Perceptual processing, discrimination, and pattern matching of a series
-        of abstract images requiring close attention to visual detail",
+        "Visual Discrimination" ~ "Perceptual processing, discrimination, and pattern matching of a series of abstract images requiring close attention to visual detail",
       scale ==
-        "Design Construction" ~
-        'Constructing and recreating abstract visual designs (tangrams) from a
-        model using flat polygons (tans) to reproduce each stimulus,
+        "Design Construction" ~ "Constructing and recreating abstract visual designs (tangrams) from a model using flat polygons (tans) to reproduce each stimulus",
       TRUE ~ as.character(description)
     )
   )
@@ -1191,15 +1163,9 @@ table6 <-
   table6 |>
   tidytable::mutate(
     description = tidytable::case_when(
-      scale ==
-        "Mazes" ~
-        "Planning and foresight, inhibition, and psychomotor speed examined through a series of maze-tracing tasks",
-      scale ==
-        "Word Generation" ~
-        "Retrieval fluency, ideational fluency, and generativity",
-      scale ==
-        "Word Generation Perseverations" ~
-        "Self-monitoring and perseverative tendencies",
+      scale == "Mazes" ~ "Planning and foresight, inhibition, and psychomotor speed examined through a series of maze-tracing tasks",
+      scale == "Word Generation" ~ "Retrieval fluency, ideational fluency, and generativity",
+      scale == "Word Generation Perseverations" ~ "Self-monitoring and perseverative tendencies",
       TRUE ~ as.character(description)
     )
   )
@@ -1247,20 +1213,23 @@ table2 <-
   tidytable::mutate(
     result = tidytable::case_when(
       scale ==
-        "Orientation" ~
-        glue::glue("{description} was intact.\n"),
+        "Orientation" ~ glue::glue("{description} was intact.\n"),
       scale ==
-        "Digits Forward Longest Span" ~
-        glue::glue("{description} was {range} ({raw_score} digits forward).\n"),
+        "Digits Forward" ~ glue::glue("{description} was {range}.\n"),
       scale ==
-        "Digits Backward Longest Span" ~
-        glue::glue("{description} was {range} ({raw_score} digits backward).\n"),
+        "Digits Forward Longest Span" ~ glue::glue("{description} was {range} ({raw_score} digits forward).\n"),
       scale ==
-        "Numbers & Letters Part A Efficiency" ~
-        glue::glue("{description} was {range}.\n"),
+        "Digits Backward" ~ glue::glue("{description} was {range}.\n"),
       scale ==
-        "Numbers & Letters Part B Efficiency" ~
-        glue::glue("{description} was {range}.\n"),
+        "Digits Backward Longest Span" ~ glue::glue("{description} was {range} ({raw_score} digits backward).\n"),
+      scale ==
+        "Numbers & Letters Part A Efficiency" ~ glue::glue("{description} was {range}.\n"),
+      scale ==
+        "Numbers & Letters Part B Efficiency" ~ glue::glue("{description} was {range}.\n"),
+      scale ==
+        "Numbers & Letters Part A Speed" ~ glue::glue("{description} was {range}.\n"),
+      scale ==
+        "Numbers & Letters Part A Errors" ~ glue::glue("{description} was {range}.\n"),
       TRUE ~ as.character(result)
     )
   )
@@ -1272,11 +1241,9 @@ table3 <-
   tidytable::mutate(
     result = tidytable::case_when(
       scale ==
-        "Auditory Comprehension" ~
-        glue::glue("{description} was {range}.\n"),
+        "Auditory Comprehension" ~ glue::glue("{description} was {range}.\n"),
       scale ==
-        "Naming" ~
-        glue::glue("{description} was {range}, with no obvious dysfluency in conversational/informal expression.\n"),
+        "Naming" ~ glue::glue("{description} was {range}, with no obvious dysfluency in conversational/informal expression.\n"),
       TRUE ~ as.character(result)
     )
   )
