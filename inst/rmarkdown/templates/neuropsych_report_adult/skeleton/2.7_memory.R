@@ -50,8 +50,8 @@ filter_domain <- c(
   "Short-Delay Cued Recall",
   "Long-Delay Free Recall",
   "Long-Delay Cued Recall",
-  "Total Intrusions",
-  "Total Repetitions",
+  # "Total Intrusions",
+  # "Total Repetitions",
   "Long-Delay Recognition Discriminability",
   "Long-Delay Recognition Response Bias",
   ## CVLT-3/CVLT-3 Brief
