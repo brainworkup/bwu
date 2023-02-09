@@ -201,9 +201,12 @@ gpluck_get_index_scores <- function(patient) {
 
   g <-
     df |>
-    dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test) |>
-    dplyr::relocate(c(scaled_score, t_score, reliability, composition), .after = result) |>
-    dplyr::filter(scale == "General Ability" & scale == "Cognitive Proficiency" & scale == "Crystallized Knowledge" & scale == "Fluid Reasoning" & scale == "Working Memory" & scale == "Processing Speed")
+    dplyr::relocate(
+      c(raw_score, score, percentile, range, ci_95), .before = test) |>
+    dplyr::relocate(
+      c(scaled_score, t_score, reliability, composition), .after = result) |>
+    dplyr::filter(scale %in%
+      c("General Ability", "Cognitive Proficiency", "Crystallized Knowledge", "Fluid Reasoning", "Working Memory", "Processing Speed"))
 
   ## Write out CSV
 
