@@ -28,7 +28,8 @@ filter_domain <- c(
   "Fluid Reasoning",
   "General Ability",
   "General Intelligence",
-  "Working Memory"
+  "Working Memory",
+  "Processing Speed"
 )
 
 ## ---- 02-glue-iq ------------

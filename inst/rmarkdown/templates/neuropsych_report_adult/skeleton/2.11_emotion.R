@@ -77,7 +77,7 @@ tb <-
   bwu::make_tibble(
     tibb = tb,
     data = neurobehav,
-    pheno = "Behavioral/Emotional/Social"
+    pheno = "Personality"
   ) |>
   tidytable::filter(Scale %in% filter_domain) |>
   tidytable::arrange(Test) |>

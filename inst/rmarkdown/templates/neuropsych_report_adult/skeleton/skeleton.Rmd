@@ -261,10 +261,10 @@ params:
     value: TRUE
 ## Plots
   eval_emotion_plot1:
-    label: "Emotional/Behavioral/Personality Plot 1"
+    label: "Personality Assessment Plot 1"
     value: FALSE
   eval_emotion_plot2:
-    label: "Emotional/Behavioral/Personality Plot 2"
+    label: "Personality Asessment Plot 2"
     value: TRUE
   eval_pass_plot:
     label: "PASS Plot"
@@ -1090,11 +1090,11 @@ knitr::read_chunk(here::here(patient, "2.9_social.R"))
 (ref:caars-cefi) *Note* On the CAARS, higher scores reflect worse functioning in a given area, but on the CEFI, higher scores reflect better functioning in a given area.
 
 ```{r, adhd, results = 'asis', eval = params$eval_adhd}
-cat(readLines("2.10_adhd.md"), sep = "\n")
+cat(readLines("02.10_adhd.md"), sep = "\n")
 ```
 
 ```{r read-adhd, eval = params$eval_adhd}
-knitr::read_chunk(here::here(patient, "2.10_adhd.R"))
+knitr::read_chunk(here::here(patient, "02.10_adhd.R"))
 ```
 
 ```{r 01-filter-adhd, eval = params$eval_adhd}
