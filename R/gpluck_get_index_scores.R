@@ -84,12 +84,12 @@ gpluck_get_index_scores <- function(patient) {
     df |>
     dplyr::mutate(
       narrow = dplyr::case_when(
-        scale == "General Ability" ~ "General Ability Index",
-        scale == "Cognitive Proficiency" ~ "Cognitive Proficiency Index",
-        scale == "Crystallized Knowledge" ~ "Crystallized Knowledge Index",
-        scale == "Fluid Reasoning" ~ "Fluid Reasoning Index",
-        scale == "Working Memory" ~ "Working Memory Index",
-        scale == "Processing Speed" ~ "Processing Speed Index",
+        scale == "General Ability" ~ "General Ability",
+        scale == "Cognitive Proficiency" ~ "Cognitive Proficiency",
+        scale == "Crystallized Knowledge" ~ "Crystallized Knowledge",
+        scale == "Fluid Reasoning" ~ "Fluid Reasoning",
+        scale == "Working Memory" ~ "Working Memory",
+        scale == "Processing Speed" ~ "Processing Speed",
         TRUE ~ as.character(narrow)
       )
     )
@@ -205,8 +205,7 @@ gpluck_get_index_scores <- function(patient) {
       c(raw_score, score, percentile, range, ci_95), .before = test) |>
     dplyr::relocate(
       c(scaled_score, t_score, reliability, composition), .after = result) |>
-    dplyr::filter(scale %in%
-      c("General Ability", "Cognitive Proficiency", "Crystallized Knowledge", "Fluid Reasoning", "Working Memory", "Processing Speed"))
+    dplyr::filter(scale %in% c("General Ability", "Cognitive Proficiency", "Crystallized Knowledge", "Fluid Reasoning", "Working Memory", "Processing Speed"))
 
   ## Write out CSV
 

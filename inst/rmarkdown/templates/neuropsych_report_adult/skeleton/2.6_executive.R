@@ -22,7 +22,7 @@ filter_domain <- c(
   "Mazes",
   "Categories",
   "Word Generation",
-  "Word Generation Perseverations",
+  # "Word Generation Perseverations",
   "Judgment",
   ## RBANS
   "Attention Index",

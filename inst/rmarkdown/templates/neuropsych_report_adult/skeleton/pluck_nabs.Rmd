@@ -691,12 +691,12 @@ table1 <-
   table1 |>
   tidytable::mutate(
     narrow = tidytable::case_when(
-      scale == "NAB Attention Index" ~ "Screening Attention Domain",
-      scale == "NAB Language Index" ~ "Screening Language Domain",
-      scale == "NAB Memory Index" ~ "Screening Memory Domain",
-      scale == "NAB Spatial Index" ~ "Screening Spatial Domain",
-      scale == "NAB Executive Functions Index" ~ "Screening Executive Functions Domain",
-      scale == "NAB Total Index" ~ "Overall Neuropsychological Functioning",
+      scale == "NAB Attention Index" ~ "NAB Attention Index",
+      scale == "NAB Language Index" ~ "NAB Language Index",
+      scale == "NAB Memory Index" ~ "NAB Memory Index",
+      scale == "NAB Spatial Index" ~ "NAB Spatial Index",
+      scale == "NAB Executive Functions Index" ~ "NAB Executive Functions Index",
+      scale == "NAB Total Index" ~ "NAB Total Index",
       TRUE ~ as.character(narrow)
     )
   )
@@ -708,7 +708,7 @@ table2 <-
   tidytable::mutate(
     narrow = tidytable::case_when(
       scale %in% orientation ~ "Orientation",
-      scale %in% dsf ~ "Auditory Attentional Capacity",
+      scale %in% dsf ~ "Attentional Capacity",
       scale %in% dsb ~ "Working Memory Capacity",
       scale == "Numbers & Letters Part A Speed" ~ "Psychomotor Speed",
       scale == "Numbers & Letters Part A Errors" ~ "Response Monitoring",
@@ -761,7 +761,7 @@ table6 <-
   tidytable::mutate(
     narrow = tidytable::case_when(
       scale == "Mazes" ~ "Planning",
-      scale == "Word Generation" ~ "Ideational Fluency/Generativity",
+      scale == "Word Generation" ~ "Generativity",
       scale == "Word Generation Perseverations" ~ "Response Monitoring",
       TRUE ~ as.character(narrow)
     )
