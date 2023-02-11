@@ -729,7 +729,7 @@ table3 <-
   tidytable::mutate(
     narrow = tidytable::case_when(
       scale == "Block Design" ~ "Visuoconstruction",
-      scale == "Matrix Reasoning" ~ "Inductive Reasoning",
+      scale == "Matrix Reasoning" ~ "Perceptual Reasoning",
       scale == "Visual Puzzles" ~ "Visualization",
       scale == "Figure Weights" ~ "General Sequential Reasoning",
       TRUE ~ as.character(narrow)
@@ -860,7 +860,7 @@ table4 <-
     narrow = tidytable::case_when(
       scale == "Digit Span" ~ "Verbal Working Memory",
       scale == "Arithmetic" ~ "Verbal Working Memory",
-      scale == "Letter-Number Sequencing" ~ "Verbal Working Memory",
+      scale == "Letter-Number Sequencing" ~ "Working Memory Capacity",
       TRUE ~ as.character(narrow)
     )
   )

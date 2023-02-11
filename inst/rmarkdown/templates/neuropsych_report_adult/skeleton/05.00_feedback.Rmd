@@ -35,7 +35,6 @@ patient <- rmarkdown::metadata$patient
 ## load libraries
 library(bwu)
 library(crosstalk)
-library(data.table)
 library(dplyr)
 library(gifski)
 library(highcharter)
@@ -45,7 +44,6 @@ library(languageserver)
 library(manipulateWidget)
 library(reactable)
 library(revealjs)
-library(rmarkdown)
 library(svglite)
 library(tibble)
 library(vroom)
@@ -99,23 +97,34 @@ background-size: contain
 
 ### Distribution of Scores: _Population-level Interpretation_
 
-```{r gauss-plot1, fig.cap='Statistical classification of neuropsychological test scores in the general population.', fig.retina=3, fig.asp=0.5, out.width = '50%'}
+```{r gauss-plot1, fig.cap='Performance classification of neuropsychological test scores in the general population.', fig.retina=3, fig.asp=0.5, out.width = '50%'}
 knitr::include_graphics("plot_narrow.png", auto_pdf = TRUE)
 ```
 
 ---
 
-class: center, middle
+class: left, middle, right bottom
 background-color: var(--near-black)
+class: background
+background-image: url(usc_ksom_logo.jpg)
+background-position: right bottom
+background-repeat: repeat
+background-size: 20%
+background-color: var(--usc-black)
 
-### Neuropsychological Testing Results
+### Neuropsychological Evaluation Results/Feedback
+
+#### Neurocognitive Testing
 
 ```{r, read-data}
 neuropsych <-
   vroom::vroom(here::here(patient, "neuropsych.csv"), show_col_types = FALSE)
+
 neurocog <-
   vroom::vroom(here::here(patient, "neurocog.csv"), show_col_types = FALSE) |>
-  dplyr::filter(domain != "Effort/Validity")
+  dplyr::filter(domain != "Effort/Validity") |>
+  dplyr::filter(scale != "Orientation")
+
 neurobehav <-
   vroom::vroom(here::here(patient, "neurobehav.csv"), show_col_types = FALSE) |>
   dplyr::filter(domain != "Effort/Validity")
@@ -128,7 +137,7 @@ neurobehav <-
 ncog1 <- neurocog %>%
   dplyr::group_by(domain) %>%
   dplyr::summarize(zMean = mean(z), zPct = mean(percentile)) %>%
-  dplyr::mutate(range = NA) 
+  dplyr::mutate(range = NA)
 
 ncog1$zMean <- round(ncog1$zMean, 2L)
 ncog1$zPct <- round(ncog1$zPct, 0L)
@@ -335,7 +344,7 @@ thm_merge <- highcharter::hc_theme_merge(
 ```
 
 
-```{r drilldown-plot1, fig.cap='HighchartR Drilldown', fig.width=12, fig.height=8, fig.retina=3, out.width = "100%"}
+```{r drilldown-plot1, fig.cap='Drilldown from broad to narrow domains', fig.width=12, fig.height=8, fig.retina=3, out.width = "100%"}
 # Tooltip
 x <- c("Name", "Score", "Percentile", "Range")
 y <- c("{point.name}", "{point.y}", "{point.y2}", "{point.range}")
@@ -345,7 +354,7 @@ tt <- highcharter::tooltip_table(x, y)
 plot1 <-
   highcharter::highchart() %>%
   highcharter::hc_title(text = patient,
-                        style = list(fontSize = "15px")) %>%
+    style = list(fontSize = "15px")) %>%
   highcharter::hc_add_series(
     ncog_level1_status,
     type = "bar",
@@ -358,10 +367,10 @@ plot1 <-
     categories = .$name
   ) %>%
   highcharter::hc_yAxis(title = list(text = "Z-Score (M = 0, SD = 1)"),
-                        labels = list(format = "{value}")) %>%
+    labels = list(format = "{value}")) %>%
   highcharter::hc_tooltip(pointFormat = tt,
-                          useHTML = TRUE,
-                          valueDecimals = 1) %>%
+    useHTML = TRUE,
+    valueDecimals = 1) %>%
   highcharter::hc_plotOptions(series = list(
     colorByPoint = TRUE,
     allowPointSelect = TRUE,
@@ -370,24 +379,32 @@ plot1 <-
   highcharter::hc_drilldown(
     allowPointDrilldown = TRUE,
     series = c(ncog_level2_drill,
-               ncog_level3_drill,
-               ncog_level4_drill)
+      ncog_level3_drill,
+      ncog_level4_drill)
   ) %>%
   highcharter::hc_colorAxis(minColor = "red",
-                            maxColor = "blue") %>%
+    maxColor = "blue") %>%
   highcharter::hc_add_theme(thm_merge) %>%
   highcharter::hc_chart(style = list(fontFamily = "Cabin"),
-                        backgroundColor = list("gray"))
+    backgroundColor = list("gray"))
 
 plot1
 ```
 
 ---
 
-class: middle, center 
+class: left, middle, right bottom
 background-color: var(--near-black)
+class: background
+background-image: url(usc_ksom_logo.jpg)
+background-position: right bottom
+background-repeat: repeat
+background-size: 20%
+background-color: var(--usc-black)
 
-### Behavioral Ratings Results
+### Neuropsychological Evaluation Results/Feedback
+
+#### Behavioral/Emotional/Personality
 
 ```{r drilldown2-level1}
 ## Level 1
@@ -593,7 +610,7 @@ nbhv_level4_drill <-
   }) %>% unlist(recursive = FALSE)
 ```
 
-```{r drilldown-plot2, fig.cap='HighchartR Drilldown', fig.width=12, fig.height=8, fig.retina=3, out.width = "100%"}
+```{r drilldown-plot2, fig.cap='Drilldown from broad to narrow domains', fig.width=12, fig.height=8, fig.retina=3, out.width = "100%"}
 # Tooltip
 x <- c("Name", "Score", "Percentile", "Range")
 y <- c("{point.name}", "{point.y}", "{point.y2}", "{point.range}")
