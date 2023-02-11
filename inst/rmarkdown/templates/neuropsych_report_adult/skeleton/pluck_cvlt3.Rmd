@@ -425,7 +425,7 @@ table5 <- bwu::gpluck_make_columns(
   test = params$test,
   test_name = params$test_name,
   domain = "Attention/Executive",
-  subdomain = "Attention",
+  subdomain = "Attentional Functioning",
   narrow = "Response Monitoring",
   pass = "Attention",
   verbal = "Verbal",
@@ -445,7 +445,7 @@ table6 <- bwu::gpluck_make_columns(
   test = params$test,
   test_name = params$test_name,
   domain = "Attention/Executive",
-  subdomain = "Attention",
+  subdomain = "Attentional Functioning",
   narrow = "Response Monitoring",
   pass = "Attention",
   verbal = "Verbal",
@@ -467,13 +467,13 @@ table7 <- bwu::gpluck_make_columns(
   test = params$test,
   test_name = params$test_name,
   domain = "Effort/Validity",
-  subdomain = "Effort/Validity",
-  narrow = "Effort/Validity",
+  subdomain = "Performance Validity",
+  narrow = "Embedded",
   pass = "Attention",
   verbal = "Verbal",
   timed = "Untimed",
-  test_type = "npsych_test",
-  score_type = "scaled_score",
+  test_type = "validity_indicator",
+  score_type = "raw_score",
   description = "",
   result = ""
 )
@@ -493,7 +493,7 @@ table7 <- bwu::gpluck_make_score_ranges(table = table7, test_type = "npsych_test
 
 ## Narrow subdomains
 
-```{r subdomain3}
+```{r narrow3}
 table3 <-
   table3 |>
   tidytable::mutate(
