@@ -1,5 +1,8 @@
 ---
 title: "Import CSV file from Personality Assessment Inventory (PAI)"
+output:
+  rmdformats::robobook:
+    highlight: kate
 params:
   patient: Biggie
   test: pai
@@ -9,12 +12,7 @@ params:
     value: file
     input: file
   #pages: [9:13]
-output:
-  rmdformats::robobook:
-    highlight: kate
 ---
-
-# PAI
 
 ## Setup
 
@@ -88,13 +86,30 @@ plucked_table <-
   )
 ```
 
-## PAI Index and Subscale Scores
+## Clinical and validity scales
 
 ### Subset and rename columns
 
 ```{r subset}
-table <- plucked_table |>
+df_clinical <- plucked_table |>
   tidytable::select(SOM_T:AGG_P_T) |>
+  tidyr::gather() |>
+  tidytable::rename(scale = key, score = value)
+
+df_validity <- plucked_table |>
+  tidytable::select(ICN_T:PIM_P_T, MAL_T:HRI_T, ALC_Est:DRG_Est) |>
+  tidyr::gather() |>
+  tidytable::rename(scale = key, score = value)
+
+df_inatt <- plucked_table |>
+  tidytable::select(IINATTN_T) |>
+  tidyr::gather() |>
+  tidytable::rename(scale = key, score = value)
+
+adhd_items <- c(R13, R15, R18, R21, R34, R57, R94, R112, R139, R167, R169, R171, R195, R198, R201, R213, R233, R236, R254, R282, R299, R311, R322, R325)
+
+df_adhd <- plucked_table |>
+  tidytable::select(adhd_items) |>
   tidyr::gather() |>
   tidytable::rename(scale = key, score = value)
 ```
@@ -102,74 +117,121 @@ table <- plucked_table |>
 ### Convert T scores to z scores to percentiles
 
 ```{r t2z2p}
-table <- table |>
+df_clinical <- df_clinical |>
+  tidytable::mutate(z = (score - 50) / 10) |>
+  tidytable::mutate(percentile = trunc(pnorm(z) * 100)) |>
+  tidytable::select(scale, score, percentile)
+
+df_validity <- df_validity |>
+  tidytable::mutate(z = (score - 50) / 10) |>
+  tidytable::mutate(percentile = trunc(pnorm(z) * 100)) |>
+  tidytable::select(scale, score, percentile)
+
+df_inatt <- df_inatt |>
   tidytable::mutate(z = (score - 50) / 10) |>
   tidytable::mutate(percentile = trunc(pnorm(z) * 100)) |>
   tidytable::select(scale, score, percentile)
 ```
 
-### Change scale names
+## Change scale names
 
 ```{r names}
 # Clinical Scales
-table[1, 1] <- c("Somatic Complaints")
-table[2, 1] <- c("Anxiety")
-table[3, 1] <- c("Anxiety-Related Disorders")
-table[4, 1] <- c("Depression")
-table[5, 1] <- c("Mania")
-table[6, 1] <- c("Paranoia")
-table[7, 1] <- c("Schizophrenia")
-table[8, 1] <- c("Borderline Features")
-table[9, 1] <- c("Antisocial Features")
-table[10, 1] <- c("Alcohol Problems")
-table[11, 1] <- c("Drug Problems")
+df_clinical[1, 1] <- c("Somatic Complaints")
+df_clinical[2, 1] <- c("Anxiety")
+df_clinical[3, 1] <- c("Anxiety-Related Disorders")
+df_clinical[4, 1] <- c("Depression")
+df_clinical[5, 1] <- c("Mania")
+df_clinical[6, 1] <- c("Paranoia")
+df_clinical[7, 1] <- c("Schizophrenia")
+df_clinical[8, 1] <- c("Borderline Features")
+df_clinical[9, 1] <- c("Antisocial Features")
+df_clinical[10, 1] <- c("Alcohol Problems")
+df_clinical[11, 1] <- c("Drug Problems")
 # Treatment consideration scales
-table[12, 1] <- c("Aggression")
-table[13, 1] <- c("Suicidal Ideation")
-table[14, 1] <- c("Stress")
-table[15, 1] <- c("Nonsupport")
-table[16, 1] <- c("Treatment Rejection")
+df_clinical[12, 1] <- c("Aggression")
+df_clinical[13, 1] <- c("Suicidal Ideation")
+df_clinical[14, 1] <- c("Stress")
+df_clinical[15, 1] <- c("Nonsupport")
+df_clinical[16, 1] <- c("Treatment Rejection")
 # Interpersonal scales
-table[17, 1] <- c("Dominance")
-table[18, 1] <- c("Warmth")
+df_clinical[17, 1] <- c("Dominance")
+df_clinical[18, 1] <- c("Warmth")
 # Clinical subscales
-table[19, 1] <- c("Conversion")
-table[20, 1] <- c("Somatization")
-table[21, 1] <- c("Health Concerns")
-table[22, 1] <- c("Cognitive (A)")
-table[23, 1] <- c("Affective (A)")
-table[24, 1] <- c("Physiological (A)")
-table[25, 1] <- c("Obsessive-Compulsive")
-table[26, 1] <- c("Phobias")
-table[27, 1] <- c("Traumatic Stress")
-table[28, 1] <- c("Cognitive (D)")
-table[29, 1] <- c("Affective (D)")
-table[30, 1] <- c("Physiological (D)")
-table[31, 1] <- c("Activity Level")
-table[32, 1] <- c("Grandiosity")
-table[33, 1] <- c("Irritability")
-table[34, 1] <- c("Hypervigilance")
-table[35, 1] <- c("Persecution")
-table[36, 1] <- c("Resentment")
-table[37, 1] <- c("Psychotic Experiences")
-table[38, 1] <- c("Social Detachment")
-table[39, 1] <- c("Thought Disorder")
-table[40, 1] <- c("Affective Instability")
-table[41, 1] <- c("Identity Problems")
-table[42, 1] <- c("Negative Relationships")
-table[43, 1] <- c("Self-Harm")
-table[44, 1] <- c("Antisocial Behaviors")
-table[45, 1] <- c("Egocentricity")
-table[46, 1] <- c("Stimulus-Seeking")
-table[47, 1] <- c("Aggressive Attitude")
-table[48, 1] <- c("Verbal Aggression")
-table[49, 1] <- c("Physical Aggression")
+df_clinical[19, 1] <- c("Conversion")
+df_clinical[20, 1] <- c("Somatization")
+df_clinical[21, 1] <- c("Health Concerns")
+df_clinical[22, 1] <- c("Cognitive (A)")
+df_clinical[23, 1] <- c("Affective (A)")
+df_clinical[24, 1] <- c("Physiological (A)")
+df_clinical[25, 1] <- c("Obsessive-Compulsive")
+df_clinical[26, 1] <- c("Phobias")
+df_clinical[27, 1] <- c("Traumatic Stress")
+df_clinical[28, 1] <- c("Cognitive (D)")
+df_clinical[29, 1] <- c("Affective (D)")
+df_clinical[30, 1] <- c("Physiological (D)")
+df_clinical[31, 1] <- c("Activity Level")
+df_clinical[32, 1] <- c("Grandiosity")
+df_clinical[33, 1] <- c("Irritability")
+df_clinical[34, 1] <- c("Hypervigilance")
+df_clinical[35, 1] <- c("Persecution")
+df_clinical[36, 1] <- c("Resentment")
+df_clinical[37, 1] <- c("Psychotic Experiences")
+df_clinical[38, 1] <- c("Social Detachment")
+df_clinical[39, 1] <- c("Thought Disorder")
+df_clinical[40, 1] <- c("Affective Instability")
+df_clinical[41, 1] <- c("Identity Problems")
+df_clinical[42, 1] <- c("Negative Relationships")
+df_clinical[43, 1] <- c("Self-Harm")
+df_clinical[44, 1] <- c("Antisocial Behaviors")
+df_clinical[45, 1] <- c("Egocentricity")
+df_clinical[46, 1] <- c("Stimulus-Seeking")
+df_clinical[47, 1] <- c("Aggressive Attitude")
+df_clinical[48, 1] <- c("Verbal Aggression")
+df_clinical[49, 1] <- c("Physical Aggression")
+
+# Validity Scales
+df_validity[1, 1] <- c("Inconsistency")
+df_validity[2, 1] <- c("Infrequency")
+df_validity[3, 1] <- c("Negative Impression Management")
+df_validity[4, 1] <- c("Positive Impression Management")
+# Negative Distortion Indicators
+df_validity[5, 1] <- c("Malingering Index")
+df_validity[6, 1] <- c("Rogers Discriminant Function")
+df_validity[7, 1] <- c("Negative Distortion Scale")
+df_validity[8, 1] <- c("Hong Malingering Index")
+df_validity[9, 1] <- c("Multiscale Feigning Index")
+df_validity[10, 1] <- c("Malingered Pain-Related Disability Discriminant
+Function")
+# Positive Distortion Indicators
+df_validity[11, 1] <- c("Defensiveness Index")
+df_validity[12, 1] <- c("Cashel Discriminant Function")
+df_validity[13, 1] <- c("Positive Distortion Scale")
+df_validity[14, 1] <- c("Hong Defensiveness Index")
+# Non-systematic Distortion Indicators
+df_validity[15, 1] <- c("Back Random Responding")
+df_validity[16, 1] <- c("Hong Randomness Index")
+# Response Set Groups
+df_validity[17, 1] <- c("All 'All false'")
+df_validity[18, 1] <- c("All 'All mainly true'")
+df_validity[19, 1] <- c("All 'All slightly true'")
+df_validity[20, 1] <- c("All 'very true'")
+df_validity[21, 1] <- c("Fake bad")
+df_validity[22, 1] <- c("Fake good")
+df_validity[23, 1] <- c("NIM predicted profile")
+df_validity[24, 1] <- c("PIM predicted profile")
+df_validity[25, 1] <- c("Random responding")
+
+# adhd
+df_inatt[1, 1] <- c("Inattention Index")
+# ADHD scales
+df_adhd[1, 1] <- c("ADHD Index")
 ```
 
 ### Filter, group, select
 
 ```{r filter}
-table <- table |> tidytable::slice(
+df_clinical <- df_clinical |> tidytable::slice(
   c(
     1, 19:21,
     2, 22:24,
@@ -185,12 +247,18 @@ table <- table |> tidytable::slice(
     13:18
   )
 )
+
+df_validity <- df_validity |> tidytable::slice(
+  c(
+    1:4, 5:10, 11:14, 15:16, 17:25
+  )
+)
 ```
 
 ## Add/mutate columns
 
 ```{r mutate}
-table <- bwu::gpluck_make_columns(
+df_clinical <- bwu::gpluck_make_columns(
   table,
   raw_score = "",
   range = "",
@@ -206,75 +274,131 @@ table <- bwu::gpluck_make_columns(
   test_type = "rating_scale",
   score_type = "t_score",
   absort = paste0(
-    tolower(test), "_", tolower(scale), "_", seq_len(nrow(table))
+    tolower(test), "_", tolower(scale), "_", seq_len(nrow(df_clinical))
   ),
   description = "",
   result = ""
 )
+
+df <- df_validity
+
+df_make_columns <- function(df) {
+  df <- bwu::gpluck_make_columns(
+    table,
+    raw_score = "",
+    range = "",
+    ci_95 = "",
+    test = params$test,
+    test_name = params$test_name,
+    domain = "Effort/Validity",
+    subdomain = "",
+    narrow = "",
+    pass = "",
+    verbal = "",
+    timed = "",
+    test_type = "rating_scale",
+    score_type = "t_score",
+    absort = paste0(
+      tolower(test), "_", tolower(scale), "_", seq_len(nrow(df))
+    ),
+    description = "",
+    result = ""
+  )
+}
+
+df <- df_inatt
+
+df_make_columns <- function(df) {
+  df <- bwu::gpluck_make_columns(
+    table,
+    raw_score = "",
+    range = "",
+    ci_95 = "",
+    test = params$test,
+    test_name = params$test_name,
+    domain = "ADHD",
+    subdomain = "",
+    narrow = "",
+    pass = "",
+    verbal = "",
+    timed = "",
+    test_type = "rating_scale",
+    score_type = "t_score",
+    absort = paste0(
+      tolower(test), "_", tolower(scale), "_", seq_len(nrow(df))
+    ),
+    description = "",
+    result = ""
+  )
+}
 ```
 
 ## Rating Scale score ranges
 
 ```{r ranges}
-table <- bwu::gpluck_make_score_ranges(table = table, test_type = "npsych_test")
+df_clinical <- bwu::gpluck_make_score_ranges(table = df_clinical, test_type =
+  "rating_scale")
+df_validity <- bwu::gpluck_make_score_ranges(table = df_validity, test_type =
+  "rating_scale")
+df_inatt <- bwu::gpluck_make_score_ranges(table = df_inatt, test_type = "rating_scale")
 ```
 
 ## Domains
 
 ```{r domains}
-table <-
-  table |>
+df_clinical <-
+  df_clinical |>
   tidytable::mutate(
     domain = tidytable::case_when(
-      scale == "Somatic Complaints" ~ "Psychiatric/Axis I",
-      scale == "Conversion" ~ "Psychiatric/Axis I",
-      scale == "Somatization" ~ "Psychiatric/Axis I",
-      scale == "Health Concerns" ~ "Psychiatric/Axis I",
-      scale == "Anxiety" ~ "Psychiatric/Axis I",
-      scale == "Cognitive (A)" ~ "Psychiatric/Axis I",
-      scale == "Affective (A)" ~ "Psychiatric/Axis I",
-      scale == "Physiological (A)" ~ "Psychiatric/Axis I",
-      scale == "Anxiety-Related Disorders" ~ "Psychiatric/Axis I",
-      scale == "Obsessive-Compulsive" ~ "Psychiatric/Axis I",
-      scale == "Phobias" ~ "Psychiatric/Axis I",
-      scale == "Traumatic Stress" ~ "Psychiatric/Axis I",
-      scale == "Depression" ~ "Psychiatric/Axis I",
-      scale == "Cognitive (D)" ~ "Psychiatric/Axis I",
-      scale == "Affective (D)" ~ "Psychiatric/Axis I",
-      scale == "Physiological (D)" ~ "Psychiatric/Axis I",
-      scale == "Mania" ~ "Psychiatric/Axis I",
-      scale == "Activity Level" ~ "Psychiatric/Axis I",
-      scale == "Grandiosity" ~ "Psychiatric/Axis I",
-      scale == "Irritability" ~ "Psychiatric/Axis I",
-      scale == "Paranoia" ~ "Psychiatric/Axis I",
-      scale == "Hypervigilance" ~ "Psychiatric/Axis I",
-      scale == "Persecution" ~ "Psychiatric/Axis I",
-      scale == "Resentment" ~ "Psychiatric/Axis I",
-      scale == "Schizophrenia" ~ "Psychiatric/Axis I",
-      scale == "Psychotic Experiences" ~ "Psychiatric/Axis I",
-      scale == "Social Detachment" ~ "Psychiatric/Axis I",
-      scale == "Thought Disorder" ~ "Psychiatric/Axis I",
-      scale == "Aggression" ~ "Psychiatric/Axis I",
-      scale == "Aggressive Attitude" ~ "Psychiatric/Axis I",
-      scale == "Verbal Aggression" ~ "Psychiatric/Axis I",
-      scale == "Physical Aggression" ~ "Psychiatric/Axis I",
-      scale == "Suicidal Ideation" ~ "Psychiatric/Axis I",
-      scale == "Stress" ~ "Psychiatric/Axis I",
-      scale == "Nonsupport" ~ "Psychiatric/Axis I",
-      scale == "Treatment Rejection" ~ "Psychiatric/Axis I",
-      scale == "Dominance" ~ "Psychiatric/Axis I",
-      scale == "Warmth" ~ "Psychiatric/Axis I",
-      scale == "Borderline Features" ~ "Personality/Axis II",
-      scale == "Affective Instability" ~ "Personality/Axis II",
-      scale == "Identity Problems" ~ "Personality/Axis II",
-      scale == "Negative Relationships" ~ "Personality/Axis II",
-      scale == "Self-Harm" ~ "Personality/Axis II",
-      scale == "Antisocial Features" ~ "Personality/Axis II",
-      scale == "Antisocial Behaviors" ~ "Personality/Axis II",
-      scale == "Egocentricity" ~ "Personality/Axis II",
-      scale == "Stimulus-Seeking" ~ "Personality/Axis II",
-      scale == "Alcohol Problems" ~ "Drug/Alcohol",
-      scale == "Drug Problems" ~ "Drug/Alcohol",
+      scale == "Somatic Complaints" ~ "Psychiatric Disorders",
+      scale == "Conversion" ~ "Psychiatric Disorders",
+      scale == "Somatization" ~ "Psychiatric Disorders",
+      scale == "Health Concerns" ~ "Psychiatric Disorders",
+      scale == "Anxiety" ~ "Psychiatric Disorders",
+      scale == "Cognitive (A)" ~ "Psychiatric Disorders",
+      scale == "Affective (A)" ~ "Psychiatric Disorders",
+      scale == "Physiological (A)" ~ "Psychiatric Disorders",
+      scale == "Anxiety-Related Disorders" ~ "Psychiatric Disorders",
+      scale == "Obsessive-Compulsive" ~ "Psychiatric Disorders",
+      scale == "Phobias" ~ "Psychiatric Disorders",
+      scale == "Traumatic Stress" ~ "Psychiatric Disorders",
+      scale == "Depression" ~ "Psychiatric Disorders",
+      scale == "Cognitive (D)" ~ "Psychiatric Disorders",
+      scale == "Affective (D)" ~ "Psychiatric Disorders",
+      scale == "Physiological (D)" ~ "Psychiatric Disorders",
+      scale == "Mania" ~ "Psychiatric Disorders",
+      scale == "Activity Level" ~ "Psychiatric Disorders",
+      scale == "Grandiosity" ~ "Psychiatric Disorders",
+      scale == "Irritability" ~ "Psychiatric Disorders",
+      scale == "Paranoia" ~ "Psychiatric Disorders",
+      scale == "Hypervigilance" ~ "Psychiatric Disorders",
+      scale == "Persecution" ~ "Psychiatric Disorders",
+      scale == "Resentment" ~ "Psychiatric Disorders",
+      scale == "Schizophrenia" ~ "Psychiatric Disorders",
+      scale == "Psychotic Experiences" ~ "Psychiatric Disorders",
+      scale == "Social Detachment" ~ "Psychiatric Disorders",
+      scale == "Thought Disorder" ~ "Psychiatric Disorders",
+      scale == "Aggression" ~ "Psychiatric Disorders",
+      scale == "Aggressive Attitude" ~ "Psychiatric Disorders",
+      scale == "Verbal Aggression" ~ "Psychiatric Disorders",
+      scale == "Physical Aggression" ~ "Psychiatric Disorders",
+      scale == "Suicidal Ideation" ~ "Psychiatric Disorders",
+      scale == "Stress" ~ "Psychosocial Problems",
+      scale == "Nonsupport" ~ "Psychosocial Problems",
+      scale == "Treatment Rejection" ~ "Psychosocial Problems",
+      scale == "Dominance" ~ "Psychosocial Problems",
+      scale == "Warmth" ~ "Psychosocial Problems",
+      scale == "Borderline Features" ~ "Personality Disorders",
+      scale == "Affective Instability" ~ "Personality Disorders",
+      scale == "Identity Problems" ~ "Personality Disorders",
+      scale == "Negative Relationships" ~ "Personality Disorders",
+      scale == "Self-Harm" ~ "Personality Disorders",
+      scale == "Antisocial Features" ~ "Personality Disorders",
+      scale == "Antisocial Behaviors" ~ "Personality Disorders",
+      scale == "Egocentricity" ~ "Personality Disorders",
+      scale == "Stimulus-Seeking" ~ "Personality Disorders",
+      scale == "Alcohol Problems" ~ "Substance Use Disorders",
+      scale == "Drug Problems" ~ "Substance Use Disorders",
       TRUE ~ as.character(domain)
     )
   )
@@ -283,8 +407,8 @@ table <-
 ## Subdomains
 
 ```{r subdomain}
-table <-
-  table |>
+df_clinical <-
+  df_clinical |>
   tidytable::mutate(
     subdomain = tidytable::case_when(
       scale == "Somatic Complaints" ~ "Somatic Symptom Disorder",
@@ -339,13 +463,51 @@ table <-
       TRUE ~ as.character(subdomain)
     )
   )
+
+df_validity <-
+  df_validity |>
+  tidytable::mutate(
+    subdomain = tidytable::case_when(
+      scale == "Inconsistency" ~ "Symptom Validity",
+      scale == "Infrequency" ~ "Symptom Validity",
+      scale == "Negative Impression Management" ~ "Symptom Validity",
+      scale == "Positive Impression Management" ~ "Symptom Validity",
+      # Negative Distortion Indicators
+      scale == "Malingering Index" ~ "Symptom Validity",
+      scale == "Rogers Discriminant Function" ~ "Symptom Validity",
+      scale == "Negative Distortion Scale" ~ "Symptom Validity",
+      scale == "Hong Malingering Index" ~ "Symptom Validity",
+      scale == "Multiscale Feigning Index" ~ "Symptom Validity",
+      scale == "Malingered Pain-Related Disability Discriminant
+Function" ~ "Symptom Validity",
+      # Positive Distortion Indicators
+      scale == "Defensiveness Index" ~ "Symptom Validity",
+      scale == "Cashel Discriminant Function" ~ "Symptom Validity"
+      scale == "Positive Distortion Scale" ~ "Symptom Validity"
+      scale == "Hong Defensiveness Index" ~ "Symptom Validity"
+      # Non-systematic Distortion Indicators
+      scale == "Back Random Responding" ~ "Symptom Validity",
+      scale == "Hong Randomness Index" ~ "Symptom Validity",
+      # Response Set Groups
+      scale == "All 'All false'" ~ "Symptom Validity",
+      scale == "All 'All mainly true'" ~ "Symptom Validity",
+      scale == "All 'All slightly true'" ~ "Symptom Validity",
+      scale == "All 'very true'" ~ "Symptom Validity",
+      scale == "Fake bad" ~ "Symptom Validity",
+      scale == "Fake good" ~ "Symptom Validity",
+      scale == "NIM predicted profile" ~ "Symptom Validity",
+      scale == "PIM predicted profile" ~ "Symptom Validity",
+      scale == "Random responding" ~ "Symptom Validity",
+      TRUE ~ as.character(subdomain)
+    )
+  )
 ```
 
 ## Narrow subdomains
 
 ```{r narrow}
-table <-
-  table |>
+df_clinical <-
+  df_clinical |>
   tidytable::mutate(
     narrow = tidytable::case_when(
       scale == "Somatic Complaints" ~ "Somatic Symptom Disorder",
@@ -400,13 +562,51 @@ table <-
       TRUE ~ as.character(narrow)
     )
   )
+
+df_validity <-
+  df_validity |>
+  tidytable::mutate(
+    narrow = tidytable::case_when(
+      scale == "Inconsistency" ~ "Validity Scales",
+      scale == "Infrequency" ~ "Validity Scales",
+      scale == "Negative Impression Management" ~ "Validity Scales",
+      scale == "Positive Impression Management" ~ "Validity Scales",
+      # Negative Distortion Indicators
+      scale == "Malingering Index" ~ "Negative Distortion Indicators",
+      scale == "Rogers Discriminant Function" ~ "Negative Distortion Indicators",
+      scale == "Negative Distortion Scale" ~ "Negative Distortion Indicators",
+      scale == "Hong Malingering Index" ~ "Negative Distortion Indicators",
+      scale == "Multiscale Feigning Index" ~ "Negative Distortion Indicators",
+      scale == "Malingered Pain-Related Disability Discriminant
+Function" ~ "Negative Distortion Indicators",
+      # Positive Distortion Indicators
+      scale == "Defensiveness Index" ~ "Positive Distortion Indicators",
+      scale == "Cashel Discriminant Function" ~ "Positive Distortion Indicators"
+      scale == "Positive Distortion Scale" ~ "Positive Distortion Indicators"
+      scale == "Hong Defensiveness Index" ~ "Positive Distortion Indicators"
+      # Non-systematic Distortion Indicators
+      scale == "Back Random Responding" ~ "Non-systematic Distortion Indicators",
+      scale == "Hong Randomness Index" ~ "Non-systematic Distortion Indicators",
+      # Response Set Groups
+      scale == "All 'All false'" ~ "Response Set Groups",
+      scale == "All 'All mainly true'" ~ "Response Set Groups",
+      scale == "All 'All slightly true'" ~ "Response Set Groups",
+      scale == "All 'very true'" ~ "Response Set Groups",
+      scale == "Fake bad" ~ "Response Set Groups",
+      scale == "Fake good" ~ "Response Set Groups",
+      scale == "NIM predicted profile" ~ "Response Set Groups",
+      scale == "PIM predicted profile" ~ "Response Set Groups",
+      scale == "Random responding" ~ "Response Set Groups",
+      TRUE ~ as.character(narrow)
+    )
+  )  
 ```
 
 ### Scale descriptions
 
 ```{r description}
-table <-
-  table |>
+df_clinical <-
+  df_clinical |>
   tidytable::mutate(
     description = tidytable::case_when(
       scale == "Somatic Complaints" ~ "degree of concern about physical functioning and health matters and the extent of perceived impairment arising from somatic symptoms",
@@ -466,15 +666,23 @@ table <-
 ## Slice
 
 ```{r slice}
-slice.pai <- c(1:49)
-table <- table |> tidytable::slice(slice.pai)
+slice_clinical <- c(1:49)
+df_clinical <- df_clinical |> tidytable::slice(slice_clinical)
 ```
 
 ## Glue results
 
 ```{r result}
-table <-
-  table |>
+df_clinical <-
+  df_clinical |>
+  tidytable::mutate(result = glue::glue("{patient}'s score on {scale}
+  ({description}) was {range}."))
+df_validity <-
+  df_validity |>
+  tidytable::mutate(result = glue::glue("{patient}'s score on {scale}
+  ({description}) was {range}."))
+df_inatt <-
+  df_inatt |>
   tidytable::mutate(result = glue::glue("{patient}'s score on {scale} ({description}) was {range}."))
 ```
 
@@ -483,7 +691,11 @@ table <-
 ## relocate variables
 
 ```{r relocate}
-pai <- table |> tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+pai <- df_clinical |> tidytable::relocate(c(raw_score, score, percentile, range,
+ci_95), .before = test)
+pai <- df_validity |> tidytable::relocate(c(raw_score, score, percentile, range,
+ci_95), .before = test)
+pai <- df_inatt |> tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
 ## write out final csv
@@ -497,7 +709,7 @@ readr::write_csv(pai, here::here(patient, "csv", "pai.csv"), col_names = TRUE, n
 ## Pluck Text
 
 ```{r text, eval=FALSE}
-#file <- file.choose()
+# file <- file.choose()
 patient <- params$patient
 pages <- params$pages
 

@@ -79,6 +79,7 @@ gpluck_locate_areas <- function(file, pages = NULL, ...) {
 #' # return data.frames
 #' extract_tables(f, pages = 2, output = "data.frame")
 #' }
+#' @rdname gpluck_extract_table
 #' @importFrom tabulizer extract_tables
 #' @importFrom utils read.delim download.file
 #' @importFrom tools file_path_sans_ext
@@ -90,7 +91,15 @@ gpluck_extract_table <-
            area = NULL,
            guess = FALSE,
            method = c("decide", "lattice", "stream"),
-           output = c("matrix", "data.frame", "character", "asis", "csv", "tsv", "json"),
+           output = c(
+             "matrix",
+             "data.frame",
+             "character",
+             "asis",
+             "csv",
+             "tsv",
+             "json"
+           ),
            ...) {
     tabulizer::extract_tables(
       file = file,
@@ -105,6 +114,7 @@ gpluck_extract_table <-
 
 #' @title Make columns for npsych tables
 #' @description Make new columns for neuropsych tables more of a description.
+#' @rdname gpluck_make_columns
 #' @param table Name of table
 #' @param scale Name of scale/subtest
 #' @param raw_score Raw score for scale
@@ -130,14 +140,14 @@ gpluck_extract_table <-
 #' @return A table for the report
 #' @export
 gpluck_make_columns <- function(table,
-                                test,
-                                test_name,
                                 scale = NULL,
                                 raw_score = NULL,
                                 score = NULL,
                                 range = NULL,
                                 percentile = NULL,
                                 ci_95 = NULL,
+                                test,
+                                test_name,
                                 domain = c(
                                   "Intelligence/General Ability",
                                   "Academic Skills",
@@ -181,7 +191,8 @@ gpluck_make_columns <- function(table,
                                   "npsych_test",
                                   "rating_scale",
                                   "validity_indicator",
-                                  "item"
+                                  "item",
+                                  NA
                                 ),
                                 score_type = c(
                                   "raw_score",
@@ -200,7 +211,7 @@ gpluck_make_columns <- function(table,
                                 ...) {
   table <-
     dplyr::mutate(
-      table,
+      table = table,
       scale = scale,
       raw_score = raw_score,
       score = score,
@@ -218,7 +229,8 @@ gpluck_make_columns <- function(table,
       test_type = test_type,
       score_type = score_type,
       absort =
-        paste0(tolower(test),
+        paste0(
+          tolower(test),
           "_", tolower(scale),
           "_", seq_len(nrow(table))
         ),
@@ -227,8 +239,6 @@ gpluck_make_columns <- function(table,
       ...
     )
 }
-
-
 
 
 #' @title Make test score range (e.g., Below Average, Above Average).
@@ -280,10 +290,13 @@ gpluck_make_score_ranges <-
         table %>%
         dplyr::mutate(
           range = dplyr::case_when(
-            score >= 70 ~ "Clinically Significant",
-            score %in% 60:69 ~ "At-Risk",
-            score %in% 40:59 ~ "Average",
-            score <= 39 ~ "Below Average/Strength",
+            percentile >= 98 ~ "Exceptionally High",
+            percentile %in% 91:97 ~ "Above Average",
+            percentile %in% 75:90 ~ "High Average",
+            percentile %in% 25:74 ~ "Average",
+            percentile %in% 9:24 ~ "Low Average",
+            percentile %in% 2:8 ~ "Below Average",
+            percentile < 2 ~ "Exceptionally Low",
             TRUE ~ as.character(range)
           )
         )
@@ -292,10 +305,10 @@ gpluck_make_score_ranges <-
         table %>%
         dplyr::mutate(
           range = dplyr::case_when(
-            score >= 25 ~ "Within Normal Limits Score",
-            score %in% 9:24 ~ "Low Average Score",
-            score %in% 2:8 ~ "Below Average Score",
-            score < 2 ~ "Exceptionally Low Score",
+            percentile >= 25 ~ "Within Normal Limits Score",
+            percentile %in% 9:24 ~ "Low Average Score",
+            percentile %in% 2:8 ~ "Below Average Score",
+            percentile < 2 ~ "Exceptionally Low Score",
             TRUE ~ as.character(range)
           )
         )
@@ -477,10 +490,21 @@ gpluck_get_index_scores <- function(patient) {
 
   ## Import data
 
-  df <- readxl::read_xlsx(here::here(patient, "index_scores.xlsx")) |>
+  df <-
+    readxl::read_xlsx(here::here(patient, "index_scores.xlsx")) |>
     janitor::clean_names()
 
-  names <- c("scale", "score", "scaled_score", "t_score", "percentile", "reliability", "ci_95", "composition")
+  names <-
+    c(
+      "scale",
+      "score",
+      "scaled_score",
+      "t_score",
+      "percentile",
+      "reliability",
+      "ci_95",
+      "composition"
+    )
 
   names(df) <- names
 
@@ -509,7 +533,8 @@ gpluck_get_index_scores <- function(patient) {
 
   ## Test score ranges
 
-  df <- bwu::gpluck_make_score_ranges(table = df, test_type = "npsych_test")
+  df <-
+    bwu::gpluck_make_score_ranges(table = df, test_type = "npsych_test")
 
   ## Domains
 
@@ -650,10 +675,9 @@ gpluck_get_index_scores <- function(patient) {
         scale == "Crystallized Knowledge" ~ glue::glue(
           "{description} was classified as {range} and ranked at the {percentile}th percentile.\n"
         ),
-        scale == "Fluid Reasoning" ~ glue::glue(
-          "{description} was classified as {range}.\n"
-        ),
-        scale == "Working Memory" ~ glue::glue("{description} fell in the {range} range and was and a relative strength|weakness.\n"
+        scale == "Fluid Reasoning" ~ glue::glue("{description} was classified as {range}.\n"),
+        scale == "Working Memory" ~ glue::glue(
+          "{description} fell in the {range} range and was and a relative strength|weakness.\n"
         ),
         scale == "Processing Speed" ~ glue::glue(
           "{description} was {range} and a relative strength|weakness.\n"
@@ -666,13 +690,24 @@ gpluck_get_index_scores <- function(patient) {
 
   g <-
     df |>
-    dplyr::relocate(
-      c(raw_score, score, percentile, range, ci_95), .before = test) |>
-    dplyr::relocate(
-      c(scaled_score, t_score, reliability, composition), .after = result) |>
-    dplyr::filter(scale %in% c("General Ability", "Cognitive Proficiency", "Crystallized Knowledge", "Fluid Reasoning", "Working Memory", "Processing Speed"))
+    dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test) |>
+    dplyr::relocate(c(scaled_score, t_score, reliability, composition), .after = result) |>
+    dplyr::filter(
+      scale %in% c(
+        "General Ability",
+        "Cognitive Proficiency",
+        "Crystallized Knowledge",
+        "Fluid Reasoning",
+        "Working Memory",
+        "Processing Speed"
+      )
+    )
 
   ## Write out CSV
 
-  readr::write_csv(g, here::here(patient, "csv", "g.csv"), append = FALSE, col_names = TRUE)
+  readr::write_csv(g,
+    here::here(patient, "csv", "g.csv"),
+    append = FALSE,
+    col_names = TRUE
+  )
 }

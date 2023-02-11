@@ -6,14 +6,14 @@
 \usage{
 gpluck_make_columns(
   table,
-  test,
-  test_name,
   scale = NULL,
   raw_score = NULL,
   score = NULL,
   range = NULL,
   percentile = NULL,
   ci_95 = NULL,
+  test,
+  test_name,
   domain = c("Intelligence/General Ability", "Academic Skills", "Verbal/Language",
     "Visual Perception/Construction", "Attention/Executive", "Memory", "Motor",
     "Social Cognition", "Behavioral/Emotional/Social", "Personality Disorders",
@@ -24,7 +24,7 @@ gpluck_make_columns(
   pass = c("Planning", "Attention", "Sequential", "Simultaneous", "Knowledge", NA),
   verbal = c("Verbal", "Nonverbal", NA),
   timed = c("Timed", "Untimed", NA),
-  test_type = c("npsych_test", "rating_scale", "validity_indicator", "item"),
+  test_type = c("npsych_test", "rating_scale", "validity_indicator", "item", NA),
   score_type = c("raw_score", "scaled_score", "t_score", "standard_score", "z_score",
     "percentile", "base_rate", "beta_coefficient", NA),
   absort = NULL,
@@ -35,10 +35,6 @@ gpluck_make_columns(
 }
 \arguments{
 \item{table}{Name of table}
-
-\item{test}{Name of test}
-
-\item{test_name}{Name of test full}
 
 \item{scale}{Name of scale/subtest}
 
@@ -51,6 +47,10 @@ gpluck_make_columns(
 \item{percentile}{Percentile rank}
 
 \item{ci_95}{95\% CI}
+
+\item{test}{Name of test}
+
+\item{test_name}{Name of test full}
 
 \item{domain}{Cognitive domain}
 
