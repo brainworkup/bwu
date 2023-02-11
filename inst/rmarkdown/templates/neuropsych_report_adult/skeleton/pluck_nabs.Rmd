@@ -531,11 +531,11 @@ table1 <-
   tidytable::mutate(
     domain = tidytable::case_when(
       scale == "NAB Total Index" ~ "Intelligence/General Ability",
-      scale == "NAB Attention Index" ~ "Attention/Executive",
-      scale == "NAB Language Index" ~ "Verbal/Language",
-      scale == "NAB Memory Index" ~ "Memory",
-      scale == "NAB Spatial Index" ~ "Visual Perception/Construction",
-      scale == "NAB Executive Functions Index" ~ "Attention/Executive",
+      scale == "NAB Attention Index" ~ "Intelligence/General Ability",
+      scale == "NAB Language Index" ~ "Intelligence/General Ability",
+      scale == "NAB Memory Index" ~ "Intelligence/General Ability",
+      scale == "NAB Spatial Index" ~ "Intelligence/General Ability",
+      scale == "NAB Executive Functions Index" ~ "Intelligence/General Ability",
       TRUE ~ as.character(domain)
     )
   )
@@ -546,7 +546,7 @@ table6 <-
   table6 |>
   tidytable::mutate(
     domain = tidytable::case_when(
-      scale == "Word Generation" ~ "Attention/Executive",
+      scale == "Word Generation" ~ "Verbal/Language",
       TRUE ~ as.character(domain)
     )
   )
@@ -559,11 +559,11 @@ table1 <-
   table1 |>
   tidytable::mutate(
     subdomain = tidytable::case_when(
-      scale == "NAB Attention Index" ~ "Attention",
-      scale == "NAB Language Index" ~ "Language",
-      scale == "NAB Memory Index" ~ "Memory",
-      scale == "NAB Spatial Index" ~ "Spatial",
-      scale == "NAB Executive Functions Index" ~ "Executive Functions",
+      scale == "NAB Attention Index" ~ "Neuropsychological Functioning",
+      scale == "NAB Language Index" ~ "Neuropsychological Functioning",
+      scale == "NAB Memory Index" ~ "Neuropsychological Functioning",
+      scale == "NAB Spatial Index" ~ "Neuropsychological Functioning",
+      scale == "NAB Executive Functions Index" ~ "Neuropsychological Functioning",
       scale == "NAB Total Index" ~ "Neuropsychological Functioning",
       TRUE ~ as.character(subdomain)
     )
@@ -611,13 +611,13 @@ table2 <-
   table2 |>
   tidytable::mutate(
     subdomain = tidytable::case_when(
-      scale %in% orientation ~ "Attention",
-      scale %in% dsf ~ "Attention",
+      scale %in% orientation ~ "Attentional Functioning",
+      scale %in% dsf ~ "Attentional Functioning",
       scale %in% dsb ~ "Working Memory",
       scale == "Numbers & Letters Part A Speed" ~ "Processing Speed",
-      scale == "Numbers & Letters Part A Errors" ~ "Attention",
+      scale == "Numbers & Letters Part A Errors" ~ "Attentional Functioning",
       scale == "Numbers & Letters Part A Efficiency" ~ "Processing Speed",
-      scale == "Numbers & Letters Part B Efficiency" ~ "Attention",
+      scale == "Numbers & Letters Part B Efficiency" ~ "Attentional Functioning",
       TRUE ~ as.character(subdomain)
     )
   )
@@ -628,8 +628,8 @@ table3 <-
   table3 |>
   tidytable::mutate(
     subdomain = tidytable::case_when(
-      scale %in% c("Auditory Comprehension") ~ "Comprehension",
-      scale %in% c("Naming") ~ "Expression",
+      scale %in% c("Auditory Comprehension") ~ "Listening Ability",
+      scale %in% c("Naming") ~ "Word Retrieval",
       TRUE ~ as.character(subdomain)
     )
   )
@@ -664,8 +664,8 @@ table5 <-
   table5 |>
   tidytable::mutate(
     subdomain = tidytable::case_when(
-      scale == "Visual Discrimination" ~ "Visual Processing",
-      scale == "Design Construction" ~ "Visual Processing",
+      scale == "Visual Discrimination" ~ "Perception",
+      scale == "Design Construction" ~ "Construction",
       TRUE ~ as.character(subdomain)
     )
   )
@@ -676,9 +676,9 @@ table6 <-
   table6 |>
   tidytable::mutate(
     subdomain = tidytable::case_when(
-      scale == "Mazes" ~ "Executive Functions",
-      scale == "Word Generation" ~ "Executive Functions",
-      scale == "Word Generation Perseverations" ~ "Attention",
+      scale == "Mazes" ~ "Executive Functioning",
+      scale == "Word Generation" ~ "Word Fluency",
+      scale == "Word Generation Perseverations" ~ "Attentional Functioning",
       TRUE ~ as.character(subdomain)
     )
   )
@@ -713,7 +713,7 @@ table2 <-
       scale == "Numbers & Letters Part A Speed" ~ "Psychomotor Speed",
       scale == "Numbers & Letters Part A Errors" ~ "Response Monitoring",
       scale == "Numbers & Letters Part A Efficiency" ~ "Cognitive Efficiency",
-      scale == "Numbers & Letters Part B Efficiency" ~ "Divided Attention",
+      scale == "Numbers & Letters Part B Efficiency" ~ "Attentional Fluency",
       TRUE ~ as.character(narrow)
     )
   )
@@ -724,8 +724,8 @@ table3 <-
   table3 |>
   tidytable::mutate(
     narrow = tidytable::case_when(
-      scale == "Auditory Comprehension" ~ "Listening Ability",
-      scale == "Naming" ~ "Word Retrieval",
+      scale == "Auditory Comprehension" ~ "Auditory Comprehension",
+      scale == "Naming" ~ "Naming",
       TRUE ~ as.character(narrow)
     )
   )
@@ -748,8 +748,8 @@ table5 <-
   table5 |>
   tidytable::mutate(
     narrow = tidytable::case_when(
-      scale == "Visual Discrimination" ~ "Visuoperception",
-      scale == "Design Construction" ~ "Visuoconstruction",
+      scale == "Visual Discrimination" ~ "Visual Perception",
+      scale == "Design Construction" ~ "Figure Construction",
       TRUE ~ as.character(narrow)
     )
   )
@@ -761,7 +761,7 @@ table6 <-
   tidytable::mutate(
     narrow = tidytable::case_when(
       scale == "Mazes" ~ "Planning",
-      scale == "Word Generation" ~ "Generativity",
+      scale == "Word Generation" ~ "Word Generation",
       scale == "Word Generation Perseverations" ~ "Response Monitoring",
       TRUE ~ as.character(narrow)
     )
@@ -910,7 +910,7 @@ table6 <-
 
 ## Timed vs Untimed
 
-```{r timed-table1}
+```{r timed}
 table1 <-
   table1 |>
   tidytable::mutate(
@@ -924,9 +924,7 @@ table1 <-
       TRUE ~ as.character(timed)
     )
   )
-```
 
-```{r timed-table2}
 table2 <-
   table2 |>
   tidytable::mutate(
@@ -939,9 +937,7 @@ table2 <-
       TRUE ~ as.character(timed)
     )
   )
-```
 
-```{r timed-table3}
 table3 <-
   table3 |>
   tidytable::mutate(
@@ -951,9 +947,7 @@ table3 <-
       TRUE ~ as.character(timed)
     )
   )
-```
 
-```{r timed-table4}
 table4 <-
   table4 |>
   tidytable::mutate(
@@ -963,9 +957,7 @@ table4 <-
       TRUE ~ as.character(timed)
     )
   )
-```
 
-```{r timed-table5}
 table5 <-
   table5 |>
   tidytable::mutate(
@@ -975,9 +967,7 @@ table5 <-
       TRUE ~ as.character(timed)
     )
   )
-```
 
-```{r timed-table6}
 table6 <-
   table6 |>
   tidytable::mutate(
