@@ -115,6 +115,7 @@ gpluck_extract_table <-
 #' @title Make columns for npsych tables
 #' @description Make new columns for neuropsych tables more of a description.
 #' @rdname gpluck_make_columns
+#' @importFrom tidytable mutate
 #' @param table Name of table
 #' @param scale Name of scale/subtest
 #' @param raw_score Raw score for scale
@@ -210,7 +211,7 @@ gpluck_make_columns <- function(table,
                                 result = NULL,
                                 ...) {
   table <-
-    dplyr::mutate(
+    tidytable::mutate(
       table = table,
       scale = scale,
       raw_score = raw_score,
