@@ -844,10 +844,10 @@ compute_pctile_range <-
         ) %>%
         tidytable::mutate(percentile = pct1) %>%
         tidytable::select(-c(pct1, pct2, pct3))
-    } else (.score_type == "raw_score") {
+    } if else (.score_type == "raw_score") {
       .x <-
         .x |>
-        tidytable::mutate(z = (.score - 50) / 10) %>%
+        tidytable::mutate(z = (.score - mean(raw_score)) / sd(raw_score)) %>%
         tidytable::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
         tidytable::mutate(pct2 = tidytable::case_when(
           pct1 < 1 ~ ceiling(pct1),
