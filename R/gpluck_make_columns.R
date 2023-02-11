@@ -24,15 +24,15 @@
 #'
 #' @return A table for the report
 #' @export
-gpluck_make_columns <- function(table,
+gpluck_make_columns2 <- function(table,
+                                test,
+                                test_name,
                                 scale = NULL,
                                 raw_score = NULL,
                                 score = NULL,
                                 range = NULL,
                                 percentile = NULL,
                                 ci_95 = NULL,
-                                test,
-                                test_name,
                                 domain = c(
                                   "Intelligence/General Ability",
                                   "Academic Skills",
@@ -43,6 +43,12 @@ gpluck_make_columns <- function(table,
                                   "Motor",
                                   "Social Cognition",
                                   "Behavioral/Emotional/Social",
+                                  "Personality Disorders",
+                                  "Psychiatric Disorders",
+                                  "Substance Use Disorders",
+                                  "Psychosocial Problems",
+                                  "ADHD",
+                                  "Executive Dysfunction",
                                   "Effort/Validity",
                                   NA
                                 ),
@@ -69,7 +75,8 @@ gpluck_make_columns <- function(table,
                                 test_type = c(
                                   "npsych_test",
                                   "rating_scale",
-                                  "rating_scale2"
+                                  "validity_indicator",
+                                  "item"
                                 ),
                                 score_type = c(
                                   "raw_score",
@@ -79,6 +86,7 @@ gpluck_make_columns <- function(table,
                                   "z_score",
                                   "percentile",
                                   "base_rate",
+                                  "beta_coefficient",
                                   NA
                                 ),
                                 absort = NULL,
@@ -108,7 +116,7 @@ gpluck_make_columns <- function(table,
         paste0(tolower(test),
           "_", tolower(scale),
           "_", seq_len(nrow(table))
-          ),
+        ),
       description = description,
       result = result,
       ...

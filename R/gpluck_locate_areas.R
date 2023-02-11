@@ -27,7 +27,7 @@
 #' @importFrom graphics par rasterImage locator plot
 #'
 #' @export
-gpluck_locate_areas <- function(file, pages = NULL, ...) {
+gpluck_locate_areas2 <- function(file, pages = NULL, ...) {
   tabulizer::locate_areas(
     file = file,
     pages = pages,

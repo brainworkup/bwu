@@ -5,7 +5,7 @@
 #' @return A table
 #' @export
 #'
-gpluck_get_index_scores <- function(patient) {
+gpluck_get_index_score2 <- function(patient) {
   ## Import/Tidy Excel Index Score File
 
   patient <- patient

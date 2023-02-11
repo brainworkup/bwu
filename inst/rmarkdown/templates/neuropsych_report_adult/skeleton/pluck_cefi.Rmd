@@ -173,7 +173,11 @@ table1 <-
   hablar::convert(dbl(all_of(to_double))) |>
   tidytable::mutate(scale = "") |>
   tidytable::relocate(scale, .before = score)
-table1[1, 1] <- c("Full Scale")
+if (params$test == "cefi_sr") {
+  table1[1, 1] <- c("CEFI-SR Full Scale")
+} else {
+  table1[1, 1] <- c("CEFI-OR Full Scale")
+}
 ```
 
 ## CEFI Subscales
@@ -184,15 +188,27 @@ colnames(table2) <- colnames2
 to_double <- c("score", "percentile")
 table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
 # rename
-table2[1, 1] <- c("Attention")
-table2[2, 1] <- c("Emotion Regulation")
-table2[3, 1] <- c("Flexibility")
-table2[4, 1] <- c("Inhibitory Control")
-table2[5, 1] <- c("Initiation")
-table2[6, 1] <- c("Organization")
-table2[7, 1] <- c("Planning")
-table2[8, 1] <- c("Self-Monitoring")
-table2[9, 1] <- c("Working Memory")
+if (params$test == "cefi_sr") {
+  table2[1, 1] <- c("CEFI-SR Attention")
+  table2[2, 1] <- c("CEFI-SR Emotion Regulation")
+  table2[3, 1] <- c("CEFI-SR Flexibility")
+  table2[4, 1] <- c("CEFI-SR Inhibitory Control")
+  table2[5, 1] <- c("CEFI-SR Initiation")
+  table2[6, 1] <- c("CEFI-SR Organization")
+  table2[7, 1] <- c("CEFI-SR Planning")
+  table2[8, 1] <- c("CEFI-SR Self-Monitoring")
+  table2[9, 1] <- c("CEFI-SR Working Memory")
+} else {
+  table2[1, 1] <- c("CEFI-OR Attention")
+  table2[2, 1] <- c("CEFI-OR Emotion Regulation")
+  table2[3, 1] <- c("CEFI-OR Flexibility")
+  table2[4, 1] <- c("CEFI-OR Inhibitory Control")
+  table2[5, 1] <- c("CEFI-OR Initiation")
+  table2[6, 1] <- c("CEFI-OR Organization")
+  table2[7, 1] <- c("CEFI-OR Planning")
+  table2[8, 1] <- c("CEFI-OR Self-Monitoring")
+  table2[9, 1] <- c("CEFI-OR Working Memory")
+}
 ```
 
 ## Select variables to keep
@@ -214,7 +230,7 @@ table <- bwu::gpluck_make_columns(
   ci_95 = "",
   test = params$test,
   test_name = params$test_name,
-  domain = "Executive Functions",
+  domain = "Executive Dysfunction",
   subdomain = "",
   narrow = "",
   pass = "",
@@ -240,16 +256,16 @@ table <-
   table |>
   tidytable::mutate(
     subdomain = tidytable::case_when(
-      scale == "Full Scale" ~ "Full Scale",
-      scale == "Attention" ~ "Attention",
-      scale == "Emotion Regulation" ~ "Emotion Regulation",
-      scale == "Flexibility" ~ "Flexibility",
-      scale == "Inhibitory Control" ~ "Inhibitory Control",
-      scale == "Initiation" ~ "Initiation",
-      scale == "Organization" ~ "Organization",
-      scale == "Planning" ~ "Planning",
-      scale == "Self-Monitoring" ~ "Self-Monitoring",
-      scale == "Working Memory" ~ "Working Memory",
+      scale %in% "Full Scale" ~ "Full Scale",
+      scale %in% "Attention" ~ "Attention",
+      scale %in% "Emotion Regulation" ~ "Emotion Regulation",
+      scale %in% "Flexibility" ~ "Flexibility",
+      scale %in% "Inhibitory Control" ~ "Inhibitory Control",
+      scale %in% "Initiation" ~ "Initiation",
+      scale %in% "Organization" ~ "Organization",
+      scale %in% "Planning" ~ "Planning",
+      scale %in% "Self-Monitoring" ~ "Self-Monitoring",
+      scale %in% "Working Memory" ~ "Working Memory",
       TRUE ~ as.character(subdomain)
     )
   )
@@ -263,16 +279,16 @@ if (params$test == "cefi_sr") {
     table |>
     tidytable::mutate(
       narrow = tidytable::case_when(
-        scale == "Full Scale" ~ "Full Scale (Self)",
-        scale == "Attention" ~ "Attention (Self)",
-        scale == "Emotion Regulation" ~ "Emotion Regulation (Self)",
-        scale == "Flexibility" ~ "Flexibility (Self)",
-        scale == "Inhibitory Control" ~ "Inhibitory Control (Self)",
-        scale == "Initiation" ~ "Initiation (Self)",
-        scale == "Organization" ~ "Organization (Self)",
-        scale == "Planning" ~ "Planning (Self)",
-        scale == "Self-Monitoring" ~ "Self-Monitoring (Self)",
-        scale == "Working Memory" ~ "Working Memory (Self)",
+        scale == "CEFI-SR Full Scale" ~ "Full Scale (Self)",
+        scale == "CEFI-SR Attention" ~ "Attention (Self)",
+        scale == "CEFI-SR Emotion Regulation" ~ "Emotion Regulation (Self)",
+        scale == "CEFI-SR Flexibility" ~ "Flexibility (Self)",
+        scale == "CEFI-SR Inhibitory Control" ~ "Inhibitory Control (Self)",
+        scale == "CEFI-SR Initiation" ~ "Initiation (Self)",
+        scale == "CEFI-SR Organization" ~ "Organization (Self)",
+        scale == "CEFI-SR Planning" ~ "Planning (Self)",
+        scale == "CEFI-SR Self-Monitoring" ~ "Self-Monitoring (Self)",
+        scale == "CEFI-SR Working Memory" ~ "Working Memory (Self)",
         TRUE ~ as.character(narrow)
       )
     )
@@ -281,16 +297,16 @@ if (params$test == "cefi_sr") {
     table |>
     tidytable::mutate(
       narrow = tidytable::case_when(
-        scale == "Full Scale" ~ "Full Scale (Observer)",
-        scale == "Attention" ~ "Attention (Observer)",
-        scale == "Emotion Regulation" ~ "Emotion Regulation (Observer)",
-        scale == "Flexibility" ~ "Flexibility (Observer)",
-        scale == "Inhibitory Control" ~ "Inhibitory Control (Observer)",
-        scale == "Initiation" ~ "Initiation (Observer)",
-        scale == "Organization" ~ "Organization (Observer)",
-        scale == "Planning" ~ "Planning (Observer)",
-        scale == "Self-Monitoring" ~ "Self-Monitoring (Observer)",
-        scale == "Working Memory" ~ "Working Memory (Observer)",
+        scale == "CEFI-OR Full Scale" ~ "Full Scale (Observer)",
+        scale == "CEFI-OR Attention" ~ "Attention (Observer)",
+        scale == "CEFI-OR Emotion Regulation" ~ "Emotion Regulation (Observer)",
+        scale == "CEFI-OR Flexibility" ~ "Flexibility (Observer)",
+        scale == "CEFI-OR Inhibitory Control" ~ "Inhibitory Control (Observer)",
+        scale == "CEFI-OR Initiation" ~ "Initiation (Observer)",
+        scale == "CEFI-OR Organization" ~ "Organization (Observer)",
+        scale == "CEFI-OR Planning" ~ "Planning (Observer)",
+        scale == "CEFI-OR Self-Monitoring" ~ "Self-Monitoring (Observer)",
+        scale == "CEFI-OR Working Memory" ~ "Working Memory (Observer)",
         TRUE ~ as.character(narrow)
       )
     )
@@ -306,34 +322,34 @@ if (params$test == "cefi_sr") {
     tidytable::mutate(
       description = tidytable::case_when(
         scale ==
-          "Full Scale" ~
+          "CEFI-SR Full Scale" ~
           "overall level of executive functioning",
         scale ==
-          "Attention" ~
+          "CEFI-SR Attention" ~
           "i.e., avoid distractions, concentrate on tasks, and sustain attention",
         scale ==
-          "Emotion Regulation" ~
+          "CEFI-SR Emotion Regulation" ~
           "i.e., control and manage emotions, including staying calm when handling small problems and reacting with the right level of emotion",
         scale ==
-          "Flexibility" ~
+          "CEFI-SR Flexibility" ~
           "i.e., adjust behavior to meet circumstances, including coming up with different ways to solve problems, changing behavior when needed, and being able to come up with new ways to reach a goal",
         scale ==
-          "Inhibitory Control" ~
+          "CEFI-SR Inhibitory Control" ~
           "i.e., control behavior or impulses, including thinking about consequences before acting, maintaining self-control, and thinking before speaking",
         scale ==
-          "Initiation" ~
+          "CEFI-SR Initiation" ~
           "i.e., begin tasks or projects on own, including starting tasks easily, being motivated, and taking the initiative when needed",
         scale ==
-          "Organization" ~
+          "CEFI-SR Organization" ~
           "i.e., manage personal effects, work, or multiple tasks, including organizing tasks and thoughts well, managing time effectively, and working neatly",
         scale ==
-          "Planning" ~
+          "CEFI-SR Planning" ~
           "i.e., develop and implement strategies to accomplish tasks, including planning ahead and making good decisions",
         scale ==
-          "Self-Monitoring" ~
+          "CEFI-SR Self-Monitoring" ~
           "i.e., evaluate own behavior in order to determine when a different approach is necessary, including noticing and fixing mistakes, knowing when help is required, and understanding when a task is completed",
         scale ==
-          "Working Memory" ~
+          "CEFI-SR Working Memory" ~
           "i.e., keep information in mind that is important for knowing what to do and how to do it, including remembering important things, instructions, and steps",
         TRUE ~ as.character(description)
       )
@@ -344,34 +360,34 @@ if (params$test == "cefi_sr") {
     tidytable::mutate(
       description = tidytable::case_when(
         scale ==
-          "Full Scale" ~
+          "CEFI-OR Full Scale" ~
           "overall level of executive functioning",
         scale ==
-          "Attention" ~
+          "CEFI-OR Attention" ~
           "i.e., avoid distractions, concentrate on tasks, and sustain attention",
         scale ==
-          "Emotion Regulation" ~
+          "CEFI-OR Emotion Regulation" ~
           "i.e., control and manage emotions, including staying calm when handling small problems and reacting with the right level of emotion",
         scale ==
-          "Flexibility" ~
+          "CEFI-OR Flexibility" ~
           "i.e., adjust behavior to meet circumstances, including coming up with different ways to solve problems, changing behavior when needed, and being able to come up with new ways to reach a goal",
         scale ==
-          "Inhibitory Control" ~
+          "CEFI-OR Inhibitory Control" ~
           "i.e., control behavior or impulses, including thinking about consequences before acting, maintaining self-control, and thinking before speaking",
         scale ==
-          "Initiation" ~
+          "CEFI-OR Initiation" ~
           "i.e., begin tasks or projects on own, including starting tasks easily, being motivated, and taking the initiative when needed",
         scale ==
-          "Organization" ~
+          "CEFI-OR Organization" ~
           "i.e., manage personal effects, work, or multiple tasks, including organizing tasks and thoughts well, managing time effectively, and working neatly",
         scale ==
-          "Planning" ~
+          "CEFI-OR Planning" ~
           "i.e., develop and implement strategies to accomplish tasks, including planning ahead and making good decisions",
         scale ==
-          "Self-Monitoring" ~
+          "CEFI-OR Self-Monitoring" ~
           "i.e., evaluate own behavior in order to determine when a different approach is necessary, including noticing and fixing mistakes, knowing when help is required, and understanding when a task is completed",
         scale ==
-          "Working Memory" ~
+          "CEFI-OR Working Memory" ~
           "i.e., keep information in mind that is important for knowing what to do and how to do it, including remembering important things, instructions, and steps",
         TRUE ~ as.character(description)
       )
@@ -387,34 +403,34 @@ if (params$test == "cefi_sr") {
     table |>
     tidytable::mutate(
       result = tidytable::case_when(
-        scale == "Full Scale" ~ glue::glue(
+        scale %in% "Full Scale" ~ glue::glue(
           "- {patient}'s {description} was {range}.\n"
         ),
-        scale == "Attention" ~ glue::glue(
+        scale %in% "Attention" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale == "Emotion Regulation" ~ glue::glue(
+        scale %in% "Emotion Regulation" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale == "Flexibility" ~ glue::glue(
+        scale %in% "Flexibility" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale == "Inhibitory Control" ~ glue::glue(
+        scale %in% "Inhibitory Control" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale == "Initiation" ~ glue::glue(
+        scale %in% "Initiation" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale == "Organization" ~ glue::glue(
+        scale %in% "Organization" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale == "Planning" ~ glue::glue(
+        scale %in% "Planning" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale == "Self-Monitoring" ~ glue::glue(
+        scale %in% "Self-Monitoring" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale == "Working Memory" ~ glue::glue(
+        scale %in% "Working Memory" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
         TRUE ~ as.character(result)
@@ -425,34 +441,34 @@ if (params$test == "cefi_sr") {
     table |>
     tidytable::mutate(
       result = tidytable::case_when(
-        scale == "Full Scale" ~ glue::glue(
+        scale %in% "Full Scale" ~ glue::glue(
           "- {patient}'s {description} was {range}.\n"
         ),
-        scale == "Attention" ~ glue::glue(
+        scale %in% "Attention" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale == "Emotion Regulation" ~ glue::glue(
+        scale %in% "Emotion Regulation" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale == "Flexibility" ~ glue::glue(
+        scale %in% "Flexibility" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale == "Inhibitory Control" ~ glue::glue(
+        scale %in% "Inhibitory Control" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale == "Initiation" ~ glue::glue(
+        scale %in% "Initiation" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale == "Organization" ~ glue::glue(
+        scale %in% "Organization" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale == "Planning" ~ glue::glue(
+        scale %in% "Planning" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale == "Self-Monitoring" ~ glue::glue(
+        scale %in% "Self-Monitoring" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale == "Working Memory" ~ glue::glue(
+        scale %in% "Working Memory" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
         TRUE ~ as.character(result)

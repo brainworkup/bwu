@@ -46,7 +46,7 @@
 #' @importFrom tools file_path_sans_ext
 #' @importFrom rJava J new .jfloat
 #' @export
-gpluck_extract_table <-
+gpluck_extract_table2 <-
   function(file,
            pages = NULL,
            area = NULL,

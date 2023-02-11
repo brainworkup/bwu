@@ -20,7 +20,7 @@
 #' )
 #'
 #' @export
-gpluck_make_score_ranges <-
+gpluck_make_score_ranges2 <-
   function(table = table,
            score = NULL,
            percentile = NULL,
@@ -51,6 +51,18 @@ gpluck_make_score_ranges <-
             score %in% 60:69 ~ "At-Risk",
             score %in% 40:59 ~ "Average",
             score <= 39 ~ "Below Average/Strength",
+            TRUE ~ as.character(range)
+          )
+        )
+    } else if (test_type == "validity_indicator") {
+      table <-
+        table %>%
+        dplyr::mutate(
+          range = dplyr::case_when(
+            score >= 25 ~ "Within Normal Limits Score",
+            score %in% 9:24 ~ "Low Average Score",
+            score %in% 2:8 ~ "Below Average Score",
+            score < 2 ~ "Exceptionally Low Score",
             TRUE ~ as.character(range)
           )
         )

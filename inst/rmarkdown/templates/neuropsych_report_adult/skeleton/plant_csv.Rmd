@@ -1,23 +1,26 @@
 ---
 title: "Plant CSV file of Neuropsych Measures/Tests"
+output:
+  rmdformats::robobook:
+    highlight: kate
 params:
   patient:
     label: "Patient First Name:"
-    value: Anna
+    value: Biggie
     input: text
   test_name:
     label: "Full Name of Test/Test Battery:"
     value: ""
     input: radio
     choices:
-      - "D-KEFS Color-Word Interference"
-      - "Grooved Pegboard"
-      - "KTEA-3"
-      - "NAB"
       - "NIH EXAMINER"
       - "Rey Complex Figure"
       - "Test of Premorbid Functioning"
       - "Trail Making Test"
+      - "NAB"
+      - "D-KEFS Color-Word Interference"
+      - "Grooved Pegboard"
+      - "KTEA-3"
       - "WMS-IV"
       - "Cognitive Estimation Test"
   test:
@@ -25,14 +28,14 @@ params:
     value: ""
     input: radio
     choices:
-      - dkefs_cwi
       - examiner
-      - ktea3
-      - nab
-      - pegboard
       - rocft
-      - tmt
       - topf
+      - tmt
+      - nab
+      - dkefs
+      - ktea3
+      - pegboard
       - wms4
       - cet
   scale:
@@ -42,7 +45,7 @@ params:
     choices:
       ACS:
         - "TOPF Standard Score"
-        - "Word Choice"
+        - "ACS Word Choice"
       Examiner:
         - "Unstructured Task"
         - "Letter Fluency"
@@ -51,6 +54,8 @@ params:
         - "ROCFT Copy"
         - "ROCFT Delayed Recall"
       Trail Making Test:
+        - TMT, Part A
+        - TMT, Part B
         - "Trails A"
         - "Trails B"
       NAB:
@@ -93,6 +98,8 @@ params:
       - scaled_score
       - t_score
       - standard_score
+      - raw_score
+      - beta_coefficient
   domain:
     label: "Domain:"
     value: Select domain
@@ -108,6 +115,12 @@ params:
       - "Social Cognition"
       - "ADHD/Executive Functioning"
       - "Behavioral/Emotional/Social"
+      - "Personality Disorders",
+      - "Psychiatric Disorders",
+      - "Substance Use Disorders",
+      - "Psychosocial Problems",
+      - "ADHD",
+      - "Executive Dysfunction",
       - "Effort/Validity"
   subdomain:
     label: "Subdomain:"
@@ -115,79 +128,109 @@ params:
     input: select
     choices:
       General Ability:
-        - "Crystallized Intelligence"
-        - "Cognitive Proficiency"
+        - Crystallized Intelligence
+        - Cognitive Proficiency
+        - Neuropsychological Functioning
+        - Premorbid Ability
       Attention/Executive:
-        - "Attention"
-        - "Executive Functions"
-        - "Working Memory"
-        - "Processing Speed"
-      Other:
-        - "Visuomotor Integration"
-        - "Fluency"
-        - "Retrieval Fluency"
-        - "Delayed Recall"
-        - "Fine Motor Dexterity"
-        - "Cognitive Control"
-        - "Cognitive Flexibility"
-        - "Concept Formation"
-        - "Judgment"
-        - "Planning"
-        - "Reading"
-        - "Response Monitoring"
+        - Attentional Functioning
+        - Executive Functioning
+        - Working Memory
+        - Processing Speed
+      Verbal:
+        - Word Fluency
+        - Listening Ability
+        - Word Retrieval,
+      Spatial:
+        - Organization
+        - Reasoning
+        - Perception
+        - Construction
+      Memory:
+        - Learning Efficiency
+        - Delayed Recall
+      Motor:
+        - Fine Motor Dexterity
+      Effort:
+        - Performance Validity
+        - Symptom Validity
+      Social Cognition:
+        - Affect Recognition
   narrow:
     label: "Narrow subdomain:"
     value: Select domain
     input: select
     choices:
       General Cognition:
-        - "General Ability"
-        - "Premorbid Ability"
+        - General Ability
+        - Word Reading
+        - General Ability Index
+        - Crystallized Knowledge Index
+        - Fluid Reasoning Index
+        - Cognitive Proficiency Index
+        - Working Memory Index
+        - Processing Speed Index
       Attention:
-        - "Attention Index"
-        - "Attention Span"
-        - "Divided Attention"
-        - "Response Monitoring"
-        - "Selective Attention"
-        - "Spatial Attention"
-        - "Verbal Attention"
-        - "Visual Attention"
-      Exec Fx:
-        - "Executive Functions Index"
-        - "Judgment"
-        - "Phonemic Fluency"
-        - "Semantic Fluency"
-        - "Planning"
-        - "Strategic Planning"
-        - "Abstract Reasoning"
-        - "Inhibition"
-        - "Set-Shifting"
-        - "Decision-Making"
+        - Attentional Capacity
+        - Attentional Fluency
+        - Response Monitoring
+        - Attention Index
+        - Attention Span
+        - Divided Attention
+        - Selective Attention
+        - Spatial Attention
+        - Verbal Attention
+        - Visual Attention
+      Executive Functioning:
+        - Planning
+        - Judgment
+        - Executive Functions Index
+        - Strategic Planning
+        - Abstract Reasoning
+        - Inhibition
+        - Set-Shifting
+        - Decision-Making
+        - Cognitive Control
+        - Cognitive Flexibility
+        - Concept Formation
       Working Memory:
-        - "Working Memory Index"
-        - "Verbal Working Memory"
-        - "Nonverbal Working Memory"
+        - Working Memory Capacity
+        - Verbal Working Memory
+        - Nonverbal Working Memory
+        - Working Memory Index
+        - Working Memory
       Processing Speed:
-        - "Processing Speed Index"
-        - "Psychomotor Speed"
-        - "Cognitive Efficiency"
+        - Processing Speed Index
+        - Psychomotor Speed
+        - Cognitive Efficiency
+      Language:
+        - Phonemic Fluency
+        - Semantic Fluency
+        - Word Generation
+        - Naming Facility
+        - Verbal Reasoning
       Spatial:
-        - "Perceptual Organization"
-        - Visuomotor
+        - Figure Copy
+        - Visual Perception
+        - Figure Construction
+        - Perceptual Organization
+        - Nonverbal Reasoning
+        - Visuomotor Integration
       Memory:
         - Learning Efficiency
         - Delayed Recall
         - Visual Memory
         - Story Memory
+      Effort:
+        - Embedded
+        - Standalone
       Motor:
-        - "Dominant Hand Dexterity"
-        - "Nondominant Hand Dexterity"
-      Other:
-        - "Naming Facility"
-        - "Problem-Solving"
-        - "Reading Comprehension"
-        - "Reading Decoding"
-        - "Reading Speed"
+        - Dominant Hand Dexterity
+        - Nondominant Hand Dexterity
+      Academics:
+        - Reading Comprehension
+        - Reading Decoding
+        - Reading Speed
   pass:
     label: "PASS:"
     value: ""
@@ -239,12 +282,10 @@ params:
     choices:
       - npsych_test
       - rating_scale
+      - validity_indicator
   absort:
   description:
   result:
-output:
-  rmdformats::robobook:
-    highlight: kate
 ---
 
 ## Setup
@@ -360,9 +401,9 @@ compute_desc <- function(.x, .scale, description, ...) {
         "Phonic decoding fluency",
       .scale == "Reading Comprehension" ~
         "Reading comprehension skills at the level of the word, sentence, and passage",
-      .scale == "Trails A" ~
+      .scale == "TMT, Part A" ~
         "Basic psychomotor processing speed",
-      .scale == "Trails B" ~
+      .scale == "TMT, Part B" ~
         "Scanning, visuomotor tracking, divided attention, and cognitive flexibility",
       .scale == "Symbol Span" ~
         "Nonverbal working memory",
@@ -379,7 +420,7 @@ df1 <- compute_desc(.x = df, .scale = df$scale, description = description)
 ## Function to compute percentile and range
 
 ```{r func-pr}
-compute_pctile_range <-
+gpluck_compute_percentile_range <-
   function(.x,
            .score = NA,
            .score_type =
@@ -559,9 +600,9 @@ compute_result <-
             glue::glue("{.description} fell within the {.range} range.\n"),
           .scale == "Reading Comprehension" ~
             glue::glue("{.description} was {.range}.\n"),
-          .scale == "Trails A" ~
+          .scale == "TMT, Part A" ~
             glue::glue("{.description} was {.range}.\n"),
-          .scale == "Trails B" ~
+          .scale == "TMT, Part B" ~
             glue::glue("{.description} was {.range}.\n"),
           .scale == "Symbol Span" ~
             glue::glue("{.description} was {.range}.\n"),
