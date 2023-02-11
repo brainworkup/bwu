@@ -5,7 +5,7 @@
 \title{Make test score range (e.g., Below Average, Above Average).}
 \usage{
 gpluck_make_score_ranges(
-  table = table,
+  table,
   score = NULL,
   percentile = NULL,
   range = range,

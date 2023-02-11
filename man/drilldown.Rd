@@ -4,12 +4,16 @@
 \alias{drilldown}
 \title{Drilldown on neuropsych domains.}
 \usage{
-drilldown(data, patient = NULL, ...)
+drilldown(data, patient = NULL, mean_z, mean_percentile, ...)
 }
 \arguments{
 \item{data}{Dataset to use.}
 
 \item{patient}{Patient's first name.}
+
+\item{mean_z}{Mean z-score.}
+
+\item{mean_percentile}{Mean percentile.}
 
 \item{...}{Numeric, complex, or logical vectors.}
 }

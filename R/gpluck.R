@@ -245,6 +245,7 @@ gpluck_make_columns <- function(table,
 #' @title Make test score range (e.g., Below Average, Above Average).
 #' @description Use a consistent set of ranges for performance on neuropsychological testing.
 #' @importFrom tidytable mutate case_when
+#' @import data.table
 #' @param table Name of table
 #' @param score Score, raw score, or standard score
 #' @param percentile Percentile rank
@@ -265,7 +266,7 @@ gpluck_make_columns <- function(table,
 #'
 #' @export
 gpluck_make_score_ranges <-
-  function(table = table,
+  function(table,
            score = NULL,
            percentile = NULL,
            range = range,
@@ -346,7 +347,8 @@ gpluck_make_score_ranges <-
 
 #' @title Compute percentile scores and ranges
 #'
-#' @import tidytable
+#' @importFrom tidytable mutate case_when select
+#' @importFrom stats sd
 #' @param .x Pronoun for data.frame
 #' @param .score Known score
 #' @param .score_type Known type of score
@@ -480,7 +482,7 @@ gpluck_compute_percentile_range <-
 #' Import Neurocognitive Index Scores
 #'
 #' @param patient Name of patient
-#' @importFrom readxl mutate
+#' @importFrom readxl read_xlsx
 #' @importFrom janitor clean_names
 #' @importFrom readr write_csv
 #' @importFrom here here
@@ -716,9 +718,9 @@ gpluck_get_index_scores <- function(patient) {
 }
 
 
-#' @title Compute percentile scores and ranges
-#'
-#' @import tidytable 
+#' @title Compute percentile scores and ranges janky way
+#' @importFrom tidytable mutate case_when select
+#' @importFrom stats sd
 #' @param .x Pronoun for data.frame
 #' @param .score Known score
 #' @param .score_type Known type of score
@@ -844,7 +846,7 @@ compute_pctile_range <-
         ) %>%
         tidytable::mutate(percentile = pct1) %>%
         tidytable::select(-c(pct1, pct2, pct3))
-    } if else (.score_type == "raw_score") {
+    } else if (.score_type == "raw_score") {
       .x <-
         .x |>
         tidytable::mutate(z = (.score - mean(raw_score)) / sd(raw_score)) %>%
@@ -857,7 +859,7 @@ compute_pctile_range <-
         tidytable::mutate(pct3 = pct2) %>%
         tidytable::mutate(
           range = tidytable::case_when(
-            pct3 %in% >=25 ~ "Within Normal Limits Score",
+            pct3 >= 25 ~ "Within Normal Limits Score",
             pct3 %in% 9:24 ~ "Low Average Score",
             pct3 %in% 2:8 ~ "Below Average Score",
             pct3 < 2 ~ "Exceptionally Low Score",
@@ -868,3 +870,5 @@ compute_pctile_range <-
         tidytable::select(-c(pct1, pct2, pct3))
     }
   }
+
+

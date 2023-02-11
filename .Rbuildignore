@@ -54,3 +54,6 @@
 ^bwu\.qmd$
 ^index\.qmd$
 ^README\.html$
+^\.quarto$
+^\.nojekyll$
+^\.builds\.archived$
