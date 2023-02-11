@@ -141,14 +141,14 @@ gpluck_extract_table <-
 #' @return A table for the report
 #' @export
 gpluck_make_columns <- function(table,
+                                test,
+                                test_name,
                                 scale = NULL,
                                 raw_score = NULL,
                                 score = NULL,
                                 range = NULL,
                                 percentile = NULL,
                                 ci_95 = NULL,
-                                test,
-                                test_name,
                                 domain = c(
                                   "Intelligence/General Ability",
                                   "Academic Skills",
@@ -210,9 +210,9 @@ gpluck_make_columns <- function(table,
                                 description = NULL,
                                 result = NULL,
                                 ...) {
-  table <-
+  df <-
     tidytable::mutate(
-      table = table,
+      df = table,
       scale = scale,
       raw_score = raw_score,
       score = score,
@@ -231,9 +231,9 @@ gpluck_make_columns <- function(table,
       score_type = score_type,
       absort =
         paste0(
-          tolower(test),
+          tolower(df),
           "_", tolower(scale),
-          "_", seq_len(nrow(table))
+          "_", seq_len(nrow(df))
         ),
       description = description,
       result = result,
@@ -244,7 +244,7 @@ gpluck_make_columns <- function(table,
 
 #' @title Make test score range (e.g., Below Average, Above Average).
 #' @description Use a consistent set of ranges for performance on neuropsychological testing.
-#'
+#' @importFrom tidytable mutate case_when
 #' @param table Name of table
 #' @param score Score, raw score, or standard score
 #' @param percentile Percentile rank
@@ -274,8 +274,8 @@ gpluck_make_score_ranges <-
     if (test_type == "npsych_test") {
       table <-
         table %>%
-        dplyr::mutate(
-          range = dplyr::case_when(
+        tidytable::mutate(
+          range = tidytable::case_when(
             percentile >= 98 ~ "Exceptionally High",
             percentile %in% 91:97 ~ "Above Average",
             percentile %in% 75:90 ~ "High Average",
@@ -289,8 +289,8 @@ gpluck_make_score_ranges <-
     } else if (test_type == "rating_scale") {
       table <-
         table %>%
-        dplyr::mutate(
-          range = dplyr::case_when(
+        tidytable::mutate(
+          range = tidytable::case_when(
             percentile >= 98 ~ "Exceptionally High",
             percentile %in% 91:97 ~ "Above Average",
             percentile %in% 75:90 ~ "High Average",
@@ -304,8 +304,8 @@ gpluck_make_score_ranges <-
     } else if (test_type == "validity_indicator") {
       table <-
         table %>%
-        dplyr::mutate(
-          range = dplyr::case_when(
+        tidytable::mutate(
+          range = tidytable::case_when(
             percentile >= 25 ~ "Within Normal Limits Score",
             percentile %in% 9:24 ~ "Low Average Score",
             percentile %in% 2:8 ~ "Below Average Score",
@@ -316,8 +316,8 @@ gpluck_make_score_ranges <-
     } else {
       table <-
         table %>%
-        dplyr::mutate(
-          range = dplyr::case_when(
+        tidytable::mutate(
+          range = tidytable::case_when(
             score >= 60 &
               subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Strength",
             score %in% 40:59 &
@@ -480,17 +480,19 @@ gpluck_compute_percentile_range <-
 #' Import Neurocognitive Index Scores
 #'
 #' @param patient Name of patient
-#'
+#' @importFrom readxl mutate
+#' @importFrom janitor clean_names
+#' @importFrom readr write_csv
+#' @importFrom here here
 #' @return A table
 #' @export
 #'
 gpluck_get_index_scores <- function(patient) {
-  ## Import/Tidy Excel Index Score File
 
+  ## Import/Tidy Excel Index Score File
   patient <- patient
 
   ## Import data
-
   df <-
     readxl::read_xlsx(here::here(patient, "index_scores.xlsx")) |>
     janitor::clean_names()
@@ -541,8 +543,8 @@ gpluck_get_index_scores <- function(patient) {
 
   df <-
     df |>
-    dplyr::mutate(
-      domain = dplyr::case_when(
+    tidytable::mutate(
+      domain = tidytable::case_when(
         scale == "General Ability" ~ "Intelligence/General Ability",
         scale == "Cognitive Proficiency" ~ "Intelligence/General Ability",
         scale == "Crystallized Knowledge" ~ "Intelligence/General Ability",
@@ -557,12 +559,12 @@ gpluck_get_index_scores <- function(patient) {
 
   df <-
     df |>
-    dplyr::mutate(
-      subdomain = dplyr::case_when(
+    tidytable::mutate(
+      subdomain = tidytable::case_when(
         scale == "General Ability" ~ "General Intelligence",
-        scale == "Cognitive Proficiency" ~ "Cognitive Proficiency",
         scale == "Crystallized Knowledge" ~ "General Intelligence",
         scale == "Fluid Reasoning" ~ "General Intelligence",
+        scale == "Cognitive Proficiency" ~ "Cognitive Proficiency",
         scale == "Working Memory" ~ "Cognitive Proficiency",
         scale == "Processing Speed" ~ "Cognitive Proficiency",
         TRUE ~ as.character(subdomain)
@@ -573,14 +575,14 @@ gpluck_get_index_scores <- function(patient) {
 
   df <-
     df |>
-    dplyr::mutate(
-      narrow = dplyr::case_when(
-        scale == "General Ability" ~ "General Ability",
-        scale == "Cognitive Proficiency" ~ "Cognitive Proficiency",
-        scale == "Crystallized Knowledge" ~ "Crystallized Knowledge",
-        scale == "Fluid Reasoning" ~ "Fluid Reasoning",
-        scale == "Working Memory" ~ "Working Memory",
-        scale == "Processing Speed" ~ "Processing Speed",
+    tidytable::mutate(
+      narrow = tidytable::case_when(
+        scale == "General Ability" ~ "General Ability Index",
+        scale == "Crystallized Knowledge" ~ "Crystallized Knowledge Index",
+        scale == "Fluid Reasoning" ~ "Fluid Reasoning Index",
+        scale == "Cognitive Proficiency" ~ "Cognitive Proficiency Index",
+        scale == "Working Memory" ~ "Working Memory Index",
+        scale == "Processing Speed" ~ "Processing Speed Index",
         TRUE ~ as.character(narrow)
       )
     )
@@ -589,12 +591,12 @@ gpluck_get_index_scores <- function(patient) {
 
   df <-
     df |>
-    dplyr::mutate(
-      pass = dplyr::case_when(
+    tidytable::mutate(
+      pass = tidytable::case_when(
         scale == "General Ability" ~ "",
-        scale == "Cognitive Proficiency" ~ "",
         scale == "Crystallized Knowledge" ~ "",
         scale == "Fluid Reasoning" ~ "",
+        scale == "Cognitive Proficiency" ~ "",
         scale == "Working Memory" ~ "",
         scale == "Processing Speed" ~ "",
         TRUE ~ as.character(pass)
@@ -605,12 +607,12 @@ gpluck_get_index_scores <- function(patient) {
 
   df <-
     df |>
-    dplyr::mutate(
-      verbal = dplyr::case_when(
+    tidytable::mutate(
+      verbal = tidytable::case_when(
         scale == "General Ability" ~ "",
-        scale == "Cognitive Proficiency" ~ "",
         scale == "Crystallized Knowledge" ~ "Verbal",
         scale == "Fluid Reasoning" ~ "Nonverbal",
+        scale == "Cognitive Proficiency" ~ "",
         scale == "Working Memory" ~ "Verbal",
         scale == "Processing Speed" ~ "Nonverbal",
         TRUE ~ as.character(verbal)
@@ -621,12 +623,12 @@ gpluck_get_index_scores <- function(patient) {
 
   df <-
     df |>
-    dplyr::mutate(
-      timed = dplyr::case_when(
+    tidytable::mutate(
+      timed = tidytable::case_when(
         scale == "General Ability" ~ "",
-        scale == "Cognitive Proficiency" ~ "",
         scale == "Crystallized Knowledge" ~ "Untimed",
         scale == "Fluid Reasoning" ~ "Timed",
+        scale == "Cognitive Proficiency" ~ "",
         scale == "Working Memory" ~ "Untimed",
         scale == "Processing Speed" ~ "Timed",
         TRUE ~ as.character(timed)
@@ -637,20 +639,20 @@ gpluck_get_index_scores <- function(patient) {
 
   df <-
     df |>
-    dplyr::mutate(
-      description = dplyr::case_when(
+    tidytable::mutate(
+      description = tidytable::case_when(
         scale ==
           "General Ability" ~
           "An estimate of higher cognitive reasoning and acquired knowledge (*g*)",
-        scale ==
-          "Cognitive Proficiency" ~
-          "A composite estimate of working memory^[(ref:working-memory)] and processing speed^[(ref:processing-speed)] (i.e., *attentional fluency*)",
         scale ==
           "Crystallized Knowledge" ~
           "Crystallized intelligence (*G*c)",
         scale ==
           "Fluid Reasoning" ~
           "An estimate of fluid intelligence (*G*f)",
+        scale ==
+          "Cognitive Proficiency" ~
+          "An estimate of working memory^[(ref:working-memory)] and processing speed^[(ref:processing-speed)]",
         scale ==
           "Working Memory" ~
           "A composite estimate of short-term working memory^[(ref:working-memory)]",
@@ -665,18 +667,18 @@ gpluck_get_index_scores <- function(patient) {
 
   df <-
     df |>
-    dplyr::mutate(
-      result = dplyr::case_when(
+    tidytable::mutate(
+      result = tidytable::case_when(
         scale == "General Ability" ~ glue::glue(
           "{description} was {range} and ranked at the {percentile}th percentile, indicating performance as good as or better than {percentile}% of same-age peers from the general population.\n"
-        ),
-        scale == "Cognitive Proficiency" ~ glue::glue(
-          "{description} was {range} and a relative strength|weakness.\n"
         ),
         scale == "Crystallized Knowledge" ~ glue::glue(
           "{description} was classified as {range} and ranked at the {percentile}th percentile.\n"
         ),
         scale == "Fluid Reasoning" ~ glue::glue("{description} was classified as {range}.\n"),
+        scale == "Cognitive Proficiency" ~ glue::glue(
+          "{description} was {range} and a relative strength|weakness.\n"
+        ),
         scale == "Working Memory" ~ glue::glue(
           "{description} fell in the {range} range and was and a relative strength|weakness.\n"
         ),
@@ -696,9 +698,9 @@ gpluck_get_index_scores <- function(patient) {
     dplyr::filter(
       scale %in% c(
         "General Ability",
-        "Cognitive Proficiency",
         "Crystallized Knowledge",
         "Fluid Reasoning",
+        "Cognitive Proficiency",
         "Working Memory",
         "Processing Speed"
       )
@@ -712,3 +714,157 @@ gpluck_get_index_scores <- function(patient) {
     col_names = TRUE
   )
 }
+
+
+#' @title Compute percentile scores and ranges
+#'
+#' @import tidytable 
+#' @param .x Pronoun for data.frame
+#' @param .score Known score
+#' @param .score_type Known type of score
+#' @param percentile Unknown percentile
+#' @param range Unknown test score classification range
+#' @param pct1 Temp pct 1
+#' @param pct2 Temp pct 2
+#' @param pct3 Temp pct 3
+#' @param z Z score
+#' @param ... Additional expressions
+#'
+#' @return A table with standardized scores
+#' @export
+compute_pctile_range <-
+  function(.x,
+           .score = NA,
+           .score_type =
+             c("z_score", "scaled_score", "t_score", "standard_score", "raw_score"),
+           percentile = NA,
+           range = NA,
+           pct1 = NA,
+           pct2 = NA,
+           pct3 = NA,
+           z = NA,
+           ...) {
+    if (.score_type == "z_score") {
+      .x <-
+        .x |>
+        tidytable::mutate(z = (.score - 0) / 1) %>%
+        tidytable::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        tidytable::mutate(pct2 = tidytable::case_when(
+          pct1 < 1 ~ ceiling(pct1),
+          pct1 > 99 ~ floor(pct1),
+          TRUE ~ round(pct1)
+        )) %>%
+        tidytable::mutate(pct3 = pct2) %>%
+        tidytable::mutate(
+          range = tidytable::case_when(
+            pct3 >= 98 ~ "Exceptionally High",
+            pct3 %in% 91:97 ~ "Above Average",
+            pct3 %in% 75:90 ~ "High Average",
+            pct3 %in% 25:74 ~ "Average",
+            pct3 %in% 9:24 ~ "Low Average",
+            pct3 %in% 2:8 ~ "Below Average",
+            pct3 < 2 ~ "Exceptionally Low",
+            TRUE ~ as.character(range)
+          )
+        ) %>%
+        tidytable::mutate(percentile = pct1) %>%
+        tidytable::select(-c(pct1, pct2, pct3))
+    } else if (.score_type == "scaled_score") {
+      .x <-
+        .x |>
+        tidytable::mutate(z = (.score - 10) / 3) %>%
+        tidytable::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        tidytable::mutate(pct2 = tidytable::case_when(
+          pct1 < 1 ~ ceiling(pct1),
+          pct1 > 99 ~ floor(pct1),
+          TRUE ~ round(pct1)
+        )) %>%
+        tidytable::mutate(pct3 = pct2) %>%
+        tidytable::mutate(
+          range = tidytable::case_when(
+            pct3 >= 98 ~ "Exceptionally High",
+            pct3 %in% 91:97 ~ "Above Average",
+            pct3 %in% 75:90 ~ "High Average",
+            pct3 %in% 25:74 ~ "Average",
+            pct3 %in% 9:24 ~ "Low Average",
+            pct3 %in% 2:8 ~ "Below Average",
+            pct3 < 2 ~ "Exceptionally Low",
+            TRUE ~ as.character(range)
+          )
+        ) %>%
+        tidytable::mutate(percentile = pct1) %>%
+        tidytable::select(-c(pct1, pct2, pct3))
+    } else if (.score_type == "t_score") {
+      .x <-
+        .x |>
+        tidytable::mutate(z = (.score - 50) / 10) %>%
+        tidytable::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        tidytable::mutate(pct2 = tidytable::case_when(
+          pct1 < 1 ~ ceiling(pct1),
+          pct1 > 99 ~ floor(pct1),
+          TRUE ~ round(pct1)
+        )) %>%
+        tidytable::mutate(pct3 = pct2) %>%
+        tidytable::mutate(
+          range = tidytable::case_when(
+            pct3 >= 98 ~ "Exceptionally High",
+            pct3 %in% 91:97 ~ "Above Average",
+            pct3 %in% 75:90 ~ "High Average",
+            pct3 %in% 25:74 ~ "Average",
+            pct3 %in% 9:24 ~ "Low Average",
+            pct3 %in% 2:8 ~ "Below Average",
+            pct3 < 2 ~ "Exceptionally Low",
+            TRUE ~ as.character(range)
+          )
+        ) %>%
+        tidytable::mutate(percentile = pct1) %>%
+        tidytable::select(-c(pct1, pct2, pct3))
+    } else if (.score_type == "standard_score") {
+      .x <-
+        .x |>
+        tidytable::mutate(z = (.score - 100) / 15) %>%
+        tidytable::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        tidytable::mutate(pct2 = tidytable::case_when(
+          pct1 < 1 ~ ceiling(pct1),
+          pct1 > 99 ~ floor(pct1),
+          TRUE ~ round(pct1)
+        )) %>%
+        tidytable::mutate(pct3 = pct2) %>%
+        tidytable::mutate(
+          range = tidytable::case_when(
+            pct3 >= 98 ~ "Exceptionally High",
+            pct3 %in% 91:97 ~ "Above Average",
+            pct3 %in% 75:90 ~ "High Average",
+            pct3 %in% 25:74 ~ "Average",
+            pct3 %in% 9:24 ~ "Low Average",
+            pct3 %in% 2:8 ~ "Below Average",
+            pct3 < 2 ~ "Exceptionally Low",
+            TRUE ~ as.character(range)
+          )
+        ) %>%
+        tidytable::mutate(percentile = pct1) %>%
+        tidytable::select(-c(pct1, pct2, pct3))
+    } else (.score_type == "raw_score") {
+      .x <-
+        .x |>
+        tidytable::mutate(z = (.score - 50) / 10) %>%
+        tidytable::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        tidytable::mutate(pct2 = tidytable::case_when(
+          pct1 < 1 ~ ceiling(pct1),
+          pct1 > 99 ~ floor(pct1),
+          TRUE ~ round(pct1)
+        )) %>%
+        tidytable::mutate(pct3 = pct2) %>%
+        tidytable::mutate(
+          range = tidytable::case_when(
+            pct3 %in% >=25 ~ "Within Normal Limits Score",
+            pct3 %in% 9:24 ~ "Low Average Score",
+            pct3 %in% 2:8 ~ "Below Average Score",
+            pct3 < 2 ~ "Exceptionally Low Score",
+            TRUE ~ as.character(range)
+          )
+        ) %>%
+        tidytable::mutate(percentile = pct1) %>%
+        tidytable::select(-c(pct1, pct2, pct3))
+    }
+  }

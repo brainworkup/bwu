@@ -6,12 +6,14 @@
 #'
 #' @param data Dataset to use.
 #' @param patient Patient's first name.
+#' @param mean_z Mean z-score.
+#' @param mean_percentile Mean percentile.
 #' @param ... Numeric, complex, or logical vectors.
 #'
 #' @return A drilldown plot
 #'
 #' @export
-drilldown <- function(data, patient = NULL, ...) {
+drilldown <- function(data, patient = NULL, mean_z, mean_percentile, ...) {
 
   # Create 4 levels of dataframes for drilldown -----------------------
   ## Level 1 -------------------------------------------------------
@@ -21,35 +23,35 @@ drilldown <- function(data, patient = NULL, ...) {
     data %>%
     tidytable::group_by(domain) %>%
     tidytable::summarize(
-      zMean = mean(z),
-      zPct = mean(percentile)
+      mean_z = mean(z),
+      mean_percentile = mean(percentile)
     ) %>%
     tidytable::mutate(range = NA)
-  ncog1$zMean <- round(ncog1$zMean, 2L)
-  ncog1$zPct <- round(ncog1$zPct, 0L)
+  ncog1$mean_z <- round(ncog1$mean_z, 2L)
+  ncog1$mean_percentile <- round(ncog1$mean_percentile, 0L)
   ncog1 <-
     ncog1 %>%
     tidytable::mutate(
       range = tidytable::case_when(
-        zPct >= 98 ~ "Exceptionally High",
-        zPct %in% 91:97 ~ "Above Average",
-        zPct %in% 75:90 ~ "High Average",
-        zPct %in% 25:74 ~ "Average",
-        zPct %in% 9:24 ~ "Low Average",
-        zPct %in% 2:8 ~ "Below Average",
-        zPct < 2 ~ "Exceptionally Low",
+        mean_percentile >= 98 ~ "Exceptionally High",
+        mean_percentile %in% 91:97 ~ "Above Average",
+        mean_percentile %in% 75:90 ~ "High Average",
+        mean_percentile %in% 25:74 ~ "Average",
+        mean_percentile %in% 9:24 ~ "Low Average",
+        mean_percentile %in% 2:8 ~ "Below Average",
+        mean_percentile < 2 ~ "Exceptionally Low",
         TRUE ~ as.character(range)
       )
     )
 
   # 2. sort hi to lo
-  ncog1 <- tidytable::arrange(ncog1, desc(zMean))
+  ncog1 <- tidytable::arrange(ncog1, desc(mean_percentile))
 
   # 3. create tibble with new column with domain name lowercase
   ncog_level1_status <- tibble::tibble(
     name = ncog1$domain,
-    y = ncog1$zMean,
-    y2 = ncog1$zPct,
+    y = ncog1$mean_z,
+    y2 = ncog1$mean_percentile,
     range = ncog1$range,
     drilldown = tolower(name)
   )
@@ -66,37 +68,37 @@ drilldown <- function(data, patient = NULL, ...) {
         ncog2 %>%
         tidytable::group_by(subdomain) %>%
         tidytable::summarize(
-          zMean = mean(z),
-          zPct = mean(percentile)
+          mean_z = mean(z),
+          mean_percentile = mean(percentile)
         ) %>%
         tidytable::mutate(range = NA)
 
       # round z-score to 1 decimal
-      ncog2$zMean <- round(ncog2$zMean, 2L)
-      ncog2$zPct <- round(ncog2$zPct, 0L)
+      ncog2$mean_z <- round(ncog2$mean_z, 2L)
+      ncog2$mean_percentile <- round(ncog2$mean_percentile, 0L)
       ncog2 <-
         ncog2 %>%
         tidytable::mutate(
           range = tidytable::case_when(
-            zPct >= 98 ~ "Exceptionally High",
-            zPct %in% 91:97 ~ "Above Average",
-            zPct %in% 75:90 ~ "High Average",
-            zPct %in% 25:74 ~ "Average",
-            zPct %in% 9:24 ~ "Low Average",
-            zPct %in% 2:8 ~ "Below Average",
-            zPct < 2 ~ "Exceptionally Low",
+            mean_percentile >= 98 ~ "Exceptionally High",
+            mean_percentile %in% 91:97 ~ "Above Average",
+            mean_percentile %in% 75:90 ~ "High Average",
+            mean_percentile %in% 25:74 ~ "Average",
+            mean_percentile %in% 9:24 ~ "Low Average",
+            mean_percentile %in% 2:8 ~ "Below Average",
+            mean_percentile < 2 ~ "Exceptionally Low",
             TRUE ~ as.character(range)
           )
         )
 
       # 2. sort hi to lo
-      ncog2 <- tidytable::arrange(ncog2, desc(zMean))
+      ncog2 <- tidytable::arrange(ncog2, desc(mean_percentile))
 
       # 3. create tibble with new column with domain name lowercase
       ncog_level2_status <- tibble::tibble(
         name = ncog2$subdomain,
-        y = ncog2$zMean,
-        y2 = ncog2$zPct,
+        y = ncog2$mean_z,
+        y2 = ncog2$mean_percentile,
         range = ncog2$range,
         drilldown = tolower(paste(x_level, name, sep = "_"))
       )
@@ -123,33 +125,33 @@ drilldown <- function(data, patient = NULL, ...) {
 
         ncog3 <- ncog3 %>%
           tidytable::group_by(narrow) %>%
-          tidytable::summarize(zMean = mean(z), zPct = mean(percentile)) %>%
+          tidytable::summarize(mean_z = mean(z), mean_percentile = mean(percentile)) %>%
           tidytable::mutate(range = NA)
 
         # round z-score to 1 decimal
-        ncog3$zMean <- round(ncog3$zMean, 2L)
-        ncog3$zPct <- round(ncog3$zPct, 0L)
+        ncog3$mean_z <- round(ncog3$mean_z, 2L)
+        ncog3$mean_percentile <- round(ncog3$mean_percentile, 0L)
         ncog3 <-
           ncog3 %>%
           tidytable::mutate(
             range = tidytable::case_when(
-              zPct >= 98 ~ "Exceptionally High",
-              zPct %in% 91:97 ~ "Above Average",
-              zPct %in% 75:90 ~ "High Average",
-              zPct %in% 25:74 ~ "Average",
-              zPct %in% 9:24 ~ "Low Average",
-              zPct %in% 2:8 ~ "Below Average",
-              zPct < 2 ~ "Exceptionally Low",
+              mean_percentile >= 98 ~ "Exceptionally High",
+              mean_percentile %in% 91:97 ~ "Above Average",
+              mean_percentile %in% 75:90 ~ "High Average",
+              mean_percentile %in% 25:74 ~ "Average",
+              mean_percentile %in% 9:24 ~ "Low Average",
+              mean_percentile %in% 2:8 ~ "Below Average",
+              mean_percentile < 2 ~ "Exceptionally Low",
               TRUE ~ as.character(range)
             )
           )
 
-        ncog3 <- tidytable::arrange(ncog3, desc(zMean))
+        ncog3 <- tidytable::arrange(ncog3, desc(mean_percentile))
 
         ncog_level3_status <- tibble::tibble(
           name = ncog3$narrow,
-          y = ncog3$zMean,
-          y2 = ncog3$zPct,
+          y = ncog3$mean_z,
+          y2 = ncog3$mean_percentile,
           range = ncog3$range,
           drilldown = tolower(paste(x_level, y_level, name, sep = "_"))
         )
@@ -179,35 +181,35 @@ drilldown <- function(data, patient = NULL, ...) {
             ncog4 %>%
             tidytable::group_by(scale) %>%
             tidytable::summarize(
-              zMean = mean(z),
-              zPct = mean(percentile)
+              mean_z = mean(z),
+              mean_percentile = mean(percentile)
             ) %>%
             tidytable::mutate(range = NA)
 
           # round z-score to 1 decimal
-          ncog4$zMean <- round(ncog4$zMean, 2L)
-          ncog4$zPct <- round(ncog4$zPct, 0L)
+          ncog4$mean_z <- round(ncog4$mean_z, 2L)
+          ncog4$mean_percentile <- round(ncog4$mean_percentile, 0L)
           ncog4 <-
             ncog4 %>%
             tidytable::mutate(
               range = tidytable::case_when(
-                zPct >= 98 ~ "Exceptionally High",
-                zPct %in% 91:97 ~ "Above Average",
-                zPct %in% 75:90 ~ "High Average",
-                zPct %in% 25:74 ~ "Average",
-                zPct %in% 9:24 ~ "Low Average",
-                zPct %in% 2:8 ~ "Below Average",
-                zPct < 2 ~ "Exceptionally Low",
+                mean_percentile >= 98 ~ "Exceptionally High",
+                mean_percentile %in% 91:97 ~ "Above Average",
+                mean_percentile %in% 75:90 ~ "High Average",
+                mean_percentile %in% 25:74 ~ "Average",
+                mean_percentile %in% 9:24 ~ "Low Average",
+                mean_percentile %in% 2:8 ~ "Below Average",
+                mean_percentile < 2 ~ "Exceptionally Low",
                 TRUE ~ as.character(range)
               )
             )
 
-          ncog4 <- tidytable::arrange(ncog4, desc(zMean))
+          ncog4 <- tidytable::arrange(ncog4, desc(mean_percentile))
 
           ncog_level4_status <- tibble::tibble(
             name = ncog4$scale,
-            y = ncog4$zMean,
-            y2 = ncog4$zPct,
+            y = ncog4$mean_z,
+            y2 = ncog4$mean_percentile,
             range = ncog4$range
           )
 
@@ -240,7 +242,7 @@ drilldown <- function(data, patient = NULL, ...) {
     ) %>%
     highcharter::hc_xAxis(
       type = "category",
-      title = list(text = "Domain"),
+      title = list(text = "Scale"),
       categories = .$name
     ) %>%
     highcharter::hc_yAxis(
@@ -262,5 +264,6 @@ drilldown <- function(data, patient = NULL, ...) {
       series = c(ncog_level2_drill, ncog_level3_drill, ncog_level4_drill)
     ) %>%
     highcharter::hc_add_theme(highcharter::hc_theme_sandsignika())
-  plot
+  
+  return(plot)
 }
