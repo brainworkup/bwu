@@ -209,9 +209,9 @@ gpluck_make_columns <- function(table,
                                 description = NULL,
                                 result = NULL,
                                 ...) {
-  df <-
+  table <-
     tidytable::mutate(
-      table = df,
+      table,
       scale = scale,
       raw_score = raw_score,
       score = score,
@@ -269,7 +269,7 @@ gpluck_make_score_ranges <-
            score = NULL,
            percentile = NULL,
            range = range,
-           test_type,
+           test_type = c("npsych_test", "rating_scale", "validity_indicator", "basc3"),
            ...) {
     if (test_type == "npsych_test") {
       table <-
@@ -313,7 +313,7 @@ gpluck_make_score_ranges <-
             TRUE ~ as.character(range)
           )
         )
-    } else {
+    } else if (test_type == "basc3") {
       table <-
         table %>%
         tidytable::mutate(
@@ -361,7 +361,6 @@ gpluck_make_score_ranges <-
 #'
 #' @return A table with standardized scores
 #' @export
-
 gpluck_compute_percentile_range <-
   function(.x,
            .score = NA,

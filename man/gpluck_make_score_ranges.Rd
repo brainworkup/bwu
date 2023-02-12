@@ -9,7 +9,7 @@ gpluck_make_score_ranges(
   score = NULL,
   percentile = NULL,
   range = range,
-  test_type,
+  test_type = c("npsych_test", "rating_scale", "validity_indicator", "basc3"),
   ...
 )
 }
