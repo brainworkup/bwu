@@ -1,5 +1,5 @@
 ---
-title: "Import CSV file from Personality Assessment Inventory (PAI)"
+title: "Import CSV file from PAI"
 output:
   rmdformats::robobook:
     highlight: kate
@@ -71,9 +71,9 @@ file <- params$file
 
 ## Export PAI CSV file from PARiConnect
 
-Need to export csv file from PARiConnect before processing. "Export Client Data"
-tab, then click "Univ of Southern Cali" then "PAI". Specify date range to
-exclude entire database.
+Need to export csv file from PARiConnect before processing.
+"Export Client Data" tab, then click "Univ of Southern Cali" then "PAI".
+Specify date range to exclude entire database.
 
 ## Import PAI CSV file from PARiConnect
 
@@ -97,7 +97,11 @@ df_clinical <- plucked_table |>
   tidytable::rename(scale = key, score = value)
 
 df_validity <- plucked_table |>
-  tidytable::select(ICN_T:PIM_P_T, MAL_T:HRI_T, ALC_Est:DRG_Est) |>
+  tidytable::select(ICN_T:PIM_T, 
+                    MAL_T:HRI_T, 
+                    ALC_Est, 
+                    DRG_Est,
+                    AllFFit:RandFit) |>
   tidyr::gather() |>
   tidytable::rename(scale = key, score = value)
 
@@ -106,7 +110,32 @@ df_inatt <- plucked_table |>
   tidyr::gather() |>
   tidytable::rename(scale = key, score = value)
 
-adhd_items <- c(R13, R15, R18, R21, R34, R57, R94, R112, R139, R167, R169, R171, R195, R198, R201, R213, R233, R236, R254, R282, R299, R311, R322, R325)
+adhd_items <- c(
+"R13",
+"R15",
+"R18",
+"R21",
+"R34",
+"R57",
+"R94",
+"R112",
+"R139",
+"R167",
+"R169",
+"R171",
+"R195",
+"R198",
+"R201",
+"R213",
+"R233",
+"R236",
+"R254",
+"R282",
+"R299",
+"R311",
+"R322",
+"R325"
+)
 
 df_adhd <- plucked_table |>
   tidytable::select(adhd_items) |>
@@ -211,21 +240,22 @@ df_validity[14, 1] <- c("Hong Defensiveness Index")
 # Non-systematic Distortion Indicators
 df_validity[15, 1] <- c("Back Random Responding")
 df_validity[16, 1] <- c("Hong Randomness Index")
+# Est Drug/Alc
+df_validity[17, 1] <- c("ALC Estimated Score")
+df_validity[18, 1] <- c("DRG Estimated Score")
 # Response Set Groups
-df_validity[17, 1] <- c("All 'All false'")
-df_validity[18, 1] <- c("All 'All mainly true'")
-df_validity[19, 1] <- c("All 'All slightly true'")
-df_validity[20, 1] <- c("All 'very true'")
-df_validity[21, 1] <- c("Fake bad")
-df_validity[22, 1] <- c("Fake good")
-df_validity[23, 1] <- c("NIM predicted profile")
-df_validity[24, 1] <- c("PIM predicted profile")
-df_validity[25, 1] <- c("Random responding")
+df_validity[19, 1] <- c("All 'All false'")
+df_validity[20, 1] <- c("All 'All mainly true'")
+df_validity[21, 1] <- c("All 'All slightly true'")
+df_validity[22, 1] <- c("All 'very true'")
+df_validity[23, 1] <- c("Fake bad")
+df_validity[24, 1] <- c("Fake good")
+df_validity[25, 1] <- c("NIM predicted profile")
+df_validity[26, 1] <- c("PIM predicted profile")
+df_validity[27, 1] <- c("Random responding")
 
 # adhd
-df_inatt[1, 1] <- c("Inattention Index")
-# ADHD scales
-df_adhd[1, 1] <- c("ADHD Index")
+df_inatt[1, 1] <- c("Inattention (INATTN) Index")
 ```
 
 ### Filter, group, select
@@ -250,7 +280,7 @@ df_clinical <- df_clinical |> tidytable::slice(
 
 df_validity <- df_validity |> tidytable::slice(
   c(
-    1:4, 5:10, 11:14, 15:16, 17:25
+    1:4, 5:10, 11:14, 15:16, 17:18, 19:27
   )
 )
 ```
@@ -259,7 +289,7 @@ df_validity <- df_validity |> tidytable::slice(
 
 ```{r mutate}
 df_clinical <- bwu::gpluck_make_columns(
-  table,
+  df_clinical,
   raw_score = "",
   range = "",
   ci_95 = "",
@@ -280,57 +310,49 @@ df_clinical <- bwu::gpluck_make_columns(
   result = ""
 )
 
-df <- df_validity
+df_validity <- bwu::gpluck_make_columns(
+  df_validity,
+  raw_score = "",
+  range = "",
+  ci_95 = "",
+  test = params$test,
+  test_name = params$test_name,
+  domain = "Effort/Validity",
+  subdomain = "",
+  narrow = "",
+  pass = "",
+  verbal = "",
+  timed = "",
+  test_type = "rating_scale",
+  score_type = "t_score",
+  absort = paste0(
+    tolower(test), "_", tolower(scale), "_", seq_len(nrow(df_validity))
+  ),
+  description = "",
+  result = ""
+)
 
-df_make_columns <- function(df) {
-  df <- bwu::gpluck_make_columns(
-    table,
-    raw_score = "",
-    range = "",
-    ci_95 = "",
-    test = params$test,
-    test_name = params$test_name,
-    domain = "Effort/Validity",
-    subdomain = "",
-    narrow = "",
-    pass = "",
-    verbal = "",
-    timed = "",
-    test_type = "rating_scale",
-    score_type = "t_score",
-    absort = paste0(
-      tolower(test), "_", tolower(scale), "_", seq_len(nrow(df))
-    ),
-    description = "",
-    result = ""
-  )
-}
-
-df <- df_inatt
-
-df_make_columns <- function(df) {
-  df <- bwu::gpluck_make_columns(
-    table,
-    raw_score = "",
-    range = "",
-    ci_95 = "",
-    test = params$test,
-    test_name = params$test_name,
-    domain = "ADHD",
-    subdomain = "",
-    narrow = "",
-    pass = "",
-    verbal = "",
-    timed = "",
-    test_type = "rating_scale",
-    score_type = "t_score",
-    absort = paste0(
-      tolower(test), "_", tolower(scale), "_", seq_len(nrow(df))
-    ),
-    description = "",
-    result = ""
-  )
-}
+df_inatt <- bwu::gpluck_make_columns(
+  df_inatt,
+  raw_score = "",
+  range = "",
+  ci_95 = "",
+  test = params$test,
+  test_name = params$test_name,
+  domain = "ADHD",
+  subdomain = "",
+  narrow = "",
+  pass = "",
+  verbal = "",
+  timed = "",
+  test_type = "rating_scale",
+  score_type = "t_score",
+  absort = paste0(
+    tolower(test), "_", tolower(scale), "_", seq_len(nrow(df_inatt))
+  ),
+  description = "",
+  result = ""
+)
 ```
 
 ## Rating Scale score ranges

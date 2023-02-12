@@ -44,43 +44,40 @@ params:
     input: select
     choices:
       ACS:
-        - "TOPF Standard Score"
-        - "ACS Word Choice"
+        - TOPF Standard Score
+        - ACS Word Choice
       Examiner:
-        - "Unstructured Task"
-        - "Letter Fluency"
-        - "Category Fluency"
+        - Unstructured Task
+        - Letter Fluency
+        - Category Fluency
       Rey Complex Figure:
-        - "ROCFT Copy"
-        - "ROCFT Delayed Recall"
+        - ROCFT Copy
+        - ROCFT Delayed Recall
       Trail Making Test:
         - TMT, Part A
         - TMT, Part B
-        - "Trails A"
-        - "Trails B"
       NAB:
-        - "Judgment"
-        - "Mazes"
+        - Judgment
+        - Mazes
       DKEFS:
-        - "D-KEFS Color Naming"
-        - "D-KEFS Word Reading"
-        - "D-KEFS Inhibition"
-        - "D-KEFS Switching"
-        - "D-KEFS Inhibition Total Errors"
-        - "D-KEFS Switching Total Errors"
+        - D-KEFS Color Naming
+        - D-KEFS Word Reading
+        - D-KEFS Inhibition
+        - D-KEFS Switching
+        - D-KEFS Inhibition Total Errors
+        - D-KEFS Switching Total Errors
       WMS-IV:
-        - "Symbol Span"
-        - "Spatial Addition"
+        - Symbol Span
+        - Spatial Addition
       Grooved Pegboard:
-        - "Dominant Hand"
-        - "Nondominant Hand"
+        - Dominant Hand
+        - Nondominant Hand
       KTEA-3:
-        - "Decoding Fluency"
-        - "Nonsense Word Decoding"
-        - "Reading Comprehension"
+        - Decoding Fluency
+        - Nonsense Word Decoding
+        - Reading Comprehension
       Cognitive Estimation:
-        - "Deviation Score"
-        - ""
+        - Deviation Score
   raw_score:
     label: "Raw score:"
     value: 10
@@ -115,12 +112,12 @@ params:
       - "Social Cognition"
       - "ADHD/Executive Functioning"
       - "Behavioral/Emotional/Social"
-      - "Personality Disorders",
-      - "Psychiatric Disorders",
-      - "Substance Use Disorders",
-      - "Psychosocial Problems",
-      - "ADHD",
-      - "Executive Dysfunction",
+      - "Personality Disorders"
+      - "Psychiatric Disorders"
+      - "Substance Use Disorders"
+      - "Psychosocial Problems"
+      - "ADHD"
+      - "Executive Dysfunction"
       - "Effort/Validity"
   subdomain:
     label: "Subdomain:"
