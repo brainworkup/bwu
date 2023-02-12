@@ -18,7 +18,7 @@ gpluck_make_columns(
     "Visual Perception/Construction", "Attention/Executive", "Memory", "Motor",
     "Social Cognition", "Behavioral/Emotional/Social", "Personality Disorders",
     "Psychiatric Disorders", "Substance Use Disorders", "Psychosocial Problems", "ADHD",
-    "Executive Dysfunction", "Effort/Validity", NA),
+    "Executive Dysfunction", "Effort/Validity", ""),
   subdomain = NULL,
   narrow = NULL,
   pass = c("Planning", "Attention", "Sequential", "Simultaneous", "Knowledge", NA),

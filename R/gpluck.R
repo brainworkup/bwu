@@ -165,7 +165,7 @@ gpluck_make_columns <- function(table,
                                   "ADHD",
                                   "Executive Dysfunction",
                                   "Effort/Validity",
-                                  NA
+                                  ""
                                 ),
                                 subdomain = NULL,
                                 narrow = NULL,
@@ -230,9 +230,9 @@ gpluck_make_columns <- function(table,
       score_type = score_type,
       absort =
         paste0(
-          tolower(df),
+          tolower(test),
           "_", tolower(scale),
-          "_", seq_len(nrow(df))
+          "_", seq_len(nrow(table))
         ),
       description = description,
       result = result,
