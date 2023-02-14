@@ -201,11 +201,12 @@ colnames(table3) <- colnames3
 to_double <- c("score")
 table3 <- table3 |> hablar::convert(dbl(all_of(to_double)))
 table3 <- table3[1:9, ]
-table3[9, 1] <- 50
 ```
 
 ```{r bind}
 table <- tidytable::bind_cols(table1, table2, table3)
+table <- table[8, ]
+table_validity <- table[9, ]
 ```
 
 ## Mutate columns
@@ -226,6 +227,24 @@ table <- bwu::gpluck_make_columns(
   timed = "",
   test_type = "rating_scale",
   score_type = "t_score",
+  description = "",
+  result = ""
+)
+table_validity <- bwu::gpluck_make_columns(
+  table = table_validity,
+  percentile = "",
+  range = "",
+  ci_95 = "",
+  test = params$test,
+  test_name = params$test_name,
+  domain = "Symptom Validity",
+  subdomain = "Response Inconsistency",
+  narrow = "",
+  pass = "",
+  verbal = "",
+  timed = "",
+  test_type = "validity_indicator",
+  score_type = "raw_score",
   description = "",
   result = ""
 )
@@ -253,7 +272,7 @@ table <-
   table |>
   tidytable::mutate(
     domain = tidytable::case_when(
-      scale %in% "Inconsistency Index" ~ "Effort/Validity",
+      scale == "Inconsistency Index" ~ "Symptom Validity",
       TRUE ~ as.character(domain)
     )
   )

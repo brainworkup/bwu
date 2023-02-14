@@ -305,7 +305,10 @@ gpluck_make_score_ranges <-
         table %>%
         tidytable::mutate(
           range = tidytable::case_when(
-            percentile >= 25 ~ "Within Normal Limits Score",
+            percentile >= 98 ~ "Exceptionally High Score",
+            percentile %in% 91:97 ~ "Above Average Score",
+            percentile %in% 75:90 ~ "High Average Score",
+            percentile %in% 25:74 ~ "Within Normal Limits Score",
             percentile %in% 9:24 ~ "Low Average Score",
             percentile %in% 2:8 ~ "Below Average Score",
             percentile < 2 ~ "Exceptionally Low Score",
@@ -317,10 +320,8 @@ gpluck_make_score_ranges <-
         table %>%
         tidytable::mutate(
           range = tidytable::case_when(
-            score >= 60 &
-              subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Strength",
-            score %in% 40:59 &
-              subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Within Normal Limits",
+            score >= 60 & subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Strength",
+            score %in% 40:59 & subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Within Normal Limits",
             score %in% 30:39 &
               subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Mildly Elevated",
             score %in% 20:29 &
