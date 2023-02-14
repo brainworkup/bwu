@@ -3,26 +3,26 @@ filter_domain <- c(
   ## NAB
   "NAB Attention Index",
   "Attention Domain",
-  # "Orientation",
-  # "Digits Forward",
+  "Orientation",
+  "Digits Forward",
   "Digits Forward Longest Span",
-  # "Digits Backward",
+  "Digits Backward",
   "Digits Backward Longest Span",
   "Dots",
-  # "Numbers & Letters Part A Speed",
-  # "Numbers & Letters Part A Errors",
+  "Numbers & Letters Part A Speed",
+  "Numbers & Letters Part A Errors",
   "Numbers & Letters Part A Efficiency",
   "Numbers & Letters Part B Efficiency",
   "Numbers & Letters Part C Efficiency",
   "Numbers & Letters Part D Efficiency",
-  # "Numbers & Letters Part D Disruption",
+  "Numbers & Letters Part D Disruption",
   "Driving Scenes",
   "NAB Executive Functions Index",
   "Executive Functions Domain",
   "Mazes",
   "Categories",
   "Word Generation",
-  # "Word Generation Perseverations",
+  "Word Generation Perseverations",
   "Judgment",
   ## RBANS
   "Attention Index",
@@ -33,7 +33,6 @@ filter_domain <- c(
   # CET
   "Total Deviation Score",
   ## WAIS/WISC/WMS
-  # WORKING MEMORY
   "Working Memory (WMI)",
   "Auditory Working Memory (AWMI)",
   "Arithmetic",
@@ -41,11 +40,11 @@ filter_domain <- c(
   "Digit Span Forward",
   "Digit Span Backward",
   "Digit Span Sequencing",
-  # "Longest Digit Span Forward",
-  # "Longest Digit Span Backward",
-  # "Longest Digit Span Sequence",
+  "Longest Digit Span Forward",
+  "Longest Digit Span Backward",
+  "Longest Digit Span Sequence",
   "Letter-Number Sequencing",
-  # "Longest Letter-Number Sequence",
+  "Longest Letter-Number Sequence",
   "Symbol Span",
   "Spatial Span",
   "Picture Span",
@@ -76,8 +75,8 @@ filter_domain <- c(
   "D-KEFS Inhibition Total Errors",
   "D-KEFS Switching Total Errors",
   ## CVLT
-  # "Total Intrusions",
-  # "Total Repetitions",
+  "Total Intrusions",
+  "Total Repetitions",
   ## RCFT
   "ROCF Copy",
   "ROCFT Copy",
@@ -101,7 +100,7 @@ dt |>
   glue::glue_data() |>
   purrr::modify(purrr::lift(paste0)) |>
   cat(dt$result,
-    file = "2.6_executive.md",
+    file = "02.06_executive.md",
     fill = TRUE,
     append = TRUE
   )

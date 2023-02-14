@@ -7,6 +7,11 @@ filter_domain <- c(
   "Word Reading",
   ## NAB
   "NAB Total Index",
+  "NAB Attention Index",
+  "NAB Language Index",
+  "NAB Memory Index",
+  "NAB Spatial Index",
+  "NAB Executive Functions Index",
   ## RBANS
   "RBANS Total Index",
   ## WISC/WAIS/WPPSI
@@ -22,14 +27,20 @@ filter_domain <- c(
   "Processing Speed (PSI)",
   "Working Memory (WMI)",
   ## composite scores
-  "Cognitive Efficiency",
-  "Cognitive Proficiency",
-  "Crystallized Knowledge",
-  "Fluid Reasoning",
   "General Ability",
-  "General Intelligence",
+  "General Ability Index",
+  "Crystallized Knowledge",
+  "Crystallized Knowledge Index",
+  "Fluid Reasoning",
+  "Fluid Reasoning Index",
+  "Cognitive Proficiency",
+  "Cognitive Proficiency Index",
   "Working Memory",
-  "Processing Speed"
+  "Working Memory Index",
+  "Processing Speed",
+  "Processing Speed Index"
+  "General Intelligence",
+  "Cognitive Efficiency"
 )
 
 ## ---- 02-glue-iq ------------
@@ -43,7 +54,7 @@ dt |>
   glue::glue_data() |>
   purrr::modify(purrr::lift(paste0)) |>
   cat(dt$result,
-    file = "2.2_iq.md",
+    file = "02.02_iq.md",
     fill = TRUE,
     append = TRUE
   )
@@ -86,16 +97,15 @@ df <-
   tidytable::filter(!is.na(percentile)) |>
   tidytable::arrange(test_name) |>
   tidytable::filter(scale %in% filter_domain) |>
+# tidytable::filter(scale != "General Ability (GAI)")
   tidytable::filter(scale != "NAB Total Index") |>
   tidytable::filter(scale != "TOPF Standard Score") |>
   tidytable::filter(scale != "Working Memory (WMI)") |>
   tidytable::filter(scale != "Working Memory") |>
   tidytable::filter(scale != "Processing Speed (PSI)") |>
   tidytable::filter(scale != "Processing Speed") |>
-  tidytable::filter(scale != "Cognitive Efficiency") |>
   tidytable::filter(scale != "Cognitive Proficiency (CPI)") |>
   tidytable::filter(scale != "Cognitive Proficiency")
-# tidytable::filter(scale != "General Ability (GAI)")
 
 ## ---- 06-plot-subdomain-iq --------------------
 bwu::dotplot(

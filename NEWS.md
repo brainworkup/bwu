@@ -163,3 +163,7 @@ output:
 ## bwu 0.0.1.9004
 
 - Many updates for Feedback slide
+
+## bwu 0.0.1.9005
+
+- Added validity indicators

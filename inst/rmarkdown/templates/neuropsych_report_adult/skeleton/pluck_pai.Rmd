@@ -1,8 +1,5 @@
 ---
 title: "Import CSV file from PAI"
-output:
-  rmdformats::robobook:
-    highlight: kate
 params:
   patient: Biggie
   test: pai
@@ -12,6 +9,9 @@ params:
     value: file
     input: file
   #pages: [9:13]
+output:
+  rmdformats::robobook:
+    highlight: kate
 ---
 
 ## Setup
@@ -71,9 +71,9 @@ file <- params$file
 
 ## Export PAI CSV file from PARiConnect
 
-Need to export csv file from PARiConnect before processing.
-"Export Client Data" tab, then click "Univ of Southern Cali" then "PAI".
-Specify date range to exclude entire database.
+Need to export csv file from PARiConnect before processing. "Export Client Data"
+tab, then click "Univ of Southern Cali" then "PAI". Specify date range to
+exclude entire database.
 
 ## Import PAI CSV file from PARiConnect
 
@@ -100,8 +100,7 @@ df_validity <- plucked_table |>
   tidytable::select(ICN_T:PIM_T, 
                     MAL_T:HRI_T, 
                     ALC_Est, 
-                    DRG_Est,
-                    AllFFit:RandFit) |>
+                    DRG_Est) |>
   tidyr::gather() |>
   tidytable::rename(scale = key, score = value)
 
@@ -230,8 +229,7 @@ df_validity[6, 1] <- c("Rogers Discriminant Function")
 df_validity[7, 1] <- c("Negative Distortion Scale")
 df_validity[8, 1] <- c("Hong Malingering Index")
 df_validity[9, 1] <- c("Multiscale Feigning Index")
-df_validity[10, 1] <- c("Malingered Pain-Related Disability Discriminant
-Function")
+df_validity[10, 1] <- c("Malingered Pain-Related Disability Discriminant Function")
 # Positive Distortion Indicators
 df_validity[11, 1] <- c("Defensiveness Index")
 df_validity[12, 1] <- c("Cashel Discriminant Function")
@@ -243,17 +241,6 @@ df_validity[16, 1] <- c("Hong Randomness Index")
 # Est Drug/Alc
 df_validity[17, 1] <- c("ALC Estimated Score")
 df_validity[18, 1] <- c("DRG Estimated Score")
-# Response Set Groups
-df_validity[19, 1] <- c("All 'All false'")
-df_validity[20, 1] <- c("All 'All mainly true'")
-df_validity[21, 1] <- c("All 'All slightly true'")
-df_validity[22, 1] <- c("All 'very true'")
-df_validity[23, 1] <- c("Fake bad")
-df_validity[24, 1] <- c("Fake good")
-df_validity[25, 1] <- c("NIM predicted profile")
-df_validity[26, 1] <- c("PIM predicted profile")
-df_validity[27, 1] <- c("Random responding")
-
 # adhd
 df_inatt[1, 1] <- c("Inattention (INATTN) Index")
 ```
@@ -280,7 +267,7 @@ df_clinical <- df_clinical |> tidytable::slice(
 
 df_validity <- df_validity |> tidytable::slice(
   c(
-    1:4, 5:10, 11:14, 15:16, 17:18, 19:27
+    1:4, 5:10, 11:14, 15:16, 17:18
   )
 )
 ```
@@ -288,8 +275,9 @@ df_validity <- df_validity |> tidytable::slice(
 ## Add/mutate columns
 
 ```{r mutate}
-df_clinical <- bwu::gpluck_make_columns(
-  df_clinical,
+df_clinical <- 
+  bwu::gpluck_make_columns(
+  table = df_clinical,
   raw_score = "",
   range = "",
   ci_95 = "",
@@ -310,7 +298,8 @@ df_clinical <- bwu::gpluck_make_columns(
   result = ""
 )
 
-df_validity <- bwu::gpluck_make_columns(
+df_validity <- 
+  bwu::gpluck_make_columns(
   df_validity,
   raw_score = "",
   range = "",
@@ -331,8 +320,9 @@ df_validity <- bwu::gpluck_make_columns(
   description = "",
   result = ""
 )
-
-df_inatt <- bwu::gpluck_make_columns(
+ 
+df_inatt <- 
+  bwu::gpluck_make_columns(
   df_inatt,
   raw_score = "",
   range = "",
@@ -340,8 +330,8 @@ df_inatt <- bwu::gpluck_make_columns(
   test = params$test,
   test_name = params$test_name,
   domain = "ADHD",
-  subdomain = "",
-  narrow = "",
+  subdomain = "Attention Problems",
+  narrow = "Inattention",
   pass = "",
   verbal = "",
   timed = "",
@@ -500,26 +490,17 @@ df_validity <-
       scale == "Negative Distortion Scale" ~ "Symptom Validity",
       scale == "Hong Malingering Index" ~ "Symptom Validity",
       scale == "Multiscale Feigning Index" ~ "Symptom Validity",
-      scale == "Malingered Pain-Related Disability Discriminant
-Function" ~ "Symptom Validity",
-      # Positive Distortion Indicators
+      scale == "Malingered Pain-Related Disability Discriminant Function" ~ "Symptom Validity",
+      ## Negative Distortion
       scale == "Defensiveness Index" ~ "Symptom Validity",
-      scale == "Cashel Discriminant Function" ~ "Symptom Validity"
-      scale == "Positive Distortion Scale" ~ "Symptom Validity"
-      scale == "Hong Defensiveness Index" ~ "Symptom Validity"
+      scale == "Cashel Discriminant Function" ~ "Symptom Validity",
+      scale == "Positive Distortion Scale" ~ "Symptom Validity",
+      scale == "Hong Defensiveness Index" ~ "Symptom Validity",
       # Non-systematic Distortion Indicators
       scale == "Back Random Responding" ~ "Symptom Validity",
       scale == "Hong Randomness Index" ~ "Symptom Validity",
-      # Response Set Groups
-      scale == "All 'All false'" ~ "Symptom Validity",
-      scale == "All 'All mainly true'" ~ "Symptom Validity",
-      scale == "All 'All slightly true'" ~ "Symptom Validity",
-      scale == "All 'very true'" ~ "Symptom Validity",
-      scale == "Fake bad" ~ "Symptom Validity",
-      scale == "Fake good" ~ "Symptom Validity",
-      scale == "NIM predicted profile" ~ "Symptom Validity",
-      scale == "PIM predicted profile" ~ "Symptom Validity",
-      scale == "Random responding" ~ "Symptom Validity",
+      scale == "ALC Estimated Score" ~ "Symptom Validity",
+      scale == "DRG Estimated Score" ~ "Symptom Validity",
       TRUE ~ as.character(subdomain)
     )
   )
@@ -599,34 +580,26 @@ df_validity <-
       scale == "Negative Distortion Scale" ~ "Negative Distortion Indicators",
       scale == "Hong Malingering Index" ~ "Negative Distortion Indicators",
       scale == "Multiscale Feigning Index" ~ "Negative Distortion Indicators",
-      scale == "Malingered Pain-Related Disability Discriminant
-Function" ~ "Negative Distortion Indicators",
+      scale == "Malingered Pain-Related Disability Discriminant Function" ~ "Negative Distortion Indicators",
       # Positive Distortion Indicators
       scale == "Defensiveness Index" ~ "Positive Distortion Indicators",
-      scale == "Cashel Discriminant Function" ~ "Positive Distortion Indicators"
-      scale == "Positive Distortion Scale" ~ "Positive Distortion Indicators"
-      scale == "Hong Defensiveness Index" ~ "Positive Distortion Indicators"
+      scale == "Cashel Discriminant Function" ~ "Positive Distortion Indicators",
+      scale == "Positive Distortion Scale" ~ "Positive Distortion Indicators",
+      scale == "Hong Defensiveness Index" ~ "Positive Distortion Indicators",
       # Non-systematic Distortion Indicators
       scale == "Back Random Responding" ~ "Non-systematic Distortion Indicators",
       scale == "Hong Randomness Index" ~ "Non-systematic Distortion Indicators",
-      # Response Set Groups
-      scale == "All 'All false'" ~ "Response Set Groups",
-      scale == "All 'All mainly true'" ~ "Response Set Groups",
-      scale == "All 'All slightly true'" ~ "Response Set Groups",
-      scale == "All 'very true'" ~ "Response Set Groups",
-      scale == "Fake bad" ~ "Response Set Groups",
-      scale == "Fake good" ~ "Response Set Groups",
-      scale == "NIM predicted profile" ~ "Response Set Groups",
-      scale == "PIM predicted profile" ~ "Response Set Groups",
-      scale == "Random responding" ~ "Response Set Groups",
+      # SUD
+      scale == "ALC Estimated Score" ~ "Estimated Drug/Alcohol Use",
+      scale == "DRG Estimated Score" ~ "Estimated Drug/Alcohol Use",
       TRUE ~ as.character(narrow)
     )
-  )  
+  )
 ```
 
 ### Scale descriptions
 
-```{r description}
+```{r description, eval=FALSE}
 df_clinical <-
   df_clinical |>
   tidytable::mutate(
@@ -687,25 +660,25 @@ df_clinical <-
 
 ## Slice
 
-```{r slice}
+```{r slice, eval=FALSE}
 slice_clinical <- c(1:49)
 df_clinical <- df_clinical |> tidytable::slice(slice_clinical)
 ```
 
 ## Glue results
 
-```{r result}
+```{r result, eval=FALSE}
 df_clinical <-
   df_clinical |>
   tidytable::mutate(result = glue::glue("{patient}'s score on {scale}
   ({description}) was {range}."))
-df_validity <-
-  df_validity |>
-  tidytable::mutate(result = glue::glue("{patient}'s score on {scale}
-  ({description}) was {range}."))
-df_inatt <-
-  df_inatt |>
-  tidytable::mutate(result = glue::glue("{patient}'s score on {scale} ({description}) was {range}."))
+# df_validity <-
+#   df_validity |>
+#   tidytable::mutate(result = glue::glue("{patient}'s score on {scale}
+#   ({description}) was {range}."))
+# df_inatt <-
+#   df_inatt |>
+#   tidytable::mutate(result = glue::glue("{patient}'s score on {scale} ({description}) was {range}."))
 ```
 
 # Finalize and save
@@ -713,11 +686,19 @@ df_inatt <-
 ## relocate variables
 
 ```{r relocate}
-pai <- df_clinical |> tidytable::relocate(c(raw_score, score, percentile, range,
+pai1 <- df_clinical |> tidytable::relocate(c(raw_score, score, percentile, range,
 ci_95), .before = test)
-pai <- df_validity |> tidytable::relocate(c(raw_score, score, percentile, range,
+
+pai2 <- df_validity |> tidytable::relocate(c(raw_score, score, percentile, range,
 ci_95), .before = test)
-pai <- df_inatt |> tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+
+pai3 <- df_inatt |> tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+
+pai <- tidytable::bind_rows(
+  pai1,
+  pai2,
+  pai3
+)
 ```
 
 ## write out final csv

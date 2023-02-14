@@ -75,7 +75,7 @@ dt |>
   glue::glue_data() |>
   purrr::modify(purrr::lift(paste0)) |>
   cat(dt$result,
-    file = "2.4_verbal.md",
+    file = "02.04_verbal.md",
     fill = TRUE,
     append = TRUE
   )

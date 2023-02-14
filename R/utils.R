@@ -156,4 +156,4 @@ template_resources <- function(name, ...) {
 
 gsub_fixed <- function(...) gsub(..., fixed = TRUE)
 
-pandoc2.0 <- function() rmarkdown::pandoc_available("2.0")
+pandoc2.0 <- function() rmarkdown::pandoc_available("2.0") # nolint

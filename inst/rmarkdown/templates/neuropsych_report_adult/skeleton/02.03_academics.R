@@ -95,7 +95,7 @@ dt |>
   glue::glue_data() |>
   purrr::modify(purrr::lift(paste0)) |>
   cat(dt$result,
-    file = "2.3_academics.md",
+    file = "02.03_academics.md",
     fill = TRUE,
     append = TRUE
   )

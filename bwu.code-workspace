@@ -63,6 +63,13 @@
     "peacock.surpriseMeOnStartup": false,
     "githubPullRequests.ignoredPullRequestBranches": [
       "main"
+    ],
+    "cSpell.words": [
+      "caars",
+      "komadown",
+      "marginnote",
+      "newthought",
+      "rdname"
     ]
   }
 }

@@ -240,7 +240,6 @@ gpluck_make_columns <- function(table,
     )
 }
 
-
 #' @title Make test score range (e.g., Below Average, Above Average).
 #' @description Use a consistent set of ranges for performance on neuropsychological testing.
 #' @importFrom tidytable mutate case_when
@@ -868,5 +867,3 @@ compute_pctile_range <-
         tidytable::select(-c(pct1, pct2, pct3))
     }
   }
-
-

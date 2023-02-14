@@ -9,7 +9,6 @@ filter_domain <- c(
   "Action",
   "Total Composite",
   # CAARS
-  "ADHD Index",
   "Inattention/Memory Problems",
   "Hyperactivity/Restlessness",
   "Impulsivity/Emotional Lability",
@@ -17,8 +16,25 @@ filter_domain <- c(
   "DSM-5 Inattentive Symptoms",
   "DSM-5 Hyperactive-Impulsive Symptoms",
   "DSM-5 ADHD Symptoms Total",
+  "ADHD Index",
+  "CAARS-SR Inattention/Memory Problems",
+  "CAARS-SR Hyperactivity/Restlessness",
+  "CAARS-SR Impulsivity/Emotional Lability",
+  "CAARS-SR Problems with Self-Concept",
+  "CAARS-SR DSM-5 Inattentive Symptoms",
+  "CAARS-SR DSM-5 Hyperactive-Impulsive Symptoms",
+  "CAARS-SR DSM-5 ADHD Symptoms Total",
+  "CAARS-SR ADHD Index",
+  "CAARS-OR Inattention/Memory Problems",
+  "CAARS-OR Hyperactivity/Restlessness",
+  "CAARS-OR Impulsivity/Emotional Lability",
+  "CAARS-OR Problems with Self-Concept",
+  "CAARS-OR DSM-5 Inattentive Symptoms",
+  "CAARS-OR DSM-5 Hyperactive-Impulsive Symptoms",
+  "CAARS-OR DSM-5 ADHD Symptoms Total",
+  "CAARS-OR ADHD Index",
   # CEFI
-  "Full Scale",
+  "CEFI-SR Full Scale",
   "Attention",
   "Emotion Regulation",
   "Flexibility",
@@ -27,7 +43,27 @@ filter_domain <- c(
   "Organization",
   "Planning",
   "Self-Monitoring",
-  "Working Memory"
+  "Working Memory",
+  "CEFI-SR Full Scale",
+  "CEFI-SR Attention",
+  "CEFI-SR Emotion Regulation",
+  "CEFI-SR Flexibility",
+  "CEFI-SR Inhibitory Control",
+  "CEFI-SR Initiation",
+  "CEFI-SR Organization",
+  "CEFI-SR Planning",
+  "CEFI-SR Self-Monitoring",
+  "CEFI-SR Working Memory",
+  "CEFI-OR Full Scale",
+  "CEFI-OR Attention",
+  "CEFI-OR Emotion Regulation",
+  "CEFI-OR Flexibility",
+  "CEFI-OR Inhibitory Control",
+  "CEFI-OR Initiation",
+  "CEFI-OR Organization",
+  "CEFI-OR Planning",
+  "CEFI-OR Self-Monitoring",
+  "CEFI-OR Working Memory"
 )
 
 ## ---- 02-glue-adhd-sr ----
@@ -42,7 +78,7 @@ dt |>
   glue::glue_data() |>
   purrr::modify(purrr::lift(paste0)) |>
   cat(dt$result,
-    file = "2.10_adhd.md",
+    file = "02.10_adhd.md",
     fill = TRUE,
     append = TRUE
   )
@@ -59,7 +95,7 @@ dt |>
   glue::glue_data() |>
   purrr::modify(lift(paste0)) |>
   cat(dt$result,
-    file = "2.10_adhd.md",
+    file = "02.10_adhd.md",
     fill = TRUE,
     append = TRUE
   )
@@ -79,7 +115,7 @@ tb2 <-
   bwu::make_tibble(
     tibb = adhd,
     data = neurobehav,
-    pheno = "Executive Functions"
+    pheno = "Executive Functioning"
   ) |>
   tidytable::filter(Scale %in% filter_domain) |>
   tidytable::arrange(Test)
@@ -126,13 +162,13 @@ bwu::dotplot(
   data = df,
   x = df$z_mean_narrow,
   y = df$narrow,
-  domain = "Executive Functions"
+  domain = "ADHD"
 )
 
-## ---- 07-df-adhd ----
+## ---- 07-df-executive ----
 df2 <-
   neurobehav |>
-  tidytable::filter(domain == "Executive Functions") |>
+  tidytable::filter(domain == "Executive Functioning") |>
   tidytable::filter(scale %in% filter_domain) |>
   tidytable::filter(!is.na(percentile)) |>
   tidytable::filter(filename %in% c("cefi_sr.csv", "cefi_or.csv"))
@@ -142,7 +178,7 @@ bwu::dotplot(
   data = df2,
   x = df2$z_mean_sub,
   y = df2$subdomain,
-  domain = "Executive Functions"
+  domain = "Executive Functioning"
 )
 
 ## ---- 08-plot-executive-adhd-narrow -----
@@ -150,5 +186,5 @@ bwu::dotplot(
   data = df2,
   x = df2$z_mean_narrow,
   y = df2$narrow,
-  domain = "Executive Functions"
+  domain = "Executive Functioning"
 )

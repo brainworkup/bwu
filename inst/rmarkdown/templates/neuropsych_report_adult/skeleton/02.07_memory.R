@@ -55,10 +55,10 @@ filter_domain <- c(
   "Long-Delay Recognition Discriminability",
   "Long-Delay Recognition Response Bias",
   ## CVLT-3/CVLT-3 Brief
-  # "Trial 1 Correct",
-  # "Trial 2 Correct",
-  # "Trial 3 Correct",
-  # "Trial 4 Correct",
+  "Trial 1 Correct",
+  "Trial 2 Correct",
+  "Trial 3 Correct",
+  "Trial 4 Correct",
   "Trial 5 Correct",
   "List B Correct",
   "Trials 1-4 Correct",
@@ -67,14 +67,14 @@ filter_domain <- c(
   "Short Delay Cued Recall",
   "Long Delay Free Recall",
   "Long Delay Cued Recall",
-  # "Total Hits",
-  # "Total False Positives",
+  "Total Hits",
+  "Total False Positives",
   "Recognition Discriminability (d')",
-  # "Recognition Discriminability Nonparametric",
+  "Recognition Discriminability Nonparametric",
   "Forced-Choice Recognition Hits",
   # EF or here
-  "Total Intrusions",
-  "Total Repetitions",
+  "CVLT-3 Total Intrusions",
+  "CVLT-3 Total Repetitions",
   # WMS-IV
   "Logical Memory I",
   "Logical Memory II",
@@ -95,7 +95,7 @@ dt %>%
   glue::glue_data() %>%
   purrr::modify(lift(paste0)) %>%
   cat(dt$result,
-    file = "2.7_memory.md",
+    file = "02.07_memory.md",
     fill = TRUE,
     append = TRUE
   )
@@ -107,8 +107,8 @@ tb <-
     data = neurocog,
     pheno = "Memory"
   ) %>%
-  filter(Scale %in% filter_domain) %>%
-  arrange(Test)
+  tidytable::filter(Scale %in% filter_domain) %>%
+  tidytable::arrange(Test)
 # tb$Score <- round(tb$Score, 0L)
 
 ## ---- 04-kable-memory ------------------

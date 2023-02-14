@@ -36,7 +36,7 @@ make_tibble(
 A dotplot using ggplot2
 }
 \description{
-This is the description.
+Make a tibble table for reports.
 }
 \examples{
 make_tibble(

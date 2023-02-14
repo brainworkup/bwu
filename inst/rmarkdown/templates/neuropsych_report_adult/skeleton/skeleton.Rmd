@@ -264,7 +264,7 @@ params:
     label: "Personality Assessment Plot 1"
     value: FALSE
   eval_emotion_plot2:
-    label: "Personality Asessment Plot 2"
+    label: "Personality Assessment Plot 2"
     value: TRUE
   eval_pass_plot:
     label: "PASS Plot"
@@ -632,8 +632,8 @@ knitr::knit_engines$set(marginfigure = function(options) {
 **Evaluation Dates:** (ref:doe)
 ```
 
-```{r nse, results = 'asis', cache = FALSE}
-cat(readLines("2.0_nse.md"), sep = "\n")
+```{r nse, results = 'asis'}
+cat(readLines("02.00_nse.md"), sep = "\n")
 ```
 
 \newpage
@@ -664,8 +664,8 @@ cat(readLines("2.0_nse.md"), sep = "\n")
 - (ref:tmt)
 - (ref:pai)
 
-```{r nt-obs, results = 'asis', cache = FALSE}
-cat(readLines("2.1_nt-obs.md"), sep = "\n")
+```{r nt-obs, results = 'asis'}
+cat(readLines("02.01_nt-obs.md"), sep = "\n")
 ```
 
 \newpage
@@ -759,30 +759,58 @@ neurocog <-
   dplyr::ungroup()
 ```
 
-```{r, make-factors-neurobehav, cache = FALSE}
+```{r, make-factors-neurobehav}
 # Subset neurobehavioral data
 neurobehav <-
   neuropsych |>
-  dplyr::filter(test_type != "npsych_test")
+  dplyr::filter(test_type == "rating_scale")
 # domain
 neurobehav <-
   neurobehav |>
   dplyr::group_by(domain, .add = TRUE) |>
-  dplyr::filter(!is.na(score)) |>
+  dplyr::filter(!is.na(percentile)) |>
   dplyr::mutate(z_mean_dom = mean(z), z_sd_dom = sd(z)) |>
   dplyr::ungroup()
 # subdomain
 neurobehav <-
   neurobehav |>
   dplyr::group_by(subdomain, .add = TRUE) |>
-  dplyr::filter(!is.na(score)) |>
+  dplyr::filter(!is.na(percentile)) |>
   dplyr::mutate(z_mean_sub = mean(z), z_sd_sub = sd(z)) |>
   dplyr::ungroup()
 # narrow
 neurobehav <-
   neurobehav |>
   dplyr::group_by(narrow, .add = TRUE) |>
-  dplyr::filter(!is.na(score)) |>
+  dplyr::filter(!is.na(percentile)) |>
+  dplyr::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) |>
+  dplyr::ungroup()
+```
+
+```{r, make-factors-validity}
+# Subset neurobehavioral data
+validity <-
+  neuropsych |>
+  dplyr::filter(test_type == "validity_indicator")
+# domain
+validity <-
+  validity |>
+  dplyr::group_by(domain, .add = TRUE) |>
+  dplyr::filter(!is.na(percentile)) |>
+  dplyr::mutate(z_mean_dom = mean(z), z_sd_dom = sd(z)) |>
+  dplyr::ungroup()
+# subdomain
+validity <-
+  validity |>
+  dplyr::group_by(subdomain, .add = TRUE) |>
+  dplyr::filter(!is.na(percentile)) |>
+  dplyr::mutate(z_mean_sub = mean(z), z_sd_sub = sd(z)) |>
+  dplyr::ungroup()
+# narrow
+validity <-
+  validity |>
+  dplyr::group_by(narrow, .add = TRUE) |>
+  dplyr::filter(!is.na(percentile)) |>
   dplyr::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) |>
   dplyr::ungroup()
 ```
@@ -791,12 +819,14 @@ neurobehav <-
 readr::write_csv(neuropsych, here::here(patient, "neuropsych.csv"))
 readr::write_csv(neurocog, here::here(patient, "neurocog.csv"))
 readr::write_csv(neurobehav, here::here(patient, "neurobehav.csv"))
+readr::write_csv(validity, here::here(patient, "validity.csv"))
 ```
 
 ```{r, read-neuro-data}
 neuropsych <- readr::read_csv(here::here(patient, "neuropsych.csv"))
 neurocog <- readr::read_csv(here::here(patient, "neurocog.csv"))
 neurobehav <- readr::read_csv(here::here(patient, "neurobehav.csv"))
+validity <- readr::read_csv(here::here(patient, "validity.csv"))
 ```
 
 <!-- ### Intelligence/General Ability -->
@@ -804,11 +834,11 @@ neurobehav <- readr::read_csv(here::here(patient, "neurobehav.csv"))
 (ref:fn-iq) Standard Score (M = 100, SD = 15)
 
 ```{r, iq, results = 'asis', eval = params$eval_iq}
-cat(readLines("2.2_iq.md"), sep = "\n")
+cat(readLines("02.02_iq.md"), sep = "\n")
 ```
 
 ```{r read-iq, eval = params$eval_iq}
-knitr::read_chunk(here::here(patient, "2.2_iq.R"))
+knitr::read_chunk(here::here(patient, "02.02_iq.R"))
 ```
 
 ```{r 01-filter-iq, eval = params$eval_iq}
@@ -839,11 +869,11 @@ knitr::read_chunk(here::here(patient, "2.2_iq.R"))
 (ref:fn-acad) Standard Score (M = 100, SD = 15)
 
 ```{r, academics, results = 'asis', eval = params$eval_academics}
-cat(readLines("2.3_academics.md"), sep = "\n")
+cat(readLines("02.03_academics.md"), sep = "\n")
 ```
 
 ```{r read-academics, eval = params$eval_academics}
-knitr::read_chunk(here::here(patient, "2.3_academics.R"))
+knitr::read_chunk(here::here(patient, "02.03_academics.R"))
 ```
 
 ```{r 01-filter-academics, eval = params$eval_academics}
@@ -874,11 +904,11 @@ knitr::read_chunk(here::here(patient, "2.3_academics.R"))
 (ref:fn-vrb) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
 ```{r, verbal, results = 'asis', eval = params$eval_verbal}
-cat(readLines("2.4_verbal.md"), sep = "\n")
+cat(readLines("02.04_verbal.md"), sep = "\n")
 ```
 
 ```{r read-verbal, eval = params$eval_verbal}
-knitr::read_chunk(here::here(patient, "2.4_verbal.R"))
+knitr::read_chunk(here::here(patient, "02.04_verbal.R"))
 ```
 
 ```{r 01-filter-verbal, eval = params$eval_verbal}
@@ -909,11 +939,11 @@ knitr::read_chunk(here::here(patient, "2.4_verbal.R"))
 (ref:fn-spt) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
 ```{r, spatial, results = 'asis', eval = params$eval_spatial}
-cat(readLines("2.5_spatial.md"), sep = "\n")
+cat(readLines("02.05_spatial.md"), sep = "\n")
 ```
 
 ```{r read-spatial, eval = params$eval_spatial}
-knitr::read_chunk(here::here(patient, "2.5_spatial.R"))
+knitr::read_chunk(here::here(patient, "02.05_spatial.R"))
 ```
 
 ```{r 01-filter-spatial, eval = params$eval_spatial}
@@ -946,11 +976,11 @@ knitr::read_chunk(here::here(patient, "2.5_spatial.R"))
 (ref:unstructured-task) This was a novel planning task published as part of the NIH EXAMINER Executive Function Battery [@kramer2014]. The task allows the examinee to choose which problems they want to work on to maximize points earned. In doing so, examinees need to plan ahead, avoid items that are strategically poor choices, and be cognizant of when a particular booklet offers diminishing returns. (ref:first-name) performed this task effortlessly.
 
 ```{r, executive, results = 'asis', eval = params$eval_executive}
-cat(readLines("2.6_executive.md"), sep = "\n")
+cat(readLines("02.06_executive.md"), sep = "\n")
 ```
 
 ```{r read-executive, eval = params$eval_executive}
-knitr::read_chunk(here::here(patient, "2.6_executive.R"))
+knitr::read_chunk(here::here(patient, "02.06_executive.R"))
 ```
 
 ```{r 01-filter-executive, eval = params$eval_executive}
@@ -981,11 +1011,11 @@ knitr::read_chunk(here::here(patient, "2.6_executive.R"))
 (ref:fn-memory) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
 ```{r, memory, results = 'asis', eval = params$eval_memory}
-cat(readLines("2.7_memory.md"), sep = "\n")
+cat(readLines("02.07_memory.md"), sep = "\n")
 ```
 
 ```{r read-memory, eval = params$eval_memory}
-knitr::read_chunk(here::here(patient, "2.7_memory.R"))
+knitr::read_chunk(here::here(patient, "02.07_memory.R"))
 ```
 
 ```{r 01-filter-memory, eval = params$eval_memory}
@@ -1016,11 +1046,11 @@ knitr::read_chunk(here::here(patient, "2.7_memory.R"))
 (ref:fn-mtr) *T* Score (M = 50, SD = 10)
 
 ```{r, motor, results = 'asis', eval = params$eval_motor}
-cat(readLines("2.8_motor.md"), sep = "\n")
+cat(readLines("02.08_motor.md"), sep = "\n")
 ```
 
 ```{r read-motor, eval = params$eval_motor}
-knitr::read_chunk(here::here(patient, "2.8_motor.R"))
+knitr::read_chunk(here::here(patient, "02.08_motor.R"))
 ```
 
 ```{r 01-filter-motor, eval = params$eval_motor}
@@ -1051,11 +1081,11 @@ knitr::read_chunk(here::here(patient, "2.8_motor.R"))
 (ref:fn-soc) Scaled Score (M = 10, SD = 3)
 
 ```{r, social, results = 'asis', eval = params$eval_social}
-cat(readLines("2.9_social.md"), sep = "\n")
+cat(readLines("02.09_social.md"), sep = "\n")
 ```
 
 ```{r read-social, eval = params$eval_social}
-knitr::read_chunk(here::here(patient, "2.9_social.R"))
+knitr::read_chunk(here::here(patient, "02.09_social.R"))
 ```
 
 ```{r 01-filter-social, eval = params$eval_social}
@@ -1094,7 +1124,7 @@ cat(readLines("02.10_adhd.md"), sep = "\n")
 ```
 
 ```{r read-adhd, eval = params$eval_adhd}
-knitr::read_chunk(here::here(patient, "02.10_adhd.R"))
+knitr::read_chunk(here::here(patient, "002.10_adhd.R"))
 ```
 
 ```{r 01-filter-adhd, eval = params$eval_adhd}
@@ -1127,7 +1157,7 @@ knitr::read_chunk(here::here(patient, "02.10_adhd.R"))
 ```{r 04-kable-adhd, eval = params$eval_adhd, double_escape = TRUE, escape = FALSE, fig.fullwidth = TRUE}
 ```
 
-```{r 07-df-adhd, eval = params$eval_adhd}
+```{r 07-df-executive, eval = params$eval_adhd}
 ```
 
 ```{r 08-plot-executive-adhd-subdomain, eval = params$eval_adhd, fig.cap='(ref:att-ef)'}
@@ -1143,11 +1173,11 @@ knitr::read_chunk(here::here(patient, "02.10_adhd.R"))
 (ref:fn-emo) *T* Score (M = 50, SD = 10)
 
 ```{r, emotion, results = 'asis', eval = params$eval_emotion}
-cat(readLines("2.11_emotion.md"), sep = "\n")
+cat(readLines("02.11_emotion.md"), sep = "\n")
 ```
 
 ```{r read-emotion, eval = params$eval_emotion}
-knitr::read_chunk(here::here(patient, "2.11_emotion.R"))
+knitr::read_chunk(here::here(patient, "02.11_emotion.R"))
 ```
 
 ```{r 01-filter-emotion, eval = params$eval_emotion}
@@ -1249,7 +1279,7 @@ bwu::dotplot(
 ```
 
 ```{r, sirf, results = 'asis'}
-cat(readLines("3.0_sirf.md"), sep = "\n")
+cat(readLines("03.00_sirf.md"), sep = "\n")
 ```
 
 \newpage
@@ -1261,7 +1291,7 @@ Links highlighted in \textcolor{blue}{blue} should be clickable to the online co
 ```
 
 ```{r, recs, results = 'asis'}
-cat(readLines("4.0_recs.md"), sep = "\n")
+cat(readLines("04.00_recs.md"), sep = "\n")
 ```
 
 It was a pleasure to work with `r params$first_name`.

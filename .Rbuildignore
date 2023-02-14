@@ -57,3 +57,4 @@
 ^\.quarto$
 ^\.nojekyll$
 ^\.builds\.archived$
+^notes$

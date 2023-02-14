@@ -1,2 +1,8 @@
-linters: linters_with_defaults() # see vignette("lintr")
+linters: linters_with_defaults(
+    line_length_linter(length = 80L),
+    commented_code_linter(),
+    absolute_path_linter(lax = TRUE),
+    commas_linter(),
+    spaces_inside_linter()
+  )
 encoding: "UTF-8"

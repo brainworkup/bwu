@@ -1,6 +1,6 @@
 #' @title Make tibble table for npsych report tables
 #'
-#' @description This is the description.
+#' @description Make a tibble table for reports.
 #'
 #' @param tibb Name of tibble to make
 #' @param data Dataset to use

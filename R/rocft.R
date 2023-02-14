@@ -1,61 +1,51 @@
-# ROCFT predicted score
-
-## ROCFT Copy Trial
-## Ages 22 - 79
-
 #' ROCFT Copy Standardized Score
-#'
-#' @param rawScore Patients raw score
+#' @description ROCFT predicted scores, for age range of 22 -79 years, for copy trial.
+#' @param raw_score Patients raw score
 #' @param age Patients age
 #'
 #' @return A printed T-Score of ROCFT Copy performance
 #' @export
 #'
 #' @examples
-#' rocft_copy <- rocftCopy(rawScore = 32, age = 24)
-rocftCopy <- function(rawScore, age) {
-
-  predictedScore <-
+#' rocft_copy_score <- rocft_copy(raw_score = 32, age = 24)
+rocft_copy <- function(raw_score, age) {
+  predicted_score <-
     34.40434 + (0.0595862 * age) - (0.0013855 * (age * age))
-  
-  predictedSD <-
+  predicted_sd <-
     -0.333026 + (0.0625042 * age)
-  
-  zScore <- (rawScore - predictedScore) / predictedSD
-  
-  tScore <- (zScore * 10) + 50
-  
-  tScore <- round(tScore, digits = 0)
-  zScore <- round(zScore, digits = 2)
-  predictedScore <- round(predictedScore, digits = 2)
-  predictedSD <- round(predictedSD, digits = 2)
-  
-  paste0(tScore, ", ", zScore, ", ", predictedScore, ", ", predictedSD)
-  
+  z_score <- (raw_score - predicted_score) / predicted_sd
+  t_score <- (z_score * 10) + 50
+  t_score <- round(t_score, digits = 0)
+  z_score <- round(z_score, digits = 2)
+  predicted_score <- round(predicted_score, digits = 2)
+  predicted_sd <- round(predicted_sd, digits = 2)
+  paste0(
+    "ROCFT Copy T-Score = ", t_score,
+    ", z-Score = ", z_score,
+    ", Predicted Score = ", predicted_score,
+    ", Predicted SD = ", predicted_sd)
 }
- 
-## ROCFT Delayed Recall
-## Ages 22 - 79
 
 #' ROCFT Delayed Recall Standardized Score
-#'
-#' @param rawScore Patients raw score on Delayed Recall
+#' @description ROCFT predicted scores, for age range of 22 -79 years, for
+#' long-term delayed recall.
+#' @param raw_score Patients raw score on Delayed Recall
 #' @param age Patient's age
 #'
 #' @return A T-Score of ROCFT Delayed Recall performance
 #' @export
 #'
 #' @examples
-#' rocft_delay <- rocftDelay(rawScore = 14, age = 24)
-rocftDelay <- function(rawScore, age) {
-  predictedScore <-
+#' rocft_delay_score <- rocft_delay(raw_score = 14, age = 24)
+rocft_delay <- function(raw_score, age) {
+  predicted_score <-
     25.39903 + (0.0416485 * age) - (0.0022144 * (age * age))
-  predictedSD <- 6.67
-  zScore <- (rawScore - predictedScore) / predictedSD
-  tScore <- (zScore * 10) + 50
-  tScore <- round(tScore, digits = 0)
-  zScore <- round(zScore, digits = 2)
-  predictedScore <- round(predictedScore, digits = 2)
-  predictedSD <- round(predictedSD, digits = 2)
-  paste0(tScore, ", ", zScore, ", ", predictedScore, ", ", predictedSD)
+  predicted_sd <- 6.67
+  z_score <- (raw_score - predicted_score) / predicted_sd
+  t_score <- (z_score * 10) + 50
+  t_score <- round(t_score, digits = 0)
+  z_score <- round(z_score, digits = 2)
+  predicted_score <- round(predicted_score, digits = 2)
+  predicted_sd <- round(predicted_sd, digits = 2)
+  paste0("ROCFT Delayed Recall T-Score = ", t_score, ", z-Score = ", z_score, ", Predicted Score = ", predicted_score, ", Predicted SD = ", predicted_sd)
 }
