@@ -92,15 +92,13 @@ plucked_table <-
 
 ```{r subset}
 df_clinical <- plucked_table |>
-  tidytable::select(SOM_T:AGG_P_T) |>
+  tidytable::select(SOM_T:AGG_P_T, ALC_Est, DRG_Est) |>
   tidyr::gather() |>
   tidytable::rename(scale = key, score = value)
 
 df_validity <- plucked_table |>
-  tidytable::select(ICN_T:PIM_T, 
-                    MAL_T:HRI_T, 
-                    ALC_Est, 
-                    DRG_Est) |>
+  tidytable::select(ICN_T:PIM_T,
+    MAL_T:HRI_T) |>
   tidyr::gather() |>
   tidytable::rename(scale = key, score = value)
 
@@ -110,30 +108,30 @@ df_inatt <- plucked_table |>
   tidytable::rename(scale = key, score = value)
 
 adhd_items <- c(
-"R13",
-"R15",
-"R18",
-"R21",
-"R34",
-"R57",
-"R94",
-"R112",
-"R139",
-"R167",
-"R169",
-"R171",
-"R195",
-"R198",
-"R201",
-"R213",
-"R233",
-"R236",
-"R254",
-"R282",
-"R299",
-"R311",
-"R322",
-"R325"
+  "R13",
+  "R15",
+  "R18",
+  "R21",
+  "R34",
+  "R57",
+  "R94",
+  "R112",
+  "R139",
+  "R167",
+  "R169",
+  "R171",
+  "R195",
+  "R198",
+  "R201",
+  "R213",
+  "R233",
+  "R236",
+  "R254",
+  "R282",
+  "R299",
+  "R311",
+  "R322",
+  "R325"
 )
 
 df_adhd <- plucked_table |>
@@ -239,8 +237,8 @@ df_validity[14, 1] <- c("Hong Defensiveness Index")
 df_validity[15, 1] <- c("Back Random Responding")
 df_validity[16, 1] <- c("Hong Randomness Index")
 # Est Drug/Alc
-df_validity[17, 1] <- c("ALC Estimated Score")
-df_validity[18, 1] <- c("DRG Estimated Score")
+df_clinical[50, 1] <- c("ALC Estimated Score")
+df_clinical[51, 1] <- c("DRG Estimated Score")
 # adhd
 df_inatt[1, 1] <- c("Inattention (INATTN) Index")
 ```
@@ -260,7 +258,7 @@ df_clinical <- df_clinical |> tidytable::slice(
     8, 40:43,
     9, 44:46,
     12, 47:49,
-    10:11,
+    10:11, 50:51,
     13:18
   )
 )
@@ -275,74 +273,74 @@ df_validity <- df_validity |> tidytable::slice(
 ## Add/mutate columns
 
 ```{r mutate}
-df_clinical <- 
+df_clinical <-
   bwu::gpluck_make_columns(
-  table = df_clinical,
-  raw_score = "",
-  range = "",
-  ci_95 = "",
-  test = params$test,
-  test_name = params$test_name,
-  domain = "",
-  subdomain = "",
-  narrow = "",
-  pass = "",
-  verbal = "",
-  timed = "",
-  test_type = "rating_scale",
-  score_type = "t_score",
-  absort = paste0(
-    tolower(test), "_", tolower(scale), "_", seq_len(nrow(df_clinical))
-  ),
-  description = "",
-  result = ""
-)
+    table = df_clinical,
+    raw_score = "",
+    range = "",
+    ci_95 = "",
+    test = params$test,
+    test_name = params$test_name,
+    domain = "",
+    subdomain = "",
+    narrow = "",
+    pass = "",
+    verbal = "",
+    timed = "",
+    test_type = "rating_scale",
+    score_type = "t_score",
+    absort = paste0(
+      tolower(test), "_", tolower(scale), "_", seq_len(nrow(df_clinical))
+    ),
+    description = "",
+    result = ""
+  )
 
-df_validity <- 
+df_validity <-
   bwu::gpluck_make_columns(
-  df_validity,
-  raw_score = "",
-  range = "",
-  ci_95 = "",
-  test = params$test,
-  test_name = params$test_name,
-  domain = "Effort/Validity",
-  subdomain = "",
-  narrow = "",
-  pass = "",
-  verbal = "",
-  timed = "",
-  test_type = "rating_scale",
-  score_type = "t_score",
-  absort = paste0(
-    tolower(test), "_", tolower(scale), "_", seq_len(nrow(df_validity))
-  ),
-  description = "",
-  result = ""
-)
- 
-df_inatt <- 
+    df_validity,
+    raw_score = "",
+    range = "",
+    ci_95 = "",
+    test = params$test,
+    test_name = params$test_name,
+    domain = "Symptom Validity",
+    subdomain = "",
+    narrow = "",
+    pass = "",
+    verbal = "",
+    timed = "",
+    test_type = "rating_scale",
+    score_type = "t_score",
+    absort = paste0(
+      tolower(test), "_", tolower(scale), "_", seq_len(nrow(df_validity))
+    ),
+    description = "",
+    result = ""
+  )
+
+df_inatt <-
   bwu::gpluck_make_columns(
-  df_inatt,
-  raw_score = "",
-  range = "",
-  ci_95 = "",
-  test = params$test,
-  test_name = params$test_name,
-  domain = "ADHD",
-  subdomain = "Attention Problems",
-  narrow = "Inattention",
-  pass = "",
-  verbal = "",
-  timed = "",
-  test_type = "rating_scale",
-  score_type = "t_score",
-  absort = paste0(
-    tolower(test), "_", tolower(scale), "_", seq_len(nrow(df_inatt))
-  ),
-  description = "",
-  result = ""
-)
+    df_inatt,
+    raw_score = "",
+    range = "",
+    ci_95 = "",
+    test = params$test,
+    test_name = params$test_name,
+    domain = "ADHD",
+    subdomain = "Attention Problems",
+    narrow = "Inattention",
+    pass = "",
+    verbal = "",
+    timed = "",
+    test_type = "rating_scale",
+    score_type = "t_score",
+    absort = paste0(
+      tolower(test), "_", tolower(scale), "_", seq_len(nrow(df_inatt))
+    ),
+    description = "",
+    result = ""
+  )
 ```
 
 ## Rating Scale score ranges
@@ -411,6 +409,8 @@ df_clinical <-
       scale == "Stimulus-Seeking" ~ "Personality Disorders",
       scale == "Alcohol Problems" ~ "Substance Use Disorders",
       scale == "Drug Problems" ~ "Substance Use Disorders",
+      scale == "ALC Estimated Score" ~ "Symptom Validity",
+      scale == "DRG Estimated Score" ~ "Symptom Validity",
       TRUE ~ as.character(domain)
     )
   )
@@ -464,14 +464,16 @@ df_clinical <-
       scale == "Aggressive Attitude" ~ "Aggression",
       scale == "Verbal Aggression" ~ "Aggression",
       scale == "Physical Aggression" ~ "Aggression",
-      scale == "Alcohol Problems" ~ "Substance Use Disorder",
-      scale == "Drug Problems" ~ "Substance Use Disorder",
+      scale == "Alcohol Problems" ~ "Alcohol Use",
+      scale == "Drug Problems" ~ "Drug Use",
       scale == "Suicidal Ideation" ~ "Depression",
       scale == "Stress" ~ "Social Environment",
       scale == "Nonsupport" ~ "Social Environment",
       scale == "Treatment Rejection" ~ "Treatment Considerations",
       scale == "Dominance" ~ "Interpersonal",
       scale == "Warmth" ~ "Interpersonal",
+      scale == "ALC Estimated Score" ~ "Alcohol Use",
+      scale == "DRG Estimated Score" ~ "Drug Use",
       TRUE ~ as.character(subdomain)
     )
   )
@@ -499,8 +501,6 @@ df_validity <-
       # Non-systematic Distortion Indicators
       scale == "Back Random Responding" ~ "Symptom Validity",
       scale == "Hong Randomness Index" ~ "Symptom Validity",
-      scale == "ALC Estimated Score" ~ "Symptom Validity",
-      scale == "DRG Estimated Score" ~ "Symptom Validity",
       TRUE ~ as.character(subdomain)
     )
   )
@@ -562,6 +562,8 @@ df_clinical <-
       scale == "Treatment Rejection" ~ "Treatment Considerations",
       scale == "Dominance" ~ "Interpersonal",
       scale == "Warmth" ~ "Interpersonal",
+      scale == "ALC Estimated Score" ~ "Substance Use Disorder",
+      scale == "DRG Estimated Score" ~ "Substance Use Disorder",
       TRUE ~ as.character(narrow)
     )
   )
@@ -589,9 +591,6 @@ df_validity <-
       # Non-systematic Distortion Indicators
       scale == "Back Random Responding" ~ "Non-systematic Distortion Indicators",
       scale == "Hong Randomness Index" ~ "Non-systematic Distortion Indicators",
-      # SUD
-      scale == "ALC Estimated Score" ~ "Estimated Drug/Alcohol Use",
-      scale == "DRG Estimated Score" ~ "Estimated Drug/Alcohol Use",
       TRUE ~ as.character(narrow)
     )
   )
@@ -661,13 +660,13 @@ df_clinical <-
 ## Slice
 
 ```{r slice, eval=FALSE}
-slice_clinical <- c(1:49)
+slice_clinical <- c(1:51)
 df_clinical <- df_clinical |> tidytable::slice(slice_clinical)
 ```
 
 ## Glue results
 
-```{r result, eval=FALSE}
+```{r result}
 df_clinical <-
   df_clinical |>
   tidytable::mutate(result = glue::glue("{patient}'s score on {scale}
@@ -686,25 +685,21 @@ df_clinical <-
 ## relocate variables
 
 ```{r relocate}
-pai1 <- df_clinical |> tidytable::relocate(c(raw_score, score, percentile, range,
-ci_95), .before = test)
+pai_clinical <- df_clinical |> tidytable::relocate(c(raw_score, score, percentile, range,
+  ci_95), .before = test)
 
-pai2 <- df_validity |> tidytable::relocate(c(raw_score, score, percentile, range,
-ci_95), .before = test)
+pai_validity <- df_validity |> tidytable::relocate(c(raw_score, score, percentile, range,
+  ci_95), .before = test)
 
-pai3 <- df_inatt |> tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
-
-pai <- tidytable::bind_rows(
-  pai1,
-  pai2,
-  pai3
-)
+pai_adhd <- df_inatt |> tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
 ## write out final csv
 
 ```{r writeout}
-readr::write_csv(pai, here::here(patient, "csv", "pai.csv"), col_names = TRUE, na = "")
+readr::write_csv(pai_clinical, here::here(patient, "csv", "pai_clinical.csv"), col_names = TRUE, na = "")
+readr::write_csv(pai_validity, here::here(patient, "csv", "pai_validity.csv"), col_names = TRUE, na = "")
+readr::write_csv(pai_adhd, here::here(patient, "csv", "pai_adhd.csv"), col_names = TRUE, na = "")
 ```
 
 # Experimental

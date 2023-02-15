@@ -1,0 +1,572 @@
+---
+title: "Plant Validity Indicators"
+params:
+  patient:
+    label: "Patient First Name:"
+    value: Biggie
+    input: text
+  test_name:
+    label: "Full Name of Test/Test Battery:"
+    value: ""
+    input: radio
+    choices:
+      - CAARS Self-Report
+      - CAARS Observer-Report
+      - CEFI Self-Report
+      - CEFI Observer-Report
+      - ACS Word Choice
+      - Reliable Digit Span
+      - "CVLT-3 Brief"
+      - PAI
+      - TOMM
+  test:
+    label: "Test/Measure File Name:"
+    value: ""
+    input: radio
+    choices:
+      - caars_sr
+      - caars_or
+      - cefi_sr
+      - cefi_or
+      - word_choice
+      - rds
+      - cvlt3_brief
+      - pai
+      - tomm
+  scale:
+    label: "Scale/Subtest:"
+    value: Select Scale
+    input: select
+    choices:
+      ACS:
+        - ACS Word Choice
+      WAIS-IV/NAB:
+        - Reliable Digit Span
+      TOMM:
+        - "TOMM Trial 1"
+        - "TOMM Trial 2"
+      Trail Making Test:
+        - TMT, Part A
+        - TMT, Part B
+      NAB:
+        - Judgment
+        - Mazes
+  raw_score:
+    label: "Raw score:"
+    value: 10
+    input: numeric
+  score:
+    label: "Standardized score:"
+    value: 50
+    input: numeric
+  score_type:
+    label: "Type of Test Score:"
+    value: raw_score
+    input: radio
+    choices:
+      - raw_score
+      - z_score
+      - scaled_score
+      - t_score
+      - standard_score
+      - beta_coefficient
+  domain:
+    label: "Domain:"
+    value: Select domain
+    input: radio
+    choices:
+      - Performance Validity
+      - Symptom Validity
+  subdomain:
+    label: "Subdomain:"
+    value: "NULL"
+    input: select
+    choices:
+      Performance Validity:
+        - Cognitive Effort
+      Symptom Validity:
+        - Response Inconsistency
+        - Negative Impression
+        - Positive Impression
+        - Processing Speed
+        - Word Fluency
+        - Listening Ability
+        - Word Retrieval,
+      Effort:
+        - Performance Validity
+        - Symptom Validity
+  narrow:
+    label: "Narrow subdomain:"
+    value: Select domain
+    input: select
+    choices:
+      ADHD/EF:
+        - CAARS-OR Inconsistency Index
+        - CAARS-SR Inconsistency Index
+        - CEFI-OR Consistency Index
+        - CEFI-OR Negative Impression
+        - CEFI-SR Consistency Index
+        - CEFI-SR Negative Impression
+      Cognitive Performance:
+        - Word Choice Correct
+        - Reliable Digit Span
+        - "CVLT-3 Forced-Choice Recognition Hits"
+      Personality Assessment:
+        - Inconsistency Index
+        - Infrequency Index
+        - Negative Impression Management
+        - Positive Impression Management
+        - Malingering Index
+        - Rogers Discriminant Function
+        - Negative Distortion Scale
+        - Hong Malingering Index
+        - Multiscale Feigning Index
+        - "Malingered Pain-Related Disability Discriminant Function"
+        - Defensiveness Index
+        - Cashel Discriminant Function
+        - Positive Distortion Scale
+        - Hong Defensiveness Index
+        - Back Random Responding
+        - Hong Randomness Index
+      Effort:
+        - Embedded
+        - Standalone
+  pass:
+    label: "PASS:"
+    value: ""
+    input: radio
+    choices:
+      - Planning
+      - Attention
+      - Sequential
+      - Simultaneous
+      - Knowledge
+  verbal:
+    label: "Verbal or Nonverbal Test:"
+    value: ""
+    input: radio
+    choices:
+      - Verbal
+      - Nonverbal
+  timed:
+    label: "Timed or Untimed Test:"
+    value: ""
+    input: radio
+    choices:
+      - Timed
+      - Untimed
+  mean:
+    label: "Mean:"
+    value: 50
+    input: radio
+    choices: [0, 10, 50, 100]
+  stdev:
+    label: "Standard Deviation:"
+    value: 10
+    input: radio
+    choices: [1, 3, 10, 15]
+  reliability:
+    label: "Reliability:"
+    value: 0.90
+    input: slider
+    min: 0
+    max: 1
+    step: 0.01
+  percentile: NULL
+  range: NULL
+  ci_95: NULL
+  test_type:
+    label: "Test Type:"
+    value: npsych_test
+    input: radio
+    choices:
+      - npsych_test
+      - rating_scale
+      - validity_indicator
+  absort:
+  description:
+  result:
+output:
+  rmdformats::robobook:
+    highlight: kate
+---
+
+## Setup
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  root.dir = normalizePath("./"),
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  error = TRUE
+)
+library(bwu)
+library(here)
+library(knitr)
+library(magrittr)
+library(readr)
+library(rmarkdown)
+library(shiny)
+library(snakecase)
+library(table.glue)
+library(tibble)
+library(tidyr)
+library(tidytable)
+```
+
+## Patient
+
+```{r patient}
+patient <- params$patient
+```
+
+## Make data.frame
+
+```{r make-df}
+df <- tidytable::tidytable(
+  test = (params$test),
+  test_name = (params$test_name),
+  test_type = (params$test_type),
+  scale = (params$scale),
+  raw_score = as.numeric(params$raw_score),
+  score = as.numeric(params$score),
+  ci_95 = NA,
+  score_adj = NA,
+  ci_95_lower = NA,
+  ci_95_upper = NA,
+  percentile = NA,
+  range = NA,
+  range_lower = NA,
+  range_upper = NA,
+  score_type = (params$score_type),
+  domain = (params$domain),
+  subdomain = (params$subdomain),
+  narrow = (params$narrow),
+  pass = (params$pass),
+  verbal = (params$verbal),
+  timed = (params$timed),
+  absort =
+    paste0(
+      tolower(params$test),
+      "_", tolower(params$scale),
+      "_", seq_len(1)
+    ),
+  description = NA,
+  result = NA
+)
+```
+
+## Function for scale description
+
+```{r func-desc}
+compute_desc <- function(.x, .scale, description, ...) {
+  tidytable::mutate(.x,
+    description = tidytable::case_when(
+      .scale ==
+        "ROCFT Copy" ~
+        "Copying of a complex figure requiring visuospatial integration, planning and organization, and efficient encoding of visuospatial material",
+      .scale ==
+        "ROCFT Delayed Recall" ~
+        "Spontaneous, long-term delayed recall (20-25 min) recall and reproduction of a complex abstract figure",
+      .scale ==
+        "Judgment" ~
+        "Judgment and decisional capacity about issues and situations likely to be encountered in daily life",
+      .scale == "D-KEFS Color Naming" ~
+        "Rapid color naming",
+      .scale == "D-KEFS Word Reading" ~
+        "Rapid word reading",
+      .scale == "D-KEFS Inhibition" ~
+        "Inhibition/cognitive control",
+      .scale == "D-KEFS Switching" ~
+        "Set-shifting/cognitive flexibility",
+      .scale == "D-KEFS Inhibition Total Errors" ~
+        "Response monitoring during an inhibition task",
+      .scale == "D-KEFS Switching Total Errors" ~
+        "Response monitoring during a set-shifting task",
+      .scale == "Dominant Hand" ~
+        "Fine-motor dexterity (dominant hand)",
+      .scale == "Nondominant Hand" ~
+        "Nondominant hand dexterity",
+      .scale == "TOPF Standard Score" ~
+        "An estimate of premorbid verbal ability level",
+      .scale == "Unstructured Task" ~
+        "Strategic planning and organization aptitude to formulate an action in advance of performance or intended performance",
+      .scale == "Letter Fluency" ~
+        "Letter/phonemic word fluency",
+      .scale == "Category Fluency" ~
+        "Categorical/semantic word fluency",
+      .scale == "Deviation Score" ~
+        "Abstract reasoning (hypothesis generation and concept formation)",
+      .scale == "Nonsense Word Decoding" ~
+        "Phonic decoding skills as assessed by reading aloud a list of pseudowords",
+      .scale == "Decoding Fluency" ~
+        "Phonic decoding fluency",
+      .scale == "Reading Comprehension" ~
+        "Reading comprehension skills at the level of the word, sentence, and passage",
+      .scale == "TMT, Part A" ~
+        "Basic psychomotor processing speed",
+      .scale == "TMT, Part B" ~
+        "Scanning, visuomotor tracking, divided attention, and cognitive flexibility",
+      .scale == "Symbol Span" ~
+        "Nonverbal working memory",
+      TRUE ~ as.character(description)
+    )
+  )
+}
+```
+
+```{r compute-desc}
+df1 <- compute_desc(.x = df, .scale = df$scale, description = description)
+```
+
+## Function to compute percentile and range
+
+```{r func-pr}
+gpluck_compute_percentile_range <-
+  function(.x,
+           .score = NA,
+           .score_type =
+             c("z_score", "scaled_score", "t_score", "standard_score", "raw_score"),
+           percentile = NA,
+           range = NA,
+           .pct1 = NA,
+           .pct2 = NA,
+           .pct3 = NA,
+           z = NA,
+           ...) {
+    if (.score_type == "z_score") {
+      .x <-
+        .x |>
+        tidytable::mutate(z = (.score - 0) / 1) |>
+        tidytable::mutate(.pct1 = round(stats::pnorm(z) * 100, 1)) |>
+        tidytable::mutate(.pct2 = tidytable::case_when(
+          .pct1 < 1 ~ ceiling(.pct1),
+          .pct1 > 99 ~ floor(.pct1),
+          TRUE ~ round(.pct1)
+        )) |>
+        tidytable::mutate(.pct3 = .pct2) |>
+        tidytable::mutate(
+          range = tidytable::case_when(
+            .pct3 >= 98 ~ "Exceptionally High",
+            .pct3 %in% 91:97 ~ "Above Average",
+            .pct3 %in% 75:90 ~ "High Average",
+            .pct3 %in% 25:74 ~ "Average",
+            .pct3 %in% 9:24 ~ "Low Average",
+            .pct3 %in% 2:8 ~ "Below Average",
+            .pct3 < 2 ~ "Exceptionally Low",
+            TRUE ~ as.character(range)
+          )
+        ) |>
+        tidytable::mutate(percentile = .pct1) |>
+        tidytable::select(-c(.pct1, .pct2, .pct3))
+    } else if (.score_type == "scaled_score") {
+      .x <-
+        .x |>
+        tidytable::mutate(z = (.score - 10) / 3) |>
+        tidytable::mutate(.pct1 = round(stats::pnorm(z) * 100, 1)) |>
+        tidytable::mutate(.pct2 = tidytable::case_when(
+          .pct1 < 1 ~ ceiling(.pct1),
+          .pct1 > 99 ~ floor(.pct1),
+          TRUE ~ round(.pct1)
+        )) |>
+        tidytable::mutate(.pct3 = .pct2) |>
+        tidytable::mutate(
+          range = tidytable::case_when(
+            .pct3 >= 98 ~ "Exceptionally High",
+            .pct3 %in% 91:97 ~ "Above Average",
+            .pct3 %in% 75:90 ~ "High Average",
+            .pct3 %in% 25:74 ~ "Average",
+            .pct3 %in% 9:24 ~ "Low Average",
+            .pct3 %in% 2:8 ~ "Below Average",
+            .pct3 < 2 ~ "Exceptionally Low",
+            TRUE ~ as.character(range)
+          )
+        ) |>
+        tidytable::mutate(percentile = .pct1) |>
+        tidytable::select(-c(.pct1, .pct2, .pct3))
+    } else if (.score_type == "t_score") {
+      .x <-
+        .x |>
+        tidytable::mutate(z = (.score - 50) / 10) |>
+        tidytable::mutate(.pct1 = round(stats::pnorm(z) * 100, 1)) |>
+        tidytable::mutate(.pct2 = tidytable::case_when(
+          .pct1 < 1 ~ ceiling(.pct1),
+          .pct1 > 99 ~ floor(.pct1),
+          TRUE ~ round(.pct1)
+        )) |>
+        tidytable::mutate(.pct3 = .pct2) |>
+        tidytable::mutate(
+          range = tidytable::case_when(
+            .pct3 >= 98 ~ "Exceptionally High",
+            .pct3 %in% 91:97 ~ "Above Average",
+            .pct3 %in% 75:90 ~ "High Average",
+            .pct3 %in% 25:74 ~ "Average",
+            .pct3 %in% 9:24 ~ "Low Average",
+            .pct3 %in% 2:8 ~ "Below Average",
+            .pct3 < 2 ~ "Exceptionally Low",
+            TRUE ~ as.character(range)
+          )
+        ) |>
+        tidytable::mutate(percentile = .pct1) |>
+        tidytable::select(-c(.pct1, .pct2, .pct3))
+    } else if (.score_type == "standard_score") {
+      .x <-
+        .x |>
+        tidytable::mutate(z = (.score - 100) / 15) |>
+        tidytable::mutate(.pct1 = round(stats::pnorm(z) * 100, 1)) |>
+        tidytable::mutate(.pct2 = tidytable::case_when(
+          .pct1 < 1 ~ ceiling(.pct1),
+          .pct1 > 99 ~ floor(.pct1),
+          TRUE ~ round(.pct1)
+        )) |>
+        tidytable::mutate(.pct3 = .pct2) |>
+        tidytable::mutate(
+          range = tidytable::case_when(
+            .pct3 >= 98 ~ "Exceptionally High",
+            .pct3 %in% 91:97 ~ "Above Average",
+            .pct3 %in% 75:90 ~ "High Average",
+            .pct3 %in% 25:74 ~ "Average",
+            .pct3 %in% 9:24 ~ "Low Average",
+            .pct3 %in% 2:8 ~ "Below Average",
+            .pct3 < 2 ~ "Exceptionally Low",
+            TRUE ~ as.character(range)
+          )
+        ) |>
+        tidytable::mutate(percentile = .pct1) |>
+        tidytable::select(-c(.pct1, .pct2, .pct3))
+    }
+  }
+```
+
+## Compute percentile, range
+
+```{r compute-pr}
+df2 <- compute_pctile_range(
+  .x = df1,
+  .score = df1$score,
+  .score_type = df1$score_type,
+  percentile = percentile,
+  range = range
+)
+```
+
+## Function to compute and glue result
+
+```{r func-result}
+compute_result <-
+  function(.x,
+           .scale,
+           .description,
+           .range,
+           result,
+           ...) {
+    .x <-
+      tidytable::mutate(
+        .x,
+        result = tidytable::case_when(
+          .scale == "ROCFT Copy" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "ROCFT Delayed Recall" ~
+            glue::glue("{.description} fell within the {.range} range.\n"),
+          .scale == "Judgment" ~
+            glue::glue("{.description} fell within the {.range} range.\n"),
+          .scale == "D-KEFS Color Naming" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "D-KEFS Word Reading" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "D-KEFS Inhibition" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "D-KEFS Switching" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "D-KEFS Inhibition Total Errors" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "D-KEFS Switching Total Errors" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "Dominant Hand" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "Nondominant Hand" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "TOPF Standard Score" ~
+            glue::glue("{.description} fell within the {.range} range.^[(ref:premorbid)]\n"),
+          .scale == "Unstructured Task" ~
+            glue::glue("{.description} fell within the {.range} range.\n"),
+          .scale == "Letter Fluency" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "Category Fluency" ~
+            glue::glue("{.description} fell within the {.range} range.\n"),
+          .scale == "Deviation Score" ~
+            glue::glue("{.description} fell within the {.range} range.\n"),
+          .scale == "Nonsense Word Decoding" ~
+            glue::glue("{.description} were {.range}.\n"),
+          .scale == "Decoding Fluency" ~
+            glue::glue("{.description} fell within the {.range} range.\n"),
+          .scale == "Reading Comprehension" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "TMT, Part A" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "TMT, Part B" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "Symbol Span" ~
+            glue::glue("{.description} was {.range}.\n"),
+          TRUE ~ as.character(result)
+        )
+      )
+  }
+```
+
+```{r compute-result}
+.description <- (df2$description)
+.range <- (df2$range)
+df3 <- compute_result(
+  .x = df2,
+  .scale = df2$scale,
+  .description = .description,
+  .range = .range
+)
+```
+
+## Compute CI 95%
+
+```{r ci95}
+df3$ci_95 <- bwu::ci(
+  x = as.numeric(df3$score),
+  m = as.numeric(params$mean),
+  sd = as.numeric(params$stdev),
+  rel = as.numeric(params$reliability)
+)
+```
+
+## Write out CSV and XLSX
+
+```{r writeout-scale}
+table <- df3
+test <- table$test
+scale <- snakecase::to_snake_case(table$scale)
+tidytable::fwrite(
+  table,
+  here::here(patient, "pre_csv", paste0(test, "_", scale, ".csv")),
+  append = FALSE
+)
+```
+
+```{r writeout-test}
+table <- df3
+test <- table$test
+tidytable::fwrite(
+  table,
+  here::here(patient, "csv", paste0(test, ".csv")),
+  append = TRUE
+)
+```
+
+```{r writeout-g}
+table <- df3
+test <- "g"
+tidytable::fwrite(
+  table,
+  here::here(patient, "csv", paste0(test, ".txt")),
+  append = TRUE
+)
+# need to convert csv to excel
+```

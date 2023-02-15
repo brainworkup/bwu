@@ -263,7 +263,7 @@ table2[11, 1] <- c("Numbers & Letters Part A Errors")
 table2[12, 1] <- c("Numbers & Letters Part A Efficiency")
 table2[13, 1] <- c("Numbers & Letters Part B Efficiency")
 
-table2[13, 5] <- 1
+# table2[13, 5] <- 1
 ```
 
 # NAB Language
@@ -367,7 +367,7 @@ table6 <- table6 |>
 table6[1, 1] <- c("Mazes")
 table6[2, 1] <- c("Word Generation")
 table6[3, 1] <- c("Word Generation Perseverations")
-table6[1, 5] <- 1
+# table6[1, 5] <- 1
 ```
 
 ## Select variables to keep
@@ -691,12 +691,12 @@ table1 <-
   table1 |>
   tidytable::mutate(
     narrow = tidytable::case_when(
+      scale == "NAB Total Index" ~ "NAB Total Index",
       scale == "NAB Attention Index" ~ "NAB Attention Index",
       scale == "NAB Language Index" ~ "NAB Language Index",
       scale == "NAB Memory Index" ~ "NAB Memory Index",
       scale == "NAB Spatial Index" ~ "NAB Spatial Index",
       scale == "NAB Executive Functions Index" ~ "NAB Executive Functions Index",
-      scale == "NAB Total Index" ~ "NAB Total Index",
       TRUE ~ as.character(narrow)
     )
   )
