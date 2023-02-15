@@ -71,21 +71,21 @@ params:
     input: select
     multiple: yes
     choices:
-      - Total Intrusions
+      - CVLT-3 Total Intrusions
   table6:
     label: "Recall Errors: Repetitions"
     value: [Total Repetitions]
     input: select
     multiple: yes
     choices:
-      - Total Repetitions
+      - CVLT-3 Total Repetitions
   table7:
     label: "Forced-Choice Recognition:"
     value: [Forced-Choice Recognition Hits]
     input: select
     multiple: yes
     choices:
-      - Forced-Choice Recognition Hits
+      - CVLT-3 Forced-Choice Recognition Hits
   colnames1:
     label: "Tables 1-6 Column Names:"
     value: [scale, raw_score, score, percentile]
@@ -466,10 +466,10 @@ table7 <- bwu::gpluck_make_columns(
   ci_95 = "",
   test = params$test,
   test_name = params$test_name,
-  domain = "Effort/Validity",
-  subdomain = "Performance Validity",
-  narrow = "Embedded",
-  pass = "Attention",
+  domain = "Performance Validity",
+  subdomain = "Cognitive Effort",
+  narrow = "Forced-Choice Recognition Memory",
+  pass = "",
   verbal = "Verbal",
   timed = "Untimed",
   test_type = "validity_indicator",
@@ -610,7 +610,7 @@ table5 <-
   tidytable::mutate(
     description = tidytable::case_when(
       scale ==
-        "Total Intrusions" ~
+        "CVLT-3 Total Intrusions" ~
         "Total number of intrusive response errors",
       TRUE ~ as.character(description)
     )
@@ -623,7 +623,7 @@ table6 <-
   tidytable::mutate(
     description = tidytable::case_when(
       scale ==
-        "Total Repetitions" ~
+        "CVLT-3 Total Repetitions" ~
         "Total number of repetitive response errors",
       TRUE ~ as.character(description)
     )
@@ -636,7 +636,7 @@ table7 <-
   tidytable::mutate(
     description = tidytable::case_when(
       scale ==
-        "Forced-Choice Recognition Hits" ~
+        "CVLT-3 Forced-Choice Recognition Hits" ~
         "Number of hits on forced-choice recognition trials (raw score)",
       TRUE ~ as.character(description)
     )
