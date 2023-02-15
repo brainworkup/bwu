@@ -38,7 +38,7 @@ filter_domain <- c(
   "Working Memory",
   "Working Memory Index",
   "Processing Speed",
-  "Processing Speed Index"
+  "Processing Speed Index",
   "General Intelligence",
   "Cognitive Efficiency"
 )
@@ -97,7 +97,7 @@ df <-
   tidytable::filter(!is.na(percentile)) |>
   tidytable::arrange(test_name) |>
   tidytable::filter(scale %in% filter_domain) |>
-# tidytable::filter(scale != "General Ability (GAI)")
+  # tidytable::filter(scale != "General Ability (GAI)")
   tidytable::filter(scale != "NAB Total Index") |>
   tidytable::filter(scale != "TOPF Standard Score") |>
   tidytable::filter(scale != "Working Memory (WMI)") |>
