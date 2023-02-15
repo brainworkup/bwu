@@ -34,7 +34,7 @@ filter_domain <- c(
   "CAARS-OR DSM-5 ADHD Symptoms Total",
   "CAARS-OR ADHD Index",
   # CEFI
-  "CEFI-SR Full Scale",
+  "Full Scale",
   "Attention",
   "Emotion Regulation",
   "Flexibility",

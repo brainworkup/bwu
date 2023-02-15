@@ -1124,7 +1124,7 @@ cat(readLines("02.10_adhd.md"), sep = "\n")
 ```
 
 ```{r read-adhd, eval = params$eval_adhd}
-knitr::read_chunk(here::here(patient, "002.10_adhd.R"))
+knitr::read_chunk(here::here(patient, "02.10_adhd.R"))
 ```
 
 ```{r 01-filter-adhd, eval = params$eval_adhd}

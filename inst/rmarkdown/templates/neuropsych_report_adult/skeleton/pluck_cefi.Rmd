@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from CEFI"
 params:
-  patient: Biggie
+  patient: Annette
   test:
     label: "Test"
     value: [cefi_sr]
@@ -198,7 +198,7 @@ if (params$test == "cefi_sr") {
   table2[7, 1] <- c("CEFI-SR Planning")
   table2[8, 1] <- c("CEFI-SR Self-Monitoring")
   table2[9, 1] <- c("CEFI-SR Working Memory")
-} else {
+} else if (params$test == "cefi_or") {
   table2[1, 1] <- c("CEFI-OR Attention")
   table2[2, 1] <- c("CEFI-OR Emotion Regulation")
   table2[3, 1] <- c("CEFI-OR Flexibility")
@@ -258,16 +258,26 @@ table <-
   table |>
   tidytable::mutate(
     subdomain = tidytable::case_when(
-      scale %in% "Full Scale" ~ "Full Scale",
-      scale %in% "Attention" ~ "Attention",
-      scale %in% "Emotion Regulation" ~ "Emotion Regulation",
-      scale %in% "Flexibility" ~ "Flexibility",
-      scale %in% "Inhibitory Control" ~ "Inhibitory Control",
-      scale %in% "Initiation" ~ "Initiation",
-      scale %in% "Organization" ~ "Organization",
-      scale %in% "Planning" ~ "Planning",
-      scale %in% "Self-Monitoring" ~ "Self-Monitoring",
-      scale %in% "Working Memory" ~ "Working Memory",
+      scale == "CEFI-SR Full Scale" ~ "Full Scale",
+      scale == "CEFI-SR Attention" ~ "Attention",
+      scale == "CEFI-SR Emotion Regulation" ~ "Emotion Regulation",
+      scale == "CEFI-SR Flexibility" ~ "Flexibility",
+      scale == "CEFI-SR Inhibitory Control" ~ "Inhibitory Control",
+      scale == "CEFI-SR Initiation" ~ "Initiation",
+      scale == "CEFI-SR Organization" ~ "Organization",
+      scale == "CEFI-SR Planning" ~ "Planning",
+      scale == "CEFI-SR Self-Monitoring" ~ "Self-Monitoring",
+      scale == "CEFI-SR Working Memory" ~ "Working Memory",
+      scale == "CEFI-OR Full Scale" ~ "Full Scale",
+      scale == "CEFI-OR Attention" ~ "Attention",
+      scale == "CEFI-OR Emotion Regulation" ~ "Emotion Regulation",
+      scale == "CEFI-OR Flexibility" ~ "Flexibility",
+      scale == "CEFI-OR Inhibitory Control" ~ "Inhibitory Control",
+      scale == "CEFI-OR Initiation" ~ "Initiation",
+      scale == "CEFI-OR Organization" ~ "Organization",
+      scale == "CEFI-OR Planning" ~ "Planning",
+      scale == "CEFI-OR Self-Monitoring" ~ "Self-Monitoring",
+      scale == "CEFI-OR Working Memory" ~ "Working Memory",
       TRUE ~ as.character(subdomain)
     )
   )
@@ -281,16 +291,16 @@ if (params$test == "cefi_sr") {
     table |>
     tidytable::mutate(
       narrow = tidytable::case_when(
-        scale == "CEFI-SR Full Scale" ~ "Full Scale (SR)",
-        scale == "CEFI-SR Attention" ~ "Attention (SR)",
-        scale == "CEFI-SR Emotion Regulation" ~ "Emotion Regulation (SR)",
-        scale == "CEFI-SR Flexibility" ~ "Flexibility (SR)",
-        scale == "CEFI-SR Inhibitory Control" ~ "Inhibitory Control (SR)",
-        scale == "CEFI-SR Initiation" ~ "Initiation (SR)",
-        scale == "CEFI-SR Organization" ~ "Organization (SR)",
-        scale == "CEFI-SR Planning" ~ "Planning (SR)",
-        scale == "CEFI-SR SR-Monitoring" ~ "Self-Monitoring (SR)",
-        scale == "CEFI-SR Working Memory" ~ "Working Memory (SR)",
+        scale == "CEFI-SR Full Scale" ~ "Full Scale (Self)",
+        scale == "CEFI-SR Attention" ~ "Attention (Self)",
+        scale == "CEFI-SR Emotion Regulation" ~ "Emotion Regulation (Self)",
+        scale == "CEFI-SR Flexibility" ~ "Flexibility (Self)",
+        scale == "CEFI-SR Inhibitory Control" ~ "Inhibitory Control (Self)",
+        scale == "CEFI-SR Initiation" ~ "Initiation (Self)",
+        scale == "CEFI-SR Organization" ~ "Organization (Self)",
+        scale == "CEFI-SR Planning" ~ "Planning (Self)",
+        scale == "CEFI-SR Self-Monitoring" ~ "Self-Monitoring (Self)",
+        scale == "CEFI-SR Working Memory" ~ "Working Memory (Self)",
         TRUE ~ as.character(narrow)
       )
     )
@@ -299,16 +309,16 @@ if (params$test == "cefi_sr") {
     table |>
     tidytable::mutate(
       narrow = tidytable::case_when(
-        scale == "CEFI-OR Full Scale" ~ "Full Scale (OR)",
-        scale == "CEFI-OR Attention" ~ "Attention (OR)",
-        scale == "CEFI-OR Emotion Regulation" ~ "Emotion Regulation (OR)",
-        scale == "CEFI-OR Flexibility" ~ "Flexibility (OR)",
-        scale == "CEFI-OR Inhibitory Control" ~ "Inhibitory Control (OR)",
-        scale == "CEFI-OR Initiation" ~ "Initiation (OR)",
-        scale == "CEFI-OR Organization" ~ "Organization (OR)",
-        scale == "CEFI-OR Planning" ~ "Planning (OR)",
-        scale == "CEFI-OR Self-Monitoring" ~ "Self-Monitoring (OR)",
-        scale == "CEFI-OR Working Memory" ~ "Working Memory (OR)",
+        scale == "CEFI-OR Full Scale" ~ "Full Scale (Observer)",
+        scale == "CEFI-OR Attention" ~ "Attention (Observer)",
+        scale == "CEFI-OR Emotion Regulation" ~ "Emotion Regulation (Observer)",
+        scale == "CEFI-OR Flexibility" ~ "Flexibility (Observer)",
+        scale == "CEFI-OR Inhibitory Control" ~ "Inhibitory Control (Observer)",
+        scale == "CEFI-OR Initiation" ~ "Initiation (Observer)",
+        scale == "CEFI-OR Organization" ~ "Organization (Observer)",
+        scale == "CEFI-OR Planning" ~ "Planning (Observer)",
+        scale == "CEFI-OR Self-Monitoring" ~ "Self-Monitoring (Observer)",
+        scale == "CEFI-OR Working Memory" ~ "Working Memory (Observer)",
         TRUE ~ as.character(narrow)
       )
     )
@@ -405,34 +415,34 @@ if (params$test == "cefi_sr") {
     table |>
     tidytable::mutate(
       result = tidytable::case_when(
-        scale %in% "Full Scale" ~ glue::glue(
+        scale == "CEFI-SR Full Scale" ~ glue::glue(
           "- {patient}'s {description} was {range}.\n"
         ),
-        scale %in% "Attention" ~ glue::glue(
+        scale == "CEFI-SR Attention" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale %in% "Emotion Regulation" ~ glue::glue(
+        scale == "CEFI-SR Emotion Regulation" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale %in% "Flexibility" ~ glue::glue(
+        scale == "CEFI-SR Flexibility" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale %in% "Inhibitory Control" ~ glue::glue(
+        scale == "CEFI-SR Inhibitory Control" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale %in% "Initiation" ~ glue::glue(
+        scale == "CEFI-SR Initiation" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale %in% "Organization" ~ glue::glue(
+        scale == "CEFI-SR Organization" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale %in% "Planning" ~ glue::glue(
+        scale == "CEFI-SR Planning" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale %in% "Self-Monitoring" ~ glue::glue(
+        scale == "CEFI-SR Self-Monitoring" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale %in% "Working Memory" ~ glue::glue(
+        scale == "CEFI-SR Working Memory" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
         TRUE ~ as.character(result)
@@ -443,34 +453,34 @@ if (params$test == "cefi_sr") {
     table |>
     tidytable::mutate(
       result = tidytable::case_when(
-        scale %in% "Full Scale" ~ glue::glue(
+        scale == "CEFI-OR Full Scale" ~ glue::glue(
           "- {patient}'s {description} was {range}.\n"
         ),
-        scale %in% "Attention" ~ glue::glue(
+        scale == "CEFI-OR Attention" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale %in% "Emotion Regulation" ~ glue::glue(
+        scale == "CEFI-OR Emotion Regulation" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale %in% "Flexibility" ~ glue::glue(
+        scale == "CEFI-OR Flexibility" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale %in% "Inhibitory Control" ~ glue::glue(
+        scale == "CEFI-OR Inhibitory Control" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale %in% "Initiation" ~ glue::glue(
+        scale == "CEFI-OR Initiation" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale %in% "Organization" ~ glue::glue(
+        scale == "CEFI-OR Organization" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale %in% "Planning" ~ glue::glue(
+        scale == "CEFI-OR Planning" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale %in% "Self-Monitoring" ~ glue::glue(
+        scale == "CEFI-OR Self-Monitoring" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
-        scale %in% "Working Memory" ~ glue::glue(
+        scale == "CEFI-OR Working Memory" ~ glue::glue(
           "- {scale} ({description}) was {range}\n"
         ),
         TRUE ~ as.character(result)
