@@ -16,7 +16,7 @@ params:
       - CEFI Observer-Report
       - ACS Word Choice
       - Reliable Digit Span
-      - "CVLT-3 Brief"
+      - CVLT-3
       - PAI
       - TOMM
   test:
@@ -38,19 +38,40 @@ params:
     value: Select Scale
     input: select
     choices:
+      ADHD:
+        - CAARS-SR Inconsistency Index
+        - CAARS-OR Inconsistency Index
+      EF:
+        - CEFI-SR Consistency Index
+        - CEFI-SR Negative Impression
+        - CEFI-OR Consistency Index
+        - CEFI-OR Negative Impression
       ACS:
         - ACS Word Choice
-      WAIS-IV/NAB:
+        - Word Choice Correct
         - Reliable Digit Span
+      CVLT3:
+        - CVLT-3 Forced-Choice Recognition Hits
+      PAI Validity Scales:
+        - Inconsistency Index
+        - Infrequency Index
+        - Negative Impression Management
+        - Positive Impression Management
+        - Malingering Index
+        - Rogers Discriminant Function
+        - Negative Distortion Scale
+        - Hong Malingering Index
+        - Multiscale Feigning Index
+        - "Malingered Pain-Related Disability Discriminant Function"
+        - Defensiveness Index
+        - Cashel Discriminant Function
+        - Positive Distortion Scale
+        - Hong Defensiveness Index
+        - Back Random Responding
+        - Hong Randomness Index
       TOMM:
-        - "TOMM Trial 1"
-        - "TOMM Trial 2"
-      Trail Making Test:
-        - TMT, Part A
-        - TMT, Part B
-      NAB:
-        - Judgment
-        - Mazes
+        - TOMM Trial 1
+        - TOMM Trial 2
   raw_score:
     label: "Raw score:"
     value: 10
