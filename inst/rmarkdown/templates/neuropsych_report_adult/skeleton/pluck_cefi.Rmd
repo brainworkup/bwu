@@ -230,7 +230,7 @@ table <- bwu::gpluck_make_columns(
   ci_95 = "",
   test = params$test,
   test_name = params$test_name,
-  domain = "Executive Dysfunction",
+  domain = "Executive Functioning",
   subdomain = "",
   narrow = "",
   pass = "",
@@ -246,7 +246,9 @@ table <- bwu::gpluck_make_columns(
 ## Test score ranges
 
 ```{r ranges}
-table <- bwu::gpluck_make_score_ranges(table = table, test_type = "npsych_test")
+table <- bwu::gpluck_make_score_ranges(
+  table = table,
+  test_type = "rating_scale")
 ```
 
 ## Subdomains
@@ -279,16 +281,16 @@ if (params$test == "cefi_sr") {
     table |>
     tidytable::mutate(
       narrow = tidytable::case_when(
-        scale == "CEFI-SR Full Scale" ~ "Full Scale (Self)",
-        scale == "CEFI-SR Attention" ~ "Attention (Self)",
-        scale == "CEFI-SR Emotion Regulation" ~ "Emotion Regulation (Self)",
-        scale == "CEFI-SR Flexibility" ~ "Flexibility (Self)",
-        scale == "CEFI-SR Inhibitory Control" ~ "Inhibitory Control (Self)",
-        scale == "CEFI-SR Initiation" ~ "Initiation (Self)",
-        scale == "CEFI-SR Organization" ~ "Organization (Self)",
-        scale == "CEFI-SR Planning" ~ "Planning (Self)",
-        scale == "CEFI-SR Self-Monitoring" ~ "Self-Monitoring (Self)",
-        scale == "CEFI-SR Working Memory" ~ "Working Memory (Self)",
+        scale == "CEFI-SR Full Scale" ~ "Full Scale (SR)",
+        scale == "CEFI-SR Attention" ~ "Attention (SR)",
+        scale == "CEFI-SR Emotion Regulation" ~ "Emotion Regulation (SR)",
+        scale == "CEFI-SR Flexibility" ~ "Flexibility (SR)",
+        scale == "CEFI-SR Inhibitory Control" ~ "Inhibitory Control (SR)",
+        scale == "CEFI-SR Initiation" ~ "Initiation (SR)",
+        scale == "CEFI-SR Organization" ~ "Organization (SR)",
+        scale == "CEFI-SR Planning" ~ "Planning (SR)",
+        scale == "CEFI-SR SR-Monitoring" ~ "Self-Monitoring (SR)",
+        scale == "CEFI-SR Working Memory" ~ "Working Memory (SR)",
         TRUE ~ as.character(narrow)
       )
     )
@@ -297,16 +299,16 @@ if (params$test == "cefi_sr") {
     table |>
     tidytable::mutate(
       narrow = tidytable::case_when(
-        scale == "CEFI-OR Full Scale" ~ "Full Scale (Observer)",
-        scale == "CEFI-OR Attention" ~ "Attention (Observer)",
-        scale == "CEFI-OR Emotion Regulation" ~ "Emotion Regulation (Observer)",
-        scale == "CEFI-OR Flexibility" ~ "Flexibility (Observer)",
-        scale == "CEFI-OR Inhibitory Control" ~ "Inhibitory Control (Observer)",
-        scale == "CEFI-OR Initiation" ~ "Initiation (Observer)",
-        scale == "CEFI-OR Organization" ~ "Organization (Observer)",
-        scale == "CEFI-OR Planning" ~ "Planning (Observer)",
-        scale == "CEFI-OR Self-Monitoring" ~ "Self-Monitoring (Observer)",
-        scale == "CEFI-OR Working Memory" ~ "Working Memory (Observer)",
+        scale == "CEFI-OR Full Scale" ~ "Full Scale (OR)",
+        scale == "CEFI-OR Attention" ~ "Attention (OR)",
+        scale == "CEFI-OR Emotion Regulation" ~ "Emotion Regulation (OR)",
+        scale == "CEFI-OR Flexibility" ~ "Flexibility (OR)",
+        scale == "CEFI-OR Inhibitory Control" ~ "Inhibitory Control (OR)",
+        scale == "CEFI-OR Initiation" ~ "Initiation (OR)",
+        scale == "CEFI-OR Organization" ~ "Organization (OR)",
+        scale == "CEFI-OR Planning" ~ "Planning (OR)",
+        scale == "CEFI-OR Self-Monitoring" ~ "Self-Monitoring (OR)",
+        scale == "CEFI-OR Working Memory" ~ "Working Memory (OR)",
         TRUE ~ as.character(narrow)
       )
     )
