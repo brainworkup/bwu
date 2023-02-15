@@ -33,7 +33,7 @@ params:
   pages: [3,3,3,3]
   table1:
     label: "Index Scores"
-    value: [Verbal Comprehension (VCI)]
+    value: ""
     input: select
     multiple: yes
     choices:
@@ -173,7 +173,7 @@ params:
 # Domains to evaluate or not
   eval_iq:
     label: "Intelligence/General Ability"
-    value: TRUE
+    value: FALSE
   eval_vci:
     label: "Verbal/Language"
     value: TRUE
@@ -188,10 +188,10 @@ params:
     value: TRUE
   eval_bd:
     label: "Block Design No Time Bonus"
-    value: TRUE
+    value: FALSE
   eval_span:
     label: "Longest Span Subtests"
-    value: TRUE
+    value: FALSE
   match:
     label: "Subset/Match Rows"
     input: checkbox
@@ -587,7 +587,9 @@ table2 <- bwu::gpluck_make_columns(
 ## Test score ranges
 
 ```{r ranges2, eval = params$eval_vci}
-table2 <- bwu::gpluck_make_score_ranges(table = table2, test_type = "npsych_test")
+table2 <- bwu::gpluck_make_score_ranges(
+  table = table2,
+  test_type = "npsych_test")
 ```
 
 ## Subdomains
@@ -597,9 +599,9 @@ table2 <-
   table2 |>
   tidytable::mutate(
     subdomain = tidytable::case_when(
-      scale == "Similarities" ~ "Acquired Knowledge",
-      scale == "Vocabulary" ~ "Acquired Knowledge",
-      scale == "Information" ~ "Acquired Knowledge",
+      scale == "Similarities" ~ "Word Reasoning",
+      scale == "Vocabulary" ~ "Word Knowledge",
+      scale == "Information" ~ "General World Knowledge",
       scale == "Comprehension" ~ "Acquired Knowledge",
       TRUE ~ as.character(subdomain)
     )
@@ -713,7 +715,7 @@ table3 <-
   tidytable::mutate(
     subdomain = tidytable::case_when(
       scale == "Block Design" ~ "Visual Processing",
-      scale == "Matrix Reasoning" ~ "Fluid Reasoning",
+      scale == "Matrix Reasoning" ~ "Reasoning",
       scale == "Visual Puzzles" ~ "Visual Processing",
       scale == "Figure Weights" ~ "Fluid Reasoning",
       TRUE ~ as.character(subdomain)
@@ -729,7 +731,7 @@ table3 <-
   tidytable::mutate(
     narrow = tidytable::case_when(
       scale == "Block Design" ~ "Visuoconstruction",
-      scale == "Matrix Reasoning" ~ "Perceptual Reasoning",
+      scale == "Matrix Reasoning" ~ "Nonverbal Reasoning",
       scale == "Visual Puzzles" ~ "Visualization",
       scale == "Figure Weights" ~ "General Sequential Reasoning",
       TRUE ~ as.character(narrow)
@@ -858,9 +860,9 @@ table4 <-
   table4 |>
   tidytable::mutate(
     narrow = tidytable::case_when(
-      scale == "Digit Span" ~ "Verbal Working Memory",
+      scale == "Digit Span" ~ "Working Memory Capacity",
       scale == "Arithmetic" ~ "Verbal Working Memory",
-      scale == "Letter-Number Sequencing" ~ "Working Memory Capacity",
+      scale == "Letter-Number Sequencing" ~ "Verbal Working Memory",
       TRUE ~ as.character(narrow)
     )
   )
@@ -997,8 +999,8 @@ table5 <-
   tidytable::mutate(
     narrow = tidytable::case_when(
       scale == "Coding" ~ "Cognitive Efficiency",
-      scale == "Symbol Search" ~ "Perceptual Speed",
-      scale == "Cancellation" ~ "Visual Attention",
+      scale == "Symbol Search" ~ "Cognitive Efficiency",
+      scale == "Cancellation" ~ "Attentional Fluency",
       TRUE ~ as.character(narrow)
     )
   )
@@ -1080,7 +1082,7 @@ table6 <- bwu::gpluck_make_columns(
   test_name = params$test_name,
   domain = "Visual Perception/Construction",
   subdomain = "Visual Processing",
-  narrow = "Visuoconstruction (Untimed)",
+  narrow = "Construction (Untimed)",
   timed = "Untimed",
   verbal = "Nonverbal",
   pass = "Simultaneous",
@@ -1317,6 +1319,7 @@ match_wais4 <- c(
   "Matrix Reasoning",
   "Block Design",
   "Block Design No Time Bonus",
+  "Figure Weights",
   # WMI
   "Working Memory (WMI)",
   "Letter-Number Sequencing",
@@ -1328,15 +1331,17 @@ match_wais4 <- c(
   "Longest Digit Span Forward",
   "Longest Digit Span Backward",
   "Longest Digit Span Sequence",
+  "Arithmetic",
   # PSI
   "Processing Speed (PSI)",
   "Coding",
-  "Symbol Search"
+  "Symbol Search",
+  "Cancellation"
 )
 wais4 <- wais4[match(
   x = match_wais4,
   table = wais4$scale,
-  nomatch = NULL # this might not work, used to be "NA"
+  nomatch = "NA" # this might not work, used to be "NA"
 )]
 ```
 

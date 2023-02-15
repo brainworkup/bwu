@@ -205,8 +205,8 @@ table3 <- table3[1:9, ]
 
 ```{r bind}
 table <- tidytable::bind_cols(table1, table2, table3)
-table <- table[8, ]
-table_validity <- table[9, ]
+# table <- table[8, ]
+# table_validity <- table[9, ]
 ```
 
 ## Mutate columns
@@ -230,24 +230,24 @@ table <- bwu::gpluck_make_columns(
   description = "",
   result = ""
 )
-table_validity <- bwu::gpluck_make_columns(
-  table = table_validity,
-  percentile = "",
-  range = "",
-  ci_95 = "",
-  test = params$test,
-  test_name = params$test_name,
-  domain = "Symptom Validity",
-  subdomain = "Response Inconsistency",
-  narrow = "",
-  pass = "",
-  verbal = "",
-  timed = "",
-  test_type = "validity_indicator",
-  score_type = "raw_score",
-  description = "",
-  result = ""
-)
+# table_validity <- bwu::gpluck_make_columns(
+#   table = table_validity,
+#   percentile = "",
+#   range = "",
+#   ci_95 = "",
+#   test = params$test,
+#   test_name = params$test_name,
+#   domain = "Symptom Validity",
+#   subdomain = "Response Inconsistency",
+#   narrow = "",
+#   pass = "",
+#   verbal = "",
+#   timed = "",
+#   test_type = "validity_indicator",
+#   score_type = "raw_score",
+#   description = "",
+#   result = ""
+# )
 ```
 
 ## Create percentile
@@ -262,7 +262,7 @@ table <- table %>%
 ## Test score ranges
 
 ```{r ranges}
-table <- bwu::gpluck_make_score_ranges(table = table, test_type = "npsych_test")
+table <- bwu::gpluck_make_score_ranges(table = table, test_type = "rating_scale")
 ```
 
 ## Domains
@@ -271,8 +271,29 @@ table <- bwu::gpluck_make_score_ranges(table = table, test_type = "npsych_test")
 table <-
   table |>
   tidytable::mutate(
+    test_type = tidytable::case_when(
+      scale == "CAARS-SR Inconsistency Index" ~ "validity_indicator",
+      scale == "CAARS-OR Inconsistency Index" ~ "validity_indicator",
+      TRUE ~ as.character(test_type)
+    )
+  )
+
+table <-
+  table |>
+  tidytable::mutate(
+    score_type = tidytable::case_when(
+      scale == "CAARS-SR Inconsistency Index" ~ "raw_score",
+      scale == "CAARS-OR Inconsistency Index" ~ "raw_score",
+      TRUE ~ as.character(score_type)
+    )
+  )
+
+table <-
+  table |>
+  tidytable::mutate(
     domain = tidytable::case_when(
-      scale == "Inconsistency Index" ~ "Symptom Validity",
+      scale == "CAARS-SR Inconsistency Index" ~ "Symptom Validity",
+      scale == "CAARS-OR Inconsistency Index" ~ "Symptom Validity",
       TRUE ~ as.character(domain)
     )
   )
@@ -281,31 +302,41 @@ table <-
 ## Subdomains
 
 ```{r subdomain}
-table <-
-  table |>
-  tidytable::mutate(
-    subdomain = tidytable::case_when(
-      scale %in%
-        "Inattention/Memory Problems" ~ "Inattention/Memory Problems",
-      scale %in%
-        "Hyperactivity/Restlessness" ~ "Hyperactivity/Restlessness",
-      scale %in%
-        "Impulsivity/Emotional Lability" ~ "Impulsivity/Emotional Lability",
-      scale %in%
-        "Problems with Self-Concept" ~ "Problems with Self-Concept",
-      scale %in%
-        "DSM-5 Inattentive Symptoms" ~ "DSM-5 Inattentive Symptoms",
-      scale %in%
-        "DSM-5 Hyperactive-Impulsive Symptoms" ~ "DSM-5 Hyperactive-Impulsive Symptoms",
-      scale %in%
-        "DSM-5 ADHD Symptoms Total" ~ "DSM-5 ADHD Symptoms Total",
-      scale %in%
-        "ADHD Index" ~ "ADHD Index",
-      scale %in%
-        "Inconsistency Index" ~ "Effort/Validity",
-      TRUE ~ as.character(subdomain)
-    )
-  )
+table[1, 10] <- c("Inattention/Memory Problems")
+table[2, 10] <- c("Hyperactivity/Restlessness")
+table[3, 10] <- c("Impulsivity/Emotional Lability")
+table[4, 10] <- c("Problems with Self-Concept")
+table[5, 10] <- c("DSM-5 Inattentive Symptoms")
+table[6, 10] <- c("DSM-5 Hyperactive-Impulsive Symptoms")
+table[7, 10] <- c("DSM-5 ADHD Symptoms Total")
+table[8, 10] <- c("ADHD Index")
+table[9, 10] <- c("Inconsistency Index")
+
+# table <-
+#   table |>
+#   tidytable::mutate(
+#     subdomain = tidytable::case_when(
+#       scale %in%
+#         "Inattention/Memory Problems" ~ "Inattention/Memory Problems",
+#       scale %in%
+#         "Hyperactivity/Restlessness" ~ "Hyperactivity/Restlessness",
+#       scale %in%
+#         "Impulsivity/Emotional Lability" ~ "Impulsivity/Emotional Lability",
+#       scale %in%
+#         "Problems with Self-Concept" ~ "Problems with Self-Concept",
+#       scale %in%
+#         "DSM-5 Inattentive Symptoms" ~ "DSM-5 Inattentive Symptoms",
+#       scale %in%
+#         "DSM-5 Hyperactive-Impulsive Symptoms" ~ "DSM-5 Hyperactive-Impulsive Symptoms",
+#       scale %in%
+#         "DSM-5 ADHD Symptoms Total" ~ "DSM-5 ADHD Symptoms Total",
+#       scale %in%
+#         "ADHD Index" ~ "ADHD Index",
+#       scale %in%
+#         "Inconsistency Index" ~ "Response Inconsistency",
+#       TRUE ~ as.character(subdomain)
+#     )
+#   )
 ```
 
 ## Narrow subdomains
