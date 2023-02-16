@@ -310,7 +310,7 @@ df_validity <-
     pass = "",
     verbal = "",
     timed = "",
-    test_type = "rating_scale",
+    test_type = "symptom_validity",
     score_type = "t_score",
     absort = paste0(
       tolower(test), "_", tolower(scale), "_", seq_len(nrow(df_validity))
@@ -349,7 +349,7 @@ df_inatt <-
 df_clinical <- bwu::gpluck_make_score_ranges(table = df_clinical, test_type =
   "rating_scale")
 df_validity <- bwu::gpluck_make_score_ranges(table = df_validity, test_type =
-  "rating_scale")
+  "symptom_validity")
 df_inatt <- bwu::gpluck_make_score_ranges(table = df_inatt, test_type = "rating_scale")
 ```
 

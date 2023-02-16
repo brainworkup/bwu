@@ -195,7 +195,7 @@ params:
   match:
     label: "Subset/Match Rows"
     input: checkbox
-    value: TRUE
+    value: FALSE
 output:
   rmdformats::robobook:
     highlight: kate

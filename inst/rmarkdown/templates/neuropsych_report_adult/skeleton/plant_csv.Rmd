@@ -1,8 +1,5 @@
 ---
 title: "Plant CSV file of Neuropsych Measures/Tests"
-output:
-  rmdformats::robobook:
-    highlight: kate
 params:
   patient:
     label: "Patient First Name:"
@@ -13,16 +10,18 @@ params:
     value: ""
     input: radio
     choices:
-      - "NIH EXAMINER"
-      - "Rey Complex Figure"
-      - "Test of Premorbid Functioning"
-      - "Trail Making Test"
-      - "NAB"
-      - "D-KEFS Color-Word Interference"
-      - "Grooved Pegboard"
-      - "KTEA-3"
-      - "WMS-IV"
-      - "Cognitive Estimation Test"
+      - NIH EXAMINER
+      - Rey Complex Figure
+      - Test of Premorbid Functioning
+      - Trail Making Test
+      - NAB
+      - ACS Social Cognition
+      - ACS Word Choice
+      - D-KEFS
+      - Grooved Pegboard
+      - KTEA-3
+      - WMS-IV
+      - Cognitive Estimation Test
   test:
     label: "Test/Measure File Name:"
     value: ""
@@ -33,6 +32,8 @@ params:
       - topf
       - tmt
       - nab
+      - social_cognition
+      - word_choice
       - dkefs
       - ktea3
       - pegboard
@@ -43,9 +44,6 @@ params:
     value: Select Scale
     input: select
     choices:
-      ACS:
-        - TOPF Standard Score
-        - ACS Word Choice
       Examiner:
         - Unstructured Task
         - Letter Fluency
@@ -56,6 +54,10 @@ params:
       Trail Making Test:
         - TMT, Part A
         - TMT, Part B
+      ACS:
+        - TOPF Standard Score
+        - ACS Word Choice
+        - ACS Social Cognition
       NAB:
         - Judgment
         - Mazes
@@ -153,6 +155,7 @@ params:
         - Symptom Validity
       Social Cognition:
         - Affect Recognition
+        - Social Perception
   narrow:
     label: "Narrow subdomain:"
     value: Select domain
@@ -171,11 +174,9 @@ params:
         - Attentional Capacity
         - Attentional Fluency
         - Response Monitoring
-        - Attention Index
         - Attention Span
         - Divided Attention
         - Selective Attention
-        - Spatial Attention
         - Verbal Attention
         - Visual Attention
       Executive Functioning:
@@ -228,6 +229,11 @@ params:
         - Reading Comprehension
         - Reading Decoding
         - Reading Speed
+      Social Cognition:
+        - Social Perception
+        - Affect Naming
+        - Prosody-Face Matching
+        - Prosody-Pair Matching
   pass:
     label: "PASS:"
     value: ""
@@ -283,6 +289,9 @@ params:
   absort:
   description:
   result:
+output:
+  rmdformats::robobook:
+    highlight: kate
 ---
 
 ## Setup
@@ -357,14 +366,11 @@ df <- tidytable::tidytable(
 compute_desc <- function(.x, .scale, description, ...) {
   tidytable::mutate(.x,
     description = tidytable::case_when(
-      .scale ==
-        "ROCFT Copy" ~
+      .scale == "ROCFT Copy" ~
         "Copying of a complex figure requiring visuospatial integration, planning and organization, and efficient encoding of visuospatial material",
-      .scale ==
-        "ROCFT Delayed Recall" ~
+      .scale == "ROCFT Delayed Recall" ~
         "Spontaneous, long-term delayed recall (20-25 min) recall and reproduction of a complex abstract figure",
-      .scale ==
-        "Judgment" ~
+      .scale == "Judgment" ~
         "Judgment and decisional capacity about issues and situations likely to be encountered in daily life",
       .scale == "D-KEFS Color Naming" ~
         "Rapid color naming",
@@ -404,6 +410,14 @@ compute_desc <- function(.x, .scale, description, ...) {
         "Scanning, visuomotor tracking, divided attention, and cognitive flexibility",
       .scale == "Symbol Span" ~
         "Nonverbal working memory",
+      .scale == "Social Perception" ~
+        "General aspects of emotional intelligence and social cognition",
+      .scale == "Affect Naming" ~
+        "Identifying and naming variation in affective expression",
+      .scale == "Prosody-Face Matching" ~
+        "Linking prosody to a facial expression",
+      .scale == "Prosody-Pair Matching" ~
+        "Linking prosody to an interacting pair of people and explaining the intent of the speaker",
       TRUE ~ as.character(description)
     )
   )
@@ -602,6 +616,14 @@ compute_result <-
           .scale == "TMT, Part B" ~
             glue::glue("{.description} was {.range}.\n"),
           .scale == "Symbol Span" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "Social Perception" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "Affect Naming" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "Prosody-Face Matching" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "Prosody-Pair Matching" ~
             glue::glue("{.description} was {.range}.\n"),
           TRUE ~ as.character(result)
         )

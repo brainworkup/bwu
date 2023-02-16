@@ -383,7 +383,7 @@ plot1 <-
   ) %>%
   highcharter::hc_colorAxis(minColor = "red",
     maxColor = "blue") %>%
-  highcharter::hc_add_theme(thm_merge) %>%
+  highcharter::hc_add_theme(theme_merge) %>%
   highcharter::hc_chart(style = list(fontFamily = "Cabin"),
     backgroundColor = list("gray"))
 
@@ -655,7 +655,7 @@ plot2 <-
   ) %>%
   highcharter::hc_colorAxis(minColor = "red",
     maxColor = "blue") %>%
-  highcharter::hc_add_theme(thm_merge) %>%
+  highcharter::hc_add_theme(theme_merge) %>%
   highcharter::hc_chart(style = list(fontFamily = "Cabin"),
     backgroundColor = list("gray"))
 

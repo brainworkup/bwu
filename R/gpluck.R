@@ -300,7 +300,19 @@ gpluck_make_score_ranges <-
             TRUE ~ as.character(range)
           )
         )
-    } else if (test_type == "validity_indicator") {
+    } else if (test_type == "performance_validity") {
+      table <-
+        table %>%
+        tidytable::mutate(
+          range = tidytable::case_when(
+            percentile >= 25 ~ "Within Normal Limits Score",
+            percentile %in% 9:24 ~ "Low Average Score",
+            percentile %in% 2:8 ~ "Below Average Score",
+            percentile < 2 ~ "Exceptionally Low Score",
+            TRUE ~ as.character(range)
+          )
+        )
+    } else if (test_type == "symptom_validity") {
       table <-
         table %>%
         tidytable::mutate(

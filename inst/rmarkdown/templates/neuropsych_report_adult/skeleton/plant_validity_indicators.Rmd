@@ -10,15 +10,17 @@ params:
     value: ""
     input: radio
     choices:
+      Performance Validity:
+        - ACS Word Choice
+        - Reliable Digit Span
+        - CVLT-3
+        - PAI
+        - TOMM
+      Symptom Validity:
       - CAARS Self-Report
       - CAARS Observer-Report
       - CEFI Self-Report
       - CEFI Observer-Report
-      - ACS Word Choice
-      - Reliable Digit Span
-      - CVLT-3
-      - PAI
-      - TOMM
   test:
     label: "Test/Measure File Name:"
     value: ""
@@ -38,20 +40,28 @@ params:
     value: Select Scale
     input: select
     choices:
-      ADHD:
-        - CAARS-SR Inconsistency Index
-        - CAARS-OR Inconsistency Index
-      EF:
-        - CEFI-SR Consistency Index
-        - CEFI-SR Negative Impression
-        - CEFI-OR Consistency Index
-        - CEFI-OR Negative Impression
       ACS:
         - ACS Word Choice
         - Word Choice Correct
         - Reliable Digit Span
       CVLT3:
         - CVLT-3 Forced-Choice Recognition Hits
+      TOMM:
+        - TOMM Trial 1
+        - TOMM Trial 2
+      ADHD:
+        - Inconsistency Index
+        - CAARS-SR Inconsistency Index
+        - CAARS-OR Inconsistency Index
+      Executive Functioning:
+        - Consistency Index
+        - Negative Impression
+        - Consistency Index
+        - Negative Impression
+        - CEFI-SR Consistency Index
+        - CEFI-SR Negative Impression
+        - CEFI-OR Consistency Index
+        - CEFI-OR Negative Impression
       PAI Validity Scales:
         - Inconsistency Index
         - Infrequency Index
@@ -62,16 +72,13 @@ params:
         - Negative Distortion Scale
         - Hong Malingering Index
         - Multiscale Feigning Index
-        - "Malingered Pain-Related Disability Discriminant Function"
+        - Malingered Pain-Related Disability Discriminant Function
         - Defensiveness Index
         - Cashel Discriminant Function
         - Positive Distortion Scale
         - Hong Defensiveness Index
         - Back Random Responding
         - Hong Randomness Index
-      TOMM:
-        - TOMM Trial 1
-        - TOMM Trial 2
   raw_score:
     label: "Raw score:"
     value: 10
@@ -109,13 +116,6 @@ params:
         - Response Inconsistency
         - Negative Impression
         - Positive Impression
-        - Processing Speed
-        - Word Fluency
-        - Listening Ability
-        - Word Retrieval,
-      Effort:
-        - Performance Validity
-        - Symptom Validity
   narrow:
     label: "Narrow subdomain:"
     value: Select domain
@@ -131,7 +131,7 @@ params:
       Cognitive Performance:
         - Word Choice Correct
         - Reliable Digit Span
-        - "CVLT-3 Forced-Choice Recognition Hits"
+        - CVLT-3 Forced-Choice Recognition Hits
       Personality Assessment:
         - Inconsistency Index
         - Infrequency Index
@@ -142,16 +142,13 @@ params:
         - Negative Distortion Scale
         - Hong Malingering Index
         - Multiscale Feigning Index
-        - "Malingered Pain-Related Disability Discriminant Function"
+        - Malingered Pain-Related Disability Discriminant Function
         - Defensiveness Index
         - Cashel Discriminant Function
         - Positive Distortion Scale
         - Hong Defensiveness Index
         - Back Random Responding
         - Hong Randomness Index
-      Effort:
-        - Embedded
-        - Standalone
   pass:
     label: "PASS:"
     value: ""
@@ -581,13 +578,12 @@ tidytable::fwrite(
 )
 ```
 
-```{r writeout-g}
+```{r writeout-validity}
 table <- df3
-test <- "g"
+test <- "effort_validity"
 tidytable::fwrite(
   table,
-  here::here(patient, "csv", paste0(test, ".txt")),
+  here::here(patient, "csv", paste0(test, ".csv")),
   append = TRUE
 )
-# need to convert csv to excel
 ```

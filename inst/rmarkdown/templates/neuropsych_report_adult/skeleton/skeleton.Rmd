@@ -791,26 +791,26 @@ neurobehav <-
 # Subset neurobehavioral data
 validity <-
   neuropsych |>
-  dplyr::filter(test_type == "validity_indicator")
+  dplyr::filter(test_type %in% c("performance_validity", "symptom_validity"))
 # domain
 validity <-
   validity |>
   dplyr::group_by(domain, .add = TRUE) |>
-  dplyr::filter(!is.na(percentile)) |>
+  # dplyr::filter(!is.na(percentile)) |>
   dplyr::mutate(z_mean_dom = mean(z), z_sd_dom = sd(z)) |>
   dplyr::ungroup()
 # subdomain
 validity <-
   validity |>
   dplyr::group_by(subdomain, .add = TRUE) |>
-  dplyr::filter(!is.na(percentile)) |>
+  # dplyr::filter(!is.na(percentile)) |>
   dplyr::mutate(z_mean_sub = mean(z), z_sd_sub = sd(z)) |>
   dplyr::ungroup()
 # narrow
 validity <-
   validity |>
   dplyr::group_by(narrow, .add = TRUE) |>
-  dplyr::filter(!is.na(percentile)) |>
+  # dplyr::filter(!is.na(percentile)) |>
   dplyr::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) |>
   dplyr::ungroup()
 ```

@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from CAARS"
 params:
-  patient: Annette
+  patient: Biggie
   test:
     label: "CAARS"
     value: [caars_sr]
@@ -171,7 +171,7 @@ if (params$test == "caars_sr") {
   table1[6, 1] <- c("DSM-5 Hyperactive-Impulsive Symptoms")
   table1[7, 1] <- c("DSM-5 ADHD Symptoms Total")
   table1[8, 1] <- c("ADHD Index")
-  table1[9, 1] <- c("Inconsistency Index")
+  table1[9, 1] <- c("CAARS-SR Inconsistency Index")
   table1 <- table1[1:9, ]
 } else if (params$test == "caars_or") {
   table1[1, 1] <- c("Inattention/Memory Problems")
@@ -182,7 +182,7 @@ if (params$test == "caars_sr") {
   table1[6, 1] <- c("DSM-5 Hyperactive-Impulsive Symptoms")
   table1[7, 1] <- c("DSM-5 ADHD Symptoms Total")
   table1[8, 1] <- c("ADHD Index")
-  table1[9, 1] <- c("Inconsistency Index")
+  table1[9, 1] <- c("CAARS-OR Inconsistency Index")
   table1 <- table1[1:9, ]
 }
 ```
@@ -233,8 +233,8 @@ table <-
   table |>
   tidytable::mutate(
     test_type = tidytable::case_when(
-      scale == "Inconsistency Index" ~ "validity_indicator",
-      scale == "Inconsistency Index" ~ "validity_indicator",
+      scale == "CAARS-SR Inconsistency Index" ~ "symptom_validity",
+      scale == "CAARS-OR Inconsistency Index" ~ "symptom_validity",
       TRUE ~ as.character(test_type)
     )
   )
@@ -243,8 +243,8 @@ table <-
   table |>
   tidytable::mutate(
     score_type = tidytable::case_when(
-      scale == "Inconsistency Index" ~ "raw_score",
-      scale == "Inconsistency Index" ~ "raw_score",
+      scale == "CAARS-SR Inconsistency Index" ~ "raw_score",
+      scale == "CAARS-OR Inconsistency Index" ~ "raw_score",
       TRUE ~ as.character(score_type)
     )
   )
@@ -263,9 +263,9 @@ table <- table %>%
 
 ```{r ranges}
 table <- bwu::gpluck_make_score_ranges(
-  table = table,
-  test_type = "rating_scale")
+  table = table)
 ```
+
 
 ## Domains
 
@@ -274,8 +274,8 @@ table <-
   table |>
   tidytable::mutate(
     domain = tidytable::case_when(
-      scale == "Inconsistency Index" ~ "Symptom Validity",
-      scale == "Inconsistency Index" ~ "Symptom Validity",
+      scale == "CAARS-SR Inconsistency Index" ~ "Symptom Validity",
+      scale == "CAARS-SR Inconsistency Index" ~ "Symptom Validity",
       TRUE ~ as.character(domain)
     )
   )
@@ -320,7 +320,7 @@ if (params$test == "caars_sr") {
         scale ==
           "ADHD Index" ~ "CAARS-SR ADHD Index",
         scale ==
-          "Inconsistency Index" ~ "CAARS-SR Inconsistency Index",
+          "CAARS-SR Inconsistency Index" ~ "CAARS-SR Inconsistency Index",
         TRUE ~ as.character(narrow)
       )
     )
@@ -346,7 +346,7 @@ if (params$test == "caars_sr") {
         scale ==
           "ADHD Index" ~ "CAARS-OR ADHD Index",
         scale ==
-          "Inconsistency Index" ~ "CAARS-OR Inconsistency Index",
+          "CAARS-OR Inconsistency Index" ~ "CAARS-OR Inconsistency Index",
         TRUE ~ as.character(narrow)
       )
     )
