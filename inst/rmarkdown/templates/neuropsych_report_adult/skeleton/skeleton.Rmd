@@ -1211,7 +1211,7 @@ knitr::read_chunk(here::here(patient, "02.11_emotion.R"))
 domain <-
   neurocog |>
   dplyr::filter(test_type == "npsych_test") |>
-  dplyr::filter(domain != "Effort/Validity") |>
+  dplyr::filter(domain != "Performance Validity") |>
   dplyr::filter(!is.na(domain))
 ```
 
