@@ -46,10 +46,10 @@ tmtA <- function(raw_score, age) {
     8.760348 - (0.1138093 * age) + (0.0028324 * (age * age))
 
   if (raw_score < predictedScore) {
-    zScore <- (raw_score - predictedScore) / predictedSD
+    zScore <- ((raw_score - predictedScore) / predictedSD) * -1
   }
   else if (raw_score > predictedScore) {
-    zScore <- ((raw_score - predictedScore) / predictedSD) * -1
+    zScore <- ((raw_score - predictedScore) / predictedSD)
   }
 
   tScore <- (zScore * 10) + 50
@@ -108,10 +108,10 @@ tmtB <- function(raw_score, age) {
     29.8444 - (0.8080508 * age) + (0.0148732 * (age * age))
 
   if (raw_score < predictedScore) {
-    zScore <- (raw_score - predictedScore) / predictedSD
+    zScore <- ((raw_score - predictedScore) / predictedSD) * -1
   }
   else if (raw_score > predictedScore) {
-    zScore <- ((raw_score - predictedScore) / predictedSD) * -1
+    zScore <- ((raw_score - predictedScore) / predictedSD)
   }
 
   tScore <- (zScore * 10) + 50
