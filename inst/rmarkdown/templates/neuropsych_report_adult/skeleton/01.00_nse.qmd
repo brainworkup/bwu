@@ -1,25 +1,26 @@
 ---
 patient: Biggie
 params:
+  patient: Biggie
   first_name: Biggie
   last_name: Smalls
-  dob: "2000-01-01"
-  mrn: [000000000]
-  sex: male
-  sex_cap: Male
-  age: 22
+  dob: [YYYY-MM-DD]
+  mrn: "000000000"
+  sex: female
+  sex_cap: Female
+  age: 20
   educyrs: 15
   hand: right
-  doe1: "2022-01-01"
+  doe1: [YYYY-MM-DD]
   refdoc: Dr Dre
-  he_she: he/she
-  he_she_cap: He/She
-  his_her: his/her
-  his_her_cap: His/Her
-  him_her: him/her
-  him_her_cap: Him/Her
+  he_she: she
+  he_she_cap: She
+  his_her: her
+  his_her_cap: Her
+  him_her: her
+  him_her_cap: Her
   dx1: attention-deficit/hyperactivity disorder (ADHD)
-  eval_adhd: TRUE
+  eval: true
 reference-location: section
 citation-location: document
 tbl-cap-location: top
@@ -35,6 +36,8 @@ format:
       - heightrounded
     fontfamily: libertinus
     colorlinks: true
+    keep-tex: false
+    keep-md: true
 execute:
   freeze: auto
 ---
@@ -133,114 +136,6 @@ demonstrated a clear and logical thought process, and `r params$his_her` speech 
 normal in rate, pitch, and prosody. `r params$his_her_cap` affect was normal in range
 and expression.
 
-## ADHD/Executive Functioning
-
-```{r}
-#| label: get-csv
-#| eval: false
-#| include: false
-library(vroom)
-library(here)
-patient <- (params$first_name)
-caars_sr <- vroom::vroom(here::here(patient, "csv", "caars_sr.csv"))
-caars_or <- vroom::vroom(here::here(patient, "csv", "caars_or.csv"))
-cefi_sr <- vroom::vroom(here::here(patient, "csv", "cefi_sr.csv"))
-cefi_or <- vroom::vroom(here::here(patient, "csv", "cefi_or.csv"))
-```
-
-```{r}
-#| label: tb1-caars
-#| eval: false
-#| echo: false
-#| warning: false
-#| tbl-cap: "CAARS Self-Report"
-library(gt)
-library(tidytable)
-tb1 <-
-  caars_sr |>
-  tidytable::select(scale, score, percentile, range) |>
-  gt::gt() |>
-  gt::cols_align(align = "center",
-                 columns = c(score, percentile, range))  |>
-  gt::tab_style(style = cell_text(size = px(12)),
-                locations = cells_body(columns = c(scale, score, percentile, range))) |>
-  gt::cols_label(
-    scale = "Scale",
-    score = "Score",
-    percentile = "Percentile (‰)",
-    range = "Range"
-  )
-tb1
-```
-
-```{r}
-#| label: tb2-caars
-#| eval: false
-#| echo: false
-#| warning: false
-#| tbl-cap: "CAARS Observer-Report"
-tb2 <-
-  caars_or |>
-  tidytable::select(scale, score, percentile, range) |>
-  gt::gt() |>
-  gt::cols_align(align = "center",
-                 columns = c(score, percentile, range))  |>
-  gt::tab_style(style = cell_text(size = px(12)),
-                locations = cells_body(columns = c(scale, score, percentile, range))) |>
-  gt::cols_label(
-    scale = "Scale",
-    score = "Score",
-    percentile = "Percentile (‰)",
-    range = "Range"
-  )
-tb2
-```
-
-```{r}
-#| label: tb1-cefi
-#| eval: false
-#| echo: false
-#| warning: false
-#| tbl-cap: CEFI
-#| tbl-subcap: ["Self-Report", "Observer-Report"]
-#| layout-ncol: 2
-
-# table on the left
-tb3 <-
-  cefi_sr |>
-  tidytable::select(scale, score, percentile, range) |>
-  gt::gt() |>
-  gt::cols_align(align = "center",
-                 columns = c(score, percentile, range))  |>
-  gt::tab_style(style = cell_text(size = px(12)),
-                locations = cells_body(columns = c(scale, score, percentile, range))) |>
-  gt::cols_label(
-    scale = "Scale",
-    score = "Score",
-    percentile = "Percentile (‰)",
-    range = "Range"
-  )
-tb3
-
-# table on the right
-tb4 <-
-  cefi_or |>
-  tidytable::select(scale, score, percentile, range) |>
-  gt::gt() |>
-  gt::cols_align(align = "center",
-                 columns = c(score, percentile, range))  |>
-  gt::tab_style(style = cell_text(size = px(12)),
-                locations = cells_body(columns = c(scale, score, percentile, range))) |>
-  gt::cols_label(
-    scale = "Scale",
-    score = "Score",
-    percentile = "Percentile (‰)",
-    range = "Range"
-  )
-tb4
-```
-
-
 ## Summary/Impression
 
 `r params$first_name` `r params$last_name` is a `r params$age`-year-old `r params$sex` with a history of `r params$dx1`. `r params$he_she_cap` is
@@ -253,10 +148,8 @@ develop tailored plans for psychiatric intervention and school accommodations.
 
 ## Recommendations/Plan
 
-1. Proceed with comprehensive neuropsychological, academic, and personality
-   assessments;
-2. Develop targeted intervention plan and academic plan based on results of
-   testing.
+1. Proceed with comprehensive neuropsychological, academic, and personality assessments;
+2. Develop targeted intervention plan and academic plan based on results of testing.
 
 _Note:_ Evaluation is ongoing. Full report and recommendations to follow.
 
@@ -265,11 +158,17 @@ Please contact me with any questions or concerns regarding this patient.
 Neurobehavioral status exam and clinical documentation by Neuropsychologist
 (96116 x 1, 96121 x 1): 2 hr, 5 min.
 
+\
+
 **Joey Trampush, PhD**\
-Della Martin Assistant Professor of Psychiatry\
+Assistant Professor of Psychiatry\
 Department of Psychiatry and the Behavioral Sciences\
 University of Southern California Keck School of Medicine\
 CA License PSY29212
+
+{{< pagebreak >}}
+
+## Appendix
 
 ### Telemedicine Statement
 
@@ -293,3 +192,123 @@ professionals (including students, residents, and technical personnel) may be
 involved in this audio-video evaluation. All laws concerning medical records
 apply to telemedicine. The patient has received the Keck Medicine of USC Notice
 of Privacy Practices._
+
+{{< pagebreak >}}
+
+### CAARS Adult ADHD Rating Scales
+
+```{r}
+#| label: get-csv
+#| eval: true
+#| include: false
+library(vroom)
+library(here)
+patient <- (params$first_name)
+caars_sr <- vroom::vroom(here::here(patient, "csv", "caars_sr.csv"))
+caars_or <- vroom::vroom(here::here(patient, "csv", "caars_or.csv"))
+cefi_sr <- vroom::vroom(here::here(patient, "csv", "cefi_sr.csv"))
+cefi_or <- vroom::vroom(here::here(patient, "csv", "cefi_or.csv"))
+```
+
+```{r}
+#| label: tb1-caars
+#| eval: true
+#| echo: false
+#| warning: false
+#| tbl-cap: "CAARS Self-Report"
+library(gt)
+library(tidytable)
+tb1 <-
+  caars_sr |>
+  tidytable::select(scale, score, percentile, range) |>
+  gt::gt() |>
+  gt::cols_align(align = "center",
+    columns = c(score, percentile, range)) |>
+  gt::tab_style(style = cell_text(size = px(12)),
+    locations = cells_body(columns = c(scale, score, percentile, range))) |>
+  gt::cols_label(
+    scale = "Scale",
+    score = "Score",
+    percentile = "Percentile (‰)",
+    range = "Range"
+  )
+tb1
+```
+
+```{r}
+#| label: tb2-caars
+#| eval: true
+#| echo: false
+#| warning: false
+#| tbl-cap: "CAARS Observer-Report"
+tb2 <-
+  caars_or |>
+  tidytable::select(scale, score, percentile, range) |>
+  gt::gt() |>
+  gt::cols_align(align = "center",
+    columns = c(score, percentile, range)) |>
+  gt::tab_style(style = cell_text(size = px(12)),
+    locations = cells_body(columns = c(scale, score, percentile, range))) |>
+  gt::cols_label(
+    scale = "Scale",
+    score = "Score",
+    percentile = "Percentile (‰)",
+    range = "Range"
+  )
+tb2
+```
+
+{{< pagebreak >}}
+
+### CEFI Executive Functioning Rating Scales
+
+```{r}
+#| label: tb1-cefi
+#| eval: true
+#| echo: false
+#| warning: false
+#| tbl-cap: CEFI Self-Report
+#| layout-ncol: 1
+
+# table on the left
+tb3 <-
+  cefi_sr |>
+  tidytable::select(scale, score, percentile, range) |>
+  gt::gt() |>
+  gt::cols_align(align = "center",
+    columns = c(score, percentile, range)) |>
+  gt::tab_style(style = cell_text(size = px(12)),
+    locations = cells_body(columns = c(scale, score, percentile, range))) |>
+  gt::cols_label(
+    scale = "Scale",
+    score = "Score",
+    percentile = "Percentile (‰)",
+    range = "Range"
+  )
+tb3
+```
+
+```{r}
+#| label: tb2-cefi
+#| eval: true
+#| echo: false
+#| warning: false
+#| tbl-cap: CEFI Observer-Report
+#| layout-ncol: 1
+
+tb4 <-
+  cefi_or |>
+  tidytable::select(scale, score, percentile, range) |>
+  gt::gt() |>
+  gt::cols_align(align = "center",
+    columns = c(score, percentile, range)) |>
+  gt::tab_style(style = cell_text(size = px(12)),
+    locations = cells_body(columns = c(scale, score, percentile, range))) |>
+  gt::cols_label(
+    scale = "Scale",
+    score = "Score",
+    percentile = "Percentile (‰)",
+    range = "Range"
+  )
+tb4
+```
