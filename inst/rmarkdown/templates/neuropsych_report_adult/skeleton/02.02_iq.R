@@ -95,17 +95,13 @@ df <-
   neurocog |>
   tidytable::filter(domain == "Intelligence/General Ability") |>
   tidytable::filter(!is.na(percentile)) |>
-  tidytable::arrange(test_name) |>
-  tidytable::filter(scale %in% filter_domain) |>
-  # tidytable::filter(scale != "General Ability (GAI)")
-  tidytable::filter(scale != "NAB Total Index") |>
-  tidytable::filter(scale != "TOPF Standard Score") |>
-  tidytable::filter(scale != "Working Memory (WMI)") |>
-  tidytable::filter(scale != "Working Memory") |>
-  tidytable::filter(scale != "Processing Speed (PSI)") |>
-  tidytable::filter(scale != "Processing Speed") |>
-  tidytable::filter(scale != "Cognitive Proficiency (CPI)") |>
-  tidytable::filter(scale != "Cognitive Proficiency")
+  # tidytable::arrange(test_name) |>
+  tidytable::filter(
+    scale %in% c(
+      "General Ability",
+      "Crystallized Knowledge",
+      "Fluid Reasoning")
+      )
 
 ## ---- 06-plot-subdomain-iq --------------------
 bwu::dotplot(

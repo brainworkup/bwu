@@ -20,7 +20,7 @@ params:
   him_her: her
   him_her_cap: Her
   dx1: attention-deficit/hyperactivity disorder (ADHD)
-  eval: true
+  eval: false
 reference-location: section
 citation-location: document
 tbl-cap-location: top
@@ -199,7 +199,7 @@ of Privacy Practices._
 
 ```{r}
 #| label: get-csv
-#| eval: true
+#| eval: false
 #| include: false
 library(vroom)
 library(here)
@@ -212,7 +212,7 @@ cefi_or <- vroom::vroom(here::here(patient, "csv", "cefi_or.csv"))
 
 ```{r}
 #| label: tb1-caars
-#| eval: true
+#| eval: false
 #| echo: false
 #| warning: false
 #| tbl-cap: "CAARS Self-Report"
@@ -237,7 +237,7 @@ tb1
 
 ```{r}
 #| label: tb2-caars
-#| eval: true
+#| eval: false
 #| echo: false
 #| warning: false
 #| tbl-cap: "CAARS Observer-Report"
@@ -264,7 +264,7 @@ tb2
 
 ```{r}
 #| label: tb1-cefi
-#| eval: true
+#| eval: false
 #| echo: false
 #| warning: false
 #| tbl-cap: CEFI Self-Report
@@ -290,7 +290,7 @@ tb3
 
 ```{r}
 #| label: tb2-cefi
-#| eval: true
+#| eval: false
 #| echo: false
 #| warning: false
 #| tbl-cap: CEFI Observer-Report

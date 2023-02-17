@@ -1053,7 +1053,7 @@ table1 <-
       scale ==
         "NAB Memory Index" ~ "A composite measure of the examinee's verbal and visual memory functioning",
       scale ==
-        "NAB Spatial Index" ~ "A composite measure of (ref:first-name)'s visuoperceptual skills, attention to detail, and visuoconstructional skills",
+        "NAB Spatial Index" ~ "A composite screening measure of (ref:first-name)'s visuoperceptual skills, attention to detail, and visuoconstructional skills",
       scale ==
         "NAB Executive Functions Index" ~ "A composite measure of executive skills involving planning, inhibition, speed/fluency, and generativity",
       TRUE ~ as.character(description)
@@ -1097,7 +1097,7 @@ table3 <-
       scale ==
         "Auditory Comprehension" ~ "Auditory comprehension (i.e., the ability to receive, process, and execute oral instructions of increasing syntactic complexity)",
       scale ==
-        "Naming" ~ "Word-finding ability and retrieval fluency on a 10-item visual confrontation naming task",
+        "Naming" ~ "Screening of word-finding ability and retrieval fluency on a confrontation naming task",
       TRUE ~ as.character(description)
     )
   )
