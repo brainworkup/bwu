@@ -107,13 +107,49 @@ dt |>
 
 ## ---- 03-table-executive ------------
 tb <-
-  bwu::make_tibble(
-    tibb = executive,
-    data = neurocog,
-    pheno = "Attention/Executive"
-  ) |>
+  bwu::make_tibble(tibb = executive,
+                   data = neurocog,
+                   pheno = "Attention/Executive") |>
   tidytable::filter(Scale %in% filter_domain) |>
-  tidytable::arrange(Test)
+  tidytable::arrange(Test) |>
+  tidytable::filter(
+    Scale %in% c(
+      "NAB Attention Index",
+      "Digits Forward",
+      "Digits Backward",
+      "Dots",
+      "Numbers & Letters Part A Efficiency",
+      "Numbers & Letters Part B Efficiency",
+      "Numbers & Letters Part C Efficiency",
+      "Numbers & Letters Part D Efficiency",
+      "Driving Scenes",
+      "NAB Executive Functions Index",
+      "Mazes",
+      "Categories",
+      "Word Generation",
+      "Word Generation Perseverations",
+      "Judgment",
+      "Working Memory (WMI)",
+      "Arithmetic",
+      "Digit Span",
+      "Longest Digit Span Forward",
+      "Longest Digit Span Backward",
+      "Longest Digit Span Sequence",
+      "Letter-Number Sequencing",
+      "Symbol Span",
+      "Spatial Span",
+      "Picture Span",
+      "Processing Speed (PSI)",
+      "Coding",
+      "Cancellation",
+      "Symbol Search",
+      "TMT, Part A",
+      "TMT, Part B",
+      "Unstructured Task",
+      "Letter Fluency",
+      "Category Fluency"
+    )
+  )
 
 ## ---- 04-kable-executive ------------------
 kableExtra::kbl(

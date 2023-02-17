@@ -50,6 +50,8 @@ filter_domain <- c(
   "Treatment Rejection",
   "Dominance",
   "Warmth",
+  "ALC Estimated Score",
+  "DRG Estimated Score",
   # BDI-2
   "BID-2 Total Score",
   # BAI-2
@@ -72,26 +74,65 @@ dt |>
     append = TRUE
   )
 
+## ---- 03-table-axis1 ------------
+tb1 <-
+  bwu::make_tibble(
+    tibb = tb1,
+    data = neurobehav,
+    pheno = "Psychiatric Disorders"
+  ) |>
+  tidytable::filter(Scale %in% filter_domain) |>
+  tidytable::arrange(Test) |>
+  tidytable::arrange(Subdomain)
+
+## ---- 03-table-axis2 ------------
+tb2 <-
+  bwu::make_tibble(
+    tibb = tb2,
+    data = neurobehav,
+    pheno = "Personality Disorders"
+  ) |>
+  tidytable::filter(Scale %in% filter_domain) |>
+  tidytable::arrange(Test) |>
+  tidytable::arrange(Subdomain)
+
+## ---- 03-table-sud ------------
+tb3 <-
+  bwu::make_tibble(
+    tibb = tb3,
+    data = neurobehav,
+    pheno = "Substance Use Disorders"
+  ) |>
+  tidytable::filter(Scale %in% filter_domain) |>
+  tidytable::arrange(Test) |>
+  tidytable::arrange(Subdomain)
+
+## ---- 03-table-social ------------
+tb4 <-
+  bwu::make_tibble(
+    tibb = tb4,
+    data = neurobehav,
+    pheno = "Psychosocial Problems"
+  ) |>
+  tidytable::filter(Scale %in% filter_domain) |>
+  tidytable::arrange(Test) |>
+  tidytable::arrange(Subdomain)
+
 ## ---- 03-table-emotion ------------
 tb <-
-  bwu::make_tibble(
-    tibb = tb,
-    data = neurobehav,
-    pheno = "Personality"
-  ) |>
+  tidytable::bind_rows(tb1, tb2, tb3, tb4) |>
   tidytable::filter(Scale %in% filter_domain) |>
   tidytable::arrange(Test) |>
   tidytable::arrange(Subdomain)
 
 ## ---- 04-kable-emotion ------------------
 kableExtra::kbl(
-  tb[, 1:4],
-  caption = "(ref:emotion)",
-  "latex",
+  tb[, 1:4], "latex",
   longtable = FALSE,
   booktabs = TRUE,
   linesep = "",
-  align = c("lccc")
+  align = c("lccc"),
+  caption = "(ref:emotion)"
 ) |>
   kableExtra::kable_paper(lightable_options = "basic") |>
   kableExtra::kable_styling(latex_options = c(

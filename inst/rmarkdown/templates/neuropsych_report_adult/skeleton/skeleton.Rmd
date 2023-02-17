@@ -1117,7 +1117,10 @@ knitr::read_chunk(here::here(patient, "02.09_social.R"))
 
 (ref:att-ef) Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other.
 
-(ref:caars-cefi) *Note* On the CAARS, higher scores reflect worse functioning in a given area, but on the CEFI, higher scores reflect better functioning in a given area.
+(ref:caars-cefi) *Note* On the CAARS (*Conners' Adult ADHD Rating Scale*),
+higher scores reflect reduced functioning in a given area, but on the CEFI
+(*Comprehensive Evaluation of Executive Functioning*), higher scores reflect
+relative strengths in a given area.
 
 ```{r, adhd, results = 'asis', eval = params$eval_adhd}
 cat(readLines("02.10_adhd.md"), sep = "\n")
@@ -1184,6 +1187,18 @@ knitr::read_chunk(here::here(patient, "02.11_emotion.R"))
 ```
 
 ```{r 02-glue-emotion, eval = params$eval_emotion, cache = TRUE}
+```
+
+```{r 03-table-axis1, eval = params$eval_emotion}
+```
+
+```{r 03-table-axis2, eval = params$eval_emotion}
+```
+
+```{r 03-table-sud, eval = params$eval_emotion}
+```
+
+```{r 03-table-social, eval = params$eval_emotion}
 ```
 
 ```{r 03-table-emotion, eval = params$eval_emotion}

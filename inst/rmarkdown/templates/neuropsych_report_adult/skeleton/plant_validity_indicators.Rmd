@@ -17,10 +17,10 @@ params:
         - PAI
         - TOMM
       Symptom Validity:
-      - CAARS Self-Report
-      - CAARS Observer-Report
-      - CEFI Self-Report
-      - CEFI Observer-Report
+        - CAARS Self-Report
+        - CAARS Observer-Report
+        - CEFI Self-Report
+        - CEFI Observer-Report
   test:
     label: "Test/Measure File Name:"
     value: ""

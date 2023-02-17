@@ -558,9 +558,9 @@ gpluck_get_index_scores <- function(patient) {
     tidytable::mutate(
       domain = tidytable::case_when(
         scale == "General Ability" ~ "Intelligence/General Ability",
-        scale == "Cognitive Proficiency" ~ "Intelligence/General Ability",
         scale == "Crystallized Knowledge" ~ "Intelligence/General Ability",
         scale == "Fluid Reasoning" ~ "Intelligence/General Ability",
+        scale == "Cognitive Proficiency" ~ "Intelligence/General Ability",
         scale == "Working Memory" ~ "Intelligence/General Ability",
         scale == "Processing Speed" ~ "Intelligence/General Ability",
         TRUE ~ as.character(domain)
@@ -589,9 +589,9 @@ gpluck_get_index_scores <- function(patient) {
     df |>
     tidytable::mutate(
       narrow = tidytable::case_when(
-        scale == "General Ability" ~ "General Ability Index",
-        scale == "Crystallized Knowledge" ~ "Crystallized Knowledge Index",
-        scale == "Fluid Reasoning" ~ "Fluid Reasoning Index",
+        scale == "General Ability" ~ "General Intelligence",
+        scale == "Crystallized Knowledge" ~ "Crystallized Intelligence",
+        scale == "Fluid Reasoning" ~ "Fluid Intelligence",
         scale == "Cognitive Proficiency" ~ "Cognitive Proficiency Index",
         scale == "Working Memory" ~ "Working Memory Index",
         scale == "Processing Speed" ~ "Processing Speed Index",
@@ -664,13 +664,13 @@ gpluck_get_index_scores <- function(patient) {
           "An estimate of fluid intelligence (*G*f)",
         scale ==
           "Cognitive Proficiency" ~
-          "An estimate of working memory^[(ref:working-memory)] and processing speed^[(ref:processing-speed)]",
+          "An estimate of working memory^[(ref:working-memory)] and processing speed^[(ref:processing-speed)] (i.e., cognitive proficiency)",
         scale ==
           "Working Memory" ~
-          "A composite estimate of short-term working memory^[(ref:working-memory)]",
+          "A composite estimate of working memory capacity^[(ref:working-memory)]",
         scale ==
           "Processing Speed" ~
-          "A composite estimate of complex processing speed and efficiency^[(ref:processing-speed)]",
+          "A composite estimate of processing speed and cognitive efficiency^[(ref:processing-speed)]",
         TRUE ~ as.character(description)
       )
     )
@@ -688,6 +688,7 @@ gpluck_get_index_scores <- function(patient) {
           "{description} was classified as {range} and ranked at the {percentile}th percentile.\n"
         ),
         scale == "Fluid Reasoning" ~ glue::glue("{description} was classified as {range}.\n"),
+
         scale == "Cognitive Proficiency" ~ glue::glue(
           "{description} was {range} and a relative strength|weakness.\n"
         ),
