@@ -788,7 +788,7 @@ neurobehav <-
 ```
 
 ```{r, make-factors-validity}
-# Subset neurobehavioral data
+# Subset validity data
 validity <-
   neuropsych |>
   dplyr::filter(test_type %in% c("performance_validity", "symptom_validity"))
@@ -829,7 +829,7 @@ neurobehav <- readr::read_csv(here::here(patient, "neurobehav.csv"))
 validity <- readr::read_csv(here::here(patient, "validity.csv"))
 ```
 
-<!-- ### Intelligence/General Ability -->
+## General Cognitive Ability
 
 (ref:fn-iq) Standard Score (M = 100, SD = 15)
 
