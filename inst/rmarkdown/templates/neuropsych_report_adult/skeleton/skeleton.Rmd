@@ -495,13 +495,24 @@ knitr::knit_engines$set(marginfigure = function(options) {
 
 (ref:basc3-prs-srp-fn) *T* Score (M = 50, SD = 10); *Note:* Adaptive Skills and Personal Adjustment *T* scores are reversed
 
-(ref:g) *General ability* refers to an overall capacity to reason, to solve problems, and to learn useful information.
+(ref:g) *General intelligence* refers to an overall capacity to reason, to solve
+problems, and to learn useful information.
 
-(ref:gc) *Crystallized knowledge* refers to the ability to learn and use language to reason and understand how the world works.
+(ref:gc) *Crystallized intelligence* refers to the ability to learn and use
+language to reason and understand how the world works.
 
-(ref:gf) *Fluid reasoning* refers to the ability to use logical reasoning to figure things out without being told exactly how things work, analyze and solve novel problems, identify patterns and relationships that underpin these problems, and apply logic.
+(ref:gf) *Fluid intelligence* refers to the ability to use logical reasoning to
+figure things out without being told exactly how things work, analyze and solve
+novel problems, identify patterns and relationships that underpin these
+problems, and apply logic.
 
-(ref:gcf) *General cognitive functioning* refers to an overall capacity to reason, to solve problems, and to learn useful information.
+(ref:gcf) *General ability* refers to an overall capacity to reason, to solve
+problems, and to learn useful information. *Crystallized knowledge* refers to
+the ability to learn and use language to reason and understand how the world
+works. *Fluid reasoning* refers to the ability to use logical reasoning to
+figure things out without being told exactly how things work, analyze and solve
+novel problems, identify patterns and relationships that underpin these
+problems, and apply logic.
 
 (ref:acad) *Reading ability* consists of three interrelated abilities: decoding, comprehension, and fluency. *Writing ability* can be described in terms of spelling, grammar, expression of ideas, and writing fluency. *Math ability* can be described in terms of calculation skills, applied problem solving, and math fluency.
 
@@ -832,6 +843,10 @@ validity <- readr::read_csv(here::here(patient, "validity.csv"))
 ### General Cognitive Ability
 
 (ref:fn-iq) Standard Score (M = 100, SD = 15)
+
+```{r}
+g <- bwu::gpluck_get_index_scores(patient = patient)
+```
 
 ```{r, iq, results = 'asis', eval = params$eval_iq}
 cat(readLines("02.02_iq.md"), sep = "\n")

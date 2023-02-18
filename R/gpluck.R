@@ -664,13 +664,13 @@ gpluck_get_index_scores <- function(patient) {
           "An estimate of fluid intelligence (*G*f)",
         scale ==
           "Cognitive Proficiency" ~
-          "An estimate of working memory^[(ref:working-memory)] and processing speed^[(ref:processing-speed)] (i.e., cognitive proficiency)",
+          "A composite estimate of working memory^[(ref:working-memory)] and processing speed^[(ref:processing-speed)] (i.e., cognitive proficiency)",
         scale ==
           "Working Memory" ~
-          "A composite estimate of working memory capacity^[(ref:working-memory)]",
+          "An estimate of working memory capacity^[(ref:working-memory)]",
         scale ==
           "Processing Speed" ~
-          "A composite estimate of processing speed and cognitive efficiency^[(ref:processing-speed)]",
+          "Collective performance across measures of processing speed and cognitive efficiency^[(ref:processing-speed)]",
         TRUE ~ as.character(description)
       )
     )
