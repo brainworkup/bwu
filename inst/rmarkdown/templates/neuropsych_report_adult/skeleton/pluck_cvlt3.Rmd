@@ -67,21 +67,21 @@ params:
       - Recognition Discriminability Nonparametric
   table5:
     label: "Recall Errors: Intrusions"
-    value: [Total Intrusions]
+    value: "CVLT-3 Total Intrusions"
     input: select
     multiple: yes
     choices:
       - CVLT-3 Total Intrusions
   table6:
     label: "Recall Errors: Repetitions"
-    value: [Total Repetitions]
+    value: "CVLT-3 Total Repetitions"
     input: select
     multiple: yes
     choices:
       - CVLT-3 Total Repetitions
   table7:
     label: "Forced-Choice Recognition:"
-    value: [Forced-Choice Recognition Hits]
+    value: "CVLT-3 Forced-Choice Recognition Hits"
     input: select
     multiple: yes
     choices:

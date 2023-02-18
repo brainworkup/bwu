@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from CEFI"
 params:
-  patient: Biggie
+  patient: Summer
   test:
     label: "Test"
     value: [cefi_sr]
@@ -248,7 +248,9 @@ table <- bwu::gpluck_make_columns(
 ```{r ranges}
 # might need to be explicit about test_type
 table <- bwu::gpluck_make_score_ranges(
-  table = table)
+  table = table,
+  test_type = "rating_scale"
+  )
 ```
 
 ## Subdomains

@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from CAARS"
 params:
-  patient: Biggie
+  patient: Summer
   test:
     label: "CAARS"
     value: [caars_sr]
@@ -263,9 +263,10 @@ table <- table %>%
 
 ```{r ranges}
 table <- bwu::gpluck_make_score_ranges(
-  table = table)
+  table = table,
+  test_type = "rating_scale"
+  )
 ```
-
 
 ## Domains
 
@@ -275,7 +276,7 @@ table <-
   tidytable::mutate(
     domain = tidytable::case_when(
       scale == "CAARS-SR Inconsistency Index" ~ "Symptom Validity",
-      scale == "CAARS-SR Inconsistency Index" ~ "Symptom Validity",
+      scale == "CAARS-OR Inconsistency Index" ~ "Symptom Validity",
       TRUE ~ as.character(domain)
     )
   )
@@ -358,8 +359,8 @@ if (params$test == "caars_sr") {
 ```{r description}
 if (params$test == "caars_sr") {
 
-  table$scale == "Inconsistency Index"
-  val_ind1 <- table$raw_score[table$scale == "Inconsistency Index"]
+  table$scale == "CAARS-SR Inconsistency Index"
+  val_ind1 <- table$raw_score[table$scale == "CAARS-SR Inconsistency Index"]
 
   table <-
     table |>
@@ -396,15 +397,11 @@ if (params$test == "caars_sr") {
     tidytable::mutate(
       description = tidytable::case_when(
         narrow == "CAARS-OR ADHD Index" ~ "composite indicator for identifying individuals 'at-risk' for ADHD",
-        narrow ==
-          "CAARS-OR Inattention/Memory Problems" ~ "i.e., trouble concentrating, difficulty planning or completing tasks, forgetfulness, absent-mindedness, being disorganized",
-        narrow ==
-          "CAARS-OR Hyperactivity/Restlessness" ~ "i.e., problems with working at the same task for long periods of time, feeling more restless than others seem to be, fidgeting",
-        narrow ==
-          "CAARS-OR Impulsivity/Emotional Lability" ~
+        narrow == "CAARS-OR Inattention/Memory Problems" ~ "i.e., trouble concentrating, difficulty planning or completing tasks, forgetfulness, absent-mindedness, being disorganized",
+        narrow == "CAARS-OR Hyperactivity/Restlessness" ~ "i.e., problems with working at the same task for long periods of time, feeling more restless than others seem to be, fidgeting",
+        narrow == "CAARS-OR Impulsivity/Emotional Lability" ~
           "i.e., engaging in more impulsive acts than others do, low frustration tolerance, quick and frequent mood changes, feeling easily angered and irritated by people",
-        narrow ==
-          "CAARS-OR Problems with Self-Concept" ~
+        narrow == "CAARS-OR Problems with Self-Concept" ~
           "i.e., poor social relationships, low self-esteem and self confidence",
         narrow ==
           "CAARS-OR DSM-5 Inattentive Symptoms" ~
@@ -413,9 +410,9 @@ if (params$test == "caars_sr") {
           "CAARS-OR DSM-5 Hyperactive-Impulsive Symptoms" ~ "i.e., behave in a manner consistent with the DSM-5 Hyperactive-Impulsive Presentation of ADHD",
         narrow == "CAARS-OR DSM-5 ADHD Symptoms Total" ~ "i.e., behave in a manner consistent with the DSM-5 diagnostic criteria for Combined Presentation of ADHD",
         if (val_ind2 > 7) {
-          narrow == "CAARS-OR Inconsistency Index" ~ "Probably invalid"
+          narrow == "CAARS-OR Inconsistency Index" ~ "Probably invalid observer report"
         } else if (val_ind2 <= 7) {
-          narrow == "CAARS-OR Inconsistency Index" ~ "Probably valid"
+          narrow == "CAARS-OR Inconsistency Index" ~ "Probably valid observer report"
         },
         TRUE ~ as.character(description)
       )

@@ -104,23 +104,23 @@ params:
     value: Select domain
     input: radio
     choices:
-      - "Intelligence/General Ability"
-      - "Academic Skills"
-      - "Verbal/Language"
-      - "Visual Perception/Construction"
-      - "Attention/Executive"
-      - "Memory"
-      - "Motor"
-      - "Social Cognition"
-      - "ADHD/Executive Functioning"
-      - "Behavioral/Emotional/Social"
-      - "Personality Disorders"
-      - "Psychiatric Disorders"
-      - "Substance Use Disorders"
-      - "Psychosocial Problems"
-      - "ADHD"
-      - "Executive Dysfunction"
-      - "Effort/Validity"
+      - Intelligence/General Ability
+      - Academic Skills
+      - Verbal/Language
+      - Visual Perception/Construction
+      - Attention/Executive
+      - Memory
+      - Motor
+      - Social Cognition
+      - ADHD/Executive Functioning
+      - Behavioral/Emotional/Social
+      - Personality Disorders
+      - Psychiatric Disorders
+      - Substance Use Disorders
+      - Psychosocial Problems
+      - ADHD
+      - Executive Dysfunction
+      - Effort/Validity
   subdomain:
     label: "Subdomain:"
     value: "NULL"
@@ -139,7 +139,7 @@ params:
       Verbal:
         - Word Fluency
         - Listening Ability
-        - Word Retrieval,
+        - Word Retrieval
       Spatial:
         - Organization
         - Reasoning
