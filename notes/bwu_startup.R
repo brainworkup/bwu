@@ -22,6 +22,10 @@ update.packages(
   checkBuilt = TRUE
 )
 
+## LaTeX
+
+tinytex::tlmgr_update()
+
 ## Update System Library
 ### install most packages here
 update.packages(
@@ -51,6 +55,10 @@ usethis::use_build_ignore(".quarto")
 usethis::use_build_ignore("notes")
 usethis::use_build_ignore(".builds.archived")
 
+usethis::use_r("age")
+usethis::use_r("scores")
+usethis::use_r("colors")
+
 devtools::build_readme()
 
 ## renv
@@ -67,9 +75,7 @@ remotes::install_github(c("ropensci/tabulizerjars", "ropensci/tabulizer"), INSTA
 
 pak::pkg_install('ropensci/tabulizer')
 
-## LaTeX
 
-tinytex::tlmgr_update()
 
 # other newer stuff ------------------------------------------------
 
@@ -188,9 +194,7 @@ remotes::install_github(
 
 usethis::create_github_token()
 
-usethis::use_r("age")
-usethis::use_r("scores")
-usethis::use_r("colors")
+
 
 remotes::install_github(
   'yihui/xaringan',

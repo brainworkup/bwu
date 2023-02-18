@@ -633,7 +633,8 @@ problems, and apply logic.
 (ref:doe) `r params$doe1`, `r params$doe2`, and `r params$doe3`
 
 ```{marginfigure, echo = TRUE}
-**Name:** (ref:patient)\
+**Last Name:** (ref:last-name)\
+**First Name:** (ref:first-name)\
 **MRN:** (ref:mrn)\
 **DOB:** (ref:dob)\
 **Age:** (ref:age)\
@@ -653,13 +654,6 @@ cat(readLines("02.00_nse.md"), sep = "\n")
 
 ## Test Battery
 
-- (ref:caadid)
-- (ref:caars)
-  - (ref:caars-sr)
-  - (ref:caars-or)
-- (ref:cefi)
-  - (ref:cefi-sr)
-  - (ref:cefi-or)
 - (ref:acs)
   - (ref:acs-topf)
   - (ref:acs-word-choice)
@@ -1141,9 +1135,9 @@ knitr::read_chunk(here::here(patient, "02.09_social.R"))
 
 (ref:att-ef) Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other.
 
-(ref:caars-cefi) *Note* On the CAARS (*Conners' Adult ADHD Rating Scale*),
-higher scores reflect reduced functioning in a given area, but on the CEFI
-(*Comprehensive Evaluation of Executive Functioning*), higher scores reflect
+(ref:caars-cefi) *Note:* On the *Conners' Adult ADHD Rating Scale (CAARS)*,
+higher scores reflect reduced functioning in a given area, but on the
+*Comprehensive Evaluation of Executive Functioning (CEFI)*, higher scores reflect
 relative strengths in a given area.
 
 ```{r, adhd, results = 'asis', eval = params$eval_adhd}
@@ -1172,6 +1166,15 @@ knitr::read_chunk(here::here(patient, "02.10_adhd.R"))
 ```{r 06-plot-adhd-adhd-narrow, eval = FALSE, fig.cap='(ref:caars)'}
 ```
 
+```{r 07-df-executive, eval = params$eval_adhd}
+```
+
+```{r 08-plot-executive-adhd-subdomain, eval = params$eval_adhd, fig.cap='(ref:att-ef)'}
+```
+
+```{r 08-plot-executive-adhd-narrow, eval = FALSE, fig.cap='(ref:att-ef)'}
+```
+
 ```{r 03-table-adhd, eval = params$eval_adhd}
 ```
 
@@ -1184,14 +1187,7 @@ knitr::read_chunk(here::here(patient, "02.10_adhd.R"))
 ```{r 04-kable-adhd, eval = params$eval_adhd, double_escape = TRUE, escape = FALSE, fig.fullwidth = TRUE}
 ```
 
-```{r 07-df-executive, eval = params$eval_adhd}
-```
 
-```{r 08-plot-executive-adhd-subdomain, eval = params$eval_adhd, fig.cap='(ref:att-ef)'}
-```
-
-```{r 08-plot-executive-adhd-narrow, eval = FALSE, fig.cap='(ref:att-ef)'}
-```
 
 <!-- \newpage -->
 
@@ -1244,7 +1240,14 @@ knitr::read_chunk(here::here(patient, "02.11_emotion.R"))
 
 # SUMMARY/IMPRESSION
 
-(ref:domain) *Key Findings* General intellectual functioning is a strength. Verbal skills are significantly stronger than nonverbal/spatial processing skills. Attentional fluency (i.e., working memory and processing speed) and abstract reasoning are areas of weakness. Notably, even `r params$first_name`'s normatively average scores reflect performances that are well below cognitive expectations for `r params$him_her`. *Note:* *z* = 0 (mean) ± 1 (s.d.)
+(ref:domain) *Key Findings* Neuropsychological test results show a
+pattern of above average performance across all scales. Verbal Reasoning was
+exceptionally strong, while Memory, Language, Working Memory and Psychomotor
+Speed were all above average. Spatial, Planning, Nonverbal Reasoning and
+Cognitive Efficiency were all scored as high average. Notably, even
+`r params$first_name`'s normatively average scores for Attention Span and
+Attentional Fluency reflect performances that are well below cognitive
+expectations for `r params$him_her`. *Note:* *z* = 0 (mean) ± 1 (s.d.)
 
 ```{r summary-df}
 summary <-
@@ -1359,13 +1362,12 @@ Department of Psychiatry and the Behavioral Sciences\
 2250 Alcazar St., Suite 2200\
 Los Angeles, CA 90033\
 (323) 442-4000\
-[joey.trampush\@med.usc.edu](mailto:joey.trampush@med.usc.edu){.email}\
 ```
 
 Sincerely,
 
-```{r sig, out.width='33%', fig.align='left', cache = TRUE}
-knitr::include_graphics("../jwtSig.png")
+```{r sig, out.width='25%', fig.align='left', cache = TRUE}
+knitr::include_graphics("../jwt_sig.png")
 ```
 
 **Joey Trampush, PhD**\
