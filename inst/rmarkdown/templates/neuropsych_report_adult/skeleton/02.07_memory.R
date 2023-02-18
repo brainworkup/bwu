@@ -95,29 +95,32 @@ dt %>%
   glue::glue_data() %>%
   purrr::modify(lift(paste0)) %>%
   cat(dt$result,
-    file = "02.07_memory.md",
-    fill = TRUE,
-    append = TRUE
+      file = "02.07_memory.md",
+      fill = TRUE,
+      append = TRUE
   )
 
 ## ---- 03-table-memory ------------
+exclude <- c(
+  "Trial 1 Correct",
+  "Trial 2 Correct",
+  "Trial 3 Correct",
+  "Trial 4 Correct",
+  "Trial 5 Correct",
+  "List B Correct",
+  "Total Hits",
+  "Total False Positives",
+  "Recognition Discriminability Nonparametric"
+  )
 tb <-
   bwu::make_tibble(
     tibb = tb,
     data = neurocog,
     pheno = "Memory"
   ) |>
-  tidytable::filter(Scale %in% filter_domain) %>%
-  tidytable::arrange(Test) |>
-  tidytable::filter(Scale == "Trials 1-4 Correct") |>
-  tidytable::filter(Scale == "Trials 1-5 Correct") |>
-  tidytable::filter(Scale == "Short Delay Free Recall") |>
-  tidytable::filter(Scale == "Short Delay Cued Recall") |>
-  tidytable::filter(Scale == "Long Delay Free Recall") |>
-  tidytable::filter(Scale == "Long Delay Cued Recall") |>
-  tidytable::filter(Scale == "Recognition Discriminability (d')") |>
-  tidytable::filter(Scale == "CVLT-3 Forced-Choice Recognition Hits")
-# tb$Score <- round(tb$Score, 0L)
+  tidytable::filter(Scale %in% filter_domain) |> 
+  tidytable::arrange(Test) |> 
+  tidytable::filter(Scale != exclude)
 
 ## ---- 04-kable-memory ------------------
 kableExtra::kbl(

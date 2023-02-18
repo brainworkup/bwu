@@ -982,7 +982,7 @@ knitr::read_chunk(here::here(patient, "02.05_spatial.R"))
 ```{r 06-plot-subdomain-spatial, eval = params$eval_spatial, fig.cap = '(ref:spt)'}
 ```
 
-```{r 07-plot-narrow-spatial, eval = params$eval_spatial, fig.cap = '(ref:spt)'}
+```{r 07-plot-narrow-spatial, eval = FALSE, fig.cap = '(ref:spt)'}
 ```
 
 <!-- \newpage -->
