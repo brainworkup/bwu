@@ -1,7 +1,7 @@
 ---
 title: "Confidential Neuropsychological Report"
 author:
-  - name: "**Smalls, Biggie**"
+  - name: "**Biggie Smalls**"
 date: January 1, 2021
 output:
   bwu::neuropsych_report_adult:
@@ -647,7 +647,7 @@ problems, and apply logic.
 cat(readLines("02.00_nse.md"), sep = "\n")
 ```
 
-\newpage
+<!-- \newpage -->
 
 # NEUROPSYCHOLOGICAL TESTING
 
@@ -679,12 +679,19 @@ cat(readLines("02.00_nse.md"), sep = "\n")
 cat(readLines("02.01_nt-obs.md"), sep = "\n")
 ```
 
-\newpage
+<!-- \newpage -->
 
 ## Test Results
 
-\autoref{fig:gauss-plot-narrow} and \autoref{fig:gauss-plot-broad} can be used as guides to help interpret individual test scores in terms of the degree of distance a score fell in relation to normative and developmental expectations (i.e., the mean) and the magnitude of clinical severity.
-Test scores are easiest to interpret as percentiles^[(ref:pct)], which are provided in the tables below, and as *z*-scores (M = 0, SD = 1)^[(ref:zplot)], which are used to plot the various test and domain scores below.
+\autoref{fig:gauss-plot-narrow} can be used as a guide to help interpret
+individual test scores in terms of the degree of distance a score fell in
+relation to normative expectations and the magnitude of clinical severity. Test
+scores are easiest to interpret as percentiles[^ref-1], which are provided in
+the tables below, and as *z*-scores (M = 0, SD = 1)[^ref-2], which are used to
+plot the various test and domain scores below.
+
+<!-- \autoref{fig:gauss-plot-narrow} and \autoref{fig:gauss-plot-broad} can be used as guides to help interpret individual test scores in terms of the degree of distance a score fell in relation to normative and developmental expectations (i.e., the mean) and the magnitude of clinical severity.
+Test scores are easiest to interpret as percentiles^[(ref:pct)], which are provided in the tables below, and as *z*-scores (M = 0, SD = 1)^[(ref:zplot)], which are used to plot the various test and domain scores below. -->
 
 (ref:gauss-plot-narrow) Classification of neuropsychological test scores that are normally distributed in the general population [@guilmetteAmericanAcademyClinical2020].
 
@@ -698,7 +705,7 @@ knitr::include_graphics("plot_narrow.png", auto_pdf = TRUE)
 knitr::include_graphics("plot_broad.png", auto_pdf = TRUE)
 ```
 
-```{r read-csv}
+```{r read-csv, include = FALSE}
 library(tidyverse)
 data_path <- here::here(patient, "csv")
 files <- dir(data_path, pattern = "*.csv")
@@ -840,7 +847,9 @@ neurobehav <- readr::read_csv(here::here(patient, "neurobehav.csv"))
 validity <- readr::read_csv(here::here(patient, "validity.csv"))
 ```
 
-### General Cognitive Ability
+<!-- \newpage -->
+
+## General Cognitive Ability
 
 (ref:fn-iq) Standard Score (M = 100, SD = 15)
 
@@ -912,9 +921,9 @@ knitr::read_chunk(here::here(patient, "02.03_academics.R"))
 ```{r 07-plot-narrow-academics, eval = FALSE, fig.cap = '(ref:acad)'}
 ```
 
-\newpage
+<!-- \newpage -->
 
-### Verbal/Language
+## Verbal/Language
 
 (ref:fn-vrb) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
@@ -947,9 +956,9 @@ knitr::read_chunk(here::here(patient, "02.04_verbal.R"))
 ```{r 07-plot-narrow-verbal, eval = params$eval_verbal, fig.cap = '(ref:vrb)'}
 ```
 
-\newpage
+<!-- \newpage -->
 
-### Visual Perception/Construction
+## Visual Perception/Construction
 
 (ref:fn-spt) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
@@ -982,9 +991,9 @@ knitr::read_chunk(here::here(patient, "02.05_spatial.R"))
 ```{r 07-plot-narrow-spatial, eval = params$eval_spatial, fig.cap = '(ref:spt)'}
 ```
 
-\newpage
+<!-- \newpage -->
 
-### Attention/Executive
+## Attention/Executive
 
 (ref:fn-exe) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
@@ -1019,9 +1028,9 @@ knitr::read_chunk(here::here(patient, "02.06_executive.R"))
 ```{r 07-plot-narrow-executive, eval = FALSE, fig.cap = '(ref:att-exe)'}
 ```
 
-\newpage
+<!-- \newpage -->
 
-### Memory
+## Memory
 
 (ref:fn-memory) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
@@ -1054,7 +1063,7 @@ knitr::read_chunk(here::here(patient, "02.07_memory.R"))
 ```{r 07-plot-narrow-memory, eval = params$eval_memory, fig.cap = '(ref:mem)'}
 ```
 
-\newpage
+<!-- \newpage -->
 
 <!-- ### Motor -->
 
@@ -1089,9 +1098,9 @@ knitr::read_chunk(here::here(patient, "02.08_motor.R"))
 ```{r 07-plot-narrow-motor, eval = params$eval_motor, fig.cap = '(ref:mtr)'}
 ```
 
-\newpage
+<!-- \newpage -->
 
-<!-- ### Social Cognition -->
+<!-- ## Social Cognition -->
 
 (ref:fn-soc) Scaled Score (M = 10, SD = 3)
 
@@ -1124,9 +1133,9 @@ knitr::read_chunk(here::here(patient, "02.09_social.R"))
 ```{r 07-plot-narrow-social, eval = params$eval_social, fig.cap = '(ref:soc-cog)'}
 ```
 
-\newpage
+<!-- \newpage -->
 
-### ADHD/Executive Functioning
+## ADHD/Executive Functioning
 
 (ref:fn-adhd) Standard Score (M = 100, SD = 15) or *T* Score (M = 50, SD = 10)
 
@@ -1184,9 +1193,9 @@ knitr::read_chunk(here::here(patient, "02.10_adhd.R"))
 ```{r 08-plot-executive-adhd-narrow, eval = FALSE, fig.cap='(ref:att-ef)'}
 ```
 
-\newpage
+<!-- \newpage -->
 
-### Emotional/Behavioral/Personality
+## Emotional/Behavioral/Personality
 
 (ref:fn-emo) *T* Score (M = 50, SD = 10)
 
@@ -1231,13 +1240,30 @@ knitr::read_chunk(here::here(patient, "02.11_emotion.R"))
 ```{r 07-plot-narrow-emotion, eval = params$eval_emotion_plot2, fig.cap='(ref:emotion)'}
 ```
 
-\newpage
+<!-- \newpage -->
 
 # SUMMARY/IMPRESSION
 
 (ref:domain) *Key Findings* General intellectual functioning is a strength. Verbal skills are significantly stronger than nonverbal/spatial processing skills. Attentional fluency (i.e., working memory and processing speed) and abstract reasoning are areas of weakness. Notably, even `r params$first_name`'s normatively average scores reflect performances that are well below cognitive expectations for `r params$him_her`. *Note:* *z* = 0 (mean) ± 1 (s.d.)
 
-```{r domain-df}
+```{r summary-df}
+summary <-
+  readr::read_csv(here::here(patient, "csv", "index_scores.csv")) |>
+  dplyr::filter(test_type == "npsych_test") |>
+  dplyr::filter(domain == "Summary") |>
+  dplyr::filter(!is.na(domain))
+```
+
+```{r summary-plot, fig.cap = '(ref:summary)', fig.height = 3.5}
+bwu::dotplot(
+  data = summary,
+  x = summary$z,
+  y = summary$scale,
+  domain = "Summary"
+)
+```
+
+```{r domain-df, eval=FALSE}
 domain <-
   neurocog |>
   dplyr::filter(test_type == "npsych_test") |>
@@ -1245,7 +1271,7 @@ domain <-
   dplyr::filter(!is.na(domain))
 ```
 
-```{r domain-plot, fig.cap = '(ref:domain)', fig.height = 3.5}
+```{r domain-plot, eval=FALSE, fig.cap = '(ref:domain)', fig.height = 3.5}
 bwu::dotplot(
   data = domain,
   x = domain$z_mean_dom,
@@ -1312,7 +1338,7 @@ bwu::dotplot(
 cat(readLines("03.00_sirf.md"), sep = "\n")
 ```
 
-\newpage
+<!-- \newpage -->
 
 # RECOMMENDATIONS
 
@@ -1343,12 +1369,12 @@ knitr::include_graphics("../jwtSig.png")
 ```
 
 **Joey Trampush, PhD**\
-Della Martin Assistant Professor of Psychiatry\
+Assistant Professor of Psychiatry\
 Department of Psychiatry and the Behavioral Sciences\
 University of Southern California Keck School of Medicine\
 CA License PSY29212
 
-\newpage
+<!-- \newpage -->
 
 # APPENDIX
 
@@ -1365,7 +1391,7 @@ Results from formal tests are reported in comparison to other individuals the sa
 Test score labels are intended solely to be descriptive, identifying positions of scores relative to a normal curve distribution, and should be interpreted within the context of the patient's individual presentation and history.
 Although standardized scores provide the clinician with an important and necessary understanding of the patient's test performance compared with a normative group, they do not on their own lead to accurate diagnosis or treatment recommendations.
 
-\newpage
+<!-- \newpage -->
 
 ## Conversion of Test Scores
 
