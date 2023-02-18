@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from CAARS"
 params:
-  patient: Summer
+  patient: Biggie
   test:
     label: "CAARS"
     value: [caars_sr]
@@ -26,6 +26,7 @@ params:
 output:
   rmdformats::robobook:
     highlight: kate
+editor: source
 ---
 
 # CAARS Long Version SR/OR
@@ -33,7 +34,8 @@ output:
 ## Load libraries
 
 ```{r setup, include=FALSE}
-Sys.setenv(JAVA_HOME = "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home")
+Sys.setenv(
+  JAVA_HOME = "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home")
 options(java.parameters = "-Xmx16000m")
 knitr::opts_chunk$set(
   root.dir = normalizePath("./"),
@@ -90,11 +92,13 @@ pages <- params$pages
 ```
 
 ```{r write-file}
-writeLines(file, here::here(patient, "pre_csv", paste0(test, ".pdf")))
+writeLines(
+  file, here::here(
+    "Reports", patient, "pre_csv", paste0(test, ".pdf")))
 ```
 
 ```{r read-file}
-# test <- readLines(here::here(patient, "pre_csv", paste0(test, ".pdf")))
+# test <- readLines(here::here("Reports", patient, "pre_csv", paste0(test, ".pdf")))
 ```
 
 ## Locate areas
@@ -124,7 +128,7 @@ if (params$test == "caars_or") {
 ```
 
 ```{r save-area}
-saveRDS(area, here::here(patient, "pre_csv", paste0(test, "_area.rds")))
+saveRDS(area, here::here("Reports", patient, "pre_csv", paste0(test, "_area.rds")))
 ```
 
 ```{r read-area}
@@ -265,7 +269,7 @@ table <- table %>%
 table <- bwu::gpluck_make_score_ranges(
   table = table,
   test_type = "rating_scale"
-  )
+)
 ```
 
 ## Domains
@@ -510,7 +514,7 @@ table <-
 ## Write out csv
 
 ```{r write}
-readr::write_csv(table, here::here(patient, "csv", paste0(test, ".csv")),
+readr::write_csv(table, here::here("Reports", patient, "csv", paste0(test, ".csv")),
   col_names = TRUE, na = ""
 )
 ```

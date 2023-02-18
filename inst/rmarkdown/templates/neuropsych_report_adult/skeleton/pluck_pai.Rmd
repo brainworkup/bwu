@@ -2,11 +2,11 @@
 title: "Import CSV file from PAI"
 params:
   table:
-  patient: Biggie
+  patient: AJ
   test: pai
   test_name: PAI
   file:
-    label: "No file selected"
+    label: "Upload the PAI PDF file"
     value: file
     input: file
 output:
@@ -72,9 +72,9 @@ file <- params$file
 
 ## Export PAI CSV file from PARiConnect
 
-Need to export csv file from PARiConnect before processing. "Export Client Data"
-tab, then click "Univ of Southern Cali" then "PAI". Specify date range to
-exclude entire database.
+Need to export csv file from PARiConnect before processing.
+"Export Client Data" tab, then click "Univ of Southern Cali" then "PAI".
+Specify date range to exclude entire database.
 
 ## Import PAI CSV file from PARiConnect
 
@@ -83,7 +83,7 @@ Copy over to pre_csv.
 ```{r pluck}
 plucked_table <-
   tidytable::fread(
-    here::here(patient, "pre_csv", "pariconnectexportPAI.csv")
+    here::here("Reports", patient, "pre_csv", "pariconnectexportPAI.csv")
   )
 ```
 
@@ -266,12 +266,6 @@ df_clinical <- df_clinical |> tidytable::slice(
     13:18
   )
 )
-
-# df_validity <- df_validity |> tidytable::slice(
-#   c(
-#     1:4, 5:10, 11:14, 15:16
-#   )
-# )
 ```
 
 ## Add/mutate columns
@@ -422,10 +416,10 @@ df_clinical <-
       scale == "Antisocial Behaviors" ~ "Personality Disorders",
       scale == "Egocentricity" ~ "Personality Disorders",
       scale == "Stimulus-Seeking" ~ "Personality Disorders",
-      scale == "Alcohol Problems" ~ "Substance Use Disorders",
-      scale == "Drug Problems" ~ "Substance Use Disorders",
-      scale == "ALC Estimated Score" ~ "Symptom Validity",
-      scale == "DRG Estimated Score" ~ "Symptom Validity",
+      scale == "Alcohol Problems" ~ "Substance Use",
+      scale == "Drug Problems" ~ "Substance Use",
+      scale == "ALC Estimated Score" ~ "Substance Use",
+      scale == "DRG Estimated Score" ~ "Substance Use",
       TRUE ~ as.character(domain)
     )
   )
@@ -446,10 +440,10 @@ df_clinical <-
       scale == "Cognitive (A)" ~ "Anxiety",
       scale == "Affective (A)" ~ "Anxiety",
       scale == "Physiological (A)" ~ "Anxiety",
-      scale == "Anxiety-Related Disorders" ~ "Anxiety Disorder",
-      scale == "Obsessive-Compulsive" ~ "Anxiety Disorder",
-      scale == "Phobias" ~ "Anxiety Disorder",
-      scale == "Traumatic Stress" ~ "Anxiety Disorder",
+      scale == "Anxiety-Related Disorders" ~ "Anxiety",
+      scale == "Obsessive-Compulsive" ~ "Anxiety",
+      scale == "Phobias" ~ "Anxiety",
+      scale == "Traumatic Stress" ~ "Anxiety",
       scale == "Depression" ~ "Depression",
       scale == "Cognitive (D)" ~ "Depression",
       scale == "Affective (D)" ~ "Depression",
@@ -458,23 +452,23 @@ df_clinical <-
       scale == "Activity Level" ~ "Mania/Hypomania",
       scale == "Grandiosity" ~ "Mania/Hypomania",
       scale == "Irritability" ~ "Mania/Hypomania",
-      scale == "Paranoia" ~ "Schizophrenia Spectrum Disorder",
-      scale == "Hypervigilance" ~ "Schizophrenia Spectrum Disorder",
-      scale == "Persecution" ~ "Schizophrenia Spectrum Disorder",
-      scale == "Resentment" ~ "Schizophrenia Spectrum Disorder",
-      scale == "Schizophrenia" ~ "Schizophrenia Spectrum Disorder",
-      scale == "Psychotic Experiences" ~ "Schizophrenia Spectrum Disorder",
-      scale == "Social Detachment" ~ "Schizophrenia Spectrum Disorder",
-      scale == "Thought Disorder" ~ "Schizophrenia Spectrum Disorder",
-      scale == "Borderline Features" ~ "Borderline Personality Disorder",
-      scale == "Affective Instability" ~ "Borderline Personality Disorder",
-      scale == "Identity Problems" ~ "Borderline Personality Disorder",
-      scale == "Negative Relationships" ~ "Borderline Personality Disorder",
-      scale == "Self-Harm" ~ "Borderline Personality Disorder",
-      scale == "Antisocial Features" ~ "Antisocial Personality Disorder",
-      scale == "Antisocial Behaviors" ~ "Antisocial Personality Disorder",
-      scale == "Egocentricity" ~ "Antisocial Personality Disorder",
-      scale == "Stimulus-Seeking" ~ "Antisocial Personality Disorder",
+      scale == "Paranoia" ~ "Schizophrenia Spectrum Disorders",
+      scale == "Hypervigilance" ~ "Schizophrenia Spectrum Disorders",
+      scale == "Persecution" ~ "Schizophrenia Spectrum Disorders",
+      scale == "Resentment" ~ "Schizophrenia Spectrum Disorders",
+      scale == "Schizophrenia" ~ "Schizophrenia Spectrum Disorders",
+      scale == "Psychotic Experiences" ~ "Schizophrenia Spectrum Disorders",
+      scale == "Social Detachment" ~ "Schizophrenia Spectrum Disorders",
+      scale == "Thought Disorder" ~ "Schizophrenia Spectrum Disorders",
+      scale == "Borderline Features" ~ "Borderline Personality",
+      scale == "Affective Instability" ~ "Borderline Personality",
+      scale == "Identity Problems" ~ "Borderline Personality",
+      scale == "Negative Relationships" ~ "Borderline Personality",
+      scale == "Self-Harm" ~ "Borderline Personality",
+      scale == "Antisocial Features" ~ "Antisocial Personality",
+      scale == "Antisocial Behaviors" ~ "Antisocial Personality",
+      scale == "Egocentricity" ~ "Antisocial Personality",
+      scale == "Stimulus-Seeking" ~ "Antisocial Personality",
       scale == "Aggression" ~ "Aggression",
       scale == "Aggressive Attitude" ~ "Aggression",
       scale == "Verbal Aggression" ~ "Aggression",
@@ -501,25 +495,25 @@ df_validity <-
   df_validity |>
   tidytable::mutate(
     subdomain = tidytable::case_when(
-      scale == "Inconsistency" ~ "Symptom Validity",
-      scale == "Infrequency" ~ "Symptom Validity",
-      scale == "Negative Impression Management" ~ "Symptom Validity",
-      scale == "Positive Impression Management" ~ "Symptom Validity",
+      scale == "Inconsistency" ~ "Response Inconsistency",
+      scale == "Infrequency" ~ "Negative Impression",
+      scale == "Negative Impression Management" ~ "Negative Impression",
+      scale == "Positive Impression Management" ~ "Positive Impresion",
       # Negative Distortion Indicators
-      scale == "Malingering Index" ~ "Symptom Validity",
-      scale == "Rogers Discriminant Function" ~ "Symptom Validity",
-      scale == "Negative Distortion Scale" ~ "Symptom Validity",
-      scale == "Hong Malingering Index" ~ "Symptom Validity",
-      scale == "Multiscale Feigning Index" ~ "Symptom Validity",
-      scale == "Malingered Pain-Related Disability Discriminant Function" ~ "Symptom Validity",
-      ## Negative Distortion
-      scale == "Defensiveness Index" ~ "Symptom Validity",
-      scale == "Cashel Discriminant Function" ~ "Symptom Validity",
-      scale == "Positive Distortion Scale" ~ "Symptom Validity",
-      scale == "Hong Defensiveness Index" ~ "Symptom Validity",
+      scale == "Malingering Index" ~ "Negative Impression",
+      scale == "Rogers Discriminant Function" ~ "Negative Impression",
+      scale == "Negative Distortion Scale" ~ "Negative Impression",
+      scale == "Hong Malingering Index" ~ "Negative Impression",
+      scale == "Multiscale Feigning Index" ~ "Negative Impression",
+      scale == "Malingered Pain-Related Disability Discriminant Function" ~ "Negative Impression",
+      ## Positive Distortion
+      scale == "Defensiveness Index" ~ "Positive Impression",
+      scale == "Cashel Discriminant Function" ~ "Positive Impression",
+      scale == "Positive Distortion Scale" ~ "Positive Impression",
+      scale == "Hong Defensiveness Index" ~ "Positive Impression",
       # Non-systematic Distortion Indicators
-      scale == "Back Random Responding" ~ "Symptom Validity",
-      scale == "Hong Randomness Index" ~ "Symptom Validity",
+      scale == "Back Random Responding" ~ "Response Inconsistency",
+      scale == "Hong Randomness Index" ~ "Response Inconsistency",
       TRUE ~ as.character(subdomain)
     )
   )
@@ -573,16 +567,16 @@ df_clinical <-
       scale == "Aggressive Attitude" ~ "Aggression",
       scale == "Verbal Aggression" ~ "Aggression",
       scale == "Physical Aggression" ~ "Aggression",
-      scale == "Alcohol Problems" ~ "Substance Use Disorder",
-      scale == "Drug Problems" ~ "Substance Use Disorder",
+      scale == "Alcohol Problems" ~ "Alcohol Use Disorder",
+      scale == "Drug Problems" ~ "Drug Use Disorder",
       scale == "Suicidal Ideation" ~ "Depression",
       scale == "Stress" ~ "Social Environment",
       scale == "Nonsupport" ~ "Social Environment",
       scale == "Treatment Rejection" ~ "Treatment Considerations",
       scale == "Dominance" ~ "Interpersonal",
       scale == "Warmth" ~ "Interpersonal",
-      scale == "ALC Estimated Score" ~ "Substance Use Disorder",
-      scale == "DRG Estimated Score" ~ "Substance Use Disorder",
+      scale == "ALC Estimated Score" ~ "Alcohol Use Disorder",
+      scale == "DRG Estimated Score" ~ "Drug Use Disorder",
       TRUE ~ as.character(narrow)
     )
   )
@@ -593,25 +587,25 @@ df_validity <-
   df_validity |>
   tidytable::mutate(
     narrow = tidytable::case_when(
-      scale == "Inconsistency" ~ "Validity Scales",
-      scale == "Infrequency" ~ "Validity Scales",
-      scale == "Negative Impression Management" ~ "Validity Scales",
-      scale == "Positive Impression Management" ~ "Validity Scales",
+      scale == "Inconsistency" ~ paste0(scale),
+      scale == "Infrequency" ~ paste0(scale),
+      scale == "Negative Impression Management" ~ paste0(scale),
+      scale == "Positive Impression Management" ~ paste0(scale),
       # Negative Distortion Indicators
-      scale == "Malingering Index" ~ "Negative Distortion Indicators",
-      scale == "Rogers Discriminant Function" ~ "Negative Distortion Indicators",
-      scale == "Negative Distortion Scale" ~ "Negative Distortion Indicators",
-      scale == "Hong Malingering Index" ~ "Negative Distortion Indicators",
-      scale == "Multiscale Feigning Index" ~ "Negative Distortion Indicators",
-      scale == "Malingered Pain-Related Disability Discriminant Function" ~ "Negative Distortion Indicators",
+      scale == "Malingering Index" ~ paste0(scale),
+      scale == "Rogers Discriminant Function" ~ paste0(scale),
+      scale == "Negative Distortion Scale" ~ paste0(scale),
+      scale == "Hong Malingering Index" ~ paste0(scale),
+      scale == "Multiscale Feigning Index" ~ paste0(scale),
+      scale == "Malingered Pain-Related Disability Discriminant Function" ~ paste0(scale),
       # Positive Distortion Indicators
-      scale == "Defensiveness Index" ~ "Positive Distortion Indicators",
-      scale == "Cashel Discriminant Function" ~ "Positive Distortion Indicators",
-      scale == "Positive Distortion Scale" ~ "Positive Distortion Indicators",
-      scale == "Hong Defensiveness Index" ~ "Positive Distortion Indicators",
+      scale == "Defensiveness Index" ~ paste0(scale),
+      scale == "Cashel Discriminant Function" ~ paste0(scale),
+      scale == "Positive Distortion Scale" ~ paste0(scale),
+      scale == "Hong Defensiveness Index" ~ paste0(scale),
       # Non-systematic Distortion Indicators
-      scale == "Back Random Responding" ~ "Non-systematic Distortion Indicators",
-      scale == "Hong Randomness Index" ~ "Non-systematic Distortion Indicators",
+      scale == "Back Random Responding" ~ paste0(scale),
+      scale == "Hong Randomness Index" ~ paste0(scale),
       TRUE ~ as.character(narrow)
     )
   )
@@ -676,6 +670,34 @@ df_clinical <-
       TRUE ~ as.character(description)
     )
   )
+
+# TODO:
+df_validity <-
+  df_validity |>
+  tidytable::mutate(
+    description = tidytable::case_when(
+      scale == "Inconsistency" ~ paste0(scale),
+      scale == "Infrequency" ~ paste0(scale),
+      scale == "Negative Impression Management" ~ paste0(scale),
+      scale == "Positive Impression Management" ~ paste0(scale),
+      # Negative Distortion Indicators
+      scale == "Malingering Index" ~ paste0(scale),
+      scale == "Rogers Discriminant Function" ~ paste0(scale),
+      scale == "Negative Distortion Scale" ~ paste0(scale),
+      scale == "Hong Malingering Index" ~ paste0(scale),
+      scale == "Multiscale Feigning Index" ~ paste0(scale),
+      scale == "Malingered Pain-Related Disability Discriminant Function" ~ paste0(scale),
+      # Positive Distortion Indicators
+      scale == "Defensiveness Index" ~ paste0(scale),
+      scale == "Cashel Discriminant Function" ~ paste0(scale),
+      scale == "Positive Distortion Scale" ~ paste0(scale),
+      scale == "Hong Defensiveness Index" ~ paste0(scale),
+      # Non-systematic Distortion Indicators
+      scale == "Back Random Responding" ~ paste0(scale),
+      scale == "Hong Randomness Index" ~ paste0(scale),
+      TRUE ~ as.character(description)
+    )
+  )
 ```
 
 ## Slice
@@ -724,37 +746,32 @@ df_intatt <-
 ```{r writeout}
 readr::write_csv(
   df_clinical,
-  here::here(patient, "csv", "pai_clinical.csv"),
+  here::here("Reports", patient, "csv", "pai_clinical.csv"),
   col_names = TRUE,
   na = ""
 )
 
 readr::write_csv(
   df_validity,
-  here::here(patient, "csv", "pai_validity.csv"),
+  here::here("Reports", patient, "csv", "pai_validity.csv"),
   col_names = TRUE,
   na = ""
 )
 
 readr::write_csv(
   df_inatt,
-  here::here(patient, "csv", "pai_inatt.csv"),
+  here::here("Reports", patient, "csv", "pai_inatt.csv"),
   col_names = TRUE,
   na = ""
 )
 ```
 
-# Experimental
-
 ## Pluck Text
-
-```{r}
-
-```
 
 ```{r text}
 file <- fs::as_fs_path(params$file)
 
+## extract text
 get_text <- function(file) {
   txt <- pdftools::pdf_text(file) |>
     stringr::str_split("\n") |>
@@ -765,15 +782,12 @@ pai_txt <- pdftools::pdf_text(file) |>
   unlist()
 pai_txt
 
-# (2) Replace long spaces with a col break symbol
+# Replace long spaces with a col break symbol
 pai_txt_squished <-
   stringr::str_replace_all(pai_txt, "\\s{2,}", "- ") |>
   stringr::str_remove_all(",")
 pai_txt_squished
 
-# cat(pai_text, sep = "\n")
-
-readr::write_lines(pai_txt_squished, here::here(patient, "pai_text.md"), sep = "\n")
-
-readr::write_lines(pai_txt_squished, here::here(patient, "pai_text.qmd"), sep = "\n")
+readr::write_lines(pai_txt_squished, here::here("Reports", patient, "pai_text.md"), sep = "\n")
+readr::write_lines(pai_txt_squished, here::here("Reports", patient, "pai_text.qmd"), sep = "\n")
 ```

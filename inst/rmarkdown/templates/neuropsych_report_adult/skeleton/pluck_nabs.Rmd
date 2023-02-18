@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from NAB Screener"
 params:
-  patient: Biggie
+  patient: AJ
   test:
     label: "Test"
     value: nabs
@@ -107,6 +107,7 @@ knitr::opts_chunk$set(
   warning = FALSE,
   error = TRUE
 )
+library(data.table)
 library(bwu)
 library(hablar)
 library(here)
@@ -148,11 +149,11 @@ pages <- params$pages
 ```
 
 ```{r wfile}
-writeLines(file, here::here(patient, "pre_csv", "nabs_pdf"))
+writeLines(file, here::here("Reports", patient, "pre_csv", "nabs_pdf"))
 ```
 
-```{r, readfile, eval=FALSE}
-file <- readLines(here::here(patient, "pre_csv", "nabs_pdf"))
+```{r, readfile, eval = FALSE}
+file <- readLines(here::here("Reports", patient, "pre_csv", "nabs_pdf"))
 ```
 
 ## Locate areas
@@ -176,11 +177,11 @@ area2 <- bwu::gpluck_locate_areas(file = file,
 ```
 
 ```{r s-area}
-saveRDS(area, here::here(patient, "pre_csv", "area_nabs.rds"))
+saveRDS(area, here::here("Reports", patient, "pre_csv", "area_nabs.rds"))
 ```
 
 ```{r r-area, eval=FALSE}
-area <- readRDS(here::here(patient, "pre_csv", "area_nabs.rds"))
+area <- readRDS(here::here("Reports", patient, "pre_csv", "area_nabs.rds"))
 ```
 
 ## Extract tables
@@ -1338,12 +1339,7 @@ nabs <-
 ## Write final csv table
 
 ```{r write-out}
-readr::write_csv(
-  nabs, here::here(
-    patient, "csv", "nabs.csv"
-  ),
-  col_names = TRUE, na = ""
-)
+readr::write_csv(nabs, here::here("Reports", patient, "csv", "nabs.csv"), col_names = TRUE, na = "")
 
 if (any(is.na(nabs$percentile))) {
   stop("STOP!!! NA value found in percentile column. Please fill in missing values.")
@@ -1355,7 +1351,7 @@ table <- nabs
 test <- "g"
 tidytable::fwrite(
   table,
-  here::here(patient, "csv", paste0(test, ".txt")),
+  here::here("Reports", patient, "csv", paste0(test, ".txt")),
   append = TRUE
 )
 ```

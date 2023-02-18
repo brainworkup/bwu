@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from CVLT-3/CVLT-3 Brief"
 params:
-  patient: Biggie
+  patient: AJ
   test:
     label: "Test"
     value: cvlt3_brief
@@ -71,21 +71,21 @@ params:
     input: select
     multiple: yes
     choices:
-      - CVLT-3 Total Intrusions
+      - "CVLT-3 Total Intrusions"
   table6:
     label: "Recall Errors: Repetitions"
     value: "CVLT-3 Total Repetitions"
     input: select
     multiple: yes
     choices:
-      - CVLT-3 Total Repetitions
+      - "CVLT-3 Total Repetitions"
   table7:
     label: "Forced-Choice Recognition:"
     value: "CVLT-3 Forced-Choice Recognition Hits"
     input: select
     multiple: yes
     choices:
-      - CVLT-3 Forced-Choice Recognition Hits
+      - "CVLT-3 Forced-Choice Recognition Hits"
   colnames1:
     label: "Tables 1-6 Column Names:"
     value: [scale, raw_score, score, percentile]
@@ -139,7 +139,7 @@ Sys.setenv(
 )
 options(java.parameters = "-Xmx16000m")
 knitr::opts_chunk$set(
-  root.dir = normalizePath("./"),
+  root.dir = normalizePath("../"),
   echo = FALSE,
   message = FALSE,
   warning = FALSE,
@@ -188,7 +188,7 @@ pages <- params$pages
 ```
 
 ```{r save}
-writeLines(file, here::here(patient, "pre_csv", "cvlt3_pdf"))
+writeLines(file, here::here("Reports", patient, "pre_csv", "cvlt3_pdf"))
 ```
 
 ```{r read}
@@ -232,7 +232,7 @@ if (params$test == "cvlt3") {
 ```
 
 ```{r save-areas}
-saveRDS(area, here::here(patient, "pre_csv", "area_cvlt3.rds"))
+saveRDS(area, here::here("Reports", patient, "pre_csv", "area_cvlt3.rds"))
 ```
 
 ```{r read-areas}
@@ -711,34 +711,15 @@ if (params$test == "cvlt3") {
 ```{r write-csv}
 if (params$test == "cvlt3") {
   readr::write_csv(
-    cvlt3, here::here(
-      patient, "csv", "cvlt3.csv"
-    ),
-    col_names = TRUE, na = ""
+    cvlt3,
+    here::here("Reports", patient, "csv", "cvlt3.csv")
   )
-} else {
+} else if (params$test == "cvlt3_brief") {
   readr::write_csv(
-    cvlt3_brief, here::here(
-      patient, "csv", "cvlt3_brief.csv"
-    ),
-    col_names = TRUE, na = ""
+    cvlt3_brief,
+    here::here("Reports", patient, "csv", "cvlt3_brief.csv")
   )
 }
-```
-
-## Write to "g"
-
-experimental for now...
-
-```{r writeout-g}
-mem <- c("Trial 4 Correct", "Trials 1-4 Correct", "Short Delay Free Recall", "Long Delay Free Recall")
-table <- cvlt3_brief |> tidytable::filter(scale %in% mem)
-test <- "g"
-tidytable::fwrite(
-  table,
-  here::here(patient, "csv", paste0(test, ".txt")),
-  append = TRUE
-)
 ```
 
 ## Cleanup
