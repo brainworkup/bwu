@@ -88,12 +88,12 @@ params:
     input: date
   sex:
     label: "Sex/Gender:"
-    value: Male
+    value: Female
     input: radio
     choices:
       - Male
       - Female
-      - Nonbinary
+      - Non-binary
       - Prefer not to answer
   he_she:
     label: "he/she Pronoun:"
@@ -265,7 +265,7 @@ params:
     value: FALSE
   eval_emotion_plot2:
     label: "Personality Assessment Plot 2"
-    value: TRUE
+    value: FALSE
   eval_pass_plot:
     label: "PASS Plot"
     value: TRUE
@@ -695,7 +695,7 @@ knitr::include_graphics("plot_narrow.png", auto_pdf = TRUE)
 
 (ref:gauss-plot-broad) Classification of neuropsychological test scores that are positively skewed in the general population [@schoenbergReportingStandardsNeuropsychological2017].
 
-```{r gauss-plot-broad, fig.cap='(ref:gauss-plot-broad)', fig.width = 6, fig.height = 5, fig.pos = '!ht', cache = TRUE}
+```{r gauss-plot-broad, eval = FALSE, fig.cap='(ref:gauss-plot-broad)', fig.width = 6, fig.height = 5, fig.pos = '!ht', cache = TRUE}
 knitr::include_graphics("plot_broad.png", auto_pdf = TRUE)
 ```
 
@@ -847,7 +847,7 @@ validity <- readr::read_csv(here::here(patient, "validity.csv"))
 
 (ref:fn-iq) Standard Score (M = 100, SD = 15)
 
-```{r}
+```{r, eval = FALSE}
 g <- bwu::gpluck_get_index_scores(patient = patient)
 ```
 
@@ -944,10 +944,10 @@ knitr::read_chunk(here::here(patient, "02.04_verbal.R"))
 ```{r 05-df-verbal, eval = params$eval_verbal}
 ```
 
-```{r 06-plot-subdomain-verbal, eval = FALSE, fig.cap = '(ref:vrb)'}
+```{r 06-plot-subdomain-verbal, eval = params$eval_verbal, fig.cap = '(ref:vrb)'}
 ```
 
-```{r 07-plot-narrow-verbal, eval = params$eval_verbal, fig.cap = '(ref:vrb)'}
+```{r 07-plot-narrow-verbal, eval = F, fig.cap = '(ref:vrb)'}
 ```
 
 <!-- \newpage -->
@@ -979,7 +979,7 @@ knitr::read_chunk(here::here(patient, "02.05_spatial.R"))
 ```{r 05-df-spatial, eval = params$eval_spatial}
 ```
 
-```{r 06-plot-subdomain-spatial, eval = FALSE, fig.cap = '(ref:spt)'}
+```{r 06-plot-subdomain-spatial, eval = params$eval_spatial, fig.cap = '(ref:spt)'}
 ```
 
 ```{r 07-plot-narrow-spatial, eval = params$eval_spatial, fig.cap = '(ref:spt)'}
@@ -1137,8 +1137,8 @@ knitr::read_chunk(here::here(patient, "02.09_social.R"))
 
 (ref:caars-cefi) *Note:* On the *Conners' Adult ADHD Rating Scale (CAARS)*,
 higher scores reflect reduced functioning in a given area, but on the
-*Comprehensive Evaluation of Executive Functioning (CEFI)*, higher scores reflect
-relative strengths in a given area.
+*Comprehensive Evaluation of Executive Functioning (CEFI)*, higher scores
+reflect relative strengths in a given area.
 
 ```{r, adhd, results = 'asis', eval = params$eval_adhd}
 cat(readLines("02.10_adhd.md"), sep = "\n")

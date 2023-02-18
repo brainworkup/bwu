@@ -2,8 +2,6 @@
 filter_domain <- c(
   # ROCFT
   "ROCFT Delayed Recall",
-  "ROCF Memory",
-  "RCFT Memory",
   ## NAB/NABS
   "Memory Domain",
   "NAB Memory Index",
@@ -12,8 +10,10 @@ filter_domain <- c(
   "List Learning Long Delayed Recall",
   "Shape Learning Immediate Recognition",
   "Shape Learning Delayed Recognition",
+  "Shape Learning Percent Retention",
   "Story Learning Immediate Recall",
   "Story Learning Delayed Recall",
+  "Story Learning Percent Retention",
   "Daily Living Memory Immediate Recall",
   "Daily Living Memory Delayed Recall",
   # RBANS
@@ -43,9 +43,9 @@ filter_domain <- c(
   "Sentence Repetition",
   # CVLT-C
   "Trials 1-5 Free Recall Correct",
-  # "Trial 1 Free Recall Correct",
-  # "Trial 5 Free Recall Correct",
-  # "List B Free Recall Correct",
+  "Trial 1 Free Recall Correct",
+  "Trial 5 Free Recall Correct",
+  "List B Free Recall Correct",
   "Short-Delay Free Recall",
   "Short-Delay Cued Recall",
   "Long-Delay Free Recall",
@@ -71,7 +71,7 @@ filter_domain <- c(
   "Total False Positives",
   "Recognition Discriminability (d')",
   "Recognition Discriminability Nonparametric",
-  "Forced-Choice Recognition Hits",
+  "CVLT-3 Forced-Choice Recognition Hits",
   # EF or here
   "CVLT-3 Total Intrusions",
   "CVLT-3 Total Repetitions",
@@ -106,9 +106,17 @@ tb <-
     tibb = tb,
     data = neurocog,
     pheno = "Memory"
-  ) %>%
+  ) |>
   tidytable::filter(Scale %in% filter_domain) %>%
-  tidytable::arrange(Test)
+  tidytable::arrange(Test) |>
+  tidytable::filter(Scale == "Trials 1-4 Correct") |>
+  tidytable::filter(Scale == "Trials 1-5 Correct") |>
+  tidytable::filter(Scale == "Short Delay Free Recall") |>
+  tidytable::filter(Scale == "Short Delay Cued Recall") |>
+  tidytable::filter(Scale == "Long Delay Free Recall") |>
+  tidytable::filter(Scale == "Long Delay Cued Recall") |>
+  tidytable::filter(Scale == "Recognition Discriminability (d')") |>
+  tidytable::filter(Scale == "CVLT-3 Forced-Choice Recognition Hits")
 # tb$Score <- round(tb$Score, 0L)
 
 ## ---- 04-kable-memory ------------------
@@ -139,9 +147,9 @@ df <-
   tidytable::filter(!is.na(percentile)) %>%
   tidytable::arrange(test_name) %>%
   tidytable::filter(scale %in% filter_domain) %>%
-  tidytable::filter(scale != "Total Intrusions") %>%
-  tidytable::filter(scale != "Total Repetitions") %>%
-  tidytable::filter(scale != "Forced-Choice Recognition Hits")
+  tidytable::filter(scale != "CVLT-3 Total Intrusions") %>%
+  tidytable::filter(scale != "CVLT-3 Total Repetitions") %>%
+  tidytable::filter(scale != "CVLT-3 Forced-Choice Recognition Hits")
 
 ## ---- 06-plot-subdomain-memory -----------------
 bwu::dotplot(

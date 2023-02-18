@@ -130,7 +130,7 @@ kableExtra::kbl(
   booktabs = TRUE,
   linesep = "",
   align = c("lccc"),
-  caption = "(ref:adhd-ef)"
+  caption = "(ref:adhd-ef) (ref:caars-cefi)"
 ) |>
   kableExtra::kable_paper(lightable_options = "basic") |>
   kableExtra::kable_styling(latex_options = c(
@@ -139,8 +139,7 @@ kableExtra::kbl(
   kableExtra::column_spec(1, width = "8cm") |>
   kableExtra::pack_rows(index = table(tb$Test)) |>
   kableExtra::row_spec(row = 0, bold = TRUE) |>
-  kableExtra::add_footnote(
-    "(ref:fn-adhd) **Note:** CAARS, Conners' Adult ADHD Rating Scale; CEFI, Comprehensive Executive Function Inventory")
+  kableExtra::add_footnote("(ref:fn-adhd)")
 
 ## ---- 05-df-adhd ----
 df <-

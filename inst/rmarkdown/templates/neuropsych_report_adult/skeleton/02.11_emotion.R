@@ -101,7 +101,7 @@ tb3 <-
   bwu::make_tibble(
     tibb = tb3,
     data = neurobehav,
-    pheno = "Substance Use Disorders"
+    pheno = "Substance Use"
   ) |>
   tidytable::filter(Scale %in% filter_domain) |>
   tidytable::arrange(Test) |>
@@ -120,7 +120,7 @@ tb4 <-
 
 ## ---- 03-table-emotion ------------
 tb <-
-  tidytable::bind_rows(tb1, tb2, tb3, tb4) |>
+  tidytable::bind_rows(tb1, tb2, tb3) |>
   tidytable::filter(Scale %in% filter_domain) |>
   tidytable::arrange(Test) |>
   tidytable::arrange(Subdomain)
