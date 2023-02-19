@@ -95,7 +95,7 @@ pages <- params$pages
 ```
 
 ```{r write-file}
-writeLines(file, here::here("Reports", patient, "pre_csv", paste0(test, ".pdf")))
+writeLines(file, here::here(patient, "pre_csv", paste0(test, ".pdf")))
 ```
 
 ```{r read-file}
@@ -119,7 +119,7 @@ area <- list(
 ```
 
 ```{r save-area}
-saveRDS(area, here::here("Reports", patient, "pre_csv", paste0(test, "_area.rds")))
+saveRDS(area, here::here(patient, "pre_csv", paste0(test, "_area.rds")))
 ```
 
 ```{r read-area}
@@ -506,5 +506,5 @@ table <-
 
 ```{r writeout}
 readr::write_csv(
-  table, here::here("Reports", patient, "csv", paste0(test, ".csv")), col_names = TRUE, na = "")
+  table, here::here(patient, "csv", paste0(test, ".csv")), col_names = TRUE, na = "")
 ```

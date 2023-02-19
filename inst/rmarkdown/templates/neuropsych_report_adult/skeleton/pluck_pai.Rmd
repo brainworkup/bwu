@@ -2,7 +2,7 @@
 title: "Import CSV file from PAI"
 params:
   table:
-  patient: AJ
+  patient: Biggie
   test: pai
   test_name: PAI
   file:
@@ -83,7 +83,7 @@ Copy over to pre_csv.
 ```{r pluck}
 plucked_table <-
   tidytable::fread(
-    here::here("Reports", patient, "pre_csv", "pariconnectexportPAI.csv")
+    here::here(patient, "pre_csv", "pariconnectexportPAI.csv")
   )
 ```
 
@@ -746,21 +746,21 @@ df_intatt <-
 ```{r writeout}
 readr::write_csv(
   df_clinical,
-  here::here("Reports", patient, "csv", "pai_clinical.csv"),
+  here::here(patient, "csv", "pai_clinical.csv"),
   col_names = TRUE,
   na = ""
 )
 
 readr::write_csv(
   df_validity,
-  here::here("Reports", patient, "csv", "pai_validity.csv"),
+  here::here(patient, "csv", "pai_validity.csv"),
   col_names = TRUE,
   na = ""
 )
 
 readr::write_csv(
   df_inatt,
-  here::here("Reports", patient, "csv", "pai_inatt.csv"),
+  here::here(patient, "csv", "pai_inatt.csv"),
   col_names = TRUE,
   na = ""
 )
@@ -788,6 +788,6 @@ pai_txt_squished <-
   stringr::str_remove_all(",")
 pai_txt_squished
 
-readr::write_lines(pai_txt_squished, here::here("Reports", patient, "pai_text.md"), sep = "\n")
-readr::write_lines(pai_txt_squished, here::here("Reports", patient, "pai_text.qmd"), sep = "\n")
+readr::write_lines(pai_txt_squished, here::here(patient, "pai_text.md"), sep = "\n")
+readr::write_lines(pai_txt_squished, here::here(patient, "pai_text.qmd"), sep = "\n")
 ```

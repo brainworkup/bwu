@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from CVLT-3/CVLT-3 Brief"
 params:
-  patient: AJ
+  patient: Biggie
   test:
     label: "Test"
     value: cvlt3_brief
@@ -188,7 +188,7 @@ pages <- params$pages
 ```
 
 ```{r save}
-writeLines(file, here::here("Reports", patient, "pre_csv", "cvlt3_pdf"))
+writeLines(file, here::here(patient, "pre_csv", "cvlt3_pdf"))
 ```
 
 ```{r read}
@@ -232,7 +232,7 @@ if (params$test == "cvlt3") {
 ```
 
 ```{r save-areas}
-saveRDS(area, here::here("Reports", patient, "pre_csv", "area_cvlt3.rds"))
+saveRDS(area, here::here(patient, "pre_csv", "area_cvlt3.rds"))
 ```
 
 ```{r read-areas}
@@ -712,12 +712,12 @@ if (params$test == "cvlt3") {
 if (params$test == "cvlt3") {
   readr::write_csv(
     cvlt3,
-    here::here("Reports", patient, "csv", "cvlt3.csv")
+    here::here(patient, "csv", "cvlt3.csv")
   )
 } else if (params$test == "cvlt3_brief") {
   readr::write_csv(
     cvlt3_brief,
-    here::here("Reports", patient, "csv", "cvlt3_brief.csv")
+    here::here(patient, "csv", "cvlt3_brief.csv")
   )
 }
 ```

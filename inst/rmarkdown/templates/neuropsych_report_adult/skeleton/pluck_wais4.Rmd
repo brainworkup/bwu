@@ -270,7 +270,7 @@ pages <- params$pages
 ```
 
 ```{r write-file}
-writeLines(file, here::here("Reports", patient, "pre_csv", "wais4_pdf"))
+writeLines(file, here::here(patient, "pre_csv", "wais4_pdf"))
 ```
 
 ```{r read-file}
@@ -311,7 +311,7 @@ if (params$version == "full") {
 ```
 
 ```{r write-area}
-saveRDS(area, file = here::here("Reports", patient, "pre_csv", "area_wais4.rds"), compress = FALSE)
+saveRDS(area, file = here::here(patient, "pre_csv", "area_wais4.rds"), compress = FALSE)
 ```
 
 ```{r read-area}
@@ -1348,7 +1348,7 @@ wais4 <- wais4[match(
 ## Write out final csv
 
 ```{r write}
-readr::write_csv(wais4, here::here("Reports", patient, "csv", "wais4.csv"))
+readr::write_csv(wais4, here::here(patient, "csv", "wais4.csv"))
 ```
 
 # Experimental
@@ -1360,7 +1360,7 @@ table <- wais4
 test <- "g"
 tidytable::fwrite(
   table,
-  here::here("Reports", patient, "csv", paste0(test, ".txt")),
+  here::here(patient, "csv", paste0(test, ".txt")),
   append = TRUE
 )
 ```

@@ -94,11 +94,11 @@ pages <- params$pages
 ```{r write-file}
 writeLines(
   file, here::here(
-    "Reports", patient, "pre_csv", paste0(test, ".pdf")))
+    patient, "pre_csv", paste0(test, ".pdf")))
 ```
 
 ```{r read-file}
-# test <- readLines(here::here("Reports", patient, "pre_csv", paste0(test, ".pdf")))
+# test <- readLines(here::here(patient, "pre_csv", paste0(test, ".pdf")))
 ```
 
 ## Locate areas
@@ -128,7 +128,7 @@ if (params$test == "caars_or") {
 ```
 
 ```{r save-area}
-saveRDS(area, here::here("Reports", patient, "pre_csv", paste0(test, "_area.rds")))
+saveRDS(area, here::here(patient, "pre_csv", paste0(test, "_area.rds")))
 ```
 
 ```{r read-area}
@@ -514,7 +514,7 @@ table <-
 ## Write out csv
 
 ```{r write}
-readr::write_csv(table, here::here("Reports", patient, "csv", paste0(test, ".csv")),
+readr::write_csv(table, here::here(patient, "csv", paste0(test, ".csv")),
   col_names = TRUE, na = ""
 )
 ```

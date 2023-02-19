@@ -701,7 +701,7 @@ knitr::include_graphics("plot_broad.png", auto_pdf = TRUE)
 
 ```{r read-csv, include = FALSE}
 library(tidyverse)
-data_path <- here::here("Reports", patient, "csv")
+data_path <- here::here(patient, "csv")
 files <- dir(data_path, pattern = "*.csv")
 neuropsych <-
   files |>
@@ -828,17 +828,17 @@ validity <-
 ```
 
 ```{r, write-neuro-data}
-readr::write_csv(neuropsych, here::here("Reports", patient, "neuropsych.csv"))
-readr::write_csv(neurocog, here::here("Reports", patient, "neurocog.csv"))
-readr::write_csv(neurobehav, here::here("Reports", patient, "neurobehav.csv"))
-readr::write_csv(validity, here::here("Reports", patient, "validity.csv"))
+readr::write_csv(neuropsych, here::here(patient, "neuropsych.csv"))
+readr::write_csv(neurocog, here::here(patient, "neurocog.csv"))
+readr::write_csv(neurobehav, here::here(patient, "neurobehav.csv"))
+readr::write_csv(validity, here::here(patient, "validity.csv"))
 ```
 
 ```{r, read-neuro-data}
-neuropsych <- readr::read_csv(here::here("Reports", patient, "neuropsych.csv"))
-neurocog <- readr::read_csv(here::here("Reports", patient, "neurocog.csv"))
-neurobehav <- readr::read_csv(here::here("Reports", patient, "neurobehav.csv"))
-validity <- readr::read_csv(here::here("Reports", patient, "validity.csv"))
+neuropsych <- readr::read_csv(here::here(patient, "neuropsych.csv"))
+neurocog <- readr::read_csv(here::here(patient, "neurocog.csv"))
+neurobehav <- readr::read_csv(here::here(patient, "neurobehav.csv"))
+validity <- readr::read_csv(here::here(patient, "validity.csv"))
 ```
 
 <!-- \newpage -->
@@ -848,7 +848,7 @@ validity <- readr::read_csv(here::here("Reports", patient, "validity.csv"))
 (ref:fn-iq) Standard Score (M = 100, SD = 15)
 
 ```{r, eval = FALSE}
-g <- bwu::gpluck_get_index_scores("Reports", patient = patient)
+g <- bwu::gpluck_get_index_scores(patient = patient)
 ```
 
 ```{r, iq, results = 'asis', eval = params$eval_iq}
@@ -856,7 +856,7 @@ cat(readLines("02.02_iq.md"), sep = "\n")
 ```
 
 ```{r read-iq, eval = params$eval_iq}
-knitr::read_chunk(here::here("Reports", patient, "02.02_iq.R"))
+knitr::read_chunk(here::here(patient, "02.02_iq.R"))
 ```
 
 ```{r 01-filter-iq, eval = params$eval_iq}
@@ -891,7 +891,7 @@ cat(readLines("02.03_academics.md"), sep = "\n")
 ```
 
 ```{r read-academics, eval = params$eval_academics}
-knitr::read_chunk(here::here("Reports", patient, "02.03_academics.R"))
+knitr::read_chunk(here::here(patient, "02.03_academics.R"))
 ```
 
 ```{r 01-filter-academics, eval = params$eval_academics}
@@ -926,7 +926,7 @@ cat(readLines("02.04_verbal.md"), sep = "\n")
 ```
 
 ```{r read-verbal, eval = params$eval_verbal}
-knitr::read_chunk(here::here("Reports", patient, "02.04_verbal.R"))
+knitr::read_chunk(here::here(patient, "02.04_verbal.R"))
 ```
 
 ```{r 01-filter-verbal, eval = params$eval_verbal}
@@ -961,7 +961,7 @@ cat(readLines("02.05_spatial.md"), sep = "\n")
 ```
 
 ```{r read-spatial, eval = params$eval_spatial}
-knitr::read_chunk(here::here("Reports", patient, "02.05_spatial.R"))
+knitr::read_chunk(here::here(patient, "02.05_spatial.R"))
 ```
 
 ```{r 01-filter-spatial, eval = params$eval_spatial}
@@ -998,7 +998,7 @@ cat(readLines("02.06_executive.md"), sep = "\n")
 ```
 
 ```{r read-executive, eval = params$eval_executive}
-knitr::read_chunk(here::here("Reports", patient, "02.06_executive.R"))
+knitr::read_chunk(here::here(patient, "02.06_executive.R"))
 ```
 
 ```{r 01-filter-executive, eval = params$eval_executive}
@@ -1033,7 +1033,7 @@ cat(readLines("02.07_memory.md"), sep = "\n")
 ```
 
 ```{r read-memory, eval = params$eval_memory}
-knitr::read_chunk(here::here("Reports", patient, "02.07_memory.R"))
+knitr::read_chunk(here::here(patient, "02.07_memory.R"))
 ```
 
 ```{r 01-filter-memory, eval = params$eval_memory}
@@ -1068,7 +1068,7 @@ cat(readLines("02.08_motor.md"), sep = "\n")
 ```
 
 ```{r read-motor, eval = params$eval_motor}
-knitr::read_chunk(here::here("Reports", patient, "02.08_motor.R"))
+knitr::read_chunk(here::here(patient, "02.08_motor.R"))
 ```
 
 ```{r 01-filter-motor, eval = params$eval_motor}
@@ -1103,7 +1103,7 @@ cat(readLines("02.09_social.md"), sep = "\n")
 ```
 
 ```{r read-social, eval = params$eval_social}
-knitr::read_chunk(here::here("Reports", patient, "02.09_social.R"))
+knitr::read_chunk(here::here(patient, "02.09_social.R"))
 ```
 
 ```{r 01-filter-social, eval = params$eval_social}
@@ -1145,7 +1145,7 @@ cat(readLines("02.10_adhd.md"), sep = "\n")
 ```
 
 ```{r read-adhd, eval = params$eval_adhd}
-knitr::read_chunk(here::here("Reports", patient, "02.10_adhd.R"))
+knitr::read_chunk(here::here(patient, "02.10_adhd.R"))
 ```
 
 ```{r 01-filter-adhd, eval = params$eval_adhd}
@@ -1200,7 +1200,7 @@ cat(readLines("02.11_emotion.md"), sep = "\n")
 ```
 
 ```{r read-emotion, eval = params$eval_emotion}
-knitr::read_chunk(here::here("Reports", patient, "02.11_emotion.R"))
+knitr::read_chunk(here::here(patient, "02.11_emotion.R"))
 ```
 
 ```{r 01-filter-emotion, eval = params$eval_emotion}
@@ -1251,7 +1251,7 @@ expectations for `r params$him_her`. *Note:* *z* = 0 (mean) ± 1 (s.d.)
 
 ```{r summary-df}
 summary <-
-  readr::read_csv(here::here("Reports", patient, "csv", "index_scores.csv")) |>
+  readr::read_csv(here::here(patient, "csv", "index_scores.csv")) |>
   dplyr::filter(test_type == "npsych_test") |>
   dplyr::filter(domain == "Summary") |>
   dplyr::filter(!is.na(domain))
@@ -1400,7 +1400,7 @@ Although standardized scores provide the clinician with an important and necessa
 ```{r ranges, double_escape = TRUE, escape = FALSE, fig.fullwidth = FALSE}
 range <-
   readr::read_csv(here::here(
-    "Reports", patient, "test_score_ranges.csv"
+    patient, "test_score_ranges.csv"
   ), show_col_types = FALSE)
 gt::gt(range) |>
   gt::tab_header(title = "Test Score Labels/Ranges") |>

@@ -659,7 +659,7 @@ test <- table$test
 scale <- snakecase::to_snake_case(table$scale)
 tidytable::fwrite(
   table,
-  here::here("Reports", patient, "pre_csv", paste0(test, "_", scale, ".csv")),
+  here::here(patient, "pre_csv", paste0(test, "_", scale, ".csv")),
   append = FALSE
 )
 ```
@@ -669,7 +669,7 @@ table <- df3
 test <- table$test
 tidytable::fwrite(
   table,
-  here::here("Reports", patient, "csv", paste0(test, ".csv")),
+  here::here(patient, "csv", paste0(test, ".csv")),
   append = TRUE
 )
 ```
@@ -679,7 +679,7 @@ table <- df3
 test <- "g"
 tidytable::fwrite(
   table,
-  here::here("Reports", patient, "csv", paste0(test, ".txt")),
+  here::here(patient, "csv", paste0(test, ".txt")),
   append = TRUE
 )
 ```

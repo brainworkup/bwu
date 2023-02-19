@@ -101,7 +101,7 @@ df <-
       "General Ability",
       "Crystallized Knowledge",
       "Fluid Reasoning")
-      )
+  )
 
 ## ---- 06-plot-subdomain-iq --------------------
 bwu::dotplot(
