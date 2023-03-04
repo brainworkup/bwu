@@ -40,6 +40,7 @@ format:
     keep-md: true
 execute:
   freeze: auto
+editor: source
 ---
 
 ![](logo.png)
@@ -66,17 +67,22 @@ execute:
 ## Reason for Referral
 
 `r params$first_name` is a student at USC referred for evaluation by `r params$refdoc` to assess `r params$his_her` current cognitive and emotional functioning in relation to `r params$dx1` and to develop an intervention plan.
+This report is based on a review of available medical records and information gathered across a 1-hour neurobehavioral exam conducted with the patient via telemedicine on `r params$doe1`.
+
+## Background
+
 `r params$first_name` reports ongoing difficulties with attention/organization and lack of behavioral activation that are making it difficult to finish school, a history of mood dysregulation, performance anxiety,
 attention/organization problems, and social-emotional difficulties.
-This report is based on a review of available medical records and information gathered across a 1-hour neurobehavioral exam conducted with the patient via telemedicine on `r params$doe1`.
 
 ## Relevant History
 
-### Developmental/Medical
+### Developmental
 
 `r params$first_name` was born full-term following an uncomplicated pregnancy, labor,
 and delivery. Major developmental milestones were achieved within expected
 timeframes.
+
+### Medical
 
 Medical history includes x, y, and z. `r params$his_her_cap` medical history also
 includes attention problems.
@@ -100,7 +106,7 @@ caused problems in daily life. `r params$he_she_cap` denied any other anxiety.
 `r params$he_she_cap` is frustrated with `r params$his_her` grades, as `r params$he_she` has been an A/B student in the past.
 `r params$he_she_cap` said that `r params$he_she` has trouble with daily work as well as quizzes/tests.
 
-### Family
+### Family/Home
 
 `r params$first_name` lives with `r params$his_her` parents and older brother and sister
 in City, State. Both parents graduated from high school. Recent stressors
@@ -118,34 +124,25 @@ headache.
 
 ## Mental Status & Behavioral Observations During Interview
 
-`r params$first_name` arrived on time to the telemedicine interview. `r params$he_she_cap`
-was alert, oriented to the situation, and appeared to understand the questions
-that were being asked of `r params$him_her`. `r params$he_she_cap` was articulate,
-demonstrated a clear and logical thought process, and `r params$his_her` speech was
-normal in rate, pitch, and prosody. `r params$his_her_cap` affect was normal in range
-and expression.
-
-Orientation: Patient is oriented to time, place, and person.
-
-Attention and Concentration: Patient is able to sustain attention and concentration throughout the interview. There are no signs of distractibility or difficulties with task-switching.
-
-Language: Patient exhibits fluent and clear speech, with appropriate syntax and grammar. There are no signs of aphasia, dysarthria, or anomia. Patient is able to comprehend and follow verbal instructions.
-
-Memory: Patient is able to recall recent and remote events without difficulty. There are no signs of amnesia or confabulation.
-
-Executive Functioning: Patient demonstrates intact executive functioning, with the ability to plan, initiate, and complete tasks without difficulty. There are no signs of impulsivity, perseveration, or difficulties with decision-making.
-
-Motor Functioning: Patient exhibits normal motor functioning with no signs of ataxia or tremors. Gait and posture are normal.
-
-Sensory Functioning: Patient exhibits normal sensory functioning with no signs of numbness, tingling, or paresthesias.
-
-Mood and Affect: Patient's mood is dysthymic and affect is constricted throughout the interview. There are no signs of anxiety, depression, or mania.
+*Orientation:* Patient is oriented to time, place, and person. *Attention and
+Concentration:* Patient is able to sustain attention and concentration throughout
+the interview. There are no signs of distractibility or difficulties with
+task-switching. *Language:* Patient exhibits fluent and clear speech, with
+appropriate syntax and grammar. There are no signs of aphasia,
+dysarthria, or anomia. Patient is able to comprehend and follow verbal
+instructions. *Memory:* Patient is able to recall recent and remote events without
+difficulty. There are no signs of amnesia or confabulation. *Executive Functioning:* Patient demonstrates intact executive functioning, with the ability to plan, initiate, and complete tasks without difficulty. There are no signs of impulsivity, perseveration, or difficulties with decision-making. *Motor Functioning:* Patient exhibits normal
+motor functioning with no signs of ataxia or tremors. Gait and posture are
+normal. *Sensory Functioning:* Patient exhibits normal sensory functioning with no
+signs of numbness, tingling, or paresthesias. *Mood and Affect:* Patient's mood
+is euthymic and affect is appropriate throughout the interview. There are no signs of anxiety, depression, or mania.
 
 ## Summary/Impression
 
-`r params$first_name` `r params$last_name` is a `r params$age`-year-old `r params$sex` with a history of `r params$dx1`. `r params$he_she_cap` is
-motivated to complete the evaluation and to use the information gained to
-develop tailored plans for psychiatric intervention and school accommodations.
+Overall, this brief neurobehavioral status exam can be used as a starting point
+for a more comprehensive neuropsychological evaluation. It provides an overview
+of the patient's cognitive, behavioral, and emotional functioning and can
+help guide further assessment and treatment planning.
 
 ### Diagnostic Considerations
 
@@ -153,8 +150,8 @@ develop tailored plans for psychiatric intervention and school accommodations.
 
 ## Recommendations/Plan
 
-1. Proceed with comprehensive neuropsychological and personality assessments;
-2. Develop targeted intervention plan and academic plan based on results of testing.
+1. Proceed with comprehensive neuropsychological and personality assessments
+1. Develop targeted intervention plan and academic plan based on results of testing
 
 _Note:_ Evaluation is ongoing. Full report and recommendations to follow.
 
@@ -169,7 +166,6 @@ Neurobehavioral status exam and clinical documentation by Neuropsychologist
 Assistant Professor of Psychiatry\
 Department of Psychiatry and the Behavioral Sciences\
 University of Southern California Keck School of Medicine\
-CA License PSY29212
 
 {{< pagebreak >}}
 
