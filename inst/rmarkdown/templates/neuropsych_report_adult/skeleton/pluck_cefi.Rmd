@@ -26,6 +26,7 @@ params:
 output:
   rmdformats::robobook:
     highlight: kate
+editor: source
 ---
 
 # CEFI SR/OR

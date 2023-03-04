@@ -3,6 +3,7 @@ title: "Confidential Neuropsychological Report"
 author:
   - name: "**Biggie Smalls**"
 date: January 1, 2021
+editor: source
 output:
   bwu::neuropsych_report_adult:
     latex_engine: pdflatex

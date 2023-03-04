@@ -204,7 +204,7 @@ of Privacy Practices._
 
 ```{r}
 #| label: get-csv
-#| eval: params$eval
+#| eval: true
 #| include: false
 library(vroom)
 library(here)
@@ -217,7 +217,7 @@ cefi_or <- vroom::vroom(here::here(patient, "csv", "cefi_or.csv"))
 
 ```{r}
 #| label: tb1-caars
-#| eval: false
+#| eval: true
 #| echo: false
 #| warning: false
 #| tbl-cap: "CAARS Self-Report"
@@ -234,7 +234,7 @@ tb1 <-
   gt::cols_label(
     scale = "Scale",
     score = "Score",
-    percentile = "Percentile (‰)",
+    percentile = "‰",
     range = "Range"
   )
 tb1
@@ -242,7 +242,7 @@ tb1
 
 ```{r}
 #| label: tb2-caars
-#| eval: false
+#| eval: true
 #| echo: false
 #| warning: false
 #| tbl-cap: "CAARS Observer-Report"
@@ -257,7 +257,7 @@ tb2 <-
   gt::cols_label(
     scale = "Scale",
     score = "Score",
-    percentile = "Percentile (‰)",
+    percentile = "‰",
     range = "Range"
   )
 tb2
@@ -269,7 +269,7 @@ tb2
 
 ```{r}
 #| label: tb1-cefi
-#| eval: false
+#| eval: true
 #| echo: false
 #| warning: false
 #| tbl-cap: CEFI Self-Report
@@ -287,7 +287,7 @@ tb3 <-
   gt::cols_label(
     scale = "Scale",
     score = "Score",
-    percentile = "Percentile (‰)",
+    percentile = "‰",
     range = "Range"
   )
 tb3
@@ -295,7 +295,7 @@ tb3
 
 ```{r}
 #| label: tb2-cefi
-#| eval: false
+#| eval: true
 #| echo: false
 #| warning: false
 #| tbl-cap: CEFI Observer-Report
@@ -312,7 +312,7 @@ tb4 <-
   gt::cols_label(
     scale = "Scale",
     score = "Score",
-    percentile = "Percentile (‰)",
+    percentile = "‰",
     range = "Range"
   )
 tb4
