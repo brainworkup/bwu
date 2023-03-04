@@ -4,14 +4,14 @@ params:
   patient: Biggie
   first_name: Biggie
   last_name: Smalls
-  dob: [YYYY-MM-DD]
+  dob: YYYY-MM-DD
   mrn: "000000000"
   sex: female
   sex_cap: Female
   age: 20
   educyrs: 15
   hand: right
-  doe1: [YYYY-MM-DD]
+  doe1: YYYY-MM-DD
   refdoc: Dr Dre
   he_she: she
   he_she_cap: She
@@ -36,7 +36,7 @@ format:
       - heightrounded
     fontfamily: libertinus
     colorlinks: true
-    keep-tex: false
+    keep-tex: true
     keep-md: true
 execute:
   freeze: auto
@@ -58,8 +58,8 @@ execute:
 ## Measures Administered
 
 - Conners' Adult ADHD Diagnostic Interview for DSM-IV (CAADID), Part I: History
-- Conners' Adult ADHD Rating Scales–Self-Report: Long Version (CAARS–S:L)
-- Conners' Adult ADHD Rating Scales–Observer Report: Long Version (CAARS–O:L)
+- Conners' Adult ADHD Rating Scales--Self-Report: Long Version (CAARS--S:L)
+- Conners' Adult ADHD Rating Scales--Observer Report: Long Version (CAARS--O:L)
 - Comprehensive Executive Function Inventory Adult (CEFI Adult) Self-Report Form
 - Comprehensive Executive Function Inventory Adult (CEFI Adult) Observer Form
 
@@ -80,36 +80,25 @@ timeframes.
 
 Medical history includes x, y, and z. `r params$his_her_cap` medical history also
 includes attention problems.
-`r params$he_she_cap` struggles to remember tasks
-`r params$he_she` needs to do and forgets to complete and turn in homework.
-Previous medication includes Ritalin (stopped because of low appetite). 
+`r params$he_she_cap` struggles to remember tasks.
 There are no current concerns with hearing, vision, sleep, or appetite.
 `r params$he_she_cap` also denies current headaches or pain.
 Family medical history includes x, y, and z. Surgical history includes x, y, and z.
 
-### Academics
-
-`r params$first_name` recently completed `r params$educyrs` at Local High School.
-`r params$he_she_cap` is frustrated with `r params$his_her` grades, as `r params$he_she` has been an A/B student in the past.
-`r params$he_she_cap` said that `r params$he_she` has trouble with daily work as well as quizzes/tests.
-
 ### Behavioral/Emotional/Social
 
 `r params$first_name` reported that `r params$he_she` has struggled with depression over
-the years. `r params$he_she_cap` was especially upset at no longer being allowed to
-play sports after `r params$his_her` previous concussions. `r params$he_she_cap` noted
-that `r params$his_her` mood has been better and `r params$he_she` has not been as
-withdrawn since increasing `r params$his_her` dose of Effexor XR. `r params$he_she_cap`
-denied concerns about `r params$him_her` harming `r params$him_her`self or others.
-`r params$he_she_cap` expressed concern about `r params$his_her` coping skills.
-`r params$he_she_cap` also said that `r params$he_she` has always tended to want things a
-certain way, in a certain order. However, this has not caused problems in daily
-life. `r params$he_she_cap` denied any other anxiety.
+the years. `r params$he_she_cap` also said that `r params$he_she` has always
+tended to want things a certain way, in a certain order. However, this has not
+caused problems in daily life. `r params$he_she_cap` denied any other anxiety.
 
-`r params$first_name` has many friends. `r params$he_she_cap` enjoys pick-up basketball
-and watching basketball games. `r params$his_her_cap` mother reported that
-`r params$he_she` recently got `r params$his_her` driver's license and is looking for a
-job.
+`r params$first_name` has many friends. `r params$he_she_cap` enjoys x, y z.
+
+### Academics
+
+`r params$first_name` is currently a student at USC.
+`r params$he_she_cap` is frustrated with `r params$his_her` grades, as `r params$he_she` has been an A/B student in the past.
+`r params$he_she_cap` said that `r params$he_she` has trouble with daily work as well as quizzes/tests.
 
 ### Family
 
@@ -136,6 +125,22 @@ demonstrated a clear and logical thought process, and `r params$his_her` speech 
 normal in rate, pitch, and prosody. `r params$his_her_cap` affect was normal in range
 and expression.
 
+Orientation: Patient is oriented to time, place, and person.
+
+Attention and Concentration: Patient is able to sustain attention and concentration throughout the interview. There are no signs of distractibility or difficulties with task-switching.
+
+Language: Patient exhibits fluent and clear speech, with appropriate syntax and grammar. There are no signs of aphasia, dysarthria, or anomia. Patient is able to comprehend and follow verbal instructions.
+
+Memory: Patient is able to recall recent and remote events without difficulty. There are no signs of amnesia or confabulation.
+
+Executive Functioning: Patient demonstrates intact executive functioning, with the ability to plan, initiate, and complete tasks without difficulty. There are no signs of impulsivity, perseveration, or difficulties with decision-making.
+
+Motor Functioning: Patient exhibits normal motor functioning with no signs of ataxia or tremors. Gait and posture are normal.
+
+Sensory Functioning: Patient exhibits normal sensory functioning with no signs of numbness, tingling, or paresthesias.
+
+Mood and Affect: Patient's mood is dysthymic and affect is constricted throughout the interview. There are no signs of anxiety, depression, or mania.
+
 ## Summary/Impression
 
 `r params$first_name` `r params$last_name` is a `r params$age`-year-old `r params$sex` with a history of `r params$dx1`. `r params$he_she_cap` is
@@ -144,11 +149,11 @@ develop tailored plans for psychiatric intervention and school accommodations.
 
 ### Diagnostic Considerations
 
-- [DSM-5/ICD-10 Codes](dsm5_icd10_diagnoses.md)
+- [DSM-5/ICD-10 Codes](03.01_dsm5_icd10_dx.md)
 
 ## Recommendations/Plan
 
-1. Proceed with comprehensive neuropsychological, academic, and personality assessments;
+1. Proceed with comprehensive neuropsychological and personality assessments;
 2. Develop targeted intervention plan and academic plan based on results of testing.
 
 _Note:_ Evaluation is ongoing. Full report and recommendations to follow.
@@ -156,7 +161,7 @@ _Note:_ Evaluation is ongoing. Full report and recommendations to follow.
 Please contact me with any questions or concerns regarding this patient.
 
 Neurobehavioral status exam and clinical documentation by Neuropsychologist
-(96116 x 1, 96121 x 1): 2 hr, 5 min.
+(96116 x 1, 96121 x 1): 2 hr, 0 min.
 
 \
 
@@ -199,7 +204,7 @@ of Privacy Practices._
 
 ```{r}
 #| label: get-csv
-#| eval: false
+#| eval: params$eval
 #| include: false
 library(vroom)
 library(here)
