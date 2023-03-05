@@ -42,6 +42,8 @@ usethis::use_package("here")
 usethis::use_package("readr")
 devtools::document()
 
+usethis::use_github_action("check-standard")
+
 ## Add files to .buildignore
 usethis::use_build_ignore("_quarto.yml")
 usethis::use_build_ignore("src/")
