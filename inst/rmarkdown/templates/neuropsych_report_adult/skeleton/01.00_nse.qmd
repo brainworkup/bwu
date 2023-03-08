@@ -75,7 +75,7 @@ telemedicine on `r params$doe1`.
 <!-- This report is based on a review of
 available medical records, clinical interviews, and information gathered across
 multiple days of examination. Results and recommendations were discussed with
-Summer during interactive feedback on the final day of the evaluation. -->
+Patient during interactive feedback on the final day of the evaluation. -->
 
 ## Background
 
