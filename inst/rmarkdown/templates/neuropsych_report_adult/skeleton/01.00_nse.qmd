@@ -67,7 +67,15 @@ editor: source
 ## Reason for Referral
 
 `r params$first_name` is a student at USC referred for evaluation by `r params$refdoc` to assess `r params$his_her` current cognitive and emotional functioning in relation to `r params$dx1` and to develop an intervention plan.
-This report is based on a review of available medical records and information gathered across a 1-hour neurobehavioral exam conducted with the patient via telemedicine on `r params$doe1`.
+This report is based on a review of available medical records and information
+gathered across a 1-hour neurobehavioral exam conducted with the patient via
+telemedicine on `r params$doe1`.
+
+<!-- full report -->
+<!-- This report is based on a review of
+available medical records, clinical interviews, and information gathered across
+multiple days of examination. Results and recommendations were discussed with
+Summer during interactive feedback on the final day of the evaluation. -->
 
 ## Background
 
