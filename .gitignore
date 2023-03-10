@@ -84,3 +84,4 @@ bwu.builds/
 .pak/
 .builds.archived
 src/
+.history/
