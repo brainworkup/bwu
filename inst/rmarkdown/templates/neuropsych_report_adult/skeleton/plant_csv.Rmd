@@ -22,6 +22,7 @@ params:
       - KTEA-3
       - WMS-IV
       - Cognitive Estimation Test
+      - Raven's 2
   test:
     label: "Test/Measure File Name:"
     value: ""
@@ -39,6 +40,7 @@ params:
       - pegboard
       - wms4
       - cet
+      - ravens
   scale:
     label: "Scale/Subtest:"
     value: Select Scale
@@ -57,7 +59,7 @@ params:
       ACS:
         - TOPF Standard Score
         - ACS Word Choice
-        - ACS Social Cognition
+        - Affect Naming
       NAB:
         - Judgment
         - Mazes
@@ -80,6 +82,8 @@ params:
         - Reading Comprehension
       Cognitive Estimation:
         - Deviation Score
+      Ravens 2:
+        - Raven's 2 Index Score
   raw_score:
     label: "Raw score:"
     value: 10
@@ -131,6 +135,7 @@ params:
         - Cognitive Proficiency
         - Neuropsychological Functioning
         - Premorbid Ability
+        - Fluid Reasoning
       Attention/Executive:
         - Attentional Functioning
         - Executive Functioning
@@ -189,6 +194,7 @@ params:
         - Cognitive Control
         - Cognitive Flexibility
         - Concept Formation
+        - ""
       Working Memory:
         - Working Memory Capacity
         - Verbal Working Memory
@@ -196,9 +202,9 @@ params:
         - Working Memory Index
         - Working Memory
       Processing Speed:
-        - Processing Speed Index
         - Psychomotor Speed
         - Cognitive Efficiency
+        - Processing Speed Index
       Language:
         - Phonemic Fluency
         - Semantic Fluency
@@ -213,10 +219,15 @@ params:
         - Nonverbal Reasoning
         - Visuomotor Integration
       Memory:
-        - Learning Efficiency
-        - Delayed Recall
         - Visual Memory
         - Story Memory
+        - Word-List Learning
+        - Recognition Memory
+      Social Cognition:
+        - Social Perception
+        - Affect Naming
+        - Prosody-Face Matching
+        - Prosody-Pair Matching
       Effort:
         - Embedded
         - Standalone
@@ -227,11 +238,6 @@ params:
         - Reading Comprehension
         - Reading Decoding
         - Reading Speed
-      Social Cognition:
-        - Social Perception
-        - Affect Naming
-        - Prosody-Face Matching
-        - Prosody-Pair Matching
   pass:
     label: "PASS:"
     value: ""
@@ -242,6 +248,7 @@ params:
       - Sequential
       - Simultaneous
       - Knowledge
+      - Other
   verbal:
     label: "Verbal or Nonverbal Test:"
     value: ""
@@ -268,7 +275,7 @@ params:
     choices: [1, 3, 10, 15]
   reliability:
     label: "Reliability:"
-    value: 0.90
+    value: 0.85
     input: slider
     min: 0
     max: 1
@@ -290,6 +297,7 @@ params:
 output:
   rmdformats::robobook:
     highlight: kate
+editor: source
 ---
 
 ## Setup
@@ -416,6 +424,8 @@ compute_desc <- function(.x, .scale, description, ...) {
         "Linking prosody to a facial expression",
       .scale == "Prosody-Pair Matching" ~
         "Linking prosody to an interacting pair of people and explaining the intent of the speaker",
+      .scale == "Raven's 2 Index Score" ~
+        "Fluid reasoning",
       TRUE ~ as.character(description)
     )
   )
@@ -622,6 +632,8 @@ compute_result <-
           .scale == "Prosody-Face Matching" ~
             glue::glue("{.description} was {.range}.\n"),
           .scale == "Prosody-Pair Matching" ~
+            glue::glue("{.description} was {.range}.\n"),
+          .scale == "Raven's 2 Index Score" ~
             glue::glue("{.description} was {.range}.\n"),
           TRUE ~ as.character(result)
         )

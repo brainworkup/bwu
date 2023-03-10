@@ -671,7 +671,7 @@ cat(readLines("02.00_nse.md"), sep = "\n")
 - (ref:pai)
 
 ```{r nt-obs, results = 'asis'}
-cat(readLines("02.01_nt-obs.md"), sep = "\n")
+cat(readLines("02.01_behavobs.md"), sep = "\n")
 ```
 
 <!-- \newpage -->
@@ -685,8 +685,6 @@ scores are easiest to interpret as percentiles[^ref-1], which are provided in
 the tables below, and as *z*-scores (M = 0, SD = 1)[^ref-2], which are used to
 plot the various test and domain scores below.
 
-<!-- \autoref{fig:gauss-plot-narrow} and \autoref{fig:gauss-plot-broad} can be used as guides to help interpret individual test scores in terms of the degree of distance a score fell in relation to normative and developmental expectations (i.e., the mean) and the magnitude of clinical severity.
-Test scores are easiest to interpret as percentiles^[(ref:pct)], which are provided in the tables below, and as *z*-scores (M = 0, SD = 1)^[(ref:zplot)], which are used to plot the various test and domain scores below. -->
 
 (ref:gauss-plot-narrow) Classification of neuropsychological test scores that are normally distributed in the general population [@guilmetteAmericanAcademyClinical2020].
 

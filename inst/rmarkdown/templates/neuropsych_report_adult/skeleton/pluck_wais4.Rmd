@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from WAIS-IV"
 params:
-  patient: AJ
+  patient: Biggie
   test:
     label: "Test"
     value: wais4
