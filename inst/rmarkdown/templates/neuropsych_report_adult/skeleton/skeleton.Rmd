@@ -1240,7 +1240,7 @@ knitr::read_chunk(here::here(patient, "02.11_emotion.R"))
 
 # SUMMARY/IMPRESSION
 
-(ref:domain) *Key Findings* Neuropsychological test results show a
+(ref:summary) *Key Findings* Neuropsychological test results show a
 pattern of above average performance across all scales. Verbal Reasoning was
 exceptionally strong, while Memory, Language, Working Memory and Psychomotor
 Speed were all above average. Spatial, Planning, Nonverbal Reasoning and
