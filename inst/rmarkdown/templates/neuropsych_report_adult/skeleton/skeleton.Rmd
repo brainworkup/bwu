@@ -3,7 +3,6 @@ title: "Confidential Neuropsychological Report"
 author:
   - name: "**Biggie Smalls**"
 date: January 1, 2021
-editor: source
 output:
   bwu::neuropsych_report_adult:
     latex_engine: pdflatex
@@ -57,6 +56,7 @@ setkomafont:
   - element: descriptionlabel
     commands: \normalfont\scshape\bfseries
 params:
+  patient: Biggie
   first_name:
     label: "First Name:"
     value: Biggie
@@ -276,6 +276,7 @@ params:
   eval_timed_plot:
     label: "Timed/Untimed Plot"
     value: TRUE
+editor: source
 ---
 
 ```{r patient, include = FALSE}
@@ -670,8 +671,8 @@ cat(readLines("02.00_nse.md"), sep = "\n")
 - (ref:tmt)
 - (ref:pai)
 
-```{r nt-obs, results = 'asis'}
-cat(readLines("02.01_behavobs.md"), sep = "\n")
+```{r behav-obs, results = "asis"}
+cat(readLines("02.01_behav-obs.md"), sep = "\n")
 ```
 
 <!-- \newpage -->
