@@ -93,7 +93,7 @@ dt <-
 
 dt |>
   glue::glue_data() |>
-  purrr::modify(lift(paste0)) |>
+  purrr::modify(purrr::lift(paste0)) |>
   cat(dt$result,
     file = "02.10_adhd.md",
     fill = TRUE,
@@ -190,4 +190,3 @@ kableExtra::kbl(
   kableExtra::pack_rows(index = table(tb$Test)) |>
   kableExtra::row_spec(row = 0, bold = TRUE) |>
   kableExtra::add_footnote("(ref:fn-adhd)")
-
