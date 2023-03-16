@@ -1249,14 +1249,14 @@ Cognitive Efficiency were all scored as high average. Notably, even
 Attentional Fluency reflect performances that are well below cognitive
 expectations for `r params$him_her`. *Note:* *z* = 0 (mean) ± 1 (s.d.)
 
-```{r domain-df, cache = FALSE}
+```{r domain-df}
 domain <-
   neurocog %>%
   dplyr::filter(test_type == "npsych_test") %>%
   dplyr::filter(!is.na(domain))
 ```
 
-```{r domain-plot, fig.cap = '(ref:domain)', fig.height = 3.5, cache = FALSE}
+```{r domain-plot, fig.cap = '(ref:domain)', fig.height = 3.5}
 bwu::dotplot(
   data = domain,
   x = domain$z_mean_dom,
@@ -1281,15 +1281,6 @@ bwu::dotplot(
   domain = "Summary"
 )
 ```
-
-```{r domain-df, eval=FALSE}
-domain <-
-  neurocog |>
-  dplyr::filter(test_type == "npsych_test") |>
-  dplyr::filter(domain != "Performance Validity") |>
-  dplyr::filter(!is.na(domain))
-```
-
 
 (ref:pass) **PASS Cognitive Process Model** Sequential and Simultaneous processing are areas of strengths, and Attention is an area of weakness.
 
