@@ -991,7 +991,7 @@ knitr::read_chunk(here::here(patient, "02.05_spatial.R"))
 
 (ref:fn-exe) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
-(ref:unstructured-task) This was a novel planning task published as part of the NIH EXAMINER Executive Function Battery [@kramer2014]. The task allows the examinee to choose which problems they want to work on to maximize points earned. In doing so, examinees need to plan ahead, avoid items that are strategically poor choices, and be cognizant of when a particular booklet offers diminishing returns. (ref:first-name) performed this task effortlessly.
+(ref:ut) This was a novel planning task published as part of the NIH EXAMINER Executive Function Battery [@kramer2014]. The task allows the examinee to choose which problems they want to work on to maximize points earned. In doing so, examinees need to plan ahead, avoid items that are strategically poor choices, and be cognizant of when a particular booklet offers diminishing returns. (ref:first-name) performed this task effortlessly.
 
 ```{r, executive, results = 'asis', eval = params$eval_executive}
 cat(readLines("02.06_executive.md"), sep = "\n")
@@ -1240,7 +1240,7 @@ knitr::read_chunk(here::here(patient, "02.11_emotion.R"))
 
 # SUMMARY/IMPRESSION
 
-(ref:summary) *Key Findings* Neuropsychological test results show a
+(ref:domain) *Key Findings* Neuropsychological test results show a
 pattern of above average performance across all scales. Verbal Reasoning was
 exceptionally strong, while Memory, Language, Working Memory and Psychomotor
 Speed were all above average. Spatial, Planning, Nonverbal Reasoning and
@@ -1249,7 +1249,23 @@ Cognitive Efficiency were all scored as high average. Notably, even
 Attentional Fluency reflect performances that are well below cognitive
 expectations for `r params$him_her`. *Note:* *z* = 0 (mean) ± 1 (s.d.)
 
-```{r summary-df}
+```{r domain-df, cache = FALSE}
+domain <-
+  neurocog %>%
+  dplyr::filter(test_type == "npsych_test") %>%
+  dplyr::filter(!is.na(domain))
+```
+
+```{r domain-plot, fig.cap = '(ref:domain)', fig.height = 3.5, cache = FALSE}
+bwu::dotplot(
+  data = domain,
+  x = domain$z_mean_dom,
+  y = domain$domain,
+  domain = "domain"
+)
+```
+
+```{r summary-df, eval = FALSE}
 summary <-
   readr::read_csv(here::here(patient, "csv", "index_scores.csv")) |>
   dplyr::filter(test_type == "npsych_test") |>
@@ -1257,7 +1273,7 @@ summary <-
   dplyr::filter(!is.na(domain))
 ```
 
-```{r summary-plot, fig.cap = '(ref:summary)', fig.height = 3.5}
+```{r summary-plot, eval = FALSE, fig.cap = '(ref:summary)', fig.height = 3.5}
 bwu::dotplot(
   data = summary,
   x = summary$z,
@@ -1274,14 +1290,6 @@ domain <-
   dplyr::filter(!is.na(domain))
 ```
 
-```{r domain-plot, eval=FALSE, fig.cap = '(ref:domain)', fig.height = 3.5}
-bwu::dotplot(
-  data = domain,
-  x = domain$z_mean_dom,
-  y = domain$domain,
-  domain = "domain"
-)
-```
 
 (ref:pass) **PASS Cognitive Process Model** Sequential and Simultaneous processing are areas of strengths, and Attention is an area of weakness.
 

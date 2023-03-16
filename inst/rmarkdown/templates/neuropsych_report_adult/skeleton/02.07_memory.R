@@ -67,10 +67,10 @@ filter_domain <- c(
   "Short Delay Cued Recall",
   "Long Delay Free Recall",
   "Long Delay Cued Recall",
-  "Total Hits",
-  "Total False Positives",
+  # "Total Hits",
+  # "Total False Positives",
   "Recognition Discriminability (d')",
-  "Recognition Discriminability Nonparametric",
+  # "Recognition Discriminability Nonparametric",
   "CVLT-3 Forced-Choice Recognition Hits",
   # EF or here
   "CVLT-3 Total Intrusions",
@@ -95,9 +95,9 @@ dt %>%
   glue::glue_data() %>%
   purrr::modify(lift(paste0)) %>%
   cat(dt$result,
-      file = "02.07_memory.md",
-      fill = TRUE,
-      append = TRUE
+    file = "02.07_memory.md",
+    fill = TRUE,
+    append = TRUE
   )
 
 ## ---- 03-table-memory ------------
@@ -111,15 +111,15 @@ exclude <- c(
   "Total Hits",
   "Total False Positives",
   "Recognition Discriminability Nonparametric"
-  )
+)
 tb <-
   bwu::make_tibble(
     tibb = tb,
     data = neurocog,
     pheno = "Memory"
   ) |>
-  tidytable::filter(Scale %in% filter_domain) |> 
-  tidytable::arrange(Test) |> 
+  tidytable::filter(Scale %in% filter_domain) |>
+  tidytable::arrange(Test) |>
   tidytable::filter(Scale != exclude)
 
 ## ---- 04-kable-memory ------------------
