@@ -108,15 +108,17 @@ dt |>
 ## ---- 03-table-executive ------------
 tb <-
   bwu::make_tibble(tibb = executive,
-                   data = neurocog,
-                   pheno = "Attention/Executive") |>
+    data = neurocog,
+    pheno = "Attention/Executive") |>
   tidytable::filter(Scale %in% filter_domain) |>
   tidytable::arrange(Test) |>
   tidytable::filter(
     Scale %in% c(
       "NAB Attention Index",
       "Digits Forward",
+      "Digits Forward Longest Span",
       "Digits Backward",
+      "Digits Backward Longest Span",
       "Dots",
       "Numbers & Letters Part A Efficiency",
       "Numbers & Letters Part B Efficiency",
@@ -145,9 +147,7 @@ tb <-
       "Symbol Search",
       "TMT, Part A",
       "TMT, Part B",
-      "Unstructured Task",
-      "Letter Fluency",
-      "Category Fluency"
+      "Unstructured Task"
     )
   )
 

@@ -882,7 +882,7 @@ knitr::read_chunk(here::here(patient, "02.02_iq.R"))
 
 \newpage
 
-<!-- ### Academic Skills -->
+<!-- ## Academic Skills -->
 
 (ref:fn-acad) Standard Score (M = 100, SD = 15)
 
@@ -919,7 +919,7 @@ knitr::read_chunk(here::here(patient, "02.03_academics.R"))
 
 ## Verbal/Language
 
-(ref:fn-vrb) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
+(ref:fn-vrb) *T* Score (M = 50, SD = 10) or Scaled Score (M = 10, SD = 3)
 
 ```{r, verbal, results = 'asis', eval = params$eval_verbal}
 cat(readLines("02.04_verbal.md"), sep = "\n")
