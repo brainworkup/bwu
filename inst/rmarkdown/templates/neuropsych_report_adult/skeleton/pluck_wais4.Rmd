@@ -30,7 +30,7 @@ params:
     label: "No file selected"
     value: file
     input: file
-  pages: [3,3,3,3]
+  pages: [3,3,3,3] #[2,4,4,4,4,6,6]
   table1:
     label: "Index Scores"
     value: ""
@@ -41,7 +41,7 @@ params:
       - Perceptual Reasoning (PRI)
       - Working Memory (WMI)
       - Processing Speed (PSI)
-      - Full Scale IQ (FSIQ)
+      - Full Scale (FSIQ)
       - General Ability (GAI)
   table2:
     label: "Verbal Comprehension (VCI)"
@@ -299,6 +299,14 @@ if (params$version == "full") {
     psi = c(376, 50, 402, 560)
   )
 }
+# with FSIQ
+# index = c(132, 50, 227, 560),
+# vci = c(364, 50, 398, 560),
+# pri = c(450, 50, 484, 560),
+# wmi = c(535, 50, 570, 560),
+# psi = c(620, 50, 656, 560),
+# bd = c(355, 50, 375, 560),
+# ds = c(436, 50, 533, 560)
 ```
 
 ```{r areas-get, eval = FALSE}
@@ -311,7 +319,10 @@ if (params$version == "full") {
 ```
 
 ```{r write-area}
-saveRDS(area, file = here::here(patient, "pre_csv", "area_wais4.rds"), compress = FALSE)
+saveRDS(
+  area,
+  file = here::here(patient, "pre_csv", "area_wais4.rds"),
+  compress = FALSE)
 ```
 
 ```{r read-area}
@@ -1309,6 +1320,7 @@ if (params$version == "brief") {
 ```{r match, eval = params$match}
 match_wais4 <- c(
   # IQ
+  "Full Scale (FSIQ)",
   "General Ability (GAI)",
   # VCI
   "Verbal Comprehension (VCI)",

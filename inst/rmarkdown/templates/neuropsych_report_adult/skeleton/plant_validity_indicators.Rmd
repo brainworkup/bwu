@@ -3,7 +3,7 @@ title: "Plant Validity Indicators"
 params:
   patient:
     label: "Patient First Name:"
-    value: Biggie
+    value: Aria
     input: text
   test_name:
     label: "Full Name of Test/Test Battery:"
@@ -16,6 +16,7 @@ params:
         - CVLT-3
         - PAI
         - TOMM
+        - DCT
       Symptom Validity:
         - CAARS Self-Report
         - CAARS Observer-Report
@@ -35,6 +36,7 @@ params:
       - cvlt3_brief
       - pai
       - tomm
+      - dct
   scale:
     label: "Scale/Subtest:"
     value: Select Scale
@@ -46,6 +48,8 @@ params:
         - Reliable Digit Span
       CVLT3:
         - CVLT-3 Forced-Choice Recognition Hits
+      DCT:
+        - E-Score
       TOMM:
         - TOMM Trial 1
         - TOMM Trial 2
@@ -132,6 +136,7 @@ params:
         - Word Choice Correct
         - Reliable Digit Span
         - CVLT-3 Forced-Choice Recognition Hits
+        - Dot Counting E-Score
       Personality Assessment:
         - Inconsistency Index
         - Infrequency Index
@@ -195,7 +200,7 @@ params:
   ci_95: NULL
   test_type:
     label: "Test Type:"
-    value: npsych_test
+    value: validity_indicator
     input: radio
     choices:
       - npsych_test
