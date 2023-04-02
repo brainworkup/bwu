@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from WIAT-4"
 params:
-  patient: "Biggie"
+  patient: Biggie
   test:
     label: "Test"
     value: wiat4
@@ -12,23 +12,24 @@ params:
       - wiat3
   test_name:
     label: "Test Name"
-    value: WIAT-4
+    value: "WIAT-4"
     input: select
     multiple: no
     choices:
-      - WIAT-4
-      - WIAT-III
+      - "WIAT-4"
+      - "WIAT-III"
   file:
     label: "No file selected"
     value: file
     input: file
-  pages: [16]
+  pages: [9,10]
   table1:
-    label: "Table 1 Core Composite Score Summary"
-    value: Total Achievement
+    label: "Table 1: Core Composite Score Summary"
+    value: ""
     input: select
     multiple: yes
     choices:
+      TOTAL ACHIEVEMENT:
       - Total Achievement
       - Word Reading
       - Reading Comprehension
@@ -36,42 +37,53 @@ params:
       - Essay Composition
       - Math Problem Solving
       - Numerical Operations
+      READING:
       - Reading
-      - Word Reading
-      - Reading Comprehension
+      - Word Reading2
+      - Reading Comprehension2
+      WRITING:
       - Written Expression
-      - Spelling
+      - Spelling2
       - Sentence Composition
-      - Essay Composition
+      - Essay Composition2
+      MATH:
       - Mathematics
-      - Math Problem Solving
-      - Numerical Operations
+      - Math Problem Solving2
+      - Numerical Operations2
   table2:
-    label: "Table 2 Supplemental Composite Score Summary"
+    label: "Table 2: Supplemental Composite Score Summary"
     value: ""
     input: select
     multiple: yes
     choices:
+      BASIC READING:
       - Basic Reading
       - Pseudoword Decoding
       - Phonemic Proficiency
       - Word Reading
+      DECODING:
       - Decoding
-      - Pseudoword Decoding
-      - Word Reading
+      - Pseudoword Decoding2
+      - Word Reading2
+      READING FLUENCY:
       - Reading Fluency
       - Oral Reading Fluency
       - Orthographic Fluency
-      - Phonological Processing
-      - Pseudoword Decoding
-      - Phonemic Proficiency
-      - Dyslexia Index
-      - Word Reading
-      - Pseudoword Decoding
-      - Orthographic Fluency
-      - Orthographic Processing
-      - Spelling
       - Decoding Fluency
+      PHONOLOGICAL PROCESSING:
+      - Phonological Processing
+      - Pseudoword Decoding3
+      - Phonemic Proficiency2
+      ORTHOGRAPHIC PROCESSING:
+      - Orthographic Processing
+      - Orthographic Fluency2
+      - Spelling
+      DYSLEXIA INDEX:
+      - Dyslexia Index
+      - Word Reading3
+      - Pseudoword Decoding4
+      - Orthographic Fluency3
+      OTHER:
       - Orthographic Processing Extended
       - Orthographic Choice
       - Math Fluency
@@ -81,9 +93,9 @@ params:
       - Oral Language
       - Listening Comprehension
       - Oral Expression
-  colnames1:
-    label: "Table 1 Column Names"
-    value: scale
+  colnames:
+    label: "Column Names"
+    value: [scale, raw_score, score, ci_95, percentile, category, age_equiv, grade_equiv, gsv]
     input: select
     multiple: yes
     choices:
@@ -96,24 +108,9 @@ params:
       - age_equiv
       - grade_equiv
       - gsv
-  colnames2:
-    label: "Table 2 Column Names"
-    value: scale
-    input: select
-    multiple: yes
-    choices:
-      - scale
-      - raw_score
-      - score
-      - ci_95
-      - percentile
-      - category
-      - age_equiv
-      - grade_equiv
-      - gsv
-  keep1:
-    label: "Variables to Keep, Set 1"
-    value: scale
+  keep:
+    label: "Variables to Keep"
+    value: [scale, raw_score, score, percentile, ci_95]
     input: select
     multiple: yes
     choices:
@@ -122,19 +119,11 @@ params:
       - score
       - percentile
       - ci_95
-  keep2:
-    label: "Variables to Keep, Set 2"
-    value: scale
-    input: select
-    multiple: yes
-    choices:
-      - scale
-      - raw_score
-      - score
-      - percentile
 ---
 
 # WIAT-4
+#TODO:
+- still need to fix more
 
 ## Load libraries
 
@@ -149,7 +138,7 @@ knitr::opts_chunk$set(
   error = TRUE
 )
 library(bwu)
-library(tidytable)
+library(dplyr)
 library(hablar)
 library(here)
 library(knitr)
@@ -176,6 +165,7 @@ patient <- params$patient
 
 ```{r test}
 test <- params$test
+test_name <- params$test_name
 ```
 
 ## Upload/attach PDF
@@ -190,11 +180,11 @@ file <- params$file
 pages <- params$pages
 ```
 
-```{r w-file}
+```{r write}
 writeLines(file, here::here(patient, "pre_csv", "wiat4_pdf"))
 ```
 
-```{r r-file}
+```{r read, eval=FALSE}
 file <- readLines(here::here(patient, "pre_csv", "wiat4_pdf"))
 ```
 
@@ -202,34 +192,35 @@ file <- readLines(here::here(patient, "pre_csv", "wiat4_pdf"))
 
 ```{r areas-known}
 # top left bottom right
-# area <- list(
-#   c(143, 32, 335, 580),
-#   c(141, 32, 327, 580)
-# )
+area <- list(
+  c(142, 32, 383, 580),
+  c(142, 32, 415, 580)
+)
 # area <- list(
 #   c(143, 32, 335, 580)
 # )
-area <- list(
-  c(141, 32, 327, 580)
-)
+# area <- list(
+#   c(141, 32, 383, 580)
+# )
+# area <- area
 ```
 
-```{r areas-get, eval=F}
+```{r areas-get, eval=FALSE}
 # if unknown
-# patient <- "Biggie"
+# patient <- "Aria"
 # file <- file.choose()
 # area <- bwu::gpluck_locate_areas(
 #   file = file,
-#   pages = c(17,18)
+#   pages = c(9, 10)
 # )
 ```
 
-```{r w-area}
+```{r savearea}
 saveRDS(area, file = here::here(patient, "pre_csv", "area_wiat4.rds"), compress = FALSE)
 ```
 
-```{r r-area}
-# area <- readRDS(here::here(patient, "pre_csv", "area_wiat4.rds"))
+```{r readarea, eval=FALSE}
+area <- readRDS(here::here(patient, "pre_csv", "area_wiat4.rds"))
 ```
 
 ## Extract tables
@@ -237,11 +228,11 @@ saveRDS(area, file = here::here(patient, "pre_csv", "area_wiat4.rds"), compress 
 ```{r extract-table-pdf}
 plucked_table <- bwu::gpluck_extract_table(
   file = file,
-  pages = c(16),
+  pages = c(9, 10),
   area = area,
   guess = NULL,
-  method = "lattice",
-  output = "matrix"
+  method = "lattice", # decide
+  output = "matrix" # data.frame
 )
 ```
 
@@ -249,29 +240,28 @@ plucked_table <- bwu::gpluck_extract_table(
 
 ## Pluck and tidy tables
 
-```{r pluck1, eval=F}
-table1 <- as_tibble(plucked_table[[1]])
-table1 <- tidytable::mutate(table1, raw_score = NA_integer_, .before = V2)
-colnames(table1) <- params$colnames1
-table1$scale <- NA
-table1 <- tidytable::na_if(table1, "")
-table1 <- tidytable::na_if(table1, "NA")
-table1 <- tidytable::na_if(table1, "-")
-table1 <- tidytable::na_if(table1, "--")
-table1 <- tidytable::na_if(table1, "---")
-# table1 <- table1 |> slice(-2) # redundant, change each time to remove rows with extra line
-table1 <- table1 |> slice(-c(3, 11))
+```{r pluck1}
+table1 <- tibble::as_tibble(plucked_table[[1]])
+table1 <- dplyr::mutate(table1, raw_score = "", .before = V2)
+colnames(table1) <- params$colnames
+# table1$scale <- ""
+# table1 <- dplyr::na_if(table1, "")
+# table1 <- dplyr::na_if(table1, "NA")
+# table1 <- dplyr::na_if(table1, "-")
+# table1 <- dplyr::na_if(table1, "--")
+# table1 <- dplyr::na_if(table1, "---")
+table1 <- table1 |> slice(-3, -11) # redundant, change each time to remove rows with extra line
 to_double <- c("raw_score", "score", "percentile")
 table1 <-
   table1 %>%
   hablar::convert(dbl(all_of(to_double))) %>%
-  tidytable::relocate(scale, .before = raw_score)
+  dplyr::relocate(scale, .before = raw_score)
 ```
 
 ## Scale names
 
-```{r rownames1, eval=F}
-table1$scale <- params$table1
+```{r rownames1, eval = TRUE}
+table1$scale <- (params$table1)
 ```
 
 ```{r names1}
@@ -297,16 +287,16 @@ table1$scale <- params$table1
 # Table 2
 
 ```{r pluck2}
-table2 <- as_tibble(plucked_table[[1]]) # usually 2
-table2 <- tidytable::mutate(table2, raw_score = NA_integer_, .before = V2)
-colnames(table2) <- params$colnames2
-table2 <- tidytable::na_if(table2, "")
-table2 <- tidytable::na_if(table2, "NA")
-table2 <- tidytable::na_if(table2, "-")
-table2 <- tidytable::na_if(table2, "--")
-table2 <- tidytable::na_if(table2, "---")
-# table2 <- tidytable::slice(table2, 2) # check each time
-table2 <- tidytable::distinct(table2, .keep_all = FALSE) # check each time
+table2 <- as_tibble(plucked_table[[2]]) # usually 2
+table2 <- dplyr::mutate(table2, raw_score = NULL, .before = V2)
+colnames(table2) <- params$colnames
+# table2 <- dplyr::na_if(table2, "")
+# table2 <- dplyr::na_if(table2, "NA")
+# table2 <- dplyr::na_if(table2, "-")
+# table2 <- dplyr::na_if(table2, "--")
+# table2 <- dplyr::na_if(table2, "---")
+# table2 <- dplyr::slice(table2, 2) # check each time
+# table2 <- dplyr::distinct(table2, .keep_all = FALSE) # check each time
 to_double <- c("raw_score", "score", "percentile")
 table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
 ```
@@ -353,11 +343,11 @@ table2$scale <- params$table2
 ## Select variables to keep
 
 ```{r select}
-table1 <- table1 |> tidytable::select(all_of(params$keep1))
-table2 <- table2 |> tidytable::select(all_of(params$keep2))
+table1 <- table1 |> dplyr::select(all_of(params$keep))
+table2 <- table2 |> dplyr::select(all_of(params$keep))
 table <- rbind(table1, table2)
-table <- tidytable::distinct(table, .keep_all = FALSE)
-View(table)
+table <- dplyr::distinct(table, .keep_all = FALSE)
+# View(table)
 ```
 
 # Mutate columns
@@ -376,7 +366,8 @@ table <- bwu::gpluck_make_columns(
   timed = "",
   test_type = "npsych_test",
   score_type = "standard_score",
-  description = ""
+  description = "",
+  result = ""
 )
 ```
 
@@ -385,7 +376,6 @@ table <- bwu::gpluck_make_columns(
 ```{r range}
 table <- bwu::gpluck_make_score_ranges(table = table, test_type = "npsych_test")
 ```
-
 
 ## Subdomain
 
@@ -585,56 +575,66 @@ table <-
   table |>
   mutate(
     description = case_when(
-      scale == "Total Achievement" ~ "overall academic achievement in the areas of reading, math, and writing",
-      scale == "Reading" ~ "composite score of decoding and comprehension that balances word-level and text-level reading skills",
-      scale == "Word Reading" ~ "single word reading/decoding of a list of regular and irregular words",
-      scale == "Reading Comprehension" ~ "reading comprehension skills at the level of word, sentence, and passage",
-      scale == "Reading Fluency" ~ "composite measure of overall oral reading fluency skills, including  reading in context and in isolation",
-      scale == "Spelling" ~ "written spelling from dictations",
-      scale == "Sentence Composition" ~ "sentence formulation skills",
-      scale == "Sentence Writing Fluency" ~ "sentence composition fluency",
-      scale == "Mathematics" ~ "estimate of overall mathematics skills in the domains of math comprehension and problem solving and math computation",
-      scale == "Math Problem Solving" ~ "applying mathematical principles to real-life situations, ranging from basic concepts, everyday applications, geometry, and algebra",
-      scale == "Numerical Operations" ~ "paper-and-pencil math calculation skills, ranging from basic operations with integers to geometry, algebra, and calculus problems",
-      scale == "Written Expression" ~ "overall written expression skills including spelling and expository/contextual writing",
+      scale == "Total Achievement" ~ "Overall academic achievement in the areas of reading, math, and writing",
+      scale == "Reading" ~ "A composite score of decoding and comprehension that balances word-level and text-level reading skills",
+      scale == "Word Reading" ~ "Single word reading/decoding of a list of regular and irregular words",
+      scale == "Reading Comprehension" ~ "Reading comprehension skills at the level of word, sentence, and passage",
+      scale == "Reading Fluency" ~ "A composite measure of overall oral reading fluency skills, including  reading in context and in isolation",
+      scale == "Spelling" ~ "Written spelling from dictations",
+      scale == "Sentence Composition" ~ "Sentence formulation skills",
+      scale == "Sentence Writing Fluency" ~ "Sentence composition fluency",
+      scale == "Mathematics" ~ "An estimate of overall mathematics skills in the domains of math comprehension and problem solving and math computation",
+      scale == "Math Problem Solving" ~ "Applying mathematical principles to real-life situations, ranging from basic concepts, everyday applications, geometry, and algebra",
+      scale == "Numerical Operations" ~ "Paper-and-pencil math calculation skills, ranging from basic operations with integers to geometry, algebra, and calculus problems",
+      scale == "Written Expression" ~ "Overall written expression skills including spelling and expository/contextual writing",
       scale == "Essay Composition" ~ "spontaneous writing fluency at the discourse level",
-      scale == "Basic Reading" ~ "composite measure of phonological skills, phonic decoding, and single-word reading skills",
-      scale == "Decoding" ~ "composite estimate of decontextualized phonic decoding and word reading skills",
-      scale == "Pseudoword Decoding" ~ "phonic decoding skills as assessed by reading aloud a list of pseudowords",
-      scale == "Decoding Fluency" ~ "phonic decoding fluency",
-      scale == "Phonemic Proficiency" ~ "speed and accuracy of phonological/phonemic skills including elision, substitution, and reversal",
-      scale == "Phonological Processing" ~ "phonological processing composite measure of phonemic proficiency and phonic decoding skills",
-      scale == "Orthographic Processing" ~ "overall measure of orthographic processing, including the size of the examinees orthographic lexicon and the quality of orthographic representations",
-      scale == "Orthographic Processing Extended" ~ "overall measure of orthographic processing, including the size of the examinees orthographic lexicon and the quality of orthographic representations (extended)",
-      scale == "Orthographic Fluency" ~ "orthographic lexicon, or sight vocabulary fluency",
-      scale == "Orthographic Choice" ~ "orthographic knowledge, or the quality of stored orthographic representations (i.e., correct word spellings)",
-      scale == "Dyslexia Index" ~ "clinically sensitive composite score for identifying risk for dyslexia among students",
-      scale == "Math Fluency" ~ "overall speed/fluency in solving fact-based addition, subtraction, and multiplication problems",
-      scale == "Math Fluency-Addition" ~ "speed of addition fact fluency",
-      scale == "Math Fluency-Subtraction" ~ "speed of subtraction fact fluency",
-      scale == "Math Fluency-Multiplication" ~ "speed of multiplication fact fluency",
-      scale == "Listening Comprehension" ~ "receptive language comprehension at the level of the word, sentence, and passage",
-      scale == "Receptive Vocabulary" ~ "selecting pictures that best illustrate the mean of individual target words",
-      scale == "Oral Discourse Comprehension" ~ "listening to passages and then responding aloud to comprehension questions",
-      scale == "Alphabet Writing Fluency" ~ "letter writing fluency",
-      scale == "Oral Expression" ~ "oral expression at the level of the word and sentence",
-      scale == "Expressive Vocabulary" ~ "seeing a pciture and hearing a definition and hten saying the word that best corresponds to the picture and definition",
-      scale == "Oral Word Fluency" ~ "naming as many things as possible belonging to a given category within 60 seconds",
-      scale == "Sentence Repetition" ~ "listening to a sentence and then repeating it verbatim",
-      scale == "Oral Reading Fluency" ~ "oral reading fluency",
+      scale == "Basic Reading" ~ "A composite measure of phonological skills, phonic decoding, and single-word reading skills",
+      scale == "Decoding" ~ "A composite estimate of decontextualized phonic decoding and word reading skills",
+      scale == "Pseudoword Decoding" ~ "Phonic decoding skills as assessed by reading aloud a list of pseudowords",
+      scale == "Decoding Fluency" ~ "Phonic decoding fluency",
+      scale == "Phonemic Proficiency" ~ "Speed and accuracy of phonological/phonemic skills including elision, substitution, and reversal",
+      scale == "Phonological Processing" ~ "A phonological processing composite measure of phonemic proficiency and phonic decoding skills",
+      scale == "Orthographic Processing" ~ "An overall measure of orthographic processing, including the size of the examinees orthographic lexicon and the quality of orthographic representations",
+      scale == "Orthographic Processing Extended" ~ "An overall measure of orthographic processing, including the size of the examinees orthographic lexicon and the quality of orthographic representations (extended)",
+      scale == "Orthographic Fluency" ~ "Orthographic lexicon, or sight vocabulary fluency",
+      scale == "Orthographic Choice" ~ "Orthographic knowledge, or the quality of stored orthographic representations (i.e., correct word spellings)",
+      scale == "Dyslexia Index" ~ "A clinically sensitive composite score for identifying risk for dyslexia among students",
+      scale == "Math Fluency" ~ "An overall speed/fluency in solving fact-based addition, subtraction, and multiplication problems",
+      scale == "Math Fluency-Addition" ~ "Speed of addition fact fluency",
+      scale == "Math Fluency-Subtraction" ~ "Speed of subtraction fact fluency",
+      scale == "Math Fluency-Multiplication" ~ "Speed of multiplication fact fluency",
+      scale == "Listening Comprehension" ~ "Receptive language comprehension at the level of the word, sentence, and passage",
+      scale == "Receptive Vocabulary" ~ "Selecting pictures that best illustrate the mean of individual target words",
+      scale == "Oral Discourse Comprehension" ~ "Listening to passages and then responding aloud to comprehension questions",
+      scale == "Alphabet Writing Fluency" ~ "Letter writing fluency",
+      scale == "Oral Expression" ~ "Oral expression at the level of the word and sentence",
+      scale == "Expressive Vocabulary" ~ "Seeing a picture and hearing a definition and then saying the word that best corresponds to the picture and definition",
+      scale == "Oral Word Fluency" ~ "Naming as many things as possible belonging to a given category within 60 seconds",
+      scale == "Sentence Repetition" ~ "Listening to a sentence and then repeating it verbatim",
+      scale == "Oral Reading Fluency" ~ "Oral reading fluency",
       TRUE ~ as.character(description)
     )
   )
 ```
 
+## Glue results
 
+```{r glue-result}
+table <-
+  table %>%
+  tidytable::mutate(
+    result = glue::glue(
+      "{description} was {range}."
+    )
+  )
+```
 
 ## Relocate variables
 
 ```{r relocate}
 wiat4 <- table |> relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 # %>%
-#   tidytable::slice(4:6, 1:3, 7:10)
+#   dplyr::slice(4:6, 1:3, 7:10)
 ```
 
 ## Write out final csv
@@ -645,7 +645,7 @@ readr::write_csv(wiat4, here::here(patient, "csv", "wiat4.csv"), col_names = TRU
 
 ## Cleanup
 
-```{r cleanup}
+```{r cleanup, eval=FALSE}
 rm(area)
 rm(table)
 rm(table1, table2)
