@@ -128,9 +128,17 @@ Overall, this brief neurobehavioral status exam can be used as a starting point 
 
 ### Diagnostic Considerations
 
+- 314.01 (F90.2) Attention-Deficit/Hyperactivity Disorder (ADHD), Combined
+  Presentation
 - [DSM-5/ICD-10 Codes](03.01_dsm5_icd10_dx.md)
 
 ## Recommendations/Plan
+
+Proceed with comprehensive neuropsychological and personality assessments. Once
+the evaluation is complete, it is important to develop a comprehensive treatment
+plan that takes into account the individual's needs, goals, and preferences.
+This could include medication management, psychotherapy, lifestyle
+modifications, and other evidence-based treatments.
 
 1. Proceed with comprehensive neuropsychological and personality assessments
 1. Develop targeted intervention plan and academic plan based on results of testing
