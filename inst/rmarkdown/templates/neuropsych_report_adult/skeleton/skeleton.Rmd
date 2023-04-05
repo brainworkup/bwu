@@ -508,10 +508,10 @@ figure things out without being told exactly how things work, analyze and solve
 novel problems, identify patterns and relationships that underpin these
 problems, and apply logic.
 
-(ref:gcf) *General ability* refers to an overall capacity to reason, to solve
-problems, and to learn useful information. *Crystallized knowledge* refers to
+(ref:gcf) *General Ability* refers to an overall capacity to reason, to solve
+problems, and to learn useful information. *Crystallized Knowledge* refers to
 the ability to learn and use language to reason and understand how the world
-works. *Fluid reasoning* refers to the ability to use logical reasoning to
+works. *Fluid Reasoning* refers to the ability to use logical reasoning to
 figure things out without being told exactly how things work, analyze and solve
 novel problems, identify patterns and relationships that underpin these
 problems, and apply logic.
@@ -682,10 +682,9 @@ cat(readLines("02.01_behav-obs.md"), sep = "\n")
 \autoref{fig:gauss-plot-narrow} can be used as a guide to help interpret
 individual test scores in terms of the degree of distance a score fell in
 relation to normative expectations and the magnitude of clinical severity. Test
-scores are easiest to interpret as percentiles[^ref-1], which are provided in
-the tables below, and as *z*-scores (M = 0, SD = 1)[^ref-2], which are used to
-plot the various test and domain scores below.
-
+scores are easiest to interpret as percentiles^[(ref:pct)], which are provided
+in the tables below, and as *z*-scores (M = 0, SD = 1)^[(ref:zplot)], which are
+used to plot the various test and domain scores below.
 
 (ref:gauss-plot-narrow) Classification of neuropsychological test scores that are normally distributed in the general population [@guilmetteAmericanAcademyClinical2020].
 
