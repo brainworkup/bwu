@@ -11,6 +11,7 @@ filter_domain <- c(
   "Naming",
   "Naming Semantic Cuing",
   "Naming Phonemic Cuing",
+  "Reading Comprehension",
   "Oral Production",
   "Writing",
   "Bill Payment",

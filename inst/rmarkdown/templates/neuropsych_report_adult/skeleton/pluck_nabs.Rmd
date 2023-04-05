@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from NAB Screener"
 params:
-  patient: AJ
+  patient: Sourina
   test:
     label: "Test"
     value: nabs
@@ -250,20 +250,30 @@ table2 <-
 ```
 
 ```{r nabs-att}
-table2[1, 1] <- c("Orientation")
-table2[2, 1] <- c("Orientation to Self")
-table2[3, 1] <- c("Orientation to Time")
-table2[4, 1] <- c("Orientation to Place")
-table2[5, 1] <- c("Orientation to Situation")
-table2[6, 1] <- c("Digits Forward")
-table2[7, 1] <- c("Digits Forward Longest Span")
-table2[8, 1] <- c("Digits Backward")
-table2[9, 1] <- c("Digits Backward Longest Span")
-table2[10, 1] <- c("Numbers & Letters Part A Speed")
-table2[11, 1] <- c("Numbers & Letters Part A Errors")
-table2[12, 1] <- c("Numbers & Letters Part A Efficiency")
-table2[13, 1] <- c("Numbers & Letters Part B Efficiency")
-
+if (params$test == "nabs") {
+  table2[1, 1] <- c("Orientation")
+  table2[2, 1] <- c("Orientation to Self")
+  table2[3, 1] <- c("Orientation to Time")
+  table2[4, 1] <- c("Orientation to Place")
+  table2[5, 1] <- c("Orientation to Situation")
+  table2[6, 1] <- c("Digits Forward")
+  table2[7, 1] <- c("Digits Forward Longest Span")
+  table2[8, 1] <- c("Digits Backward")
+  table2[9, 1] <- c("Digits Backward Longest Span")
+  table2[10, 1] <- c("Numbers & Letters Part A Speed")
+  table2[11, 1] <- c("Numbers & Letters Part A Errors")
+  table2[12, 1] <- c("Numbers & Letters Part A Efficiency")
+  table2[13, 1] <- c("Numbers & Letters Part B Efficiency")
+} else {
+  table2[1, 1] <- c("Digits Forward")
+  table2[2, 1] <- c("Digits Backward")
+  table2[3, 1] <- c("Dots")
+  table2[4, 1] <- c("Numbers & Letters Part A Efficiency")
+  table2[5, 1] <- c("Numbers & Letters Part B Efficiency")
+  table2[6, 1] <- c("Numbers & Letters Part C Efficiency")
+  table2[7, 1] <- c("Numbers & Letters Part D Efficiency")
+  table2[8, 1] <- c("Driving Scenes")
+}
 # table2[13, 5] <- 1
 ```
 
@@ -280,13 +290,21 @@ table3 <-
 ```
 
 ```{r scales-table3}
-table3[1, 1] <- c("Auditory Comprehension")
-table3[2, 1] <- c("Auditory Comprehension Colors")
-table3[3, 1] <- c("Auditory Comprehension Shapes")
-table3[4, 1] <- c("Auditory Comprehension Colors/Shapes/Numbers")
-table3[5, 1] <- c("Naming")
-table3[6, 1] <- c("Naming Semantic Cuing")
-table3[7, 1] <- c("Naming Phonemic Cuing")
+if (params$test == "nabs") {
+  table3[1, 1] <- c("Auditory Comprehension")
+  table3[2, 1] <- c("Auditory Comprehension Colors")
+  table3[3, 1] <- c("Auditory Comprehension Shapes")
+  table3[4, 1] <- c("Auditory Comprehension Colors/Shapes/Numbers")
+  table3[5, 1] <- c("Naming")
+  table3[6, 1] <- c("Naming Semantic Cuing")
+  table3[7, 1] <- c("Naming Phonemic Cuing")
+} else {
+  table3[1, 1] <- c("Oral Production")
+  table3[2, 1] <- c("Auditory Comprehension")
+  table3[3, 1] <- c("Naming")
+  table3[4, 1] <- c("Writing")
+  table3[5, 1] <- c("Bill Payment")
+}
 ```
 
 # NAB Memory
@@ -310,12 +328,26 @@ table4 <- table4 |>
 ```
 
 ```{r scales-table4}
-table4[1, 1] <- c("Shape Learning Immediate Recognition")
-table4[2, 1] <- c("Shape Learning Delayed Recognition")
-table4[3, 1] <- c("Shape Learning Percent Retention")
-table4[4, 1] <- c("Story Learning Immediate Recall")
-table4[5, 1] <- c("Story Learning Delayed Recall")
-table4[6, 1] <- c("Story Learning Percent Retention")
+if (params$test == "nabs") {
+  table4[1, 1] <- c("Shape Learning Immediate Recognition")
+  table4[2, 1] <- c("Shape Learning Delayed Recognition")
+  table4[3, 1] <- c("Shape Learning Percent Retention")
+  table4[4, 1] <- c("Story Learning Immediate Recall")
+  table4[5, 1] <- c("Story Learning Delayed Recall")
+  table4[6, 1] <- c("Story Learning Percent Retention")
+} else if (params$test == "nabs") {
+  table4[1, 1] <- c("List Learning Immediate Recall")
+  table4[2, 1] <- c("List Learning Short Delayed Recall")
+  table4[3, 1] <- c("List Learning Long Delayed Recall")
+} else if (params$test == "nabs") {
+  table4[1, 1] <- c("List Learning Immediate Recall")
+  table4[2, 1] <- c("List Learning Short Delayed Recall")
+  table4[3, 1] <- c("List Learning Long Delayed Recall")
+  table4[4, 1] <- c("Story Learning Immediate Recall")
+  table4[5, 1] <- c("Story Learning Short Delayed Recall")
+  table4[6, 1] <- c("Story Learning Long Delayed Recall")
+}
+# TODO:
 ```
 
 # NAB Spatial
@@ -382,7 +414,7 @@ table5 <- table5 |> tidytable::select(all_of(params$keep2))
 table6 <- table6 |> tidytable::select(all_of(params$keep2))
 ```
 
-## Mutate/Format Tables
+# Mutate/Format Tables
 
 ```{r mutate1}
 table1 <- bwu::gpluck_make_columns(
@@ -1082,9 +1114,9 @@ table2 <-
       scale ==
         "Numbers & Letters Part A Errors" ~ "A marker of reduced focus, or selective attention, distractibility, or reduced concentration, and diminished sustained attention",
       scale ==
-        "Numbers & Letters Part A Efficiency" ~ "An overall measure of efficiency in performing a selective attention task",
+        "Numbers & Letters Part A Efficiency" ~ "An overall measure of efficiency in performing a selective attention letter cancellation task",
       scale ==
-        "Numbers & Letters Part B Efficiency" ~ "(ref:first-name)'s performance on a complex measure of divided attention and information processing speed",
+        "Numbers & Letters Part B Efficiency" ~ "(ref:first-name)'s performance on a complex measure of divided attention, information processing speed, and inhibition",
       TRUE ~ as.character(description)
     )
   )
