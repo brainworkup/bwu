@@ -58,3 +58,4 @@
 ^\.nojekyll$
 ^\.builds\.archived$
 ^notes$
+^\.history$

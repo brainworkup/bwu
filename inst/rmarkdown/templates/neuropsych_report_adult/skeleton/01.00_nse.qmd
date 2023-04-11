@@ -48,11 +48,65 @@ execute:
 ---
 
 ```{r}
+#| label: setup
 #| include: false
 library(bwu)
 library(knitr)
 library(rmarkdown)
 ```
+
+```{r}
+#| label: extract_text
+# Load the necessary library
+library(stringr)
+
+# Function to extract text between Ashish and Joey Trampush
+extract_text <- function(file_path, start_pattern, end_pattern) {
+  # Read the entire file as a single string
+  file_content <- readChar(file_path, file.info(file_path)$size)
+
+  # Define the patterns to search for
+  start_pattern <- start_pattern
+  end_pattern <- end_pattern
+
+  # Extract the text between the patterns
+  extracted_text <- str_match_all(
+    file_content, 
+    paste0("(?s)", start_pattern, "(.*?)(?=", end_pattern, ")")
+  )[[1]][,2] |> 
+    str_squish()
+  
+  return(extracted_text)
+
+
+# Specify the path to your text file
+file_path <- paste("~/neuropsychological.reports/", patient, file)
+
+# Call the function and print the extracted text
+extracted_text <- 
+  extract_text(file_path, patient, "Joey Trampush") |> 
+  stringr::str_squish()
+
+  # Function to save extracted text as a markdown file
+save_as_markdown <- function(text, output_path) {
+  # Add line breaks to separate paragraphs (optional)
+  formatted_text <- paste(text, collapse = "\n\n")
+  
+  # Write the formatted text to a markdown file
+  writeLines(formatted_text, output_path)
+}
+}
+
+# Specify the path for the output markdown file
+# output_path <- "path/to/your/output_file.md"
+output_path <- "./extract_nse.md"
+
+# Save the extracted text as a markdown file
+save_as_markdown(extracted_text, output_path)
+
+
+```
+
 
 # NEUROBEHAVIORAL STATUS EXAM
 
