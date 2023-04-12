@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from CAARS"
 params:
-  patient: Biggie
+  patient: ""
   test:
     label: "CAARS"
     value: [caars_sr]
@@ -517,4 +517,55 @@ table <-
 readr::write_csv(table, here::here(patient, "csv", paste0(test, ".csv")),
   col_names = TRUE, na = ""
 )
+```
+
+# Pluck Text
+
+```{r text}
+file <- fs::as_fs_path(params$file)
+
+if (params$test == "caars_sr") {
+## extract text
+get_text <- function(file) {
+  txt <- pdftools::pdf_text(file) |>
+    stringr::str_split("\n") |>
+    unlist()
+}
+caars_sr_txt <- pdftools::pdf_text(file) |>
+  stringr::str_split("\n") |>
+  unlist()
+caars_sr_txt
+
+# Replace long spaces with a col break symbol
+
+caars_sr_squished <-
+  stringr::str_replace_all(caars_sr_txt, "\\s{2,}", "- ") |>
+  stringr::str_remove_all(",")
+caars_sr_squished
+
+readr::write_lines(caars_sr_squished, here::here(patient, "caars_sr_text.md"), sep = "\n")
+readr::write_lines(caars_sr_squished, here::here(patient, "caars_sr_text.qmd"), sep = "\n")
+} else {
+  ## extract text
+get_text <- function(file) {
+  txt <- pdftools::pdf_text(file) |>
+    stringr::str_split("\n") |>
+    unlist()
+}
+caars_or_txt <- pdftools::pdf_text(file) |>
+  stringr::str_split("\n") |>
+  unlist()
+caars_or_txt
+
+# Replace long spaces with a col break symbol
+caars_or_squished <-
+  stringr::str_replace_all(caars_or_txt, "\\s{2,}", "- ") |>
+  stringr::str_remove_all(",")
+caars_or_squished
+
+readr::write_lines(caars_or_squished, here::here(patient, "caars_or_text.md"), sep = "\n")
+readr::write_lines(caars_or_squished, here::here(patient, "caars_or_text.qmd"), sep = "\n")
+  
+}
+
 ```

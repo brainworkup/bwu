@@ -500,7 +500,6 @@ gpluck_compute_percentile_range <-
 #' @export
 #'
 gpluck_get_index_scores <- function(patient) {
-
   ## Import/Tidy Excel Index Score File
   patient <- patient
 
@@ -688,7 +687,6 @@ gpluck_get_index_scores <- function(patient) {
           "{description} was classified as {range} and ranked at the {percentile}th percentile.\n"
         ),
         scale == "Fluid Reasoning" ~ glue::glue("{description} was classified as {range}.\n"),
-
         scale == "Cognitive Proficiency" ~ glue::glue(
           "{description} was {range} and a relative strength|weakness.\n"
         ),

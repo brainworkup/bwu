@@ -1,7 +1,11 @@
 ---
 title: "Pluck Tables from CEFI"
 params:
-  patient: Biggie
+  patient: ""
+  test: "cefi_sr"
+  test_name: "CEFI Self-Report"
+  file: "file"
+  pages: [3, 3]
   test:
     label: "Test"
     value: [cefi_sr]
@@ -34,10 +38,6 @@ editor: source
 ## Load libraries
 
 ```{r setup, include = FALSE}
-Sys.setenv(
-  JAVA_HOME =
-    "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home"
-)
 options(java.parameters = "-Xmx16000m")
 knitr::opts_chunk$set(
   root.dir = normalizePath("./"),
@@ -508,4 +508,54 @@ table <-
 ```{r writeout}
 readr::write_csv(
   table, here::here(patient, "csv", paste0(test, ".csv")), col_names = TRUE, na = "")
+```
+
+## Pluck Text
+
+```{r text}
+file <- fs::as_fs_path(params$file)
+
+if (params$test == "cefi_sr") {
+  ## extract text
+  get_text <- function(file) {
+    txt <- pdftools::pdf_text(file) |>
+      stringr::str_split("\n") |>
+      unlist()
+  }
+  cefi_sr_txt <- pdftools::pdf_text(file) |>
+    stringr::str_split("\n") |>
+    unlist()
+  cefi_sr_txt
+
+  # Replace long spaces with a col break symbol
+
+  cefi_sr_squished <-
+    stringr::str_replace_all(cefi_sr_txt, "\\s{2,}", "- ") |>
+    stringr::str_remove_all(",")
+  cefi_sr_squished
+
+  readr::write_lines(cefi_sr_squished, here::here(patient, "cefi_sr_text.md"), sep = "\n")
+  readr::write_lines(cefi_sr_squished, here::here(patient, "cefi_sr_text.qmd"), sep = "\n")
+} else {
+  ## extract text
+  get_text <- function(file) {
+    txt <- pdftools::pdf_text(file) |>
+      stringr::str_split("\n") |>
+      unlist()
+  }
+  cefi_or_txt <- pdftools::pdf_text(file) |>
+    stringr::str_split("\n") |>
+    unlist()
+  cefi_or_txt
+
+  # Replace long spaces with a col break symbol
+  cefi_or_squished <-
+    stringr::str_replace_all(cefi_or_txt, "\\s{2,}", "- ") |>
+    stringr::str_remove_all(",")
+  cefi_or_squished
+
+  readr::write_lines(cefi_or_squished, here::here(patient, "cefi_or_text.md"), sep = "\n")
+  readr::write_lines(cefi_or_squished, here::here(patient, "cefi_or_text.qmd"), sep = "\n")
+
+}
 ```

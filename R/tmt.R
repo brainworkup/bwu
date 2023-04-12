@@ -14,7 +14,6 @@
 #' @examples
 #' tmt_a_tscore <- tmtA(raw_score = 25, age = 21)
 tmtA <- function(raw_score, age) {
-
   if (raw_score == "") {
     return("No raw score provided")
   }
@@ -47,8 +46,7 @@ tmtA <- function(raw_score, age) {
 
   if (raw_score < predictedScore) {
     zScore <- ((raw_score - predictedScore) / predictedSD) * -1
-  }
-  else if (raw_score > predictedScore) {
+  } else if (raw_score > predictedScore) {
     zScore <- ((raw_score - predictedScore) / predictedSD)
   }
 
@@ -59,7 +57,6 @@ tmtA <- function(raw_score, age) {
   predictedSD <- round(predictedSD, digits = 2)
 
   paste0("T-score = ", tScore, ", z-score = ", zScore, ", Predicted score = ", predictedScore, ", Predicted SD = ", predictedSD)
-
 }
 
 ## Trails B
@@ -76,7 +73,6 @@ tmtA <- function(raw_score, age) {
 #' @examples
 #' tmt_b_tscore <- tmtB(raw_score = 75, age = 21)
 tmtB <- function(raw_score, age) {
-
   if (raw_score == "") {
     return("No raw score provided")
   }
@@ -109,8 +105,7 @@ tmtB <- function(raw_score, age) {
 
   if (raw_score < predictedScore) {
     zScore <- ((raw_score - predictedScore) / predictedSD) * -1
-  }
-  else if (raw_score > predictedScore) {
+  } else if (raw_score > predictedScore) {
     zScore <- ((raw_score - predictedScore) / predictedSD)
   }
 
@@ -125,5 +120,4 @@ tmtB <- function(raw_score, age) {
   predictedSD <- round(predictedSD, digits = 2)
 
   paste0("T-score = ", tScore, ", z-score = ", zScore, ", Predicted score = ", predictedScore, ", Predicted SD = ", predictedSD)
-
 }

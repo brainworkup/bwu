@@ -14,7 +14,6 @@
 #'
 #' @export
 drilldown <- function(data, patient = NULL, mean_z, mean_percentile, ...) {
-
   # Create 4 levels of dataframes for drilldown -----------------------
   ## Level 1 -------------------------------------------------------
   ## Domain scores
@@ -264,6 +263,6 @@ drilldown <- function(data, patient = NULL, mean_z, mean_percentile, ...) {
       series = c(ncog_level2_drill, ncog_level3_drill, ncog_level4_drill)
     ) %>%
     highcharter::hc_add_theme(highcharter::hc_theme_sandsignika())
-  
+
   return(plot)
 }

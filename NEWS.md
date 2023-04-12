@@ -176,3 +176,7 @@ output:
 ## bwu 0.0.2.9001
 
 - Added way to extract NSE text from Otter.AI
+
+## bwu 0.0.3.9000
+
+- used sinew to format all functions

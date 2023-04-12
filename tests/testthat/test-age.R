@@ -8,5 +8,4 @@ test_that("age() calculates age in years given dob and doe", {
   expect_visible(age(dob, doe))
 
   expect_snapshot(age(dob, doe))
-
 })

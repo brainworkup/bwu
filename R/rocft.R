@@ -23,7 +23,8 @@ rocft_copy <- function(raw_score, age) {
     "ROCFT Copy T-Score = ", t_score,
     ", z-Score = ", z_score,
     ", Predicted Score = ", predicted_score,
-    ", Predicted SD = ", predicted_sd)
+    ", Predicted SD = ", predicted_sd
+  )
 }
 
 #' ROCFT Delayed Recall Standardized Score

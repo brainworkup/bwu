@@ -42,7 +42,6 @@ make_tibble <- function(tibb,
                           "Test"
                         ),
                         ...) {
-
   data <- as.data.frame(data)
 
   tibb <-

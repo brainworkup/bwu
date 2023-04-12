@@ -19,7 +19,7 @@ params:
   hand: right
   refdoc: Dr Dre
   he_she: she/he
-  he_she_cap: She/He
+  he_she_cap: She/Her
   his_her: her/his
   his_her_cap: Her/His
   him_her: her/him
@@ -45,7 +45,10 @@ format:
     keep-md: true
 execute:
   freeze: auto
+  echo: false
 ---
+
+![](logo.png)
 
 ```{r}
 #| label: setup
@@ -55,69 +58,12 @@ library(knitr)
 library(rmarkdown)
 ```
 
-```{r}
-#| label: extract_text
-# Load the necessary library
-library(stringr)
-
-# Function to extract text between Ashish and Joey Trampush
-extract_text <- function(file_path, start_pattern, end_pattern) {
-  # Read the entire file as a single string
-  file_content <- readChar(file_path, file.info(file_path)$size)
-
-  # Define the patterns to search for
-  start_pattern <- start_pattern
-  end_pattern <- end_pattern
-
-  # Extract the text between the patterns
-  extracted_text <- str_match_all(
-    file_content, 
-    paste0("(?s)", start_pattern, "(.*?)(?=", end_pattern, ")")
-  )[[1]][,2] |> 
-    str_squish()
-  
-  return(extracted_text)
-
-
-# Specify the path to your text file
-file_path <- paste("~/neuropsychological.reports/", patient, file)
-
-# Call the function and print the extracted text
-extracted_text <- 
-  extract_text(file_path, patient, "Joey Trampush") |> 
-  stringr::str_squish()
-
-  # Function to save extracted text as a markdown file
-save_as_markdown <- function(text, output_path) {
-  # Add line breaks to separate paragraphs (optional)
-  formatted_text <- paste(text, collapse = "\n\n")
-  
-  # Write the formatted text to a markdown file
-  writeLines(formatted_text, output_path)
-}
-}
-
-# Specify the path for the output markdown file
-# output_path <- "path/to/your/output_file.md"
-output_path <- "./extract_nse.md"
-
-# Save the extracted text as a markdown file
-save_as_markdown(extracted_text, output_path)
-
-
-```
-
-
 # NEUROBEHAVIORAL STATUS EXAM
 
 ## Identifying Information
 
 **Patient:** `r params$last_name`, `r params$first_name`\
-**Date of Birth:** `r params$dob`\
-**MRN:** `r params$mrn`\
-**Gender:** `r params$sex_cap`\
-**Age:** `r params$age`\
-**Date of Evaluation:** `r params$doe1`
+**Date of Exam:** `r params$doe1`
 
 ## Measures Administered
 
@@ -128,6 +74,13 @@ save_as_markdown(extracted_text, output_path)
 - Comprehensive Executive Function Inventory Adult (CEFI Adult) Observer Form
 
 ## Reason for Referral
+
+```{r}
+#| label: import-text
+#| include: false
+bwu::extract_text()
+bwu::save_as_markdown()
+```
 
 `r params$first_name` is a student at USC referred for evaluation by `r params$refdoc` to assess `r params$his_her` current cognitive and emotional functioning in relation to `r params$dx1` and to develop an intervention plan. This report is based on a review of available medical records and information gathered across a 1-hour neurobehavioral exam conducted with the patient via telemedicine on `r params$doe1`.
 
@@ -153,11 +106,7 @@ Medical history includes x, y, and z. `r params$his_her_cap` medical history als
 
 ### Behavioral/Emotional/Social
 
-`r params$first_name` reported that `r params$he_she` has struggled with
-depression over the years. `r params$he_she_cap` also said that `r
-params$he_she` has always tended to want things a certain way, in a certain
-order. However, this has not caused problems in daily life. `r
-params$he_she_cap` denied any other anxiety. 
+`r params$first_name` reported that `r params$he_she` has struggled with depression over the years. `r params$he_she_cap` also said that `r params$he_she` has always tended to want things a certain way, in a certain order. However, this has not caused problems in daily life. `r params$he_she_cap` denied any other anxiety.
 
 `r params$first_name` has many friends. `r params$he_she_cap` enjoys x, y z.
 
@@ -175,22 +124,9 @@ None indicated.
 
 ## Mental Status & Behavioral Observations During Interview
 
-Orientation: oriented to time, place, and person.
+`r params$first_name` was on time for `r params$his_her` examination. `r params$he_she_cap` took the meeting from home and was casually dressed and comfortable. `r params$he_she_cap` appeared `r params$his_her` stated age. `r params$he_she_cap` was alert and oriented to person, place, time, and situation. `r params$he_she_cap` was able to sustain attention and concentration throughout the interview. `r params$he_she_cap` was very articulate with a strong vocabulary, and generally clear thinking processes. There were no signs of aphasia, dysarthria, or anomia. `r params$he_she_cap` was able to comprehend and follow verbal instructions. Patient was able to recall recent and remote events without difficulty. There were no signs of amnesia or confabulation. `r params$he_she_cap` exhibited normal gross motor functioning with good mobility. Gait and posture are normal. `r params$his_her` mood was euthymic and `r params$his_her` affect was full in range and expression throughout the interview.
 
-Attention and Concentration: able to sustain attention and concentration
-throughout the interview; no signs of distractibility or
-difficulties with task-switching.
-
-Language: exhibited fluent and clear speech, with appropriate syntax and
-grammar. No signs of aphasia, dysarthria, or anomia. Patient was able to
-comprehend and follow verbal instructions.
-
-Memory: able to recall recent and remote events without difficulty. No signs of amnesia or confabulation.
-
-Executive Functioning: intact, with the ability to plan, initiate, and complete tasks without difficulty. No signs of impulsivity, perseveration, or difficulties with decision-making.
-
-Mood and Affect: mood was euthymic and affect was appropriate throughout the
-interview. No outwardly signs of anxiety, depression, or mania.
+Orientation: oriented to time, place, and person. Attention and Concentration: able to sustain attention and concentration throughout the interview; no signs of distractibility or difficulties with task-switching. Language: exhibited fluent and clear speech, with appropriate syntax and grammar. No signs of aphasia, dysarthria, or anomia. Patient was able to comprehend and follow verbal instructions. Memory: able to recall recent and remote events without difficulty. No signs of amnesia or confabulation. Executive Functioning: intact, with the ability to plan, initiate, and complete tasks without difficulty. No signs of impulsivity, perseveration, or difficulties with decision-making. Mood and Affect: mood was euthymic and affect was appropriate throughout the interview. No outwardly signs of anxiety, depression, or mania.
 
 ## Summary/Impression
 
@@ -261,10 +197,14 @@ tb1 <-
   caars_sr |>
   tidytable::select(scale, score, percentile, range) |>
   gt::gt() |>
-  gt::cols_align(align = "center",
-    columns = c(score, percentile, range)) |>
-  gt::tab_style(style = cell_text(size = px(12)),
-    locations = cells_body(columns = c(scale, score, percentile, range))) |>
+  gt::cols_align(
+    align = "center",
+    columns = c(score, percentile, range)
+  ) |>
+  gt::tab_style(
+    style = cell_text(size = px(12)),
+    locations = cells_body(columns = c(scale, score, percentile, range))
+  ) |>
   gt::cols_label(
     scale = "Scale",
     score = "Score",
@@ -284,10 +224,14 @@ tb2 <-
   caars_or |>
   tidytable::select(scale, score, percentile, range) |>
   gt::gt() |>
-  gt::cols_align(align = "center",
-    columns = c(score, percentile, range)) |>
-  gt::tab_style(style = cell_text(size = px(12)),
-    locations = cells_body(columns = c(scale, score, percentile, range))) |>
+  gt::cols_align(
+    align = "center",
+    columns = c(score, percentile, range)
+  ) |>
+  gt::tab_style(
+    style = cell_text(size = px(12)),
+    locations = cells_body(columns = c(scale, score, percentile, range))
+  ) |>
   gt::cols_label(
     scale = "Scale",
     score = "Score",
@@ -314,10 +258,14 @@ tb3 <-
   cefi_sr |>
   tidytable::select(scale, score, percentile, range) |>
   gt::gt() |>
-  gt::cols_align(align = "center",
-    columns = c(score, percentile, range)) |>
-  gt::tab_style(style = cell_text(size = px(12)),
-    locations = cells_body(columns = c(scale, score, percentile, range))) |>
+  gt::cols_align(
+    align = "center",
+    columns = c(score, percentile, range)
+  ) |>
+  gt::tab_style(
+    style = cell_text(size = px(12)),
+    locations = cells_body(columns = c(scale, score, percentile, range))
+  ) |>
   gt::cols_label(
     scale = "Scale",
     score = "Score",
@@ -339,10 +287,14 @@ tb4 <-
   cefi_or |>
   tidytable::select(scale, score, percentile, range) |>
   gt::gt() |>
-  gt::cols_align(align = "center",
-    columns = c(score, percentile, range)) |>
-  gt::tab_style(style = cell_text(size = px(12)),
-    locations = cells_body(columns = c(scale, score, percentile, range))) |>
+  gt::cols_align(
+    align = "center",
+    columns = c(score, percentile, range)
+  ) |>
+  gt::tab_style(
+    style = cell_text(size = px(12)),
+    locations = cells_body(columns = c(scale, score, percentile, range))
+  ) |>
   gt::cols_label(
     scale = "Scale",
     score = "Score",

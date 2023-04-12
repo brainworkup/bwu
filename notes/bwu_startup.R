@@ -22,6 +22,10 @@ update.packages(
   checkBuilt = TRUE
 )
 
+## sinew
+
+sinew::makeOxyFile(here::here("R", "extract_nse_otterai_text.R"))
+
 ## LaTeX
 
 tinytex::tlmgr_update()
@@ -124,9 +128,6 @@ tinytex::tlmgr_install("koma-script")
 
 tinytex::tlmgr_install("libertine")
 
-\DeclareUnicodeCharacter{2030}{\forall}
-U+2030
-\permil from the package wasysym, works in both text mode as in math mode.
 tinytex::tlmgr_update()
 tinytex::reinstall_tinytex()
 tinytex::install_tinytex()

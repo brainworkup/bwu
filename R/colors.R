@@ -16,7 +16,6 @@
 #' # Five darker shades
 #' make_shades("goldenrod", 5, lighter = FALSE)
 make_shades <- function(color, n, lighter = TRUE) {
-
   # Check the value of n
   if (n < 1) {
     stop("n must be at least 1")
