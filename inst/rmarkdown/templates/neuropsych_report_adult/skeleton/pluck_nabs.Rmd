@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from NAB Screener"
 params:
-  patient: Sourina
+  patient: NULL
   test:
     label: "Test"
     value: nabs
@@ -264,7 +264,7 @@ if (params$test == "nabs") {
   table2[11, 1] <- c("Numbers & Letters Part A Errors")
   table2[12, 1] <- c("Numbers & Letters Part A Efficiency")
   table2[13, 1] <- c("Numbers & Letters Part B Efficiency")
-} else {
+} else if (params$test == "nab") {
   table2[1, 1] <- c("Digits Forward")
   table2[2, 1] <- c("Digits Backward")
   table2[3, 1] <- c("Dots")
@@ -292,13 +292,13 @@ table3 <-
 ```{r scales-table3}
 if (params$test == "nabs") {
   table3[1, 1] <- c("Auditory Comprehension")
-  table3[2, 1] <- c("Auditory Comprehension Colors")
-  table3[3, 1] <- c("Auditory Comprehension Shapes")
-  table3[4, 1] <- c("Auditory Comprehension Colors/Shapes/Numbers")
-  table3[5, 1] <- c("Naming")
-  table3[6, 1] <- c("Naming Semantic Cuing")
-  table3[7, 1] <- c("Naming Phonemic Cuing")
-} else {
+  table3[2, 1] <- c("Naming")
+  # table3[2, 1] <- c("Auditory Comprehension Colors")
+  # table3[3, 1] <- c("Auditory Comprehension Shapes")
+  # table3[4, 1] <- c("Auditory Comprehension Colors/Shapes/Numbers")
+  # table3[6, 1] <- c("Naming Semantic Cuing")
+  # table3[7, 1] <- c("Naming Phonemic Cuing")
+} else if (params$test == "nab") {
   table3[1, 1] <- c("Oral Production")
   table3[2, 1] <- c("Auditory Comprehension")
   table3[3, 1] <- c("Naming")
@@ -335,11 +335,11 @@ if (params$test == "nabs") {
   table4[4, 1] <- c("Story Learning Immediate Recall")
   table4[5, 1] <- c("Story Learning Delayed Recall")
   table4[6, 1] <- c("Story Learning Percent Retention")
-} else if (params$test == "nabs") {
+} else if (params$test == "nab") {
   table4[1, 1] <- c("List Learning Immediate Recall")
   table4[2, 1] <- c("List Learning Short Delayed Recall")
   table4[3, 1] <- c("List Learning Long Delayed Recall")
-} else if (params$test == "nabs") {
+} else if (params$test == "nab") {
   table4[1, 1] <- c("List Learning Immediate Recall")
   table4[2, 1] <- c("List Learning Short Delayed Recall")
   table4[3, 1] <- c("List Learning Long Delayed Recall")
@@ -575,14 +575,14 @@ table1 <-
 ```
 
 ```{r domain6}
-table6 <-
-  table6 |>
-  tidytable::mutate(
-    domain = tidytable::case_when(
-      scale == "Word Generation" ~ "Verbal/Language",
-      TRUE ~ as.character(domain)
-    )
-  )
+# table6 <-
+#   table6 |>
+#   tidytable::mutate(
+#     domain = tidytable::case_when(
+#       scale == "Word Generation" ~ "Verbal/Language",
+#       TRUE ~ as.character(domain)
+#     )
+#   )
 ```
 
 ## Subdomains
