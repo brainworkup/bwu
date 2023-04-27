@@ -3,7 +3,7 @@ title: "Plant CSV file of Neuropsych Measures/Tests"
 params:
   patient:
     label: "Patient First Name:"
-    value: Biggie
+    value: John
     input: text
   test_name:
     label: "Full Name of Test/Test Battery:"
@@ -61,8 +61,16 @@ params:
         - ACS Word Choice
         - Affect Naming
       NAB:
-        - Judgment
         - Mazes
+        - Judgment
+        - Categories
+        - Word Generation
+        - Dots
+        - Numbers & Letters Part A Efficiency
+        - Numbers & Letters Part B Efficiency
+        - Numbers & Letters Part C Efficiency
+        - Numbers & Letters Part D Efficiency
+        - Driving Scenes
       DKEFS:
         - D-KEFS Color Naming
         - D-KEFS Word Reading
@@ -185,6 +193,8 @@ params:
       Executive Functioning:
         - Planning
         - Judgment
+        - Concept Formation
+        - Generativity
         - Executive Functions Index
         - Strategic Planning
         - Abstract Reasoning
@@ -193,7 +203,6 @@ params:
         - Decision-Making
         - Cognitive Control
         - Cognitive Flexibility
-        - Concept Formation
         - ""
       Working Memory:
         - Working Memory Capacity
@@ -424,8 +433,16 @@ compute_desc <- function(.x, .scale, description, ...) {
         "Linking prosody to a facial expression",
       .scale == "Prosody-Pair Matching" ~
         "Linking prosody to an interacting pair of people and explaining the intent of the speaker",
-      .scale == "Raven's 2 Index Score" ~
-        "Fluid reasoning",
+      .scale == "Raven's 2 Index Score" ~ "Fluid reasoning",
+      .scale == "Dots" ~ "Visual working memory and visual scanning",
+      .scale == "Numbers & Letters Part A Efficiency" ~ "Letter cancellation",
+      .scale == "Numbers & Letters Part B Efficiency" ~ "Letter counting",
+      .scale == "Numbers & Letters Part C Efficiency" ~ "Serial addition",
+      .scale == "Numbers & Letters Part D Efficiency" ~ "Letter cancellation plus serial addition",
+      .scale == "Driving Scences" ~ "Visual working memory, visual scanning, attention to detail, and selective attention on a driving scenes task",
+      .scale == "Mazes" ~ "Seven timed paper-and-pencil mazes of increasing difficulty",
+      .scale == "Dots" ~ "Classification and categorization task requiring concept formation and mental flexibility",
+      .scale == "Word Generation" ~ "Verbal fluency and generativity",
       TRUE ~ as.character(description)
     )
   )
@@ -635,6 +652,16 @@ compute_result <-
             glue::glue("{.description} was {.range}.\n"),
           .scale == "Raven's 2 Index Score" ~
             glue::glue("{.description} was {.range}.\n"),
+          .scale == "Dots" ~ glue::glue("{.description} was {.range}.\n"),
+          .scale == "Numbers & Letters Part A Efficiency" ~ glue::glue("{.description} was {.range}.\n"),
+          .scale == "Numbers & Letters Part B Efficiency" ~ glue::glue("{.description} was {.range}.\n"),
+          .scale == "Numbers & Letters Part C Efficiency" ~ glue::glue("{.description} was {.range}.\n"),
+          .scale == "Numbers & Letters Part D Efficiency" ~ glue::glue("{.description} was {.range}.\n"),
+          .scale == "Driving Scences" ~ glue::glue("{.description} was {.range}.\n"),
+          .scale == "Mazes" ~ glue::glue("{.description} was {.range}.\n"),
+          .scale == "Dots" ~ glue::glue("{.description} was {.range}.\n"),
+          .scale == "Word Generation" ~ glue::glue("{.description} was {.range}.\n"),    
+          
           TRUE ~ as.character(result)
         )
       )
@@ -691,7 +718,7 @@ table <- df3
 test <- "g"
 tidytable::fwrite(
   table,
-  here::here(patient, "csv", paste0(test, ".txt")),
+  here::here(patient, paste0(test, ".csv")),
   append = TRUE
 )
 ```

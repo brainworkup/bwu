@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from NAB Screener"
 params:
-  patient: NULL
+  patient: Biggie
   test:
     label: "Test"
     value: nabs
@@ -21,6 +21,97 @@ params:
     value: file
     input: file
   pages: [2,5,6,7,8,8]
+  table1:
+    label: "NAB Index Score Summary Table"
+    value: ""
+    input: select
+    multiple: yes
+    choices:
+      - NAB Attention Screening Index
+      - NAB Language Screening Index
+      - NAB Memory Screening Index
+      - NAB Spatial Screening Index
+      - NAB Executive Functions Screening Index
+      - NAB Total Screening Index
+      - NAB Attention Index
+      - NAB Language Index
+      - NAB Memory Index
+      - NAB Spatial Index
+      - NAB Executive Functions Index
+      - NAB Total Index      
+  table2:
+    label: "NAB Attention"
+    value: ""
+    input: select
+    multiple: yes
+    choices:
+      - "Orientation"
+      - "Orientation to Self"
+      - "Orientation to Time"
+      - "Orientation to Place"
+      - "Orientation to Situation"
+      - "Digits Forward"
+      - "Digits Forward Longest Span"
+      - "Digits Backward"
+      - "Digits Backward Longest Span"
+      - "Numbers & Letters Part A Speed"
+      - "Numbers & Letters Part A Errors"
+      - "Numbers & Letters Part A Efficiency"
+      - "Numbers & Letters Part B Efficiency"
+      - "Numbers & Letters Part C Efficiency"
+      - "Numbers & Letters Part D Efficiency"
+      - "Numbers & Letters Part D Disruption"
+  table3:
+    label: "NAB Language"
+    value: ""
+    input: select
+    multiple: yes
+    choices:
+      - "Oral Production"
+      - "Auditory Comprehension"
+      - "Auditory Comprehension Colors"
+      - "Auditory Comprehension Shapes"
+      - "Auditory Comprehension Colors/Shapes/Numbers"
+      - "Naming"
+      - "Naming Semantic Cuing"
+      - "Naming Phonemic Cuing"
+      - "Reading Comprehension" # check
+      - "Writing"
+      - "Bill Payment"
+  table4:
+    label: "NAB Memory"
+    value: ""
+    input: select
+    multiple: yes
+    choices:
+      - "Shape Learning Immediate Recognition"
+      - "Shape Learning Delayed Recognition"
+      - "Shape Learning Percent Retention"
+      - "Story Learning Immediate Recall"
+      - "Story Learning Delayed Recall"
+      - "Story Learning Percent Retention"
+      - "List Learning Immediate Recall"
+      - "List Learning Short Delayed Recall"
+      - "List Learning Long Delayed Recall" #TODO
+  table5:
+    label: "NAB Spatial"
+    value: ""
+    input: select
+    multiple: yes
+    choices:
+      - "Visual Discrimination"
+      - "Design Construction"
+  table6:
+    label: "NAB Executive Functions"
+    value: ""
+    input: select
+    multiple: yes
+    choices:
+      - "Mazes"
+      - "Judgment"
+      - "Categories"
+      - "Word Generation"
+      - "Word Generation Perseverations"
   column_names1:
     label: "Table 1 Column Names"
     value: [scale, score, percentile, ci_95, category]
@@ -85,6 +176,29 @@ params:
     multiple: yes
     choices: [attention, language, memory, spatial, executive, index]
   slice: TRUE
+# Domains to evaluate or not
+  eval_index:
+    label: "Total Index"
+    value: TRUE
+  eval_att:
+    label: "Attention"
+    value: TRUE
+  eval_lan:
+    label: "Language"
+    value: TRUE
+  eval_mem:
+    label: "Memory"
+    value: TRUE
+  eval_spt:
+    label: "Spatial"
+    value: TRUE
+  eval_exe:
+    label: "Executive"
+    value: TRUE
+  match:
+    label: "Subset/Match Rows"
+    input: checkbox
+    value: FALSE
 output:
   rmdformats::robobook:
     highlight: kate
@@ -274,7 +388,8 @@ if (params$test == "nabs") {
   table2[7, 1] <- c("Numbers & Letters Part D Efficiency")
   table2[8, 1] <- c("Driving Scenes")
 }
-# table2[13, 5] <- 1
+# table2[10, 5] <- 0.5
+# table2[12, 5] <- 0.5
 ```
 
 # NAB Language
@@ -292,12 +407,12 @@ table3 <-
 ```{r scales-table3}
 if (params$test == "nabs") {
   table3[1, 1] <- c("Auditory Comprehension")
-  table3[2, 1] <- c("Naming")
-  # table3[2, 1] <- c("Auditory Comprehension Colors")
-  # table3[3, 1] <- c("Auditory Comprehension Shapes")
-  # table3[4, 1] <- c("Auditory Comprehension Colors/Shapes/Numbers")
-  # table3[6, 1] <- c("Naming Semantic Cuing")
-  # table3[7, 1] <- c("Naming Phonemic Cuing")
+  table3[2, 1] <- c("Auditory Comprehension Colors")
+  table3[3, 1] <- c("Auditory Comprehension Shapes")
+  table3[4, 1] <- c("Auditory Comprehension Colors/Shapes/Numbers")
+  table3[5, 1] <- c("Naming")
+  table3[6, 1] <- c("Naming Semantic Cuing")
+  table3[7, 1] <- c("Naming Phonemic Cuing")
 } else if (params$test == "nab") {
   table3[1, 1] <- c("Oral Production")
   table3[2, 1] <- c("Auditory Comprehension")
@@ -305,6 +420,7 @@ if (params$test == "nabs") {
   table3[4, 1] <- c("Writing")
   table3[5, 1] <- c("Bill Payment")
 }
+# table3[1, 5] <- 1
 ```
 
 # NAB Memory
@@ -1378,18 +1494,14 @@ if (any(is.na(nabs$percentile))) {
 }
 ```
 
+# Write g
+
 ```{r writeout-g}
 table <- nabs
 test <- "g"
 tidytable::fwrite(
   table,
-  here::here(patient, "csv", paste0(test, ".txt")),
+  here::here(patient, paste0(test, ".csv")),
   append = TRUE
 )
-```
-
-## Cleanup
-
-```{r cleanup}
-rm(table1, table2, table3, table4, table5, table6)
 ```

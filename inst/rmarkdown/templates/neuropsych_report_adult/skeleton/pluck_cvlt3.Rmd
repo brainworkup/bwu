@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from CVLT-3/CVLT-3 Brief"
 params:
-  patient: Biggie
+  patient: John
   test:
     label: "Test"
     value: cvlt3_brief
@@ -22,7 +22,7 @@ params:
     label: "Select File:"
     value: File
     input: file
-  pages: [8,10,8,8,8,11,8] # full [18,20,18,18,18,22,18]
+  pages: [12,14,12,12,12,15,12] # full [18,20,18,18,18,22,18]
   table1:
     label: "Learning Trials:"
     value: [Trial 1 Correct, Trial 2 Correct, Trial 3 Correct, Trial 4 Correct]
@@ -722,8 +722,17 @@ if (params$test == "cvlt3") {
 }
 ```
 
-## Cleanup
+# Experimental
 
-```{r cleanup}
-rm(area, table1, table2, table3, table4, table5, table6, table7)
+## Write to "g"
+
+```{r writeout-g}
+table <- cvlt3_brief
+test <- "g"
+tidytable::fwrite(
+  table,
+  here::here(patient, paste0(test, ".csv")),
+  append = TRUE
+)
 ```
+
