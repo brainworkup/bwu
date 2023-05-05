@@ -77,9 +77,21 @@ library(rmarkdown)
 
 ```{r}
 #| label: import-text
-#| include: false
-bwu::extract_text()
-bwu::save_as_markdown()
+#| echo: false
+#| eval: false
+patient <- "Biggie"
+
+file_path <- here::here(patient, "NeuropsychEval_NSE_Biggie.txt")
+
+start_pattern <- "Biggie"
+
+end_pattern <- "Joey"
+
+output_path <- "~/neuropsychological.reports/Biggie/nse_text.md"
+
+txt <- bwu::extract_text(patient, file_path, start_pattern, end_pattern)
+
+bwu::save_as_markdown(text = txt, output_path)
 ```
 
 `r params$first_name` is a student at USC referred for evaluation by `r params$refdoc` to assess `r params$his_her` current cognitive and emotional functioning in relation to `r params$dx1` and to develop an intervention plan. This report is based on a review of available medical records and information gathered across a 1-hour neurobehavioral exam conducted with the patient via telemedicine on `r params$doe1`.

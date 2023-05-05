@@ -2,10 +2,6 @@
 title: "Pluck Tables from CEFI"
 params:
   patient: ""
-  test: "cefi_sr"
-  test_name: "CEFI Self-Report"
-  file: "file"
-  pages: [3, 3]
   test:
     label: "Test"
     value: [cefi_sr]
@@ -30,7 +26,6 @@ params:
 output:
   rmdformats::robobook:
     highlight: kate
-editor: source
 ---
 
 # CEFI SR/OR
