@@ -2,6 +2,9 @@
 
 # Update R packages and libraries -------------------------------------------
 
+devtools::document()
+devtools::install_deps(dependencies = TRUE)
+
 update.packages(ask = FALSE, checkBuilt = TRUE)
 
 # if pak fails, reinstall from source
@@ -24,6 +27,10 @@ update.packages(
 
 ## sinew
 
+sinew::makeOxyFile(here::here("R", "scrape_pdf_nse.R"))
+
+sinew::makeOxyFile(here::here("R", "utils.R"))
+
 sinew::makeOxyFile(here::here("R", "extract_nse_otterai_text.R"))
 
 ## LaTeX
@@ -40,11 +47,9 @@ update.packages(
 
 ## dependencies
 
-devtools::install_deps(dependencies = TRUE)
 usethis::use_package("data.table")
-usethis::use_package("here")
-usethis::use_package("readr")
-devtools::document()
+usethis::use_package("bookdown")
+usethis::use_package("sinew")
 
 usethis::use_github_action("check-standard")
 
@@ -99,13 +104,6 @@ stringi::stri_escape_unicode("‰")
 
 # sudo R CMD javareconf
 
-## update User Library
-update.packages(
-  instlib = .libPaths()[[1L]],
-  ask = FALSE,
-  checkBuilt = TRUE
-)
-
 usethis::use_github_action_check_release(
   save_as = "R-CMD-check.yaml",
   ref = NULL,
@@ -131,8 +129,6 @@ tinytex::tlmgr_install("libertine")
 tinytex::tlmgr_update()
 tinytex::reinstall_tinytex()
 tinytex::install_tinytex()
-
-update.packages(ask = FALSE, checkBuilt = TRUE)
 
 renv::install("brainworkup/bwu")
 renv::install("gadenbuie/xaringanExtra")
@@ -196,8 +192,6 @@ remotes::install_github(
 )
 
 usethis::create_github_token()
-
-
 
 remotes::install_github(
   'yihui/xaringan',
@@ -291,7 +285,7 @@ options(repos = c(
   CRAN = 'https://cloud.r-project.org'))
 
 # Install some packages
-install.packages('webshot2', lib = .libPaths()[[2L]], dependencies = TRUE)
+install.packages('webshot2', lib = .libPaths()[[1L]], dependencies = TRUE)
 
 
 ```{r ncog-plot, results='asis'}

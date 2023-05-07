@@ -1,7 +1,7 @@
 Type: Package
 Package: bwu
 Title: BrainWorkUp Neuropsychological Report Writing Package
-Version: 0.0.4.9000
+Version: 0.0.4.9001
 Author: person("Joey", "Trampush", email = trampush@usc.edu, role =
     c("aut", "cre"))
 Maintainer: Joey Trampush <trampush@usc.edu>
@@ -13,6 +13,7 @@ License: GPL-3
 Depends:
     R (>= 3.10)
 Imports:
+    bookdown,
     data.table,
     dplyr,
     ggplot2,
@@ -34,6 +35,7 @@ Imports:
     rJava,
     rlang,
     rmarkdown,
+    sinew,
     stats,
     stringr,
     tabulizer,
@@ -42,7 +44,6 @@ Imports:
     tools,
     utils
 Suggests:
-    bookdown,
     Cairo,
     covr,
     forcats,

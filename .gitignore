@@ -85,3 +85,6 @@ bwu.builds/
 .builds.archived
 src/
 .history/
+notes/
+notes
+/notes/

@@ -18,12 +18,26 @@ NULL
 # GPL-3.
 # Directly borrowed/stole from komadown package
 
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param template PARAM_DESCRIPTION
+#' @param file PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
+#' }
+#' @rdname find_file
+#' @export
 find_file <- function(template, file) {
   template <- system.file("rmarkdown",
-    "templates",
-    template,
-    file,
-    package = "bwu"
+                          "templates",
+                          template,
+                          file,
+                          package = "bwu"
   )
   if (template == "") {
     stop("Couldn't find template file ", template, "/", file, call. = FALSE)
@@ -31,16 +45,66 @@ find_file <- function(template, file) {
   template
 }
 
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param template PARAM_DESCRIPTION
+#' @param file PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
+#' }
+#' @rdname find_resource
+#' @export
 find_resource <- function(template, file) {
   find_file(template, file.path("resources", file))
 }
 
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param ... PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
+#' }
+#' @seealso
+#'  \code{\link[bookdown]{html_document2}}
+#' @rdname inherit_pdf_document
+#' @export
+#' @importFrom bookdown pdf_document2
 inherit_pdf_document <- function(...) {
   fmt <- bookdown::pdf_document2(...)
   fmt$inherits <- "pdf_document"
   fmt
 }
 
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param ... PARAM_DESCRIPTION
+#' @param format PARAM_DESCRIPTION
+#' @param template PARAM_DESCRIPTION
+#' @param csl PARAM_DESCRIPTION, Default: NULL
+#' @param colorlinks PARAM_DESCRIPTION, Default: TRUE
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
+#' }
+#' @seealso
+#'  \code{\link[rmarkdown]{pandoc_path_arg}}
+#' @rdname pdf_document_format
+#' @export
+#' @importFrom rmarkdown pandoc_path_arg
 pdf_document_format <- function(...,
                                 format,
                                 template,
@@ -48,7 +112,7 @@ pdf_document_format <- function(...,
                                 colorlinks = TRUE) {
   # base format
   fmt <- inherit_pdf_document(...,
-    template = find_resource(format, template)
+                              template = find_resource(format, template)
   )
 
   # add csl to pandoc_args
@@ -79,19 +143,19 @@ pdf_document_format <- function(...,
 ### These copied from tufte package
 ### These copied from tufte package
 
-#' @details `newthought()` can be used in inline R expressions in R
-#'   Markdown
-#'   ```r
-#'   `r newthought(Some text)`
-#'   ```
-#'   and it works for both
-#'   HTML (\samp{<span class="newthought">text</span>}) and PDF
-#'   (\samp{\\newthought{text}}) output.
-#' @param text A character string to be presented as a \dQuote{new thought}
-#'   (using small caps), or a margin note, or a footer of a quote
-#' @rdname tufte_handout
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param text PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
+#' }
+#' @rdname newthought
 #' @export
-#' @examples newthought("In this section")
 newthought <- function(text) {
   if (is_html_output()) {
     sprintf('<span class="newthought">%s</span>', text)
@@ -102,12 +166,19 @@ newthought <- function(text) {
   }
 }
 
-#' @details `margin_note()` can be used in inline R expressions to write a
-#'   margin note (like a sidenote but not numbered).
-#' @param icon A character string to indicate there is a hidden margin note when
-#'   the page width is too narrow (by default it is a circled plus sign)
-#' @rdname tufte_handout
-#' @importFrom knitr is_html_output is_latex_output
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param text PARAM_DESCRIPTION
+#' @param icon PARAM_DESCRIPTION, Default: '&#8853;'
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
+#' }
+#' @rdname margin_note
 #' @export
 margin_note <- function(text, icon = "&#8853;") {
   if (is_html_output()) {
@@ -120,10 +191,18 @@ margin_note <- function(text, icon = "&#8853;") {
   }
 }
 
-#' @details `quote_footer()` formats text as the footer of a quote. It puts
-#'   `text` in \samp{<footer></footer>} for HTML output, and
-#'   after \samp{\\hfill} for LaTeX output (to right-align text).
-#' @rdname tufte_handout
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param text PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
+#' }
+#' @rdname quote_footer
 #' @export
 quote_footer <- function(text) {
   if (is_html_output()) {
@@ -136,8 +215,18 @@ quote_footer <- function(text) {
   }
 }
 
-#' @details `sans_serif()` applies sans-serif fonts to `text`.
-#' @rdname tufte_handout
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param text PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
+#' }
+#' @rdname sans_serif
 #' @export
 sans_serif <- function(text) {
   if (is_html_output()) {
@@ -150,10 +239,74 @@ sans_serif <- function(text) {
   }
 }
 
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param name PARAM_DESCRIPTION
+#' @param ... PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
+#' }
+#' @rdname template_resources
+#' @export
 template_resources <- function(name, ...) {
   system.file("rmarkdown", "templates", name, "resources", ..., package = "bwu") # was tufte
 }
 
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param ... PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
+#' }
+#' @rdname gsub_fixed
+#' @export
 gsub_fixed <- function(...) gsub(..., fixed = TRUE)
 
-pandoc2.0 <- function() rmarkdown::pandoc_available("2.0") # nolint
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
+#' }
+#' @seealso
+#'  \code{\link[rmarkdown]{pandoc_available}}
+#' @rdname pandoc2.0
+#' @export
+#' @importFrom rmarkdown pandoc_available
+pandoc2.0 <- function() rmarkdown::pandoc_available("2.0")
+
+
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
+#' }
+#' @seealso
+#'  \code{\link[sinew]{makeOxyFile}}
+#'  \code{\link[here]{here}}
+#' @rdname sinewOxy
+#' @export
+#' @importFrom sinew makeOxyFile
+#' @importFrom here here
+sinewOxy <- function() sinew::makeOxyFile(here::here("R", file))
