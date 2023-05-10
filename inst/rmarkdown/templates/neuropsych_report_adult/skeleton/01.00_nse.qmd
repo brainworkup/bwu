@@ -11,7 +11,7 @@ params:
   last_name: Smalls
   dob: 1990-01-01
   doe1: 2023-01-01
-  mrn: "000000000"
+  mrn: 000000000
   sex: female/male
   sex_cap: Female/Male
   age: 20
@@ -19,7 +19,7 @@ params:
   hand: right
   refdoc: Dr Dre
   he_she: she/he
-  he_she_cap: She/Her
+  he_she_cap: She/He
   his_her: her/his
   his_her_cap: Her/His
   him_her: her/him

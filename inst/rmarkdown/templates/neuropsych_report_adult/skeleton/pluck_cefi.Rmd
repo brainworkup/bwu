@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from CEFI"
 params:
-  patient: ""
+  patient: Biggie
   test:
     label: "Test"
     value: [cefi_sr]
@@ -33,6 +33,10 @@ output:
 ## Load libraries
 
 ```{r setup, include = FALSE}
+Sys.setenv(
+  JAVA_HOME =
+    "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home"
+)
 options(java.parameters = "-Xmx16000m")
 knitr::opts_chunk$set(
   root.dir = normalizePath("./"),
