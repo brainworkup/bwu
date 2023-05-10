@@ -2,7 +2,6 @@
 filter_domain <- c(
   ## NAB/NABS
   "Language Domain",
-  "Language Index",
   "NAB Language Index",
   "Auditory Comprehension",
   "Auditory Comprehension Colors",
@@ -25,7 +24,8 @@ filter_domain <- c(
   "Receptive Vocabulary",
   "Picture Naming",
   # RBANS
-  "Receptive Vocabulary",
+  "Language Index",
+  "Semantic Fluency",
   "Picture Naming",
   # DKEFS
   "D-KEFS Color Naming",

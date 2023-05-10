@@ -147,7 +147,8 @@ tb <-
       "Symbol Search",
       "TMT, Part A",
       "TMT, Part B",
-      "Unstructured Task"
+      "Unstructured Task",
+      "Attention Index"
     )
   )
 

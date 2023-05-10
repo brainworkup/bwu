@@ -15,7 +15,7 @@ filter_domain <- c(
   ## RBANS
   "RBANS Total Index",
   ## WISC/WAIS/WPPSI
-  "Full Scale IQ (FSIQ)",
+  "Full Scale (FSIQ)",
   "General Ability (GAI)",
   "Cognitive Proficiency (CPI)",
   "Verbal Comprehension (VCI)",
@@ -95,13 +95,14 @@ df <-
   neurocog |>
   tidytable::filter(domain == "Intelligence/General Ability") |>
   tidytable::filter(!is.na(percentile)) |>
-  # tidytable::arrange(test_name) |>
-  tidytable::filter(
-    scale %in% c(
-      "General Ability",
-      "Crystallized Knowledge",
-      "Fluid Reasoning")
-  )
+  tidytable::arrange(test_name)
+# |>
+# tidytable::filter(
+#   scale %in% c(
+#     "General Ability",
+#     "Crystallized Knowledge",
+#     "Fluid Reasoning")
+# )
 
 ## ---- 06-plot-subdomain-iq --------------------
 bwu::dotplot(

@@ -260,6 +260,9 @@ params:
   eval_emotion:
     label: "Emotional/Behavioral/Personality"
     value: TRUE
+  eval_adaptive:
+    label: "Adaptive Functioning"
+    value: FALSE
 ## Plots
   eval_emotion_plot1:
     label: "Personality Assessment Plot 1"
@@ -543,6 +546,10 @@ problems, and apply logic.
 (ref:mtr) *Sensorimotor* tasks refer to the capacity to control hand movements quickly, smoothly, and with adequate precision, which are required to engage in activities such as writing and drawing.
 
 (ref:soc-cog) *Social cognition* measures are used to gauge aspects of social-emotional processing and social aptitude (sometimes referred to as emotional intelligence), which are important facets of how individuals process social information about other children, adults, groups, and social contexts.
+
+(ref:adaptive) Adaptive functioning is a broad term that refers to the collection of conceptual, social, and practical skills that enable individuals to function independently and meet the demands of everyday life. These skills include things like communication, self-care, home living, social skills, and community use.
+
+(ref:iq-impaired) *Intellectual disability* is a disability characterized by significant limitations both in intellectual functioning (reasoning, learning, problem solving) and in adaptive behavior, which covers a range of everyday social and practical skills. This disability originates before the age of 18.
 
 (ref:cog-ctrl) *Cognitive control* guides behavior by controlling what, when, and how information is represented in the brain. Cognitive control is associated with a wide range of processes and is not restricted to a particular cognitive domain. Impairments in cognitive control functions are associated with specific deficits in attention, memory, language comprehension and emotional processing.
 

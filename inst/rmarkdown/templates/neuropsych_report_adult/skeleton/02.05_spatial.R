@@ -28,7 +28,11 @@ filter_domain <- c(
   "Geometric Puzzles",
   "Clocks",
   "Clock Drawing",
-  "Bicycle Drawing"
+  "Bicycle Drawing",
+  # RBANS
+  "Visuospatial/Constructional Index",
+  "Figure Copy",
+  "Line Orientation"
 )
 
 ## ---- 02-glue-spatial ---------------------
