@@ -122,8 +122,8 @@ params:
 ---
 
 # WIAT-4
-#TODO:
-- still need to fix more
+
+#TODO: - still need to fix more
 
 ## Load libraries
 
@@ -226,14 +226,121 @@ area <- readRDS(here::here(patient, "pre_csv", "area_wiat4.rds"))
 ## Extract tables
 
 ```{r extract-table-pdf}
+file <- file.choose()
+
+plucked_table <- tabulizer::extract_tables(
+  file = file,
+  pages = c(12, 13),
+  method = "stream",
+  area = area
+)
+
+######
+######## text works
+plucked_tables <- tabulizer::extract_text(
+  file = file,
+  pages = c(12, 13)
+)
+
 plucked_table <- bwu::gpluck_extract_table(
   file = file,
-  pages = c(9, 10),
-  area = area,
-  guess = NULL,
-  method = "lattice", # decide
-  output = "matrix" # data.frame
+  pages = c(12, 13),
+  method = "lattice" # decide
+  # area = area,
+  # guess = NULL,
+  # output = "matrix" # data.frame
 )
+```
+
+```{r}
+# Load necessary libraries
+library(dplyr)
+library(purrr)
+
+patient <- "Nestor"
+file <- fs::as_fs_path(file.choose())
+
+df1 <- plucked_tables[[1]]
+df2 <- plucked_tables[[2]]
+
+wr <- "Word Reading"
+rc <- "Reading Comprehension"
+
+# Convert the string into a vector of lines
+lines <- strsplit(df1, "\n")[[1]]
+lines2 <- strsplit(df2, "\n")[[1]]
+
+# Filter lines that start with "Word Reading"
+wr_lines <- lines[grepl("^Word Reading", lines)]
+r_lines <- lines[grepl("^Reading", lines)]
+rc_lines <- lines[grepl("^Comprehension", lines)]
+
+# table 2
+pd_lines <- lines2[grepl("^Pseudoword Decoding", lines2)]
+d_lines <- lines2[grepl("^Decoding", lines2)]
+of_lines <- lines2[grepl("^Orthographic Fluency", lines2)]
+df_lines <- lines2[grepl("^Decoding Fluency", lines2)]
+di_lines <- lines2[grepl("^Dyslexia Index", lines2)]
+
+# word_reading_data is now a list of numeric vectors, where each vector is the scores/values from one "Word Reading" line
+
+# Define a function to convert a line to a tibble
+# one word scales
+line_to_tibble1 <- function(line) {
+  elements <- strsplit(line, " ")[[1]]
+
+  tibble(
+    Scale = paste0(elements[1]),
+    RawScore = as.integer(elements[2]),
+    Score = as.integer(elements[3]),
+    CI_95 = paste(elements[4:6], collapse = " "),
+    Percentile = as.integer(elements[7]),
+    DescriptiveCategory = elements[8],
+    AgeEquivalent = elements[9],
+    GradeEquivalent = as.numeric(elements[10]),
+    GSV = as.integer(elements[11])
+  )
+}
+
+line_to_tibble2 <- function(line) {
+  elements <- strsplit(line, " ")[[1]]
+
+  tibble(
+    Scale = paste0(elements[1:2], collapse = " "),
+    RawScore = as.integer(elements[3]),
+    Score = as.integer(elements[4]),
+    CI_95 = paste(elements[5:7], collapse = " "),
+    Percentile = as.integer(elements[8]),
+    DescriptiveCategory = elements[9],
+    AgeEquivalent = elements[10],
+    GradeEquivalent = as.numeric(elements[11]),
+    GSV = as.integer(elements[12])
+  )
+}
+
+# Convert all "Word Reading" lines to tibbles
+wr <- map_dfr(wr_lines, line_to_tibble2)[1, ]
+r <- map_dfr(r_lines, line_to_tibble1)[2, ]
+rc <- map_dfr(rc_lines, line_to_tibble1)[1, ]
+
+pd <- map_dfr(pd_lines, line_to_tibble2)[1, ]
+d <- map_dfr(d_lines, line_to_tibble1)[1, ]
+of <- map_dfr(of_lines, line_to_tibble2)[1, ]
+df <- map_dfr(df_lines, line_to_tibble2)[1, ]
+di <- map_dfr(di_lines, line_to_tibble2)[1, ]
+
+# word_reading_data is now a tibble where each row corresponds to a "Word Reading" line
+
+wiat4 <- rbind(wr, r, rc, pd, d, of, df, di)[, 1:5]
+wiat4[3, 1] <- c("Reading Comprehension")
+
+# Replace "NA" strings with actual NA values
+wiat4 <-
+  wiat4 %>%
+  dplyr::mutate(across(everything(), function(x) ifelse(x == "NA NA NA", NA, x))) |>
+  janitor::clean_names()
+
+readr::write_csv(wiat4, here::here(patient, "csv", "wiat4.csv"))
 ```
 
 # Table 1
@@ -245,12 +352,7 @@ table1 <- tibble::as_tibble(plucked_table[[1]])
 table1 <- dplyr::mutate(table1, raw_score = "", .before = V2)
 colnames(table1) <- params$colnames
 # table1$scale <- ""
-# table1 <- dplyr::na_if(table1, "")
-# table1 <- dplyr::na_if(table1, "NA")
-# table1 <- dplyr::na_if(table1, "-")
-# table1 <- dplyr::na_if(table1, "--")
-# table1 <- dplyr::na_if(table1, "---")
-table1 <- table1 |> slice(-3, -11) # redundant, change each time to remove rows with extra line
+# table1 <- table1 |> slice(-3, -11) # redundant, change each time to remove rows with extra line
 to_double <- c("raw_score", "score", "percentile")
 table1 <-
   table1 %>%
@@ -353,6 +455,8 @@ table <- dplyr::distinct(table, .keep_all = FALSE)
 # Mutate columns
 
 ```{r mutate}
+table <- wiat4
+
 table <- bwu::gpluck_make_columns(
   table,
   range = "",
@@ -397,6 +501,7 @@ table <-
       scale == "Essay Composition" ~ "Writing",
       scale == "Basic Reading" ~ "Reading",
       scale == "Decoding" ~ "Reading",
+      scale == "Decoding Fluency" ~ "Reading",
       scale == "Pseudoword Decoding" ~ "Reading",
       scale == "Phonemic Proficiency" ~ "Reading",
       scale == "Phonological Processing" ~ "Reading",
@@ -434,6 +539,7 @@ table <-
       scale == "Essay Composition" ~ "Writing Ability",
       scale == "Basic Reading" ~ "Basic Reading",
       scale == "Decoding" ~ "Reading Decoding",
+      scale == "Decoding Fluency" ~ "Reading Fluency",
       scale == "Pseudoword Decoding" ~ "Reading Decoding",
       scale == "Phonemic Proficiency" ~ "Reading Decoding",
       scale == "Phonological Processing" ~ "Reading Decoding",
@@ -473,6 +579,7 @@ table <-
       scale == "Essay Composition" ~ "Sequential",
       scale == "Basic Reading" ~ "Sequential",
       scale == "Decoding" ~ "Sequential",
+      scale == "Decoding Fluency" ~ "Sequential",
       scale == "Pseudoword Decoding" ~ "Sequential",
       scale == "Phonemic Proficiency" ~ "Sequential",
       scale == "Phonological Processing" ~ "Sequential",
@@ -512,6 +619,7 @@ table <-
       scale == "Essay Composition" ~ "Verbal",
       scale == "Basic Reading" ~ "Verbal",
       scale == "Decoding" ~ "Verbal",
+      scale == "Decoding Fluency" ~ "Verbal",
       scale == "Pseudoword Decoding" ~ "Verbal",
       scale == "Phonemic Proficiency" ~ "Verbal",
       scale == "Phonological Processing" ~ "Verbal",
@@ -551,6 +659,7 @@ table <-
       scale == "Essay Composition" ~ "Untimed",
       scale == "Basic Reading" ~ "Untimed",
       scale == "Decoding" ~ "Untimed",
+      scale == "Decoding Fluency" ~ "Timed",
       scale == "Pseudoword Decoding" ~ "Untimed",
       scale == "Phonemic Proficiency" ~ "Timed",
       scale == "Phonological Processing" ~ "Untimed",
@@ -633,20 +742,10 @@ table <-
 
 ```{r relocate}
 wiat4 <- table |> relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
-# %>%
-#   dplyr::slice(4:6, 1:3, 7:10)
 ```
 
 ## Write out final csv
 
 ```{r write-csv}
 readr::write_csv(wiat4, here::here(patient, "csv", "wiat4.csv"), col_names = TRUE, na = "")
-```
-
-## Cleanup
-
-```{r cleanup, eval=FALSE}
-rm(area)
-rm(table)
-rm(table1, table2)
 ```

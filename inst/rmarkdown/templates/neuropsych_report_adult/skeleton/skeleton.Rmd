@@ -279,7 +279,6 @@ params:
   eval_timed_plot:
     label: "Timed/Untimed Plot"
     value: TRUE
-editor: source
 ---
 
 ```{r patient, include = FALSE}

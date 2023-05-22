@@ -47,6 +47,15 @@ update.packages(
 
 ## dependencies
 
+> patient <- "Nestor"
+> file <- fs::as_fs_path("~/isolated/Nestor/pdf/Nestor L. Young Adult ADHD + Dyslexia -852f926a-40a7-4d05-92b9-a4945df0ead3.pdf")
+> start <- "Word Reading"
+> end <- "Comprehension"
+> tb1_wrat4 <- extract_text(patient = patient, file_path = file, start_pattern = start, end_pattern = end)
+Error in readChar(file_path, file.info(file_path)$size, useBytes = TRUE) : 
+  invalid UTF-8 input in readChar()
+
+
 usethis::use_package("data.table")
 usethis::use_package("bookdown")
 usethis::use_package("sinew")

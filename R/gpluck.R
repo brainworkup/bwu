@@ -268,7 +268,11 @@ gpluck_make_score_ranges <-
            score = NULL,
            percentile = NULL,
            range = range,
-           test_type = c("npsych_test", "rating_scale", "validity_indicator", "basc3"),
+           test_type = c(
+            "npsych_test",
+            "rating_scale",
+            "validity_indicator",
+            "basc3"),
            ...) {
     if (test_type == "npsych_test") {
       table <-
