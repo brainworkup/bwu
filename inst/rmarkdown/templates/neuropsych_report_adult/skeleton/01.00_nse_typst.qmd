@@ -1,11 +1,6 @@
 ---
 title: |
   ![](logo.png){width=6.5in} Confidential Neuropsychological Report
-# title: |
-#   \vspace*{-3\baselineskip}
-#   ![](logo.png){width=6.5in, height=2in}
-#   Confidential Neuropsychological Report
-#   \vspace{-3.5em}
 patient: Biggie
 params:
   patient: Biggie
@@ -30,7 +25,7 @@ params:
   eval: true
 format:
   typst:
-    paper: a4
+    paper: "a4"
     width: auto
     height: auto
     margin:
@@ -114,8 +109,11 @@ txt <- bwu::extract_text(patient, file_path, start_pattern, end_pattern)
 bwu::save_as_markdown(text = txt, output_path)
 ```
 
-**Patient Name:** `r params$first_name` `r params$last_name`\
-**Date of Exam:** `r params$doe1`
+```{=typst} 
+#v(2pt, weak: true)
+*Patient Name:* `r params$first_name` `r params$last_name`\
+*Date of Exam:* `r params$doe1`
+```
 
 # NEUROBEHAVIORAL STATUS EXAM
 
