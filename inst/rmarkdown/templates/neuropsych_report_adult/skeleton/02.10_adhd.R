@@ -148,8 +148,6 @@ bwu::dotplot(
   domain = "Executive Functioning"
 )
 
-
-
 ## ---- 03-table-adhd ----
 tb1 <-
   bwu::make_tibble(
@@ -180,7 +178,11 @@ kableExtra::kbl(
   booktabs = TRUE,
   linesep = "",
   align = c("lccc"),
-  caption = "(ref:adhd-ef) (ref:caars-cefi)"
+  caption = "Attention and executive functions are multidimensional concepts
+that contain several related processes. Both concepts require self-regulatory
+skills and have some common subprocesses; therefore, it is common to treat them
+together, or even to refer to both processes when talking about one or the
+other."
 ) |>
   kableExtra::kable_paper(lightable_options = "basic") |>
   kableExtra::kable_styling(latex_options = c(

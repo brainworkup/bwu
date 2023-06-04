@@ -848,7 +848,7 @@ validity <- readr::read_csv(here::here(patient, "validity.csv"))
 
 <!-- \newpage -->
 
-## General Cognitive Ability
+### General Cognitive Ability
 
 (ref:fn-iq) Standard Score (M = 100, SD = 15)
 
@@ -887,7 +887,7 @@ knitr::read_chunk(here::here(patient, "02.02_iq.R"))
 
 \newpage
 
-<!-- ## Academic Skills -->
+<!-- ### Academic Skills -->
 
 (ref:fn-acad) Standard Score (M = 100, SD = 15)
 
@@ -922,7 +922,7 @@ knitr::read_chunk(here::here(patient, "02.03_academics.R"))
 
 <!-- \newpage -->
 
-## Verbal/Language
+### Verbal/Language
 
 (ref:fn-vrb) *T* Score (M = 50, SD = 10) or Scaled Score (M = 10, SD = 3)
 
@@ -957,7 +957,7 @@ knitr::read_chunk(here::here(patient, "02.04_verbal.R"))
 
 <!-- \newpage -->
 
-## Visual Perception/Construction
+### Visual Perception/Construction
 
 (ref:fn-spt) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
@@ -992,7 +992,7 @@ knitr::read_chunk(here::here(patient, "02.05_spatial.R"))
 
 <!-- \newpage -->
 
-## Attention/Executive
+### Attention/Executive
 
 (ref:fn-exe) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
@@ -1029,7 +1029,7 @@ knitr::read_chunk(here::here(patient, "02.06_executive.R"))
 
 <!-- \newpage -->
 
-## Memory
+### Memory
 
 (ref:fn-memory) Standard Score (M = 100, SD = 15), *T* Score (M = 50, SD = 10), or Scaled Score (M = 10, SD = 3)
 
@@ -1099,7 +1099,7 @@ knitr::read_chunk(here::here(patient, "02.08_motor.R"))
 
 <!-- \newpage -->
 
-<!-- ## Social Cognition -->
+<!-- ### Social Cognition -->
 
 (ref:fn-soc) Scaled Score (M = 10, SD = 3)
 
@@ -1134,16 +1134,12 @@ knitr::read_chunk(here::here(patient, "02.09_social.R"))
 
 <!-- \newpage -->
 
-## ADHD/Executive Functioning
+### ADHD/Executive Functioning
 
-(ref:fn-adhd) Standard Score (M = 100, SD = 15) or *T* Score (M = 50, SD = 10)
+(ref:fn-adhd) Standard Score (M = 100, SD = 15) or *T* Score (M = 50, SD = 10); *Note:* On the CAARS scales, higher scores reflect reduced functioning, but on the CEFI scales, lower scores reflect reduced functioning.
 
 (ref:att-ef) Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other.
 
-(ref:caars-cefi) *Note:* On the *Conners' Adult ADHD Rating Scale (CAARS)*,
-higher scores reflect reduced functioning in a given area, but on the
-*Comprehensive Evaluation of Executive Functioning (CEFI)*, higher scores
-reflect relative strengths in a given area.
 
 ```{r, adhd, results = 'asis', eval = params$eval_adhd}
 cat(readLines("02.10_adhd.md"), sep = "\n")
@@ -1196,7 +1192,7 @@ knitr::read_chunk(here::here(patient, "02.10_adhd.R"))
 
 <!-- \newpage -->
 
-## Emotional/Behavioral/Personality
+### Emotional/Behavioral/Personality
 
 (ref:fn-emo) *T* Score (M = 50, SD = 10)
 
