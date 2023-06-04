@@ -59,3 +59,4 @@
 ^\.builds\.archived$
 ^notes$
 ^\.history$
+^letter-joey-typst$

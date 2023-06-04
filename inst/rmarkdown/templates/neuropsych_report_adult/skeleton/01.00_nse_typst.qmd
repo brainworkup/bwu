@@ -117,16 +117,9 @@ bwu::save_as_markdown(text = txt, output_path)
 
 # NEUROBEHAVIORAL STATUS EXAM
 
-## Measures Administered
-
-- Comprehensive Neuropsychiatric Symptom and History Interview
-- Conners' Adult ADHD Diagnostic Interview for DSM-IV (CAADID), Part I: History
-- Conners' Adult ADHD Rating Scales--Self-Report: Long Version (CAARS--S:L)
-- Conners' Adult ADHD Rating Scales--Observer Report: Long Version (CAARS--O:L)
-- Comprehensive Executive Function Inventory Adult (CEFI Adult) Self-Report Form
-- Comprehensive Executive Function Inventory Adult (CEFI Adult) Observer Form
-
 ## Reason for Referral
+
+`r params$first_name` was referred for neuropsychological testing as part of a comprehensive presurgical work-up of her epilepsy syndrome. The results will be used in surgical and treatment planning.
 
 `r params$first_name` is a student at USC referred for evaluation by `r params$refdoc` to assess `r params$his_her` current cognitive and emotional functioning in relation to `r params$dx1` and to develop an intervention plan. This report is based on a review of available medical records and information gathered across a 1-hour neurobehavioral exam conducted with the patient via telemedicine on `r params$doe1`.
 
@@ -140,15 +133,18 @@ evaluation. -->
 
 `r params$first_name` reports ongoing difficulties with attention/organization and lack of behavioral activation that are making it difficult to finish school, a history of mood dysregulation, performance anxiety, attention/organization problems, and social-emotional difficulties.
 
-## Relevant History
+## History
 
-### Developmental
+### Developmental/Medical
 
-`r params$first_name` was born full-term following an uncomplicated pregnancy, labor, and delivery. Major developmental milestones were achieved within expected timeframes.
+- No birth complicaitons..
+- Developmental milestones achieved on time.
+- Frequent sinus infections.
+- Other medications: Femcon, folic acid.
+- Appetite/weight: Normal, no changes.
+- Sleep: Normal, no changes.
+- Alcohol/tobacco: No history of abuse; denied current use.
 
-### Medical
-
-Medical history includes x, y, and z. `r params$his_her_cap` medical history also includes attention problems. `r params$he_she_cap` struggles to remember tasks. There are no current concerns with hearing, vision, sleep, or appetite. `r params$he_she_cap` also denies current headaches or pain. Family medical history includes x, y, and z. Surgical history includes x, y, and z.
 
 ### Behavioral/Emotional/Social
 
@@ -158,11 +154,12 @@ Medical history includes x, y, and z. `r params$his_her_cap` medical history als
 
 ### Academics
 
-`r params$first_name` is currently a student at USC. `r params$he_she_cap` is frustrated with `r params$his_her` grades, as `r params$he_she` has been an A/B student in the past. `r params$he_she_cap` said that `r params$he_she` has trouble with daily work as well as quizzes/tests.
+Patient is currently a USC student completing their $degree degree in $major. `r params$first_name` did not endorse any difficulties with advancing through school.
 
 ### Family/Home
 
-`r params$first_name` lives with `r params$his_her` parents and older brother and sister in City, State. Both parents graduated from high school. Recent stressors include a family member's illness. Family mental health history includes depression.
+Patient denied a family history of neurological conditions. Her brother was diagnosed with ADHD.
+
 
 ## Prior Testing
 
@@ -171,6 +168,15 @@ None indicated.
 ## Mental Status & Behavioral Observations During Interview
 
 `r params$first_name` was on time for `r params$his_her` examination. `r params$he_she_cap` took the meeting from home and was casually dressed and comfortable. `r params$he_she_cap` appeared `r params$his_her` stated age. `r params$he_she_cap` was alert and oriented to person, place, time, and situation. `r params$he_she_cap` was able to sustain attention and concentration throughout the interview. `r params$he_she_cap` was very articulate with a strong vocabulary, and generally clear thinking processes. There were no signs of aphasia, dysarthria, or anomia. `r params$he_she_cap` was able to comprehend and follow verbal instructions. Patient was able to recall recent and remote events without difficulty. There were no signs of amnesia or confabulation. `r params$he_she_cap` exhibited normal gross motor functioning with good mobility. Gait and posture are normal. `r params$his_her` mood was euthymic and `r params$his_her` affect was full in range and expression throughout the interview.
+
+## Measures Administered
+
+- Comprehensive Neuropsychiatric Symptom and History Interview
+- Conners' Adult ADHD Diagnostic Interview for DSM-IV (CAADID), Part I: History
+- Conners' Adult ADHD Rating Scales--Self-Report: Long Version (CAARS--S:L)
+- Conners' Adult ADHD Rating Scales--Observer Report: Long Version (CAARS--O:L)
+- Comprehensive Executive Function Inventory Adult (CEFI Adult) Self-Report Form
+- Comprehensive Executive Function Inventory Adult (CEFI Adult) Observer Form
 
 ## Summary/Impression
 

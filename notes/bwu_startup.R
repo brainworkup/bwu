@@ -52,7 +52,7 @@ update.packages(
 > start <- "Word Reading"
 > end <- "Comprehension"
 > tb1_wrat4 <- extract_text(patient = patient, file_path = file, start_pattern = start, end_pattern = end)
-Error in readChar(file_path, file.info(file_path)$size, useBytes = TRUE) : 
+Error in readChar(file_path, file.info(file_path)$size, useBytes = TRUE) :
   invalid UTF-8 input in readChar()
 
 
@@ -820,3 +820,286 @@ dependencies <- c(
   "tabulizer",
   "bookdown"
 )
+
+# ROCFT
+
+source("R/rocft.R")
+age <- 23
+# rocft copy raw score
+x <- 31
+# rocft delayed recall raw score
+y <- 14
+rocft_copy_score <-
+  bwu::rocft_copy(x, age)
+
+rocft_delayed_recall_score <-
+  bwu::rocft_copy(y, age)
+
+rocft_copy_score
+rocft_delayed_recall_score
+
+## Copied
+
+render_report_ask(input = "pluck_wais4.Rmd", patient = "Max")
+
+options(repos = c(
+  yihui = 'https://yihui.r-universe.dev',
+  CRAN = 'https://cloud.r-project.org'
+))
+
+install.packages('xfun')
+
+repos = getOption("repos")
+
+# make sure used git
+dir_info(all = TRUE, regexp = "^[.]git$") %>%
+  select(path, type)
+
+library(devtools)
+library(testthat)
+library(usethis)
+library(bwu)
+
+## Add files to .buildignore
+usethis::use_build_ignore("_quarto.yml")
+usethis::use_build_ignore("index.qmd")
+usethis::use_build_ignore("letter-joey-typst")
+usethis::use_build_ignore("README.html")
+
+
+# The very best way to render README.Rmd is with build_readme(), because it takes care to render with the the most current version of your package, i.e. it installs a temporary copy from the current source.
+
+devtools::build_readme()
+
+## STEPS TO CREATE FUNCTION USING OTHER PACKAGES
+
+usethis::use_package("janitor")
+usethis::use_package("readxl")
+
+use_package("ggplot2")
+use_package("ggthemes")
+use_package("dplyr")
+use_package("purrr")
+use_package("magrittr")
+use_package("tidyselect")
+usethis::use_r("dotplot")
+usethis::use_package("rlang")
+usethis::use_data_raw("data-raw/neurocog.csv")
+usethis::use_data_raw()
+
+neurocog <- vroom::vroom("data/neurocog.csv")
+
+usethis::use_data(neurocog, overwrite = TRUE, internal = FALSE)
+
+use_data_raw(name = "neurocog", open = rlang::is_interactive())
+
+tinytex::tlmgr_update()
+
+## usethis
+usethis::use_r("make_tibble")
+usethis::use_r("percentile")
+
+usethis::use_r("ci_95")
+usethis::use_r("compute_pctile_range")
+
+usethis::use_test("make_tibble")
+
+usethis::use_package_doc()
+
+usethis::use_vignette("bwu")
+
+## devtools
+devtools::document() # this adds roxygen comments
+devtools::check()
+devtools::build_vignettes()
+"bwu", upgrade = TRUE)
+
+‰
+
+dotplot(data = iris, x = iris$Sepal.Length, y = iris$Species)
+load_all()
+
+use_testthat()
+
+use_test("calc_age")
+
+build_readme()
+
+
+per mille sign	&permil;	‰	&#8240;	‰
+
+  ## Snapshot
+  ## Use `renv::settings$snapshot.type("all")` to disable dependency discovery during snapshot.
+
+  renv::settings$snapshot.type("all")
+
+# to open .Rprofile
+usethis::edit_r_profile()
+
+file.edit("~/.Rprofile") # edit .Rprofile in HOME
+file.edit(".Rprofile") # edit project specific .Rprofile
+
+file.edit("~/.Renviron") # edit .Rprofile in HOME
+file.edit(".Renviron") # edit project specific .Rprofile
+
+file.edit("~/.R/Makevars")
+
+pkgbuild::check_build_tools(debug = TRUE)
+
+RENV_PATHS_LIBRARY = ~/.renv/library/<package>
+
+  library(stringi)
+stringi::stri_escape_unicode("‰")
+
+usethis::use_git_config(user.name = "Joey Trampush", user.email = "j.trampush@gmail.com")
+credentials::set_github_pat("")
+usethis::git_sitrep()
+gitcreds::gitcreds_set()
+
+The following package(s) were not installed successfully:
+
+  [xaringanBuilder]: package 'xaringanBuilder' is not available
+[dataui]: package 'dataui' is not available
+[webshot2]: package 'webshot2' is not available
+[DTedit]: package 'DTedit' is not available
+[xaringanExtra]: package 'xaringanExtra' is not available
+[regexplain]: package 'regexplain' is not available
+[komadown]: package 'komadown' is not available
+
+
+Sys.setenv(RENV_PATHS_CACHE = "/mnt/shared/renv/cache")
+
+Sys.setenv(RENV_PATHS_LIBRARY = "~/bwu/renv/library/R-4.1/x86_64-apple-darwin17.0/bwu")
+
+readr::write_csv(depends, "bwu_packages.csv")
+readr::write_csv(depends, here::here("depends.csv"), col_names = TRUE, na = "")
+
+dependencies <- c(
+  "knitr",
+  "rmarkdown",
+  "here",
+  "fs",
+  "miniUI",
+  "magrittr",
+  "htmltools",
+  "purrr",
+  "rlang",
+  "rstudioapi",
+  "png",
+  "rJava",
+  "stats",
+  "dplyr",
+  "stringr",
+  "shiny",
+  "usethis",
+  "tabulizer",
+  "bookdown"
+)
+
+install.packages(dependencies)
+
+# create a list of all installed packages
+ip <- as.data.frame(installed.packages())
+head(ip)
+# if you use MRO, make sure that no packages in this library will be removed
+ip <- subset(ip, !grepl("MRO", ip$LibPath))
+# we don't want to remove base or recommended packages either\
+ip <- ip[!(ip[,"Priority"] %in% c("base", "recommended")),]
+# determine the library where the packages are installed
+path.lib <- unique(ip$LibPath)
+# create a vector with all the names of the packages you want to remove
+pkgs.to.remove <- ip[,1]
+head(pkgs.to.remove)
+# remove the packages
+sapply(pkgs.to.remove, remove.packages, lib = path.lib)
+
+library(bwu)
+library(shiny)
+library(here)
+## knitr/rmarkdown
+library(knitr)
+library(rmarkdown)
+library(bookdown)
+library(tinytex)
+library(xfun)
+library(quarto)
+# startup
+library(fs)
+library(tufte)
+library(yaml)
+## tidyverse
+library(tidyverse)
+## tables
+library(kableExtra)
+library(gt)
+library(gtExtras)
+library(formattable)
+library(huxtable)
+library(flextable)
+## strings
+library(glue)
+library(gluedown)
+library(table.glue)
+library(epoxy)
+# PDF scraping
+library(tabulizer)
+library(tabulizerjars)
+library(rJava)
+## presentations
+library(xaringan)
+library(xaringanthemer)
+library(xaringanExtra)
+library(highcharter)
+## fonts
+library(ascii)
+library(gfonts)
+library(showtext)
+library(concaveman)
+library(extrafont)
+## rmarkdown
+library(komadown)
+## markdown
+library(commonmark)
+library(markdown)
+## ggplot2/general plotting
+library(grid)
+library(gridExtra)
+library(cowplot)
+library(ggridges)
+library(GGally)
+library(ggsci)
+library(ggthemes)
+library(patchwork)
+library(ggforce)
+library(ggrepel)
+library(ggtext)
+library(ggdist)
+library(ggdark)
+library(scales)
+## C++
+library(Rcpp)
+## formatting
+library(printr)
+library(formatR)
+## graphics devices
+library(Cairo)
+library(svglite)
+library(gdtools)
+library(magick)
+library(png)
+## tidymodeling related
+library(tidymodels)
+library(tidyselect)
+library(tidytext)
+## CSS/HTML
+library(sass)
+library(htmlwidgets)
+library(widgetframe)
+library(crosstalk)
+library(manipulateWidget)
+# data tables
+library(hablar)
+library(janitor)
+library(fastverse)
+library(vroom)
+library(tidytable)

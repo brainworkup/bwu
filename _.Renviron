@@ -1,0 +1,35 @@
+## library paths
+
+## pak
+#### Directory to download the packages to.
+PKG_CACHE_DIR="/Users/joey/.pak/cache-dir"
+#### Package library to install packages to. It is also used for already installed packages when considering dependencies.
+PKG_LIBRARY="/Users/joey/.Rlibrary"
+#### Location of the package cache on the disk.
+PKG_PACKAGE_CACHE_DIR="/Users/joey/.pak/pkg-cache-dir"
+
+NAME="Joey Trampush"
+
+## renv
+RENV_PATHS_LIBRARY="/Users/joey/.renv/library/bwu"
+RENV_PATHS_ROOT="/Users/joey/.renv"
+RENV_PATHS_LIBRARY_ROOT="/Users/joey/.renv/library"
+RENV_PATHS_CACHE="/Users/joey/.renv/cache"
+
+PROJECTS_FOLDER_PATH="/Users/joey/R"
+
+## Example of setting R_DEFAULT_PACKAGES (from R CMD check)
+R_DEFAULT_PACKAGES="datasets, utils, grDevices, graphics, stats, methods"
+
+# this loads the packages in the order given, so they appear on
+# the search path in reverse order.
+## JAVA
+## /Library/Java/JavaVirtualMachines/jdk-17.0.2.jdk/Contents/Home/lib/server ## used to be tha7
+DYLD_LIBRARY_PATH="/Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home/lib/server"
+TERM_PROGRAM="vscode"
+
+#The set of packages loaded on startup is by default
+#> getOption("defaultPackages")
+#[1] "datasets, utils, grDevices, graphics, stats, here"
+# "methods" is also default but it causes R to load slowly
+# I added "here"
