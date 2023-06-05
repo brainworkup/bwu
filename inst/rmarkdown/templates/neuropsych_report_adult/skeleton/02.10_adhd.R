@@ -149,7 +149,7 @@ bwu::dotplot(
 )
 
 ## ---- 03-table-adhd ----
-tb1 <-
+df_adhd <-
   bwu::make_tibble(
     tibb = adhd,
     data = neurobehav,
@@ -159,7 +159,7 @@ tb1 <-
   tidytable::arrange(Test)
 
 ## ---- 03-table-executive ----
-tb2 <-
+df_ef <-
   bwu::make_tibble(
     tibb = adhd,
     data = neurobehav,
@@ -169,11 +169,13 @@ tb2 <-
   tidytable::arrange(Test)
 
 ## ---- 03-table-merge ----
-tb <- rbind(tb1, tb2)
+df_adhd_ef <- rbind(df_adhd, df_ef)
 
 ## ---- 04-kable-adhd ----
+df_adhd_ef <- df_adhd_ef
 kableExtra::kbl(
-  tb[, 1:4], "latex",
+  df_adhd_ef[, 1:4],
+  "latex",
   longtable = FALSE,
   booktabs = TRUE,
   linesep = "",
@@ -185,10 +187,8 @@ together, or even to refer to both processes when talking about one or the
 other."
 ) |>
   kableExtra::kable_paper(lightable_options = "basic") |>
-  kableExtra::kable_styling(latex_options = c(
-    "scale_down", "HOLD_position", "striped"
-  )) |>
+  kableExtra::kable_styling(latex_options = c("scale_down", "HOLD_position", "striped")) |>
   kableExtra::column_spec(1, width = "8cm") |>
-  kableExtra::pack_rows(index = table(tb$Test)) |>
+  kableExtra::pack_rows(index = table(df_adhd_ef$Test)) |>
   kableExtra::row_spec(row = 0, bold = TRUE) |>
-  kableExtra::add_footnote("(ref:fn-adhd)")
+  kableExtra::footnote("CAARS T-scores have a mean of 50 and a standard deviation of 10, and higher scores reflect reduced functioning. CEFI Standard scores have a mean of 100 and a standard deviation of 15, and lower scores reflect reduced functioning.", threeparttable = TRUE)
