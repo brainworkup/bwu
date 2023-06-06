@@ -2,26 +2,41 @@
 % Please edit documentation in R/dotplot.R
 \name{dotplot}
 \alias{dotplot}
-\title{Make a dotplot for cognitive domains}
+\title{Dotplot}
 \usage{
-dotplot(data, x, y, ...)
+dotplot(data, x, y, sd = NULL, domain = NULL, fill = "domain")
 }
 \arguments{
-\item{data}{Name of dataset}
+\item{data}{Dataset to import}
 
-\item{x}{Name of x-axis variable}
+\item{x}{X variable}
 
-\item{y}{Name of y-axis variable}
+\item{y}{Y variable}
 
-\item{...}{Additional arguments}
+\item{sd}{PARAM_DESCRIPTION, Default: NULL}
+
+\item{domain}{PARAM_DESCRIPTION, Default: NULL}
+
+\item{fill}{PARAM_DESCRIPTION, Default: 'domain'}
 }
 \value{
-A dotplot using ggplot2
+OUTPUT_DESCRIPTION
 }
 \description{
-Description of the function.
+FUNCTION_DESCRIPTION
+}
+\details{
+DETAILS
 }
 \examples{
-dotplot(iris, iris$Sepal.Length, iris$Species)
-
+\dontrun{
+if(interactive()){
+ #EXAMPLE1
+ }
+}
+}
+\seealso{
+\code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{geom_segment}}, \code{\link[ggplot2]{geom_point}}, \code{\link[ggplot2]{scale_colour_gradient}}, \code{\link[ggplot2]{guide_colourbar}}, \code{\link[ggplot2]{margin}}, \code{\link[ggplot2]{geom_errorbarh}}, \code{\link[ggplot2]{theme}}
+\code{\link[stats]{reorder.default}}
+\code{\link[ggthemes]{theme_fivethirtyeight}}
 }

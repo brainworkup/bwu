@@ -4,24 +4,20 @@
 \alias{drilldown}
 \title{Drilldown on neuropsych domains.}
 \usage{
-drilldown(data, patient = NULL, mean_z, mean_percentile, ...)
+drilldown(data, mean_z = NULL, mean_pct = NULL)
 }
 \arguments{
 \item{data}{Dataset to use.}
 
-\item{patient}{Patient's first name.}
-
 \item{mean_z}{Mean z-score.}
 
-\item{mean_percentile}{Mean percentile.}
-
-\item{...}{Numeric, complex, or logical vectors.}
+\item{mean_pct}{Mean percentile.}
 }
 \value{
 A drilldown plot
 }
 \description{
-This function uses the R Highcharter package and drilldown function to "drill down" on neuropsychological domains and test scores.
+This function uses the R Highcharter package and drilldown function to "drilldown" on neuropsychological domains and test scores.
 }
 \details{
 \code{drilldown} Creates a highcharter drilldown interactive plot.

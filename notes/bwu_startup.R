@@ -903,6 +903,7 @@ usethis::use_r("ci_95")
 usethis::use_r("compute_pctile_range")
 
 usethis::use_test("make_tibble")
+usethis::use_test("dotplot")
 
 usethis::use_package_doc()
 
@@ -916,10 +917,13 @@ devtools::build_vignettes()
 
 ‰
 
-dotplot(data = iris, x = iris$Sepal.Length, y = iris$Species)
-load_all()
 
-use_testthat()
+bwu::dotplot(data = iris, x = iris$Sepal.Length, y = iris$Species)
+
+
+devtools::load_all()
+
+usethis::use_testthat()
 
 use_test("calc_age")
 
@@ -946,7 +950,7 @@ file.edit("~/.R/Makevars")
 
 pkgbuild::check_build_tools(debug = TRUE)
 
-RENV_PATHS_LIBRARY = ~/.renv/library/<package>
+# RENV_PATHS_LIBRARY = ~/.renv/library/<package>
 
   library(stringi)
 stringi::stri_escape_unicode("‰")
@@ -955,16 +959,6 @@ usethis::use_git_config(user.name = "Joey Trampush", user.email = "j.trampush@gm
 credentials::set_github_pat("")
 usethis::git_sitrep()
 gitcreds::gitcreds_set()
-
-The following package(s) were not installed successfully:
-
-  [xaringanBuilder]: package 'xaringanBuilder' is not available
-[dataui]: package 'dataui' is not available
-[webshot2]: package 'webshot2' is not available
-[DTedit]: package 'DTedit' is not available
-[xaringanExtra]: package 'xaringanExtra' is not available
-[regexplain]: package 'regexplain' is not available
-[komadown]: package 'komadown' is not available
 
 
 Sys.setenv(RENV_PATHS_CACHE = "/mnt/shared/renv/cache")

@@ -29,8 +29,12 @@ The goal of bwu is to ...
 
 You can install the development version of brainworkupr like so:
 
-```r
+``` r
 pak::pkg_install("brainworkup/bwu")
+```
+
+```{r}
+sinew::makeOxyFile(here::here("R", "dotplot.R"))
 ```
 
 ## Example
@@ -67,3 +71,4 @@ An example workflow can be found here: <https://github.com/r-lib/actions/tree/v1
 ------------------------------------------------------------------------
 
 In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+
