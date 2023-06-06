@@ -67,38 +67,42 @@ filter_domain <- c(
 )
 
 ## ---- 02-glue-adhd-sr ----
-dt <-
-  neurobehav |>
-  tidytable::filter(scale %in% filter_domain) |>
-  tidytable::filter(test == "cefi_sr" | test == "caars_sr") |>
-  tidytable::arrange(desc(percentile)) |>
-  tidytable::distinct(.keep_all = FALSE)
+xfun::cache_rds({
+  dt <-
+    neurobehav |>
+    tidytable::filter(scale %in% filter_domain) |>
+    tidytable::filter(test == "cefi_sr" | test == "caars_sr") |>
+    tidytable::arrange(desc(percentile)) |>
+    tidytable::distinct(.keep_all = FALSE)
 
-dt |>
-  glue::glue_data() |>
-  purrr::modify(purrr::lift(paste0)) |>
-  cat(dt$result,
-    file = "02.10_adhd.md",
-    fill = TRUE,
-    append = TRUE
-  )
+  dt |>
+    glue::glue_data() |>
+    purrr::modify(purrr::lift(paste0)) |>
+    cat(dt$result,
+      file = "02.10_adhd.md",
+      fill = TRUE,
+      append = TRUE
+    )
+})
 
 ## ---- 02-glue-adhd-or -----
-dt <-
-  neurobehav |>
-  tidytable::filter(scale %in% filter_domain) |>
-  tidytable::filter(test == "cefi_or" | test == "caars_or") |>
-  tidytable::arrange(desc(percentile)) |>
-  tidytable::distinct(.keep_all = FALSE)
+xfun::cache_rds({
+  dt <-
+    neurobehav |>
+    tidytable::filter(scale %in% filter_domain) |>
+    tidytable::filter(test == "cefi_or" | test == "caars_or") |>
+    tidytable::arrange(desc(percentile)) |>
+    tidytable::distinct(.keep_all = FALSE)
 
-dt |>
-  glue::glue_data() |>
-  purrr::modify(purrr::lift(paste0)) |>
-  cat(dt$result,
-    file = "02.10_adhd.md",
-    fill = TRUE,
-    append = TRUE
-  )
+  dt |>
+    glue::glue_data() |>
+    purrr::modify(purrr::lift(paste0)) |>
+    cat(dt$result,
+      file = "02.10_adhd.md",
+      fill = TRUE,
+      append = TRUE
+    )
+})
 
 ## ---- 05-df-adhd ----
 df <-
@@ -172,7 +176,6 @@ df_ef <-
 df_adhd_ef <- rbind(df_adhd, df_ef)
 
 ## ---- 04-kable-adhd ----
-df_adhd_ef <- df_adhd_ef
 kableExtra::kbl(
   df_adhd_ef[, 1:4],
   "latex",

@@ -23,20 +23,22 @@ filter_domain <- c(
 )
 
 ## ---- 02-glue-motor ------------
-dt <-
-  neurocog |>
-  tidytable::filter(scale %in% filter_domain) |>
-  tidytable::arrange(desc(percentile)) |>
-  tidytable::distinct(.keep_all = FALSE)
+xfun::cache_rds({
+  dt <-
+    neurocog |>
+    tidytable::filter(scale %in% filter_domain) |>
+    tidytable::arrange(desc(percentile)) |>
+    tidytable::distinct(.keep_all = FALSE)
 
-dt |>
-  glue::glue_data() |>
-  purrr::modify(purrr::lift(paste0)) |>
-  cat(dt$result,
-    file = "2.8_motor.md",
-    fill = TRUE,
-    append = TRUE
-  )
+  dt |>
+    glue::glue_data() |>
+    purrr::modify(purrr::lift(paste0)) |>
+    cat(dt$result,
+      file = "2.8_motor.md",
+      fill = TRUE,
+      append = TRUE
+    )
+})
 
 ## ---- 03-table-motor ------------
 tb <-

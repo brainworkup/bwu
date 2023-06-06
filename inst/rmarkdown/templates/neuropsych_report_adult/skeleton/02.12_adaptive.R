@@ -19,20 +19,22 @@ filter_domain <- c(
 )
 
 ## ---- 02-glue-adaptive ------------
-dt <-
-  neurobehav |>
-  tidytable::filter(scale %in% filter_domain) |>
-  tidytable::arrange(desc(percentile)) |>
-  tidytable::distinct(.keep_all = FALSE)
+xfun::cache_rds({
+  dt <-
+    neurobehav |>
+    tidytable::filter(scale %in% filter_domain) |>
+    tidytable::arrange(desc(percentile)) |>
+    tidytable::distinct(.keep_all = FALSE)
 
-dt |>
-  glue::glue_data() |>
-  purrr::modify(purrr::lift(paste0)) |>
-  cat(dt$result,
-    file = "02.09_adaptive.md",
-    fill = TRUE,
-    append = TRUE
-  )
+  dt |>
+    glue::glue_data() |>
+    purrr::modify(purrr::lift(paste0)) |>
+    cat(dt$result,
+      file = "02.09_adaptive.md",
+      fill = TRUE,
+      append = TRUE
+    )
+})
 
 ## ---- 03-table-adaptive ------------
 tb <-

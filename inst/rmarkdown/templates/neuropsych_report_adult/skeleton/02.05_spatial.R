@@ -36,20 +36,22 @@ filter_domain <- c(
 )
 
 ## ---- 02-glue-spatial ---------------------
-dt <-
-  neurocog |>
-  tidytable::filter(scale %in% filter_domain) |>
-  tidytable::arrange(desc(percentile)) |>
-  tidytable::distinct(.keep_all = FALSE)
+xfun::cache_rds({
+  dt <-
+    neurocog |>
+    tidytable::filter(scale %in% filter_domain) |>
+    tidytable::arrange(desc(percentile)) |>
+    tidytable::distinct(.keep_all = FALSE)
 
-dt |>
-  glue::glue_data() |>
-  purrr::modify(purrr::lift(paste0)) |>
-  cat(dt$result,
-    file = "02.05_spatial.md",
-    fill = TRUE,
-    append = TRUE
-  )
+  dt |>
+    glue::glue_data() |>
+    purrr::modify(purrr::lift(paste0)) |>
+    cat(dt$result,
+      file = "02.05_spatial.md",
+      fill = TRUE,
+      append = TRUE
+    )
+})
 
 ## ---- 03-table-spatial ------------
 tb <-
@@ -80,7 +82,7 @@ kableExtra::kbl(
   kableExtra::column_spec(1, width = "8cm") |>
   kableExtra::pack_rows(index = table(tb$Test)) |>
   kableExtra::row_spec(row = 0, bold = TRUE) |>
-  kableExtra::add_footnote("(ref:fn-spt)")
+  kableExtra::footnote("(ref:fn-spt)")
 
 ## ---- 05-df-spatial -----------------------------
 df <-

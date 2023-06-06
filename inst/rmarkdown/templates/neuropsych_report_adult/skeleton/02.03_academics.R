@@ -85,21 +85,23 @@ filter_domain <- c(
 )
 
 ## ---- 02-glue-academics ----
-dt <-
-  neurocog |>
-  tidytable::filter(scale %in% filter_domain) |>
-  tidytable::arrange(desc(percentile)) |>
-  tidytable::distinct(.keep_all = FALSE)
+xfun::cache_rds({
+  # write your time-consuming code in this expression
+  dt <-
+    neurocog |>
+    tidytable::filter(scale %in% filter_domain) |>
+    tidytable::arrange(desc(percentile)) |>
+    tidytable::distinct(.keep_all = FALSE)
 
-dt |>
-  glue::glue_data() |>
-  purrr::modify(purrr::lift(paste0)) |>
-  cat(dt$result,
-    file = "02.03_academics.md",
-    fill = TRUE,
-    append = TRUE
-  )
-
+  dt |>
+    glue::glue_data() |>
+    purrr::modify(purrr::lift(paste0)) |>
+    cat(dt$result,
+      file = "02.03_academics.md",
+      fill = TRUE,
+      append = TRUE
+    )
+})
 ## ---- 03-table-academics ----
 tb <-
   bwu::make_tibble(
@@ -131,7 +133,7 @@ kableExtra::kbl(
   kableExtra::pack_rows(index = table(tb$Test)) |>
   kableExtra::pack_rows(index = table(tb$Subdomain)) |>
   kableExtra::row_spec(row = 0, bold = TRUE) |>
-  kableExtra::add_footnote("(ref:fn-acad)")
+  kableExtra::footnote("(ref:fn-acad)")
 
 ## ---- 05-df-academics ----
 df <-

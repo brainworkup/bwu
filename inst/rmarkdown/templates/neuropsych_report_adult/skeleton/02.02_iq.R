@@ -44,6 +44,7 @@ filter_domain <- c(
 )
 
 ## ---- 02-glue-iq ------------
+xfun::cache_rds({
 dt <-
   neurocog |>
   tidytable::filter(scale %in% filter_domain) |>
@@ -58,6 +59,7 @@ dt |>
     fill = TRUE,
     append = TRUE
   )
+})
 
 ## ---- 03-table-iq ------------
 tb <-
@@ -88,21 +90,20 @@ kableExtra::kbl(
   kableExtra::column_spec(1, width = "8cm") |>
   kableExtra::pack_rows(index = table(tb$Test)) |>
   kableExtra::row_spec(row = 0, bold = TRUE) |>
-  kableExtra::add_footnote("(ref:fn-iq)")
+  kableExtra::footnote("(ref:fn-iq)")
 
 ## ---- 05-df-iq ------------
 df <-
   neurocog |>
   tidytable::filter(domain == "Intelligence/General Ability") |>
   tidytable::filter(!is.na(percentile)) |>
-  tidytable::arrange(test_name)
-# |>
-# tidytable::filter(
-#   scale %in% c(
-#     "General Ability",
-#     "Crystallized Knowledge",
-#     "Fluid Reasoning")
-# )
+  tidytable::arrange(test_name) |>
+  tidytable::filter(
+  scale %in% c(
+    "General Ability",
+    "Crystallized Knowledge",
+    "Fluid Reasoning")
+)
 
 ## ---- 06-plot-subdomain-iq --------------------
 bwu::dotplot(
