@@ -16,8 +16,6 @@ dotplot(data, x, y, sd = NULL, domain = NULL, fill = "domain")
 \item{domain}{Optional "domain/area", Default: NULL}
 
 \item{fill}{Optional name of variable to fill points by, Default: 'domain'}
-
-\item{k}{A constant e.g., percentile or z-score to compute uncertainty.}
 }
 \value{
 A dotplot "lollipop" plot of neuropsych domain scores using ggplot2

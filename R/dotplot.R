@@ -3,7 +3,6 @@
 #' @param data Dataset variable.
 #' @param x X Mean z-score of domain.
 #' @param y Y Domain/variable name of the y-axis.
-#' @param k A constant e.g., percentile or z-score to compute uncertainty.
 #' @param domain Optional "domain/area", Default: NULL
 #' @param fill Optional name of variable to fill points by, Default: 'domain'
 #' @return A dotplot "lollipop" plot of neuropsych domain scores using ggplot2
@@ -40,8 +39,6 @@ dotplot <- function(data, x, y, sd = NULL, domain = NULL, fill = "domain") {
 
     ggplot2::scale_fill_gradientn(name = "Domain", breaks = NULL, colors = tokyo_palette, guide = ggplot2::guide_colorbar(title.position = "top", title.hjust = 0.5, title.vjust = 0.5, label.hjust = 0.5, label.vjust = 0.5,
       label.position = "bottom", label.theme = ggplot2::element_text(size = 10))) +
-
-    ggplot2::geom_errorbarh(ggplot2::aes(y = mean(percentile), height = 0.2)) +
 
     ggthemes::theme_fivethirtyeight() +
 

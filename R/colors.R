@@ -73,3 +73,5 @@ plot_colors <- function(colors) {
     ggplot2::scale_fill_identity() +
     ggplot2::theme_void()
 }
+plot_colors("red
+            ")

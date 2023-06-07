@@ -1,10 +1,10 @@
 # BWU ------------------------------------------------
 
 # Update R packages and libraries -------------------------------------------
+sinew::moga("R/dotplot.R")
 
 devtools::document()
 devtools::install_deps(dependencies = TRUE)
-
 update.packages(ask = FALSE, checkBuilt = TRUE)
 
 # if pak fails, reinstall from source
