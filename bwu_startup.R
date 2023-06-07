@@ -1,11 +1,14 @@
 # BWU ------------------------------------------------
 
 # Update R packages and libraries -------------------------------------------
-sinew::moga("R/dotplot.R")
+
+sinew::makeOxyFile(here::here("R", "dotplot.R"))
+sinew::moga("R/oxy-dotplot.R")
 
 sinew::moga("R/plots.R")
-
 sinew::makeOxygen("R/plots.R")
+
+sinew::makeOxygen(here::here("R", "oxy-plots.R"))
 
 devtools::document()
 devtools::install_deps(dependencies = TRUE)
@@ -32,9 +35,6 @@ update.packages(
 ## sinew
 
 sinew::makeOxyFile(here::here("R", "scrape_pdf_nse.R"))
-
-sinew::makeOxyFile(here::here("R", "utils.R"))
-
 sinew::makeOxyFile(here::here("R", "extract_nse_otterai_text.R"))
 
 ## LaTeX
@@ -76,7 +76,7 @@ usethis::use_build_ignore("index.qmd")
 usethis::use_build_ignore("README.html")
 
 usethis::use_build_ignore(".quarto")
-usethis::use_build_ignore("notes")
+usethis::use_build_ignore("bwu_startup.R")
 usethis::use_build_ignore(".builds.archived")
 
 usethis::use_r("age")
