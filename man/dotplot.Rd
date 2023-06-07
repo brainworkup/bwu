@@ -2,37 +2,37 @@
 % Please edit documentation in R/dotplot.R
 \name{dotplot}
 \alias{dotplot}
-\title{Dotplot}
+\title{Create Dotplots of Cognitive Domains}
 \usage{
 dotplot(data, x, y, sd = NULL, domain = NULL, fill = "domain")
 }
 \arguments{
-\item{data}{Dataset to import}
+\item{data}{Dataset variable.}
 
-\item{x}{X variable}
+\item{x}{X Mean z-score of domain.}
 
-\item{y}{Y variable}
+\item{y}{Y Domain/variable name of the y-axis.}
 
-\item{sd}{PARAM_DESCRIPTION, Default: NULL}
+\item{domain}{Optional "domain/area", Default: NULL}
 
-\item{domain}{PARAM_DESCRIPTION, Default: NULL}
+\item{fill}{Optional name of variable to fill points by, Default: 'domain'}
 
-\item{fill}{PARAM_DESCRIPTION, Default: 'domain'}
+\item{k}{A constant e.g., percentile or z-score to compute uncertainty.}
 }
 \value{
-OUTPUT_DESCRIPTION
+A dotplot "lollipop" plot of neuropsych domain scores using ggplot2
 }
 \description{
-FUNCTION_DESCRIPTION
+Make a dotplot for cognitive domains
 }
 \details{
 DETAILS
 }
 \examples{
 \dontrun{
-if(interactive()){
- #EXAMPLE1
- }
+if (interactive()) {
+  # EXAMPLE1
+}
 }
 }
 \seealso{
