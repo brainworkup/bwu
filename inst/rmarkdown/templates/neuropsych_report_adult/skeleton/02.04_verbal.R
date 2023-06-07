@@ -135,6 +135,6 @@ bwu::dotplot(
   data = df,
   x = df$z_mean_narrow,
   y = df$narrow,
-  k = df$percentile,
+  k = df$percentile
   domain = "verbal"
 )

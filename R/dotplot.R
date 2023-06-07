@@ -41,7 +41,7 @@ dotplot <- function(data, x, y, sd = NULL, domain = NULL, fill = "domain") {
     ggplot2::scale_fill_gradientn(name = "Domain", breaks = NULL, colors = tokyo_palette, guide = ggplot2::guide_colorbar(title.position = "top", title.hjust = 0.5, title.vjust = 0.5, label.hjust = 0.5, label.vjust = 0.5,
       label.position = "bottom", label.theme = ggplot2::element_text(size = 10))) +
 
-    ggplot2::geom_errorbarh(ggplot2::aes(xmin = x - sd, xmax = x + sd), height = 0.2) +
+    ggplot2::geom_errorbarh(ggplot2::aes(y = mean(percentile), height = 0.2) +
 
     ggthemes::theme_fivethirtyeight() +
 
