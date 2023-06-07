@@ -1,18 +1,18 @@
-#' @title Dotplot
-#' @description FUNCTION_DESCRIPTION
-#' @param data Dataset to import
-#' @param x X variable
-#' @param y Y variable
-#' @param sd PARAM_DESCRIPTION, Default: NULL
-#' @param domain PARAM_DESCRIPTION, Default: NULL
-#' @param fill PARAM_DESCRIPTION, Default: 'domain'
-#' @return OUTPUT_DESCRIPTION
+#' @title Create Dotplots of Cognitive Domains
+#' @description Make a dotplot for cognitive domains
+#' @param data Dataset variable.
+#' @param x X Mean z-score of domain.
+#' @param y Y Domain/variable name of the y-axis.
+#' @param k A constant e.g., percentile or z-score to compute uncertainty.
+#' @param domain Optional "domain/area", Default: NULL
+#' @param fill Optional name of variable to fill points by, Default: 'domain'
+#' @return A dotplot "lollipop" plot of neuropsych domain scores using ggplot2
 #' @details DETAILS
 #' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
 #' }
 #' @seealso
 #'  \code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{geom_segment}}, \code{\link[ggplot2]{geom_point}}, \code{\link[ggplot2]{scale_colour_gradient}}, \code{\link[ggplot2]{guide_colourbar}}, \code{\link[ggplot2]{margin}}, \code{\link[ggplot2]{geom_errorbarh}}, \code{\link[ggplot2]{theme}}
@@ -38,10 +38,8 @@ dotplot <- function(data, x, y, sd = NULL, domain = NULL, fill = "domain") {
 
     ggplot2::geom_point(ggplot2::aes(fill = x), shape = 21, linewidth = 6, color = "black") +
 
-    ggplot2::scale_fill_gradientn(name = "Domain", breaks = NULL, colors = tokyo_palette,
-      guide = ggplot2::guide_colorbar(title.position = "top", title.hjust = 0.5,
-        title.vjust = 0.5, label.hjust = 0.5, label.vjust = 0.5,
-        label.position = "bottom", label.theme = ggplot2::element_text(size = 10))) +
+    ggplot2::scale_fill_gradientn(name = "Domain", breaks = NULL, colors = tokyo_palette, guide = ggplot2::guide_colorbar(title.position = "top", title.hjust = 0.5, title.vjust = 0.5, label.hjust = 0.5, label.vjust = 0.5,
+      label.position = "bottom", label.theme = ggplot2::element_text(size = 10))) +
 
     ggplot2::geom_errorbarh(ggplot2::aes(xmin = x - sd, xmax = x + sd), height = 0.2) +
 
