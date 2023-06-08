@@ -132,17 +132,17 @@ background-color: var(--usc-black)
 ## Domain scores
 # 1. create mean z-scores for domain
 ncog1 <- neurocog %>%
-  dplyr::group_by(domain) %>%
+  tidytable::group_by(domain) %>%
   dplyr::summarize(mean_z = mean(z),
     mean_percentile = mean(percentile)) %>%
-  dplyr::mutate(range = NA)
+  tidytable::mutate(range = NA)
 
 ncog1$mean_z <- round(ncog1$mean_z, 2L)
 ncog1$mean_percentile <- round(ncog1$mean_percentile, 0L)
 
 ncog1 <-
   ncog1 %>%
-  dplyr::mutate(
+  tidytable::mutate(
     range = dplyr::case_when(
       mean_percentile >= 98 ~ "Exceptionally High",
       mean_percentile %in% 91:97 ~ "Above Average",
@@ -179,17 +179,17 @@ ncog_level2_drill <-
     # same as above
     ncog2 <-
       ncog2 %>%
-      dplyr::group_by(subdomain) %>%
+      tidytable::group_by(subdomain) %>%
       dplyr::summarize(mean_z = mean(z),
         mean_percentile = mean(percentile)) %>%
-      dplyr::mutate(range = NA)
+      tidytable::mutate(range = NA)
 
     # round z-score to 1 decimal
     ncog2$mean_z <- round(ncog2$mean_z, 2L)
     ncog2$mean_percentile <- round(ncog2$mean_percentile, 0L)
     ncog2 <-
       ncog2 %>%
-      dplyr::mutate(
+      tidytable::mutate(
         range = dplyr::case_when(
           mean_percentile >= 98 ~ "Exceptionally High",
           mean_percentile %in% 91:97 ~ "Above Average",
@@ -237,17 +237,17 @@ ncog_level3_drill <-
       ncog3 <- subset(ncog2, ncog2$subdomain %in% y_level)
 
       ncog3 <- ncog3 %>%
-        dplyr::group_by(narrow) %>%
+        tidytable::group_by(narrow) %>%
         dplyr::summarize(mean_z = mean(z),
           mean_percentile = mean(percentile)) %>%
-        dplyr::mutate(range = NA)
+        tidytable::mutate(range = NA)
 
       # round z-score to 1 decimal
       ncog3$mean_z <- round(ncog3$mean_z, 2L)
       ncog3$mean_percentile <- round(ncog3$mean_percentile, 0L)
       ncog3 <-
         ncog3 %>%
-        dplyr::mutate(
+        tidytable::mutate(
           range = dplyr::case_when(
             mean_percentile >= 98 ~ "Exceptionally High",
             mean_percentile %in% 91:97 ~ "Above Average",
@@ -295,16 +295,16 @@ ncog_level4_drill <-
 
         ncog4 <-
           ncog4 %>%
-          dplyr::group_by(scale) %>%
+          tidytable::group_by(scale) %>%
           dplyr::summarize(mean_z = mean(z), mean_percentile = mean(percentile)) %>%
-          dplyr::mutate(range = NA)
+          tidytable::mutate(range = NA)
 
         # round z-score to 1 decimal
         ncog4$mean_z <- round(ncog4$mean_z, 2L)
         ncog4$mean_percentile <- round(ncog4$mean_percentile, 0L)
         ncog4 <-
           ncog4 %>%
-          dplyr::mutate(
+          tidytable::mutate(
             range = dplyr::case_when(
               mean_percentile >= 98 ~ "Exceptionally High",
               mean_percentile %in% 91:97 ~ "Above Average",
@@ -410,14 +410,14 @@ background-color: var(--usc-black)
 ## Domain scores
 # 1. create mean z-scores for domain
 nbhv1 <- neurobehav %>%
-  dplyr::group_by(domain) %>%
+  tidytable::group_by(domain) %>%
   dplyr::summarize(mean_z = mean(z), mean_percentile = mean(percentile)) %>%
-  dplyr::mutate(range = NA)
+  tidytable::mutate(range = NA)
 nbhv1$mean_z <- round(nbhv1$mean_z, 0L)
 nbhv1$mean_percentile <- round(nbhv1$mean_percentile, 0L)
 nbhv1 <-
   nbhv1 %>%
-  dplyr::mutate(
+  tidytable::mutate(
     range = dplyr::case_when(
       mean_percentile >= 98 ~ "Exceptionally High",
       mean_percentile %in% 91:97 ~ "Above Average",
@@ -454,18 +454,18 @@ nbhv_level2_drill <-
     # same as above
     nbhv2 <-
       nbhv2 %>%
-      dplyr::group_by(subdomain) %>%
+      tidytable::group_by(subdomain) %>%
       dplyr::summarize(
         mean_z = mean(z),
         mean_percentile = mean(percentile)) %>%
-      dplyr::mutate(range = NA)
+      tidytable::mutate(range = NA)
 
     # round z-score to 1 decimal
     nbhv2$mean_z <- round(nbhv2$mean_z, 0L)
     nbhv2$mean_percentile <- round(nbhv2$mean_percentile, 0L)
     nbhv2 <-
       nbhv2 %>%
-      dplyr::mutate(
+      tidytable::mutate(
         range = dplyr::case_when(
           mean_percentile >= 98 ~ "Exceptionally High",
           mean_percentile %in% 91:97 ~ "Above Average",
@@ -513,18 +513,18 @@ nbhv_level3_drill <-
       nbhv3 <- subset(nbhv2, nbhv2$subdomain %in% y_level)
 
       nbhv3 <- nbhv3 %>%
-        dplyr::group_by(narrow) %>%
+        tidytable::group_by(narrow) %>%
         dplyr::summarize(
           mean_z = mean(z),
           mean_percentile = mean(percentile)) %>%
-        dplyr::mutate(range = NA)
+        tidytable::mutate(range = NA)
 
       # round z-score to 1 decimal
       nbhv3$mean_z <- round(nbhv3$mean_z, 0L)
       nbhv3$mean_percentile <- round(nbhv3$mean_percentile, 0L)
       nbhv3 <-
         nbhv3 %>%
-        dplyr::mutate(
+        tidytable::mutate(
           range = dplyr::case_when(
             mean_percentile >= 98 ~ "Exceptionally High",
             mean_percentile %in% 91:97 ~ "Above Average",
@@ -572,18 +572,18 @@ nbhv_level4_drill <-
 
         nbhv4 <-
           nbhv4 %>%
-          dplyr::group_by(scale) %>%
+          tidytable::group_by(scale) %>%
           dplyr::summarize(
             mean_z = mean(z),
             mean_percentile = mean(percentile)) %>%
-          dplyr::mutate(range = NA)
+          tidytable::mutate(range = NA)
 
         # round z-score to 1 decimal
         nbhv4$mean_z <- round(nbhv4$mean_z, 0L)
         nbhv4$mean_percentile <- round(nbhv4$mean_percentile, 0L)
         nbhv4 <-
           nbhv4 %>%
-          dplyr::mutate(
+          tidytable::mutate(
             range = dplyr::case_when(
               mean_percentile >= 98 ~ "Exceptionally High",
               mean_percentile %in% 91:97 ~ "Above Average",
@@ -683,18 +683,18 @@ background-color: var(--usc-black)
 # 1. create mean z-scores for domain
 val1 <-
   validity %>%
-  dplyr::group_by(domain) %>%
+  tidytable::group_by(domain) %>%
   dplyr::summarize(
     mean_z = mean(z),
     mean_percentile = mean(percentile)) %>%
-  dplyr::mutate(range = NA)
+  tidytable::mutate(range = NA)
 
 val1$mean_z <- round(val1$mean_z, 2L)
 val1$mean_percentile <- round(val1$mean_percentile, 0L)
 
 val1 <-
   val1 %>%
-  dplyr::mutate(
+  tidytable::mutate(
     range = dplyr::case_when(
       mean_percentile >= 98 ~ "Exceptionally High",
       mean_percentile %in% 91:97 ~ "Above Average",
@@ -708,7 +708,7 @@ val1 <-
   )
 
 # 2. sort hi to lo
-val1 <- dplyr::arrange(val1, dplyr::desc(mean_percentile))
+val1 <- tidytable::arrange(val1, dplyr::desc(mean_percentile))
 
 # 3. create tibble with new column with domain name lowercase
 val_level1_status <- tibble::tibble(
@@ -731,17 +731,17 @@ val_level2_drill <-
     # same as above
     val2 <-
       val2 %>%
-      dplyr::group_by(subdomain) %>%
+      tidytable::group_by(subdomain) %>%
       dplyr::summarize(mean_z = mean(z),
         mean_percentile = mean(percentile)) %>%
-      dplyr::mutate(range = NA)
+      tidytable::mutate(range = NA)
 
     # round z-score to 1 decimal
     val2$mean_z <- round(val2$mean_z, 2L)
     val2$mean_percentile <- round(val2$mean_percentile, 0L)
     val2 <-
       val2 %>%
-      dplyr::mutate(
+      tidytable::mutate(
         range = dplyr::case_when(
           mean_percentile >= 98 ~ "Exceptionally High",
           mean_percentile %in% 91:97 ~ "Above Average",
@@ -755,7 +755,7 @@ val_level2_drill <-
       )
 
     # 2. sort hi to lo
-    val2 <- dplyr::arrange(val2, dplyr::desc(mean_percentile))
+    val2 <- tidytable::arrange(val2, dplyr::desc(mean_percentile))
 
     # 3. create tibble with new column with domain name lowercase
     val_level2_status <- tibble::tibble(
@@ -790,17 +790,17 @@ val_level3_drill <-
 
       val3 <-
         val3 %>%
-        dplyr::group_by(narrow) %>%
+        tidytable::group_by(narrow) %>%
         dplyr::summarize(mean_z = mean(z),
           mean_percentile = mean(percentile)) %>%
-        dplyr::mutate(range = NA)
+        tidytable::mutate(range = NA)
 
       # round z-score to 1 decimal
       val3$mean_z <- round(val3$mean_z, 2L)
       val3$mean_percentile <- round(val3$mean_percentile, 0L)
       val3 <-
         val3 %>%
-        dplyr::mutate(
+        tidytable::mutate(
           range = dplyr::case_when(
             mean_percentile >= 98 ~ "Exceptionally High",
             mean_percentile %in% 91:97 ~ "Above Average",
@@ -813,7 +813,7 @@ val_level3_drill <-
           )
         )
 
-      val3 <- dplyr::arrange(val3, dplyr::desc(mean_percentile))
+      val3 <- tidytable::arrange(val3, dplyr::desc(mean_percentile))
 
       val_level3_status <- tibble::tibble(
         name = val3$narrow,
@@ -848,17 +848,17 @@ val_level4_drill <-
 
         val4 <-
           val4 %>%
-          dplyr::group_by(scale) %>%
+          tidytable::group_by(scale) %>%
           dplyr::summarize(mean_z = mean(z),
             mean_percentile = mean(percentile)) %>%
-          dplyr::mutate(range = NA)
+          tidytable::mutate(range = NA)
 
         # round z-score to 1 decimal
         val4$mean_z <- round(val4$mean_z, 2L)
         val4$mean_percentile <- round(val4$mean_percentile, 0L)
         val4 <-
           val4 %>%
-          dplyr::mutate(
+          tidytable::mutate(
             range = dplyr::case_when(
               mean_percentile >= 98 ~ "Exceptionally High",
               mean_percentile %in% 91:97 ~ "Above Average",
@@ -871,7 +871,7 @@ val_level4_drill <-
             )
           )
 
-        val4 <- dplyr::arrange(val4, dplyr::desc(mean_percentile))
+        val4 <- tidytable::arrange(val4, dplyr::desc(mean_percentile))
 
         val_level4_status <- tibble::tibble(
           name = val4$scale,

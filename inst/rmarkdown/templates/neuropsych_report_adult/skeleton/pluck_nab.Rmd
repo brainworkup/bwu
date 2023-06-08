@@ -226,7 +226,7 @@ df_index <-
 
 df_index <-
   df_index |>
-  dplyr::mutate(
+  tidytable::mutate(
     subdomain = case_when(
       scale == "NAB Attention Index" ~ "Neuropsychological Functioning",
       scale == "NAB Language Index" ~ "Neuropsychological Functioning",
@@ -338,7 +338,7 @@ df_index <-
   )
 
 # exclude variables
-df_index <- dplyr::select(df_index, -category)
+df_index <- tidytable::select(df_index, -category)
 
 # relocate
 df_index <-
@@ -599,7 +599,7 @@ df_att <-
 # glue result
 df_att <-
   df_att |>
-  dplyr::mutate(
+  tidytable::mutate(
     result = dplyr::case_when(
       scale ==
         orientation ~ glue::glue("{description} was intact.\n"),
@@ -634,7 +634,7 @@ df_att <-
   )
 
 # exclude variables
-df_att <- dplyr::select(df_att, -c(z_score, category, base_rate))
+df_att <- tidytable::select(df_att, -c(z_score, category, base_rate))
 
 # relocate
 df_att <-
@@ -822,7 +822,7 @@ df_lan <-
   )
 
 # exclude variables
-df_lan <- dplyr::select(df_lan, -c(z_score, category, base_rate))
+df_lan <- tidytable::select(df_lan, -c(z_score, category, base_rate))
 
 # relocate
 df_lan <-
@@ -846,8 +846,8 @@ colnames(table4) <- column_names2
 to_double <- c("raw_score", "z_score", "score")
 table4 <- table4 |> hablar::convert(dbl(all_of(to_double)))
 table4 <-
-  dplyr::mutate(table4, z = (score - 50) / 10) %>%
-  dplyr::mutate(percentile = pnorm(z) * 100)
+  tidytable::mutate(table4, z = (score - 50) / 10) %>%
+  tidytable::mutate(percentile = pnorm(z) * 100)
 table4$percentile <- round(table4$percentile, 0L)
 ```
 
@@ -881,8 +881,8 @@ table5 <- dplyr::na_if(table5, "---")
 to_double <- c("raw_score", "z_score", "score")
 table5 <- table5 |> hablar::convert(dbl(all_of(to_double)))
 table5 <-
-  dplyr::mutate(table5, z = (score - 50) / 10) %>%
-  dplyr::mutate(percentile = pnorm(z) * 100)
+  tidytable::mutate(table5, z = (score - 50) / 10) %>%
+  tidytable::mutate(percentile = pnorm(z) * 100)
 table5$percentile <- round(table5$percentile, 0L)
 ```
 
@@ -915,8 +915,8 @@ table6 <- dplyr::na_if(table6, "---")
 to_double <- c("raw_score", "z_score", "score")
 table6 <- table6 |> hablar::convert(dbl(all_of(to_double)))
 table6 <-
-  dplyr::mutate(table6, z = (score - 50) / 10) %>%
-  dplyr::mutate(percentile = pnorm(z) * 100)
+  tidytable::mutate(table6, z = (score - 50) / 10) %>%
+  tidytable::mutate(percentile = pnorm(z) * 100)
 table6$percentile <- round(table6$percentile, 0L)
 ```
 
@@ -949,8 +949,8 @@ table7 <- dplyr::na_if(table7, "---")
 to_double <- c("raw_score", "z_score", "score")
 table7 <- table7 |> hablar::convert(dbl(all_of(to_double)))
 table7 <-
-  dplyr::mutate(table7, z = (score - 50) / 10) %>%
-  dplyr::mutate(percentile = pnorm(z) * 100)
+  tidytable::mutate(table7, z = (score - 50) / 10) %>%
+  tidytable::mutate(percentile = pnorm(z) * 100)
 table7$percentile <- round(table7$percentile, 0L)
 ```
 
@@ -984,8 +984,8 @@ colnames(table8) <- column_names2
 to_double <- c("raw_score", "z_score", "score")
 table8 <- table8 |> hablar::convert(dbl(all_of(to_double)))
 table8 <-
-  dplyr::mutate(table8, z = (score - 50) / 10) %>%
-  dplyr::mutate(percentile = pnorm(z) * 100)
+  tidytable::mutate(table8, z = (score - 50) / 10) %>%
+  tidytable::mutate(percentile = pnorm(z) * 100)
 table8$percentile <- round(table8$percentile, 0L)
 ```
 
@@ -1155,7 +1155,7 @@ df_exe <-
 # glue result
 df_exe <-
   df_exe |>
-  dplyr::mutate(
+  tidytable::mutate(
     result = dplyr::case_when(
       scale == "Mazes" ~
         glue::glue("{description} fell in the {range} range.\n"),
@@ -1172,7 +1172,7 @@ df_exe <-
   )
 
 # exclude variables
-df_exe <- dplyr::select(df_exe, -c(z_score, category))
+df_exe <- tidytable::select(df_exe, -c(z_score, category))
 
 # relocate
 df_exe <-
@@ -1256,7 +1256,7 @@ df_index <-
 ```{r subdomain1}
 df_index <-
   df_index |>
-  dplyr::mutate(
+  tidytable::mutate(
     subdomain = case_when(
       scale == "NAB Attention Index" ~ "Neuropsychological Functioning",
       scale == "NAB Language Index" ~ "Neuropsychological Functioning",

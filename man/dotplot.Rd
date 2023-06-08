@@ -2,43 +2,49 @@
 % Please edit documentation in R/oxy-dotplot.R
 \name{dotplot}
 \alias{dotplot}
-\title{FUNCTION_TITLE}
+\title{Create Dotplots of Cognitive Domains}
 \usage{
 dotplot(data, x, y, domain = NULL, fill = NULL, size = NULL, ...)
 }
 \arguments{
-\item{data}{PARAM_DESCRIPTION}
+\item{data}{Dataset variable.}
 
-\item{x}{PARAM_DESCRIPTION}
+\item{x}{X Mean z-score of domain.}
 
-\item{y}{PARAM_DESCRIPTION}
+\item{y}{Y Domain/variable name of the y-axis.}
 
-\item{domain}{PARAM_DESCRIPTION, Default: NULL}
+\item{domain}{Optional "domain/area", Default: NULL}
 
-\item{fill}{PARAM_DESCRIPTION, Default: NULL}
+\item{fill}{Optional name of variable to fill points by, Default: 'domain'}
 
-\item{size}{PARAM_DESCRIPTION, Default: NULL}
+\item{size}{Dot size, Default: NULL}
 
-\item{...}{PARAM_DESCRIPTION}
+\item{...}{other arguments to be passed to
+\code{\link[ggplot2]{geom_dotplot}}.}
 }
 \value{
-OUTPUT_DESCRIPTION
+Produce a dotplot of domain scores
 }
 \description{
-FUNCTION_DESCRIPTION
+Make a dotplot for cognitive domains.
 }
 \details{
-DETAILS
+This is used to collapse individual test scores into composites and
+then plot them ...
 }
 \examples{
 \dontrun{
-if(interactive()){
- #EXAMPLE1
- }
+if (interactive()) {
+  # EXAMPLE1
+}
 }
 }
 \seealso{
-\code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{aes}}, \code{\link[ggplot2]{geom_segment}}, \code{\link[ggplot2]{geom_point}}, \code{\link[ggplot2]{scale_colour_gradient}}, \code{\link[ggplot2]{guide_colourbar}}, \code{\link[ggplot2]{margin}}, \code{\link[ggplot2]{theme}}
+\code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{aes}},
+\code{\link[ggplot2]{geom_segment}}, \code{\link[ggplot2]{geom_point}},
+\code{\link[ggplot2]{scale_colour_gradient}},
+\code{\link[ggplot2]{guide_colourbar}}, \code{\link[ggplot2]{margin}},
+\code{\link[ggplot2]{theme}}
 \code{\link[stats]{reorder.default}}
 \code{\link[ggthemes]{theme_fivethirtyeight}}
 }

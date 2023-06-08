@@ -8,14 +8,13 @@
 #' @details DETAILS
 #' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
 #' }
 #' @seealso
 #'  \code{\link[stringr]{str_match}}, \code{\link[stringr]{str_trim}}
 #' @rdname extract_text
-#' @export
 #' @importFrom stringr str_match_all str_squish
 extract_text <- function(patient, file_path, start_pattern, end_pattern) {
   # Read the entire file as a single string
@@ -50,12 +49,11 @@ extract_text <- function(patient, file_path, start_pattern, end_pattern) {
 #' @details DETAILS
 #' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
 #' }
 #' @rdname save_as_markdown
-#' @export
 save_as_markdown <- function(text, output_path) {
   # Add line breaks to separate paragraphs (optional)
   formatted_text <- paste(text, collapse = "\n\n")

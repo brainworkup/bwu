@@ -337,7 +337,7 @@ wiat4[3, 1] <- c("Reading Comprehension")
 # Replace "NA" strings with actual NA values
 wiat4 <-
   wiat4 %>%
-  dplyr::mutate(across(everything(), function(x) ifelse(x == "NA NA NA", NA, x))) |>
+  tidytable::mutate(across(everything(), function(x) ifelse(x == "NA NA NA", NA, x))) |>
   janitor::clean_names()
 
 readr::write_csv(wiat4, here::here(patient, "csv", "wiat4.csv"))
@@ -349,7 +349,7 @@ readr::write_csv(wiat4, here::here(patient, "csv", "wiat4.csv"))
 
 ```{r pluck1}
 table1 <- tibble::as_tibble(plucked_table[[1]])
-table1 <- dplyr::mutate(table1, raw_score = "", .before = V2)
+table1 <- tidytable::mutate(table1, raw_score = "", .before = V2)
 colnames(table1) <- params$colnames
 # table1$scale <- ""
 # table1 <- table1 |> slice(-3, -11) # redundant, change each time to remove rows with extra line
@@ -390,7 +390,7 @@ table1$scale <- (params$table1)
 
 ```{r pluck2}
 table2 <- as_tibble(plucked_table[[2]]) # usually 2
-table2 <- dplyr::mutate(table2, raw_score = NULL, .before = V2)
+table2 <- tidytable::mutate(table2, raw_score = NULL, .before = V2)
 colnames(table2) <- params$colnames
 # table2 <- dplyr::na_if(table2, "")
 # table2 <- dplyr::na_if(table2, "NA")
@@ -445,8 +445,8 @@ table2$scale <- params$table2
 ## Select variables to keep
 
 ```{r select}
-table1 <- table1 |> dplyr::select(all_of(params$keep))
-table2 <- table2 |> dplyr::select(all_of(params$keep))
+table1 <- table1 |> tidytable::select(all_of(params$keep))
+table2 <- table2 |> tidytable::select(all_of(params$keep))
 table <- rbind(table1, table2)
 table <- dplyr::distinct(table, .keep_all = FALSE)
 # View(table)

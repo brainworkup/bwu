@@ -86,6 +86,7 @@ bwu.builds/
 src/
 .history/
 notes/
-notes
+notes2/
 /notes/
 letter-joey-typst/
+bwu_startup.R

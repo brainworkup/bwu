@@ -61,3 +61,5 @@
 ^\.history$
 ^letter-joey-typst$
 ^bwu_startup\.R$
+^oxy_ggpubr_plots\.R$
+^notes2$

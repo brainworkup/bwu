@@ -88,7 +88,7 @@ filter_domain <- c(
 dt <-
   neurocog %>%
   dplyr::filter(scale %in% filter_domain) %>%
-  dplyr::arrange(desc(percentile)) %>%
+  tidytable::arrange(desc(percentile)) %>%
   dplyr::distinct(.keep_all = FALSE)
 
 dt %>%
@@ -108,8 +108,8 @@ tb <-
     pheno = "Academic Skills"
   ) %>%
   dplyr::filter(Scale %in% filter_domain) %>%
-  dplyr::arrange(Test) %>% 
-  dplyr::arrange(Subdomain)
+  tidytable::arrange(Test) %>% 
+  tidytable::arrange(Subdomain)
 
 ## ---- 04-kable-academics ------------------
 kableExtra::kbl(
@@ -138,7 +138,7 @@ df <-
   neurocog %>%
   dplyr::filter(domain == "Academic Skills") %>%
   dplyr::filter(!is.na(percentile)) %>%
-  dplyr::arrange(test_name) %>%
+  tidytable::arrange(test_name) %>%
   dplyr::filter(scale %in% filter_domain)
 
 ## ---- 06-plot-subdomain-academics -----------------

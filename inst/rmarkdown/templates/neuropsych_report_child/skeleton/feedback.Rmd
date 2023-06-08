@@ -152,15 +152,15 @@ neurobehav <-
 ## Domain scores
 # 1. create mean z-scores for domain
 ncog1 <- neurocog %>%
-  dplyr::group_by(domain) %>%
+  tidytable::group_by(domain) %>%
   dplyr::summarize(zMean = mean(z),
                    zPct = mean(percentile)) %>%
-  dplyr::mutate(range = NA)
+  tidytable::mutate(range = NA)
 ncog1$zMean <- round(ncog1$zMean, 2L)
 ncog1$zPct <- round(ncog1$zPct, 0L)
 ncog1 <-
   ncog1 %>%
-  dplyr::mutate(
+  tidytable::mutate(
     range = dplyr::case_when(
       zPct >= 98 ~ "Exceptionally High",
       zPct %in% 91:97 ~ "Above Average",
@@ -207,7 +207,7 @@ ncog_level2_drill <-
     ncog2$zPct <- round(ncog2$zPct, 0L)
     ncog2 <-
       ncog2 %>%
-      dplyr::mutate(
+      tidytable::mutate(
         range = dplyr::case_when(
           zPct >= 98 ~ "Exceptionally High",
           zPct %in% 91:97 ~ "Above Average",
@@ -264,7 +264,7 @@ ncog_level3_drill <-
       ncog3$zPct <- round(ncog3$zPct, 0L)
       ncog3 <-
         ncog3 %>%
-        dplyr::mutate(
+        tidytable::mutate(
           range = dplyr::case_when(
             zPct >= 98 ~ "Exceptionally High",
             zPct %in% 91:97 ~ "Above Average",
@@ -322,7 +322,7 @@ ncog_level4_drill <-
         ncog4$zPct <- round(ncog4$zPct, 0L)
         ncog4 <-
           ncog4 %>%
-          dplyr::mutate(
+          tidytable::mutate(
             range = dplyr::case_when(
               zPct >= 98 ~ "Exceptionally High",
               zPct %in% 91:97 ~ "Above Average",
@@ -429,15 +429,15 @@ background-color: var(--near-black)
 ## Domain scores
 # 1. create mean z-scores for domain
 nbhv1 <- neurobehav %>%
-  dplyr::group_by(domain) %>%
+  tidytable::group_by(domain) %>%
   dplyr::summarize(zMean = mean(z),
                    zPct = mean(percentile)) %>%
-  dplyr::mutate(range = NA)
+  tidytable::mutate(range = NA)
 nbhv1$zMean <- round(nbhv1$zMean, 0L)
 nbhv1$zPct <- round(nbhv1$zPct, 0L)
 nbhv1 <-
   nbhv1 %>%
-  dplyr::mutate(
+  tidytable::mutate(
     range = dplyr::case_when(
       # zMean >= -1.1 &
       #   domain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Strength",
@@ -507,7 +507,7 @@ nbhv_level2_drill <-
     nbhv2$zPct <- round(nbhv2$zPct, 0L)
     nbhv2 <-
       nbhv2 %>%
-      dplyr::mutate(
+      tidytable::mutate(
         range = dplyr::case_when(
             # zMean >= 1 &
             #   name %in% c("Adaptive Skills", "Personal Adjustment") ~ "Strength",
@@ -582,7 +582,7 @@ nbhv_level3_drill <-
       nbhv3$zPct <- round(nbhv3$zPct, 0L)
       nbhv3 <-
         nbhv3 %>%
-        dplyr::mutate(
+        tidytable::mutate(
           range = dplyr::case_when(
             # zMean >= 1 &
             #   name %in% c("Adaptive Skills", "Personal Adjustment") ~ "Strength",
@@ -658,7 +658,7 @@ nbhv_level4_drill <-
         nbhv4$zPct <- round(nbhv4$zPct, 0L)
         nbhv4 <-
           nbhv4 %>%
-          dplyr::mutate(
+          tidytable::mutate(
             range = dplyr::case_when(
               # zMean >= 1 &
               #   name %in% c("Adaptive Skills", "Personal Adjustment") ~ "Strength",

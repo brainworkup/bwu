@@ -1,17 +1,32 @@
 # BWU ------------------------------------------------
 
 # Update R packages and libraries -------------------------------------------
-
-sinew::makeOxyFile(here::here("R", "dotplot.R"))
+## usethis
+library(usethis)
+usethis::use_build_ignore("notes2")
+usethis::use_git_ignore(".Rbuildignore")
+proj_sitrep()
+proj_activate(".")
+## sinew
+sinew::makeOxyFile(here::here("R", "drilldown.R"))
 sinew::moga("R/oxy-dotplot.R")
 
 sinew::moga("R/plots.R")
-sinew::makeOxygen("R/plots.R")
+sinew::moga("R/drilldown.R")
+sinew::moga("R/utils.R")
+sinew::makeOxygen("R/drilldown.R")
 
 sinew::makeOxygen(here::here("R", "oxy-plots.R"))
 
+## devtools
+devtools::lint()
 devtools::document()
 devtools::install_deps(dependencies = TRUE)
+
+devtools::build_readme()
+
+usethis::use_readme_rmd()
+
 update.packages(ask = FALSE, checkBuilt = TRUE)
 
 # if pak fails, reinstall from source
@@ -59,9 +74,11 @@ update.packages(
 Error in readChar(file_path, file.info(file_path)$size, useBytes = TRUE) :
   invalid UTF-8 input in readChar()
 
+usethis::use_package("ggpubr")
+usethis::use_package("tidyr")
+usethis::use_package("rstatix")
 
 usethis::use_package("data.table")
-usethis::use_package("bookdown")
 usethis::use_package("sinew")
 
 usethis::use_github_action("check-standard")
@@ -75,15 +92,12 @@ usethis::use_build_ignore("bwu.qmd")
 usethis::use_build_ignore("index.qmd")
 usethis::use_build_ignore("README.html")
 
-usethis::use_build_ignore(".quarto")
 usethis::use_build_ignore("bwu_startup.R")
 usethis::use_build_ignore(".builds.archived")
 
 usethis::use_r("age")
 usethis::use_r("scores")
 usethis::use_r("colors")
-
-devtools::build_readme()
 
 
 stringr::str_c(collapse = |)
@@ -149,6 +163,15 @@ tinytex::install_tinytex()
 renv::install("brainworkup/bwu")
 renv::install("gadenbuie/xaringanExtra")
 renv::install("r-lib/ymlthis")
+
+## pak
+
+install.packages("pak", repos = sprintf(
+  "https://r-lib.github.io/p/pak/stable/%s/%s/%s",
+  .Platform$pkgType,
+  R.Version()$os,
+  R.Version()$arch
+))
 
 ## Install new packages using devtools
 devtools::install_github(
@@ -304,12 +327,11 @@ options(repos = c(
 install.packages('webshot2', lib = .libPaths()[[1L]], dependencies = TRUE)
 
 
-```{r ncog-plot, results='asis'}
 for (i in names(neurocog)) {
   cat('\n\n# Summary of the variable `', i, '`\n\n')
   x <- neurocog[, i]
 }
-```
+
 
 # Tabulizer ----------------------------------------------------------
 
@@ -380,7 +402,8 @@ weighted.quantile <- function(x, probs, weights = NULL, type="Type7"){
 ```
 
 ```{r}
-weighted.quantile(x = table$z_score, probs = probs)
+data("neurocog")
+weighted.quantile(x = neurocog$z, probs = probs)
 ```
 
 ```{r}
@@ -633,7 +656,7 @@ to_double <- c("raw_score", "score", "percentile")
 measure <- measure |> hablar::convert(dbl(all_of(to_double)))
 ## select variables
 keep <- c("scale", "raw_score", "score", "percentile", "absort")
-measure <- measure |> dplyr::select(all_of(keep))
+measure <- measure |> tidytable::select(all_of(keep))
 ```
 
 ```{r}

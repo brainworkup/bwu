@@ -11,7 +11,7 @@
 rename_scale <- function(table, scale, name1, name2) {
   table <-
     table %>%
-    dplyr::mutate(scale = stringr::str_replace(
+    tidytable::mutate(scale = stringr::str_replace(
       string = scale,
       pattern = name1,
       replacement = name2

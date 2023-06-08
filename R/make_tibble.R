@@ -11,7 +11,7 @@
 #' @param names Names of variables/columns
 #' @param ... Additional arguments
 #'
-#' @return A dotplot using ggplot2
+#' @return A tibble for plotting
 #' @examples
 #' make_tibble(
 #'   tibb = iq,
@@ -46,8 +46,8 @@ make_tibble <- function(tibb,
 
   tibb <-
     data |>
-    dplyr::filter(domain %in% pheno) |>
-    dplyr::select(tidyselect::all_of(columns)) |>
-    dplyr::mutate(percentile = trunc(percentile)) |>
+    tidytable::filter(domain %in% pheno) |>
+    tidytable::select(tidyselect::all_of(columns)) |>
+    tidytable::mutate(percentile = trunc(percentile)) |>
     purrr::set_names(names)
 }

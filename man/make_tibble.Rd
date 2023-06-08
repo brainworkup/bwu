@@ -33,7 +33,7 @@ make_tibble(
 \item{...}{Additional arguments}
 }
 \value{
-A dotplot using ggplot2
+A tibble for plotting
 }
 \description{
 Make a tibble table for reports.

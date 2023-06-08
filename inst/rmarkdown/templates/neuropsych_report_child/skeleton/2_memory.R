@@ -88,7 +88,7 @@ filter_domain <- c(
 dt <-
   neurocog %>%
   dplyr::filter(scale %in% filter_domain) %>%
-  dplyr::arrange(desc(percentile)) %>%
+  tidytable::arrange(desc(percentile)) %>%
   dplyr::distinct(.keep_all = FALSE)
 
 dt %>%
@@ -137,7 +137,7 @@ df <-
   neurocog %>%
   dplyr::filter(domain == "Memory") %>%
   dplyr::filter(!is.na(percentile)) %>%
-  dplyr::arrange(test_name) %>%
+  tidytable::arrange(test_name) %>%
   dplyr::filter(scale %in% filter_domain) %>%
   dplyr::filter(scale != "Total Intrusions") %>%
   dplyr::filter(scale != "Total Repetitions") %>%

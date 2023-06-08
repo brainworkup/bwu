@@ -3,6 +3,7 @@
 #' This function uses the R Highcharter package and drilldown function to "drilldown" on neuropsychological domains and test scores.
 #'
 #' \code{drilldown} Creates a highcharter drilldown interactive plot.
+#' @importFrom tidytable mutate
 #'
 #' @param data Dataset to use.
 #' @param mean_z Mean z-score.
@@ -10,7 +11,15 @@
 #'
 #' @return A drilldown plot
 #'
+#' @seealso
+#'  \code{\link[tidytable]{group_by}}, \code{\link[tidytable]{summarize}}, \code{\link[tidytable]{mutate}}, \code{\link[tidytable]{case_when}}, \code{\link[tidytable]{arrange}}
+#'  \code{\link[tibble]{tibble}}
+#'  \code{\link[highcharter]{tooltip_table}}, \code{\link[highcharter]{highchart}}, \code{\link[highcharter]{hc_title}}, \code{\link[highcharter]{hc_add_series}}, \code{\link[highcharter]{hcaes}}, \code{\link[highcharter]{hc_xAxis}}, \code{\link[highcharter]{hc_yAxis}}, \code{\link[highcharter]{hc_tooltip}}, \code{\link[highcharter]{hc_plotOptions}}, \code{\link[highcharter]{hc_drilldown}}, \code{\link[highcharter]{hc_add_theme}}, \code{\link[highcharter]{hc_theme_sandsignika}}
+#' @rdname drilldown
 #' @export
+#' @importFrom tidytable group_by summarize mutate case_when arrange
+#' @importFrom tibble tibble
+#' @importFrom highcharter tooltip_table highchart hc_title hc_add_series hcaes hc_xAxis hc_yAxis hc_tooltip hc_plotOptions hc_drilldown hc_add_theme hc_theme_sandsignika
 drilldown <- function(data, mean_z = NULL, mean_pct = NULL) {
   # Create 4 levels of data.frames for drilldown -----------------------
   ## Level 1 -------------------------------------------------------

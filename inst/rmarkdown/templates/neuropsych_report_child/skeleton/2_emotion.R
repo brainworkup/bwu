@@ -45,7 +45,7 @@ filter_domain <- list(
 dt <-
   neurobehav %>%
   dplyr::filter(scale %in% filter_domain) %>%
-  dplyr::arrange(desc(percentile)) %>%
+  tidytable::arrange(desc(percentile)) %>%
   dplyr::distinct(.keep_all = FALSE)
 
 dt %>%
@@ -65,8 +65,8 @@ tb <-
     pheno = "Behavioral/Emotional/Social"
   ) %>%
   dplyr::filter(Scale %in% filter_domain) %>%
-  dplyr::arrange(Test) %>%
-  dplyr::arrange(Subdomain)
+  tidytable::arrange(Test) %>%
+  tidytable::arrange(Subdomain)
 
 ## ---- 04-kable-emotion ------------------
 kableExtra::kbl(

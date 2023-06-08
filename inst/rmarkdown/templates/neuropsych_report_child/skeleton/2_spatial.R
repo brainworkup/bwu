@@ -35,7 +35,7 @@ filter_domain <- c(
 dt <-
   neurocog %>%
   dplyr::filter(scale %in% filter_domain) %>%
-  dplyr::arrange(desc(percentile)) %>%
+  tidytable::arrange(desc(percentile)) %>%
   dplyr::distinct(.keep_all = FALSE)
 
 dt %>%
@@ -55,7 +55,7 @@ tb <-
     pheno = "Visual Perception/Construction"
   ) %>%
   dplyr::filter(Scale %in% filter_domain) %>%
-  dplyr::arrange(Test)
+  tidytable::arrange(Test)
 
 ## ---- 04-kable-spatial -----------------
 kableExtra::kbl(
@@ -83,7 +83,7 @@ df <-
   neurocog %>%
   dplyr::filter(domain == "Visual Perception/Construction") %>%
   dplyr::filter(!is.na(percentile)) %>%
-  dplyr::arrange(test_name) %>%
+  tidytable::arrange(test_name) %>%
   dplyr::filter(scale %in% filter_domain)
 
 ## ---- 06-plot-subdomain-spatial ------------------

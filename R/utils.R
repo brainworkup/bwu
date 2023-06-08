@@ -34,10 +34,10 @@ NULL
 #' @export
 find_file <- function(template, file) {
   template <- system.file("rmarkdown",
-                          "templates",
-                          template,
-                          file,
-                          package = "bwu"
+    "templates",
+    template,
+    file,
+    package = "bwu"
   )
   if (template == "") {
     stop("Couldn't find template file ", template, "/", file, call. = FALSE)
@@ -112,7 +112,7 @@ pdf_document_format <- function(...,
                                 colorlinks = TRUE) {
   # base format
   fmt <- inherit_pdf_document(...,
-                              template = find_resource(format, template)
+    template = find_resource(format, template)
   )
 
   # add csl to pandoc_args
@@ -310,3 +310,50 @@ pandoc2.0 <- function() rmarkdown::pandoc_available("2.0")
 #' @importFrom sinew makeOxyFile
 #' @importFrom here here
 sinewOxy <- function() sinew::makeOxyFile(here::here("R", file))
+
+
+NULL
+#' @import ggplot2
+#' @importFrom tibble as_tibble
+#' @importFrom purrr map2 map
+#' @importFrom grid drawDetails
+#' @importFrom rlang !!
+#' @importFrom rlang !!!
+#' @importFrom rlang syms .data
+
+
+required_package <- function(pkg) {
+  if (!requireNamespace(pkg, quietly = TRUE)) {
+    stop(
+      pkg, " package needed to be installed before using this function. ",
+      "Type this in R: install.packages('", pkg, "')"
+    )
+  }
+}
+
+# Unnesting, adapt to tidyr 1.0.0
+unnest <- function(data, cols = "data", ...) {
+  if (is_pkg_version_sup("tidyr", "0.8.3")) {
+    results <- tidyr::unnest(data, cols = cols, ...)
+  } else {
+    results <- tidyr::unnest(data, ...)
+  }
+  results
+}
+
+# Check if an installed package version is superior to a specified version
+# Version, pkg: character vector
+is_pkg_version_sup <- function(pkg, version) {
+  vv <- as.character(utils::packageVersion(pkg))
+  cc <- utils::compareVersion(vv, version) > 0
+  cc
+}
+
+keep_only_tbl_df_classes <- function(x) {
+  toremove <- setdiff(class(x), c("tbl_df", "tbl", "data.frame"))
+  if (length(toremove) > 0) {
+    class(x) <- setdiff(class(x), toremove)
+  }
+  x
+}
+

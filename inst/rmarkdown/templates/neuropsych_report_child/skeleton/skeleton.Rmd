@@ -672,13 +672,13 @@ neuropsych <-
   ) %>%
   dplyr::filter(!is.na(percentile)) %>%
   dplyr::distinct() %>%
-  dplyr::mutate(z = qnorm(percentile / 100)) %>%
-  dplyr::mutate(domain = forcats::as_factor(domain)) %>%
-  dplyr::mutate(subdomain = forcats::as_factor(subdomain)) %>%
-  dplyr::mutate(narrow = forcats::as_factor(narrow)) %>%
-  dplyr::mutate(pass = forcats::as_factor(pass)) %>%
-  dplyr::mutate(verbal = forcats::as_factor(verbal)) %>%
-  dplyr::mutate(timed = forcats::as_factor(timed))
+  tidytable::mutate(z = qnorm(percentile / 100)) %>%
+  tidytable::mutate(domain = forcats::as_factor(domain)) %>%
+  tidytable::mutate(subdomain = forcats::as_factor(subdomain)) %>%
+  tidytable::mutate(narrow = forcats::as_factor(narrow)) %>%
+  tidytable::mutate(pass = forcats::as_factor(pass)) %>%
+  tidytable::mutate(verbal = forcats::as_factor(verbal)) %>%
+  tidytable::mutate(timed = forcats::as_factor(timed))
 ```
 
 ```{r, make-factors-neurocog}
@@ -689,55 +689,55 @@ neurocog <-
 # domain
 neurocog <-
   neurocog %>%
-  dplyr::group_by(domain, .add = TRUE) %>%
+  tidytable::group_by(domain, .add = TRUE) %>%
   dplyr::filter(!is.na(percentile)) %>%
-  dplyr::mutate(z_mean_dom = mean(z), z_sd_dom = sd(z)) %>%
-  dplyr::mutate(pct_mean_dom = mean(percentile),
+  tidytable::mutate(z_mean_dom = mean(z), z_sd_dom = sd(z)) %>%
+  tidytable::mutate(pct_mean_dom = mean(percentile),
                 pct_sd_dom = sd(percentile)) %>%
   dplyr::ungroup()
 # subdomain
 neurocog <-
   neurocog %>%
-  dplyr::group_by(subdomain, .add = TRUE) %>%
+  tidytable::group_by(subdomain, .add = TRUE) %>%
   dplyr::filter(!is.na(percentile)) %>%
-  dplyr::mutate(z_mean_sub = mean(z), z_sd_sub = sd(z)) %>%
-  dplyr::mutate(pct_mean_sub = mean(percentile),
+  tidytable::mutate(z_mean_sub = mean(z), z_sd_sub = sd(z)) %>%
+  tidytable::mutate(pct_mean_sub = mean(percentile),
                 pct_sd_sub = sd(percentile)) %>%
   dplyr::ungroup()
 # narrow
 neurocog <-
   neurocog %>%
-  dplyr::group_by(narrow, .add = TRUE) %>%
+  tidytable::group_by(narrow, .add = TRUE) %>%
   dplyr::filter(!is.na(percentile)) %>%
-  dplyr::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) %>%
-  dplyr::mutate(pct_mean_narrow = mean(percentile),
+  tidytable::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) %>%
+  tidytable::mutate(pct_mean_narrow = mean(percentile),
                 pct_sd_narrow = sd(percentile)) %>%
   dplyr::ungroup()
 # pass
 neurocog <-
   neurocog %>%
-  dplyr::group_by(pass, .add = TRUE) %>%
+  tidytable::group_by(pass, .add = TRUE) %>%
   dplyr::filter(!is.na(percentile)) %>%
-  dplyr::mutate(z_mean_pass = mean(z), z_sd_pass = sd(z)) %>%
+  tidytable::mutate(z_mean_pass = mean(z), z_sd_pass = sd(z)) %>%
   dplyr::ungroup()
 # verbal
 neurocog <-
   neurocog %>%
-  dplyr::group_by(verbal, .add = TRUE) %>%
+  tidytable::group_by(verbal, .add = TRUE) %>%
   dplyr::filter(!is.na(percentile)) %>%
-  dplyr::mutate(z_mean_verbal = mean(z), z_sd_verbal = sd(z)) %>%
+  tidytable::mutate(z_mean_verbal = mean(z), z_sd_verbal = sd(z)) %>%
   dplyr::ungroup()
 # timed
 neurocog <-
   neurocog %>%
-  dplyr::group_by(timed, .add = TRUE) %>%
+  tidytable::group_by(timed, .add = TRUE) %>%
   dplyr::filter(!is.na(percentile)) %>%
-  dplyr::mutate(z_mean_timed = mean(z), z_sd_timed = sd(z)) %>%
+  tidytable::mutate(z_mean_timed = mean(z), z_sd_timed = sd(z)) %>%
   dplyr::ungroup()
 # result text
 neurocog <-
   neurocog %>%
-  dplyr::mutate(
+  tidytable::mutate(
     result = glue::glue(
       "{patient}'s ability to {description} as measured by the {scale} subtest was {range} relative to same-age peers."
     )
@@ -752,34 +752,34 @@ neurobehav <-
 # domain
 neurobehav <-
   neurobehav %>%
-  dplyr::group_by(domain, .add = TRUE) %>%
+  tidytable::group_by(domain, .add = TRUE) %>%
   dplyr::filter(!is.na(score)) %>%
-  dplyr::mutate(z_mean_dom = mean(z), z_sd_dom = sd(z)) %>%
-  dplyr::mutate(pct_mean_dom = mean(percentile),
+  tidytable::mutate(z_mean_dom = mean(z), z_sd_dom = sd(z)) %>%
+  tidytable::mutate(pct_mean_dom = mean(percentile),
                 pct_sd_dom = sd(percentile)) %>%
   dplyr::ungroup()
 # subdomain
 neurobehav <-
   neurobehav %>%
-  dplyr::group_by(subdomain, .add = TRUE) %>%
+  tidytable::group_by(subdomain, .add = TRUE) %>%
   dplyr::filter(!is.na(score)) %>%
-  dplyr::mutate(z_mean_sub = mean(z), z_sd_sub = sd(z)) %>%
-  dplyr::mutate(pct_mean_sub = mean(percentile),
+  tidytable::mutate(z_mean_sub = mean(z), z_sd_sub = sd(z)) %>%
+  tidytable::mutate(pct_mean_sub = mean(percentile),
                 pct_sd_sub = sd(percentile)) %>%
   dplyr::ungroup()
 # narrow
 neurobehav <-
   neurobehav %>%
-  dplyr::group_by(narrow, .add = TRUE) %>%
+  tidytable::group_by(narrow, .add = TRUE) %>%
   dplyr::filter(!is.na(score)) %>%
-  dplyr::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) %>%
-  dplyr::mutate(pct_mean_narrow = mean(percentile),
+  tidytable::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) %>%
+  tidytable::mutate(pct_mean_narrow = mean(percentile),
                 pct_sd_narrow = sd(percentile)) %>%
   dplyr::ungroup()
 # result text
 neurobehav <-
   neurobehav %>%
-  dplyr::mutate(
+  tidytable::mutate(
     result = glue::glue(
       "{patient}'s score on {scale} (i.e., {description}) was {range}."
     )

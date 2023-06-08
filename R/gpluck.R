@@ -269,10 +269,11 @@ gpluck_make_score_ranges <-
            percentile = NULL,
            range = range,
            test_type = c(
-            "npsych_test",
-            "rating_scale",
-            "validity_indicator",
-            "basc3"),
+             "npsych_test",
+             "rating_scale",
+             "validity_indicator",
+             "basc3"
+           ),
            ...) {
     if (test_type == "npsych_test") {
       table <-
@@ -708,9 +709,9 @@ gpluck_get_index_scores <- function(patient) {
 
   g <-
     df |>
-    dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test) |>
-    dplyr::relocate(c(scaled_score, t_score, reliability, composition), .after = result) |>
-    dplyr::filter(
+    tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test) |>
+    tidytable::relocate(c(scaled_score, t_score, reliability, composition), .after = result) |>
+    tidytable::filter(
       scale %in% c(
         "General Ability",
         "Crystallized Knowledge",
