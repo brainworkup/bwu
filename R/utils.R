@@ -313,7 +313,7 @@ sinewOxy <- function() sinew::makeOxyFile(here::here("R", file))
 
 
 NULL
-#' @import ggplot2
+#' @import ggplot2 dplyr
 #' @importFrom tibble as_tibble
 #' @importFrom purrr map2 map
 #' @importFrom grid drawDetails
