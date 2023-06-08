@@ -35,7 +35,6 @@ Imports:
     rJava,
     rlang,
     rmarkdown,
-    rstatix,
     sinew,
     stats,
     stringr,
@@ -85,8 +84,8 @@ Collate:
     'make_tibble.R'
     'neuropsych_report_adult.R'
     'neuropsych_report_child.R'
-    'oxy-dotplot.R'
-    'oxy-extract_nse_otterai_text.R'
+    'oxy_dotplot.R'
+    'oxy_extract_text.R'
     'rename_scale.R'
     'render_report_adult.R'
     'render_report_child.R'

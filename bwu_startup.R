@@ -5,12 +5,16 @@
 library(usethis)
 usethis::use_build_ignore("notes2")
 usethis::use_git_ignore(".Rbuildignore")
+
+usethis::rename_files("oxy-dotplot.R", "oxy_dotplot.R")
+usethis::rename_files("oxy-extract_nse_otterai_text.R", "oxy_extraxt_text.R")
 proj_sitrep()
 proj_activate(".")
 ## sinew
 sinew::makeOxyFile(here::here("R", "drilldown.R"))
-sinew::moga("R/oxy-dotplot.R")
 
+sinew::moga("R/oxy_dotplot.R")
+sinew::moga("R/oxy_extract_text.R")
 sinew::moga("R/plots.R")
 sinew::moga("R/drilldown.R")
 sinew::moga("R/utils.R")

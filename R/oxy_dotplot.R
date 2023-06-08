@@ -6,6 +6,7 @@
 #' @param domain Optional "domain/area", Default: NULL
 #' @param fill Optional name of variable to fill points by, Default: 'domain'
 #' @param size Dot size, Default: NULL
+#' @param palette Color palette, Default: c("tokyo_palette", "berlin_palette", "roma_palette")
 #' @param ... other arguments to be passed to
 #'   \code{\link[ggplot2]{geom_dotplot}}.
 #' @return Produce a dotplot of domain scores
@@ -33,8 +34,9 @@
 #' @importFrom ggthemes theme_fivethirtyeight
 dotplot <- function(
     data, x, y,
-    domain = NULL, fill = NULL, size = NULL, ...) {
-  .tokyo_palette <- c(
+    domain = NULL, fill = NULL, size = NULL, palette = c("tokyo_palette", "berlin_palette", "roma_palette"), ...) {
+
+  tokyo_palette <- c(
     "#190D33", "#27123A", "#351742", "#421E4A", "#502653",
     "#5C2E5A", "#683863", "#73436A", "#7B4E70", "#815875",
     "#866079", "#89697D", "#8B7280", "#8C7A81", "#8E8385",
@@ -43,7 +45,7 @@ dotplot <- function(
     "#C8EAB3", "#D8F2BD", "#E6F9C7", "#F3FCD0", "#FEFED8"
   )
 
-  .berlin_palette <- c(
+  berlin_palette <- c(
     "#9EB0FF", "#85ACF3", "#6BA8E5", "#519FD3", "#3C8EBA", "#307BA0",
     "#286886", "#20546D", "#194155", "#14303E", "#112029", "#111418",
     "#180B09", "#240B01", "#300F00", "#3F1101", "#501802", "#64220D",
@@ -51,7 +53,7 @@ dotplot <- function(
     "#FFACAC"
   )
 
-  .roma_palette <- c(
+  roma_palette <- c(
     "#7E1700", "#893107", "#934610", "#9C5717", "#A5681F", "#AD7A27",
     "#B58B31", "#BF9F40", "#C7B354", "#CFC970", "#D2DA90", "#CDE5AC",
     "#C0E9C2", "#ACE7D0", "#93DFD5", "#77D1D7", "#5DC0D2", "#47AECD",
@@ -73,4 +75,5 @@ dotplot <- function(
     ggplot2::theme(panel.background = ggplot2::element_rect(fill = "white")) +
     ggplot2::theme(plot.background = ggplot2::element_rect(fill = "white")) +
     ggplot2::theme(panel.border = ggplot2::element_rect(color = "white"))
+
 }
