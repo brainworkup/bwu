@@ -3,10 +3,9 @@
 #' @param data Dataset variable.
 #' @param x X Mean z-score of domain.
 #' @param y Y Domain/variable name of the y-axis.
-#' @param domain Optional "domain/area", Default: NULL
 #' @param fill Optional name of variable to fill points by, Default: 'domain'
 #' @param size Dot size, Default: NULL
-#' @param palette Color palette, Default: c("tokyo_palette", "berlin_palette", "roma_palette")
+#' @param palette Color palette
 #' @param ... other arguments to be passed to
 #'   \code{\link[ggplot2]{geom_dotplot}}.
 #' @return Produce a dotplot of domain scores
@@ -28,52 +27,36 @@
 #'  \code{\link[ggthemes]{theme_fivethirtyeight}}
 #' @rdname dotplot
 #' @export
-#' @importFrom ggplot2 ggplot aes geom_segment geom_point scale_fill_gradientn
-#' guide_colorbar element_text theme element_rect
+#' @importFrom ggplot2 ggplot aes geom_segment geom_point element_text theme element_rect
 #' @importFrom stats reorder
 #' @importFrom ggthemes theme_fivethirtyeight
 dotplot <- function(
     data, x, y,
-    domain = NULL, fill = NULL, size = NULL, palette = c("tokyo_palette", "berlin_palette", "roma_palette"), ...) {
-
-  tokyo_palette <- c(
-    "#190D33", "#27123A", "#351742", "#421E4A", "#502653",
-    "#5C2E5A", "#683863", "#73436A", "#7B4E70", "#815875",
-    "#866079", "#89697D", "#8B7280", "#8C7A81", "#8E8385",
-    "#908A87", "#919289", "#929A8A", "#94A38D", "#96AB8F",
-    "#99B392", "#9CBD95", "#A2C79A", "#ACD3A0", "#B9DFA9",
-    "#C8EAB3", "#D8F2BD", "#E6F9C7", "#F3FCD0", "#FEFED8"
-  )
-
-  berlin_palette <- c(
-    "#9EB0FF", "#85ACF3", "#6BA8E5", "#519FD3", "#3C8EBA", "#307BA0",
-    "#286886", "#20546D", "#194155", "#14303E", "#112029", "#111418",
-    "#180B09", "#240B01", "#300F00", "#3F1101", "#501802", "#64220D",
-    "#7B321C", "#914531", "#A65949", "#BC6D61", "#D18279", "#E89793",
-    "#FFACAC"
-  )
-
-  roma_palette <- c(
-    "#7E1700", "#893107", "#934610", "#9C5717", "#A5681F", "#AD7A27",
-    "#B58B31", "#BF9F40", "#C7B354", "#CFC970", "#D2DA90", "#CDE5AC",
-    "#C0E9C2", "#ACE7D0", "#93DFD5", "#77D1D7", "#5DC0D2", "#47AECD",
-    "#389CC6", "#2F8CBF", "#277AB8", "#2169B0", "#1C58A9", "#1345A0",
-    "#023198"
-  )
-
-  ggplot2::ggplot(
-    data,
-    ggplot2::aes(x = x, y = stats::reorder(y, x))
-  ) +
-    ggplot2::geom_segment(ggplot2::aes(xend = 0, yend = y), linewidth = 0.5) +
-    ggplot2::geom_point(ggplot2::aes(fill = x), shape = 21, size = NULL, linewidth = 6, color = "black") +
-    ggplot2::scale_fill_gradientn(name = "Domain", breaks = NULL, colors = tokyo_palette, guide = ggplot2::guide_colorbar(
-      title.position = "top", title.hjust = 0.5, title.vjust = 0.5, label.hjust = 0.5, label.vjust = 0.5,
-      label.position = "bottom", label.theme = ggplot2::element_text(size = 10)
-    )) +
-    ggthemes::theme_fivethirtyeight() +
-    ggplot2::theme(panel.background = ggplot2::element_rect(fill = "white")) +
-    ggplot2::theme(plot.background = ggplot2::element_rect(fill = "white")) +
-    ggplot2::theme(panel.border = ggplot2::element_rect(color = "white"))
-
+    domain = NULL, fill = NULL, size = NULL, palette = NULL, ...) {
+  ggplot2::ggplot(data) +
+    geom_segment(
+      aes(x, y = reorder(y, x), xend = 0, yend = y),
+      linewidth = 0.5
+    ) +
+    geom_point(
+      aes(x, y = reorder(y, x)),
+      shape = 21,
+      linewidth = 0.5,
+      color = "black",
+      fill =
+        c(
+          "#190D33", "#27123A", "#351742", "#421E4A", "#502653",
+          "#5C2E5A", "#683863", "#73436A", "#7B4E70", "#815875",
+          "#866079", "#89697D", "#8B7280", "#8C7A81", "#8E8385",
+          "#908A87", "#919289", "#929A8A", "#94A38D", "#96AB8F",
+          "#99B392", "#9CBD95", "#A2C79A", "#ACD3A0", "#B9DFA9",
+          "#C8EAB3", "#D8F2BD", "#E6F9C7", "#F3FCD0", "#FEFED8"
+        ),
+      k = length(unique(data$y)),
+      size = 6
+    ) +
+    theme_fivethirtyeight() +
+    theme(panel.background = element_rect(fill = "white")) +
+    theme(plot.background = element_rect(fill = "white")) +
+    theme(panel.border = element_rect(color = "white"))
 }
