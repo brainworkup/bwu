@@ -33,7 +33,7 @@ format:
       left: 100.8pt
       right: 100.8pt
       bottom: 72pt
-    fontfamily: "Linux Libertine"
+    fontfamily: libertinus
     fontsize: 11pt
     keep-typ: true
     include-in-header: header.typ

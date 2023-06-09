@@ -11,7 +11,7 @@ dotplot(
   domain = NULL,
   fill = NULL,
   size = NULL,
-  palette = c("tokyo_palette", "berlin_palette", "roma_palette"),
+  palette = NULL,
   ...
 )
 }
@@ -22,13 +22,11 @@ dotplot(
 
 \item{y}{Y Domain/variable name of the y-axis.}
 
-\item{domain}{Optional "domain/area", Default: NULL}
-
 \item{fill}{Optional name of variable to fill points by, Default: 'domain'}
 
 \item{size}{Dot size, Default: NULL}
 
-\item{palette}{Color palette, Default: c("tokyo_palette", "berlin_palette", "roma_palette")}
+\item{palette}{Color palette}
 
 \item{...}{other arguments to be passed to
 \code{\link[ggplot2]{geom_dotplot}}.}
