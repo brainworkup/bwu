@@ -46,8 +46,8 @@ make_tibble <- function(tibb,
 
   tibb <-
     data |>
-    tidytable::filter(domain %in% pheno) |>
-    tidytable::select(tidyselect::all_of(columns)) |>
-    tidytable::mutate(percentile = trunc(percentile)) |>
+    dplyr::filter(domain %in% pheno) |>
+    dplyr::select(tidyselect::all_of(columns)) |>
+    dplyr::mutate(percentile = trunc(percentile)) |>
     purrr::set_names(names)
 }

@@ -1,5 +1,5 @@
 ## ---- 01-filter-academics ----
-filter_domain <- c(
+filter_academics <- c(
   ## WRAT5
   "Word Reading",
   "Math Computation",
@@ -89,7 +89,7 @@ xfun::cache_rds({
   # write your time-consuming code in this expression
   dt <-
     neurocog |>
-    tidytable::filter(scale %in% filter_domain) |>
+    tidytable::filter(scale %in% filter_academics) |>
     tidytable::arrange(desc(percentile)) |>
     tidytable::distinct(.keep_all = FALSE)
 
@@ -102,6 +102,7 @@ xfun::cache_rds({
       append = TRUE
     )
 })
+
 ## ---- 03-table-academics ----
 tb <-
   bwu::make_tibble(
@@ -109,7 +110,7 @@ tb <-
     data = neurocog,
     pheno = "Academic Skills"
   ) |>
-  tidytable::filter(Scale %in% filter_domain) |>
+  tidytable::filter(Scale %in% filter_academics) |>
   tidytable::arrange(Test) |>
   tidytable::arrange(Subdomain)
 
@@ -136,25 +137,82 @@ kableExtra::kbl(
   kableExtra::footnote("(ref:fn-acad)")
 
 ## ---- 05-df-academics ----
-df <-
+school <-
   neurocog |>
   tidytable::filter(domain == "Academic Skills") |>
   tidytable::filter(!is.na(percentile)) |>
   tidytable::arrange(test_name) |>
-  tidytable::filter(scale %in% filter_domain)
+  tidytable::filter(scale %in% filter_academics)
 
 ## ---- 06-plot-subdomain-academics ----
 bwu::dotplot(
-  data = df,
+  data = school,
   x = df$z_mean_sub,
   y = df$subdomain,
   domain = "academics"
 )
 
 ## ---- 07-plot-narrow-academics -----
-bwu::dotplot(
-  data = df,
-  x = df$z_mean_narrow,
-  y = df$narrow,
-  domain = "academics"
-)
+library(ggplot2)
+library(ggthemes)
+library(ggpubr)
+library(scales)
+
+ggplot2::ggplot(data = school) +
+  geom_segment(
+    aes(x = z_mean_narrow,
+        y = reorder(narrow, z_mean_narrow),
+        xend = 0,
+        yend = narrow),
+    linewidth = 0.5) +
+  geom_point(
+    aes(x = z_mean_narrow, y = reorder(narrow, z_mean_narrow)),
+    shape = 21,
+    linewidth = 0.5,
+    color = "black",
+    fill =
+      c("#190D33", "#27123A", "#351742", "#421E4A", "#502653",
+        "#5C2E5A", "#683863", "#73436A", "#7B4E70", "#815875",
+        "#866079", "#89697D", "#8B7280", "#8C7A81", "#8E8385",
+        "#908A87", "#919289", "#929A8A", "#94A38D", "#96AB8F",
+        "#99B392", "#9CBD95", "#A2C79A", "#ACD3A0", "#B9DFA9",
+        "#C8EAB3", "#D8F2BD", "#E6F9C7", "#F3FCD0", "#FEFED8"),
+    k = length(unique(school$narrow)),
+    size = 6) +
+  theme_fivethirtyeight() +
+  theme(panel.background = element_rect(fill = "white")) +
+  theme(plot.background = element_rect(fill = "white")) +
+  theme(panel.border = element_rect(color = "white"))
+
+# library(ggpubr)
+# ggdotchart(
+#   df,
+#   x = "narrow",
+#   y = "z_mean_narrow",
+#   # Color by groups
+#   color = "narrow",
+#   # Custom color palette
+#   palette = get_palette(
+#     c("#190D33", "#2A133C", "#3A1A46", "#4A224F", "#5A2D59", "#693964",
+#       "#75456B", "#7E5273", "#855E78", "#89687C", "#8C737F", "#8E7C83",
+#       "#8F8686", "#919088", "#92998B", "#95A48E", "#97AD91", "#9AB893",
+#       "#A1C599", "#ABD29F", "#BAE1AA", "#CEEEB7", "#E0F6C3", "#F0FCCE",
+#       "#FEFED8"),
+#     10),
+#   # Sort value in descending order
+#   sorting = "descending",
+#   # Add segments from y = 0 to dots
+#   add = "segments",
+#   add.params = list(color = "black", size = 0.5),
+#   rotate = TRUE,
+#   dot.size = 6,
+#   ggtheme = theme_pubr() +
+#     theme(legend.position = "none", axis.title.x = element_blank())
+#   )
+
+# bwu::dotplot(
+#   data = df,
+#   x = df$z_mean_narrow,
+#   y = df$narrow,
+#   domain = "academics"
+# )

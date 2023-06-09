@@ -113,12 +113,37 @@ df <-
   tidytable::filter(filename %in% c("caars_sr.csv", "caars_or.csv"))
 
 ## ---- 06-plot-adhd-adhd-subdomain ----
-bwu::dotplot(
-  data = df,
-  x = df$z_mean_sub,
-  y = df$subdomain,
-  domain = "ADHD"
-)
+library(ggplot2)
+library(ggthemes)
+library(ggpubr)
+library(scales)
+
+ggplot2::ggplot(data = adhd) +
+  geom_segment(
+    aes(x = z_mean_sub,
+        y = reorder(subdomain, z_mean_sub),
+        xend = 0,
+        yend = subdomain),
+    linewidth = 0.5) +
+  geom_point(
+    aes(x = z_mean_sub, y = reorder(subdomain, z_mean_sub)),
+    shape = 21,
+    linewidth = 0.5,
+    color = "black",
+    fill =
+      c("#190D33", "#27123A", "#351742", "#421E4A", "#502653",
+        "#5C2E5A", "#683863", "#73436A", "#7B4E70", "#815875",
+        "#866079", "#89697D", "#8B7280", "#8C7A81", "#8E8385",
+        "#908A87", "#919289", "#929A8A", "#94A38D", "#96AB8F",
+        "#99B392", "#9CBD95", "#A2C79A", "#ACD3A0", "#B9DFA9",
+        "#C8EAB3", "#D8F2BD", "#E6F9C7", "#F3FCD0", "#FEFED8"),
+    k = length(unique(adhd$subdomain)),
+    size = 6
+  ) +
+  theme_fivethirtyeight() +
+  theme(panel.background = element_rect(fill = "white")) +
+  theme(plot.background = element_rect(fill = "white")) +
+  theme(panel.border = element_rect(color = "white"))
 
 ## ---- 06-plot-adhd-adhd-narrow ----
 bwu::dotplot(
@@ -129,7 +154,7 @@ bwu::dotplot(
 )
 
 ## ---- 07-df-executive ----
-df2 <-
+ef <-
   neurobehav |>
   tidytable::filter(domain == "Executive Functioning") |>
   tidytable::filter(scale %in% filter_domain) |>
@@ -137,12 +162,37 @@ df2 <-
   tidytable::filter(filename %in% c("cefi_sr.csv", "cefi_or.csv"))
 
 ## ---- 08-plot-executive-adhd-subdomain -----
-bwu::dotplot(
-  data = df2,
-  x = df2$z_mean_sub,
-  y = df2$subdomain,
-  domain = "Executive Functioning"
-)
+library(ggplot2)
+library(ggthemes)
+library(ggpubr)
+library(scales)
+
+ggplot2::ggplot(data = ef) +
+  geom_segment(
+    aes(x = z_mean_sub,
+        y = reorder(subdomain, z_mean_sub),
+        xend = 0,
+        yend = subdomain),
+    linewidth = 0.5) +
+  geom_point(
+    aes(x = z_mean_sub, y = reorder(subdomain, z_mean_sub)),
+    shape = 21,
+    linewidth = 0.5,
+    color = "black",
+    fill =
+      c("#190D33", "#27123A", "#351742", "#421E4A", "#502653",
+        "#5C2E5A", "#683863", "#73436A", "#7B4E70", "#815875",
+        "#866079", "#89697D", "#8B7280", "#8C7A81", "#8E8385",
+        "#908A87", "#919289", "#929A8A", "#94A38D", "#96AB8F",
+        "#99B392", "#9CBD95", "#A2C79A", "#ACD3A0", "#B9DFA9",
+        "#C8EAB3", "#D8F2BD", "#E6F9C7", "#F3FCD0", "#FEFED8"),
+    k = length(unique(ef$subdomain)),
+    size = 6
+  ) +
+  theme_fivethirtyeight() +
+  theme(panel.background = element_rect(fill = "white")) +
+  theme(plot.background = element_rect(fill = "white")) +
+  theme(panel.border = element_rect(color = "white"))
 
 ## ---- 08-plot-executive-adhd-narrow -----
 bwu::dotplot(
