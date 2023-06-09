@@ -72,26 +72,3 @@ Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3.9000
-Collate: 
-    'age.R'
-    'bwu-package.R'
-    'colors.R'
-    'data.R'
-    'drilldown.R'
-    'globals.R'
-    'gpluck.R'
-    'knit_with_date.R'
-    'make_tibble.R'
-    'neuropsych_report_adult.R'
-    'neuropsych_report_child.R'
-    'oxy_dotplot.R'
-    'oxy_extract_text.R'
-    'rename_scale.R'
-    'render_report_adult.R'
-    'render_report_child.R'
-    'rocft.R'
-    'scores.R'
-    'tmt.R'
-    'tufte_handout.R'
-    'tufte_html.R'
-    'utils.R'

@@ -36,6 +36,7 @@ update.packages(ask = FALSE, checkBuilt = TRUE)
 # if pak fails, reinstall from source
 
 ## Pre-built binaries
+with_libpaths(new = "/path/to/private/library", library(glue))
 
 install.packages("pak", repos = sprintf(
   "https://r-lib.github.io/p/pak/stable/%s/%s/%s",

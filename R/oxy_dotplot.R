@@ -3,7 +3,7 @@
 #' @param data Dataset variable.
 #' @param x X Mean z-score of domain.
 #' @param y Y Domain/variable name of the y-axis.
-#' @param fill Optional name of variable to fill points by, Default: 'domain'
+#' @param fill Optional name of variable to fill points by
 #' @param size Dot size, Default: NULL
 #' @param palette Color palette
 #' @param ... other arguments to be passed to
@@ -32,7 +32,7 @@
 #' @importFrom ggthemes theme_fivethirtyeight
 dotplot <- function(
     data, x, y,
-    domain = NULL, fill = NULL, size = NULL, palette = NULL, ...) {
+    fill = NULL, size = NULL, palette = NULL, ...) {
   ggplot2::ggplot(data) +
     geom_segment(
       aes(x, y = reorder(y, x), xend = 0, yend = y),

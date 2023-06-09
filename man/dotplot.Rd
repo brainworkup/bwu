@@ -4,16 +4,7 @@
 \alias{dotplot}
 \title{Create Dotplots of Cognitive Domains}
 \usage{
-dotplot(
-  data,
-  x,
-  y,
-  domain = NULL,
-  fill = NULL,
-  size = NULL,
-  palette = NULL,
-  ...
-)
+dotplot(data, x, y, fill = NULL, size = NULL, palette = NULL, ...)
 }
 \arguments{
 \item{data}{Dataset variable.}
@@ -22,7 +13,7 @@ dotplot(
 
 \item{y}{Y Domain/variable name of the y-axis.}
 
-\item{fill}{Optional name of variable to fill points by, Default: 'domain'}
+\item{fill}{Optional name of variable to fill points by}
 
 \item{size}{Dot size, Default: NULL}
 

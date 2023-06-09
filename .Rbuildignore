@@ -14,7 +14,6 @@
 ^\.DS_Store$
 ^README\.Rmd$
 ^data-raw$
-^npsych\.data\.code-workspace$
 ^\.vscode$
 ^journal$
 ^\.DS\_Store$
@@ -62,4 +61,3 @@
 ^letter-joey-typst$
 ^bwu_startup\.R$
 ^oxy_ggpubr_plots\.R$
-^notes2$
