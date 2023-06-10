@@ -2,12 +2,12 @@
 % Please edit documentation in R/gpluck.R
 \name{gpluck_get_index_scores}
 \alias{gpluck_get_index_scores}
-\title{FUNCTION_TITLE}
+\title{Index scors.}
 \usage{
 gpluck_get_index_scores(patient)
 }
 \arguments{
-\item{patient}{PARAM_DESCRIPTION}
+\item{patient}{Patient name}
 }
 \value{
 OUTPUT_DESCRIPTION

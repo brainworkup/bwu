@@ -115,7 +115,6 @@ gpluck_extract_table <-
 #'  }
 #' }
 #' @rdname gpluck_make_columns
-#' @importFrom tidytable mutate
 #' @export
 gpluck_make_columns <- function(table,
                                 test,
@@ -234,7 +233,6 @@ gpluck_make_columns <- function(table,
 #'  #EXAMPLE1
 #'  }
 #' }
-#' @importFrom tidytable mutate case_when
 #' @rdname gpluck_make_score_ranges
 #' @export
 gpluck_make_score_ranges <-
@@ -357,7 +355,6 @@ gpluck_make_score_ranges <-
 #' }
 #' @rdname gpluck_compute_percentile_range
 #' @export
-#' @importFrom tidytable mutate case_when select
 #' @importFrom stats pnorm
 gpluck_compute_percentile_range <-
   function(.x,
@@ -475,9 +472,9 @@ gpluck_compute_percentile_range <-
   }
 
 
-#' @title FUNCTION_TITLE
+#' @title Index scors.
 #' @description FUNCTION_DESCRIPTION
-#' @param patient PARAM_DESCRIPTION
+#' @param patient Patient name
 #' @return OUTPUT_DESCRIPTION
 #' @details DETAILS
 #' @examples
@@ -497,7 +494,6 @@ gpluck_compute_percentile_range <-
 #' @importFrom readxl read_xlsx
 #' @importFrom here here
 #' @importFrom janitor clean_names
-#' @importFrom tidytable mutate case_when relocate filter
 #' @importFrom glue glue
 #' @importFrom readr write_csv
 gpluck_get_index_scores <- function(patient) {
@@ -527,7 +523,7 @@ gpluck_get_index_scores <- function(patient) {
 
   ## Mutate columns
 
-  df <- gpluck_make_columns(
+  df <- bwu::gpluck_make_columns(
     table = df,
     raw_score = "",
     range = "",
@@ -549,7 +545,7 @@ gpluck_get_index_scores <- function(patient) {
   ## Test score ranges
 
   df <-
-    gpluck_make_score_ranges(table = df, test_type = "npsych_test")
+    bwu::gpluck_make_score_ranges(table = df, test_type = "npsych_test")
 
   ## Domains
 
@@ -750,7 +746,6 @@ gpluck_get_index_scores <- function(patient) {
 #' }
 #' @rdname compute_pctile_range
 #' @export
-#' @importFrom tidytable mutate case_when select
 #' @importFrom stats pnorm
 compute_pctile_range <-
   function(.x,

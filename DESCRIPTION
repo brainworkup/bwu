@@ -24,6 +24,7 @@ Imports:
     knitr,
     lubridate,
     magrittr,
+    pkgbuild,
     purrr,
     readr,
     rlang,
@@ -36,15 +37,15 @@ Imports:
     tidytable,
     tidyselect,
     htmltools,
-    readxl
+    readxl,
+    tools,
+    graphics,
+    grDevices,
+    utils
 Suggests:
     Cairo,
     forcats,
-    utils,
-    tools,
     rJava,
-    graphics,
-    grDevices,
     png,
     fs,
     gt,
