@@ -33,10 +33,10 @@ format:
       left: 100.8pt
       right: 100.8pt
       bottom: 72pt
-    fontfamily: libertinus
+    fontfamily: "libertinus"
     fontsize: 11pt
+    #include-in-header: header.typ
     keep-typ: true
-    include-in-header: header.typ
   pdf:
     include-in-header: header.tex
     documentclass: scrartcl
@@ -50,11 +50,11 @@ format:
       - heightrounded
       - marginparsep=.25in
       - marginparwidth=2in
-    fontfamily: libertinus
+    fontfamily: "libertinus"
     colorlinks: true
     keep-tex: true
     keep-md: true
-    papersize: a4
+    papersize: "a4paper"
     fontsize: 11pt
   docx:
     toc: false
@@ -95,18 +95,14 @@ library(fs)
 ```
 
 ```{r}
-patient <- "Biggie"
-```
-
-```{r}
 #| label: import-nse-txt
 #| eval: false
-file_path <- here::here(patient, "NeuropsychEval_NSE_Biggie.txt")
-start_pattern <- "Biggie"
-end_pattern <- "Joey Trampush"
-output_path <- fs::as_path(here::here("Biggie", "nse_text.md"))
-txt <- bwu::extract_text(patient, file_path, start_pattern, end_pattern)
-bwu::save_as_markdown(text = txt, output_path)
+# construct file path
+patient <- "Biggie"
+scale <- "NeuropsychEval-NSE-"
+ext <- ".txt"
+result <- ""
+file <- file.path(paste0(scale, patient, ext))
 ```
 
 ```{=typst} 
@@ -129,6 +125,15 @@ multiple days of examination. Results and recommendations were discussed with `r
 params$first_name` during interactive feedback on the final day of the
 evaluation. -->
 
+## Measures Administered
+
+- Comprehensive Neuropsychiatric Symptom and History Interview
+- Conners' Adult ADHD Diagnostic Interview for DSM-IV (CAADID), Part I: History
+- Conners' Adult ADHD Rating Scales--Self-Report: Long Version (CAARS--S:L)
+- Conners' Adult ADHD Rating Scales--Observer Report: Long Version (CAARS--O:L)
+- Comprehensive Executive Function Inventory Adult (CEFI Adult) Self-Report Form
+- Comprehensive Executive Function Inventory Adult (CEFI Adult) Observer Form
+
 ## Background
 
 `r params$first_name` reports ongoing difficulties with attention/organization and lack of behavioral activation that are making it difficult to finish school, a history of mood dysregulation, performance anxiety, attention/organization problems, and social-emotional difficulties.
@@ -137,14 +142,13 @@ evaluation. -->
 
 ### Developmental/Medical
 
-- No birth complicaitons..
+- No birth complicaitons.
 - Developmental milestones achieved on time.
 - Frequent sinus infections.
-- Other medications: Femcon, folic acid.
+- Other medications: 
 - Appetite/weight: Normal, no changes.
 - Sleep: Normal, no changes.
 - Alcohol/tobacco: No history of abuse; denied current use.
-
 
 ### Behavioral/Emotional/Social
 
@@ -160,7 +164,6 @@ Patient is currently a USC student completing their $degree degree in $major. `r
 
 Patient denied a family history of neurological conditions. Her brother was diagnosed with ADHD.
 
-
 ## Prior Testing
 
 None indicated.
@@ -169,19 +172,10 @@ None indicated.
 
 `r params$first_name` was on time for `r params$his_her` examination. `r params$he_she_cap` took the meeting from home and was casually dressed and comfortable. `r params$he_she_cap` appeared `r params$his_her` stated age. `r params$he_she_cap` was alert and oriented to person, place, time, and situation. `r params$he_she_cap` was able to sustain attention and concentration throughout the interview. `r params$he_she_cap` was very articulate with a strong vocabulary, and generally clear thinking processes. There were no signs of aphasia, dysarthria, or anomia. `r params$he_she_cap` was able to comprehend and follow verbal instructions. Patient was able to recall recent and remote events without difficulty. There were no signs of amnesia or confabulation. `r params$he_she_cap` exhibited normal gross motor functioning with good mobility. Gait and posture are normal. `r params$his_her` mood was euthymic and `r params$his_her` affect was full in range and expression throughout the interview.
 
-## Measures Administered
-
-- Comprehensive Neuropsychiatric Symptom and History Interview
-- Conners' Adult ADHD Diagnostic Interview for DSM-IV (CAADID), Part I: History
-- Conners' Adult ADHD Rating Scales--Self-Report: Long Version (CAARS--S:L)
-- Conners' Adult ADHD Rating Scales--Observer Report: Long Version (CAARS--O:L)
-- Comprehensive Executive Function Inventory Adult (CEFI Adult) Self-Report Form
-- Comprehensive Executive Function Inventory Adult (CEFI Adult) Observer Form
 
 ## Summary/Impression
 
 Overall, the current neurobehavioral exam can be used as a starting point for a more comprehensive neuropsychological evaluation. Evaluation will provide an overview of the patient's cognitive, behavioral, academic, and emotional functioning. Results will help guide further assessment and treatment planning.
-
 
 ### Diagnostic Considerations
 

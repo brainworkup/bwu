@@ -82,6 +82,7 @@
     "deno.inlayHints.propertyDeclarationTypes.enabled": true,
     "deno.inlayHints.variableTypes.enabled": true,
     "deno.internalDebug": true,
-    "deno.unstable": true
+    "deno.unstable": true,
+    "deno.enable": true
   }
 }
