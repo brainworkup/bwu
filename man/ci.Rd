@@ -15,16 +15,16 @@ ci(x, m, sd, rel, level = 0.95, ...)
 
 \item{rel}{Reliability of scale}
 
-\item{level}{Confidence level}
+\item{level}{Confidence level, default is 0.95}
 
 \item{...}{Additional arguments}
 }
 \value{
-Returns confidence interval
+Returns a named vector with elements 'true_score', 'ci_lo' and 'ci_hi'
 }
 \description{
 To compute confidence intervals for test scores.
 }
 \examples{
-ci_95 <- ci(x = 88, m = 100, sd = 15, rel = .80)
+ci_res <- ci(x = 88, m = 100, sd = 15, rel = .80)
 }

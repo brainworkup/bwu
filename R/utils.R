@@ -291,37 +291,12 @@ gsub_fixed <- function(...) gsub(..., fixed = TRUE)
 pandoc2.0 <- function() rmarkdown::pandoc_available("2.0")
 
 
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
-
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
-#' @examples
-#' \dontrun{
-#' if (interactive()) {
-#'   # EXAMPLE1
-#' }
-#' }
-#' @seealso
-#'  \code{\link[sinew]{makeOxyFile}}
-#'  \code{\link[here]{here}}
-#' @rdname sinewOxy
-#' @export
-#' @importFrom sinew makeOxyFile
-#' @importFrom here here
-sinewOxy <- function() sinew::makeOxyFile(here::here("R", file))
-
 
 NULL
-#' @import ggplot2 dplyr
 #' @importFrom tibble as_tibble
-#' @importFrom purrr map2 map
-#' @importFrom grid drawDetails
 #' @importFrom rlang !!
 #' @importFrom rlang !!!
 #' @importFrom rlang syms .data
-
-
 required_package <- function(pkg) {
   if (!requireNamespace(pkg, quietly = TRUE)) {
     stop(

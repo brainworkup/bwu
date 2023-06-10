@@ -2,7 +2,7 @@
 % Please edit documentation in R/gpluck.R
 \name{compute_pctile_range}
 \alias{compute_pctile_range}
-\title{Compute percentile scores and ranges janky way}
+\title{FUNCTION_TITLE}
 \usage{
 compute_pctile_range(
   .x,
@@ -18,29 +18,39 @@ compute_pctile_range(
 )
 }
 \arguments{
-\item{.x}{Pronoun for data.frame}
+\item{.x}{PARAM_DESCRIPTION}
 
-\item{.score}{Known score}
+\item{.score}{PARAM_DESCRIPTION, Default: NA}
 
-\item{.score_type}{Known type of score}
+\item{.score_type}{PARAM_DESCRIPTION, Default: c("z_score", "scaled_score", "t_score", "standard_score", "raw_score")}
 
-\item{percentile}{Unknown percentile}
+\item{percentile}{PARAM_DESCRIPTION, Default: NA}
 
-\item{range}{Unknown test score classification range}
+\item{range}{PARAM_DESCRIPTION, Default: NA}
 
-\item{pct1}{Temp pct 1}
+\item{pct1}{PARAM_DESCRIPTION, Default: NA}
 
-\item{pct2}{Temp pct 2}
+\item{pct2}{PARAM_DESCRIPTION, Default: NA}
 
-\item{pct3}{Temp pct 3}
+\item{pct3}{PARAM_DESCRIPTION, Default: NA}
 
-\item{z}{Z score}
+\item{z}{PARAM_DESCRIPTION, Default: NA}
 
-\item{...}{Additional expressions}
+\item{...}{PARAM_DESCRIPTION}
 }
 \value{
-A table with standardized scores
+OUTPUT_DESCRIPTION
 }
 \description{
-Compute percentile scores and ranges janky way
+FUNCTION_DESCRIPTION
+}
+\details{
+DETAILS
+}
+\examples{
+\dontrun{
+if(interactive()){
+ #EXAMPLE1
+ }
+}
 }

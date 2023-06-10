@@ -17,7 +17,8 @@
 pred <- function(x, y, r, m, ...) {
   z <- round(r * (x - m) + m, 0)
   diff <- z - y
-  out <- paste(z, diff, sep = ", ")
+
+  return(paste(z, diff, sep = ", "))
 }
 
 #' @title Compute confidence intervals (CI)
@@ -26,21 +27,39 @@ pred <- function(x, y, r, m, ...) {
 #' @param m Mean of scale
 #' @param sd Standard deviation (SD) of scale
 #' @param rel Reliability of scale
-#' @param level Confidence level
+#' @param level Confidence level, default is 0.95
 #' @param ... Additional arguments
-#' @return Returns confidence interval
+#' @return Returns a named vector with elements 'true_score', 'ci_lo' and 'ci_hi'
 #' @examples
-#' ci_95 <- ci(x = 88, m = 100, sd = 15, rel = .80)
+#' ci_res <- ci(x = 88, m = 100, sd = 15, rel = .80)
 #' @export
 ci <- function(x, m, sd, rel, level = 0.95, ...) {
+  # Check input parameters
+  if (!is.numeric(x) || !is.numeric(m) || !is.numeric(sd) || !is.numeric(rel) || !is.numeric(level) ||
+      sd <= 0 || rel < 0 || rel > 1 || level <= 0 || level >= 1) {
+    stop("Invalid input parameters")
+  }
+
+  # Compute SEM
   sem <- sd * sqrt(1 - rel)
+
+  # Compute true score
   true_score <- round((x - m) * rel + m, 0)
+
+  # Compute z value
   z <- -stats::qnorm((1 - level) / 2)
+
+  # Compute error
   error <- z * sem
+
+  # Compute CI
   ci_lo <- round(true_score - error, 0)
   ci_hi <- round(true_score + error, 0)
-  ci <- paste0(true_score, " ", "[", ci_lo, " - ", ci_hi, "]")
+
+  # Return structured result
+  return(c(true_score = true_score, ci_lo = ci_lo, ci_hi = ci_hi))
 }
+
 
 #' Convert T scores to z scores to percentiles.
 #' This is a functioning that converts T-scores to z-scores to percentile

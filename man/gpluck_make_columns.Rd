@@ -2,7 +2,7 @@
 % Please edit documentation in R/gpluck.R
 \name{gpluck_make_columns}
 \alias{gpluck_make_columns}
-\title{Make columns for npsych tables}
+\title{Make columns.}
 \usage{
 gpluck_make_columns(
   table,
@@ -34,51 +34,69 @@ gpluck_make_columns(
 )
 }
 \arguments{
-\item{table}{Name of table}
+\item{table}{PARAM_DESCRIPTION}
 
-\item{test}{Name of test}
+\item{test}{PARAM_DESCRIPTION}
 
-\item{test_name}{Name of test full}
+\item{test_name}{PARAM_DESCRIPTION}
 
-\item{scale}{Name of scale/subtest}
+\item{scale}{PARAM_DESCRIPTION, Default: NULL}
 
-\item{raw_score}{Raw score for scale}
+\item{raw_score}{PARAM_DESCRIPTION, Default: NULL}
 
-\item{score}{Standardized score}
+\item{score}{PARAM_DESCRIPTION, Default: NULL}
 
-\item{range}{Test score range}
+\item{range}{PARAM_DESCRIPTION, Default: NULL}
 
-\item{percentile}{Percentile rank}
+\item{percentile}{PARAM_DESCRIPTION, Default: NULL}
 
-\item{ci_95}{95\% CI}
+\item{ci_95}{PARAM_DESCRIPTION, Default: NULL}
 
-\item{domain}{Cognitive domain}
+\item{domain}{PARAM_DESCRIPTION, Default: c("Intelligence/General Ability", "Academic Skills", "Verbal/Language",
+"Visual Perception/Construction", "Attention/Executive",
+"Memory", "Motor", "Social Cognition", "Behavioral/Emotional/Social",
+"Personality Disorders", "Psychiatric Disorders", "Substance Use Disorders",
+"Psychosocial Problems", "ADHD", "Executive Dysfunction",
+"Effort/Validity", "")}
 
-\item{subdomain}{Cognitive subdomain#'}
+\item{subdomain}{PARAM_DESCRIPTION, Default: NULL}
 
-\item{narrow}{Narrow cognitive subdomain}
+\item{narrow}{PARAM_DESCRIPTION, Default: NULL}
 
-\item{pass}{PASS model area}
+\item{pass}{PARAM_DESCRIPTION, Default: c("Planning", "Attention", "Sequential", "Simultaneous", "Knowledge",
+NA)}
 
-\item{verbal}{Verbal or nonverbal test}
+\item{verbal}{PARAM_DESCRIPTION, Default: c("Verbal", "Nonverbal", NA)}
 
-\item{timed}{Timed or untimed test}
+\item{timed}{PARAM_DESCRIPTION, Default: c("Timed", "Untimed", NA)}
 
-\item{test_type}{Test type}
+\item{test_type}{PARAM_DESCRIPTION, Default: c("npsych_test", "rating_scale", "validity_indicator", "item",
+NA)}
 
-\item{score_type}{Score type}
+\item{score_type}{PARAM_DESCRIPTION, Default: c("raw_score", "scaled_score", "t_score", "standard_score", "z_score",
+"percentile", "base_rate", "beta_coefficient", NA)}
 
-\item{absort}{Sort file}
+\item{absort}{PARAM_DESCRIPTION, Default: NULL}
 
-\item{description}{Description of scale and ability it measures}
+\item{description}{PARAM_DESCRIPTION, Default: NULL}
 
-\item{result}{Performance on this scale}
+\item{result}{PARAM_DESCRIPTION, Default: NULL}
 
-\item{...}{Other args}
+\item{...}{PARAM_DESCRIPTION}
 }
 \value{
-A table for the report
+OUTPUT_DESCRIPTION
 }
 \description{
-Make new columns for neuropsych tables more of a description.
+Make columns.
+}
+\details{
+DETAILS
+}
+\examples{
+\dontrun{
+if(interactive()){
+ #EXAMPLE1
+ }
+}
 }

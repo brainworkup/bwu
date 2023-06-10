@@ -1,7 +1,7 @@
 Type: Package
 Package: bwu
 Title: BrainWorkUp Neuropsychological Report Writing Package
-Version: 0.0.2.9000
+Version: 0.0.2.9001
 Author: person("Joey", "Trampush", email = trampush@usc.edu, role =
     c("aut", "cre"))
 Maintainer: Joey Trampush <trampush@usc.edu>
@@ -14,51 +14,46 @@ Depends:
     R (>= 3.10)
 Imports:
     bookdown,
-    data.table,
     dplyr,
     ggplot2,
     ggthemes,
     glue,
-    graphics,
-    grDevices,
     here,
     highcharter,
-    htmltools,
     janitor,
     knitr,
     lubridate,
     magrittr,
-    png,
     purrr,
     readr,
-    readxl,
-    rJava,
     rlang,
     rmarkdown,
-    sinew,
     stats,
     stringr,
     tabulizer,
     tibble,
     tidyr,
     tidytable,
-    tools,
-    utils
+    tidyselect,
+    htmltools,
+    readxl
 Suggests:
     Cairo,
-    covr,
     forcats,
+    utils,
+    tools,
+    rJava,
+    graphics,
+    grDevices,
+    png,
     fs,
     gt,
     hablar,
     kableExtra,
     magick,
-    pkgdown,
-    roxygen2,
     shiny,
     spelling,
     testthat (>= 3.0.0),
-    tidyselect,
     tufte,
     usethis (>= 1.5.0),
     vroom,

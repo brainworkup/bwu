@@ -11,13 +11,17 @@ usethis::rename_files("oxy-extract_nse_otterai_text.R", "oxy_extraxt_text.R")
 proj_sitrep()
 proj_activate(".")
 ## sinew
+
 sinew::makeOxyFile(here::here("R", "drilldown.R"))
+
+sinew::makeOxyFile(here::here("R", "gpluck.R"))
 
 sinew::moga("R/oxy_dotplot.R")
 sinew::moga("R/oxy_extract_text.R")
 sinew::moga("R/plots.R")
 sinew::moga("R/drilldown.R")
 sinew::moga("R/utils.R")
+
 sinew::makeOxygen("R/drilldown.R")
 
 sinew::makeOxygen(here::here("R", "oxy-plots.R"))
@@ -102,10 +106,10 @@ usethis::use_build_ignore(".builds.archived")
 
 usethis::use_r("age")
 usethis::use_r("scores")
-usethis::use_r("colors")
+usethis::use_r("gpluck_make_columns")
 
 
-stringr::str_c(collapse = |)
+stringr::str_c()
 
 ## renv
 

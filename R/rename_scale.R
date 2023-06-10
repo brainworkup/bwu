@@ -5,13 +5,15 @@
 #' @param scale Name of scale
 #' @param name1 Old name
 #' @param name2 New name
+#' @importFrom dplyr mutate
+#' @importFrom stringr str_replace
 #'
 #'
 #' @export
 rename_scale <- function(table, scale, name1, name2) {
   table <-
     table %>%
-    tidytable::mutate(scale = stringr::str_replace(
+    dplyr::mutate(scale = stringr::str_replace(
       string = scale,
       pattern = name1,
       replacement = name2

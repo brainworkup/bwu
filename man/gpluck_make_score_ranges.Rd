@@ -2,7 +2,7 @@
 % Please edit documentation in R/gpluck.R
 \name{gpluck_make_score_ranges}
 \alias{gpluck_make_score_ranges}
-\title{Make test score range (e.g., Below Average, Above Average).}
+\title{FUNCTION_TITLE}
 \usage{
 gpluck_make_score_ranges(
   table,
@@ -14,31 +14,31 @@ gpluck_make_score_ranges(
 )
 }
 \arguments{
-\item{table}{Name of table}
+\item{table}{PARAM_DESCRIPTION}
 
-\item{score}{Score, raw score, or standard score}
+\item{score}{PARAM_DESCRIPTION, Default: NULL}
 
-\item{percentile}{Percentile rank}
+\item{percentile}{PARAM_DESCRIPTION, Default: NULL}
 
-\item{range}{Range of performance score}
+\item{range}{PARAM_DESCRIPTION, Default: range}
 
-\item{test_type}{Type of test}
+\item{test_type}{PARAM_DESCRIPTION, Default: c("npsych_test", "rating_scale", "validity_indicator", "basc3")}
 
-\item{...}{More if needed}
+\item{...}{PARAM_DESCRIPTION}
 }
 \value{
-Returns a modified table.
+OUTPUT_DESCRIPTION
 }
 \description{
-Use a consistent set of ranges for performance on neuropsychological testing.
+FUNCTION_DESCRIPTION
+}
+\details{
+DETAILS
 }
 \examples{
-neurocog <- gpluck_make_score_ranges(
-  table = neurocog,
-  score = 50,
-  percentile = 50,
-  range = "",
-  test_type = "npsych_test"
-)
-
+\dontrun{
+if(interactive()){
+ #EXAMPLE1
+ }
+}
 }

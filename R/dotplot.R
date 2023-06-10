@@ -34,12 +34,12 @@ dotplot <- function(
     data, x, y,
     fill = NULL, size = NULL, palette = NULL, ...) {
   ggplot2::ggplot(data) +
-    geom_segment(
-      aes(x, y = reorder(y, x), xend = 0, yend = y),
+    ggplot2::geom_segment(
+      aes(x, y = stats::reorder(y, x), xend = 0, yend = y),
       linewidth = 0.5
     ) +
-    geom_point(
-      aes(x, y = reorder(y, x)),
+    ggplot2::geom_point(
+      aes(x, y = stats::reorder(y, x)),
       shape = 21,
       linewidth = 0.5,
       color = "black",
@@ -55,8 +55,8 @@ dotplot <- function(
       k = length(unique(data$y)),
       size = 6
     ) +
-    theme_fivethirtyeight() +
-    theme(panel.background = element_rect(fill = "white")) +
-    theme(plot.background = element_rect(fill = "white")) +
-    theme(panel.border = element_rect(color = "white"))
+    ggthemes::theme_fivethirtyeight() +
+    ggplot2::theme(panel.background = element_rect(fill = "white")) +
+    ggplot2::theme(plot.background = element_rect(fill = "white")) +
+    ggplot2::theme(panel.border = element_rect(color = "white"))
 }

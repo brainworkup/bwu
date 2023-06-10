@@ -45,7 +45,6 @@
 ^pkg\.lock$
 ^\.pak$
 ^builds\.archived$
-
 ^_quarto\.yml$
 ^src$
 ^_freeze$
@@ -61,3 +60,4 @@
 ^letter-joey-typst$
 ^bwu_startup\.R$
 ^oxy_ggpubr_plots\.R$
+^\.DS_Store$

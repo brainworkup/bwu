@@ -1,32 +1,21 @@
-#' @rdname gpluck_extract_areas
-#' @title Extract areas for PDF plucking of tables
-#' @description Interactively identify areas and extract
-#' @param file A character string specifying the path to a PDF file. This can also be a URL, in which case the file will be downloaded to the R temporary directory using \code{download.file}.
-#' @param pages An optional integer vector specifying pages to extract from. To extract multiple tables from a given page, repeat the page number (e.g., \code{c(1,2,2,3)}).
-#' @param \dots Other arguments passed to \code{\link{extract_tables}}.
-#'
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param file PARAM_DESCRIPTION
+#' @param pages PARAM_DESCRIPTION, Default: NULL
+#' @param ... PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
 #' @examples
 #' \dontrun{
-#' # simple demo file
-#' f <- system.file("examples", "data.pdf", package = "tabulizer")
-#'
-#' # locate areas only, using Shiny app
-#' locate_areas(f)
-#'
-#' # locate areas only, using native graphics device
-#' locate_areas(f, widget = "shiny")
-#'
-#' # locate areas and extract
-#' extract_areas(f)
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
 #' }
-#' @importFrom tabulizer locate_areas
-#' @importFrom tools file_path_sans_ext
-#' @importFrom rJava J new
-#' @importFrom png readPNG
-#' @importFrom grDevices dev.capabilities dev.off
-#' @importFrom graphics par rasterImage locator plot
-#'
+#' @seealso
+#'  \code{\link[tabulizer]{locate_areas}}
+#' @rdname gpluck_locate_areas
 #' @export
+#' @importFrom tabulizer locate_areas
 gpluck_locate_areas <- function(file, pages = NULL, ...) {
   tabulizer::locate_areas(
     file = file,
@@ -36,55 +25,29 @@ gpluck_locate_areas <- function(file, pages = NULL, ...) {
 }
 
 
-#' @title Pluck tables from PDFs
-#' @description Extract tables from a file
-#' @param file A character string specifying the path or URL to a PDF file.
-#' @param pages An optional integer vector specifying pages to extract from.
-#' @param area An optional list, of length equal to the number of pages specified, where each entry contains a four-element numeric vector of coordinates (top,left,bottom,right) containing the table for the corresponding page. As a convenience, a list of length 1 can be used to extract the same area from all (specified) pages. Only specify \code{area} xor \code{columns}.
-#' @param guess A logical indicating whether to guess the locations of tables on each page. If \code{FALSE}, \code{area} or \code{columns} must be specified; if \code{TRUE}, columns is ignored.
-#' @param method A string identifying the prefered method of table extraction.
-#' \itemize{
-#'   \item \code{method = "decide"} (default) automatically decide (for each page) whether spreadsheet-like formatting is present and "lattice" is appropriate
-#'   \item \code{method = "lattice"} use Tabula's spreadsheet extraction algorithm
-#'   \item \code{method = "stream"} use Tabula's basic extraction algorithm
-#' }
-#' @param output A function to coerce the Java response object (a Java ArrayList of Tabula Tables) to some output format. The default method, \dQuote{matrices}, returns a list of character matrices. See Details for other options.
-#' @param \dots These are additional arguments passed to the internal functions dispatched by \code{method}.
-#' @details This function mimics the behavior of the Tabula command line utility. It returns a list of R character matrices containing tables extracted from a file by default. This response behavior can be changed by using the following options.
-#' \itemize{
-#'   \item \code{output = "character"} returns a list of single-element character vectors, where each vector is a tab-delimited, line-separate string of concatenated table cells.
-#'   \item \code{output = "data.frame"} attempts to coerce the structure returned by \code{method = "character"} into a list of data.frames and returns character strings where this fails.
-#'   \item \code{output = "csv"} writes the tables to comma-separated (CSV) files using Tabula's CSVWriter method in the same directory as the original PDF. \code{method = "tsv"} does the same but with tab-separated (TSV) files using Tabula's TSVWriter and \code{method = "json"} does the same using Tabula's JSONWriter method. Any of these three methods return the path to the directory containing the extract table files.
-#'   \item \code{output = "asis"} returns the Java object reference, which can be useful for debugging or for writing a custom parser.
-#' }
-#' @return By default, a list of character matrices. This can be changed by specifying an alternative value of \code{method} (see Details).
-#' @references \href{http://tabula.technology/}{Tabula}
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param file PARAM_DESCRIPTION
+#' @param pages PARAM_DESCRIPTION, Default: NULL
+#' @param area PARAM_DESCRIPTION, Default: NULL
+#' @param guess PARAM_DESCRIPTION, Default: FALSE
+#' @param method PARAM_DESCRIPTION, Default: c("decide", "lattice", "stream")
+#' @param output PARAM_DESCRIPTION, Default: c("matrix", "data.frame", "character", "asis", "csv", "tsv",
+#'    "json")
+#' @param ... PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
 #' @examples
 #' \dontrun{
-#' # simple demo file
-#' f <- system.file("examples", "data.pdf", package = "tabulizer")
-#'
-#' # extract all tables
-#' extract_tables(f)
-#'
-#' # extract tables from only second page
-#' extract_tables(f, pages = 2)
-#'
-#' # extract areas from a page
-#' ## full table
-#' extract_tables(f, pages = 2, area = list(c(126, 149, 212, 462)))
-#' ## part of the table
-#' extract_tables(f, pages = 2, area = list(c(126, 284, 174, 417)))
-#'
-#' # return data.frames
-#' extract_tables(f, pages = 2, output = "data.frame")
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
 #' }
+#' @seealso
+#'  \code{\link[tabulizer]{extract_tables}}
 #' @rdname gpluck_extract_table
-#' @importFrom tabulizer extract_tables
-#' @importFrom utils read.delim download.file
-#' @importFrom tools file_path_sans_ext
-#' @importFrom rJava J new .jfloat
 #' @export
+#' @importFrom tabulizer extract_tables
 gpluck_extract_table <-
   function(file,
            pages = NULL,
@@ -112,32 +75,47 @@ gpluck_extract_table <-
   }
 
 
-#' @title Make columns for npsych tables
-#' @description Make new columns for neuropsych tables more of a description.
+#' @title Make columns.
+#' @description Make columns.
+#' @param table PARAM_DESCRIPTION
+#' @param test PARAM_DESCRIPTION
+#' @param test_name PARAM_DESCRIPTION
+#' @param scale PARAM_DESCRIPTION, Default: NULL
+#' @param raw_score PARAM_DESCRIPTION, Default: NULL
+#' @param score PARAM_DESCRIPTION, Default: NULL
+#' @param range PARAM_DESCRIPTION, Default: NULL
+#' @param percentile PARAM_DESCRIPTION, Default: NULL
+#' @param ci_95 PARAM_DESCRIPTION, Default: NULL
+#' @param domain PARAM_DESCRIPTION, Default: c("Intelligence/General Ability", "Academic Skills", "Verbal/Language",
+#'    "Visual Perception/Construction", "Attention/Executive",
+#'    "Memory", "Motor", "Social Cognition", "Behavioral/Emotional/Social",
+#'    "Personality Disorders", "Psychiatric Disorders", "Substance Use Disorders",
+#'    "Psychosocial Problems", "ADHD", "Executive Dysfunction",
+#'    "Effort/Validity", "")
+#' @param subdomain PARAM_DESCRIPTION, Default: NULL
+#' @param narrow PARAM_DESCRIPTION, Default: NULL
+#' @param pass PARAM_DESCRIPTION, Default: c("Planning", "Attention", "Sequential", "Simultaneous", "Knowledge",
+#'    NA)
+#' @param verbal PARAM_DESCRIPTION, Default: c("Verbal", "Nonverbal", NA)
+#' @param timed PARAM_DESCRIPTION, Default: c("Timed", "Untimed", NA)
+#' @param test_type PARAM_DESCRIPTION, Default: c("npsych_test", "rating_scale", "validity_indicator", "item",
+#'    NA)
+#' @param score_type PARAM_DESCRIPTION, Default: c("raw_score", "scaled_score", "t_score", "standard_score", "z_score",
+#'    "percentile", "base_rate", "beta_coefficient", NA)
+#' @param absort PARAM_DESCRIPTION, Default: NULL
+#' @param description PARAM_DESCRIPTION, Default: NULL
+#' @param result PARAM_DESCRIPTION, Default: NULL
+#' @param ... PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname gpluck_make_columns
 #' @importFrom tidytable mutate
-#' @param table Name of table
-#' @param scale Name of scale/subtest
-#' @param raw_score Raw score for scale
-#' @param score Standardized score
-#' @param range Test score range
-#' @param percentile Percentile rank
-#' @param ci_95 95% CI
-#' @param test Name of test
-#' @param test_name Name of test full
-#' @param domain Cognitive domain
-#' @param subdomain Cognitive subdomain#'
-#' @param narrow Narrow cognitive subdomain
-#' @param pass PASS model area
-#' @param verbal Verbal or nonverbal test
-#' @param timed Timed or untimed test
-#' @param test_type Test type
-#' @param score_type Score type
-#' @param absort Sort file
-#' @param description Description of scale and ability it measures
-#' @param result Performance on this scale
-#' @param ... Other args
-#'
-#' @return A table for the report
 #' @export
 gpluck_make_columns <- function(table,
                                 test,
@@ -240,28 +218,24 @@ gpluck_make_columns <- function(table,
     )
 }
 
-#' @title Make test score range (e.g., Below Average, Above Average).
-#' @description Use a consistent set of ranges for performance on neuropsychological testing.
-#' @importFrom tidytable mutate case_when
-#' @import data.table
-#' @param table Name of table
-#' @param score Score, raw score, or standard score
-#' @param percentile Percentile rank
-#' @param range Range of performance score
-#' @param test_type Type of test
-#' @param ... More if needed
-#'
-#' @return Returns a modified table.
-#'
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param table PARAM_DESCRIPTION
+#' @param score PARAM_DESCRIPTION, Default: NULL
+#' @param percentile PARAM_DESCRIPTION, Default: NULL
+#' @param range PARAM_DESCRIPTION, Default: range
+#' @param test_type PARAM_DESCRIPTION, Default: c("npsych_test", "rating_scale", "validity_indicator", "basc3")
+#' @param ... PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
 #' @examples
-#' neurocog <- gpluck_make_score_ranges(
-#'   table = neurocog,
-#'   score = 50,
-#'   percentile = 50,
-#'   range = "",
-#'   test_type = "npsych_test"
-#' )
-#'
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @importFrom tidytable mutate case_when
+#' @rdname gpluck_make_score_ranges
 #' @export
 gpluck_make_score_ranges <-
   function(table,
@@ -361,23 +335,30 @@ gpluck_make_score_ranges <-
     }
   }
 
-#' @title Compute percentile scores and ranges
-#'
-#' @importFrom tidytable mutate case_when select
-#' @importFrom stats sd
-#' @param .x Pronoun for data.frame
-#' @param .score Known score
-#' @param .score_type Known type of score
-#' @param percentile Unknown percentile
-#' @param range Unknown test score classification range
-#' @param pct1 Temp pct 1
-#' @param pct2 Temp pct 2
-#' @param pct3 Temp pct 3
-#' @param z Z score
-#' @param ... Additional expressions
-#'
-#' @return A table with standardized scores
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param .x PARAM_DESCRIPTION
+#' @param .score PARAM_DESCRIPTION, Default: NA
+#' @param .score_type PARAM_DESCRIPTION, Default: c("z_score", "scaled_score", "t_score", "standard_score")
+#' @param percentile PARAM_DESCRIPTION, Default: NA
+#' @param range PARAM_DESCRIPTION, Default: NA
+#' @param pct1 PARAM_DESCRIPTION, Default: NA
+#' @param pct2 PARAM_DESCRIPTION, Default: NA
+#' @param pct3 PARAM_DESCRIPTION, Default: NA
+#' @param z PARAM_DESCRIPTION, Default: NA
+#' @param ... PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname gpluck_compute_percentile_range
 #' @export
+#' @importFrom tidytable mutate case_when select
+#' @importFrom stats pnorm
 gpluck_compute_percentile_range <-
   function(.x,
            .score = NA,
@@ -494,16 +475,31 @@ gpluck_compute_percentile_range <-
   }
 
 
-#' Import Neurocognitive Index Scores
-#'
-#' @param patient Name of patient
-#' @importFrom readxl read_xlsx
-#' @importFrom janitor clean_names
-#' @importFrom readr write_csv
-#' @importFrom here here
-#' @return A table
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param patient PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @seealso
+#'  \code{\link[readxl]{read_excel}}
+#'  \code{\link[here]{here}}
+#'  \code{\link[janitor]{clean_names}}
+#'  \code{\link[glue]{glue}}
+#'  \code{\link[readr]{write_delim}}
+#' @rdname gpluck_get_index_scores
 #' @export
-#'
+#' @importFrom readxl read_xlsx
+#' @importFrom here here
+#' @importFrom janitor clean_names
+#' @importFrom tidytable mutate case_when relocate filter
+#' @importFrom glue glue
+#' @importFrom readr write_csv
 gpluck_get_index_scores <- function(patient) {
   ## Import/Tidy Excel Index Score File
   patient <- patient
@@ -531,7 +527,7 @@ gpluck_get_index_scores <- function(patient) {
 
   ## Mutate columns
 
-  df <- bwu::gpluck_make_columns(
+  df <- gpluck_make_columns(
     table = df,
     raw_score = "",
     range = "",
@@ -553,7 +549,7 @@ gpluck_get_index_scores <- function(patient) {
   ## Test score ranges
 
   df <-
-    bwu::gpluck_make_score_ranges(table = df, test_type = "npsych_test")
+    gpluck_make_score_ranges(table = df, test_type = "npsych_test")
 
   ## Domains
 
@@ -725,29 +721,37 @@ gpluck_get_index_scores <- function(patient) {
   ## Write out CSV
 
   readr::write_csv(g,
-    here::here(patient, "csv", "g.csv"),
-    append = FALSE,
-    col_names = TRUE
+                   here::here(patient, "csv", "g.csv"),
+                   append = FALSE,
+                   col_names = TRUE
   )
 }
 
 
-#' @title Compute percentile scores and ranges janky way
-#' @importFrom tidytable mutate case_when select
-#' @importFrom stats sd
-#' @param .x Pronoun for data.frame
-#' @param .score Known score
-#' @param .score_type Known type of score
-#' @param percentile Unknown percentile
-#' @param range Unknown test score classification range
-#' @param pct1 Temp pct 1
-#' @param pct2 Temp pct 2
-#' @param pct3 Temp pct 3
-#' @param z Z score
-#' @param ... Additional expressions
-#'
-#' @return A table with standardized scores
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param .x PARAM_DESCRIPTION
+#' @param .score PARAM_DESCRIPTION, Default: NA
+#' @param .score_type PARAM_DESCRIPTION, Default: c("z_score", "scaled_score", "t_score", "standard_score", "raw_score")
+#' @param percentile PARAM_DESCRIPTION, Default: NA
+#' @param range PARAM_DESCRIPTION, Default: NA
+#' @param pct1 PARAM_DESCRIPTION, Default: NA
+#' @param pct2 PARAM_DESCRIPTION, Default: NA
+#' @param pct3 PARAM_DESCRIPTION, Default: NA
+#' @param z PARAM_DESCRIPTION, Default: NA
+#' @param ... PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname compute_pctile_range
 #' @export
+#' @importFrom tidytable mutate case_when select
+#' @importFrom stats pnorm
 compute_pctile_range <-
   function(.x,
            .score = NA,
