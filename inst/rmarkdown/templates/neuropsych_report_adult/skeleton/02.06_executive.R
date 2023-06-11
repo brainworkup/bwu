@@ -109,9 +109,11 @@ xfun::cache_rds({
 
 ## ---- 03-table-executive ------------
 tb <-
-  bwu::make_tibble(tibb = executive,
+  bwu::make_tibble(
+    tibb = executive,
     data = neurocog,
-    pheno = "Attention/Executive") |>
+    pheno = "Attention/Executive"
+  ) |>
   tidytable::filter(Scale %in% filter_executive) |>
   tidytable::arrange(Test) |>
   tidytable::filter(
@@ -185,37 +187,41 @@ executive <-
   tidytable::filter(scale != "Orientation")
 
 ## ---- 06-plot-subdomain-executive -----------------
-library(ggplot2)
-library(ggthemes)
 library(ggpubr)
+library(ggthemes)
 library(scales)
 
 ggplot2::ggplot(data = executive) +
-  geom_segment(
-    aes(x = z_mean_sub,
-        y = reorder(subdomain, z_mean_sub),
-        xend = 0,
-        yend = subdomain),
-    linewidth = 0.5) +
-  geom_point(
+  ggplot2::geom_segment(
+    aes(
+      x = z_mean_sub,
+      y = reorder(subdomain, z_mean_sub),
+      xend = 0,
+      yend = subdomain
+    ),
+    linewidth = 0.5
+  ) +
+  ggplot2::geom_point(
     aes(x = z_mean_sub, y = reorder(subdomain, z_mean_sub)),
     shape = 21,
     linewidth = 0.5,
     color = "black",
     fill =
-      c("#190D33", "#27123A", "#351742", "#421E4A", "#502653",
+      c(
+        "#190D33", "#27123A", "#351742", "#421E4A", "#502653",
         "#5C2E5A", "#683863", "#73436A", "#7B4E70", "#815875",
         "#866079", "#89697D", "#8B7280", "#8C7A81", "#8E8385",
         "#908A87", "#919289", "#929A8A", "#94A38D", "#96AB8F",
         "#99B392", "#9CBD95", "#A2C79A", "#ACD3A0", "#B9DFA9",
-        "#C8EAB3", "#D8F2BD", "#E6F9C7", "#F3FCD0", "#FEFED8"),
+        "#C8EAB3", "#D8F2BD", "#E6F9C7", "#F3FCD0", "#FEFED8"
+      ),
     k = length(unique(executive$subdomain)),
     size = 6
   ) +
   theme_fivethirtyeight() +
-  theme(panel.background = element_rect(fill = "white")) +
-  theme(plot.background = element_rect(fill = "white")) +
-  theme(panel.border = element_rect(color = "white"))
+  ggplot2::theme(panel.background = element_rect(fill = "white")) +
+  ggplot2::theme(plot.background = element_rect(fill = "white")) +
+  ggplot2::theme(panel.border = element_rect(color = "white"))
 
 ## ---- 07-plot-narrow-executive -------------------
 bwu::dotplot(

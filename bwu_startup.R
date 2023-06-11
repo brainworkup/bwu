@@ -11,12 +11,12 @@ usethis::rename_files("oxy-extract_nse_otterai_text.R", "oxy_extraxt_text.R")
 proj_sitrep()
 proj_activate(".")
 ## sinew
-
+sinew::pretty_namespace("R/")
 sinew::makeOxyFile(here::here("R", "drilldown.R"))
 
 sinew::makeOxyFile(here::here("R", "gpluck.R"))
-
-sinew::moga("R/oxy_dotplot.R")
+sinew::update_desc("~/bwu")
+sinew::moga("R/dotplot.R")
 sinew::moga("R/oxy_extract_text.R")
 sinew::moga("R/plots.R")
 sinew::moga("R/drilldown.R")
@@ -75,13 +75,13 @@ update.packages(
 
 ## dependencies
 
-> patient <- "Nestor"
-> file <- fs::as_fs_path("~/isolated/Nestor/pdf/Nestor L. Young Adult ADHD + Dyslexia -852f926a-40a7-4d05-92b9-a4945df0ead3.pdf")
-> start <- "Word Reading"
-> end <- "Comprehension"
-> tb1_wrat4 <- extract_text(patient = patient, file_path = file, start_pattern = start, end_pattern = end)
-Error in readChar(file_path, file.info(file_path)$size, useBytes = TRUE) :
-  invalid UTF-8 input in readChar()
+# > patient <- "Nestor"
+# > file <- fs::as_fs_path("~/isolated/Nestor/pdf/Nestor L. Young Adult ADHD + Dyslexia -852f926a-40a7-4d05-92b9-a4945df0ead3.pdf")
+# > start <- "Word Reading"
+# > end <- "Comprehension"
+# > tb1_wrat4 <- extract_text(patient = patient, file_path = file, start_pattern = start, end_pattern = end)
+# Error in readChar(file_path, file.info(file_path)$size, useBytes = TRUE) :
+#   invalid UTF-8 input in readChar()
 
 usethis::use_package("ggpubr")
 usethis::use_package("tidyr")

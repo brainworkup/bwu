@@ -158,7 +158,7 @@ evaluation. -->
 
 ### Academics
 
-Patient is currently a USC student completing their $degree degree in $major. `r params$first_name` did not endorse any difficulties with advancing through school.
+Patient is currently a USC student completing their degree in. `r params$first_name` did not endorse any difficulties with advancing through school.
 
 ### Family/Home
 
@@ -228,7 +228,7 @@ cefi_or <- vroom::vroom(here::here(patient, "csv", "cefi_or.csv"))
 
 ```{r}
 #| label: tb1-caars
-#| eval: true
+#| eval: false
 #| echo: false
 #| warning: false
 #| tbl-cap: "CAARS Self-Report"
@@ -318,7 +318,7 @@ tb3
 
 ```{r}
 #| label: tb2-cefi
-#| eval: true
+#| eval: false
 #| echo: false
 #| warning: false
 #| tbl-cap: CEFI Observer-Report
