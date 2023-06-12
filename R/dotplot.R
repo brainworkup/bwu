@@ -33,30 +33,73 @@
 dotplot <- function(
     data, x, y,
     fill = NULL, size = NULL, palette = NULL, ...) {
-  ggplot2::ggplot(data) +
+  # Define the color palette
+  color_palette <- c(
+    "#190D33", "#27123A", "#351742", "#421E4A", "#502653",
+    "#5C2E5A", "#683863", "#73436A", "#7B4E70", "#815875",
+    "#866079", "#89697D", "#8B7280", "#8C7A81", "#8E8385",
+    "#908A87", "#919289", "#929A8A", "#94A38D", "#96AB8F",
+    "#99B392", "#9CBD95", "#A2C79A", "#ACD3A0", "#B9DFA9",
+    "#C8EAB3", "#D8F2BD", "#E6F9C7", "#F3FCD0", "#FEFED8")
+
+  ggplot2::ggplot() +
     ggplot2::geom_segment(
-      ggplot2::aes(x, y = stats::reorder(y, x), xend = 0, yend = y),
+      data = data,
+      aes(
+        x = x,
+        y = reorder(y, x),
+        xend = 0,
+        yend = y
+      ),
       linewidth = 0.5
     ) +
     ggplot2::geom_point(
-      ggplot2::aes(x, y = stats::reorder(y, x)),
+      data = data,
+      aes(
+        x = x,
+        y = reorder(y, x),
+        fill = x
+      ),
       shape = 21,
-      linewidth = 0.5,
-      color = "black",
-      fill =
-        c(
-          "#190D33", "#27123A", "#351742", "#421E4A", "#502653",
-          "#5C2E5A", "#683863", "#73436A", "#7B4E70", "#815875",
-          "#866079", "#89697D", "#8B7280", "#8C7A81", "#8E8385",
-          "#908A87", "#919289", "#929A8A", "#94A38D", "#96AB8F",
-          "#99B392", "#9CBD95", "#A2C79A", "#ACD3A0", "#B9DFA9",
-          "#C8EAB3", "#D8F2BD", "#E6F9C7", "#F3FCD0", "#FEFED8"
-        ),
-      k = length(unique(data$y)),
-      size = 6
+      size = 6,
+      color = "black"
     ) +
+    ggplot2::scale_fill_gradientn(colors = color_palette, guide = "none") +
+
     ggthemes::theme_fivethirtyeight() +
     ggplot2::theme(panel.background = ggplot2::element_rect(fill = "white")) +
     ggplot2::theme(plot.background = ggplot2::element_rect(fill = "white")) +
     ggplot2::theme(panel.border = ggplot2::element_rect(color = "white"))
+
 }
+
+# dotplot <- function(
+#     data, x, y,
+#     fill = NULL, size = NULL, palette = NULL, ...) {
+#   ggplot2::ggplot(data) +
+#     ggplot2::geom_segment(
+#       ggplot2::aes(x, y = stats::reorder(y, x), xend = 0, yend = y),
+#       linewidth = 0.5
+#     ) +
+#     ggplot2::geom_point(
+#       ggplot2::aes(x, y = stats::reorder(y, x)),
+#       shape = 21,
+#       linewidth = 0.5,
+#       color = "black",
+#       fill =
+#         c(
+#           "#190D33", "#27123A", "#351742", "#421E4A", "#502653",
+#           "#5C2E5A", "#683863", "#73436A", "#7B4E70", "#815875",
+#           "#866079", "#89697D", "#8B7280", "#8C7A81", "#8E8385",
+#           "#908A87", "#919289", "#929A8A", "#94A38D", "#96AB8F",
+#           "#99B392", "#9CBD95", "#A2C79A", "#ACD3A0", "#B9DFA9",
+#           "#C8EAB3", "#D8F2BD", "#E6F9C7", "#F3FCD0", "#FEFED8"
+#         ),
+#       k = length(unique(data$y)),
+#       size = 6
+#     ) +
+#     ggthemes::theme_fivethirtyeight() +
+#     ggplot2::theme(panel.background = ggplot2::element_rect(fill = "white")) +
+#     ggplot2::theme(plot.background = ggplot2::element_rect(fill = "white")) +
+#     ggplot2::theme(panel.border = ggplot2::element_rect(color = "white"))
+# }

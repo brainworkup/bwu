@@ -41,16 +41,16 @@ Imports:
     tools,
     graphics,
     grDevices,
+    kableExtra,
     utils
 Suggests:
     Cairo,
     forcats,
     rJava,
     png,
+    hablar,
     fs,
     gt,
-    hablar,
-    kableExtra,
     magick,
     shiny,
     spelling,
