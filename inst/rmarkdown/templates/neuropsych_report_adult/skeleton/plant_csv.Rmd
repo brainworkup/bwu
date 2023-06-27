@@ -3,7 +3,7 @@ title: "Plant CSV file of Neuropsych Measures/Tests"
 params:
   patient:
     label: "Patient First Name:"
-    value: John
+    value: Biggie
     input: text
   test_name:
     label: "Full Name of Test/Test Battery:"
@@ -306,12 +306,15 @@ params:
 output:
   rmdformats::robobook:
     highlight: kate
-editor: source
 ---
 
 ## Setup
 
 ```{r setup, include = FALSE}
+Sys.setenv(
+  JAVA_HOME = "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home"
+)
+options(java.parameters = "-Xmx16000m")
 knitr::opts_chunk$set(
   root.dir = normalizePath("./"),
   echo = FALSE,
@@ -660,8 +663,7 @@ compute_result <-
           .scale == "Driving Scences" ~ glue::glue("{.description} was {.range}.\n"),
           .scale == "Mazes" ~ glue::glue("{.description} was {.range}.\n"),
           .scale == "Dots" ~ glue::glue("{.description} was {.range}.\n"),
-          .scale == "Word Generation" ~ glue::glue("{.description} was {.range}.\n"),    
-          
+          .scale == "Word Generation" ~ glue::glue("{.description} was {.range}.\n"),
           TRUE ~ as.character(result)
         )
       )
@@ -682,12 +684,23 @@ df3 <- compute_result(
 ## Compute CI 95%
 
 ```{r ci95}
-df3$ci_95 <- bwu::ci(
+# df3$ci_95 <- bwu::ci(
+#   x = as.numeric(df3$score),
+#   m = as.numeric(params$mean),
+#   sd = as.numeric(params$stdev),
+#   rel = as.numeric(params$reliability)
+# )
+
+ci_values <- bwu::ci(
   x = as.numeric(df3$score),
   m = as.numeric(params$mean),
   sd = as.numeric(params$stdev),
   rel = as.numeric(params$reliability)
 )
+
+df3$true_score <- ci_values["true_score"]
+df3$ci_lo <- ci_values["ci_lo"]
+df3$ci_hi <- ci_values["ci_hi"]
 ```
 
 ## Write out CSV and XLSX
