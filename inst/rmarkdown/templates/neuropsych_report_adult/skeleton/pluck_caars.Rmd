@@ -35,7 +35,8 @@ editor: source
 
 ```{r setup, include=FALSE}
 Sys.setenv(
-  JAVA_HOME = "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home")
+  JAVA_HOME = "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home"
+)
 options(java.parameters = "-Xmx16000m")
 knitr::opts_chunk$set(
   root.dir = normalizePath("./"),
@@ -94,7 +95,9 @@ pages <- params$pages
 ```{r write-file}
 writeLines(
   file, here::here(
-    patient, "pre_csv", paste0(test, ".pdf")))
+    patient, "pre_csv", paste0(test, ".pdf")
+  )
+)
 ```
 
 ```{r read-file}
@@ -161,7 +164,7 @@ colnames3 <- c("score")
 ## Pluck individual columns
 
 ```{r pluck1}
-table1 <- tibble::as_tibble(plucked_table[[1]])
+table1 <- tibble::as_tibble(plucked_table[[1]], .name_repair = "unique")
 colnames(table1) <- colnames1
 ```
 
@@ -192,7 +195,7 @@ if (params$test == "caars_sr") {
 ```
 
 ```{r pluck2}
-table2 <- tibble::as_tibble(plucked_table[[2]])
+table2 <- tibble::as_tibble(plucked_table[[2]], .name_repair = "unique")
 colnames(table2) <- colnames2
 to_double <- c("raw_score")
 table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
@@ -200,9 +203,10 @@ table2 <- table2[1:9, ]
 ```
 
 ```{r pluck3}
-table3 <- tibble::as_tibble(plucked_table[[3]])
+table3 <- tibble::as_tibble(plucked_table[[3]], .name_repair = "unique")
 colnames(table3) <- colnames3
 to_double <- c("score")
+table3[9, ] <- ""
 table3 <- table3 |> hablar::convert(dbl(all_of(to_double)))
 table3 <- table3[1:9, ]
 ```
@@ -362,7 +366,6 @@ if (params$test == "caars_sr") {
 
 ```{r description}
 if (params$test == "caars_sr") {
-
   table$scale == "CAARS-SR Inconsistency Index"
   val_ind1 <- table$raw_score[table$scale == "CAARS-SR Inconsistency Index"]
 
@@ -392,7 +395,6 @@ if (params$test == "caars_sr") {
       )
     )
 } else if (params$test == "caars_or") {
-
   table$narrow == "CAARS-OR Inconsistency Index"
   val_ind2 <- table$raw_score[table$narrow == "CAARS-OR Inconsistency Index"]
 
@@ -508,7 +510,9 @@ if (params$test == "caars_sr") {
 table <-
   table |>
   tidytable::relocate(
-    c(raw_score, score, percentile, range, ci_95), .before = test)
+    c(raw_score, score, percentile, range, ci_95),
+    .before = test
+  )
 ```
 
 ## Write out csv
@@ -565,6 +569,5 @@ if (params$test == "caars_sr") {
 
   readr::write_lines(caars_or_squished, here::here(patient, "caars_or_text.md"), sep = "\n")
   readr::write_lines(caars_or_squished, here::here(patient, "caars_or_text.qmd"), sep = "\n")
-
 }
 ```

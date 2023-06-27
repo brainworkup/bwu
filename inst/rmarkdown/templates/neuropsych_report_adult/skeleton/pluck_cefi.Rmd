@@ -165,7 +165,7 @@ colnames2 <- c(
 ## CEFI Full Scale
 
 ```{r pluck1}
-table1 <- tibble::as_tibble(plucked_table[[1]])
+table1 <- tibble::as_tibble(plucked_table[[1]], .name_repair = "unique")
 colnames(table1) <- colnames1
 to_double <- c("score", "percentile")
 table1 <-
@@ -183,7 +183,7 @@ if (params$test == "cefi_sr") {
 ## CEFI Subscales
 
 ```{r pluck2}
-table2 <- as_tibble(plucked_table[[2]])
+table2 <- as_tibble(plucked_table[[2]], .name_repair = "unique")
 colnames(table2) <- colnames2
 to_double <- c("score", "percentile")
 table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
