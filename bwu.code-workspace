@@ -17,7 +17,12 @@
       "activityBarBadge.foreground": "#000000",
       "sideBar.border": "#d1f0ee",
       "tab.activeBorder": "#d1f0ee",
-      "sash.hoverBorder": "#d1f0ee"
+      "sash.hoverBorder": "#d1f0ee",
+      "editorError.foreground": "#000000ff",
+      "editorGroup.border": "#d1f0ee",
+      "editorInfo.foreground": "#000000ff",
+      "editorWarning.foreground": "#000000ff",
+      "panel.border": "#d1f0ee"
     },
     "peacock.color": "#abe3df",
     "makefile.extensionOutputFolder": "./.vscode",
