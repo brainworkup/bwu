@@ -11,8 +11,15 @@ usethis::rename_files("oxy-extract_nse_otterai_text.R", "oxy_extraxt_text.R")
 proj_sitrep()
 proj_activate(".")
 ## sinew
+
 sinew::pretty_namespace("R/")
+sinew::pretty_namespace(".")
+
+d2 <- sinew::update_desc("~/buw")
+
 sinew::makeOxyFile(here::here("R", "drilldown.R"))
+
+sinew::makeOxyFile(here::here("R", "dotplot.R"))
 
 sinew::makeOxyFile(here::here("R", "gpluck.R"))
 sinew::update_desc("~/bwu")
@@ -24,6 +31,8 @@ sinew::moga("R/utils.R")
 
 sinew::makeOxygen("R/drilldown.R")
 
+sinew::makeOxygen("~/bwu/R/dotplot.R")
+
 sinew::makeOxygen(here::here("R", "oxy-plots.R"))
 
 ## devtools
@@ -34,6 +43,8 @@ devtools::install_deps(dependencies = TRUE)
 devtools::build_readme()
 
 usethis::use_readme_rmd()
+
+roxygen2::roxygenise()
 
 update.packages(ask = FALSE, checkBuilt = TRUE)
 

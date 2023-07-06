@@ -57,7 +57,6 @@ inst/rmarkdown/templates/npsychreport/skeleton/dsm5_icd10_diagnoses.pdf
 R-CMD-check.yaml
 renv/.DS_Store
 inst/doc
-
 .Rproj.user
 .Rhistory
 .RData
@@ -75,11 +74,8 @@ inst/doc
 bwu.code-workspace
 renv/.DS_Store
 bwu.builds/
-
 /.luarc.json
-
 /.quarto/
-
 # pak
 .pak/
 .builds.archived
@@ -91,5 +87,4 @@ notes2/
 letter-joey-typst/
 bwu_startup.R
 renv/.DS_Store
-
 blackbox.config.json

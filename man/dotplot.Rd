@@ -2,49 +2,52 @@
 % Please edit documentation in R/dotplot.R
 \name{dotplot}
 \alias{dotplot}
-\title{Create Dotplots of Cognitive Domains}
+\title{Dotplot of cognitive scores.}
 \usage{
-dotplot(data, x, y, fill = NULL, size = NULL, palette = NULL, ...)
+dotplot(
+  data,
+  x,
+  y,
+  linewidth = 0.5,
+  fill = x,
+  shape = 21,
+  size = 6,
+  color = "black",
+  colors = NULL
+)
 }
 \arguments{
-\item{data}{Dataset variable.}
+\item{data}{PARAM_DESCRIPTION}
 
-\item{x}{X Mean z-score of domain.}
+\item{x}{PARAM_DESCRIPTION}
 
-\item{y}{Y Domain/variable name of the y-axis.}
+\item{y}{PARAM_DESCRIPTION}
 
-\item{fill}{Optional name of variable to fill points by}
+\item{linewidth}{PARAM_DESCRIPTION, Default: 0.5}
 
-\item{size}{Dot size, Default: NULL}
+\item{fill}{PARAM_DESCRIPTION, Default: "x"}
 
-\item{palette}{Color palette}
+\item{shape}{PARAM_DESCRIPTION, Default: 21}
 
-\item{...}{other arguments to be passed to
-\code{\link[ggplot2]{geom_dotplot}}.}
+\item{size}{PARAM_DESCRIPTION, Default: 6}
+
+\item{color}{PARAM_DESCRIPTION, Default: "black"}
+
+\item{colors}{PARAM_DESCRIPTION, Default: NULL}
 }
 \value{
-Produce a dotplot of domain scores
+OUTPUT_DESCRIPTION
 }
 \description{
-Make a dotplot for cognitive domains.
+FUNCTION_DESCRIPTION
 }
 \details{
-This is used to collapse individual test scores into composites and
-then plot them ...
+DETAILS
 }
 \examples{
 \dontrun{
-if (interactive()) {
-  # EXAMPLE1
+if(interactive()){
+ #EXAMPLE1
+ }
 }
-}
-}
-\seealso{
-\code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{aes}},
-\code{\link[ggplot2]{geom_segment}}, \code{\link[ggplot2]{geom_point}},
-\code{\link[ggplot2]{scale_colour_gradient}},
-\code{\link[ggplot2]{guide_colourbar}}, \code{\link[ggplot2]{margin}},
-\code{\link[ggplot2]{theme}}
-\code{\link[stats]{reorder.default}}
-\code{\link[ggthemes]{theme_fivethirtyeight}}
 }
