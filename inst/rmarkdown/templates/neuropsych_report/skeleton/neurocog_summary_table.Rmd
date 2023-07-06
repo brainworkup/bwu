@@ -1,0 +1,89 @@
+---
+title: table glue
+params:
+  patient: "Biggie"
+---
+
+```{r}
+library(tidytable)
+library(tidyr)
+library(gt)
+library(table.glue)
+```
+
+```{r}
+patient <- params$patient
+```
+
+```{r, read-data}
+neuropsych <- vroom::vroom(here::here(patient, "neuropsych.csv"))
+neurocog <- vroom::vroom(here::here(patient, "neurocog.csv"))
+neurobehav <- vroom::vroom(here::here(patient, "neurobehav.csv"))
+```
+
+```{r}
+domain_smry <- (neurocog) %>%
+  group_by(domain) %>%
+  summarize(across(
+    c(z, percentile),
+    .fns = list(
+      lwr = ~ quantile(.x, probs = 0.25, na.rm = TRUE),
+      est = ~ quantile(.x, probs = 0.50, na.rm = TRUE),
+      upr = ~ quantile(.x, probs = 0.75, na.rm = TRUE)
+    )
+  )
+)
+```
+
+```{r}
+rspec <- round_spec() %>% 
+  round_half_even() %>% 
+  round_using_magnitude(breaks = c(1, 10, 100, Inf),
+                        digits = c(2, 1,  1, 0))
+
+names(rspec) <- paste('table.glue', names(rspec), sep = '.')
+
+options(rspec)
+
+domain_tbl <- domain_smry %>% 
+  transmute(
+    domain, 
+    tbv_z = table_glue("{z_est} [{z_lwr} - {z_upr}]"),
+    tbv_pct = table_glue("{percentile_est} [{percentile_lwr} - {percentile_upr}]")
+  )
+```
+
+```{r, domain-tbl, double_escape=TRUE, escape=FALSE, fig.fullwidth=FALSE}
+gt_domain <- 
+domain_tbl %>% 
+  gt(rowname_col = 'domain') %>% 
+  cols_label(tbv_z = 'z-Score', tbv_pct = 'Percentile Rank') %>% 
+  cols_align('center') %>% 
+  tab_stubhead(label = 'Neurocognitive Domain') %>% 
+  tab_spanner(label = 'Median [25th, 75th percentile]',
+              columns = starts_with('tbv')) %>% 
+  tab_source_note(md('*z*-Score (M = 0, SD = 1)'))
+gt_domain
+```
+
+```{r}
+domain_inline_iq <- domain_tbl %>% 
+  filter(domain == 'Intelligence/General Ability') %>% 
+  pull(tbv_z)
+
+domain_inline_mem <- domain_tbl %>% 
+  filter(domain == 'Memory') %>% 
+  pull(tbv_z)
+
+domain_inline_lan <- domain_tbl %>% 
+  filter(domain == 'Verbal/Language') %>% 
+  pull(tbv_z)
+```
+
+```{r}
+domain_inline <- domain_tbl %>% 
+  as_inline(tbl_variables = c("domain"),
+            tbl_values = c("tbv_z", "tbv_pct"))
+
+print(domain_inline)
+```

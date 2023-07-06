@@ -1,25 +1,23 @@
-#' Tufte HTML
-#'
-#' Templates for creating handouts according to the style of Edward R. Tufte and
-#' Richard Feynman.
-#' @details `tufte_html()` provides the HTML format based on the Tufte CSS:
-#'   <https://edwardtufte.github.io/tufte-css/>.
-#' @param tufte_features A character vector of style features to enable:
-#'   `fonts` stands for the `et-book` fonts in the `tufte-css`
-#'   project, `background` means the lightyellow background color of the
-#'   page, and `italics` means whether to use italics for the headers. You
-#'   can enable a subset of these features, or just disable all of them by
-#'   `NULL`. When this argument is not used and the `tufte_variant`
-#'   argument is not `default`, no features are enabled.
-#' @param tufte_variant A variant of the Tufte style. Currently supported styles
-#'   are `default` (from the `tufte-css` project), and
-#'   `envisioned` (inspired by the project `Envisioned CSS`
-#'   <https://github.com/nogginfuel/envisioned-css> but essentially just
-#'   sets the font family to `Roboto Condensed`, and changed the
-#'   background/foreground colors).
-#' @param margin_references Whether to place citations in margin notes.
-#' @rdname tufte_handout
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param ... PARAM_DESCRIPTION
+#' @param tufte_features PARAM_DESCRIPTION, Default: c("fonts", "background", "italics")
+#' @param tufte_variant PARAM_DESCRIPTION, Default: c("default", "envisioned")
+#' @param margin_references PARAM_DESCRIPTION, Default: TRUE
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname tufte_html
 #' @export
+#' @importFrom rmarkdown html_document
+#' @importFrom bookdown html_document2
+#' @importFrom knitr opts_hooks opts_knit hook_plot_md knit_engines
+#' @importFrom xfun read_utf8 write_utf8
 tufte_html <- function(..., tufte_features = c("fonts", "background", "italics"),
                        tufte_variant = c("default", "envisioned"), margin_references = TRUE) {
   tufte_variant <- match.arg(tufte_variant)
@@ -35,7 +33,7 @@ tufte_html <- function(..., tufte_features = c("fonts", "background", "italics")
       )
     )
   }
-  format <- html_document2(theme = NULL, ...)
+  format <- bookdown::html_document2(theme = NULL, ...)
   pandoc2 <- pandoc2.0()
 
   # when fig.margin = TRUE, set fig.beforecode = TRUE so plots are moved before
@@ -171,9 +169,23 @@ tufte_html <- function(..., tufte_features = c("fonts", "background", "italics")
   format
 }
 
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param features PARAM_DESCRIPTION
+#' @param variant PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname tufte_html_dependency
+#' @export
 #' @importFrom htmltools htmlDependency
 tufte_html_dependency <- function(features, variant) {
-  list(htmlDependency(
+  list(htmltools::htmlDependency(
     "tufte-css", "2015.12.29",
     src = template_resources("tufte_html"), stylesheet = c(
       sprintf("tufte-%s.css", features), "tufte.css",
@@ -184,6 +196,20 @@ tufte_html_dependency <- function(features, variant) {
 
 # we assume one footnote only contains one paragraph here, although it is
 # possible to write multiple paragraphs in a footnote with Pandoc's Markdown
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param x PARAM_DESCRIPTION
+#' @param fn_label PARAM_DESCRIPTION, Default: 'fn'
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname parse_footnotes
+#' @export
 parse_footnotes <- function(x, fn_label = "fn") {
   i <- grep('^<div class="footnotes[^"]*"[^>]*>', x)
   if (length(i) == 0) {
@@ -204,6 +230,19 @@ parse_footnotes <- function(x, fn_label = "fn") {
 }
 
 # move reference items from the bottom to the margin (as margin notes)
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param x PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname margin_references
+#' @export
 margin_references <- function(x) {
   i <- grep('^<div id="refs" class="references[^"]*"[^>]*>$', x)
   if (length(i) != 1) {
@@ -243,6 +282,20 @@ margin_references <- function(x) {
   x[-(i:(max(k) + 3))] # remove references at the bottom
 }
 
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param text PARAM_DESCRIPTION, Default: ''
+#' @param icon PARAM_DESCRIPTION, Default: '&#8853;'
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname marginnote_html
+#' @export
 marginnote_html <- function(text = "", icon = "&#8853;") {
   sprintf(paste0(
     '<label for="tufte-mn-" class="margin-toggle">%s</label>',

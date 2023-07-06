@@ -2,7 +2,7 @@
 % Please edit documentation in R/dotplot.R
 \name{dotplot}
 \alias{dotplot}
-\title{Dotplot of cognitive scores.}
+\title{FUNCTION_TITLE}
 \usage{
 dotplot(
   data,
@@ -25,13 +25,13 @@ dotplot(
 
 \item{linewidth}{PARAM_DESCRIPTION, Default: 0.5}
 
-\item{fill}{PARAM_DESCRIPTION, Default: "x"}
+\item{fill}{PARAM_DESCRIPTION, Default: x}
 
 \item{shape}{PARAM_DESCRIPTION, Default: 21}
 
 \item{size}{PARAM_DESCRIPTION, Default: 6}
 
-\item{color}{PARAM_DESCRIPTION, Default: "black"}
+\item{color}{PARAM_DESCRIPTION, Default: 'black'}
 
 \item{colors}{PARAM_DESCRIPTION, Default: NULL}
 }
@@ -50,4 +50,9 @@ if(interactive()){
  #EXAMPLE1
  }
 }
+}
+\seealso{
+\link[ggplot2:ggplot]{ggplot}, \link[ggplot2:geom_segment]{geom_segment}, \link[ggplot2:aes]{aes}, \link[ggplot2:geom_point]{geom_point}, \link[ggplot2:scale_gradient]{scale_fill_gradientn}, \link[ggplot2:theme]{theme}, \link[ggplot2:element]{element_rect}
+\link[stats:reorder.factor]{reorder}
+\link[ggthemes:theme_fivethirtyeight]{theme_fivethirtyeight}
 }

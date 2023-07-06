@@ -35,9 +35,17 @@ sinew::makeOxygen("~/bwu/R/dotplot.R")
 
 sinew::makeOxygen(here::here("R", "oxy-plots.R"))
 
+
+pkg_dir_R <- "R/"
+sinew::pretty_namespace(pkg_dir_R, overwrite = TRUE)
+sinew::sinew_opts$set(markdown_links = TRUE)
+sinew::makeOxyFile(input = pkg_dir_R, overwrite = TRUE, verbose = FALSE)
+
+rcompendium::add_dependencies(".")
 ## devtools
 devtools::lint()
 devtools::document()
+
 devtools::install_deps(dependencies = TRUE)
 
 devtools::build_readme()

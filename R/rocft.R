@@ -1,13 +1,17 @@
-#' ROCFT Copy Standardized Score
-#' @description ROCFT predicted scores, for age range of 22 -79 years, for copy trial.
-#' @param raw_score Patients raw score
-#' @param age Patients age
-#'
-#' @return A printed T-Score of ROCFT Copy performance
-#' @export
-#'
-#' @examples
-#' rocft_copy_score <- rocft_copy(raw_score = 32, age = 24)
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param raw_score PARAM_DESCRIPTION
+#' @param age PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname rocft_copy
+#' @export 
 rocft_copy <- function(raw_score, age) {
   if (raw_score == "") {
     return("No raw score provided")
@@ -56,17 +60,20 @@ rocft_copy <- function(raw_score, age) {
   )
 }
 
-#' ROCFT Delayed Recall Standardized Score
-#' @description ROCFT predicted scores, for age range of 22 -79 years, for
-#' long-term delayed recall.
-#' @param raw_score Patients raw score on Delayed Recall
-#' @param age Patient's age
-#'
-#' @return A T-Score of ROCFT Delayed Recall performance
-#' @export
-#'
-#' @examples
-#' rocft_delay_score <- rocft_delay(raw_score = 14, age = 24)
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param raw_score PARAM_DESCRIPTION
+#' @param age PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname rocft_delay
+#' @export 
 rocft_delay <- function(raw_score, age) {
   if (raw_score == "") {
     return("No raw score provided")

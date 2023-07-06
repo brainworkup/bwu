@@ -16,11 +16,12 @@ neuropsych_report_child <- function(...,
                                     csl = NULL,
                                     colorlinks = TRUE) {
   pdf_document_format(...,
-    number_sections = number_sections,
-    md_extensions = md_extensions,
-    format = "neuropsych_report_child",
-    template = "style_tufte.tex",
-    csl = NULL,
-    colorlinks = TRUE
+                      number_sections = number_sections,
+                      md_extensions = md_extensions,
+                      format = "neuropsych_report_child",
+                      template = "style_tufte.tex",
+                      csl = NULL,
+                      colorlinks = TRUE
   )
 }
+

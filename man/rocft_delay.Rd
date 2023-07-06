@@ -2,22 +2,28 @@
 % Please edit documentation in R/rocft.R
 \name{rocft_delay}
 \alias{rocft_delay}
-\title{ROCFT Delayed Recall Standardized Score}
+\title{FUNCTION_TITLE}
 \usage{
 rocft_delay(raw_score, age)
 }
 \arguments{
-\item{raw_score}{Patients raw score on Delayed Recall}
+\item{raw_score}{PARAM_DESCRIPTION}
 
-\item{age}{Patient's age}
+\item{age}{PARAM_DESCRIPTION}
 }
 \value{
-A T-Score of ROCFT Delayed Recall performance
+OUTPUT_DESCRIPTION
 }
 \description{
-ROCFT predicted scores, for age range of 22 -79 years, for
-long-term delayed recall.
+FUNCTION_DESCRIPTION
+}
+\details{
+DETAILS
 }
 \examples{
-rocft_delay_score <- rocft_delay(raw_score = 14, age = 24)
+\dontrun{
+if(interactive()){
+ #EXAMPLE1
+ }
+}
 }

@@ -2,34 +2,34 @@
 % Please edit documentation in R/extract_and_save_transcript.R
 \name{extract_and_save_transcript}
 \alias{extract_and_save_transcript}
-\title{Extract transcribed text and save as text/md file.}
+\title{Extract text}
 \usage{
 extract_and_save_transcript(x, file, begin, end, eol = "\\\\n")
 }
 \arguments{
-\item{x}{A character vector}
+\item{x}{PARAM_DESCRIPTION}
 
-\item{file}{File or connection to write to.}
+\item{file}{PARAM_DESCRIPTION}
 
-\item{begin}{First anchor}
+\item{begin}{PARAM_DESCRIPTION}
 
-\item{end}{Second anchor}
+\item{end}{PARAM_DESCRIPTION}
 
-\item{eol}{The line separator. Defaults to ⁠\\.c}
+\item{eol}{PARAM_DESCRIPTION, Default: '\\n'}
 }
 \value{
-returns x, invisibly.
+OUTPUT_DESCRIPTION
 }
 \description{
-Extracts text between defined patterns from a specified file and saves the extracted text as a markdown file.
+FUNCTION_DESCRIPTION
 }
 \details{
 DETAILS
 }
 \examples{
 \dontrun{
-if (interactive()) {
-  # EXAMPLE1
-}
+if(interactive()){
+ #EXAMPLE1
+ }
 }
 }

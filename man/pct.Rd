@@ -2,28 +2,33 @@
 % Please edit documentation in R/scores.R
 \name{pct}
 \alias{pct}
-\title{Convert T scores to z scores to percentiles.
-This is a functioning that converts T-scores to z-scores to percentile
-ranks. That is about it.}
+\title{FUNCTION_TITLE}
 \usage{
 pct(x, m, sd)
 }
 \arguments{
-\item{x}{Raw test score}
+\item{x}{PARAM_DESCRIPTION}
 
-\item{m}{Mean of whatever type of score}
+\item{m}{PARAM_DESCRIPTION}
 
-\item{sd}{Standard deviation (SD) of whatever type of score}
+\item{sd}{PARAM_DESCRIPTION}
 }
 \value{
-A percentile rank score
+OUTPUT_DESCRIPTION
 }
 \description{
-Convert T scores to z scores to percentiles.
-This is a functioning that converts T-scores to z-scores to percentile
-ranks. That is about it.
+FUNCTION_DESCRIPTION
+}
+\details{
+DETAILS
 }
 \examples{
-pct(x = 103, m = 100, sd = 15)
-
+\dontrun{
+if(interactive()){
+ #EXAMPLE1
+ }
+}
+}
+\seealso{
+\link[stats:Normal]{pnorm}
 }

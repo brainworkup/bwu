@@ -1,19 +1,20 @@
-#' @title Predicted test score
-#'
-#' @description Estimate the difference between an ability and achievement score.
-#'
-#' @param x Score 1 (ability)
-#' @param y Score 2 (achievement)
-#' @param r Correlation between ability test and achievement test
-#' @param m Mean of test score
-#' @param ... Additional arguments
-#'
-#' @return A predicted score.
-#'
-#' @examples
-#' pred(x = 122, y = 84, r = .65, m = 100)
-#'
-#' @export
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param x PARAM_DESCRIPTION
+#' @param y PARAM_DESCRIPTION
+#' @param r PARAM_DESCRIPTION
+#' @param m PARAM_DESCRIPTION
+#' @param ... PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname pred
+#' @export 
 pred <- function(x, y, r, m, ...) {
   z <- round(r * (x - m) + m, 0)
   diff <- z - y
@@ -21,18 +22,27 @@ pred <- function(x, y, r, m, ...) {
   return(paste(z, diff, sep = ", "))
 }
 
-#' @title Compute confidence intervals (CI)
-#' @description To compute confidence intervals for test scores.
-#' @param x Score
-#' @param m Mean of scale
-#' @param sd Standard deviation (SD) of scale
-#' @param rel Reliability of scale
-#' @param level Confidence level, default is 0.95
-#' @param ... Additional arguments
-#' @return Returns a named vector with elements 'true_score', 'ci_lo' and 'ci_hi'
-#' @examples
-#' ci_res <- ci(x = 88, m = 100, sd = 15, rel = .80)
-#' @export
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param x PARAM_DESCRIPTION
+#' @param m PARAM_DESCRIPTION
+#' @param sd PARAM_DESCRIPTION
+#' @param rel PARAM_DESCRIPTION
+#' @param level PARAM_DESCRIPTION, Default: 0.95
+#' @param ... PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @seealso 
+#'  [qnorm][stats::qnorm]
+#' @rdname ci
+#' @export 
+#' @importFrom stats qnorm
 ci <- function(x, m, sd, rel, level = 0.95, ...) {
   # Check input parameters
   if (!is.numeric(x) || !is.numeric(m) || !is.numeric(sd) || !is.numeric(rel) || !is.numeric(level) ||
@@ -61,19 +71,24 @@ ci <- function(x, m, sd, rel, level = 0.95, ...) {
 }
 
 
-#' Convert T scores to z scores to percentiles.
-#' This is a functioning that converts T-scores to z-scores to percentile
-#' ranks. That is about it.
-#'
-#' @param x Raw test score
-#' @param m Mean of whatever type of score
-#' @param sd Standard deviation (SD) of whatever type of score
-#' @return A percentile rank score
-#'
-#' @examples
-#' pct(x = 103, m = 100, sd = 15)
-#'
-#' @export
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param x PARAM_DESCRIPTION
+#' @param m PARAM_DESCRIPTION
+#' @param sd PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @seealso 
+#'  [pnorm][stats::pnorm]
+#' @rdname pct
+#' @export 
+#' @importFrom stats pnorm
 pct <- function(x, m, sd) {
   z <- (x - m) / sd
   percentile <- round(stats::pnorm(z) * 100, 0)

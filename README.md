@@ -1,3 +1,4 @@
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 <img src="hex-bwu.png" width="20%"/>
@@ -6,32 +7,30 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/brainworkup/bwu/actions/workflows/r.yml/badge.svg)](https://github.com/brainworkup/bwu/actions/workflows/r.yml) [![R-CMD-check](https://github.com/brainworkup/bwu/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/brainworkup/bwu/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/brainworkup/bwu/actions/workflows/r.yml/badge.svg)](https://github.com/brainworkup/bwu/actions/workflows/r.yml)
+[![R-CMD-check](https://github.com/brainworkup/bwu/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/brainworkup/bwu/actions/workflows/R-CMD-check.yaml)
 
 <!-- badges: end -->
 
-The goal of `bwu` is to facilitate neuropsychological evaluation ...
+The goal of `bwu` is to facilitate neuropsychological evaluation …
 
 ## Installation
 
 You can install the development version of `bwu` like so:
 
 ``` r
-pak::pkg_install("brainworkup/bwu")
-#> ✔ Updated metadata database: 5.06 MB in 7 files.
-#> ℹ Updating metadata database✔ Updating metadata database ... done
-#>  
+pak::pak("brainworkup/bwu")
+#> ℹ Loading metadata database
+#> ✔ Loading metadata database ... done
+#> 
+#> 
 #> → Will update 1 package.
 #> → Will download 1 package with unknown size.
-#> + bwu 0.0.2.9000 → 0.0.2.9000 👷🏿‍♀️🔧 ⬇ (GitHub: f3431aa)
+#> + bwu 0.0.4.9000 → 0.0.3.9000 👷🏾‍♀️🔧 ⬇ (GitHub: 89c7cb6)
 #> ℹ Getting 1 pkg with unknown size
-#> ✔ Got bwu 0.0.2.9000 (source) (5.59 MB)
-#> ℹ Packaging bwu 0.0.2.9000
-#> ✔ Packaged bwu 0.0.2.9000 (2.4s)
-#> ℹ Building bwu 0.0.2.9000
-#> ✔ Built bwu 0.0.2.9000 (7.9s)
-#> ✔ Installed bwu 0.0.2.9000 (github::brainworkup/bwu@f3431aa) (221ms)
-#> ✔ 1 pkg + 101 deps: kept 100, upd 1, dld 1 (NA B) [32.1s]
+#> ✔ Cached copy of bwu 0.0.3.9000 (source) is the latest build
+#> ✔ Installed bwu 0.0.3.9000 (github::brainworkup/bwu@89c7cb6) (164ms)
+#> ✔ 1 pkg: upd 1 [6.4s]
 ```
 
 ## Example
@@ -40,6 +39,10 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(bwu)
+#> Registered S3 method overwritten by 'quantmod':
+#>   method            from
+#>   as.zoo.data.frame zoo
+## basic example code
 ```
 
 What is special about using `README.Rmd` instead of just `README.md`?
@@ -63,10 +66,11 @@ summary(dots)
 #>  Max.   :17.16   Max.   :17.00   Max.   :5.124   Max.   :80.23
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date.
-`devtools::build_readme()` is handy for this.
-You could also use GitHub Actions to re-render `README.Rmd` every time you push.
-An example workflow can be found here: <https://github.com/r-lib/actions/tree/v1/examples>.
+You’ll still need to render `README.Rmd` regularly, to keep `README.md`
+up-to-date. `devtools::build_readme()` is handy for this. You could also
+use GitHub Actions to re-render `README.Rmd` every time you push. An
+example workflow can be found here:
+<https://github.com/r-lib/actions/tree/v1/examples>.
 
 ## Developmental Changes in Working Memory
 

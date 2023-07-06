@@ -1,0 +1,1600 @@
+---
+title: "Pluck Tables from NAB"
+---
+
+# NAB
+
+## Patient
+
+```{r patient}
+patient <- "Sourina"
+```
+
+## Pages
+
+```{r pages}
+pages <- c(2, 3, 6, 9)
+```
+
+## Test
+
+```{r test}
+test <- "nab"
+```
+
+## Load libraries
+
+```{r setup, include=F}
+Sys.setenv(JAVA_HOME = "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home")
+options(java.parameters = "-Xmx16000m")
+knitr::opts_chunk$set(
+  root.dir = normalizePath("./"),
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  error = FALSE
+)
+library(bwu)
+library(knitr)
+library(xfun)
+library(tabulizer)
+library(tabulizerjars)
+library(rJava)
+library(shiny)
+library(miniUI)
+library(here)
+library(pdftools)
+library(tidyverse)
+library(fs)
+library(data.table)
+library(magrittr)
+library(kableExtra)
+library(formattable)
+library(DT)
+library(ggiraph)
+library(hablar)
+library(tibble)
+```
+
+# TabulizeR
+
+Need to check each PDF to see what page(s) tables are located on.
+
+## File choose
+
+```{r choose}
+nab_pdf <- file.choose()
+```
+
+```{r save}
+readr::write_lines(nab_pdf, here::here(patient, "pre_csv", "nab_pdf"))
+```
+
+```{r read}
+# nab_pdf <- readr::read_lines(here::here(patient, "pre_csv", "nab_pdf"))
+```
+
+## Locate areas
+
+NAB Main Modules report.
+
+```{r areas-main-modules}
+# top left bottom right
+area <- list(
+  c(135, 161, 248, 426),
+  c(138, 146, 344, 441),
+  c(433, 154, 563, 432),
+  c(206, 147, 287, 441),
+  c(357, 147, 410, 441),
+  c(479, 147, 534, 441),
+  c(596, 147, 648, 441),
+  c(156, 152, 262, 435),
+  c(348, 152, 453, 434)
+)
+```
+
+```{r locate-areas, eval=FALSE}
+area <- bwu::gpluck_locate_areas(
+  file = nab_pdf,
+  pages = pages
+)
+readr::write_rds(area, here::here(patient, "pre_csv", "areas_nab_main_modules.rds"))
+```
+
+```{r save-areas}
+readr::write_rds(area, here::here(patient, "pre_csv", "area_nab.rds"))
+# area <- readr::read_rds(here::here(patient, "pre_csv", "area_nab.rds"))
+```
+
+```{r read-areas}
+# areas <- readr::read_rds(here::here("Rmd", "areas_nab_main_modules.rds"))
+```
+
+## Extract table
+
+```{r extract}
+plucked_table <- bwu::gpluck_extract_table(
+  file = nab_pdf,
+  pages = pages,
+  area = area,
+  guess = NULL,
+  method = "lattice",
+  output = "matrix"
+)
+```
+
+# Tidy Tables
+
+## Column names per test/subtest/measure
+
+This will vary by measure/table.
+
+```{r column-names}
+column_names1 <- c(
+  "scale",
+  "score",
+  "percentile",
+  "ci_95",
+  "category"
+)
+# ATT, LAN,
+column_names2 <- c(
+  "scale",
+  "raw_score",
+  "z_score",
+  "score",
+  "percentile",
+  "base_rate",
+  "category"
+)
+# EXE
+column_names3 <- c(
+  "scale",
+  "raw_score",
+  "z_score",
+  "score",
+  "percentile",
+  "category"
+)
+```
+
+# NAB Index Score
+
+TODO:
+
+```{r nab-ind}
+df_index <- as_tibble(plucked_table[[1]])
+colnames(df_index) <- column_names1
+na_strings <- c("NA", "", "-", "--", "---")
+df_index %>%
+  naniar::replace_with_na_all(condition = ~ .x %in% na_strings)
+df_index <- df_index |> mutate(absort = paste0(seq_len(nrow(df_index))))
+df_index$absort <- as.numeric(df_index$absort)
+df_index <- df_index |>
+  arrange(desc(score)) |>
+  arrange(desc(percentile)) |>
+  slice(1:6) |>
+  arrange(absort)
+df_index$raw_score <- as.numeric(df_index$raw_score)
+df_index$score <- as.numeric(df_index$score)
+df_index$percentile <- as.numeric(df_index$percentile)
+```
+
+```{r}
+df_index[1, 1] <- c("NAB Attention Index")
+df_index[2, 1] <- c("NAB Language Index")
+df_index[3, 1] <- c("NAB Memory Index")
+df_index[4, 1] <- c("NAB Spatial Index")
+df_index[5, 1] <- c("NAB Executive Functions Index")
+df_index[6, 1] <- c("NAB Total Index")
+```
+
+```{r}
+df_index <- bwu::gpluck_make_columns(
+  df_index,
+  range = "",
+  test = "nab",
+  test_name = "NAB",
+  domain = "",
+  subdomain = "",
+  narrow = "",
+  pass = "",
+  verbal = "",
+  timed = "",
+  test_type = "npsych_test",
+  score_type = "standard_score",
+  absort = "",
+  description = "",
+  result = ""
+)
+
+df_index <- bwu::gpluck_make_score_ranges(table = df_index, test_type = "npsych_test")
+
+df_index <-
+  df_index |>
+  mutate(
+    domain = case_when(
+      scale == "NAB Attention Index" ~ "Intelligence/General Ability",
+      scale == "NAB Language Index" ~ "Verbal/Language",
+      scale == "NAB Memory Index" ~ "Memory",
+      scale == "NAB Spatial Index" ~ "Visual Perception/Construction",
+      scale == "NAB Executive Functions Index" ~ "Attention/Executive",
+      scale == "NAB Total Index" ~ "Intelligence/General Ability",
+      TRUE ~ as.character(domain)
+    )
+  )
+
+df_index <-
+  df_index |>
+  tidytable::mutate(
+    subdomain = case_when(
+      scale == "NAB Attention Index" ~ "Neuropsychological Functioning",
+      scale == "NAB Language Index" ~ "Neuropsychological Functioning",
+      scale == "NAB Memory Index" ~ "Neuropsychological Functioning",
+      scale == "NAB Spatial Index" ~ "Neuropsychological Functioning",
+      scale == "NAB Executive Functions Index" ~ "Neuropsychological Functioning",
+      scale == "NAB Total Index" ~ "Neuropsychological Functioning",
+      TRUE ~ as.character(subdomain)
+    )
+  )
+
+df_index <-
+  df_index |>
+  mutate(
+    narrow = case_when(
+      scale == "NAB Attention Index" ~ "NAB Attention Index",
+      scale == "NAB Language Index" ~ "Language Index",
+      scale == "NAB Memory Index" ~ "Memory Index",
+      scale == "NAB Spatial Index" ~ "Spatial Index",
+      scale == "NAB Executive Functions Index" ~ "Executive Function Index",
+      scale == "NAB Total Index" ~ "Neurocognitive Index",
+      TRUE ~ as.character(narrow)
+    )
+  )
+df_index <-
+  df_index |>
+  mutate(
+    pass = case_when(
+      scale == "NAB Attention Index" ~ "",
+      scale == "NAB Language Index" ~ "",
+      scale == "NAB Memory Index" ~ "",
+      scale == "NAB Spatial Index" ~ "",
+      scale == "NAB Executive Functions Index" ~ "",
+      scale == "NAB Total Index" ~ "",
+      TRUE ~ as.character(pass)
+    )
+  )
+
+df_index <-
+  df_index |>
+  mutate(
+    verbal = case_when(
+      scale == "NAB Attention Index" ~ "",
+      scale == "NAB Language Index" ~ "Verbal",
+      scale == "NAB Memory Index" ~ "",
+      scale == "NAB Spatial Index" ~ "Nonverbal",
+      scale == "NAB Executive Functions Index" ~ "",
+      scale == "NAB Total Index" ~ "",
+      TRUE ~ as.character(verbal)
+    )
+  )
+df_index <-
+  df_index |>
+  mutate(
+    timed = case_when(
+      scale == "NAB Attention Index" ~ "",
+      scale == "NAB Language Index" ~ "",
+      scale == "NAB Memory Index" ~ "",
+      scale == "NAB Spatial Index" ~ "",
+      scale == "NAB Executive Functions Index" ~ "",
+      scale == "NAB Total Index" ~ "",
+      TRUE ~ as.character(timed)
+    )
+  )
+df_index <-
+  df_index |>
+  mutate(
+    description = case_when(
+      scale == "NAB Attention Index" ~ "An overall screening measure of the examinee's attentional functioning",
+      scale == "NAB Language Index" ~ "general language capacity and functioning",
+      scale == "NAB Memory Index" ~ "general memory capacity and functioning",
+      scale == "NAB Spatial Index" ~ "general visuospatial functioning",
+      scale == "NAB Executive Functions Index" ~ "general executive functioning",
+      scale == "NAB Total Index" ~ "general neurocognitive functioning",
+      TRUE ~ as.character(description)
+    )
+  )
+
+df_index <-
+  df_index |>
+  tidytable::mutate(
+    result = tidytable::case_when(
+      scale ==
+        "NAB Total Index" ~ glue::glue(
+        "{description} fell in the {range} range.\n"
+      ),
+      scale ==
+        "NAB Attention Index" ~ glue::glue(
+        "{description} was {range}.\n"
+      ),
+      scale ==
+        "NAB Language Index" ~ glue::glue(
+        "{description} fell in the {range} classification range.\n"
+      ),
+      scale ==
+        "NAB Memory Index" ~ glue::glue(
+        "{description} was {range}.\n"
+      ),
+      scale ==
+        "NAB Spatial Index" ~ glue::glue(
+        "{description} fell in the {range} classification range.\n"
+      ),
+      scale ==
+        "NAB Executive Functions Index" ~ glue::glue(
+        "{description} fell in the {range} range.\n"
+      ),
+      TRUE ~ as.character(result)
+    )
+  )
+
+# exclude variables
+df_index <- tidytable::select(df_index, -category)
+
+# relocate
+df_index <-
+  df_index |>
+  dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .after = scale) |>
+  dplyr::relocate(absort, .before = description)
+
+# write csv
+readr::write_csv(df_index, here::here(patient, "pre_csv", "nab_index.csv"), col_names = TRUE, na = "")
+```
+
+# NAB Attention
+
+```{r nab-att}
+df_att <- as_tibble(plucked_table[[2]])
+colnames(df_att) <- column_names2
+df_att[35, 5] <- "0.1"
+na_strings <- c("NA", "", "-", "--", "---")
+df_att %>%
+  naniar::replace_with_na_all(condition = ~ .x %in% na_strings)
+df_att <- df_att |> mutate(absort = paste0(seq_len(nrow(df_att))))
+df_att$absort <- as.numeric(df_att$absort)
+df_att <- df_att |>
+  arrange(desc(raw_score)) |>
+  arrange(desc(score)) |>
+  arrange(desc(percentile)) |>
+  slice(1:18) |>
+  arrange(absort)
+df_att$raw_score <- as.numeric(df_att$raw_score)
+df_att$z_score <- as.numeric(df_att$z_score)
+df_att$score <- as.numeric(df_att$score)
+df_att$percentile <- as.numeric(df_att$percentile)
+```
+
+```{r att-scale}
+df_att[1, 1] <- c("Digits Forward")
+df_att[2, 1] <- c("Digits Backward")
+df_att[3, 1] <- c("Dots")
+df_att[4, 1] <- c("Numbers & Letters Part A Efficiency")
+df_att[5, 1] <- c("Numbers & Letters Part B Efficiency")
+df_att[6, 1] <- c("Numbers & Letters Part C Efficiency")
+df_att[7, 1] <- c("Numbers & Letters Part D Efficiency")
+df_att[8, 1] <- c("Driving Scenes")
+
+# Full report
+df_att[1, 1] <- c("Orientation")
+df_att[2, 1] <- c("Orientation to Self")
+df_att[3, 1] <- c("Orientation to Time")
+df_att[4, 1] <- c("Orientation to Place")
+df_att[5, 1] <- c("Orientation to Situation")
+df_att[6, 1] <- c("Digits Forward")
+df_att[7, 1] <- c("Digits Forward Longest Span")
+df_att[8, 1] <- c("Digits Backward")
+df_att[9, 1] <- c("Digits Backward Longest Span")
+df_att[10, 1] <- c("Dots")
+df_att[11, 1] <- c("Numbers & Letters Part A Speed")
+df_att[12, 1] <- c("Numbers & Letters Part A Errors")
+df_att[13, 1] <- c("Numbers & Letters Part A Efficiency")
+df_att[14, 1] <- c("Numbers & Letters Part B Efficiency")
+df_att[15, 1] <- c("Numbers & Letters Part C Efficiency")
+df_att[16, 1] <- c("Numbers & Letters Part D Efficiency")
+df_att[17, 1] <- c("Numbers & Letters Part D Disruption")
+df_att[18, 1] <- c("Driving Scenes")
+```
+
+```{r mutate-nab-att}
+# abbreviations
+orientation <- c(
+  "Orientation",
+  "Orientation to Self",
+  "Orientation to Time",
+  "Orientation to Place",
+  "Orientation to Situation"
+)
+dsf <- c(
+  "Digits Forward",
+  "Digits Forward Longest Span"
+)
+dsb <- c(
+  "Digits Backward",
+  "Digits Backward Longest Span"
+)
+nlt <- c(
+  "Numbers & Letters Part A Speed",
+  "Numbers & Letters Part A Efficiency",
+  "Numbers & Letters Part B Efficiency",
+  "Numbers & Letters Part C Efficiency",
+  "Numbers & Letters Part D Efficiency",
+  "Numbers & Letters Part D Disruption"
+)
+nle <- c(
+  "Numbers & Letters Part A Errors"
+)
+
+# mutate
+df_att <- bwu::gpluck_make_columns(
+  df_att,
+  range = "",
+  ci_95 = "",
+  test = "nab",
+  test_name = "NAB",
+  domain = "Attention/Executive",
+  subdomain = "",
+  narrow = "",
+  pass = "Attention",
+  verbal = "",
+  timed = "",
+  test_type = "npsych_test",
+  score_type = "t_score",
+  absort = "",
+  description = "",
+  result = ""
+)
+
+# range
+df_att <- bwu::gpluck_make_score_ranges(table = df_att, test_type = "npsych_test")
+
+# subdomains
+df_att <-
+  df_att |>
+  tidytable::mutate(
+    subdomain = tidytable::case_when(
+      scale %in% orientation ~ "Attentional Functioning",
+      scale %in% dsf ~ "Attentional Functioning",
+      scale %in% dsb ~ "Working Memory",
+      scale == "Numbers & Letters Part A Speed" ~ "Processing Speed",
+      scale == "Numbers & Letters Part A Errors" ~ "Attentional Functioning",
+      scale == "Numbers & Letters Part A Efficiency" ~ "Processing Speed",
+      scale == "Numbers & Letters Part B Efficiency" ~ "Attentional Functioning",
+      scale == "Numbers & Letters Part C Efficiency" ~ "Processing Speed",
+      scale == "Numbers & Letters Part D Efficiency" ~ "Processing Speed",
+      scale == "Numbers & Letters Part D Disruption" ~ "Processing Speed",
+      scale == "Dots" ~ "Working Memory",
+      scale == "Driving Scenes" ~ "Attentional Functioning",
+      TRUE ~ as.character(subdomain)
+    )
+  )
+
+# narrow
+df_att <-
+  df_att |>
+  tidytable::mutate(
+    narrow = tidytable::case_when(
+      scale %in% orientation ~ "Orientation",
+      scale %in% dsf ~ "Attentional Capacity",
+      scale %in% dsb ~ "Working Memory Capacity",
+      scale == "Numbers & Letters Part A Speed" ~ "Psychomotor Speed",
+      scale == "Numbers & Letters Part A Errors" ~ "Response Monitoring",
+      scale == "Numbers & Letters Part A Efficiency" ~ "Cognitive Efficiency",
+      scale == "Numbers & Letters Part B Efficiency" ~ "Attentional Fluency",
+      scale == "Numbers & Letters Part C Efficiency" ~ "Cognitive Efficiency",
+      scale == "Numbers & Letters Part D Efficiency" ~ "Cognitive Efficiency",
+      scale == "Numbers & Letters Part D Disruption" ~ "Attentional Fluency",
+      scale == "Dots" ~ "Visual Working Memory",
+      scale == "Driving Scenes" ~ "Visual Attention",
+      TRUE ~ as.character(narrow)
+    )
+  )
+
+# pass
+df_att <-
+  df_att |>
+  tidytable::mutate(
+    pass = tidytable::case_when(
+      scale %in% orientation ~ "Attention",
+      scale %in% dsf ~ "Sequential",
+      scale %in% dsb ~ "Attention",
+      scale %in% nlt ~ "Planning",
+      scale %in% nle ~ "Attention",
+      scale == "Dots" ~ "Attention",
+      scale == "Driving Scenes" ~ "Attention",
+      TRUE ~ as.character(pass)
+    )
+  )
+# verbal
+df_att <-
+  df_att |>
+  tidytable::mutate(
+    verbal = tidytable::case_when(
+      scale %in% orientation ~ "Verbal",
+      scale %in% dsf ~ "Verbal",
+      scale %in% dsb ~ "Verbal",
+      scale %in% nlt ~ "Nonverbal",
+      scale %in% nle ~ "Nonverbal",
+      TRUE ~ as.character(verbal)
+    )
+  )
+
+# timed
+df_att <-
+  df_att |>
+  tidytable::mutate(
+    timed = tidytable::case_when(
+      scale %in% orientation ~ "Untimed",
+      scale %in% dsf ~ "Untimed",
+      scale %in% dsb ~ "Untimed",
+      scale %in% nlt ~ "Timed",
+      scale %in% nle ~ "Timed",
+      TRUE ~ as.character(timed)
+    )
+  )
+
+# score type
+df_att <-
+  df_att |>
+  tidytable::mutate(
+    score_type = tidytable::case_when(
+      scale == "Orientation" ~ "percentile",
+      scale == "Orientation to Self" ~ "base_rate",
+      scale == "Orientation to Time" ~ "base_rate",
+      scale == "Orientation to Place" ~ "base_rate",
+      scale == "Orientation to Situation" ~ "base_rate",
+      scale == "Digits Forward Longest Span" ~ "raw_score",
+      scale == "Digits Backward Longest Span" ~ "raw_score",
+      TRUE ~ as.character(score_type)
+    )
+  )
+
+# description
+df_att <-
+  df_att |>
+  tidytable::mutate(
+    description = dplyr::case_when(
+      scale ==
+        "Orientation" ~ "Orientation to person, place, time, and situation",
+      scale ==
+        "Orientation to Self" ~ "Orientation to person, place, time, and situation",
+      scale ==
+        "Orientation to Time" ~ "Orientation to person, place, time, and situation",
+      scale ==
+        "Orientation to Place" ~ "Orientation to person, place, time, and situation",
+      scale ==
+        "Orientation to Situation" ~ "Orientation to person, place, time, and situation",
+      scale ==
+        "Digits Forward" ~ "Auditory attentional capacity, or how much information can be processed at once",
+      scale ==
+        "Digits Forward Longest Span" ~ "Auditory attentional capacity",
+      scale ==
+        "Digits Backward" ~ "A measure of both attentional capacity and working memory",
+      scale ==
+        "Digits Backward Longest Span" ~ "Working memory for orally presented information",
+      scale ==
+        "Numbers & Letters Part A Speed" ~ "Psychomotor speed",
+      scale ==
+        "Numbers & Letters Part A Errors" ~ "A marker of reduced focus, or selective attention, distractibility, or reduced concentration, and diminished sustained attention",
+      scale ==
+        "Numbers & Letters Part A Efficiency" ~ "An overall measure of efficiency in performing a selective attention letter cancellation task",
+      scale == "Numbers & Letters Part B Efficiency" ~ "Performance on a letter counting task to evaluate information processing speed and focused attention",
+      scale == "Numbers & Letters Part C Efficiency" ~ "Performance on a serial addition task to evaluate information processing speed and continuous selective attention",
+      scale == "Numbers & Letters Part D Efficiency" ~ "(ref:first-name)'s performance on a complex measure of divided attention, information processing speed, and inhibition",
+      scale == "Numbers & Letters Part D Disruption" ~ "Decline in processing speed from selective attention to divided attention",
+      scale == "Dots" ~ "Visual working memory, visual scanning, and delayed recognition span for nonverbal working memory",
+      scale == "Driving Scenes" ~ "Performance on a driving scene task as viewed from behind the steering wheel of a car to measure working memory updating, visual scanning, attention to detail, and selective attention",
+      TRUE ~ as.character(description)
+    )
+  )
+
+# glue result
+df_att <-
+  df_att |>
+  tidytable::mutate(
+    result = dplyr::case_when(
+      scale ==
+        orientation ~ glue::glue("{description} was intact.\n"),
+      scale ==
+        "Digits Forward" ~ glue::glue("{description} was {range}.\n"),
+      scale ==
+        "Digits Forward Longest Span" ~ glue::glue("{description} was {range} ({raw_score} digits forward).\n"),
+      scale ==
+        "Digits Backward" ~ glue::glue("{description} was {range}.\n"),
+      scale ==
+        "Digits Backward Longest Span" ~ glue::glue("{description} was {range} ({raw_score} digits backward).\n"),
+      scale ==
+        "Numbers & Letters Part A Efficiency" ~ glue::glue("{description} was {range}.\n"),
+      scale ==
+        "Numbers & Letters Part B Efficiency" ~ glue::glue("{description} was {range}.\n"),
+      scale ==
+        "Numbers & Letters Part A Speed" ~ glue::glue("{description} was {range}.\n"),
+      scale ==
+        "Numbers & Letters Part A Errors" ~ glue::glue("{description} was {range}.\n"),
+      scale ==
+        "Numbers & Letters Part C Efficiency" ~ glue::glue("{description} was {range}.\n"),
+      scale ==
+        "Numbers & Letters Part D Efficiency" ~ glue::glue("{description} was {range}.\n"),
+      scale ==
+        "Numbers & Letters Part D Disruption" ~ glue::glue("{description} was {range}.\n"),
+      scale ==
+        "Dots" ~ glue::glue("{description} was {range}.\n"),
+      scale ==
+        "Driving Scenes" ~ glue::glue("{description} was {range}.\n"),
+      TRUE ~ as.character(result)
+    )
+  )
+
+# exclude variables
+df_att <- tidytable::select(df_att, -c(z_score, category, base_rate))
+
+# relocate
+df_att <-
+  df_att |>
+  dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .after = scale) |>
+  dplyr::relocate(absort, .before = description)
+
+# write csv
+readr::write_csv(df_att, here::here(patient, "pre_csv", "nab_att.csv"), col_names = TRUE, na = "")
+```
+
+# NAB Language
+
+Full NAB report.
+
+```{r nab-lan}
+df_lan <- as.data.frame(plucked_table[[3]])
+colnames(df_lan) <- column_names2
+df_lan[26, 5] <- 0.1 # only if needed
+na_strings <- c("NA", "", "-", "--", "---")
+df_lan %>%
+  naniar::replace_with_na_all(condition = ~ .x %in% na_strings)
+df_lan <- df_lan |> mutate(absort = paste0(seq_len(nrow(df_lan))))
+df_lan$absort <- as.numeric(df_lan$absort)
+df_lan <- df_lan |>
+  arrange(desc(raw_score)) |>
+  arrange(desc(score)) |>
+  arrange(desc(percentile)) |>
+  slice(1:20) |>
+  arrange(absort)
+df_lan$raw_score <- as.numeric(df_lan$raw_score)
+df_lan$z_score <- as.numeric(df_lan$z_score)
+df_lan$score <- as.numeric(df_lan$score)
+df_lan$percentile <- as.numeric(df_lan$percentile)
+df_lan$base_rate <- as.numeric(df_lan$base_rate)
+```
+
+```{r lan-scale}
+df_lan[1, 1] <- c("Oral Production")
+df_lan[2, 1] <- c("Auditory Comprehension")
+df_lan[3, 1] <- c("Naming")
+df_lan[4, 1] <- c("Writing")
+df_lan[5, 1] <- c("Bill Payment")
+
+# full report
+df_lan[1, 1] <- c("Oral Production")
+df_lan[2, 1] <- c("Auditory Comprehension")
+df_lan[3, 1] <- c("Auditory Comprehension Colors")
+df_lan[4, 1] <- c("Auditory Comprehension Shapes")
+df_lan[5, 1] <- c("Auditory Comprehension Colors/Shapes/Numbers")
+df_lan[6, 1] <- c("Auditory Comprehension Pointing")
+df_lan[7, 1] <- c("Auditory Comprehension Yes/No")
+df_lan[8, 1] <- c("Auditory Comprehension Paper Folding")
+df_lan[9, 1] <- c("Naming")
+df_lan[10, 1] <- c("Naming Semantic Cuing")
+df_lan[11, 1] <- c("Naming Phonemic Cuing")
+df_lan[12, 1] <- c("Reading Comprehension")
+df_lan[13, 1] <- c("Reading Comprehension Words")
+df_lan[14, 1] <- c("Reading Comprehension Sentences")
+df_lan[15, 1] <- c("Writing")
+df_lan[16, 1] <- c("Writing Legibility")
+df_lan[17, 1] <- c("Writing Spelling")
+df_lan[18, 1] <- c("Writing Syntax")
+df_lan[19, 1] <- c("Writing Conveyance")
+df_lan[20, 1] <- c("Bill Payment")
+```
+
+```{r}
+# mutate
+df_lan <- bwu::gpluck_make_columns(
+  df_lan,
+  range = "",
+  ci_95 = "",
+  test = "nab",
+  test_name = "NAB",
+  domain = "Verbal/Language",
+  subdomain = "",
+  narrow = "",
+  pass = "Sequential",
+  verbal = "Verbal",
+  timed = "Untimed",
+  test_type = "npsych_test",
+  score_type = "t_score",
+  absort = "",
+  description = "",
+  result = ""
+)
+
+df_lan <- bwu::gpluck_make_score_ranges(table = df_lan, test_type = "npsych_test")
+
+df_lan <-
+  df_lan |>
+  mutate(
+    subdomain = case_when(
+      scale == "Oral Production" ~ "Expression",
+      scale == "Auditory Comprehension" ~ "Comprehension",
+      scale == "Naming" ~ "Expression",
+      scale == "Writing" ~ "Expression",
+      scale == "Bill Payment" ~ "Comprehension",
+      TRUE ~ as.character(subdomain)
+    )
+  )
+
+df_lan <-
+  df_lan |>
+  mutate(
+    narrow = case_when(
+      scale == "Oral Production" ~ "Communication Ability",
+      scale == "Auditory Comprehension" ~ "Listening Ability",
+      scale == "Naming" ~ "Lexical Knowledge",
+      scale == "Writing" ~ "Writing Ability",
+      scale == "Bill Payment" ~ "Functional Language",
+      TRUE ~ as.character(narrow)
+    )
+  )
+
+df_lan <-
+  df_lan |>
+  mutate(
+    pass = case_when(
+      scale == "Oral Production" ~ "Attention",
+      scale == "Auditory Comprehension" ~ "Sequential",
+      scale == "Naming" ~ "",
+      scale == "Writing" ~ "Planning",
+      scale == "Bill Payment" ~ "",
+      TRUE ~ as.character(pass)
+    )
+  )
+
+
+df_lan <-
+  df_lan |>
+  mutate(
+    verbal = case_when(
+      scale == "Oral Production" ~ "Verbal",
+      scale == "Auditory Comprehension" ~ "",
+      scale == "Naming" ~ "Verbal",
+      scale == "Writing" ~ "",
+      scale == "Bill Payment" ~ "",
+      TRUE ~ as.character(verbal)
+    )
+  )
+
+df_lan <-
+  df_lan |>
+  mutate(
+    timed = case_when(
+      scale == "Oral Production" ~ "",
+      scale == "Auditory Comprehension" ~ "Untimed",
+      scale == "Naming" ~ "Untimed",
+      scale == "Writing" ~ "",
+      scale == "Bill Payment" ~ "",
+      TRUE ~ as.character(timed)
+    )
+  )
+
+df_lan <-
+  df_lan |>
+  mutate(
+    description = case_when(
+      scale ==
+        "Auditory Comprehension" ~ "Auditory comprehension (i.e., the ability to receive, process, and execute oral instructions of increasing syntactic complexity)",
+      scale ==
+        "Naming" ~ "Screening of word-finding ability and retrieval fluency on a confrontation naming task",
+      scale == "Oral Production" ~ "Speech output and fluency",
+
+      scale == "Writing" ~ "Narrarative writing, verbal fluecy, and spelling",
+      scale == "Bill Payment" ~ "Auditory language comprehension, reading comprehension, writing, simple calculations, and speech output",
+      TRUE ~ as.character(description)
+    )
+  )
+
+df_lan <-
+  df_lan |>
+  tidytable::mutate(
+    result = tidytable::case_when(
+      scale ==
+        "Auditory Comprehension" ~ glue::glue("{description} was {range}.\n"),
+      scale ==
+        "Naming" ~ glue::glue("{description} was {range}, with no obvious dysfluency in conversational/informal expression.\n"),
+      scale ==
+        "Reading Comprehension" ~ glue::glue("{description} was {range}.\n"),
+      TRUE ~ as.character(result)
+    )
+  )
+
+# exclude variables
+df_lan <- tidytable::select(df_lan, -c(z_score, category, base_rate))
+
+# relocate
+df_lan <-
+  df_lan |>
+  dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .after = scale) |>
+  dplyr::relocate(absort, .before = description)
+
+# write csv
+readr::write_csv(df_lan, here::here(patient, "pre_csv", "nab_lan.csv"), col_names = TRUE, na = "")
+```
+
+# NAB Memory
+
+TODO: \## List learning
+
+```{r tbl4}
+# TODO
+table4 <- as_tibble(plucked_table[[4]])
+colnames(table4) <- column_names2
+
+to_double <- c("raw_score", "z_score", "score")
+table4 <- table4 |> hablar::convert(dbl(all_of(to_double)))
+table4 <-
+  tidytable::mutate(table4, z = (score - 50) / 10) %>%
+  tidytable::mutate(percentile = pnorm(z) * 100)
+table4$percentile <- round(table4$percentile, 0L)
+```
+
+```{r}
+table4 <- table4 |> mutate(absort = paste0(seq_len(nrow(table4))))
+table4$absort <- as.numeric(table4$absort)
+table4 <- table4 |>
+  arrange(desc(raw_score)) |>
+  arrange(desc(score)) |>
+  arrange(desc(percentile)) |>
+  slice(1:3) |>
+  arrange(absort)
+```
+
+```{r rownames-mem1}
+table4[1, 1] <- c("List Learning Immediate Recall")
+table4[2, 1] <- c("List Learning Short Delayed Recall")
+table4[3, 1] <- c("List Learning Long Delayed Recall")
+```
+
+## Shape learning
+
+```{r tbl5}
+table5 <- as_tibble(plucked_table[[5]])
+colnames(table5) <- column_names2
+table5 <- dplyr::na_if(table5, "")
+table5 <- dplyr::na_if(table5, "NA")
+table5 <- dplyr::na_if(table5, "-")
+table5 <- dplyr::na_if(table5, "--")
+table5 <- dplyr::na_if(table5, "---")
+to_double <- c("raw_score", "z_score", "score")
+table5 <- table5 |> hablar::convert(dbl(all_of(to_double)))
+table5 <-
+  tidytable::mutate(table5, z = (score - 50) / 10) %>%
+  tidytable::mutate(percentile = pnorm(z) * 100)
+table5$percentile <- round(table5$percentile, 0L)
+```
+
+```{r}
+table5 <- table5 |> mutate(absort = paste0(seq_len(nrow(table5))))
+table5$absort <- as.numeric(table5$absort)
+table5 <- table5 |>
+  arrange(desc(raw_score)) |>
+  arrange(desc(score)) |>
+  arrange(desc(percentile)) |>
+  slice(1:2) |>
+  arrange(absort)
+```
+
+```{r rownames-mem2}
+table5[1, 1] <- c("Shape Learning Immediate Recognition")
+table5[2, 1] <- c("Shape Learning Delayed Recognition")
+```
+
+## Story learning
+
+```{r tbl6}
+table6 <- as_tibble(plucked_table[[6]])
+colnames(table6) <- column_names2
+table6 <- dplyr::na_if(table6, "")
+table6 <- dplyr::na_if(table6, "NA")
+table6 <- dplyr::na_if(table6, "-")
+table6 <- dplyr::na_if(table6, "--")
+table6 <- dplyr::na_if(table6, "---")
+to_double <- c("raw_score", "z_score", "score")
+table6 <- table6 |> hablar::convert(dbl(all_of(to_double)))
+table6 <-
+  tidytable::mutate(table6, z = (score - 50) / 10) %>%
+  tidytable::mutate(percentile = pnorm(z) * 100)
+table6$percentile <- round(table6$percentile, 0L)
+```
+
+```{r}
+table6 <- table6 |> mutate(absort = paste0(seq_len(nrow(table6))))
+table6$absort <- as.numeric(table6$absort)
+table6 <- table6 |>
+  arrange(desc(raw_score)) |>
+  arrange(desc(score)) |>
+  arrange(desc(percentile)) |>
+  slice(1:2) |>
+  arrange(absort)
+```
+
+```{r rownames-mem3}
+table6[1, 1] <- c("Story Learning Immediate Recall")
+table6[2, 1] <- c("Story Learning Delayed Recall")
+```
+
+## Daily living
+
+```{r tbl7}
+table7 <- as_tibble(plucked_table[[7]])
+colnames(table7) <- column_names2
+table7 <- dplyr::na_if(table7, "")
+table7 <- dplyr::na_if(table7, "NA")
+table7 <- dplyr::na_if(table7, "-")
+table7 <- dplyr::na_if(table7, "--")
+table7 <- dplyr::na_if(table7, "---")
+to_double <- c("raw_score", "z_score", "score")
+table7 <- table7 |> hablar::convert(dbl(all_of(to_double)))
+table7 <-
+  tidytable::mutate(table7, z = (score - 50) / 10) %>%
+  tidytable::mutate(percentile = pnorm(z) * 100)
+table7$percentile <- round(table7$percentile, 0L)
+```
+
+```{r}
+table7 <- table7 |> mutate(absort = paste0(seq_len(nrow(table7))))
+table7$absort <- as.numeric(table7$absort)
+table7 <- table7 |>
+  arrange(desc(raw_score)) |>
+  arrange(desc(score)) |>
+  arrange(desc(percentile)) |>
+  slice(1:2) |>
+  arrange(absort)
+```
+
+```{r rownames-mem4}
+table7[1, 1] <- c("Daily Living Memory Immediate Recall")
+table7[2, 1] <- c("Daily Living Memory Delayed Recall")
+```
+
+## rowbind
+
+```{r}
+table4 <- rbind(table4, table5, table6, table7)
+```
+
+# NAB Spatial
+
+```{r tbl8}
+table8 <- as_tibble(plucked_table[[8]])
+colnames(table8) <- column_names2
+to_double <- c("raw_score", "z_score", "score")
+table8 <- table8 |> hablar::convert(dbl(all_of(to_double)))
+table8 <-
+  tidytable::mutate(table8, z = (score - 50) / 10) %>%
+  tidytable::mutate(percentile = pnorm(z) * 100)
+table8$percentile <- round(table8$percentile, 0L)
+```
+
+```{r}
+table8 <- table8 |> mutate(absort = paste0(seq_len(nrow(table8))))
+table8$absort <- as.numeric(table8$absort)
+table8 <- table8 |>
+  arrange(desc(raw_score)) |>
+  arrange(desc(score)) |>
+  arrange(desc(percentile)) |>
+  slice(1:4) |>
+  arrange(absort)
+```
+
+```{r rname-spt}
+table8[1, 1] <- c("Visual Discrimination")
+table8[2, 1] <- c("Design Construction")
+table8[3, 1] <- c("Figure Drawing Copy")
+table8[4, 1] <- c("Map Reading")
+```
+
+# NAB Executive Functions
+
+```{r df-exe}
+df_exe <- as_tibble(plucked_table[[4]]) # this will change w full battery
+colnames(df_exe) <- column_names3
+na_strings <- c("NA", "", "-", "--", "---")
+df_exe %>%
+  naniar::replace_with_na_all(condition = ~ .x %in% na_strings)
+df_exe <- df_exe |> mutate(absort = paste0(seq_len(nrow(df_exe))))
+df_exe$absort <- as.numeric(df_exe$absort)
+df_exe <- df_exe |>
+  arrange(desc(raw_score)) |>
+  arrange(desc(score)) |>
+  arrange(desc(percentile)) |>
+  slice(1:5) |>
+  arrange(absort)
+df_exe$raw_score <- as.numeric(df_exe$raw_score)
+df_exe$z_score <- as.numeric(df_exe$z_score)
+df_exe$score <- as.numeric(df_exe$score)
+df_exe$percentile <- as.numeric(df_exe$percentile)
+```
+
+```{r rname-exe}
+# if (params$test = "nab")
+df_exe[1, 1] <- c("Mazes")
+df_exe[2, 1] <- c("Judgment")
+df_exe[3, 1] <- c("Categories")
+df_exe[4, 1] <- c("Word Generation")
+
+df_exe[1, 1] <- c("Mazes")
+df_exe[2, 1] <- c("Judgment")
+df_exe[3, 1] <- c("Categories")
+df_exe[4, 1] <- c("Word Generation")
+df_exe[5, 1] <- c("Word Generation Perseverations")
+```
+
+```{r mutate-exe}
+# mutate
+df_exe <- bwu::gpluck_make_columns(
+  df_exe,
+  range = "",
+  ci_95 = "",
+  test = "nab",
+  test_name = "NAB",
+  domain = "Attention/Executive",
+  subdomain = "",
+  narrow = "",
+  pass = "",
+  verbal = "",
+  timed = "",
+  test_type = "npsych_test",
+  score_type = "t_score",
+  absort = "",
+  description = "",
+  result = ""
+)
+
+# ranges
+df_exe <-
+  bwu::gpluck_make_score_ranges(
+    table = df_exe,
+    test_type = "npsych_test"
+  )
+
+# subdomains
+df_exe <-
+  df_exe |>
+  mutate(
+    subdomain = case_when(
+      scale == "Mazes" ~ "Executive Functioning",
+      scale == "Judgment" ~ "Executive Functioning",
+      scale == "Categories" ~ "Executive Functioning",
+      scale == "Word Generation" ~ "Executive Functioning",
+      scale == "Word Generation Perseverations" ~ "Attentional Functioning",
+      TRUE ~ as.character(subdomain)
+    )
+  )
+
+## narrow
+df_exe <-
+  df_exe |>
+  mutate(
+    narrow = case_when(
+      scale == "Mazes" ~ "Planning",
+      scale == "Judgment" ~ "Judgment",
+      scale == "Categories" ~ "Concept Formation",
+      scale == "Word Generation" ~ "Word Fluency",
+      scale == "Word Generation Perseverations" ~ "Response Monitoring",
+      TRUE ~ as.character(narrow)
+    )
+  )
+
+# PASS
+df_exe <-
+  df_exe |>
+  mutate(
+    pass = case_when(
+      scale == "Mazes" ~ "Planning",
+      scale == "Judgment" ~ "Knowledge",
+      scale == "Categories" ~ "Simultaneous",
+      scale == "Word Generation" ~ "Sequential",
+      TRUE ~ as.character(pass)
+    )
+  )
+
+# Verbal
+df_exe <-
+  df_exe |>
+  mutate(
+    verbal = case_when(
+      scale == "Mazes" ~ "Nonverbal",
+      scale == "Judgment" ~ "Verbal",
+      scale == "Categories" ~ "",
+      scale == "Word Generation" ~ "Verbal",
+      TRUE ~ as.character(verbal)
+    )
+  )
+
+# Timed
+df_exe <-
+  df_exe |>
+  mutate(
+    timed = case_when(
+      scale == "Mazes" ~ "Timed",
+      scale == "Judgment" ~ "Untimed",
+      scale == "Categories" ~ "Timed",
+      scale == "Word Generation" ~ "Timed",
+      TRUE ~ as.character(timed)
+    )
+  )
+
+# description
+df_exe <-
+  df_exe |>
+  mutate(
+    description = case_when(
+      scale == "Mazes" ~ "Planning, foresight, and organizational abilities through maze-tracing tasks",
+      scale == "Judgment" ~ "Judgment and decision-making in everyday situations",
+      scale == "Categories" ~ "Concept formation, cognitive response set, mental flexibility, and generativity",
+      scale == "Word Generation" ~ "Retrieval fluency, ideational fluency, and generativity",
+      scale == "Word Generation Perseverations" ~ "Self-monitoring and perseverative tendencies",
+      TRUE ~ as.character(description)
+    )
+  )
+
+# glue result
+df_exe <-
+  df_exe |>
+  tidytable::mutate(
+    result = dplyr::case_when(
+      scale == "Mazes" ~
+        glue::glue("{description} fell in the {range} range.\n"),
+      scale == "Word Generation" ~
+        glue::glue("{description} was {range}.\n"),
+      scale == "Word Generation Perseverations" ~
+        glue::glue("{description} was {range}.\n"),
+      scale == "Judgment" ~
+        glue::glue("{description} fell in the {range} range.\n"),
+      scale == "Categories" ~
+        glue::glue("{description} fell in the {range} range.\n"),
+      TRUE ~ as.character(result)
+    )
+  )
+
+# exclude variables
+df_exe <- tidytable::select(df_exe, -c(z_score, category))
+
+# relocate
+df_exe <-
+  df_exe |>
+  dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .after = scale) |>
+  dplyr::relocate(absort, .before = description)
+
+# write csv
+readr::write_csv(df_exe, here::here(patient, "pre_csv", "nab_exe.csv"), col_names = TRUE, na = "")
+```
+
+# Mutate Tables
+
+```{r}
+table4 <- bwu::gpluck_make_columns(
+  table4,
+  range = "",
+  ci_95 = "",
+  test = "nab",
+  test_name = "NAB",
+  domain = "Memory",
+  subdomain = "",
+  narrow = "",
+  pass = "",
+  verbal = "",
+  timed = "Untimed",
+  test_type = "npsych_test",
+  score_type = "t_score",
+  description = "",
+  result = ""
+)
+```
+
+```{r}
+table5 <- bwu::gpluck_make_columns(
+  table5,
+  range = "",
+  ci_95 = "",
+  test = "nab",
+  test_name = "NAB",
+  domain = "Visual Perception/Construction",
+  subdomain = "",
+  narrow = "",
+  pass = "Simultaneous",
+  verbal = "Nonverbal",
+  timed = "",
+  test_type = "npsych_test",
+  score_type = "t_score",
+  description = "",
+  result = ""
+)
+```
+
+## Test score ranges
+
+```{r test-score-ranges}
+table4 <- bwu::gpluck_make_score_ranges(table = table4, test_type = "npsych_test")
+table5 <- bwu::gpluck_make_score_ranges(table = table5, test_type = "npsych_test")
+```
+
+## Domain
+
+```{r domain1}
+df_index <-
+  df_index |>
+  mutate(
+    domain = case_when(
+      scale == "NAB Attention Index" ~ "Intelligence/General Ability",
+      scale == "NAB Language Index" ~ "Verbal/Language",
+      scale == "NAB Memory Index" ~ "Memory",
+      scale == "NAB Spatial Index" ~ "Visual Perception/Construction",
+      scale == "NAB Executive Functions Index" ~ "Attention/Executive",
+      scale == "NAB Total Index" ~ "Intelligence/General Ability",
+      TRUE ~ as.character(domain)
+    )
+  )
+```
+
+## Subdomains
+
+```{r subdomain1}
+df_index <-
+  df_index |>
+  tidytable::mutate(
+    subdomain = case_when(
+      scale == "NAB Attention Index" ~ "Neuropsychological Functioning",
+      scale == "NAB Language Index" ~ "Neuropsychological Functioning",
+      scale == "NAB Memory Index" ~ "Neuropsychological Functioning",
+      scale == "NAB Spatial Index" ~ "Neuropsychological Functioning",
+      scale == "NAB Executive Functions Index" ~ "Neuropsychological Functioning",
+      scale == "NAB Total Index" ~ "Neuropsychological Functioning",
+      TRUE ~ as.character(subdomain)
+    )
+  )
+```
+
+```{r subdomain4}
+table4 <-
+  table4 |>
+  mutate(
+    subdomain = case_when(
+      scale == "List Learning Immediate Recall" ~ "Long-Term Memory",
+      scale == "List Learning Short Delayed Recall" ~ "Long-Term Memory",
+      scale == "List Learning Long Delayed Recall" ~ "Long-Term Memory",
+      scale == "Shape Learning Immediate Recognition" ~ "Long-Term Memory",
+      scale == "Shape Learning Delayed Recognition" ~ "Long-Term Memory",
+      scale == "Story Learning Immediate Recall" ~ "Long-Term Memory",
+      scale == "Story Learning Delayed Recall" ~ "Long-Term Memory",
+      scale == "Daily Living Memory Immediate Recall" ~ "Long-Term Memory",
+      scale == "Daily Living Memory Delayed Recall" ~ "Long-Term Memory",
+      TRUE ~ as.character(subdomain)
+    )
+  )
+```
+
+```{r subdomain5}
+table5 <-
+  table5 |>
+  mutate(
+    subdomain = case_when(
+      scale == "Visual Discrimination" ~ "Visual Processing",
+      scale == "Design Construction" ~ "Visual Processing",
+      scale == "Figure Drawing Copy" ~ "Visual Processing",
+      scale == "Map Reading" ~ "Visual Processing",
+      TRUE ~ as.character(subdomain)
+    )
+  )
+```
+
+## Narrow subdomains
+
+TODO:
+
+```{r narrow1}
+df_index <-
+  df_index |>
+  mutate(
+    narrow = case_when(
+      scale == "NAB Attention Index" ~ "NAB Attention Index",
+      scale == "NAB Language Index" ~ "Language Index",
+      scale == "NAB Memory Index" ~ "Memory Index",
+      scale == "NAB Spatial Index" ~ "Spatial Index",
+      scale == "NAB Executive Functions Index" ~ "Executive Function Index",
+      scale == "NAB Total Index" ~ "Neurocognitive Index",
+      TRUE ~ as.character(narrow)
+    )
+  )
+```
+
+```{r narrow4}
+table4 <-
+  table4 |>
+  mutate(
+    narrow = case_when(
+      scale == "List Learning Immediate Recall" ~ "Learning Efficiency",
+      scale == "List Learning Short Delayed Recall" ~ "Word List Learning",
+      scale == "List Learning Long Delayed Recall" ~ "Word List Learning",
+      scale == "Shape Learning Immediate Recognition" ~ "Visual Memory",
+      scale == "Shape Learning Delayed Recognition" ~ "Visual Memory",
+      scale == "Story Learning Immediate Recall" ~ "Story Memory",
+      scale == "Story Learning Delayed Recall" ~ "Story Memory",
+      scale == "Daily Living Memory Immediate Recall" ~ "Functional Memory",
+      scale == "Daily Living Memory Delayed Recall" ~ "Functional Memory",
+      TRUE ~ as.character(narrow)
+    )
+  )
+```
+
+```{r narrow5}
+table5 <-
+  table5 |>
+  mutate(
+    narrow = case_when(
+      scale == "Visual Discrimination" ~ "Visual Perception",
+      scale == "Design Construction" ~ "Visual Construction",
+      scale == "Figure Drawing Copy" ~ "Visuomotor Integration",
+      scale == "Map Reading" ~ "Functional Spatial",
+      TRUE ~ as.character(narrow)
+    )
+  )
+```
+
+## PASS
+
+```{r pass-df_index}
+df_index <-
+  df_index |>
+  mutate(
+    pass = case_when(
+      scale == "NAB Attention Index" ~ "",
+      scale == "NAB Language Index" ~ "",
+      scale == "NAB Memory Index" ~ "",
+      scale == "NAB Spatial Index" ~ "",
+      scale == "NAB Executive Functions Index" ~ "",
+      scale == "NAB Total Index" ~ "",
+      TRUE ~ as.character(pass)
+    )
+  )
+```
+
+```{r pass-table4}
+table4 <-
+  table4 |>
+  mutate(
+    pass = case_when(
+      scale == "List Learning Immediate Recall" ~ "Sequential",
+      scale == "List Learning Short Delayed Recall" ~ "Sequential",
+      scale == "List Learning Long Delayed Recall" ~ "Sequential",
+      scale == "Shape Learning Immediate Recognition" ~ "Simultaneous",
+      scale == "Shape Learning Delayed Recognition" ~ "Simultaneous",
+      scale == "Story Learning Immediate Recall" ~ "Sequential",
+      scale == "Story Learning Delayed Recall" ~ "Sequential",
+      scale == "Daily Living Memory Immediate Recall" ~ "Sequential",
+      scale == "Daily Living Memory Delayed Recall" ~ "Sequential",
+      TRUE ~ as.character(pass)
+    )
+  )
+```
+
+```{r pass-table5}
+table5 <-
+  table5 |>
+  mutate(
+    pass = case_when(
+      scale == "Visual Discrimination" ~ "Simultaneous",
+      scale == "Design Construction" ~ "Simultaneous",
+      scale == "Figure Drawing" ~ "Planning",
+      scale == "Map Reading" ~ "Simultaneous",
+      TRUE ~ as.character(pass)
+    )
+  )
+```
+
+## Verbal vs Nonverbal
+
+```{r verbal-df_index}
+
+```
+
+```{r verbal-df_att}
+
+```
+
+```{r verbal-table3}
+
+```
+
+```{r verbal-table4}
+table4 <-
+  table4 |>
+  mutate(
+    verbal = case_when(
+      scale == "List Learning Immediate Recall" ~ "Verbal",
+      scale == "List Learning Short Delayed Recall" ~ "Verbal",
+      scale == "List Learning Long Delayed Recall" ~ "Verbal",
+      scale == "Shape Learning Immediate Recognition" ~ "Nonverbal",
+      scale == "Shape Learning Delayed Recognition" ~ "Nonverbal",
+      scale == "Story Learning Immediate Recall" ~ "Verbal",
+      scale == "Story Learning Delayed Recall" ~ "Verbal",
+      scale == "Daily Living Memory Immediate Recall" ~ "Verbal",
+      scale == "Daily Living Memory Delayed Recall" ~ "Verbal",
+      TRUE ~ as.character(verbal)
+    )
+  )
+```
+
+```{r verbal-table5}
+table5 <-
+  table5 |>
+  mutate(
+    verbal = case_when(
+      scale == "Visual Discrimination" ~ "Nonverbal",
+      scale == "Design Construction" ~ "Nonverbal",
+      scale == "Figure Drawing" ~ "Nonverbal",
+      scale == "Map Reading" ~ "",
+      TRUE ~ as.character(verbal)
+    )
+  )
+```
+
+## Timed vs Untimed
+
+```{r timed-df_index}
+
+```
+
+```{r timed-table4}
+table4 <-
+  table4 |>
+  mutate(
+    timed = case_when(
+      scale == "List Learning Immediate Recall" ~ "Untimed",
+      scale == "List Learning Short Delayed Recall" ~ "Untimed",
+      scale == "List Learning Long Delayed Recall" ~ "Untimed",
+      scale == "Shape Learning Immediate Recognition" ~ "Timed",
+      scale == "Shape Learning Delayed Recognition" ~ "Timed",
+      scale == "Story Learning Immediate Recall" ~ "Untimed",
+      scale == "Story Learning Delayed Recall" ~ "Untimed",
+      scale == "Daily Living Memory Immediate Recall" ~ "Untimed",
+      scale == "Daily Living Memory Delayed Recall" ~ "Untimed",
+      TRUE ~ as.character(timed)
+    )
+  )
+```
+
+```{r timed-table5}
+table5 <-
+  table5 |>
+  mutate(
+    timed = case_when(
+      scale == "Visual Discrimination" ~ "Untimed",
+      scale == "Design Construction" ~ "Timed",
+      scale == "Figure Drawing" ~ "Untimed",
+      scale == "Map Reading" ~ "Untimed",
+      TRUE ~ as.character(timed)
+    )
+  )
+```
+
+```{r timed-df_exe}
+
+```
+
+## Scale descriptions
+
+```{r description-df_index}
+
+```
+
+```{r description-df_att}
+
+```
+
+```{r description-table3}
+
+```
+
+```{r description-table4}
+table4 <-
+  table4 |>
+  mutate(
+    description = case_when(
+      scale == "List Learning Immediate Recall" ~ "word list learning/encoding",
+      scale == "List Learning Short Delayed Recall" ~ "immediate recall of a word list",
+      scale == "List Learning Long Delayed Recall" ~ "delayed recall of a word list",
+      scale == "Shape Learning Immediate Recognition" ~ "visual/nonverbal learning and memory",
+      scale == "Shape Learning Delayed Recognition" ~ "delayed recognition memory for nonverbal/visual material",
+      scale == "Story Learning Immediate Recall" ~ "immediate recall for learning the details of a story",
+      scale == "Story Learning Delayed Recall" ~ "delayed recall for learning the details of a story",
+      scale == "Daily Living Memory Immediate Recall" ~ "functional memory skills in everyday situations",
+      scale == "Daily Living Memory Delayed Recall" ~ "long-term recall of functional memory skills",
+      TRUE ~ as.character(description)
+    )
+  )
+```
+
+```{r description-table5}
+table5 <-
+  table5 |>
+  mutate(
+    description = case_when(
+      scale == "Visual Discrimination" ~ "visuoperception and discrimination",
+      scale == "Design Construction" ~ "visuoconstruction and integration",
+      scale == "Figure Drawing Copy" ~ "planning, organization, and integrations of visuospatial information",
+      scale == "Map Reading" ~ "ability to read a city map with accuracy",
+      TRUE ~ as.character(description)
+    )
+  )
+```
+
+# Finalize and save
+
+## Write subtable CSVs
+
+```{r}
+write_csv(table4, here::here(patient, "pre_csv", "nab_memory.csv"), col_names = TRUE, na = "")
+write_csv(table5, here::here(patient, "pre_csv", "nab_spatial.csv"), col_names = TRUE, na = "")
+```
+
+# NAB Merge tables
+
+```{r merge}
+nab <- dplyr::bind_rows(df_index, df_att, df_lan, df_exe)
+# nab <- dplyr::bind_rows(df_index, df_att, df_lan, table4, table5, df_exe)
+```
+
+## Filter/Reorder
+
+```{r reorder}
+att <- c(
+  "NAB Attention Index",
+  "Orientation",
+  "Digits Forward",
+  "Digits Forward Longest Span",
+  "Digits Backward",
+  "Digits Backward Longest Span",
+  "Dots",
+  "Numbers & Letters Part A Efficiency",
+  "Numbers & Letters Part B Efficiency",
+  "Numbers & Letters Part C Efficiency",
+  "Numbers & Letters Part D Efficiency",
+  "Driving Scenes"
+)
+exe <- c(
+  "NAB Executive Functions Index",
+  "Executive Functions Domain",
+  "Mazes",
+  "Categories",
+  "Word Generation",
+  "Word Generation Perseverations",
+  "Judgment"
+)
+```
+
+```{r}
+# nab <-
+#   nab %>%
+#   dplyr::filter(scale %in% c(att, lan, mem, spt, exe))
+```
+
+## Write final csv table
+
+```{r write}
+readr::write_csv(nab, here::here(patient, "csv", "nab.csv"), col_names = TRUE, na = "")
+```

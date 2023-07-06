@@ -2,21 +2,28 @@
 % Please edit documentation in R/tmt.R
 \name{tmtB}
 \alias{tmtB}
-\title{Trails B Standardized Score}
+\title{FUNCTION_TITLE}
 \usage{
 tmtB(raw_score, age)
 }
 \arguments{
-\item{raw_score}{Patients raw score (seconds) on Trails B}
+\item{raw_score}{PARAM_DESCRIPTION}
 
-\item{age}{Patient's age}
+\item{age}{PARAM_DESCRIPTION}
 }
 \value{
-A tscore of TMTB
+OUTPUT_DESCRIPTION
 }
 \description{
-Trails B Standardized Score
+FUNCTION_DESCRIPTION
+}
+\details{
+DETAILS
 }
 \examples{
-tmt_b_tscore <- tmtB(raw_score = 75, age = 21)
+\dontrun{
+if(interactive()){
+ #EXAMPLE1
+ }
+}
 }

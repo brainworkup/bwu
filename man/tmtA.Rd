@@ -2,21 +2,28 @@
 % Please edit documentation in R/tmt.R
 \name{tmtA}
 \alias{tmtA}
-\title{Trails A Standardized Score}
+\title{FUNCTION_TITLE}
 \usage{
 tmtA(raw_score, age)
 }
 \arguments{
-\item{raw_score}{Patients raw score}
+\item{raw_score}{PARAM_DESCRIPTION}
 
-\item{age}{Patients age}
+\item{age}{PARAM_DESCRIPTION}
 }
 \value{
-A printed score
+OUTPUT_DESCRIPTION
 }
 \description{
-Trails A Standardized Score
+FUNCTION_DESCRIPTION
+}
+\details{
+DETAILS
 }
 \examples{
-tmt_a_tscore <- tmtA(raw_score = 25, age = 21)
+\dontrun{
+if(interactive()){
+ #EXAMPLE1
+ }
+}
 }

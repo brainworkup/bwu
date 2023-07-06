@@ -2,29 +2,33 @@
 % Please edit documentation in R/age.R
 \name{age}
 \alias{age}
-\title{Calculate age}
+\title{FUNCTION_TITLE}
 \usage{
 age(birthDate, refDate = Sys.Date(), unit = "year")
 }
 \arguments{
-\item{birthDate}{Date of birth}
+\item{birthDate}{PARAM_DESCRIPTION}
 
-\item{refDate}{Date of evaluation}
+\item{refDate}{PARAM_DESCRIPTION, Default: Sys.Date()}
 
-\item{unit}{Unit of time (year, month or day)}
+\item{unit}{PARAM_DESCRIPTION, Default: 'year'}
 }
 \value{
-Age in years.
+OUTPUT_DESCRIPTION
 }
 \description{
-Calculate age at a given reference date
-Create an interval between the date of birth and the enrollment date;
-intervals are specific to the two dates. Periods give the actual length
-of time between those dates, so convert to period and extract the year.
+FUNCTION_DESCRIPTION
+}
+\details{
+DETAILS
 }
 \examples{
-dob <- "1977-07-13"
-doe <- "2021-04-04"
-age(dob, doe)
-
+\dontrun{
+if(interactive()){
+ #EXAMPLE1
+ }
+}
+}
+\seealso{
+\link[lubridate:as.period]{as.period}, \link[lubridate:interval]{interval}
 }

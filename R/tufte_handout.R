@@ -1,29 +1,70 @@
-#' Tufte handout formats (PDF and HTML)
-#'
-#' Templates for creating handouts according to the style of Edward R. Tufte and
-#' Richard Feynman.
-#'
-#' \code{tufte_handout()} provides the PDF format based on the Tufte-LaTeX
-#' class: \url{https://tufte-latex.github.io/tufte-latex/}.
-#' @inheritParams rmarkdown::pdf_document
-#' @param ... Other arguments to be passed to \code{\link{pdf_document}} or
-#'   \code{\link{html_document}} (note you cannot use the \code{template}
-#'   argument in \code{tufte_handout} or the \code{theme} argument in
-#'   \code{tufte_html()}; these arguments have been set internally)
-#' @references See \url{https://rstudio.github.io/tufte/} for an example.
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param fig_width PARAM_DESCRIPTION, Default: 4
+#' @param fig_height PARAM_DESCRIPTION, Default: 2.5
+#' @param fig_crop PARAM_DESCRIPTION, Default: TRUE
+#' @param dev PARAM_DESCRIPTION, Default: 'pdf'
+#' @param highlight PARAM_DESCRIPTION, Default: 'default'
+#' @param ... PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname tufte_handout
 #' @export
-#' @examples library(tufte)
 tufte_handout <- function(fig_width = 4, fig_height = 2.5, fig_crop = TRUE, dev = "pdf", highlight = "default", ...) {
   tufte_pdf("tufte-handout", fig_width, fig_height, fig_crop, dev, highlight, ...)
 }
 
-#' @rdname tufte_handout
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param fig_width PARAM_DESCRIPTION, Default: 4
+#' @param fig_height PARAM_DESCRIPTION, Default: 2.5
+#' @param fig_crop PARAM_DESCRIPTION, Default: TRUE
+#' @param dev PARAM_DESCRIPTION, Default: 'pdf'
+#' @param highlight PARAM_DESCRIPTION, Default: 'default'
+#' @param ... PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname tufte_book
 #' @export
 tufte_book <- function(fig_width = 4, fig_height = 2.5, fig_crop = TRUE, dev = "pdf",
                        highlight = "default", ...) {
   tufte_pdf("tufte-book", fig_width, fig_height, fig_crop, dev, highlight, ...)
 }
 
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param documentclass PARAM_DESCRIPTION, Default: c("tufte-handout", "tufte-book")
+#' @param fig_width PARAM_DESCRIPTION, Default: 4
+#' @param fig_height PARAM_DESCRIPTION, Default: 2.5
+#' @param fig_crop PARAM_DESCRIPTION, Default: TRUE
+#' @param dev PARAM_DESCRIPTION, Default: 'pdf'
+#' @param highlight PARAM_DESCRIPTION, Default: 'default'
+#' @param template PARAM_DESCRIPTION, Default: template_resources("tufte_handout", "tufte-handout.tex")
+#' @param ... PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname tufte_pdf
+#' @export
+#' @importFrom rmarkdown pdf_document knitr_options_pdf
+#' @importFrom knitr knit_engines hook_plot_tex
 tufte_pdf <- function(documentclass = c("tufte-handout", "tufte-book"), fig_width = 4, fig_height = 2.5, fig_crop = TRUE, dev = "pdf", highlight = "default", template = template_resources("tufte_handout", "tufte-handout.tex"), ...) {
   # resolve default highlight
   if (identical(highlight, "default")) highlight <- "pygments"

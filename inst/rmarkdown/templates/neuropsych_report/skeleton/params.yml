@@ -1,0 +1,18 @@
+params:
+  last_name: Smalls
+  first_name: Biggie
+  mrn: "004162762"
+  dob: 1995-04-06
+  doe1: 2023-05-01
+  doe2: 2023-05-02
+  doe3: 2023-05-03
+  sex: female
+  sex_cap: Female
+  age: 28
+  educyrs: 16
+  he_she: she
+  he_she_cap: She
+  his_her: her
+  his_her_cap: Her
+  him_her: her
+  him_her_cap: Her

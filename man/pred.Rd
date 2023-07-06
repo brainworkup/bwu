@@ -2,28 +2,34 @@
 % Please edit documentation in R/scores.R
 \name{pred}
 \alias{pred}
-\title{Predicted test score}
+\title{FUNCTION_TITLE}
 \usage{
 pred(x, y, r, m, ...)
 }
 \arguments{
-\item{x}{Score 1 (ability)}
+\item{x}{PARAM_DESCRIPTION}
 
-\item{y}{Score 2 (achievement)}
+\item{y}{PARAM_DESCRIPTION}
 
-\item{r}{Correlation between ability test and achievement test}
+\item{r}{PARAM_DESCRIPTION}
 
-\item{m}{Mean of test score}
+\item{m}{PARAM_DESCRIPTION}
 
-\item{...}{Additional arguments}
+\item{...}{PARAM_DESCRIPTION}
 }
 \value{
-A predicted score.
+OUTPUT_DESCRIPTION
 }
 \description{
-Estimate the difference between an ability and achievement score.
+FUNCTION_DESCRIPTION
+}
+\details{
+DETAILS
 }
 \examples{
-pred(x = 122, y = 84, r = .65, m = 100)
-
+\dontrun{
+if(interactive()){
+ #EXAMPLE1
+ }
+}
 }

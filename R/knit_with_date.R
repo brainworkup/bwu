@@ -1,6 +1,9 @@
 #' Custom Knit function for RStudio
 #' @param input An input
 #' @param ... Additional arguments
+#' @rdname knit_with_date
+#' @importFrom rmarkdown render
+#' @importFrom xfun sans_ext file_ext
 #' @export
 knit_with_date <- function(input, ...) {
   rmarkdown::render(

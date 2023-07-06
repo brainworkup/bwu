@@ -2,21 +2,28 @@
 % Please edit documentation in R/rocft.R
 \name{rocft_copy}
 \alias{rocft_copy}
-\title{ROCFT Copy Standardized Score}
+\title{FUNCTION_TITLE}
 \usage{
 rocft_copy(raw_score, age)
 }
 \arguments{
-\item{raw_score}{Patients raw score}
+\item{raw_score}{PARAM_DESCRIPTION}
 
-\item{age}{Patients age}
+\item{age}{PARAM_DESCRIPTION}
 }
 \value{
-A printed T-Score of ROCFT Copy performance
+OUTPUT_DESCRIPTION
 }
 \description{
-ROCFT predicted scores, for age range of 22 -79 years, for copy trial.
+FUNCTION_DESCRIPTION
+}
+\details{
+DETAILS
 }
 \examples{
-rocft_copy_score <- rocft_copy(raw_score = 32, age = 24)
+\dontrun{
+if(interactive()){
+ #EXAMPLE1
+ }
+}
 }

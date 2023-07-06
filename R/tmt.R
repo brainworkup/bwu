@@ -3,16 +3,20 @@
 ## Trails A
 ## Ages 16 - 89
 
-#' Trails A Standardized Score
-#'
-#' @param raw_score Patients raw score
-#' @param age Patients age
-#'
-#' @return A printed score
-#' @export
-#'
-#' @examples
-#' tmt_a_tscore <- tmtA(raw_score = 25, age = 21)
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param raw_score PARAM_DESCRIPTION
+#' @param age PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname tmtA
+#' @export 
 tmtA <- function(raw_score, age) {
   if (raw_score == "") {
     return("No raw score provided")
@@ -64,16 +68,20 @@ tmtA <- function(raw_score, age) {
 ## Trails B
 ## Ages 16 - 89
 
-#' Trails B Standardized Score
-#'
-#' @param raw_score Patients raw score (seconds) on Trails B
-#' @param age Patient's age
-#'
-#' @return A tscore of TMTB
-#' @export
-#'
-#' @examples
-#' tmt_b_tscore <- tmtB(raw_score = 75, age = 21)
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param raw_score PARAM_DESCRIPTION
+#' @param age PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname tmtB
+#' @export 
 tmtB <- function(raw_score, age) {
   if (raw_score == "") {
     return("No raw score provided")

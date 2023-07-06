@@ -2,19 +2,36 @@
 % Please edit documentation in R/rename_scale.R
 \name{rename_scale}
 \alias{rename_scale}
-\title{Rename neuropsych table scale variable}
+\title{FUNCTION_TITLE}
 \usage{
 rename_scale(table, scale, name1, name2)
 }
 \arguments{
-\item{table}{Name of table}
+\item{table}{PARAM_DESCRIPTION}
 
-\item{scale}{Name of scale}
+\item{scale}{PARAM_DESCRIPTION}
 
-\item{name1}{Old name}
+\item{name1}{PARAM_DESCRIPTION}
 
-\item{name2}{New name}
+\item{name2}{PARAM_DESCRIPTION}
+}
+\value{
+OUTPUT_DESCRIPTION
 }
 \description{
-Description of this function.
+FUNCTION_DESCRIPTION
+}
+\details{
+DETAILS
+}
+\examples{
+\dontrun{
+if(interactive()){
+ #EXAMPLE1
+ }
+}
+}
+\seealso{
+\link[dplyr:mutate]{mutate}
+\link[stringr:str_replace]{str_replace}
 }

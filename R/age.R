@@ -1,22 +1,21 @@
-#' Calculate age
-#'
-#' Calculate age at a given reference date
-#' Create an interval between the date of birth and the enrollment date;
-#' intervals are specific to the two dates. Periods give the actual length
-#' of time between those dates, so convert to period and extract the year.
-#'
-#' @param birthDate Date of birth
-#' @param refDate Date of evaluation
-#' @param unit Unit of time (year, month or day)
-#'
-#' @return Age in years.
-#'
-#' @examples
-#' dob <- "1977-07-13"
-#' doe <- "2021-04-04"
-#' age(dob, doe)
-#'
-#' @export
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param birthDate PARAM_DESCRIPTION
+#' @param refDate PARAM_DESCRIPTION, Default: Sys.Date()
+#' @param unit PARAM_DESCRIPTION, Default: 'year'
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @seealso 
+#'  [as.period][lubridate::as.period], [interval][lubridate::interval]
+#' @rdname age
+#' @export 
+#' @importFrom lubridate as.period interval
 age <-
   function(birthDate, refDate = Sys.Date(), unit = "year") {
     if (grepl(x = unit, pattern = "year")) {

@@ -2,29 +2,39 @@
 % Please edit documentation in R/scores.R
 \name{ci}
 \alias{ci}
-\title{Compute confidence intervals (CI)}
+\title{FUNCTION_TITLE}
 \usage{
 ci(x, m, sd, rel, level = 0.95, ...)
 }
 \arguments{
-\item{x}{Score}
+\item{x}{PARAM_DESCRIPTION}
 
-\item{m}{Mean of scale}
+\item{m}{PARAM_DESCRIPTION}
 
-\item{sd}{Standard deviation (SD) of scale}
+\item{sd}{PARAM_DESCRIPTION}
 
-\item{rel}{Reliability of scale}
+\item{rel}{PARAM_DESCRIPTION}
 
-\item{level}{Confidence level, default is 0.95}
+\item{level}{PARAM_DESCRIPTION, Default: 0.95}
 
-\item{...}{Additional arguments}
+\item{...}{PARAM_DESCRIPTION}
 }
 \value{
-Returns a named vector with elements 'true_score', 'ci_lo' and 'ci_hi'
+OUTPUT_DESCRIPTION
 }
 \description{
-To compute confidence intervals for test scores.
+FUNCTION_DESCRIPTION
+}
+\details{
+DETAILS
 }
 \examples{
-ci_res <- ci(x = 88, m = 100, sd = 15, rel = .80)
+\dontrun{
+if(interactive()){
+ #EXAMPLE1
+ }
+}
+}
+\seealso{
+\link[stats:Normal]{qnorm}
 }

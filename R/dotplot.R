@@ -1,27 +1,31 @@
-#' @title Dotplot of cognitive scores.
+#' @title FUNCTION_TITLE
 #' @description FUNCTION_DESCRIPTION
-#' @importFrom ggplot2 ggplot aes geom_segment geom_point element_text theme element_rect
-#' @importFrom stats reorder
-#' @importFrom ggthemes theme_fivethirtyeight
 #' @param data PARAM_DESCRIPTION
 #' @param x PARAM_DESCRIPTION
 #' @param y PARAM_DESCRIPTION
 #' @param linewidth PARAM_DESCRIPTION, Default: 0.5
+#' @param fill PARAM_DESCRIPTION, Default: x
 #' @param shape PARAM_DESCRIPTION, Default: 21
 #' @param size PARAM_DESCRIPTION, Default: 6
-#' @param color PARAM_DESCRIPTION, Default: "black"
-#' @param fill PARAM_DESCRIPTION, Default: "x"
+#' @param color PARAM_DESCRIPTION, Default: 'black'
 #' @param colors PARAM_DESCRIPTION, Default: NULL
 #' @return OUTPUT_DESCRIPTION
 #' @details DETAILS
-#' @examples
+#' @examples 
 #' \dontrun{
 #' if(interactive()){
 #'  #EXAMPLE1
 #'  }
 #' }
+#' @seealso 
+#'  [ggplot][ggplot2::ggplot], [geom_segment][ggplot2::geom_segment], [aes][ggplot2::aes], [geom_point][ggplot2::geom_point], [scale_fill_gradientn][ggplot2::scale_fill_gradientn], [theme][ggplot2::theme], [element_rect][ggplot2::element_rect]
+#'  [reorder][stats::reorder]
+#'  [theme_fivethirtyeight][ggthemes::theme_fivethirtyeight]
 #' @rdname dotplot
-#' @export
+#' @export 
+#' @importFrom ggplot2 ggplot geom_segment aes geom_point scale_fill_gradientn theme element_rect
+#' @importFrom stats reorder
+#' @importFrom ggthemes theme_fivethirtyeight
 dotplot <- function(data, x, y, linewidth = 0.5, fill = x, shape = 21, size = 6, color = "black", colors = NULL) {
   # Define the color palette
   color_palette <- if (is.null(colors)) {

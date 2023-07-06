@@ -1,7 +1,7 @@
 Type: Package
 Package: bwu
 Title: BrainWorkUp Neuropsychological Report Writing Package
-Version: 0.0.3.9000
+Version: 0.0.4.9000
 Author: person("Joey", "Trampush", email = trampush@usc.edu,
       role = c("aut", "cre"))
 Maintainer: Joey Trampush <trampush@usc.edu>
@@ -13,10 +13,51 @@ Description: This package stores the functions and normative
 License: GPL-3
 Depends: R (>= 3.10)
 Imports:
-Suggests: Cairo, forcats, rJava, png, hablar, fs, gt, magick,
-      shiny, spelling, testthat (>= 3.0.0), tufte, usethis
-      (>= 1.5.0), vroom, xaringan, xfun
-VignetteBuilder: knitr
+    bookdown,
+    dplyr,
+    ggplot2,
+    ggthemes,
+    glue,
+    here,
+    highcharter,
+    janitor,
+    knitr,
+    lubridate,
+    magrittr,
+    purrr,
+    readr,
+    rlang,
+    rmarkdown,
+    stats,
+    stringr,
+    tabulizer,
+    tibble,
+    tidyr,
+    tidyselect,
+    htmltools,
+    readxl,
+    grDevices,
+    utils,
+    xfun
+Suggests:
+    Cairo,
+    kableExtra,
+    tidytable,
+    graphics,
+    forcats,
+    rJava,
+    png,
+    hablar,
+    fs,
+    gt,
+    magick,
+    shiny,
+    spelling,
+    testthat (>= 3.0.0),
+    tufte,
+    usethis (>= 1.5.0),
+    vroom,
+    xaringan
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-US
