@@ -2,7 +2,7 @@
 % Please edit documentation in R/write_neuropsych_reports.R
 \name{adult_report}
 \alias{adult_report}
-\title{BWU Neuropsych Report formats (child and adult)}
+\title{BWU Neuropsych Report Adult Version}
 \usage{
 adult_report(
   fig_width = 4,
@@ -14,18 +14,27 @@ adult_report(
 )
 }
 \arguments{
-\item{...}{Other arguments to be passed to \code{\link[=pdf_document2]{pdf_document2()}} or
-\code{\link[=html_document]{html_document()}} (note you cannot use the \code{template}
-argument in \code{tufte_handout} or the \code{theme} argument in
-\code{tufte_html()}; these arguments have been set internally)}
+\item{fig_width}{Numeric giving width of each figure; default \code{fig_width = 4}}
+
+\item{fig_height}{Numeric giving height of each figure; default \code{fig_height = 2.5}}
+
+\item{fig_crop}{Logical determining whether figures will be cropped; default \code{fig_crop = TRUE}}
+
+\item{dev}{Device used, e.g.,"png", "pdf"; default \code{dev = "pdf"}}
+
+\item{highlight}{Formatting of code chunks; default \code{"default"}}
+
+\item{...}{Other arguments to be passed to \code{\link[=pdf_document2]{pdf_document2()}} or \code{\link[=html_document]{html_document()}} (note you cannot use the \code{template} argument in \code{tufte_handout} or the \code{theme} argument in \code{tufte_html()}; these arguments have been set internally)}
+}
+\value{
+No formal returns, outputs neuropsychological report documents
 }
 \description{
-Templates for creating handouts according to the style of Edward R. Tufte and
-Richard Feynman.
-}
-\examples{
-library(bwu)
+BWU Neuropsych Report Adult Version
 }
 \references{
 See \url{https://rstudio.github.io/tufte/} for an example.
+}
+\seealso{
+\code{\link[bookdown]{pdf_document2}}
 }
