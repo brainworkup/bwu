@@ -1,7 +1,7 @@
-#' @title FUNCTION_TITLE
+#' @title Create a dotplot
 #' @description FUNCTION_DESCRIPTION
-#' @param data PARAM_DESCRIPTION
-#' @param x PARAM_DESCRIPTION
+#' @param data Data to plot
+#' @param x Variable for x-axis
 #' @param y PARAM_DESCRIPTION
 #' @param linewidth PARAM_DESCRIPTION, Default: 0.5
 #' @param fill PARAM_DESCRIPTION, Default: x
@@ -11,22 +11,12 @@
 #' @param colors PARAM_DESCRIPTION, Default: NULL
 #' @return OUTPUT_DESCRIPTION
 #' @details DETAILS
-#' @examples 
-#' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
-#' }
-#' @seealso 
-#'  [ggplot][ggplot2::ggplot], [geom_segment][ggplot2::geom_segment], [aes][ggplot2::aes], [geom_point][ggplot2::geom_point], [scale_fill_gradientn][ggplot2::scale_fill_gradientn], [theme][ggplot2::theme], [element_rect][ggplot2::element_rect]
-#'  [reorder][stats::reorder]
-#'  [theme_fivethirtyeight][ggthemes::theme_fivethirtyeight]
 #' @rdname dotplot
 #' @export 
 #' @importFrom ggplot2 ggplot geom_segment aes geom_point scale_fill_gradientn theme element_rect
 #' @importFrom stats reorder
 #' @importFrom ggthemes theme_fivethirtyeight
-dotplot <- function(data, x, y, linewidth = 0.5, fill = x, shape = 21, size = 6, color = "black", colors = NULL) {
+dotplot <- function(data, x, y, linewidth = 0.5, fill, shape = 21, size = 6, color = "black", colors = NULL) {
   # Define the color palette
   color_palette <- if (is.null(colors)) {
     c(
@@ -46,19 +36,19 @@ dotplot <- function(data, x, y, linewidth = 0.5, fill = x, shape = 21, size = 6,
     ggplot2::geom_segment(
       data = data,
       ggplot2::aes(
-        x = data[[x]],
-        y = stats::reorder(data[[y]], data[[x]]),
+        x = x,
+        y = stats::reorder(y, x),
         xend = 0,
-        yend = data[[y]]
+        yend = y
       ),
       linewidth = linewidth
     ) +
     ggplot2::geom_point(
       data = data,
       ggplot2::aes(
-        x = data[[x]],
-        y = stats::reorder(data[[y]], data[[x]]),
-        fill = data[[fill]]
+        x = x,
+        y = stats::reorder(y, x),
+        fill = x
       ),
       shape = shape,
       size = size,
@@ -71,6 +61,4 @@ dotplot <- function(data, x, y, linewidth = 0.5, fill = x, shape = 21, size = 6,
       plot.background = ggplot2::element_rect(fill = "white"),
       panel.border = ggplot2::element_rect(color = "white")
     )
-
-  return()
 }
