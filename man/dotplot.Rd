@@ -2,57 +2,48 @@
 % Please edit documentation in R/dotplot.R
 \name{dotplot}
 \alias{dotplot}
-\title{FUNCTION_TITLE}
+\title{Create a dotplot}
 \usage{
 dotplot(
   data,
   x,
   y,
   linewidth = 0.5,
-  fill = x,
+  fill,
   shape = 21,
-  size = 6,
-  color = "black",
-  colors = NULL
+  point_size = 6,
+  line_color = "black",
+  colors = NULL,
+  theme = "fivethirtyeight"
 )
 }
 \arguments{
-\item{data}{PARAM_DESCRIPTION}
+\item{data}{The data frame containing the data for the dot plot.}
 
-\item{x}{PARAM_DESCRIPTION}
+\item{x}{The column name in the data frame for the x-axis variable.}
 
-\item{y}{PARAM_DESCRIPTION}
+\item{y}{The column name in the data frame for the y-axis variable.}
 
-\item{linewidth}{PARAM_DESCRIPTION, Default: 0.5}
+\item{linewidth}{The width of the line, Default: 0.5}
 
-\item{fill}{PARAM_DESCRIPTION, Default: x}
+\item{fill}{The fill color for the points, Default: x-axis variable}
 
-\item{shape}{PARAM_DESCRIPTION, Default: 21}
+\item{shape}{The shape of the points, Default: 21}
 
-\item{size}{PARAM_DESCRIPTION, Default: 6}
+\item{point_size}{The size of the points, Default: 6}
 
-\item{color}{PARAM_DESCRIPTION, Default: 'black'}
+\item{line_color}{The color of the lines, Default: 'black'}
 
-\item{colors}{PARAM_DESCRIPTION, Default: NULL}
+\item{colors}{A vector of colors for fill gradient, Default: NULL (uses pre-defined color palette)}
+
+\item{theme}{The ggplot theme to be used, Default: 'fivethirtyeight'. Other options include 'minimal' and 'classic'}
 }
 \value{
-OUTPUT_DESCRIPTION
+An object of class 'ggplot' representing the dot plot.
 }
 \description{
-FUNCTION_DESCRIPTION
+This function generates a dot plot with the given data, x and y. The point's aesthetics and plot theme can be customized.
 }
 \details{
-DETAILS
-}
-\examples{
-\dontrun{
-if(interactive()){
- #EXAMPLE1
- }
-}
-}
-\seealso{
-\link[ggplot2:ggplot]{ggplot}, \link[ggplot2:geom_segment]{geom_segment}, \link[ggplot2:aes]{aes}, \link[ggplot2:geom_point]{geom_point}, \link[ggplot2:scale_gradient]{scale_fill_gradientn}, \link[ggplot2:theme]{theme}, \link[ggplot2:element]{element_rect}
-\link[stats:reorder.factor]{reorder}
-\link[ggthemes:theme_fivethirtyeight]{theme_fivethirtyeight}
+This function generates a dot plot with the given data, x and y. The points' aesthetics and plot theme can be customized.
 }

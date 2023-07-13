@@ -1,22 +1,23 @@
 #' @title Create a dotplot
-#' @description FUNCTION_DESCRIPTION
-#' @param data Data to plot
-#' @param x Variable for x-axis
-#' @param y PARAM_DESCRIPTION
-#' @param linewidth PARAM_DESCRIPTION, Default: 0.5
-#' @param fill PARAM_DESCRIPTION, Default: x
-#' @param shape PARAM_DESCRIPTION, Default: 21
-#' @param size PARAM_DESCRIPTION, Default: 6
-#' @param color PARAM_DESCRIPTION, Default: 'black'
-#' @param colors PARAM_DESCRIPTION, Default: NULL
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
+#' @description This function generates a dot plot with the given data, x and y. The point's aesthetics and plot theme can be customized.
+#' @param data The data frame containing the data for the dot plot.
+#' @param x The column name in the data frame for the x-axis variable.
+#' @param y The column name in the data frame for the y-axis variable.
+#' @param linewidth The width of the line, Default: 0.5
+#' @param fill The fill color for the points, Default: x-axis variable
+#' @param shape The shape of the points, Default: 21
+#' @param point_size The size of the points, Default: 6
+#' @param line_color The color of the lines, Default: 'black'
+#' @param colors A vector of colors for fill gradient, Default: NULL (uses pre-defined color palette)
+#' @param theme The ggplot theme to be used, Default: 'fivethirtyeight'. Other options include 'minimal' and 'classic'
+#' @return An object of class 'ggplot' representing the dot plot.
+#' @details This function generates a dot plot with the given data, x and y. The points' aesthetics and plot theme can be customized.
 #' @rdname dotplot
-#' @export 
+#' @export
 #' @importFrom ggplot2 ggplot geom_segment aes geom_point scale_fill_gradientn theme element_rect
 #' @importFrom stats reorder
 #' @importFrom ggthemes theme_fivethirtyeight
-dotplot <- function(data, x, y, linewidth = 0.5, fill, shape = 21, size = 6, color = "black", colors = NULL) {
+dotplot <- function(data, x, y, linewidth = 0.5, fill, shape = 21, point_size = 6, line_color = "black", colors = NULL, theme = "fivethirtyeight") {
   # Define the color palette
   color_palette <- if (is.null(colors)) {
     c(
@@ -32,7 +33,8 @@ dotplot <- function(data, x, y, linewidth = 0.5, fill, shape = 21, size = 6, col
   }
 
   # Make the plot
-  ggplot2::ggplot() +
+  plot_object <-
+    ggplot2::ggplot() +
     ggplot2::geom_segment(
       data = data,
       ggplot2::aes(
@@ -41,6 +43,7 @@ dotplot <- function(data, x, y, linewidth = 0.5, fill, shape = 21, size = 6, col
         xend = 0,
         yend = y
       ),
+      color = line_color,
       linewidth = linewidth
     ) +
     ggplot2::geom_point(
@@ -51,14 +54,24 @@ dotplot <- function(data, x, y, linewidth = 0.5, fill, shape = 21, size = 6, col
         fill = x
       ),
       shape = shape,
-      size = size,
-      color = color
+      size = point_size,
+      color = line_color
     ) +
     ggplot2::scale_fill_gradientn(colors = color_palette, guide = "none") +
-    ggthemes::theme_fivethirtyeight() +
+
+    # Apply theme
+    switch(theme,
+      "fivethirtyeight" = plot_object <- plot_object + ggthemes::theme_fivethirtyeight(),
+      "minimal" = plot_object <- plot_object + ggplot2::theme_minimal(),
+      "classic" = plot_object <- plot_object + ggplot2::theme_classic()
+    )
+
+  plot_object <- plot_object +
     ggplot2::theme(
       panel.background = ggplot2::element_rect(fill = "white"),
       plot.background = ggplot2::element_rect(fill = "white"),
       panel.border = ggplot2::element_rect(color = "white")
     )
+
+  return(plot_object)
 }

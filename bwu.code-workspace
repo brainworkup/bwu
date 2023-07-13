@@ -22,7 +22,12 @@
       "editorGroup.border": "#d1f0ee",
       "editorInfo.foreground": "#000000ff",
       "editorWarning.foreground": "#000000ff",
-      "panel.border": "#d1f0ee"
+      "panel.border": "#d1f0ee",
+      "commandCenter.border": "#00000099",
+      "titleBar.activeBackground": "#abe3df",
+      "titleBar.activeForeground": "#000000",
+      "titleBar.inactiveBackground": "#abe3df99",
+      "titleBar.inactiveForeground": "#00000099"
     },
     "peacock.color": "#abe3df",
     "makefile.extensionOutputFolder": "./.vscode",
