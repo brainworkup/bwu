@@ -2,22 +2,25 @@
 % Please edit documentation in R/text.R
 \name{extract_and_glue_neuro_text}
 \alias{extract_and_glue_neuro_text}
-\title{Extracts text from the neuropsych data and writes it to a file.}
+\title{Extract and glue neuropsych text}
 \usage{
-extract_and_glue_neuro_text(df, filter, result, file = "_raw_text.qmd")
+extract_and_glue_neuro_text(df, filter, result, file)
 }
 \arguments{
-\item{df}{The data frame of results}
+\item{df}{A dataframe from which data is to be filtered and concatenated.}
 
-\item{filter}{The vector of filters to apply}
+\item{filter}{A character vector or list specifying the filter condition for the 'scale' column of the dataframe.}
 
-\item{result}{The resulting string}
+\item{result}{This parameter appears to be unused and can potentially be removed.}
 
-\item{file}{The name of the output file, default "_raw_text.qmd"}
+\item{file}{A character string specifying the path to the output file where the concatenated text will be saved, default is '_raw_text.qmd'.}
 }
 \value{
-The name of the output file
+The name of the file to which the result was written, useful for passing the file to other functions.
 }
 \description{
-Extracts text from the neuropsych data and writes it to a file.
+This function filters a dataframe based on a specified condition, concatenates all of the columns into a single string, and writes the result to a file.
+}
+\details{
+This function uses dplyr for data manipulation, glue for data concatenation, and purrr for functional programming.
 }

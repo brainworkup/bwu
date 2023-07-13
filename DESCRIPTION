@@ -38,10 +38,12 @@ Imports:
     readxl,
     grDevices,
     utils,
+    kableExtra,
+    gt,
+    gtExtras,
     xfun
 Suggests:
     Cairo,
-    kableExtra,
     tidytable,
     graphics,
     forcats,
@@ -49,7 +51,6 @@ Suggests:
     png,
     hablar,
     fs,
-    gt,
     magick,
     shiny,
     spelling,

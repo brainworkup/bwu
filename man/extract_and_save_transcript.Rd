@@ -2,34 +2,30 @@
 % Please edit documentation in R/text.R
 \name{extract_and_save_transcript}
 \alias{extract_and_save_transcript}
-\title{Extract and save transcript}
+\title{Extract and save NSE transcript}
 \usage{
 extract_and_save_transcript(x, file, begin, end, eol = "\\\\n")
 }
 \arguments{
-\item{x}{A character vector of length 1 containing a file name or a URL.}
+\item{x}{A character string specifying the path to the input file.}
 
-\item{file}{The path/name of the output file.}
+\item{file}{A character string specifying the path to the output file where the extracted transcript will be saved.}
 
-\item{begin}{The pattern beginning the text to extract.}
+\item{begin}{A character string specifying the pattern that marks the beginning of the transcript in the input file.}
 
-\item{end}{The pattern ending the text to extract.}
+\item{end}{A character string specifying the pattern that marks the end of the transcript in the input file.}
 
-\item{eol}{The line break character to add between paragraphs, Default: '\\n'.}
+\item{eol}{A character string specifying the line ending to be used in the output file, default is '\\n'.}
 }
 \value{
-This function does not return any value.
+NULL, as this function is primarily used for its side effect of writing a file.
 }
 \description{
-This function extracts text between two patterns, adds line breaks to separate paragraphs (optional), and writes the formatted text to a markdown file.
+This function extracts the text between given beginning and ending patterns from a file and saves the transcript to another file.
 }
 \details{
-This function reads the entire file as a single string, extracts the text between the patterns, adds line breaks to separate paragraphs (optional), and writes the formatted text to a markdown file.
+This function uses regular expressions to extract text between specified patterns. It is useful for extracting structured text data, such as transcripts, from files.
 }
-\examples{
-\dontrun{
-if (interactive()) {
-  # EXAMPLE1
-}
-}
+\seealso{
+\link[stringr:str_match]{str_match_all}, \link[stringr:str_trim]{str_squish}
 }

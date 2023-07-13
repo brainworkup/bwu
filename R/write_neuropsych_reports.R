@@ -89,6 +89,6 @@ neuropsych_report <- function(documentclass = c("adult-report", "child-report"),
   }
   # override the knitr settings of the base format and return the format
   format$knitr <- knitr_options
-  format$inherits <- "pdf_document"
+  format$inherits <- "pdf_document2"
   format
 }

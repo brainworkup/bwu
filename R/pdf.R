@@ -5,16 +5,16 @@
 #' @param ... PARAM_DESCRIPTION
 #' @return OUTPUT_DESCRIPTION
 #' @details DETAILS
-#' @examples 
+#' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
 #' }
-#' @seealso 
-#'  [locate_areas][tabulizer::locate_areas]
+#' }
+#' @seealso
+#'  \code{\link[tabulizer]{locate_areas}}
 #' @rdname gpluck_locate_areas
-#' @export 
+#' @export
 #' @importFrom tabulizer locate_areas
 gpluck_locate_areas <- function(file, pages = NULL, ...) {
   tabulizer::locate_areas(
@@ -32,21 +32,21 @@ gpluck_locate_areas <- function(file, pages = NULL, ...) {
 #' @param area PARAM_DESCRIPTION, Default: NULL
 #' @param guess PARAM_DESCRIPTION, Default: FALSE
 #' @param method PARAM_DESCRIPTION, Default: c("decide", "lattice", "stream")
-#' @param output PARAM_DESCRIPTION, Default: c("matrix", "data.frame", "character", "asis", "csv", "tsv", 
+#' @param output PARAM_DESCRIPTION, Default: c("matrix", "data.frame", "character", "asis", "csv", "tsv",
 #'    "json")
 #' @param ... PARAM_DESCRIPTION
 #' @return OUTPUT_DESCRIPTION
 #' @details DETAILS
-#' @examples 
+#' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
 #' }
-#' @seealso 
-#'  [extract_tables][tabulizer::extract_tables]
+#' }
+#' @seealso
+#'  \code{\link[tabulizer]{extract_tables}}
 #' @rdname gpluck_extract_table
-#' @export 
+#' @export
 #' @importFrom tabulizer extract_tables
 gpluck_extract_table <-
   function(file,
@@ -75,8 +75,8 @@ gpluck_extract_table <-
   }
 
 
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
+#' @title Make columns.
+#' @description Make columns.
 #' @param table PARAM_DESCRIPTION
 #' @param test PARAM_DESCRIPTION
 #' @param test_name PARAM_DESCRIPTION
@@ -86,21 +86,21 @@ gpluck_extract_table <-
 #' @param range PARAM_DESCRIPTION, Default: NULL
 #' @param percentile PARAM_DESCRIPTION, Default: NULL
 #' @param ci_95 PARAM_DESCRIPTION, Default: NULL
-#' @param domain PARAM_DESCRIPTION, Default: c("Intelligence/General Ability", "Academic Skills", "Verbal/Language", 
-#'    "Visual Perception/Construction", "Attention/Executive", 
-#'    "Memory", "Motor", "Social Cognition", "Behavioral/Emotional/Social", 
-#'    "Personality Disorders", "Psychiatric Disorders", "Substance Use Disorders", 
-#'    "Psychosocial Problems", "ADHD", "Executive Dysfunction", 
+#' @param domain PARAM_DESCRIPTION, Default: c("Intelligence/General Ability", "Academic Skills", "Verbal/Language",
+#'    "Visual Perception/Construction", "Attention/Executive",
+#'    "Memory", "Motor", "Social Cognition", "Behavioral/Emotional/Social",
+#'    "Personality Disorders", "Psychiatric Disorders", "Substance Use Disorders",
+#'    "Psychosocial Problems", "ADHD", "Executive Dysfunction",
 #'    "Effort/Validity", "")
 #' @param subdomain PARAM_DESCRIPTION, Default: NULL
 #' @param narrow PARAM_DESCRIPTION, Default: NULL
-#' @param pass PARAM_DESCRIPTION, Default: c("Planning", "Attention", "Sequential", "Simultaneous", "Knowledge", 
+#' @param pass PARAM_DESCRIPTION, Default: c("Planning", "Attention", "Sequential", "Simultaneous", "Knowledge",
 #'    NA)
 #' @param verbal PARAM_DESCRIPTION, Default: c("Verbal", "Nonverbal", NA)
 #' @param timed PARAM_DESCRIPTION, Default: c("Timed", "Untimed", NA)
-#' @param test_type PARAM_DESCRIPTION, Default: c("npsych_test", "rating_scale", "validity_indicator", "item", 
+#' @param test_type PARAM_DESCRIPTION, Default: c("npsych_test", "rating_scale", "validity_indicator", "item",
 #'    NA)
-#' @param score_type PARAM_DESCRIPTION, Default: c("raw_score", "scaled_score", "t_score", "standard_score", "z_score", 
+#' @param score_type PARAM_DESCRIPTION, Default: c("raw_score", "scaled_score", "t_score", "standard_score", "z_score",
 #'    "percentile", "base_rate", "beta_coefficient", NA)
 #' @param absort PARAM_DESCRIPTION, Default: NULL
 #' @param description PARAM_DESCRIPTION, Default: NULL
@@ -108,17 +108,14 @@ gpluck_extract_table <-
 #' @param ... PARAM_DESCRIPTION
 #' @return OUTPUT_DESCRIPTION
 #' @details DETAILS
-#' @examples 
+#' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
 #' }
-#' @seealso 
-#'  [mutate][dplyr::mutate]
+#' }
 #' @rdname gpluck_make_columns
-#' @export 
-#' @importFrom dplyr mutate
+#' @export
 gpluck_make_columns <- function(table,
                                 test,
                                 test_name,
@@ -230,17 +227,14 @@ gpluck_make_columns <- function(table,
 #' @param ... PARAM_DESCRIPTION
 #' @return OUTPUT_DESCRIPTION
 #' @details DETAILS
-#' @examples 
+#' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
 #' }
-#' @seealso 
-#'  [mutate][dplyr::mutate], [case_when][dplyr::case_when]
+#' }
 #' @rdname gpluck_make_score_ranges
-#' @export 
-#' @importFrom dplyr mutate case_when
+#' @export
 gpluck_make_score_ranges <-
   function(table,
            score = NULL,
@@ -353,18 +347,14 @@ gpluck_make_score_ranges <-
 #' @param ... PARAM_DESCRIPTION
 #' @return OUTPUT_DESCRIPTION
 #' @details DETAILS
-#' @examples 
+#' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
 #' }
-#' @seealso 
-#'  [mutate][dplyr::mutate], [case_when][dplyr::case_when], [select][dplyr::select]
-#'  [pnorm][stats::pnorm]
+#' }
 #' @rdname gpluck_compute_percentile_range
-#' @export 
-#' @importFrom dplyr mutate case_when select
+#' @export
 #' @importFrom stats pnorm
 gpluck_compute_percentile_range <-
   function(.x,
@@ -482,32 +472,28 @@ gpluck_compute_percentile_range <-
   }
 
 
-#' @title FUNCTION_TITLE
+#' @title Index scors.
 #' @description FUNCTION_DESCRIPTION
-#' @param patient PARAM_DESCRIPTION
+#' @param patient Patient name
 #' @return OUTPUT_DESCRIPTION
 #' @details DETAILS
-#' @examples 
+#' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
 #' }
-#' @seealso 
-#'  [read_xlsx][readxl::read_xlsx]
-#'  [here][here::here]
-#'  [clean_names][janitor::clean_names]
-#'  [gpluck_make_columns][bwu::gpluck_make_columns], [gpluck_make_score_ranges][bwu::gpluck_make_score_ranges]
-#'  [mutate][dplyr::mutate], [case_when][dplyr::case_when], [relocate][dplyr::relocate], [filter][dplyr::filter]
-#'  [glue][glue::glue]
-#'  [write_csv][readr::write_csv]
+#' }
+#' @seealso
+#'  \code{\link[readxl]{read_excel}}
+#'  \code{\link[here]{here}}
+#'  \code{\link[janitor]{clean_names}}
+#'  \code{\link[glue]{glue}}
+#'  \code{\link[readr]{write_delim}}
 #' @rdname gpluck_get_index_scores
-#' @export 
+#' @export
 #' @importFrom readxl read_xlsx
 #' @importFrom here here
 #' @importFrom janitor clean_names
-#' @importFrom bwu gpluck_make_columns gpluck_make_score_ranges
-#' @importFrom dplyr mutate case_when relocate filter
 #' @importFrom glue glue
 #' @importFrom readr write_csv
 gpluck_get_index_scores <- function(patient) {
@@ -752,19 +738,15 @@ gpluck_get_index_scores <- function(patient) {
 #' @param ... PARAM_DESCRIPTION
 #' @return OUTPUT_DESCRIPTION
 #' @details DETAILS
-#' @examples 
+#' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
 #' }
-#' @seealso 
-#'  [mutate][dplyr::mutate], [case_when][dplyr::case_when], [select][dplyr::select]
-#'  [pnorm][stats::pnorm], [sd][stats::sd]
+#' }
 #' @rdname compute_pctile_range
-#' @export 
-#' @importFrom dplyr mutate case_when select
-#' @importFrom stats pnorm sd
+#' @export
+#' @importFrom stats pnorm
 compute_pctile_range <-
   function(.x,
            .score = NA,
@@ -880,7 +862,7 @@ compute_pctile_range <-
     } else if (.score_type == "raw_score") {
       .x <-
         .x |>
-        dplyr::mutate(z = (.score - mean(raw_score)) / stats::sd(raw_score)) %>%
+        dplyr::mutate(z = (.score - mean(raw_score)) / sd(raw_score)) %>%
         dplyr::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
         dplyr::mutate(pct2 = dplyr::case_when(
           pct1 < 1 ~ ceiling(pct1),

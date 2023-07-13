@@ -2,23 +2,9 @@
 % Please edit documentation in R/plots.R
 \name{dotplot}
 \alias{dotplot}
-\alias{fig_dotplot}
 \title{Create a dotplot}
 \usage{
 dotplot(
-  data,
-  x,
-  y,
-  linewidth = 0.5,
-  fill = x,
-  shape = 21,
-  point_size = 6,
-  line_color = "black",
-  colors = NULL,
-  theme = "fivethirtyeight"
-)
-
-fig_dotplot(
   data,
   x,
   y,
@@ -54,16 +40,10 @@ fig_dotplot(
 }
 \value{
 An object of class 'ggplot' representing the dot plot.
-
-An object of class 'ggplot' representing the dot plot.
 }
 \description{
 This function generates a dot plot with the given data, x and y. The point's aesthetics and plot theme can be customized.
-
-This function generates a dot plot with the given data, x and y. The point's aesthetics and plot theme can be customized.
 }
 \details{
-This function generates a dot plot with the given data, x and y. The points' aesthetics and plot theme can be customized.
-
 This function generates a dot plot with the given data, x and y. The points' aesthetics and plot theme can be customized.
 }

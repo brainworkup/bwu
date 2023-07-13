@@ -49,7 +49,7 @@ tbl_gt <- function(file_path, filter, domain, table_name) {
       test_name = gt::md("**Test**"),
       scale = gt::md("**Scale**"),
       score = gt::md("**Score**"),
-      percentile = gt::md("**‰ Rank**"),
+      percentile = gt::md("**\u2030 Rank**"),
       range = gt::md("**Range**")
     ) |>
     gt::tab_stub_indent(
