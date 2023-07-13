@@ -61,3 +61,4 @@
 ^bwu_startup\.R$
 ^oxy_ggpubr_plots\.R$
 ^\.DS_Store$
+^tufte\.Rmd$

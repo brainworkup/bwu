@@ -57,13 +57,15 @@ dotplot <- function(data, x, y, linewidth = 0.5, fill, shape = 21, point_size = 
       size = point_size,
       color = line_color
     ) +
-    ggplot2::scale_fill_gradientn(colors = color_palette, guide = "none") +
+    ggplot2::scale_fill_gradientn(colors = color_palette, guide = "none")
 
-    # Apply theme
+  # Apply theme
+  plot_object <- plot_object +
     switch(theme,
-      "fivethirtyeight" = plot_object <- plot_object + ggthemes::theme_fivethirtyeight(),
-      "minimal" = plot_object <- plot_object + ggplot2::theme_minimal(),
-      "classic" = plot_object <- plot_object + ggplot2::theme_classic()
+           "fivethirtyeight" = ggthemes::theme_fivethirtyeight(),
+           "minimal" = ggplot2::theme_minimal(),
+           "classic" = ggplot2::theme_classic(),
+           ggplot2::theme_minimal()
     )
 
   plot_object <- plot_object +
