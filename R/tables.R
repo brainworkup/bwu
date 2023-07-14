@@ -1,40 +1,28 @@
-#' @title tbl_gt
+#' @title Make GT table per domain
 #' @description Create a table of domain counts using dplyr and gt packages.
-#' @param file_path Path to the data frame.
-#' @param filter Filter for the data frame.
-#' @param domain Domain to be used in the data frame.
-#' @param table_name Name of the table.
+#' @param data File or path to data.
+#' @param table_name Name of the table to be saved.
+#' @param source_note Source note to be added to the table.
 #' @return A formatted table with domain counts.
 #' @details This function creates a table of domain counts from a data frame using the dplyr and gt packages. It also saves the table with the specified name.
-#' @examples
-#' \dontrun{
-#' if (interactive()) {
-#'   # EXAMPLE1
-#'   df_domain <- read.csv("data/domain_counts.csv")
-#'   tbl_gt(df_domain, filter = TRUE, domain = "test", table_name = "table_domain")
-#' }
-#' }
-#' @seealso
-#'  \code{\link[dplyr]{mutate}}, \code{\link[dplyr]{group_by}}, \code{\link[dplyr]{summarise}}, \code{\link[dplyr]{arrange}}, \code{\link[dplyr]{select}}
-#'  \code{\link[gt]{gt}}, \code{\link[gt]{cols_label}}, \code{\link[gt]{tab_stub_indent}}, \code{\link[gt]{tab_header}}, \code{\link[gt]{sub_missing}}, \code{\link[gt]{tab_options}}, \code{\link[gt]{cols_align}}, \code{\link[gt]{tab_source_note}}, \code{\link[gt]{character(0)}}, \code{\link[gt]{gtsave}}
 #' @rdname tbl_gt
 #' @export
 #' @importFrom dplyr mutate group_by summarise arrange select
 #' @importFrom gt gt cols_label tab_stub_indent tab_header sub_missing tab_options cols_align tab_source_note gtsave
 #' @importFrom gtExtras gt_theme_538
-tbl_gt <- function(file_path, filter, domain, table_name) {
-  domain_counts <- df_domain |>
+tbl_gt <- function(data, table_name = NULL, source_note = NULL) {
+  data_counts <- data |>
     dplyr::mutate(scale = as.character(scale)) |>
-    dplyr::group_by(test_name, scale, score, percentile, range, subdomain) |>
+    dplyr::group_by(test_name, scale, score, percentile, range) |>
     dplyr::summarise(n = dplyr::n(), .groups = "drop")
 
-  domain_counts_wider <- domain_counts |>
+  data_counts_wider <- data_counts |>
     dplyr::mutate(dplyr::across(.cols = (3:4), .fns = ~ tidyr::replace_na(., replace = 0))) |>
     dplyr::arrange(test_name) |>
-    dplyr::select(-subdomain, -n)
+    dplyr::select(-n)
 
   # create table
-  table_domain <- domain_counts_wider |>
+  table <- data_counts_wider |>
     dplyr::mutate(dplyr::across(.cols = (3:4), ~ dplyr::if_else(. == 0, NA_integer_, .))) |>
     dplyr::mutate(
       test_name = as.factor(test_name),
@@ -49,20 +37,22 @@ tbl_gt <- function(file_path, filter, domain, table_name) {
       test_name = gt::md("**Test**"),
       scale = gt::md("**Scale**"),
       score = gt::md("**Score**"),
-      percentile = gt::md("**\u2030 Rank**"),
+      percentile = gt::md("**‰ Rank**"),
       range = gt::md("**Range**")
     ) |>
+    gt::tab_spanner(
+      label = gt::md("**Battery/Test**"),
+      columns = 1:2
+    ) |>
     gt::tab_stub_indent(
-      rows = scale
+      rows = scale,
+      indent = 2
     ) |>
     gt::tab_header(
-      title = "Battery/Subtest"
+      title = "Battery/Scale"
     ) |>
     gt::sub_missing(missing_text = "--") |>
     gt::tab_options(
-      data_row.padding = gt::px(1),
-      summary_row.padding = gt::px(2),
-      row_group.padding = gt::px(3),
       row_group.font.weight = "bold"
     ) |>
     gt::cols_align(
@@ -71,14 +61,11 @@ tbl_gt <- function(file_path, filter, domain, table_name) {
     ) |>
     # Adding a source note to the table
     gt::tab_source_note(
-      source_note = "Note: T-scores have a mean of 50 and a standard deviation of 10. Scaled scores have a mean of 10 and a standard deviation of 3."
+      source_note = source_note
     ) |>
     gtExtras::gt_theme_538()
 
-  return(table_domain)
-
-  # save the table
-  table_domain |> gt::gtsave(table_name, expand = 10)
+  return(table)
 }
 
 
