@@ -1,22 +1,22 @@
 ---
 title: |
   ![](logo.png){width=6.5in} NEUROCOGNITIVE EXAMINATION
-patient-meta: Lopez, Nestor
+patient-meta: Smalls, Biggie
 params:
-  patient: Nestor
-  first_name: Nestor
-  last_name: Lopez
+  patient: Biggie
+  first_name: Biggie
+  last_name: Smalls
   dob: 1990-01-01
-  doe1: 2023-04-15
-  doe2: 2023-04-16
-  doe3: 2023-04-26
+  doe1: 2023-04-01
+  doe2: 2023-04-02
+  doe3: 2023-04-03
   mrn: 000000000
   sex: male
   sex_cap: Male
   age: 20
   educyrs: 15
   hand: right
-  refdoc: Isabel
+  refdoc: Dr. Dre
   he_she: he
   he_she_cap: He
   his_her: his
@@ -87,7 +87,7 @@ format:
 reference-location: block
 citation-location: document
 embed-resources: true
-citeproc: false
+citeproc: false # figure out how to change this
 bibliography: refs.bib
 csl: https://www.zotero.org/styles/apa-with-abstract
 execute:
@@ -162,7 +162,7 @@ if (identical(knitr:::pandoc_to(), "latex")) {
 #| label: make-neuropsych
 #| include: false
 library(tidyverse)
-patient <- "Nestor"
+patient <- "Biggie"
 data_path <- here::here(patient, "csv")
 files <- dir(data_path, pattern = "*.csv")
 neuropsych <-
@@ -312,7 +312,7 @@ validity <- readr::read_csv(here::here(patient, "validity.csv"))
 
 {{< include _iq_text.qmd >}}
 
-{{< include _iq2.qmd >}}
+{{< include _iq.qmd >}}
 
 <!-- {{< pagebreak >}} -->
 
@@ -320,7 +320,7 @@ validity <- readr::read_csv(here::here(patient, "validity.csv"))
 
 {{< include _academics_text.qmd >}}
 
-{{< include _academics2.qmd >}}
+{{< include _academics.qmd >}}
 
 <!-- {{< pagebreak >}} -->
 
@@ -328,7 +328,7 @@ validity <- readr::read_csv(here::here(patient, "validity.csv"))
 
 {{< include _verbal_text.qmd >}}
 
-{{< include _verbal2.qmd >}}
+{{< include _verbal.qmd >}}
 
 <!-- {{< pagebreak >}} -->
 
@@ -336,7 +336,7 @@ validity <- readr::read_csv(here::here(patient, "validity.csv"))
 
 {{< include _spatial_text.qmd >}}
 
-{{< include _spatial2.qmd >}}
+{{< include _spatial.qmd >}}
 
 <!-- {{< pagebreak >}} -->
 
@@ -344,7 +344,7 @@ validity <- readr::read_csv(here::here(patient, "validity.csv"))
 
 {{< include _executive_text.qmd >}}
 
-{{< include _executive2.qmd >}}
+{{< include _executive.qmd >}}
 
 <!-- {{< pagebreak >}} -->
 
@@ -352,7 +352,7 @@ validity <- readr::read_csv(here::here(patient, "validity.csv"))
 
 {{< include _memory_text.qmd >}}
 
-{{< include _memory2.qmd >}}
+{{< include _memory.qmd >}}
 
 <!-- {{< pagebreak >}} -->
 
@@ -360,7 +360,7 @@ validity <- readr::read_csv(here::here(patient, "validity.csv"))
 
 {{< include _adhd_text.qmd >}}
 
-{{< include _adhd2.qmd >}}
+{{< include _adhd.qmd >}}
 
 <!-- {{< pagebreak >}} -->
 
@@ -368,14 +368,14 @@ validity <- readr::read_csv(here::here(patient, "validity.csv"))
 
 {{< include _emotion_text.qmd >}}
 
-{{< include _emotion2.qmd >}}
+{{< include _emotion.qmd >}}
 
 # SUMMARY/IMPRESSION
 
 ```{r}
 #| label: domain-plot
 #| eval: true
-#| fig-cap: "*Key Findings* The results of the current assessment revealed that Nestor has average to above average neurocognitive skills overall. He demonstrates relative strengths in areas of verbal procesisng juxtaposed with relative weaknesses in visuospatial processing. *Note:* *z* = 0 (mean) ± 1 (st.dev.)"
+#| fig-cap: "*Key Findings* The results of the current assessment revealed that Biggie has average to above average neurocognitive skills overall. He demonstrates relative strengths in areas of verbal procesisng juxtaposed with relative weaknesses in visuospatial processing. *Note:* *z* = 0 (mean) ± 1 (st.dev.)"
 #| fig-height: 3.5
 
 library(readr)
@@ -491,8 +491,7 @@ Although standardized scores provide the clinician with an important and necessa
 ## Test Results
 
 @fig-gauss-plot-narrow can be used as a guide to help interpret individual test scores in terms of the degree of distance a score fell in relation to normative expectations and the magnitude of clinical severity.
-Test scores are easiest to interpret as percentiles[^1], which are provided in the tables below, and as *z*-scores (M = 0, SD = 1)[^2], which are used to plot the various test and domain scores below
-.
+Test scores are easiest to interpret as percentiles[^1], which are provided in the tables below, and as *z*-scores (M = 0, SD = 1)[^2], which are used to plot the various test and domain scores below.
 
 ```{r}
 #| label: fig-gauss-plot-narrow
@@ -512,7 +511,6 @@ gt::gt(range) |>
   gt::cols_align(align = "center")
 ```
 
-[^1]: A *percentile* shows `r params$first_name`'s standing relative to peers.
-    For example, a percentile rank of 70 means `r params$first_name` performed as well as or better than 70% of individuals the same age.
+[^1]: A *percentile* shows `r params$first_name`'s standing relative to peers. For example, a percentile rank of 70 means `r params$first_name` performed as well as or better than 70% of individuals the same age.
 
 [^2]: *z* = -1 (16th percentile), *z* = 0 (50th percentile), and *z* = 1 (84th percentile)

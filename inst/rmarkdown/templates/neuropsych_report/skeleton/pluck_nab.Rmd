@@ -7,7 +7,7 @@ title: "Pluck Tables from NAB"
 ## Patient
 
 ```{r patient}
-patient <- "Sourina"
+patient <- "Biggie"
 ```
 
 ## Pages

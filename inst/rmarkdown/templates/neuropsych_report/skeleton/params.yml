@@ -1,11 +1,11 @@
 params:
   last_name: Smalls
   first_name: Biggie
-  mrn: "004162762"
-  dob: 1995-04-06
-  doe1: 2023-05-01
-  doe2: 2023-05-02
-  doe3: 2023-05-03
+  mrn: NULL
+  dob: 1995-01-01
+  doe1: 2023-04-01
+  doe2: 2023-04-02
+  doe3: 2023-04-03
   sex: female
   sex_cap: Female
   age: 28

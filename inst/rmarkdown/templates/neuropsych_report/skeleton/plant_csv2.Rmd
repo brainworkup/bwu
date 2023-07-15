@@ -3,7 +3,7 @@ title: "Plant CSV file of Neuropsych Measures/Tests"
 params:
   patient:
     label: "Patient First Name:"
-    value: Christine
+    value: Biggie
     input: text
   test_name:
     label: "Full Name of Test/Test Battery:"
