@@ -90,3 +90,4 @@ renv/.DS_Store
 blackbox.config.json
 tufte.Rmd
 bwu.code-workspace
+bwu_startup.R

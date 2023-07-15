@@ -1,4 +1,4 @@
-#' @title FUNCTION_TITLE
+#' @title Make a tibble for plots
 #' @description FUNCTION_DESCRIPTION
 #' @param tibb PARAM_DESCRIPTION
 #' @param data PARAM_DESCRIPTION, Default: '.'
@@ -10,18 +10,18 @@
 #' @param ... PARAM_DESCRIPTION
 #' @return OUTPUT_DESCRIPTION
 #' @details DETAILS
-#' @examples 
+#' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
 #' }
-#' @seealso 
+#' }
+#' @seealso
 #'  [filter][dplyr::filter], [select][dplyr::select], [mutate][dplyr::mutate]
 #'  [all_of][tidyselect::all_of]
 #'  [set_names][purrr::set_names]
 #' @rdname make_tibble
-#' @export 
+#' @export
 #' @importFrom dplyr filter select mutate
 #' @importFrom tidyselect all_of
 #' @importFrom purrr set_names

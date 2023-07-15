@@ -42,6 +42,7 @@ sinew::sinew_opts$set(markdown_links = TRUE)
 sinew::makeOxyFile(input = pkg_dir_R, overwrite = TRUE, verbose = FALSE)
 
 rcompendium::add_dependencies(".")
+
 ## devtools
 devtools::lint()
 devtools::document()
@@ -49,6 +50,8 @@ devtools::document()
 devtools::install_deps(dependencies = TRUE)
 
 devtools::build_readme()
+
+pak::pkg_install('ropensci/tabulizer')
 
 usethis::use_readme_rmd()
 
@@ -142,7 +145,7 @@ pak::lockfile_install(lockfile = "pkg.lock", lib = ".pak/library", update = TRUE
 
 remotes::install_github(c("ropensci/tabulizerjars", "ropensci/tabulizer"), INSTALL_opts = "--no-multiarch")
 
-pak::pkg_install('ropensci/tabulizer')
+
 
 
 

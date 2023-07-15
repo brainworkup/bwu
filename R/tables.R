@@ -151,3 +151,72 @@ tbl_md <- function(data) {
       caption = caption
     )
 }
+
+
+#' @title Make a tibble for plots
+#'
+#' @description Create a tibble with columns specified in 'columns', and set column names to 'names'.
+#'
+#' @param tibb A data frame containing the data, Default: NULL
+#' @param data A character string indicating the name of the dataset, Default: '.'
+#' @param pheno A character vector indicating the domain of interest, Default: NULL
+#' @param domain A character string indicating the domain of interest, Default: NULL
+#' @param columns A character vector of column names to be included in the tibble, Default: c("scale", "score", "percentile", "range", "subdomain", "test_name")
+#' @param percentile A numeric vector indicating the percentile values to be truncated, Default: NULL
+#' @param names A character vector of column names to be set in the tibble, Default: c("Scale", "Score", "‰ Rank", "Range", "Subdomain", "Test")
+#' @param ... Additional arguments to be passed to the function.
+#'
+#' @return A tibble with columns specified in 'columns', and set column names to 'names'.
+#'
+#' @details The function filters the data by 'domain', selects columns from 'columns', and sets the column names to 'names'. It then truncates the values of 'percentile' column.
+#'
+#' @examples
+#' \dontrun{
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
+#' }
+#'
+#' @seealso
+#'  [filter][dplyr::filter], [select][dplyr::select], [mutate][dplyr::mutate]
+#'  [all_of][tidyselect::all_of]
+#'  [set_names][purrr::set_names]
+#'
+#' @rdname make_tibble
+#'
+#' @export
+#'
+#' @importFrom dplyr filter select mutate
+#' @importFrom tidyselect all_of
+#' @importFrom purrr set_names
+make_tibble <- function(data,
+                        pheno = NULL,
+                        domain = NULL,
+                        columns = c(
+                          "scale",
+                          "score",
+                          "percentile",
+                          "range",
+                          "subdomain",
+                          "test_name"
+                        ),
+                        percentile = NULL,
+                        names = c(
+                          "Scale",
+                          "Score",
+                          "‰ Rank",
+                          "Range",
+                          "Subdomain",
+                          "Test"
+                        ),
+                        tibb = NULL,
+                        ...) {
+  tibb <-
+    data %>%
+    dplyr::filter(domain %in% pheno) %>%
+    dplyr::select(tidyselect::all_of(columns)) %>%
+    dplyr::mutate(percentile = trunc(percentile)) %>%
+    purrr::set_names(names)
+
+  return(tibb)
+}

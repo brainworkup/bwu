@@ -2,32 +2,22 @@
 % Please edit documentation in R/age.R
 \name{age}
 \alias{age}
-\title{FUNCTION_TITLE}
+\title{Compute age}
 \usage{
 age(birthDate, refDate = Sys.Date(), unit = "year")
 }
 \arguments{
-\item{birthDate}{PARAM_DESCRIPTION}
+\item{birthDate}{Date of birth}
 
-\item{refDate}{PARAM_DESCRIPTION, Default: Sys.Date()}
+\item{refDate}{Reference date, Default: Sys.Date()}
 
-\item{unit}{PARAM_DESCRIPTION, Default: 'year'}
+\item{unit}{Date unit, Default: 'year'}
 }
 \value{
 OUTPUT_DESCRIPTION
 }
 \description{
 FUNCTION_DESCRIPTION
-}
-\details{
-DETAILS
-}
-\examples{
-\dontrun{
-if(interactive()){
- #EXAMPLE1
- }
-}
 }
 \seealso{
 \link[lubridate:as.period]{as.period}, \link[lubridate:interval]{interval}
