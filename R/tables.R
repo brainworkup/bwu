@@ -10,7 +10,7 @@
 #' @importFrom dplyr mutate group_by summarise arrange select
 #' @importFrom gt gt cols_label tab_stub_indent tab_header sub_missing tab_options cols_align tab_source_note gtsave
 #' @importFrom gtExtras gt_theme_538
-tbl_gt <- function(data, table_name = NULL, source_note = NULL) {
+tbl_gt <- function(data, table_name = NULL, source_note = NULL, title = "Battery/Scale") {
   data_counts <- data |>
     dplyr::mutate(scale = as.character(scale)) |>
     dplyr::group_by(test_name, scale, score, percentile, range) |>
@@ -41,15 +41,15 @@ tbl_gt <- function(data, table_name = NULL, source_note = NULL) {
       range = gt::md("**Range**")
     ) |>
     gt::tab_spanner(
-      label = gt::md("**Battery/Test**"),
-      columns = 1:2
+      label = gt::md("**Battery/Scale**"),
+      columns = -c(score, percentile, range) # might break it
     ) |>
     gt::tab_stub_indent(
       rows = scale,
       indent = 2
     ) |>
     gt::tab_header(
-      title = "Battery/Scale"
+      title = title
     ) |>
     gt::sub_missing(missing_text = "--") |>
     gt::tab_options(
