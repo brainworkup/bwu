@@ -4,7 +4,7 @@ author:
   - name: "**Biggie Smalls**"
 date: January 1, 2021
 output:
-  bwu::neuropsych_report_adult:
+  bwu::adult_report:
     latex_engine: pdflatex
     citation_package: biblatex
     number_sections: false
