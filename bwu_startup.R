@@ -117,7 +117,7 @@ usethis::use_build_ignore("src/")
 usethis::use_build_ignore("_freeze/")
 usethis::use_build_ignore("README_files/")
 usethis::use_build_ignore("bwu.qmd")
-usethis::use_build_ignore("tufte.Rmd")
+usethis::use_build_ignore("neuropsych_report_child/")
 usethis::use_build_ignore("README.html")
 
 usethis::use_build_ignore("bwu_startup.R")

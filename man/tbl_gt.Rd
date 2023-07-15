@@ -4,7 +4,7 @@
 \alias{tbl_gt}
 \title{Make GT table per domain}
 \usage{
-tbl_gt(data, table_name = NULL, source_note = NULL)
+tbl_gt(data, table_name = NULL, source_note = NULL, title = "Battery/Scale")
 }
 \arguments{
 \item{data}{File or path to data.}
