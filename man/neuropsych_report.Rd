@@ -2,7 +2,7 @@
 % Please edit documentation in R/write_neuropsych_reports.R
 \name{neuropsych_report}
 \alias{neuropsych_report}
-\title{Main Report}
+\title{Main output for neuropsychological report}
 \usage{
 neuropsych_report(
   documentclass = c("adult-report", "child-report"),
@@ -16,8 +16,7 @@ neuropsych_report(
 )
 }
 \arguments{
-\item{documentclass}{Specify either "adult-report" or "child-report" as the document class.
-Defaults to "adult-report".}
+\item{documentclass}{Specify either "adult-report" or "child-report" as the document class. Defaults to "adult-report".}
 
 \item{fig_width}{The width of figures. Defaults to 4 in.}
 
@@ -31,7 +30,7 @@ Defaults to "adult-report".}
 
 \item{template}{Name of LaTeX template file. Defaults to "neuro-report.tex".}
 
-\item{...}{Other arguments passed down to \code{\link{bookdown::pdf_document2}}.}
+\item{...}{Other arguments passed down to \code{bookdown::pdf_document2}.}
 }
 \description{
 Create a neuropsychological report in pdf format.

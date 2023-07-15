@@ -31,20 +31,18 @@ child_report <- function(fig_width = 4, fig_height = 2.5, fig_crop = TRUE, dev =
   neuropsych_report("child-report", fig_width, fig_height, fig_crop, dev, highlight, ...)
 }
 
-
-#' Main Report
+#' Main output for neuropsychological report
 #'
 #' Create a neuropsychological report in pdf format.
 #'
-#' @param documentclass Specify either "adult-report" or "child-report" as the document class.
-#'                      Defaults to "adult-report".
+#' @param documentclass Specify either "adult-report" or "child-report" as the document class. Defaults to "adult-report".
 #' @param fig_width The width of figures. Defaults to 4 in.
 #' @param fig_height The height of figures. Defaults to 2.5in.
 #' @param fig_crop Whether to crop figures with extra white space. Defaults to `TRUE`.
 #' @param dev The graphical device used to create plots. Defaults to "pdf".
 #' @param highlight Syntax highlighting method for code chunks. Defaults to "pygments".
 #' @param template Name of LaTeX template file. Defaults to "neuro-report.tex".
-#' @param ... Other arguments passed down to \code{\link{bookdown::pdf_document2}}.
+#' @param ... Other arguments passed down to `bookdown::pdf_document2`.
 #' @rdname neuropsych_report
 #' @importFrom bookdown pdf_document2
 #' @export
@@ -92,6 +90,6 @@ neuropsych_report <- function(documentclass = c("adult-report", "child-report"),
   }
   # override the knitr settings of the base format and return the format
   format$knitr <- knitr_options
-  format$inherits <- "pdf_document2" # was "pdf_document"
+  format$inherits <- "pdf_document" # was "pdf_document"
   format
 }
