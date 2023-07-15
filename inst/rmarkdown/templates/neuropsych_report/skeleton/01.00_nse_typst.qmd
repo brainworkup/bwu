@@ -196,7 +196,7 @@ Neurobehavioral status exam and clinical documentation by Neuropsychologist (961
 
 
 
-**Joey Trampush, PhD**\
+**Joey W. Trampush, Ph.D.**\
 Assistant Professor of Psychiatry\
 Department of Psychiatry and the Behavioral Sciences\
 University of Southern California Keck School of Medicine\
@@ -215,7 +215,7 @@ _I connected with the Patient by a video enabled telemedicine application and ve
 
 ```{r}
 #| label: get-csv
-#| eval: true
+#| eval: false
 #| include: false
 library(vroom)
 library(here)
@@ -227,7 +227,7 @@ cefi_or <- vroom::vroom(here::here(patient, "csv", "cefi_or.csv"))
 ```
 
 ```{r}
-#| label: tb1-caars
+#| label: tbl-caars-sr
 #| eval: false
 #| echo: false
 #| warning: false
@@ -256,8 +256,8 @@ tb1
 ```
 
 ```{r}
-#| label: tb2-caars
-#| eval: true
+#| label: tbl-caars-or
+#| eval: false
 #| echo: false
 #| warning: false
 #| tbl-cap: "CAARS Observer-Report"
@@ -287,11 +287,11 @@ tb2
 ### CEFI Executive Functioning Rating Scales
 
 ```{r}
-#| label: tb1-cefi
-#| eval: true
+#| label: tbl-cefi-sr
+#| eval: false
 #| echo: false
 #| warning: false
-#| tbl-cap: CEFI Self-Report
+#| tbl-cap: "CEFI Self-Report"
 #| layout-ncol: 1
 
 # table on the left
@@ -317,13 +317,12 @@ tb3
 ```
 
 ```{r}
-#| label: tb2-cefi
+#| label: tbl-cefi-or
 #| eval: false
 #| echo: false
 #| warning: false
-#| tbl-cap: CEFI Observer-Report
+#| tbl-cap: "CEFI Observer-Report"
 #| layout-ncol: 1
-
 tb4 <-
   cefi_or |>
   tidytable::select(scale, score, percentile, range) |>
