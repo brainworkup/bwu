@@ -1,0 +1,196 @@
+---
+title-meta: spatial
+execute:
+  warning: false
+  echo: false
+  message: false
+format:
+  typst:
+    keep-typ: true
+  pdf:
+    keep-md: true
+    keep-tex: true
+---
+
+<!-- ### Visual Perception/Construction -->
+
+```{r}
+#| label: data-spatial
+library(readr)
+library(dplyr)
+library(bwu)
+
+# which csv file to use
+pheno <- "Visual Perception/Construction"
+
+if (pheno == "adhd" || pheno == "emotion") {
+  csv <- "neurobehav.csv"
+} else {
+  csv <- "neurocog.csv"
+}
+
+# read data
+file_path <- file.path(csv)
+data <- readr::read_csv(file_path)
+```
+
+```{r}
+#| label: filter-spatial
+
+# FILTER DATA
+# filter by broad domain
+domain <- "Visual Perception/Construction"
+data <- dplyr::filter(data, domain == !!domain)
+
+# filter by scale
+filter_file <- c(
+  # NAB
+  "Spatial Domain",
+  "NAB Spatial Index",
+  "Visual Discrimination",
+  "Design Construction",
+  "Figure Drawing Copy",
+  "Map Reading",
+  # WAIS/WISC/WPPSI
+  "Block Design",
+  "Block Design No Time Bonus",
+  "Block Design Partial Score",
+  "Matrix Reasoning",
+  "Figure Weights",
+  "Visual Puzzles",
+  "Object Assembly",
+  "Picture Concepts",
+  # ROCFT
+  "ROCF Copy",
+  "ROCFT Copy",
+  # NEPSY
+  "Design Copying",
+  "Design Copying General",
+  "Design Copying Process",
+  "Design Copying Motor",
+  "Arrows",
+  "Geometric Puzzles",
+  "Clocks",
+  "Clock Drawing",
+  "Bicycle Drawing",
+  # RBANS
+  "Visuospatial/Constructional Index",
+  "Figure Copy",
+  "Line Orientation"
+)
+data <- dplyr::filter(data, scale %in% filter_file)
+```
+
+```{r}
+#| label: text-spatial
+#| cache: true
+library(glue)
+library(purrr)
+library(dplyr)
+
+data_text <-
+  data |>
+  dplyr::arrange(dplyr::desc(percentile)) |>
+  dplyr::distinct(.keep_all = FALSE)
+
+data_text |>
+  glue::glue_data() |>
+  purrr::modify(purrr::as_mapper(~ paste0(.x))) |>
+  cat(data_text$result,
+    file = "_spatial_text_raw.qmd",
+    fill = TRUE,
+    append = TRUE
+  )
+```
+
+```{r}
+#| label: qtbl-spatial
+#| out-width: 80%
+# GT table
+xfun::pkg_attach2(c("gt", "dplyr", "glue", "webshot2", "gtExtras", "bwu"))
+
+# more filtering for tables
+# data <- dplyr::filter(data, test_name != "CVLT-3 Brief")
+# data <- dplyr::filter(data, scale != "Orientation")
+data <- dplyr::arrange(data, test_name)
+
+# source note
+source_note <- gt::md("*Note:* T-scores have a mean of 50 and a standard deviation of 10. Scaled scores have a mean of 10 and a standard deviation of 3.")
+
+# run fc
+table_spatial <- bwu::tbl_gt(
+  data,
+  table_name = "table_spatial",
+  source_note = source_note
+)
+table_spatial
+
+gt::gtsave(table_spatial, glue("table_spatial", ".png"), expand = 10)
+gt::gtsave(table_spatial, glue("table_spatial", ".pdf"), expand = 10)
+
+```
+
+```{=typst}
+<qtbl-spatial>
+#figure([#image("table_spatial.png", width: 80%)],
+  caption: [
+    Visual Perception/Construction
+  ],
+  kind: "qtbl",
+  supplement: [Table],
+)
+```
+
+```{r}
+#| label: fig-spatial
+#| eval: true
+#| column: page
+#| out-width: 80%
+#| fig-cap: "*Visuoperception, visuoconstruction, and visuospatial processing* refer to abilities such as mentally visualizing how objects should look from different angles, visualizing how to put objects together so that they fit correctly, and being able to accurately and efficiently copy and/or reproduce visual-spatial information onto paper."
+xfun::pkg_attach(c(
+  "gt", "tidyverse", "glue", "webshot2", "ggplot2", "ggthemes",
+  "scales", "bwu"
+))
+
+# data for dotplot
+data <- dplyr::filter(data, !is.na(percentile))
+# exclude <- c("CVLT-3 Total Intrusions", "CVLT-3 Total Repetitions", "CVLT-3 Forced-Choice Recognition Hits")
+
+# will need to change these for each domain
+fig_spatial <- bwu::dotplot(
+  data = data,
+  x = data$z_mean_narrow,
+  y = data$narrow,
+  fill = x
+)
+fig_spatial
+
+ggplot2::ggsave("fig_spatial.png")
+ggplot2::ggsave("fig_spatial.pdf")
+
+```
+
+```{r}
+#| label: _tbl-md-spatial
+#| eval: false
+#| tbl-cap: "Visual Perception/Construction"
+# markdown table; change label if want to use
+markdown_table_typst <- function(data) {
+  data.frame(
+    data
+  ) |>
+    kableExtra::kbl(
+      format = "markdown",
+      table.envir = "figure",
+      longtable = FALSE,
+      booktabs = TRUE,
+      linesep = "",
+      align = c("lccc"),
+      caption = "memory",
+      col.names = c("**Scale**", "**Score**", "**‰ Rank**", "**Range**")
+    )
+}
+
+tbl_md <- markdown_table_typst(data[, c(2, 4, 5, 6)])
+tbl_md
+```

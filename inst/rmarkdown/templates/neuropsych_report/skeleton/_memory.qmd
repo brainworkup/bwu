@@ -1,0 +1,247 @@
+---
+title-meta: memory
+execute:
+  warning: false
+  echo: false
+  message: false
+format:
+  typst:
+    keep-typ: true
+  pdf:
+    keep-md: true
+    keep-tex: true
+---
+
+<!-- ### Memory -->
+
+```{r}
+#| label: data-memory
+library(readr)
+library(dplyr)
+library(bwu)
+
+# which csv file to use
+pheno <- "memory"
+
+if (pheno == "adhd" || pheno == "emotion") {
+  csv <- "neurobehav.csv"
+} else {
+  csv <- "neurocog.csv"
+}
+
+# read data
+file_path <- file.path(csv)
+data <- readr::read_csv(file_path)
+```
+
+```{r}
+#| label: filter-memory
+
+# FILTER DATA
+# filter by broad domain
+domain <- "Memory"
+data <- dplyr::filter(data, domain == !!domain)
+
+# filter by scale
+filter_file <- c(
+  # ROCFT
+  "ROCFT Delayed Recall",
+  ## NAB/NABS
+  "Memory Domain",
+  "NAB Memory Index",
+  "List Learning Immediate Recall",
+  "List Learning Short Delayed Recall",
+  "List Learning Long Delayed Recall",
+  "Shape Learning Immediate Recognition",
+  "Shape Learning Delayed Recognition",
+  "Shape Learning Percent Retention",
+  "Story Learning Immediate Recall",
+  "Story Learning Delayed Recall",
+  "Story Learning Percent Retention",
+  "Daily Living Memory Immediate Recall",
+  "Daily Living Memory Delayed Recall",
+  # RBANS
+  "Immediate Memory Index",
+  "List Learning",
+  "Story Memory",
+  "Delayed Memory Index",
+  "List Recall",
+  "List Recognition",
+  "Story Recall",
+  "Figure Recall",
+  # NEPSY-2
+  "Memory for Faces",
+  "Memory for Faces Delayed",
+  "Memory for Designs",
+  "Memory for Designs Content",
+  "Memory for Designs Spatial",
+  "Memory for Designs Delayed",
+  "Memory for Designs Delayed Content",
+  "Memory for Designs Delayed Spatial",
+  "Narrative Memory Free Recall",
+  "Narrative Memory Recall",
+  "Narrative Memory Free and Cued Recall",
+  "Narrative Memory Recognition",
+  "Word List Interference-Repetition",
+  "Word List Interference-Recall",
+  "Sentence Repetition",
+  # CVLT-C
+  "Trials 1-5 Free Recall Correct",
+  "Trial 1 Free Recall Correct",
+  "Trial 5 Free Recall Correct",
+  "List B Free Recall Correct",
+  "Short-Delay Free Recall",
+  "Short-Delay Cued Recall",
+  "Long-Delay Free Recall",
+  "Long-Delay Cued Recall",
+  # "Total Intrusions",
+  # "Total Repetitions",
+  "Long-Delay Recognition Discriminability",
+  "Long-Delay Recognition Response Bias",
+  ## CVLT-3/CVLT-3 Brief
+  # "Trial 1 Correct",
+  # "Trial 2 Correct",
+  # "Trial 3 Correct",
+  # "Trial 4 Correct",
+  # "Trial 5 Correct",
+  # "List B Correct",
+  "Trials 1-4 Correct",
+  "Trials 1-5 Correct",
+  "Short Delay Free Recall",
+  "Short Delay Cued Recall",
+  "Long Delay Free Recall",
+  "Long Delay Cued Recall",
+  # "Total Hits",
+  # "Total False Positives",
+  "Recognition Discriminability (d')",
+  # "Recognition Discriminability Nonparametric",
+  "CVLT-3 Forced-Choice Recognition Hits",
+  # EF or here
+  "CVLT-3 Total Intrusions",
+  "CVLT-3 Total Repetitions",
+  # WMS-IV
+  "Logical Memory I",
+  "Logical Memory II",
+  "Visual Reproduction I",
+  "Visual Reproduction II",
+  "Designs II",
+  "Designs II"
+)
+data <- dplyr::filter(data, scale %in% filter_file)
+
+```
+
+```{r}
+#| label: text-memory
+#| cache: true
+library(glue)
+library(purrr)
+library(dplyr)
+
+data_text <-
+  data |>
+  dplyr::arrange(dplyr::desc(percentile)) |>
+  dplyr::distinct(.keep_all = FALSE)
+
+data_text |>
+  glue::glue_data() |>
+  purrr::modify(purrr::as_mapper(~ paste0(.x))) |>
+  cat(data_text$result,
+    file = "_memory_text_raw.qmd",
+    fill = TRUE,
+    append = TRUE
+  )
+```
+
+```{r}
+#| label: qtbl-memory
+#| out-width: 60%
+# GT table
+xfun::pkg_attach2(c("gt", "dplyr", "glue", "webshot2", "gtExtras", "bwu"))
+
+# more filtering for tables
+# data <- dplyr::filter(data, test_name != "CVLT-3 Brief")
+# data <- dplyr::filter(data, scale != "Orientation")
+data <- dplyr::arrange(data, test_name)
+
+# source note
+source_note <- gt::md("*Note:* T-scores have a mean of 50 and a standard deviation of 10. Scaled scores have a mean of 10 and a standard deviation of 3.")
+
+# run fc
+table_memory <- bwu::tbl_gt(
+  data,
+  table_name = "table_memory",
+  source_note = source_note
+)
+table_memory
+
+gt::gtsave(table_memory, glue("table_memory", ".png"), expand = 10)
+gt::gtsave(table_memory, glue("table_memory", ".pdf"), expand = 10)
+
+```
+
+```{=typst}
+<qtbl-memory>
+#figure([#image("table_memory.png", width: 60%)],
+  caption: [
+    Learning and Memory
+  ],
+  kind: "qtbl",
+  supplement: [Table],
+)
+
+```
+
+```{r}
+#| label: fig-memory
+#| eval: true
+#| column: page
+#| out-width: 60%
+#| fig-cap: "*Learning and memory* refer to the rate and ease with which new information (e. g., facts, stories, lists, faces, names) can be encoded, stored, and later recalled from long-term memory."
+xfun::pkg_attach(c(
+  "gt", "tidyverse", "glue", "webshot2", "ggplot2", "ggthemes",
+  "scales", "bwu"
+))
+
+# data for dotplot
+data <- dplyr::filter(data, !is.na(percentile))
+exclude <- c("CVLT-3 Total Intrusions", "CVLT-3 Total Repetitions", "CVLT-3 Forced-Choice Recognition Hits")
+
+# will need to change these for each domain
+fig_memory <- bwu::dotplot(
+  data = data,
+  x = data$z_mean_narrow,
+  y = data$narrow,
+  fill = x
+)
+fig_memory
+
+ggplot2::ggsave("fig_memory.png")
+ggplot2::ggsave("fig_memory.pdf")
+
+```
+
+```{r}
+#| label: _tbl-md-memory
+#| eval: false
+#| tbl-cap: "memory"
+# markdown table; change labe if want to use
+markdown_table_typst <- function(data) {
+  data.frame(
+    data
+  ) |>
+    kableExtra::kbl(
+      format = "markdown",
+      table.envir = "figure",
+      longtable = FALSE,
+      booktabs = TRUE,
+      linesep = "",
+      align = c("lccc"),
+      caption = "memory",
+      col.names = c("**Scale**", "**Score**", "**‰ Rank**", "**Range**")
+    )
+}
+
+tbl_md <- markdown_table_typst(data[, c(2, 4, 5, 6)])
+tbl_md
+```

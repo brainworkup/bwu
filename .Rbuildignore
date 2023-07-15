@@ -63,3 +63,4 @@
 ^\.DS_Store$
 ^tufte\.Rmd$
 ^neuropsych_report_child$
+^neuropsych_report_adult$

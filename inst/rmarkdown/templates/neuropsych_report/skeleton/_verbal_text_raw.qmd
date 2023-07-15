@@ -1,0 +1,11 @@
+```{r}
+#| cache: true
+```
+
+Summarize and interpret these neuropsychological test scores as if you are an
+experienced clinical neuropsychologist. For scores that are below average,
+give a brief example of how this could impact the patient's daily life and functioning. Organize your
+summary and interpretation from scores that are above average to below average to delineate
+relative strengths and weaknesses. The patient is an {{adult}} {{male}}.
+
+<<START>>

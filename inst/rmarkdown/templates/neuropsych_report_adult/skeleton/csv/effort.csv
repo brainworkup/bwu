@@ -1,6 +1,0 @@
-scale,raw_score,score,percentile,range,ci_95,test,test_name,domain,subdomain,narrow,pass,verbal,timed,test_type,score_type,absort,description,result
-Word Choice,,,,Within Normal Limits Score,,word_choice,ACS Word Choice,Performance Validity,Cognitive Effort,Forced-Choice Recognition Memory,,,,npsych_test,raw_score,word_choice_1,effort test (word choice),Word choice was WNL.
-Reliable Digit Span,,,,Within Normal Limits Score,,wais4_rds,WIAS-IV Reliable Digit Span,Performance Validity,Cognitive Effort,Span,,,,npsych_test,raw_score,wais4_rds_1,reliable digit span,RDS was WNL.
-TOMM Trial 1,,,,Within Normal Limits Score,,tomm,Test of Memory Malingering,Performance Validity,Cognitive Effort,Forced-Choice Recognition Memory,,,,npsych_test,raw_score,tomm_1,TOMM first trial,TOMM first trial was WNL.
-TOMM Trial 2,,,,Within Normal Limits Score,,tomm,Test of Memory Malingering,Performance Validity,Cognitive Effort,Forced-Choice Recognition Memory,,,,npsych_test,raw_score,tomm_2,TOMM second trial,TOMM second trial was WNL.
-DCT E-Score,,,,Within Normal Limits Score,,dct,Dot Counting ,Performance Validity,Cognitive Effort,Reaction Time,,,,npsych_test,raw_score,dct_1,DCT effort testing,DCT effort testing was WNL.

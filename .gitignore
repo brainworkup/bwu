@@ -91,3 +91,5 @@ blackbox.config.json
 tufte.Rmd
 bwu.code-workspace
 bwu_startup.R
+neuropsych_report_adult/
+neuropsych_report_child/

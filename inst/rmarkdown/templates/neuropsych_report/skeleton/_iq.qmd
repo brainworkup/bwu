@@ -1,0 +1,206 @@
+---
+title-meta: iq
+execute:
+  warning: false
+  echo: false
+  message: false
+format:
+  typst:
+    keep-typ: true
+  pdf:
+    keep-md: true
+    keep-tex: true
+---
+
+<!-- ### General Cognitive Ability -->
+
+```{r}
+#| label: data-iq
+library(readr)
+library(dplyr)
+library(bwu)
+
+# which csv file to use
+pheno <- "iq"
+
+if (pheno == "adhd" || pheno == "emotion") {
+  csv <- "neurobehav.csv"
+} else {
+  csv <- "neurocog.csv"
+}
+
+# read data
+file_path <- file.path(csv)
+data <- readr::read_csv(file_path)
+```
+
+```{r}
+#| label: filter-iq
+
+# FILTER DATA
+# filter by broad domain
+domain <- "Intelligence/General Ability"
+data <- dplyr::filter(data, domain == !!domain)
+
+# filter by scale
+filter_file <- c(
+  ## ACS TOPF
+  "Test of Premorbid Functioning",
+  "TOPF Standard Score",
+  ## WRAT5 Word Reading
+  "Word Reading",
+  ## NAB
+  "NAB Total Index",
+  "NAB Attention Index",
+  "NAB Language Index",
+  "NAB Memory Index",
+  "NAB Spatial Index",
+  "NAB Executive Functions Index",
+  ## RBANS
+  "RBANS Total Index",
+  ## WISC/WAIS/WPPSI
+  "Full Scale (FSIQ)",
+  "General Ability (GAI)",
+  "Cognitive Proficiency (CPI)",
+  "Verbal Comprehension (VCI)",
+  "Perceptual Reasoning (PRI)",
+  "Fluid Reasoning (FRI)",
+  "Visual Spatial (VSI)",
+  "Vocabulary Acquisition (VAI)",
+  "Nonverbal (NVI)",
+  "Processing Speed (PSI)",
+  "Working Memory (WMI)",
+  ## composite scores
+  "General Ability",
+  "General Ability Index",
+  "Crystallized Knowledge",
+  "Crystallized Knowledge Index",
+  "Fluid Reasoning",
+  "Fluid Reasoning Index",
+  "Cognitive Proficiency",
+  "Cognitive Proficiency Index",
+  "Working Memory",
+  "Working Memory Index",
+  "Processing Speed",
+  "Processing Speed Index",
+  "General Intelligence",
+  "Cognitive Efficiency"
+)
+data <- dplyr::filter(data, scale %in% filter_file)
+
+```
+
+```{r}
+#| label: text-iq
+#| cache: true
+library(glue)
+library(purrr)
+library(dplyr)
+
+data_text <-
+  data |>
+  dplyr::arrange(dplyr::desc(percentile)) |>
+  dplyr::distinct(.keep_all = FALSE)
+
+data_text |>
+  glue::glue_data() |>
+  purrr::modify(purrr::as_mapper(~ paste0(.x))) |>
+  cat(data_text$result,
+    file = "_iq_text_raw.qmd",
+    fill = TRUE,
+    append = TRUE
+  )
+```
+
+```{r}
+#| label: qtbl-iq
+#| tbl-cap: "Intelligence/General Ability" # change this for non legal
+#| out-width: 60%
+# GT table
+xfun::pkg_attach2(c("gt", "dplyr", "glue", "webshot2", "gtExtras", "bwu"))
+
+# more filtering for tables
+# data <- dplyr::filter(data, test_name != "CVLT-3 Brief")
+# data <- dplyr::filter(data, scale != "Orientation")
+data <- dplyr::arrange(data, test_name)
+
+# source note
+source_note <- gt::md("*Note:* Index scores have a mean of 100 and a standard deviation of 15.")
+
+# run fc
+table_iq <- bwu::tbl_gt(
+  data,
+  table_name = "table_iq",
+  source_note = source_note,
+  title = NULL
+)
+table_iq
+
+gt::gtsave(table_iq, glue("table_iq", ".png"), expand = 10)
+gt::gtsave(table_iq, glue("table_iq", ".pdf"), expand = 10)
+
+```
+
+```{=typst}
+<qtbl-iq>
+#figure([#image("table_iq.png", width: 60%)],
+  caption: [
+    General Cognitive Ability
+  ],
+  kind: "qtbl",
+  supplement: [Table],
+)
+```
+
+```{r}
+#| label: fig-iq
+#| eval: true
+#| column: page
+#| out-width: 60%
+#| fig-cap: "*General Ability* refers to an overall capacity to reason, to solve problems, and to learn useful information. *Crystallized Knowledge* refers to the ability to learn and use language to reason and understand how the world works. *Fluid Reasoning* refers to the ability to use logical reasoning to figure things out without being told exactly how things work, analyze and solve novel problems, identify patterns and relationships that underpin these problems, and apply logic."
+xfun::pkg_attach(c(
+  "gt", "tidyverse", "glue", "webshot2", "ggplot2", "ggthemes",
+  "scales", "bwu"
+))
+
+# data for dotplot
+data <- dplyr::filter(data, !is.na(percentile))
+
+# will need to change these for each domain
+fig_iq <- bwu::dotplot(
+  data = data,
+  x = data$z_mean_sub,
+  y = data$subdomain,
+  fill = x
+)
+fig_iq
+
+ggplot2::ggsave("fig_iq.png")
+ggplot2::ggsave("fig_iq.pdf")
+
+```
+
+```{r}
+#| label: _tbl-md-iq
+#| eval: false
+#| tbl-cap: "iq"
+# markdown table; change labe if want to use
+markdown_table_typst <- function(data) {
+  data.frame(
+    data
+  ) |>
+    kableExtra::kbl(
+      format = "markdown",
+      table.envir = "figure",
+      longtable = FALSE,
+      booktabs = TRUE,
+      linesep = "",
+      align = c("lccc"),
+      caption = "iq",
+      col.names = c("**Scale**", "**Score**", "**‰ Rank**", "**Range**")
+    )
+}
+
+tbl_md <- markdown_table_typst(data[, c(2, 4, 5, 6)])
+tbl_md
+```

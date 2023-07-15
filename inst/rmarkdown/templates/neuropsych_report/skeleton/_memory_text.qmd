@@ -1,0 +1,18 @@
+---
+title-meta: memory
+---
+
+<!-- ### Learning and Memory  -->
+
+Although there were no gross deficits, there was a general pattern of stronger nonverbal memory than verbal memory ability. She particularly struggled with recalling more complex verbal information that was provided after a single learning trial.
+
+#### Verbal 
+
+- Noncontextual: AVLT Total, low average (z = –0.9); Trial VIII, wnl (12/15); intact recognition (15 hits; 0 FPs).
+- Contextual: Story IR, low average (ss = 6); story DR, low average (ss = 7); intact recognition (25/30). When compared to a more similar demographic peer group, performance was below expectations (LMI and LMII DemT = 35).
+
+#### Nonverbal
+
+- Passive learning of progressively more complex figures: VR I, wnl (ss = 11); VR II, wnl (ss = 10). Recognized 7/7 designs.
+- Active learning: Complex figure delayed recall, wnl (18/36). Perseveration of
+features.
