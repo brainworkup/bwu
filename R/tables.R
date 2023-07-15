@@ -3,6 +3,7 @@
 #' @param data File or path to data.
 #' @param table_name Name of the table to be saved.
 #' @param source_note Source note to be added to the table.
+#' @param title Title of the table.
 #' @return A formatted table with domain counts.
 #' @details This function creates a table of domain counts from a data frame using the dplyr and gt packages. It also saves the table with the specified name.
 #' @rdname tbl_gt

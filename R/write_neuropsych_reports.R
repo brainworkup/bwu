@@ -8,6 +8,7 @@
 #' @return No formal returns, outputs neuropsychological report documents
 #' @seealso \code{\link[bookdown]{pdf_document2}}
 #' @references See <https://rstudio.github.io/tufte/> for an example.
+#' @importFrom bookdown pdf_document2
 #' @export
 adult_report <- function(fig_width = 4, fig_height = 2.5, fig_crop = TRUE, dev = "pdf", highlight = "default", ...) {
   neuropsych_report("adult-report", fig_width, fig_height, fig_crop, dev, highlight, ...)
@@ -21,6 +22,7 @@ adult_report <- function(fig_width = 4, fig_height = 2.5, fig_crop = TRUE, dev =
 #' @param dev Device used, e.g.,"png", "pdf"; default \code{dev = "pdf"}
 #' @param highlight Formatting of code chunks; default \code{"default"}
 #' @param ... Other arguments to be passed to [pdf_document2()] or [html_document()] (note you cannot use the `template` argument in `tufte_handout` or the `theme` argument in `tufte_html()`; these arguments have been set internally)
+#' @importFrom bookdown pdf_document2
 #' @return No formal returns, outputs neuropsychological report documents
 #' @seealso \code{\link[bookdown]{pdf_document2}}
 #' @references See <https://rstudio.github.io/tufte/> for an example.
@@ -43,8 +45,9 @@ child_report <- function(fig_width = 4, fig_height = 2.5, fig_crop = TRUE, dev =
 #' @param highlight Syntax highlighting method for code chunks. Defaults to "pygments".
 #' @param template Name of LaTeX template file. Defaults to "neuro-report.tex".
 #' @param ... Other arguments passed down to \code{\link{bookdown::pdf_document2}}.
-#' @export
 #' @rdname neuropsych_report
+#' @importFrom bookdown pdf_document2
+#' @export
 neuropsych_report <- function(documentclass = c("adult-report", "child-report"), fig_width = 4, fig_height = 2.5, fig_crop = TRUE, dev = "pdf", highlight = "default", template = template_resources("neuropsych_report", "neuro-report.tex"), ...) {
   # resolve default highlight
   if (identical(highlight, "default")) highlight <- "pygments"
@@ -89,6 +92,6 @@ neuropsych_report <- function(documentclass = c("adult-report", "child-report"),
   }
   # override the knitr settings of the base format and return the format
   format$knitr <- knitr_options
-  format$inherits <- "pdf_document2"
+  format$inherits <- "pdf_document2" # was "pdf_document"
   format
 }

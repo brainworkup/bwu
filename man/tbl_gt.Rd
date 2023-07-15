@@ -12,6 +12,8 @@ tbl_gt(data, table_name = NULL, source_note = NULL, title = "Battery/Scale")
 \item{table_name}{Name of the table to be saved.}
 
 \item{source_note}{Source note to be added to the table.}
+
+\item{title}{Title of the table.}
 }
 \value{
 A formatted table with domain counts.
