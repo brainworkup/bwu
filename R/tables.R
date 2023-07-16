@@ -28,7 +28,7 @@ tbl_gt <- function(data, table_name = NULL, source_note = NULL, title = "Battery
     dplyr::mutate(
       test_name = as.factor(test_name),
       scale = as.character(scale),
-      test_name = paste0(test_name)
+      test_name = paste0("Battery/Scale", test_name)
     ) |>
     gt::gt(
       groupname_col = "test_name",
@@ -43,7 +43,7 @@ tbl_gt <- function(data, table_name = NULL, source_note = NULL, title = "Battery
     ) |>
     gt::tab_spanner(
       label = gt::md("**Battery/Scale**"),
-      columns = -c(score, percentile, range) # might break it
+      columns = c("test_name", "scale")
     ) |>
     gt::tab_stub_indent(
       rows = scale,
@@ -58,7 +58,7 @@ tbl_gt <- function(data, table_name = NULL, source_note = NULL, title = "Battery
     ) |>
     gt::cols_align(
       align = "center",
-      columns = c(score, percentile, range)
+      columns = c("score", "percentile", "range")
     ) |>
     # Adding a source note to the table
     gt::tab_source_note(
