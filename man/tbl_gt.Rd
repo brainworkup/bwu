@@ -4,7 +4,14 @@
 \alias{tbl_gt}
 \title{Make GT table per domain}
 \usage{
-tbl_gt(data, table_name = NULL, source_note = NULL, title = "Battery/Scale")
+tbl_gt(
+  data,
+  table_name = NULL,
+  source_note = NULL,
+  title = NULL,
+  tab_stubhead = NULL,
+  caption = NULL
+)
 }
 \arguments{
 \item{data}{File or path to data.}
@@ -14,6 +21,10 @@ tbl_gt(data, table_name = NULL, source_note = NULL, title = "Battery/Scale")
 \item{source_note}{Source note to be added to the table.}
 
 \item{title}{Title of the table.}
+
+\item{tab_stubhead}{Stubhead of the table.}
+
+\item{caption}{Caption of the table.}
 }
 \value{
 A formatted table with domain counts.

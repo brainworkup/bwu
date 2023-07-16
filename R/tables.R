@@ -4,6 +4,8 @@
 #' @param table_name Name of the table to be saved.
 #' @param source_note Source note to be added to the table.
 #' @param title Title of the table.
+#' @param tab_stubhead Stubhead of the table.
+#' @param caption Caption of the table.
 #' @return A formatted table with domain counts.
 #' @details This function creates a table of domain counts from a data frame using the dplyr and gt packages. It also saves the table with the specified name.
 #' @rdname tbl_gt
@@ -11,12 +13,15 @@
 #' @importFrom dplyr mutate group_by summarise arrange select
 #' @importFrom gt gt cols_label tab_stub_indent tab_header sub_missing tab_options cols_align tab_source_note gtsave
 #' @importFrom gtExtras gt_theme_538
-tbl_gt <- function(data, table_name = NULL, source_note = NULL, title = "Battery/Scale") {
+tbl_gt <- function(data, table_name = NULL, source_note = NULL, title = NULL, tab_stubhead = NULL, caption = NULL) {
+  # create data counts
   data_counts <- data |>
+    dplyr::select(test_name, scale, score, percentile, range) |>
     dplyr::mutate(scale = as.character(scale)) |>
     dplyr::group_by(test_name, scale, score, percentile, range) |>
     dplyr::summarise(n = dplyr::n(), .groups = "drop")
 
+  # widen data
   data_counts_wider <- data_counts |>
     dplyr::mutate(dplyr::across(.cols = (3:4), .fns = ~ tidyr::replace_na(., replace = 0))) |>
     dplyr::arrange(test_name) |>
@@ -28,12 +33,19 @@ tbl_gt <- function(data, table_name = NULL, source_note = NULL, title = "Battery
     dplyr::mutate(
       test_name = as.factor(test_name),
       scale = as.character(scale),
-      test_name = paste0("Battery/Scale", test_name)
+      test_name = paste0(test_name)
     ) |>
     gt::gt(
+      rowname_col = "scale",
       groupname_col = "test_name",
-      rowname_col = "scale"
+      process_md = FALSE,
+      caption = caption,
+      rownames_to_stub = FALSE
     ) |>
+    # gt::tab_spanner(
+    #   label = gt::md("**Battery/Scale**"),
+    #   columns = c("test_name", "scale")
+    # ) |>
     gt::cols_label(
       test_name = gt::md("**Test**"),
       scale = gt::md("**Scale**"),
@@ -41,26 +53,24 @@ tbl_gt <- function(data, table_name = NULL, source_note = NULL, title = "Battery
       percentile = gt::md("**‰ Rank**"),
       range = gt::md("**Range**")
     ) |>
-    gt::tab_spanner(
-      label = gt::md("**Battery/Scale**"),
-      columns = c("test_name", "scale")
-    ) |>
-    gt::tab_stub_indent(
-      rows = scale,
-      indent = 2
-    ) |>
     gt::tab_header(
       title = title
+    ) |>
+    gt::tab_stubhead(
+      label = tab_stubhead
     ) |>
     gt::sub_missing(missing_text = "--") |>
     gt::tab_options(
       row_group.font.weight = "bold"
     ) |>
+    gt::tab_stub_indent(
+      rows = scale,
+      indent = 2
+    ) |>
     gt::cols_align(
       align = "center",
       columns = c("score", "percentile", "range")
     ) |>
-    # Adding a source note to the table
     gt::tab_source_note(
       source_note = source_note
     ) |>
