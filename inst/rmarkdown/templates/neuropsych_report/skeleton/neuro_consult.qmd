@@ -4,15 +4,13 @@ title: "Sample Neuropsychology Consultation Report "
 
 For illustrative purposes, this sample report includes an amalgamation of medical/psychosocial histories and score profiles commonly seen in individuals with temporal lobe epilepsy (the most common form of epilepsy) and is not reflective of the history and data from a particular patient.
 
-## Reason for Referral 
+## Referral
 
 Ms. XXXX was referred for neuropsychological testing as part of a comprehensive presurgical work-up of her epilepsy syndrome. The results will be used in surgical and treatment planning
 
 ## Background
 
 The following information was obtained during an interview with Ms. XXXX and from review of available medical records. Ms. XXXX has a history of seizures since age 14. While they were initially well controlled, in the last 3 years they have become refractory to multiple seizure medications. She currently experiences one to two seizures per week. Seizures are characterized by behavioral and speech arrest, and last approximately 2 minutes. Postictally, she is mildly confused with language disruption, but she returns to baseline in approximately 10 minutes. She is treated with Depakote, Keppra, and Lamictal.
-
-## History
 
 Cognitive complaints: mild memory and word-finding issues over the last 2 years.
 
@@ -40,9 +38,7 @@ Patient denied.
 
 Patient denied a family history of neurological conditions. Her brother was diagnosed with ADHD.
 
-### Social History 
-
-#### Cultural/Social Background
+### Cultural/Social Background
 
 Ms. XXXX is a Caucasian female who was born and raised in XXXX. She is single, never married, and has no children.
 
@@ -56,13 +52,13 @@ Ms. XXXX has worked full time as an administrator in a small company. She has ma
 
 ## Behavioral Observations 
 
-	•	*Appearance:* Appropriate grooming and dress for context.
-	•	*Behavior/attitude:* Cooperative, engaged.
-	•	Speech/language: Fluent and normal in rate, volume, and prosody.
-	•	Mood/affect: Neutral, range was full and appropriate.
-	•	Sensory/motor: Performance was not limited by any obvious sensory or motor difficulties.
-	•	Cognitive process: Coherent and goal directed.
-	•	Motivation/effort: Normal.
+- *Appearance:* Appropriate grooming and dress for context.
+- *Behavior/attitude:* Cooperative, engaged.
+- Speech/language: Fluent and normal in rate, volume, and prosody.
+- Mood/affect: Neutral, range was full and appropriate.
+- Sensory/motor: Performance was not limited by any obvious sensory or motor difficulties.
+- Cognitive process: Coherent and goal directed.
+- Motivation/effort: Normal.
 
 ## Tests Administered 
 
@@ -71,72 +67,73 @@ Wechsler Test of Premorbid Functioning (TOPF); Wechsler Adult Intelligence Scale
 ## Test Results 
 
 ### General Intellectual Functioning 
+
 Normal general intellectual functioning with no evidence of decline from premorbid estimates.
-	•	Premorbid estimate: TOPF, above average (SS = 112).
-	•	Current general cognitive ability: VCI = 103; PRI = 117; WMI = 102; PSI = 92. All domains wnl; strong perceptual reasoning abilities.
+- Premorbid estimate: TOPF, above average (SS = 112).
+- Current general cognitive ability: VCI = 103; PRI = 117; WMI = 102; PSI = 92. All domains wnl; strong perceptual reasoning abilities.
 
 ### Attention and Processing Speed 
 
 No deficits identified.
-	•	Auditory Attention Span: 6 forward, wnl.
-	•	Verbal Working Memory: 5 digits reversed and 6 digits sequenced,wnl.
-	•	Mental manipulation of numeric information to perform oral arithmetic: wnl (ss = 11).
-	•	Visual Search and Attention: Coding (ss = 8), Symbol Search (ss = 9), and TMT-A (25 seconds), wnl.
+- Auditory Attention Span: 6 forward, wnl.
+- Verbal Working Memory: 5 digits reversed and 6 digits sequenced,wnl.
+- Mental manipulation of numeric information to perform oral arithmetic: wnl (ss = 11).
+- Visual Search and Attention: Coding (ss = 8), Symbol Search (ss = 9), and TMT-A (25 seconds), wnl.
 
 ### Executive Functions 
 
 Although many aspects of executive functioning were within normal limits, she demonstrated mildly inefficient problem solving and hypothesis testing.
-	•	Simple, timed cognitive flexibility: TMT-B (50 seconds), wnl.
-	•	Controlled behavioral inhibition: SCWT, wnl (CW T = 53).
-	•	Cognitive flexibility, novel problem solving, and hypothesis testing: WCST-64, below expectations for this patient (two categories); error pattern suggested inefficient problem solving and use of feedback to modify responding.
-	•	Verbal abstract reasoning: Similarities, wnl (ss = 11).
-	•	Visual analogical reasoning: Matrix Reasoning, strong (ss = 16).
-	•	Behavioral initiation and fluency: Verbal fluency (FAS raw = 45), wnl. Nonverbal fluency, wnl (z = –0.6).
+- Simple, timed cognitive flexibility: TMT-B (50 seconds), wnl.
+- Controlled behavioral inhibition: SCWT, wnl (CW T = 53).
+- Cognitive flexibility, novel problem solving, and hypothesis testing: WCST-64, below expectations for this patient (two categories); error pattern suggested inefficient problem solving and use of feedback to modify responding.
+- Verbal abstract reasoning: Similarities, wnl (ss = 11).
+- Visual analogical reasoning: Matrix Reasoning, strong (ss = 16).
+- Behavioral initiation and fluency: Verbal fluency (FAS raw = 45), wnl. Nonverbal fluency, wnl (z = –0.6).
 
 ### Motor 
 No gross impairments detected.
-	•	Dominant left hand: low average (66 seconds).
-	•	Nondominant right hand: wnl (67 seconds).
+- Dominant left hand: low average (66 seconds).
+- Nondominant right hand: wnl (67 seconds).
 
 ### Language Functions
 
 While many areas of language functioning were within normal limits, Ms. XXXX demonstrated a weakness in aspects of word retrieval.
 
-	•	Auditory comprehension: Able to respond appropriately to interview questions and follow test instructions without difficulty.
-	•	Expressive vocabulary: Vocabulary, wnl (ss = 10).
-	•	Fund of verbal semantic knowledge: Information, wnl (ss = 11).
-	•	Visual confrontation naming: BNT, impaired (47/60).
-	•	Verbal fluency: Animals (raw = 16), below expectations; FAS (raw = 45), wnl.
+- Auditory comprehension: Able to respond appropriately to interview questions and follow test instructions without difficulty.
+- Expressive vocabulary: Vocabulary, wnl (ss = 10).
+- Fund of verbal semantic knowledge: Information, wnl (ss = 11).
+- Visual confrontation naming: BNT, impaired (47/60).
+- Verbal fluency: Animals (raw = 16), below expectations; FAS (raw = 45), wnl.
 
 ### Visuospatial Functions 
 
 No deficits detected.
 
-	•	Mental integration of visual stimuli: Visual Puzzles, wnl (ss = 12).
-	•	Block construction: Block Design, wnl (ss = 11).
-	•	Line drawing construction: Paper-and-pencil construction of a complex figure was wnl (35/36). Organized approach; figure contained all elements.
+- Mental integration of visual stimuli: Visual Puzzles, wnl (ss = 12).
+- Block construction: Block Design, wnl (ss = 11).
+- Line drawing construction: Paper-and-pencil construction of a complex figure was wnl (35/36). Organized approach; figure contained all elements.
 
 ### Learning and Memory 
 
 Although there were no gross deficits, there was a general pattern of stronger nonverbal memory than verbal memory ability. She particularly struggled with recalling more complex verbal information that was provided after a single learning trial.
 
 #### Verbal 
-	•	Noncontextual: AVLT Total, low average (z = –0.9); Trial VIII, wnl (12/15); intact recognition (15 hits; 0 FPs).
-	•	Contextual: Story IR, low average (ss = 6); story DR, low average (ss = 7); intact recognition (25/30). When compared to a more similar demographic peer group, performance was below expectations (LMI and LMII DemT = 35).
+- Noncontextual: AVLT Total, low average (z = –0.9); Trial VIII, wnl (12/15); intact recognition (15 hits; 0 FPs).
+- Contextual: Story IR, low average (ss = 6); story DR, low average (ss = 7); intact recognition (25/30). When compared to a more similar demographic peer group, performance was below expectations (LMI and LMII DemT = 35).
 
 #### Nonverbal
 
-	•	Passive learning of progressively more complex figures: VR I, wnl (ss = 11); VR II, wnl (ss = 10). Recognized 7/7 designs.
-	•	Active learning: Complex figure delayed recall, wnl (18/36). Perseveration of features.
+- Passive learning of progressively more complex figures: VR I, wnl (ss = 11); VR II, wnl (ss = 10). Recognized 7/7 designs.
+- Active learning: Complex figure delayed recall, wnl (18/36). Perseveration of features.
 
 ### Mood/Self-Report
 
 Significant affective distress was denied on self-report measures.
-	•	Depression: Minimal symptoms (BDI-II = 6).
-	•	Anxiety: Mild (BAI = 8).
-	•	MMPI-2-RF. 
-	  ◦	Validity: Profile is considered valid.
-	  ◦	Clinical: No clinically significant elevations.
+- Depression: Minimal symptoms (BDI-II = 6).
+- Anxiety: Mild (BAI = 8).
+- MMPI-2-RF. 
+	- Validity: Profile is considered valid.
+	- Clinical: No clinically significant elevations.
 
 ## Summary and Formulation 
 
