@@ -1,3 +1,0 @@
-﻿scale,raw_score,score,percentile,range,ci_95,test,test_name,domain,subdomain,narrow,pass,verbal,timed,test_type,score_type,absort,description
-ROCF Copy,,,,,,rocf,Rey Complex Figure,Attention/Executive,Planning,Organization,Planning,Nonverbal,Untimed,npsych_test,t_score,ROCF_1,copy a complex abstract figure
-ROCF Delayed Recall,,,,,,rocf,Rey Complex Figure,Memory,Long-Term Memory,Visual Memory,Simultaneous,Nonverbal,Untimed,npsych_test,t_score,ROCF_2,recall and draw a complex figure after a long (20-25 min) delay

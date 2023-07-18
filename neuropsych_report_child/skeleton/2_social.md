@@ -1,2 +1,0 @@
-(ref:first-name) had to execute a series of behavioral responses requiring (ref:him-her) to recognize and interpret the emotional state (happy, sad, angry, afraid, surprised, disgusted, and neutral) of a series of children's faces. (ref:he-she-cap) performed _Above Average_ overall on this task.
-(ref:he-she-cap) performed in the _High-Average_ range on a measure of pragmatic language and the ability to comprehend others perspectives, intentions, and beliefs (i.e., theory of mind).

@@ -1,7 +1,0 @@
-(ref:first-name)'s language comprehension and expression skills are intact for (ref:his-her) age, demographic background, and educational history, without a clear pattern of strengths or weaknesses.
-Speech output and fluency were in the Average range and above those of approximately 50% of (ref:his-her) peers.
-Auditory comprehension (i.e., the ability to receive, process, and execute oral instructions of increasing syntactic complexity) was Average.
-Visual confrontation naming/word-finding was Average, with no obvious deficits in conversational/informal expression.
-Reading comprehension and semantic processing of both single words and sentences were at the expected level.
-Narrative writing, verbal fluency, and spelling were collectively in the Average range of functioning; a qualitative evaluation of (ref:first-name)’s handwriting revealed adequate legibility, planning, and organization.
-Auditory language comprehension, reading comprehension, writing, simple calculations, and speech output were collectively Average on a bill payment task, indicating mildly reduced processing information when pairing verbal and visual instructions.

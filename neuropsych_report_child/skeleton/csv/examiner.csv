@@ -1,7 +1,0 @@
-scale,raw_score,score,percentile,range,ci_95,test,test_name,domain,subdomain,narrow,pass,verbal,timed,test_type,score_type,absort,description
-Unstructured Task,,,,,,nih_examiner,NIH EXAMINER,Attention/Executive,Planning,Problem Solving,Planning,Nonverbal,Timed,npsych_test,t_score,EXAMINER_01,planning and organization aptitude to formulate an action in advance of performance or intended performance
-Letter Fluency,,,,,,nih_examiner,NIH EXAMINER,Attention/Executive,Fluency,Phonemic Fluency,Sequential,Verbal,Timed,npsych_test,t_score,EXAMINER_02,letter/phonemic word fluency
-Category Fluency,,,,,,nih_examiner,NIH EXAMINER,Attention/Executive,Fluency,Semantic Fluency,Sequential,Verbal,Timed,npsych_test,t_score,EXAMINER_03,category/semantic word fluency
-Dot Counting Task,,,,,,nih_examiner,EXAMINER,Attention/Executive,Working Memory,Working Memory,Attention,Verbal/Nonverbal,Untimed,npsych_test,t_score,EXAMINER_04,mixed verbal/nonverbal working memory maintenance
-Set Shifting Task,,,,,,nih_examiner,EXAMINER,Attention/Executive,Cognitive Flexibility,Set-Shifting,Attention,Nonverbal,Timed,npsych_test,t_score,EXAMINER_05,set-shifting and cognitive flexibility
-Flanker Task,,,,,,nih_examiner,EXAMINER,Attention/Executive,Cognitive Control,Inhibition,Attention,Nonverbal,Timed,npsych_test,t_score,EXAMINER_06,inhibition and cognitive control
