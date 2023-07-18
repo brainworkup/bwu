@@ -14,7 +14,7 @@
 #' @importFrom dplyr mutate group_by summarise arrange select
 #' @importFrom gt gt cols_label tab_stub_indent tab_header sub_missing tab_options cols_align tab_source_note gtsave
 #' @importFrom gtExtras gt_theme_538
-tbl_gt <- function(data, table_name = NULL, source_note = NULL, title = NULL, tab_stubhead = NULL, caption = NULL, process_md = TRUE) {
+tbl_gt <- function(data, table_name = NULL, source_note = NULL, title = NULL, tab_stubhead = NULL, caption = NULL, process_md = FALSE) {
   # create data counts
   data_counts <- data |>
     dplyr::select(test_name, scale, score, percentile, range) |>
