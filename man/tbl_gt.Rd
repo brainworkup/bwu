@@ -10,7 +10,9 @@ tbl_gt(
   source_note = NULL,
   title = NULL,
   tab_stubhead = NULL,
-  caption = NULL
+  caption = NULL,
+  process_md = FALSE,
+  ...
 )
 }
 \arguments{
@@ -25,6 +27,10 @@ tbl_gt(
 \item{tab_stubhead}{Stubhead of the table.}
 
 \item{caption}{Caption of the table.}
+
+\item{process_md}{Process markdown.}
+
+\item{...}{Additional arguments to be passed to the function.}
 }
 \value{
 A formatted table with domain counts.

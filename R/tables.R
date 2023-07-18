@@ -7,6 +7,7 @@
 #' @param tab_stubhead Stubhead of the table.
 #' @param caption Caption of the table.
 #' @param process_md Process markdown.
+#' @param ... Additional arguments to be passed to the function.
 #' @return A formatted table with domain counts.
 #' @details This function creates a table of domain counts from a data frame using the dplyr and gt packages. It also saves the table with the specified name.
 #' @rdname tbl_gt
@@ -14,7 +15,7 @@
 #' @importFrom dplyr mutate group_by summarise arrange select
 #' @importFrom gt gt cols_label tab_stub_indent tab_header sub_missing tab_options cols_align tab_source_note gtsave
 #' @importFrom gtExtras gt_theme_538
-tbl_gt <- function(data, table_name = NULL, source_note = NULL, title = NULL, tab_stubhead = NULL, caption = NULL, process_md = FALSE) {
+tbl_gt <- function(data, table_name = NULL, source_note = NULL, title = NULL, tab_stubhead = NULL, caption = NULL, process_md = FALSE, ...) {
   # create data counts
   data_counts <- data |>
     dplyr::select(test_name, scale, score, percentile, range) |>
