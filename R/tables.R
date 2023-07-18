@@ -42,10 +42,6 @@ tbl_gt <- function(data, table_name = NULL, source_note = NULL, title = NULL, ta
       caption = caption,
       rownames_to_stub = FALSE
     ) |>
-    # gt::tab_spanner(
-    #   label = gt::md("**Battery/Scale**"),
-    #   columns = c("test_name", "scale")
-    # ) |>
     gt::cols_label(
       test_name = gt::md("**Test**"),
       scale = gt::md("**Scale**"),
@@ -73,6 +69,12 @@ tbl_gt <- function(data, table_name = NULL, source_note = NULL, title = NULL, ta
     ) |>
     gt::tab_source_note(
       source_note = source_note
+    ) |>
+    gt::tab_style(
+      style = cell_text(
+        size = "small"
+      ),
+      locations = cells_source_notes()
     ) |>
     gtExtras::gt_theme_538()
 
