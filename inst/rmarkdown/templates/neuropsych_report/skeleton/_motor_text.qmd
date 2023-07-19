@@ -1,9 +1,0 @@
----
-title-meta: motor
----
-
-<!-- ### Motor -->
-
-No gross impairments detected.
-- Dominant left hand: low average (66 seconds).
-- Nondominant right hand: wnl (67 seconds).
