@@ -885,7 +885,7 @@ knitr::read_chunk(here::here(patient, "02.02_iq.R"))
 ```{r 07-plot-narrow-iq, eval = params$eval_iq, fig.cap = '(ref:g) (ref:gc) (ref:gf)'}
 ```
 
-\newpage
+<!-- \newpage -->
 
 <!-- ### Academic Skills -->
 
