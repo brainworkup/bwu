@@ -1,0 +1,176 @@
+#' @title make_g_csv
+#'
+#' @description Gets index scores for given patient path
+#'
+#' @param patient Root directory of patient
+#'
+#' @return Returns g index score
+#'
+#' @export
+make_g_csv <- function(patient) {
+  g <- bwu::gpluck_get_index_scores(patient = patient)
+}
+
+#' Reads data from a csv file.
+#'
+#' @param pheno Character vector for phenotype. Options are "adhd" or "emotion".
+#'
+#' @return A tibble containing the data.
+#'
+#' @examples
+#' read_data("adhd")
+#' read_data("emotion")
+read_data <- function(pheno) {
+  if (pheno == "adhd" || pheno == "emotion") {
+    csv <- "neurobehav.csv"
+  } else {
+    csv <- "neurocog.csv"
+  }
+  file_path <- file.path(csv)
+  data <- readr::read_csv(file_path)
+  return(data)
+}
+
+#' @title Filters data by domain and scale
+#' @param data A dataframe or tibble
+#' @param domain The domain name that the user wants to filter by
+#' @param filter_file A text file containing a list of scales
+#' @return Returns a filtered data frame
+#'
+filter_domain <- function(data, domain, filter_file) {
+  # filter by broad domain
+  data <-
+    dplyr::filter(data, domain == !!domain) |>
+    dplyr::filter(!is.na(percentile))
+
+  # filter by scale
+  filter_file <- filter_file
+  data <- dplyr::filter(data, scale %in% filter_file)
+  return(data)
+}
+
+
+#' @title Flatten and Scale Text
+#'
+#' @description This function sorts the data by percentile, removes duplicates and converts the data to text. Finally, it appends the converted data to a file.
+#'
+#' @param data A dataframe containing the data
+#' @param file A character string specifying the name of the file
+#'
+#' @return A file containing the flattened and scaled text
+#'
+#' @export
+#'
+flatten_scale_text <- function(data, file) {
+  library(glue)
+  library(purrr)
+  library(dplyr)
+
+  # Sorting the data by percentile and removing duplicates
+  data_text <- data |>
+    dplyr::arrange(dplyr::desc(percentile)) |>
+    dplyr::distinct(.keep_all = FALSE)
+
+  # Convert the data to text and append to the file
+  cat(
+    paste0(data_text$result),
+    file = file,
+    sep = "\n",
+    append = TRUE
+  )
+}
+
+
+
+#' Create a gt table and save as a .png and .pdf file
+#'
+#' @param data Data frame with at least two columns, one for the names of each variable and one for its values.
+#' @param pheno Name of phenotype of interest for output files
+#' @param index_score Character string indicating that the index scores have a mean of 100 and standard deviation of 15.
+#' @param table_name The name of the table to be generated
+#' @return Generates the .png and .pdf file of the gt table
+#' @export
+make_tbl_gt <- function(data, pheno, index_score, table_name) {
+  # source note
+  source_note <- gt::md(index_score)
+
+  # make gt table
+  gt_table <- bwu::tbl_gt(data,
+    table_name = table_name,
+    source_note = source_note,
+    title = NULL
+  )
+  gt_table
+
+  # save
+  gt::gtsave(gt_table, glue("table_{pheno}", ".png"), expand = 10)
+  gt::gtsave(gt_table, glue("table_{pheno}", ".pdf"), expand = 10)
+}
+
+
+#' Make a figure
+#'
+#' @param data Dataframe containing the input data
+#' @param x Variable plotted on the x-axis, by default data_dotplot$z_mean_narrow
+#' @param y Variable plotted on the y-axis, by default data_dotplot$narrow
+#' @param pheno Phenotype of interest
+#' @return an object of class figure object
+#' @export
+#'
+make_fig <- function(data, x = data_dotplot$z_mean_narrow, y = data_dotplot$narrow, pheno) {
+  # load packages
+  xfun::pkg_attach(c(
+    "gt",
+    "dplyr",
+    "glue",
+    "webshot2",
+    "ggplot2",
+    "ggthemes",
+    "scales",
+    "bwu"
+  ))
+
+  # more filtering for plots
+  data_dotplot <- dplyr::filter(
+    data,
+    scale %in% c(
+      "General Ability",
+      "Crystallized Knowledge",
+      "Fluid Reasoning"
+    )
+  )
+
+  # will need to change these for each domain
+  fig <- bwu::dotplot(
+    data = data_dotplot,
+    x = x,
+    y = y,
+    fill = x
+  )
+  fig
+  ggplot2::ggsave(glue::glue("fig_{pheno}.png"))
+  ggplot2::ggsave(glue::glue("fig_{pheno}.pdf"))
+}
+
+#' Create a Table for Descriptive Statistics
+#'
+#' This function creates a table of descriptive statistics for a given dataset.
+#' @param data A dataframe containing the columns to be used in the table.
+#' @return tbl_md A table of descriptive statistics.
+#' @export
+make_tbl_md_typ <- function(data) {
+  tbl_md <- bwu::tbl_md_typ(data[, c(2, 4, 5, 6)])
+  return(tbl_md)
+}
+
+
+#' Write Domain CSV
+#'
+#' @param data Numeric vector, data frame, or matrix.
+#' @param pheno Character vector of strings.
+#'
+#' @export
+write_domain_csv <- function(data, pheno) {
+  pheno <- data[, c(2, 4, 5, 6)]
+  readr::write_csv(pheno, glue::glue("{pheno}.csv"), col_names = FALSE)
+}
