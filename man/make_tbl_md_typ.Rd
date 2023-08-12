@@ -2,7 +2,7 @@
 % Please edit documentation in R/typst.R
 \name{make_tbl_md_typ}
 \alias{make_tbl_md_typ}
-\title{Create a Table for Descriptive Statistics}
+\title{Create a Table for Typst}
 \usage{
 make_tbl_md_typ(data)
 }

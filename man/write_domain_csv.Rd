@@ -11,6 +11,9 @@ write_domain_csv(data, pheno)
 
 \item{pheno}{Character vector of strings.}
 }
+\value{
+A csv file containing the data.
+}
 \description{
 Write Domain CSV
 }
