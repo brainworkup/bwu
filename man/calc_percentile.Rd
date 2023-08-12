@@ -2,11 +2,11 @@
 % Please edit documentation in R/scores.R
 \name{calc_percentile}
 \alias{calc_percentile}
-\title{Convert T scores to z scores to percentiles.
+\title{Convert SS/T/scaled scores to z scores to percentiles.
 This is a functioning that converts T-scores to z-scores to percentile
-ranks. That is about it.}
+ranks.}
 \usage{
-calc_percentile(x, m, sd)
+calc_percentile(x, m, sd, round = 0)
 }
 \arguments{
 \item{x}{Raw test score}
@@ -14,15 +14,17 @@ calc_percentile(x, m, sd)
 \item{m}{Mean of whatever type of score}
 
 \item{sd}{Standard deviation (SD) of whatever type of score}
+
+\item{round}{Number of digits to round to}
 }
 \value{
 A percentile rank score
 }
 \description{
-Convert T scores to z scores to percentiles.
+Convert SS/T/scaled scores to z scores to percentiles.
 This is a functioning that converts T-scores to z-scores to percentile
-ranks. That is about it.
+ranks.
 }
 \examples{
-calc_percentile(x = 103, m = 100, sd = 15)
+calc_percentile(x = 103, m = 100, sd = 15, round = 1)
 }
