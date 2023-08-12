@@ -1,8 +1,10 @@
-#' @title Create a dotplot
+#' @title Create a dotplot of cognitive and behavioral domains.
 #' @description This function generates a dot plot with the given data, x and y. The point's aesthetics and plot theme can be customized.
-#' @param data The data frame containing the data for the dot plot.
-#' @param x The column name in the data frame for the x-axis variable.
-#' @param y The column name in the data frame for the y-axis variable.
+#' @param data The data frame containing the data for the dotplot.
+#' @param x The column name in the data frame for the x-axis variable, typically
+#' the mean z-score for a cognitive domain.
+#' @param y The column name in the data frame for the y-axis variable, typically
+#' the cognitive domain to plot.
 #' @param linewidth The width of the line, Default: 0.5
 #' @param fill The fill color for the points, Default: x-axis variable
 #' @param shape The shape of the points, Default: 21
@@ -10,7 +12,7 @@
 #' @param line_color The color of the lines, Default: 'black'
 #' @param colors A vector of colors for fill gradient, Default: NULL (uses pre-defined color palette)
 #' @param theme The ggplot theme to be used, Default: 'fivethirtyeight'. Other options include 'minimal' and 'classic'
-#' @return An object of class 'ggplot' representing the dot plot.
+#' @return An object of class 'ggplot' representing the dotplot.
 #' @details This function generates a dot plot with the given data, x and y. The points' aesthetics and plot theme can be customized.
 #' @rdname dotplot
 #' @export

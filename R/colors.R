@@ -1,7 +1,5 @@
 #' Make shades
-#'
 #' Given a color make \code{n} lighter or darker shades
-#'
 #' @param color The color to make shades of
 #' @param n The number of shades to make
 #' @param lighter Whether to make lighter (\code{TRUE}) or darker (\code{FALSE})
@@ -72,4 +70,38 @@ plot_colors <- function(colors) {
     ggplot2::geom_text(angle = "90") +
     ggplot2::scale_fill_identity() +
     ggplot2::theme_void()
+}
+
+
+roma <- c(
+  "#7E1700", "#893107", "#934610", "#9C5717", "#A5681F", "#AD7A27",
+  "#B58B31", "#BF9F40", "#C7B354", "#CFC970", "#D2DA90", "#CDE5AC",
+  "#C0E9C2", "#ACE7D0", "#93DFD5", "#77D1D7", "#5DC0D2", "#47AECD",
+  "#389CC6", "#2F8CBF", "#277AB8", "#2169B0", "#1C58A9", "#1345A0",
+  "#023198"
+)
+
+#' @title Create a color palette from the Roma palette
+#'
+#' @description Create a color palette from the Roma palette containing 24 colors. If n is greater than the length of roma, return the full palette.
+#'
+#' @param n The number of colors to sample from the Roma palette.
+#'
+#' @return A vector of colors sampled from the Roma palette.
+#'
+#' @examples
+#' \dontrun{
+#' roma_palette(3)
+#' }
+#'
+#' @export
+roma_palette <- function(n) {
+  # If n is greater than the length of roma, return the full palette
+  if (n > length(roma)) {
+    warning("Requested more colors than available in the palette. Returning the full palette.")
+    return(roma)
+  }
+
+  # Sample n colors from the roma palette
+  sample(roma, n, replace = FALSE)
 }

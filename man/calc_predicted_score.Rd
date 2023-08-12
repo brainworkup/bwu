@@ -22,5 +22,5 @@ A predicted score.
 Estimate the difference between an ability and achievement score.
 }
 \examples{
-pred(x = 122, y = 84, r = .65, m = 100) #'
+calc_predicted_score(x = 122, y = 84, r = .65, m = 100) #'
 }

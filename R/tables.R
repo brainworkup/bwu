@@ -12,8 +12,10 @@
 #' @details This function creates a table of domain counts from a data frame using the dplyr and gt packages. It also saves the table with the specified name.
 #' @rdname tbl_gt
 #' @export
-#' @importFrom dplyr mutate group_by summarise arrange select
-#' @importFrom gt gt cols_label tab_stub_indent tab_header sub_missing tab_options cols_align tab_source_note gtsave
+#' @importFrom dplyr mutate group_by summarize summarise arrange select
+#' @importFrom gt gt cols_label tab_stub_indent tab_header sub_missing
+#' tab_options cols_align tab_source_note gtsave tab_style tab_stubhead
+#' tab_caption tab_spanner cell_text cells_source_notes
 #' @importFrom gtExtras gt_theme_538
 tbl_gt <- function(data, table_name = NULL, source_note = NULL, title = NULL, tab_stubhead = NULL, caption = NULL, process_md = FALSE, ...) {
   # create data counts
@@ -73,10 +75,10 @@ tbl_gt <- function(data, table_name = NULL, source_note = NULL, title = NULL, ta
       source_note = source_note
     ) |>
     gt::tab_style(
-      style = cell_text(
+      style = gt::cell_text(
         size = "small"
       ),
-      locations = cells_source_notes()
+      locations = gt::cells_source_notes()
     ) |>
     gtExtras::gt_theme_538()
 
@@ -126,9 +128,10 @@ tbl_kbl <- function(data) {
 }
 
 
-#' @title tbl_md
-#' @description Create a markdown table from a data frame.
+#' @title Create Markdown Table for Typst
+#' @description Create a markdown table from a data frame for Typst.
 #' @param data A data frame.
+#' @param caption A caption for the table.
 #' @return A markdown table.
 #' @details This function creates a markdown table from a data frame.
 #' @examples
@@ -146,12 +149,10 @@ tbl_kbl <- function(data) {
 #'   tbl_md(data)
 #' }
 #' }
-#' @seealso
-#'  \code{\link[kableExtra]{kbl}}
-#' @rdname tbl_md
+#' @rdname tbl_md_typ
 #' @export
 #' @importFrom kableExtra kbl
-tbl_md <- function(data) {
+tbl_md_typ <- function(data, caption = NULL) {
   data.frame(
     data
   ) |>
@@ -169,9 +170,7 @@ tbl_md <- function(data) {
 
 
 #' @title Make a tibble for plots
-#'
 #' @description Create a tibble with columns specified in 'columns', and set column names to 'names'.
-#'
 #' @param tibb A data frame containing the data, Default: NULL
 #' @param data A character string indicating the name of the dataset, Default: '.'
 #' @param pheno A character vector indicating the domain of interest, Default: NULL

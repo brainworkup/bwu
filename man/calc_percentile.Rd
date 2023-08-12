@@ -24,5 +24,5 @@ This is a functioning that converts T-scores to z-scores to percentile
 ranks. That is about it.
 }
 \examples{
-pct(x = 103, m = 100, sd = 15)
+calc_percentile(x = 103, m = 100, sd = 15)
 }

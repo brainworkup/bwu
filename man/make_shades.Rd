@@ -2,7 +2,8 @@
 % Please edit documentation in R/colors.R
 \name{make_shades}
 \alias{make_shades}
-\title{Make shades}
+\title{Make shades
+Given a color make \code{n} lighter or darker shades}
 \usage{
 make_shades(color, n, lighter = TRUE)
 }
@@ -18,6 +19,7 @@ shades}
 A vector of \code{n} color hex codes
 }
 \description{
+Make shades
 Given a color make \code{n} lighter or darker shades
 }
 \examples{

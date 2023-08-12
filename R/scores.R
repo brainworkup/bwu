@@ -7,7 +7,7 @@
 #' @return A predicted score.
 #' @rdname calc_predicted_score
 #' @examples
-#' pred(x = 122, y = 84, r = .65, m = 100) #'
+#' calc_predicted_score(x = 122, y = 84, r = .65, m = 100) #'
 #' @export
 calc_predicted_score <- function(x, y, r, m) {
   # Step 1: Calculate the predicted score.
@@ -63,7 +63,7 @@ calc_ci_95 <- function(x, m, sd, rel, level = 0.95) {
 #' @importFrom stats pnorm
 #' @rdname calc_percentile
 #' @examples
-#' pct(x = 103, m = 100, sd = 15)
+#' calc_percentile(x = 103, m = 100, sd = 15)
 #' @export
 calc_percentile <- function(x, m, sd) {
   # Calculate the z score

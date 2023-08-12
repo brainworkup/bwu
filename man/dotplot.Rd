@@ -2,7 +2,7 @@
 % Please edit documentation in R/plots.R
 \name{dotplot}
 \alias{dotplot}
-\title{Create a dotplot}
+\title{Create a dotplot of cognitive and behavioral domains.}
 \usage{
 dotplot(
   data,
@@ -18,11 +18,13 @@ dotplot(
 )
 }
 \arguments{
-\item{data}{The data frame containing the data for the dot plot.}
+\item{data}{The data frame containing the data for the dotplot.}
 
-\item{x}{The column name in the data frame for the x-axis variable.}
+\item{x}{The column name in the data frame for the x-axis variable, typically
+the mean z-score for a cognitive domain.}
 
-\item{y}{The column name in the data frame for the y-axis variable.}
+\item{y}{The column name in the data frame for the y-axis variable, typically
+the cognitive domain to plot.}
 
 \item{linewidth}{The width of the line, Default: 0.5}
 
@@ -39,7 +41,7 @@ dotplot(
 \item{theme}{The ggplot theme to be used, Default: 'fivethirtyeight'. Other options include 'minimal' and 'classic'}
 }
 \value{
-An object of class 'ggplot' representing the dot plot.
+An object of class 'ggplot' representing the dotplot.
 }
 \description{
 This function generates a dot plot with the given data, x and y. The point's aesthetics and plot theme can be customized.
