@@ -19,20 +19,16 @@ read_data <- function(pheno) {
 #' @title Filters data by domain and scale
 #' @param data A dataframe or tibble
 #' @param domain The domain name that the user wants to filter by
-#' @param filter_file A text file containing a list of scales
+#' @param scale A text file containing a list of scales
 #' @return Returns a filtered data frame
 #' @export
 #' @importFrom dplyr filter
-#' @rdname filter_domain
-filter_domain <- function(data, domain, filter_file) {
-  # filter by broad domain
-  data <-
-    dplyr::filter(data, domain == !!domain) |>
-    dplyr::filter(!is.na(percentile))
+#' @rdname filter_domain_scale
+filter_domain_scale <- function(data, domain, scale) {
+  data <- data |>
+    dplyr::filter(domain %in% domains, !is.na(percentile)) |>
+    dplyr::filter(scale %in% scales)
 
-  # filter by scale
-  filter_file <- filter_file
-  data <- dplyr::filter(data, scale %in% filter_file)
   return(data)
 }
 
