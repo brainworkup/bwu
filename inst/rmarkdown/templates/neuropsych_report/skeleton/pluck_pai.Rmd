@@ -1,8 +1,7 @@
 ---
 title: "Import CSV file from PAI"
 params:
-  table:
-  patient: Biggie
+  patient: Georgia
   test: pai
   test_name: PAI
   file:
@@ -12,6 +11,7 @@ params:
 output:
   rmdformats::robobook:
     highlight: kate
+runtime: shiny
 ---
 
 ## Setup
@@ -26,23 +26,15 @@ knitr::opts_chunk$set(
   warning = FALSE,
   error = TRUE
 )
-library(bwu)
 library(hablar)
 library(here)
-library(magrittr)
 library(readr)
-library(rJava)
 library(rmarkdown)
 library(rmdformats)
-library(shiny)
-library(tabulizer)
-library(tabulizerjars)
 library(tibble)
-library(tidyr)
-library(vroom)
-library(tidytable)
-library(pdftools)
-xfun::pkg_load2("stringi", "pdftools", "tabulizer", "tidytable", "vroom", "pdftables", "qpdf", "tidyverse", "magrittr", "rJava", "shiny", "tabulizerjars", "tidyr", "tidytable", "data.table", "stringr", "rlist", "parallel", "DT")
+xfun::pkg_load2("stringi", "pdftools", "tabulizer", "dplyr", "vroom", "pdftables", "qpdf", "tidyverse", "magrittr", "rJava", "shiny", "tabulizerjars", "tidyr", "dplyr", "data.table", "stringr", "rlist", "parallel", "DT")
+library(rlang)
+library(bwu)
 ```
 
 ## Patient
@@ -63,6 +55,60 @@ test <- params$test
 test_name <- params$test_name
 ```
 
+## Path
+
+It appears you're mixing up two tasks: creating a file path and reading/writing to a file.
+The `here::here()` function is fantastic for creating paths that are relative to your project directory, ensuring reproducibility across different systems.
+
+Let me break down the tasks and show you how to handle each:
+
+### 1. Creating a File Path:
+
+To create a file path using the `here::here()` function, you would do something like this:
+
+```{r}
+file_path <- here::here(patient, "pdf", "pai.pdf")
+```
+
+This creates a file path that joins your project directory, the value stored in `patient`, "pre_csv", and "wiat4_pdf".
+
+### 2. Writing to a File:
+
+The `writeLines()` function is used to write text lines to a file.
+The first argument should be the content (i.e., the text lines) you want to write, and the second argument should be the file path.
+So, if you wanted to write some text to the file at the path we just created, you would do:
+
+```{r}
+content <- "This is some sample content." # replace with your actual content
+writeLines(content, file_path)
+```
+
+### 3. Reading from a File:
+
+The `readLines()` function reads text lines from a file.
+The primary argument is the file path.
+So, to read from the file we wrote to in the previous step, you'd do:
+
+```{r}
+read_content <- readLines(file_path)
+```
+
+Bringing it all together, using the two chunks you provided:
+
+```{r write}
+file_path <- here::here(patient, "pdf", "pai.pdf")
+content <- "This is some sample content." # replace with your actual content
+writeLines(content, file_path)
+```
+
+```{r read}
+file_path <- here::here(patient, "pdf", "pai.pdf")
+read_content <- readLines(file_path)
+```
+
+Remember to replace the placeholder content with your actual content.
+Additionally, ensure that the `patient` object exists and has been properly defined before these chunks are executed.
+
 ## Upload/attach PDF
 
 ```{r file}
@@ -82,7 +128,7 @@ Copy over to pre_csv.
 
 ```{r pluck}
 plucked_table <-
-  tidytable::fread(
+  readr::read_csv(
     here::here(patient, "pre_csv", "pariconnectexportPAI.csv")
   )
 ```
@@ -93,22 +139,22 @@ plucked_table <-
 
 ```{r subset}
 df_clinical <- plucked_table |>
-  tidytable::select(
+  dplyr::select(
     SOM_T:AGG_P_T, ALC_Est, DRG_Est) |>
   tidyr::gather() |>
-  tidytable::rename(scale = key, score = value)
+  dplyr::rename(scale = key, score = value)
 
 df_validity <- plucked_table |>
-  tidytable::select(
+  dplyr::select(
     ICN_T:PIM_T,
     MAL_T:HRI_T) |>
   tidyr::gather() |>
-  tidytable::rename(scale = key, score = value)
+  dplyr::rename(scale = key, score = value)
 
 df_inatt <- plucked_table |>
-  tidytable::select(IINATTN_T) |>
+  dplyr::select(IINATTN_T) |>
   tidyr::gather() |>
-  tidytable::rename(scale = key, score = value)
+  dplyr::rename(scale = key, score = value)
 
 adhd_items <- c(
   "R13",
@@ -138,28 +184,28 @@ adhd_items <- c(
 )
 
 df_adhd <- plucked_table |>
-  tidytable::select(adhd_items) |>
+  dplyr::select(adhd_items) |>
   tidyr::gather() |>
-  tidytable::rename(scale = key, score = value)
+  dplyr::rename(scale = key, score = value)
 ```
 
 ### Convert T scores to z scores to percentiles
 
 ```{r t2z2p}
 df_clinical <- df_clinical |>
-  tidytable::mutate(z = (score - 50) / 10) |>
-  tidytable::mutate(percentile = trunc(pnorm(z) * 100)) |>
-  tidytable::select(scale, score, percentile)
+  dplyr::mutate(z = (score - 50) / 10) |>
+  dplyr::mutate(percentile = trunc(pnorm(z) * 100)) |>
+  dplyr::select(scale, score, percentile)
 
 df_validity <- df_validity |>
-  tidytable::mutate(z = (score - 50) / 10) |>
-  tidytable::mutate(percentile = trunc(pnorm(z) * 100)) |>
-  tidytable::select(scale, score, percentile)
+  dplyr::mutate(z = (score - 50) / 10) |>
+  dplyr::mutate(percentile = trunc(pnorm(z) * 100)) |>
+  dplyr::select(scale, score, percentile)
 
 df_inatt <- df_inatt |>
-  tidytable::mutate(z = (score - 50) / 10) |>
-  tidytable::mutate(percentile = trunc(pnorm(z) * 100)) |>
-  tidytable::select(scale, score, percentile)
+  dplyr::mutate(z = (score - 50) / 10) |>
+  dplyr::mutate(percentile = trunc(pnorm(z) * 100)) |>
+  dplyr::select(scale, score, percentile)
 ```
 
 ## Change scale names
@@ -250,7 +296,7 @@ df_inatt[1, 1] <- c("Inattention (INATTN) Index")
 ### Filter, group, select
 
 ```{r filter}
-df_clinical <- df_clinical |> tidytable::slice(
+df_clinical <- df_clinical |> dplyr::slice(
   c(
     1, 19:21,
     2, 22:24,
@@ -367,8 +413,8 @@ df_inatt <- bwu::gpluck_make_score_ranges(
 ```{r domains}
 df_clinical <-
   df_clinical |>
-  tidytable::mutate(
-    domain = tidytable::case_when(
+  dplyr::mutate(
+    domain = dplyr::case_when(
       scale == "Somatic Complaints" ~ "Psychiatric Disorders",
       scale == "Conversion" ~ "Psychiatric Disorders",
       scale == "Somatization" ~ "Psychiatric Disorders",
@@ -430,8 +476,8 @@ df_clinical <-
 ```{r subdomain}
 df_clinical <-
   df_clinical |>
-  tidytable::mutate(
-    subdomain = tidytable::case_when(
+  dplyr::mutate(
+    subdomain = dplyr::case_when(
       scale == "Somatic Complaints" ~ "Somatic Symptom Disorder",
       scale == "Conversion" ~ "Somatic Symptom Disorder",
       scale == "Somatization" ~ "Somatic Symptom Disorder",
@@ -493,8 +539,8 @@ df_clinical <-
 ```{r}
 df_validity <-
   df_validity |>
-  tidytable::mutate(
-    subdomain = tidytable::case_when(
+  dplyr::mutate(
+    subdomain = dplyr::case_when(
       scale == "Inconsistency" ~ "Response Inconsistency",
       scale == "Infrequency" ~ "Negative Impression",
       scale == "Negative Impression Management" ~ "Negative Impression",
@@ -524,8 +570,8 @@ df_validity <-
 ```{r narrow}
 df_clinical <-
   df_clinical |>
-  tidytable::mutate(
-    narrow = tidytable::case_when(
+  dplyr::mutate(
+    narrow = dplyr::case_when(
       scale == "Somatic Complaints" ~ "Somatic Symptom Disorder",
       scale == "Conversion" ~ "Somatic Symptom Disorder",
       scale == "Somatization" ~ "Somatic Symptom Disorder",
@@ -585,8 +631,8 @@ df_clinical <-
 ```{r}
 df_validity <-
   df_validity |>
-  tidytable::mutate(
-    narrow = tidytable::case_when(
+  dplyr::mutate(
+    narrow = dplyr::case_when(
       scale == "Inconsistency" ~ paste0(scale),
       scale == "Infrequency" ~ paste0(scale),
       scale == "Negative Impression Management" ~ paste0(scale),
@@ -616,8 +662,8 @@ df_validity <-
 ```{r description}
 df_clinical <-
   df_clinical |>
-  tidytable::mutate(
-    description = tidytable::case_when(
+  dplyr::mutate(
+    description = dplyr::case_when(
       scale == "Somatic Complaints" ~ "degree of concern about physical functioning and health matters and the extent of perceived impairment arising from somatic symptoms",
       scale == "Conversion" ~ "moderate elevations may be seen in neurological disorders with CNS impairment involving sensorimotor problems, MS, CVA/stroke, or neuropsychological associated with chronic alcoholism",
       scale == "Somatization" ~ "high scorers describe general lethargy and malaise, and the presentation is one of complaintiveness and dissatisfaction",
@@ -674,8 +720,8 @@ df_clinical <-
 # TODO:
 df_validity <-
   df_validity |>
-  tidytable::mutate(
-    description = tidytable::case_when(
+  dplyr::mutate(
+    description = dplyr::case_when(
       scale == "Inconsistency" ~ paste0(scale),
       scale == "Infrequency" ~ paste0(scale),
       scale == "Negative Impression Management" ~ paste0(scale),
@@ -704,23 +750,28 @@ df_validity <-
 
 ```{r slice}
 slice_clinical <- c(1:51)
-df_clinical <- df_clinical |> tidytable::slice(slice_clinical)
+df_clinical <- df_clinical |> dplyr::slice(slice_clinical)
 ```
 
 ## Glue results
 
 ```{r result}
+patient <- params$patient
+
 df_clinical <-
   df_clinical |>
-  tidytable::mutate(result = glue::glue("{patient}'s score on {scale}
-  ({description}) was {range}."))
+  dplyr::mutate(result = glue::glue("{patient}'s score on {.data$scale}
+  ({.data$description}) was {.data$range}."))
+
 df_validity <-
   df_validity |>
-  tidytable::mutate(result = glue::glue("{patient}'s score on {scale}
-  ({description}) was {range}."))
+  dplyr::mutate(result = glue::glue("{patient}'s score on {.data$scale}
+  ({.data$description}) was {.data$range}."))
+
 df_inatt <-
   df_inatt |>
-  tidytable::mutate(result = glue::glue("{patient}'s score on {scale} ({description}) was {range}."))
+  dplyr::mutate(result = glue::glue("{patient}'s score on {.data$scale}
+  ({.data$description}) was {.data$range}."))
 ```
 
 # Finalize and save
@@ -730,15 +781,15 @@ df_inatt <-
 ```{r relocate}
 df <-
   df_clinical |>
-  tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+  dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 
 df_validity <-
   df_validity |>
-  tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+  dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 
 df_intatt <-
   df_inatt |>
-  tidytable::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+  dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
 ## Write out final csv
@@ -769,25 +820,34 @@ readr::write_csv(
 ## Pluck Text
 
 ```{r text}
-file <- fs::as_fs_path(params$file)
+library(pdftools)
+library(stringr)
 
+patient <- "Georgia"
+
+file <- here::here(patient, "pdf", "pai.pdf")
 ## extract text
 get_text <- function(file) {
   txt <- pdftools::pdf_text(file) |>
     stringr::str_split("\n") |>
     unlist()
 }
-pai_txt <- pdftools::pdf_text(file) |>
-  stringr::str_split("\n") |>
-  unlist()
-pai_txt
+pai_text <- get_text(file)
+pai_text
+
+# save dirty
+readr::write_lines(pai_text, here::here(patient, "pai_text.md"), sep = "\n")
+readr::write_lines(pai_text, here::here(patient, "pai_text.qmd"), sep = "\n")
+readr::write_lines(pai_text, here::here(patient, "pai_text.typ"), sep = "\n")
 
 # Replace long spaces with a col break symbol
-pai_txt_squished <-
-  stringr::str_replace_all(pai_txt, "\\s{2,}", "- ") |>
+pai_text_squished <-
+  stringr::str_replace_all(pai_text, "\\s{2,}", "- ") |>
   stringr::str_remove_all(",")
-pai_txt_squished
+pai_text_squished
 
-readr::write_lines(pai_txt_squished, here::here(patient, "pai_text.md"), sep = "\n")
-readr::write_lines(pai_txt_squished, here::here(patient, "pai_text.qmd"), sep = "\n")
+# save
+readr::write_lines(pai_text_squished, here::here(patient, "pai_text_squished.md"), sep = "\n")
+readr::write_lines(pai_text_squished, here::here(patient, "pai_text_squished.qmd"), sep = "\n")
+readr::write_lines(pai_text_squished, here::here(patient, "pai_text_squished.typ"), sep = "\n")
 ```
