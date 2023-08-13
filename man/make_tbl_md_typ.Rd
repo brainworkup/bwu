@@ -2,7 +2,8 @@
 % Please edit documentation in R/typst.R
 \name{make_tbl_md_typ}
 \alias{make_tbl_md_typ}
-\title{Create a Table for Typst}
+\title{Create a Table for Typst
+This function creates a table of descriptive statistics for a given dataset.}
 \usage{
 make_tbl_md_typ(data)
 }
@@ -13,5 +14,6 @@ make_tbl_md_typ(data)
 tbl_md A table of descriptive statistics.
 }
 \description{
+Create a Table for Typst
 This function creates a table of descriptive statistics for a given dataset.
 }

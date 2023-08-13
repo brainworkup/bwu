@@ -15,7 +15,3 @@ A tibble containing the data.
 \description{
 Reads data from a csv file.
 }
-\examples{
-read_data("adhd")
-read_data("emotion")
-}

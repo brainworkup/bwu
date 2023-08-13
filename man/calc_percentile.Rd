@@ -6,14 +6,14 @@
 This is a functioning that converts T-scores to z-scores to percentile
 ranks.}
 \usage{
-calc_percentile(x, m, sd, round = 0)
+calc_percentile(ability_score, mean, standard_deviation, round = 0)
 }
 \arguments{
-\item{x}{Raw test score}
+\item{ability_score}{Raw test score}
 
-\item{m}{Mean of whatever type of score}
+\item{mean}{Mean of whatever type of score}
 
-\item{sd}{Standard deviation (SD) of whatever type of score}
+\item{standard_deviation}{Standard deviation (SD) of whatever type of score}
 
 \item{round}{Number of digits to round to}
 }
@@ -26,5 +26,5 @@ This is a functioning that converts T-scores to z-scores to percentile
 ranks.
 }
 \examples{
-calc_percentile(x = 103, m = 100, sd = 15, round = 1)
+calc_percentile(ability_score = 103, mean = 100, standard_deviation = 15, round = 1)
 }

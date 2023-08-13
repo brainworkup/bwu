@@ -4,20 +4,27 @@
 \alias{calc_ci_95}
 \title{Compute confidence intervals (CI)}
 \usage{
-calc_ci_95(x, m, sd, rel, round = 0, level = 0.95)
+calc_ci_95(
+  ability_score,
+  mean,
+  standard_deviation,
+  reliability,
+  round = 0,
+  confidence_level = 0.95
+)
 }
 \arguments{
-\item{x}{Score}
+\item{ability_score}{Score}
 
-\item{m}{Mean of scale}
+\item{mean}{Mean of scale}
 
-\item{sd}{Standard deviation (SD) of scale}
+\item{standard_deviation}{Standard deviation (SD) of scale}
 
-\item{rel}{Reliability of scale}
+\item{reliability}{Reliability of scale}
 
 \item{round}{Number of digits to round to}
 
-\item{level}{Confidence level}
+\item{confidence_level}{Confidence level}
 }
 \value{
 Returns confidence interval
@@ -26,5 +33,5 @@ Returns confidence interval
 To compute confidence intervals for test scores.
 }
 \examples{
-calc_ci_95(x = 88, m = 100, sd = 15, rel = .90, round = 0, level = 0.95)
+calc_ci_95(ability_score = 88, mean = 100, standard_deviation = 15, reliability = .90, round = 0, confidence_level = 0.95)
 }

@@ -1,51 +1,101 @@
+calc_standardized_score <- function(ability_score, achievement_score, correlation, mean, standard_deviation, reliability, round = 0, confidence_level = 0.95) {
+  # Calculate predicted score and difference
+  predicted_score <- round(correlation * (ability_score - mean) + mean)
+  diff <- predicted_score - achievement_score
+
+  # Compute standard error of measurement (SEM) and true score
+  sem <- round(standard_deviation * sqrt(1 - reliability), 2)
+  true_score <- round((ability_score - mean) * reliability + mean)
+
+  # Compute z-score for desired confidence level and its percentile
+  fisher <- round(-stats::qnorm((1 - confidence_level) / 2), 2)
+  z <- (ability_score - mean) / standard_deviation
+  percentile <- round(stats::pnorm(z) * 100, 1)
+
+  # Compute error
+  error <- round(fisher * sem, 2)
+
+  # Calculate confidence intervals
+  compute_CI <- function(value) {
+    hi <- round(value - error, digits = round)
+    lo <- round(value + error, digits = round)
+    c(hi, lo)
+  }
+
+  ci_x <- compute_CI(ability_score)
+  ci_y <- compute_CI(achievement_score)
+  ci_pred <- compute_CI(predicted_score)
+  ci_true <- compute_CI(true_score)
+  ci_pr <- compute_CI(percentile)
+
+  # Determine significance of diff from zero
+  significance_threshold <- 1.96 * error # for 95% confidence
+  significant_diff <- abs(diff) > significance_threshold
+
+  significance_msg <- ifelse(significant_diff,
+    "The difference is statistically significant (p < .05).",
+    "The difference is not statistically significant."
+  )
+
+  # Return the results
+  return(glue::glue("Ability Score = {ability_score} (95% CI: {ci_x[1]}-{ci_x[2]}),
+                    Percentile Rank = {percentile} (95% CI: {ci_pr[1]}-{ci_pr[2]}),
+                    True Score = {true_score} (95% CI: {ci_true[1]}-{ci_true[2]}),
+                    Predicted Achievement Score = {predicted_score} (95% CI: {ci_pred[1]}-{ci_pred[2]}),
+                    Actual Achievement Score = {achievement_score} (95% CI: {ci_y[1]}-{ci_y[2]}),
+                    Difference = {diff} ({significance_msg}),
+                    SE = {error},
+                    SEM = {sem}"))
+}
+
 #' @title Predicted test score
 #' @description Estimate the difference between an actual score and a predicted score.
 #' @importFrom glue glue
-#' @param x Score 1 (ability)
-#' @param y Score 2 (achievement)
-#' @param r Correlation between ability test and achievement test
-#' @param m Mean of test score
+#' @param ability_score Score 1 (ability)
+#' @param achievement_score Score 2 (achievement)
+#' @param correlation Correlation between ability test and achievement test
+#' @param mean Mean of test score
 #' @param round Number of digits to round to
 #' @return A predicted score.
 #' @rdname calc_predicted_score
 #' @examples
-#' calc_predicted_score(x = 122, y = 84, r = .65, m = 100)
+#' calc_predicted_score(ability_score = 122, achievement_score = 84, correlation = .65, mean = 100)
 #' @export
-calc_predicted_score <- function(x, y, r, m, round = 0) {
+calc_predicted_score <- function(ability_score, achievement_score, correlation, mean, round = 0) {
   # Step 1: Calculate the predicted score.
-  z <- round(r * (x - m) + m, digits = round)
+  z <- round(correlation * (ability_score - mean) + mean, digits = round)
 
   # Step 2: Calculate the difference between the predicted score and the actual score.
-  diff <- (z - y)
+  diff <- (z - achievement_score)
 
   # Step 3: Return the predicted score and difference.
-  return(glue::glue("Ability Score = {x}\nPredicted Achievement Score = {z}\nActual Achievement Score = {y}\nDifference = {diff}"))
+  return(glue::glue("Ability Score = {ability_score}\nPredicted Achievement Score = {z}\nActual Achievement Score = {achievement_score}\nDifference = {diff}"))
 }
 
 #' @title Compute confidence intervals (CI)
 #' @description To compute confidence intervals for test scores.
 #' @importFrom stats qnorm
 #' @importFrom glue glue
-#' @param x Score
-#' @param m Mean of scale
-#' @param sd Standard deviation (SD) of scale
-#' @param rel Reliability of scale
+#' @param ability_score Score
+#' @param mean Mean of scale
+#' @param standard_deviation Standard deviation (SD) of scale
+#' @param reliability Reliability of scale
 #' @param round Number of digits to round to
-#' @param level Confidence level
+#' @param confidence_level Confidence level
 #' @return Returns confidence interval
 #' @rdname calc_ci_95
 #' @examples
-#' calc_ci_95(x = 88, m = 100, sd = 15, rel = .90, round = 0, level = 0.95)
+#' calc_ci_95(ability_score = 88, mean = 100, standard_deviation = 15, reliability = .90, round = 0, confidence_level = 0.95)
 #' @export
-calc_ci_95 <- function(x, m, sd, rel, round = 0, level = 0.95) {
+calc_ci_95 <- function(ability_score, mean, standard_deviation, reliability, round = 0, confidence_level = 0.95) {
   # Compute standard error of measurement (SEM)
-  sem <- sd * sqrt(1 - rel)
+  sem <- standard_deviation * sqrt(1 - reliability)
 
   # Compute true score
-  true_score <- round((x - m) * rel + m, digits = round)
+  true_score <- round((ability_score - mean) * reliability + mean, digits = round)
 
   # Compute z-score for desired confidence level
-  z <- -stats::qnorm((1 - level) / 2)
+  z <- -stats::qnorm((1 - confidence_level) / 2)
 
   # Compute error
   error <- z * sem
@@ -55,87 +105,32 @@ calc_ci_95 <- function(x, m, sd, rel, round = 0, level = 0.95) {
   lower_ci_95 <- round(true_score + error, digits = round)
 
   # Return the observed score, true score and confidence interval
-  return(glue::glue("Ability Score = {x}\nTrue Score = {true_score} (95% CI: {upper_ci_95}-{lower_ci_95})"))
+  return(glue::glue(
+    "Ability Score = {ability_score}\n
+    True Score = {true_score} (95% CI: {upper_ci_95}-{lower_ci_95})"
+  ))
 }
 
 #' Convert SS/T/scaled scores to z scores to percentiles.
 #' This is a functioning that converts T-scores to z-scores to percentile
 #' ranks.
-#' @param x Raw test score
-#' @param m Mean of whatever type of score
-#' @param sd Standard deviation (SD) of whatever type of score
+#' @param ability_score Raw test score
+#' @param mean Mean of whatever type of score
+#' @param standard_deviation Standard deviation (SD) of whatever type of score
 #' @param round Number of digits to round to
 #' @return A percentile rank score
 #' @importFrom stats pnorm
 #' @importFrom glue glue
 #' @rdname calc_percentile
 #' @examples
-#' calc_percentile(x = 103, m = 100, sd = 15, round = 1)
+#' calc_percentile(ability_score = 103, mean = 100, standard_deviation = 15, round = 1)
 #' @export
-calc_percentile <- function(x, m, sd, round = 0) {
+calc_percentile <- function(ability_score, mean, standard_deviation, round = 0) {
   # Calculate the z score
-  z <- (x - m) / sd
+  z <- (ability_score - mean) / standard_deviation
 
   # Convert the z score to a percentile rank
   percentile <- round(stats::pnorm(z) * 100, digits = round)
 
-  return(glue::glue("Ability Score = {x}\nPercentile Rank = {percentile}"))
-}
-
-#' @title Predicted test score with confidence intervals
-#' @description Estimate the difference between an actual score and a predicted score and compute the percentile of that score, and the confidence interval 95% of the time.
-#' @importFrom glue glue
-#' @importFrom stats qnorm
-#' @param x Score 1 (ability)
-#' @param y Score 2 (achievement)
-#' @param r Correlation between ability test and achievement test
-#' @param m Mean of test score
-#' @param sd Standard deviation of test scores
-#' @param rel Reliability of scale
-#' @param round Number of digits to round to
-#' @param level Confidence level
-#' @return A predicted score.
-#' @rdname calc_pred_score_ci_95_pct
-#' @examples
-#' calc_predicted_ci(x = 122, y = 84, r = .65, m = 100, sd = 15, rel = .90, round = 0, level = 0.95)
-#' @export
-calc_pred_score_ci_95_pct <- function(x, y, r, m, sd, rel, round = 0, level = 0.95) {
-  # Step 1: Calculate the predicted score.
-  pred_score <- round(r * (x - m) + m, digits = 0)
-
-  # Step 2: Calculate the difference between the predicted score and the actual score.
-  diff <- (pred_score - y)
-
-  # Step 3: Compute standard error of measurement (SEM)
-  sem <- round(sd * sqrt(1 - rel), digits = 2)
-
-  # Step 4: Compute true score
-  true_score <- round((x - m) * rel + m, digits = 0)
-
-  # Step 5: Compute z-score for desired confidence level
-  fisher <- round(-stats::qnorm((1 - level) / 2), digits = 2)
-
-  # Step 6: Compute error
-  error <- round(fisher * sem, digits = 2)
-
-  # Step 8: Calculate the z score
-  z <- (x - m) / sd
-
-  # Step 9: Convert the z score to a percentile rank
-  pr <- round(stats::pnorm(z) * 100, digits = 1)
-
-  # Step 7: Compute confidence interval
-  ci_95_hi_x <- round(x - error, digits = round)
-  ci_95_lo_x <- round(x + error, digits = round)
-  ci_95_hi_y <- round(y - error, digits = round)
-  ci_95_lo_y <- round(y + error, digits = round)
-  ci_95_hi_p <- round(pred_score - error, digits = round)
-  ci_95_lo_p <- round(pred_score + error, digits = round)
-  ci_95_hi_t <- round(true_score - error, digits = round)
-  ci_95_lo_t <- round(true_score + error, digits = round)
-  ci_95_hi_pr <- round(pr - error, digits = round)
-  ci_95_lo_pr <- round(pr + error, digits = round)
-
-  # Step 9: Return the predicted score and difference along with confidence intervals and percentile.
-  return(glue::glue("Ability Score = {x} (95% CI: {ci_95_hi_x}-{ci_95_lo_x}), Percentile Rank = {pr} (95% CI: {ci_95_hi_pr}-{ci_95_lo_pr})\nTrue Score = {true_score} (95% CI: {ci_95_hi_t}-{ci_95_lo_t})\nPredicted Achievement Score = {pred_score} (95% CI: {ci_95_hi_p}-{ci_95_lo_p})\nActual Achievement Score = {y} (95% CI: {ci_95_hi_y}-{ci_95_lo_y})\nDifference = {diff}\nSE = {error}\nSEM = {sem}"))
+  return(glue::glue("Ability Score = {ability_score}\nPercentile Rank = {percentile}"))
 }

@@ -2,9 +2,10 @@
 % Please edit documentation in R/typst.R
 \name{make_fig}
 \alias{make_fig}
-\title{Make a figure}
+\title{Make a dotplot for cognitive domain scores
+This function creates a dotplot figure for a given dataset.}
 \usage{
-make_fig(data, x = data_dotplot$z_mean_narrow, y = data_dotplot$narrow, pheno)
+make_fig(data, x, y, pheno, colors = NULL)
 }
 \arguments{
 \item{data}{Dataframe containing the input data}
@@ -14,10 +15,13 @@ make_fig(data, x = data_dotplot$z_mean_narrow, y = data_dotplot$narrow, pheno)
 \item{y}{Variable plotted on the y-axis, by default data_dotplot$narrow}
 
 \item{pheno}{Phenotype of interest}
+
+\item{colors}{A vector of colors to be used for the plot}
 }
 \value{
 an object of class figure object
 }
 \description{
-Make a figure
+Make a dotplot for cognitive domain scores
+This function creates a dotplot figure for a given dataset.
 }

@@ -4,16 +4,22 @@
 \alias{calc_predicted_score}
 \title{Predicted test score}
 \usage{
-calc_predicted_score(x, y, r, m, round = 0)
+calc_predicted_score(
+  ability_score,
+  achievement_score,
+  correlation,
+  mean,
+  round = 0
+)
 }
 \arguments{
-\item{x}{Score 1 (ability)}
+\item{ability_score}{Score 1 (ability)}
 
-\item{y}{Score 2 (achievement)}
+\item{achievement_score}{Score 2 (achievement)}
 
-\item{r}{Correlation between ability test and achievement test}
+\item{correlation}{Correlation between ability test and achievement test}
 
-\item{m}{Mean of test score}
+\item{mean}{Mean of test score}
 
 \item{round}{Number of digits to round to}
 }
@@ -24,5 +30,5 @@ A predicted score.
 Estimate the difference between an actual score and a predicted score.
 }
 \examples{
-calc_predicted_score(x = 122, y = 84, r = .65, m = 100)
+calc_predicted_score(ability_score = 122, achievement_score = 84, correlation = .65, mean = 100)
 }

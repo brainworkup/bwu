@@ -2,7 +2,7 @@
 % Please edit documentation in R/typst.R
 \name{flatten_scale_text}
 \alias{flatten_scale_text}
-\title{Flatten and Scale Text}
+\title{Flatten concatenated text for each neuropsych scale}
 \usage{
 flatten_scale_text(data, file)
 }
