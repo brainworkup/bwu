@@ -12,6 +12,7 @@
 #' @param line_color The color of the lines, Default: 'black'
 #' @param colors A vector of colors for fill gradient, Default: NULL (uses pre-defined color palette)
 #' @param theme The ggplot theme to be used, Default: 'fivethirtyeight'. Other options include 'minimal' and 'classic'
+#' @param ... Additional arguments to be passed to the ggplot function.
 #' @return An object of class 'ggplot' representing the dotplot.
 #' @details This function generates a dot plot with the given data, x and y. The points' aesthetics and plot theme can be customized.
 #' @rdname dotplot
@@ -19,7 +20,7 @@
 #' @importFrom ggplot2 ggplot geom_segment aes geom_point scale_fill_gradientn theme element_rect
 #' @importFrom stats reorder
 #' @importFrom ggthemes theme_fivethirtyeight
-dotplot <- function(data, x, y, linewidth = 0.5, fill = x, shape = 21, point_size = 6, line_color = "black", colors = NULL, theme = "fivethirtyeight") {
+dotplot <- function(data, x, y, linewidth = 0.5, fill = x, shape = 21, point_size = 6, line_color = "black", colors = NULL, theme = "fivethirtyeight", ...) {
   # Define the color palette
   color_palette <- if (is.null(colors)) {
     c(

@@ -14,7 +14,8 @@ dotplot(
   point_size = 6,
   line_color = "black",
   colors = NULL,
-  theme = "fivethirtyeight"
+  theme = "fivethirtyeight",
+  ...
 )
 }
 \arguments{
@@ -39,6 +40,8 @@ the cognitive domain to plot.}
 \item{colors}{A vector of colors for fill gradient, Default: NULL (uses pre-defined color palette)}
 
 \item{theme}{The ggplot theme to be used, Default: 'fivethirtyeight'. Other options include 'minimal' and 'classic'}
+
+\item{...}{Additional arguments to be passed to the ggplot function.}
 }
 \value{
 An object of class 'ggplot' representing the dotplot.
