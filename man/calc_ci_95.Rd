@@ -32,6 +32,3 @@ Returns confidence interval
 \description{
 To compute confidence intervals for test scores.
 }
-\examples{
-calc_ci_95(ability_score = 88, mean = 100, standard_deviation = 15, reliability = .90, round = 0, confidence_level = 0.95)
-}

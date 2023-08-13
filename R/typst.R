@@ -1,15 +1,4 @@
-#' @title make_g_csv
-#'
-#' @description Gets index scores for given patient path
-#' @param patient Root directory of patient
-#' @return Returns g index score
-#' @rdname make_g_csv
-#' @export
-make_g_csv <- function(patient) {
-  g <- bwu::gpluck_get_index_scores(patient = patient)
-}
-
-#' Reads data from a csv file.
+#' Read data from a csv file.
 #' @param pheno Character vector for phenotype. Options are "adhd" or "emotion".
 #' @return A tibble containing the data.
 #' @export
@@ -78,21 +67,25 @@ flatten_scale_text <- function(data, file) {
 #' @return Generates the .png and .pdf file of the gt table
 #' @export
 #' @importFrom gt gt md gtsave
+#' @importFrom glue glue
 make_tbl_gt <- function(data, pheno, index_score, table_name) {
+  # phenotype
+  pheno <- pheno
+
   # source note
   source_note <- gt::md(index_score)
 
   # make gt table
   gt_table <- bwu::tbl_gt(data,
     table_name = table_name,
-    source_note = source_note,
-    title = NULL
+    source_note = source_note
   )
-  return(gt_table)
 
   # save
-  gt::gtsave(gt_table, glue("table_{pheno}", ".png"), expand = 10)
-  gt::gtsave(gt_table, glue("table_{pheno}", ".pdf"), expand = 10)
+  gt::gtsave(gt_table, glue::glue("table_{pheno}.pdf"), expand = 10)
+  gt::gtsave(gt_table, glue::glue("table_{pheno}.png"), expand = 10)
+
+  return(gt_table)
 }
 
 
@@ -117,9 +110,9 @@ make_fig <- function(data, x, y, pheno, colors = NULL) {
     y = y,
     colors = colors
   )
-  fig
   ggplot2::ggsave(glue::glue("fig_{pheno}.png"))
   ggplot2::ggsave(glue::glue("fig_{pheno}.pdf"))
+  return(fig)
 }
 
 #' Create a Table for Typst
@@ -132,7 +125,6 @@ make_tbl_md_typ <- function(data) {
   tbl_md <- bwu::tbl_md_typ(data[, c(2, 4, 5, 6)])
   return(tbl_md)
 }
-
 
 #' Write Domain CSV
 #' @param data Numeric vector, data frame, or matrix.

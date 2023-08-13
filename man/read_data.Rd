@@ -2,7 +2,7 @@
 % Please edit documentation in R/typst.R
 \name{read_data}
 \alias{read_data}
-\title{Reads data from a csv file.}
+\title{Read data from a csv file.}
 \usage{
 read_data(pheno)
 }
@@ -13,5 +13,5 @@ read_data(pheno)
 A tibble containing the data.
 }
 \description{
-Reads data from a csv file.
+Read data from a csv file.
 }

@@ -84,8 +84,6 @@ calc_predicted_score <- function(ability_score, achievement_score, correlation, 
 #' @param confidence_level Confidence level
 #' @return Returns confidence interval
 #' @rdname calc_ci_95
-#' @examples
-#' calc_ci_95(ability_score = 88, mean = 100, standard_deviation = 15, reliability = .90, round = 0, confidence_level = 0.95)
 #' @export
 calc_ci_95 <- function(ability_score, mean, standard_deviation, reliability, round = 0, confidence_level = 0.95) {
   # Compute standard error of measurement (SEM)
