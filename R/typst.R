@@ -59,59 +59,53 @@ flatten_scale_text <- function(data, file) {
   )
 }
 
-#' Create a gt table and save as a .png and .pdf file
+#' Create a gt table and save as .png and .pdf files for Typst
 #' @param data Data frame with at least two columns, one for the names of each variable and one for its values.
 #' @param pheno Name of phenotype of interest for output files
-#' @param index_score Character string indicating that the index scores have a mean of 100 and standard deviation of 15.
+#' @param source_note Character string indicating that the index scores have a mean of 100 and standard deviation of 15.
 #' @param table_name The name of the table to be generated
 #' @return Generates the .png and .pdf file of the gt table
 #' @export
 #' @importFrom gt gt md gtsave
 #' @importFrom glue glue
-make_tbl_gt <- function(data, pheno, index_score, table_name) {
-  # phenotype
+make_tbl_gt <- function(data, pheno, source_note = NULL, table_name = NULL) {
   pheno <- pheno
-
-  # source note
-  source_note <- gt::md(index_score)
+  source_note <- gt::md(source_note)
 
   # make gt table
-  gt_table <- bwu::tbl_gt(data,
-    table_name = table_name,
-    source_note = source_note
+  table <- bwu::tbl_gt(data,
+    source_note = source_note,
+    table_name = table_name
   )
-
-  # save
-  gt::gtsave(gt_table, glue::glue("table_{pheno}.pdf"), expand = 10)
-  gt::gtsave(gt_table, glue::glue("table_{pheno}.png"), expand = 10)
-
-  return(gt_table)
+  gt::gtsave(table, glue::glue("table_{pheno}.pdf"))
+  gt::gtsave(table, glue::glue("table_{pheno}.png"))
+  return(table)
 }
 
 
 #' Make a dotplot for cognitive domain scores
 #' This function creates a dotplot figure for a given dataset.
 #' @param data Dataframe containing the input data
+#' @param pheno Phenotype of interest
 #' @param x Variable plotted on the x-axis, by default data_dotplot$z_mean_narrow
 #' @param y Variable plotted on the y-axis, by default data_dotplot$narrow
-#' @param pheno Phenotype of interest
 #' @param colors A vector of colors to be used for the plot
 #' @return an object of class figure object
 #' @importFrom ggplot2 ggsave
-#' @importFrom xfun pkg_attach2
 #' @importFrom glue glue
 #' @export
 #' @rdname make_fig
-make_fig <- function(data, x, y, pheno, colors = NULL) {
+make_fig <- function(data, pheno, x = data$z_mean_subdomain, y = data$subdomain, colors = NULL) {
   # will need to change these for each domain
   fig <- bwu::dotplot(
     data = data,
+    pheno = pheno,
     x = x,
     y = y,
     colors = colors
   )
-  ggplot2::ggsave(glue::glue("fig_{pheno}.png"))
   ggplot2::ggsave(glue::glue("fig_{pheno}.pdf"))
+  ggplot2::ggsave(glue::glue("fig_{pheno}.png"))
   return(fig)
 }
 

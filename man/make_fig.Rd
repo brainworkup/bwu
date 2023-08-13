@@ -5,16 +5,22 @@
 \title{Make a dotplot for cognitive domain scores
 This function creates a dotplot figure for a given dataset.}
 \usage{
-make_fig(data, x, y, pheno, colors = NULL)
+make_fig(
+  data,
+  pheno,
+  x = data$z_mean_subdomain,
+  y = data$subdomain,
+  colors = NULL
+)
 }
 \arguments{
 \item{data}{Dataframe containing the input data}
 
+\item{pheno}{Phenotype of interest}
+
 \item{x}{Variable plotted on the x-axis, by default data_dotplot$z_mean_narrow}
 
 \item{y}{Variable plotted on the y-axis, by default data_dotplot$narrow}
-
-\item{pheno}{Phenotype of interest}
 
 \item{colors}{A vector of colors to be used for the plot}
 }

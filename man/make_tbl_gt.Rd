@@ -2,16 +2,16 @@
 % Please edit documentation in R/typst.R
 \name{make_tbl_gt}
 \alias{make_tbl_gt}
-\title{Create a gt table and save as a .png and .pdf file}
+\title{Create a gt table and save as .png and .pdf files for Typst}
 \usage{
-make_tbl_gt(data, pheno, index_score, table_name)
+make_tbl_gt(data, pheno, source_note = NULL, table_name = NULL)
 }
 \arguments{
 \item{data}{Data frame with at least two columns, one for the names of each variable and one for its values.}
 
 \item{pheno}{Name of phenotype of interest for output files}
 
-\item{index_score}{Character string indicating that the index scores have a mean of 100 and standard deviation of 15.}
+\item{source_note}{Character string indicating that the index scores have a mean of 100 and standard deviation of 15.}
 
 \item{table_name}{The name of the table to be generated}
 }
@@ -19,5 +19,5 @@ make_tbl_gt(data, pheno, index_score, table_name)
 Generates the .png and .pdf file of the gt table
 }
 \description{
-Create a gt table and save as a .png and .pdf file
+Create a gt table and save as .png and .pdf files for Typst
 }
