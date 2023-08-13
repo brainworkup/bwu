@@ -545,7 +545,7 @@ table1 <-
         "{description} fell in the {range} range.\n"
       ),
       scale == "Processing Speed (PSI)" ~ glue::glue(
-        "{description} was {range} and a relative strength|weakness.\n"
+        "{description} was {range}.\n"
       ),
       TRUE ~ as.character(result)
     )
@@ -1372,7 +1372,7 @@ readr::write_csv(wais4, here::here(patient, "csv", "wais4.csv"))
 ```{r writeout-g}
 table <- wais4
 test <- "g"
-tidytable::fwrite(
+readr::write_csv(
   table,
   here::here(patient, paste0(test, ".csv")),
   append = TRUE

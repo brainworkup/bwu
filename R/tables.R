@@ -91,22 +91,13 @@ tbl_gt <- function(data, table_name = NULL, source_note = NULL, title = NULL, ta
 #' @param data The data frame to be used for creating the kable table.
 #' @return A kable table in LaTeX format.
 #' @details This function uses the kableExtra package to create the kable table with the following specifications: lightable_options = "basic", latex_options = c("scale_down", "HOLD_position", "striped"), width of the first column is set to 8cm, rows are packed based on a table of the data's Test column, and the first row is set to bold. Additionally, a footnote is added at the end of the table.
-#' @examples
-#' \dontrun{
-#' if (interactive()) {
-#'   df_adhd_ef <- read.csv("data/df_adhd_ef.csv")
-#'   tbl_kbl(df_adhd_ef)
-#' }
-#' }
-#' @seealso
-#'  \code{\link[kableExtra]{kbl}}, \code{\link[kableExtra]{kable_classic}}, \code{\link[kableExtra]{kable_styling}}, \code{\link[kableExtra]{column_spec}}, \code{\link[kableExtra]{group_rows}}, \code{\link[kableExtra]{row_spec}}, \code{\link[kableExtra]{footnote}}
 #' @rdname tbl_kbl
 #' @export
 #' @importFrom kableExtra kbl kable_paper kable_styling column_spec pack_rows row_spec footnote
 tbl_kbl <- function(data) {
   # kable
   kableExtra::kbl(
-    df_adhd_ef[, 1:4],
+    data[, 1:4],
     "latex",
     longtable = FALSE,
     booktabs = TRUE,
@@ -116,12 +107,9 @@ tbl_kbl <- function(data) {
     kableExtra::kable_paper(lightable_options = "basic") |>
     kableExtra::kable_styling(latex_options = c("scale_down", "HOLD_position", "striped")) |>
     kableExtra::column_spec(1, width = "8cm") |>
-    kableExtra::pack_rows(index = table(df_adhd_ef$Test)) |>
+    kableExtra::pack_rows(index = table(data$Test)) |>
     kableExtra::row_spec(row = 0, bold = TRUE) |>
-    kableExtra::footnote("Note: CAARS Standard scores have a mean of 50 and a standard
-  deviation of 10, and higher scores reflect reduced functioning. CEFI Standard
-  scores have a mean of 100 and a standard deviation of 15, and lower scores
-  reflect reduced functioning.",
+    kableExtra::footnote("Note: Standard scores have a mean of 50 and a standard deviation of 10, and higher scores reflect reduced functioning. Standard scores have a mean of 100 and a standard deviation of 15, and lower scores reflect reduced functioning.",
       general_title = "", threeparttable = TRUE,
       escape = F, footnote_as_chunk = TRUE
     )
@@ -134,21 +122,6 @@ tbl_kbl <- function(data) {
 #' @param caption A caption for the table.
 #' @return A markdown table.
 #' @details This function creates a markdown table from a data frame.
-#' @examples
-#' \dontrun{
-#' if (interactive()) {
-#'   # Create example data
-#'   data <- data.frame(
-#'     Scale = c("Scale 1", "Scale 2", "Scale 3"),
-#'     Score = c(1, 2, 3),
-#'     "‰ Rank" = c(0.01, 0.02, 0.03),
-#'     Range = c("1-10", "11-20", "21-30")
-#'   )
-#'
-#'   # Create the markdown table
-#'   tbl_md(data)
-#' }
-#' }
 #' @rdname tbl_md_typ
 #' @export
 #' @importFrom kableExtra kbl
@@ -183,19 +156,6 @@ tbl_md_typ <- function(data, caption = NULL) {
 #' @return A tibble with columns specified in 'columns', and set column names to 'names'.
 #'
 #' @details The function filters the data by 'domain', selects columns from 'columns', and sets the column names to 'names'. It then truncates the values of 'percentile' column.
-#'
-#' @examples
-#' \dontrun{
-#' if (interactive()) {
-#'   # EXAMPLE1
-#' }
-#' }
-#'
-#' @seealso
-#'  [filter][dplyr::filter], [select][dplyr::select], [mutate][dplyr::mutate]
-#'  [all_of][tidyselect::all_of]
-#'  [set_names][purrr::set_names]
-#'
 #' @rdname make_tibble
 #'
 #' @export
@@ -226,8 +186,7 @@ make_tibble <- function(data,
                         tibb = NULL,
                         ...) {
   tibb <-
-    data %>%
-    dplyr::filter(domain %in% pheno) %>%
+    dplyr::filter(data, domain %in% pheno) %>%
     dplyr::select(tidyselect::all_of(columns)) %>%
     dplyr::mutate(percentile = trunc(percentile)) %>%
     purrr::set_names(names)
@@ -236,38 +195,49 @@ make_tibble <- function(data,
 }
 
 
-#' @title Index scores.
-#' @description Get 'g' from index scores FUNCTION_DESCRIPTION
+#' @title Make index scores to create g.csv.
+#' @description Get 'g' from index scores
 #' @param patient Patient name
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
-#' @examples
-#' \dontrun{
-#' if (interactive()) {
-#'   # EXAMPLE1
-#' }
-#' }
-#' @seealso
-#'  \code{\link[readxl]{read_excel}}
-#'  \code{\link[here]{here}}
-#'  \code{\link[janitor]{clean_names}}
-#'  \code{\link[glue]{glue}}
-#'  \code{\link[readr]{write_delim}}
-#' @rdname gpluck_get_index_scores
+#' @param scales A character vector of scale names
+#' @return A csv file of g
+#' @rdname generate_g_csv_from_index_scores
 #' @export
 #' @importFrom readxl read_xlsx
 #' @importFrom here here
 #' @importFrom janitor clean_names
 #' @importFrom glue glue
 #' @importFrom readr write_csv
-gpluck_get_index_scores <- function(patient) {
-  ## Import/Tidy Excel Index Score File
-  patient <- patient
+generate_g_csv_from_index_scores <- function(data, patient, scales = scales, index_score_file = glue::glue("{patient}_index_scores.xlsx") {
+  scales <- c(
+    "Academic Skills",
+    "Attention",
+    "Attention/Executive",
+    "Attentional Fluency",
+    "Cognitive Efficiency",
+    "Cognitive Proficiency",
+    "Crystallized Knowledge",
+    "Delayed Recall",
+    "Executive Functions",
+    "Fluency",
+    "Fluid Reasoning",
+    "General Ability",
+    "Learning Efficiency",
+    "Memory",
+    "Planning",
+    "Processing Speed",
+    "Psychomotor Speed",
+    "Verbal/Language",
+    "Visual Perception/Construction",
+    "Working Memory"
+  )
 
-  ## Import data
-  df <-
-    readxl::read_xlsx(here::here(patient, "index_scores.xlsx")) |>
-    janitor::clean_names()
+  data <- data.frame(
+    readxl::read_excel(index_score_file) |>
+      janitor::clean_names() |>
+      dplyr::mutate(z = (index - 100) / 15) |>
+      dplyr::filter(composite_name %in% scales) |>
+      dplyr::filter(!is.na(z))
+  )
 
   names <-
     c(
@@ -280,20 +250,16 @@ gpluck_get_index_scores <- function(patient) {
       "ci_95",
       "composition"
     )
-
-  names(df) <- names
-
-  df <- as.data.frame(df)
+  names(data) <- names
 
   ## Mutate columns
-
-  df <- bwu::gpluck_make_columns(
-    table = df,
+  data <- gpluck_make_columns(
+    data,
     raw_score = "",
     range = "",
     test = "index",
     test_name = "Composite Scores",
-    domain = "",
+    domain = "General Cognitive Ability",
     subdomain = "",
     narrow = "",
     pass = "",
@@ -307,31 +273,12 @@ gpluck_get_index_scores <- function(patient) {
   )
 
   ## Test score ranges
+  data <- gpluck_make_score_ranges(data, test_type = "npsych_test")
 
-  df <-
-    bwu::gpluck_make_score_ranges(table = df, test_type = "npsych_test")
 
-  ## Domains
-
-  df <-
-    df |>
-    dplyr::mutate(
-      domain = dplyr::case_when(
-        scale == "General Ability" ~ "Intelligence/General Ability",
-        scale == "Crystallized Knowledge" ~ "Intelligence/General Ability",
-        scale == "Fluid Reasoning" ~ "Intelligence/General Ability",
-        scale == "Cognitive Proficiency" ~ "Intelligence/General Ability",
-        scale == "Working Memory" ~ "Intelligence/General Ability",
-        scale == "Processing Speed" ~ "Intelligence/General Ability",
-        TRUE ~ as.character(domain)
-      )
-    )
-
-  ## Subdomain
-
-  df <-
-    df |>
-    dplyr::mutate(
+  ## Subdomains
+  data <-
+    dplyr::mutate(data,
       subdomain = dplyr::case_when(
         scale == "General Ability" ~ "General Intelligence",
         scale == "Crystallized Knowledge" ~ "General Intelligence",
@@ -345,8 +292,8 @@ gpluck_get_index_scores <- function(patient) {
 
   ## Narrow subdomain
 
-  df <-
-    df |>
+  data <-
+    data |>
     dplyr::mutate(
       narrow = dplyr::case_when(
         scale == "General Ability" ~ "General Intelligence",
@@ -361,8 +308,8 @@ gpluck_get_index_scores <- function(patient) {
 
   ## PASS model
 
-  df <-
-    df |>
+  data <-
+    data |>
     dplyr::mutate(
       pass = dplyr::case_when(
         scale == "General Ability" ~ "",
@@ -377,8 +324,8 @@ gpluck_get_index_scores <- function(patient) {
 
   ## Verbal vs Nonverbal
 
-  df <-
-    df |>
+  data <-
+    data |>
     dplyr::mutate(
       verbal = dplyr::case_when(
         scale == "General Ability" ~ "",
@@ -393,8 +340,8 @@ gpluck_get_index_scores <- function(patient) {
 
   ## Timed vs Untimed
 
-  df <-
-    df |>
+  data <-
+    data |>
     dplyr::mutate(
       timed = dplyr::case_when(
         scale == "General Ability" ~ "",
@@ -409,8 +356,8 @@ gpluck_get_index_scores <- function(patient) {
 
   ## Scale descriptions
 
-  df <-
-    df |>
+  data <-
+    data |>
     dplyr::mutate(
       description = dplyr::case_when(
         scale ==
@@ -424,21 +371,39 @@ gpluck_get_index_scores <- function(patient) {
           "An estimate of fluid intelligence (*G*f)",
         scale ==
           "Cognitive Proficiency" ~
-          "A composite estimate of working memory^[(ref:working-memory)] and processing speed^[(ref:processing-speed)] (i.e., cognitive proficiency)",
+          "A composite estimate of working memory and processing speed (i.e., cognitive proficiency)",
         scale ==
           "Working Memory" ~
-          "An estimate of working memory capacity^[(ref:working-memory)]",
+          "An estimate of working memory capacity",
         scale ==
           "Processing Speed" ~
-          "Collective performance across measures of processing speed and cognitive efficiency^[(ref:processing-speed)]",
+          "Collective performance across measures of processing speed and cognitive efficiency",
+      scale ==
+        "Full Scale IQ (FSIQ)" ~
+        "General Intelligence (*G*)",
+      scale ==
+        "General Ability (GAI)" ~
+        "General Intelligence (*G*)",
+      scale ==
+        "Verbal Comprehension (VCI)" ~
+        "An estimate of Crystallized Intelligence (*G*c)",
+      scale ==
+        "Perceptual Reasoning (PRI)" ~
+        "An estimate of fluid intelligence (*G*f)",
+      scale ==
+        "Working Memory (WMI)" ~
+        "An estimate of verbal working memory",
+      scale ==
+        "Processing Speed (PSI)" ~
+        "Collective performance across measures of processing speed and cognitive efficiency",
         TRUE ~ as.character(description)
       )
     )
 
   ## Glue result
 
-  df <-
-    df |>
+  data <-
+    data |>
     dplyr::mutate(
       result = dplyr::case_when(
         scale == "General Ability" ~ glue::glue(
@@ -449,13 +414,13 @@ gpluck_get_index_scores <- function(patient) {
         ),
         scale == "Fluid Reasoning" ~ glue::glue("{description} was classified as {range}.\n"),
         scale == "Cognitive Proficiency" ~ glue::glue(
-          "{description} was {range} and a relative strength|weakness.\n"
+          "{description} was {range}.\n"
         ),
         scale == "Working Memory" ~ glue::glue(
-          "{description} fell in the {range} range and was and a relative strength|weakness.\n"
+          "{description} fell in the {range} range.\n"
         ),
         scale == "Processing Speed" ~ glue::glue(
-          "{description} was {range} and a relative strength|weakness.\n"
+          "{description} was {range}.\n"
         ),
         TRUE ~ as.character(result)
       )
@@ -463,8 +428,8 @@ gpluck_get_index_scores <- function(patient) {
 
   ## Relocate variables
 
-  g <-
-    df |>
+  data <-
+    data |>
     dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test) |>
     dplyr::relocate(c(scaled_score, t_score, reliability, composition), .after = result) |>
     dplyr::filter(
@@ -480,7 +445,7 @@ gpluck_get_index_scores <- function(patient) {
 
   ## Write out CSV
 
-  readr::write_csv(g,
+  readr::write_csv(data,
     here::here(patient, "csv", "g.csv"),
     append = FALSE,
     col_names = TRUE
