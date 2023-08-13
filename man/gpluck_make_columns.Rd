@@ -5,14 +5,14 @@
 \title{Make additional variables/columns from PDF tables.}
 \usage{
 gpluck_make_columns(
-  data,
+  table,
   test,
   test_name,
-  scale,
+  scale = NULL,
   raw_score = NULL,
   score = NULL,
-  percentile,
   range = NULL,
+  percentile = NULL,
   ci_95 = NULL,
   domain = c("General Cognitive Ability", "Intelligence/General Ability",
     "Academic Skills", "Verbal/Language", "Visual Perception/Construction",
@@ -25,8 +25,8 @@ gpluck_make_columns(
   pass = c("Planning", "Attention", "Sequential", "Simultaneous", "Knowledge", NA),
   verbal = c("Verbal", "Nonverbal", NA),
   timed = c("Timed", "Untimed", NA),
-  test_type = c("npsych_test", "rating_scale", "validity_indicator", "item", NA),
-  score_type = c("raw_score", "z_score", "scaled_score", "t_score", "standard_score",
+  test_type = c("npsych_test", "rating_scale", "validity_indicator", "item", "basc3", NA),
+  score_type = c("raw_score", "scaled_score", "t_score", "standard_score", "z_score",
     "percentile", "base_rate", "beta_coefficient", NA),
   absort = NULL,
   description = NULL,
@@ -35,7 +35,7 @@ gpluck_make_columns(
 )
 }
 \arguments{
-\item{data}{Name of data/table to import and tidy.}
+\item{table}{Name of data/table to import and tidy.}
 
 \item{test}{Name of test that information will be extracted from.}
 
@@ -47,9 +47,9 @@ gpluck_make_columns(
 
 \item{score}{Score for the given test. Default: NULL}
 
-\item{percentile}{Percentile for the given test. Default: NULL}
-
 \item{range}{Range for the given test. Default: NULL}
+
+\item{percentile}{Percentile for the given test. Default: NULL}
 
 \item{ci_95}{Confidence interval level (95\%) for the given test. Default: NULL}
 

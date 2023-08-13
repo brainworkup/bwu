@@ -7,13 +7,15 @@
 gpluck_make_score_ranges(
   table,
   score = NULL,
-  percentile = "Percentile",
-  range = NULL,
-  test_type = c("npsych_test", "rating_scale", "validity_indicator", "basc3"),
+  percentile = NULL,
+  range = range,
+  test_type = c("npsych_test", "rating_scale", "validity_indicator", "basc3", "item", NA),
   ...
 )
 }
 \arguments{
+\item{table}{The table containing the lower bound and upper bound score columns}
+
 \item{score}{Optional lower bound or upper bound score column name. If omitted, use \code{Score}}
 
 \item{percentile}{Option percentiles column name. if omitted, use \code{Percentile}}
@@ -23,8 +25,6 @@ gpluck_make_score_ranges(
 \item{test_type}{A vector of test types to consider. Default: c("npsych_test", "rating_scale", "validity_indicator", "basc3")}
 
 \item{...}{Other arguments passed on to \code{dplyr::filter}}
-
-\item{data}{The table containing the lower bound and upper bound score columns}
 }
 \value{
 An object that matches the input but with the ability to get score ranges for any given test type

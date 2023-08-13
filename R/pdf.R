@@ -81,7 +81,7 @@ gpluck_extract_table <-
 
 #' @title Make additional variables/columns from PDF tables.
 #' @description This function takes a data frame containing text data from PDF tables, and makes additional columns of binary, range or score values for the specified domain, subdomains, test types, etc.
-#' @param data Name of data/table to import and tidy.
+#' @param table Name of data/table to import and tidy.
 #' @param test Name of test that information will be extracted from.
 #' @param test_name Test name as provided in test field.
 #' @param scale Type of scale used to report the results (scored, binary, categorical, etc.). Default: NULL
@@ -125,14 +125,14 @@ gpluck_extract_table <-
 #' }
 #' @rdname gpluck_make_columns
 #' @export
-gpluck_make_columns <- function(data,
+gpluck_make_columns <- function(table,
                                 test,
                                 test_name,
-                                scale,
+                                scale = NULL,
                                 raw_score = NULL,
                                 score = NULL,
-                                percentile,
                                 range = NULL,
+                                percentile = NULL,
                                 ci_95 = NULL,
                                 domain = c(
                                   "General Cognitive Ability",
@@ -179,14 +179,15 @@ gpluck_make_columns <- function(data,
                                   "rating_scale",
                                   "validity_indicator",
                                   "item",
+                                  "basc3",
                                   NA
                                 ),
                                 score_type = c(
                                   "raw_score",
-                                  "z_score",
                                   "scaled_score",
                                   "t_score",
                                   "standard_score",
+                                  "z_score",
                                   "percentile",
                                   "base_rate",
                                   "beta_coefficient",
@@ -196,40 +197,41 @@ gpluck_make_columns <- function(data,
                                 description = NULL,
                                 result = NULL,
                                 ...) {
-  data <- dplyr::mutate(
-    data,
-    test = test,
-    test_name = test_name,
-    scale = scale,
-    raw_score = raw_score,
-    score = score,
-    range = range,
-    percentile = percentile,
-    ci_95 = ci_95,
-    domain = domain,
-    subdomain = subdomain,
-    narrow = narrow,
-    pass = pass,
-    verbal = verbal,
-    timed = timed,
-    test_type = test_type,
-    score_type = score_type,
-    absort =
-      paste0(
-        tolower(test),
-        "_", seq_len(nrow(data))
-      ),
-    description = description,
-    result = result
-  )
-
-  return(data)
+  table <-
+    dplyr::mutate(
+      table,
+      scale = scale,
+      raw_score = raw_score,
+      score = score,
+      range = range,
+      percentile = percentile,
+      ci_95 = ci_95,
+      test = test,
+      test_name = test_name,
+      domain = domain,
+      subdomain = subdomain,
+      narrow = narrow,
+      pass = pass,
+      verbal = verbal,
+      timed = timed,
+      test_type = test_type,
+      score_type = score_type,
+      absort =
+        paste0(
+          tolower(test),
+          "_", seq_len(nrow(table))
+        ),
+      description = description,
+      result = result,
+      ...
+    )
+  return(table)
 }
 
 
 #' @title gpluck_make_score_ranges
 #' @description This function takes a text table of score ranges for each percentile, and returns an object that matches the input but with the ability to get score ranges for any given test type
-#' @param data The table containing the lower bound and upper bound score columns
+#' @param table The table containing the lower bound and upper bound score columns
 #' @param score Optional lower bound or upper bound score column name. If omitted, use `Score`
 #' @param percentile Option percentiles column name. if omitted, use `Percentile`
 #' @param range Score performance range. if omitted, use `Range`
@@ -243,88 +245,105 @@ gpluck_make_columns <- function(data,
 #' }
 #' @rdname gpluck_make_score_ranges
 #' @export
-gpluck_make_score_ranges <- function(table,
-                                     score = NULL,
-                                     percentile = "Percentile",
-                                     range = NULL,
-                                     test_type = c("npsych_test", "rating_scale", "validity_indicator", "basc3"),
-                                     ...) {
-  if ("npsych_test" %in% test_type || "rating_scale" %in% test_type) {
-    table <- table %>%
-      mutate(
-        range = case_when(
-          !!sym(percentile) >= 98 ~ "Exceptionally High",
-          !!sym(percentile) %in% 91:97 ~ "Above Average",
-          !!sym(percentile) %in% 75:90 ~ "High Average",
-          !!sym(percentile) %in% 25:74 ~ "Average",
-          !!sym(percentile) %in% 9:24 ~ "Low Average",
-          !!sym(percentile) %in% 2:8 ~ "Below Average",
-          !!sym(percentile) < 2 ~ "Exceptionally Low",
-          TRUE ~ as.character(!!sym(range))
+gpluck_make_score_ranges <-
+  function(table,
+           score = NULL,
+           percentile = NULL,
+           range = range,
+           test_type = c(
+             "npsych_test",
+             "rating_scale",
+             "validity_indicator",
+             "basc3",
+             "item",
+             NA
+           ),
+           ...) {
+    if (test_type == "npsych_test") {
+      table <-
+        table |> 
+        dplyr::mutate(
+          range = dplyr::case_when(
+            percentile >= 98 ~ "Exceptionally High",
+            percentile %in% 91:97 ~ "Above Average",
+            percentile %in% 75:90 ~ "High Average",
+            percentile %in% 25:74 ~ "Average",
+            percentile %in% 9:24 ~ "Low Average",
+            percentile %in% 2:8 ~ "Below Average",
+            percentile < 2 ~ "Exceptionally Low",
+            TRUE ~ as.character(range)
+          )
         )
-      )
-  } else if ("performance_validity" %in% test_type) {
-    # ... (same structure)
-    table <- table %>%
-      dplyr::mutate(
-        range = dplyr::case_when(
-          !!sym(percentile) >= 25 ~ "Within Normal Limits Score",
-          !!sym(percentile) %in% 9:24 ~ "Low Average Score",
-          !!sym(percentile) %in% 2:8 ~ "Below Average Score",
-          !!sym(percentile) < 2 ~ "Exceptionally Low Score",
-          TRUE ~ as.character(!!sym(range))
+    } else if (test_type == "rating_scale") {
+      table <-
+        table |>
+        dplyr::mutate(
+          range = dplyr::case_when(
+            percentile >= 98 ~ "Exceptionally High",
+            percentile %in% 91:97 ~ "Above Average",
+            percentile %in% 75:90 ~ "High Average",
+            percentile %in% 25:74 ~ "Average",
+            percentile %in% 9:24 ~ "Low Average",
+            percentile %in% 2:8 ~ "Below Average",
+            percentile < 2 ~ "Exceptionally Low",
+            TRUE ~ as.character(range)
+          )
         )
-      )
-  } else if ("symptom_validity" %in% test_type) {
-    # ... (same structure)
-    table <-
-      table %>%
-      dplyr::mutate(
-        range = dplyr::case_when(
-          !!sym(percentile) >= 98 ~ "Exceptionally High Score",
-          !!sym(percentile) %in% 91:97 ~ "Above Average Score",
-          !!sym(percentile) %in% 75:90 ~ "High Average Score",
-          !!sym(percentile) %in% 25:74 ~ "Within Normal Limits Score",
-          !!sym(percentile) %in% 9:24 ~ "Low Average Score",
-          !!sym(percentile) %in% 2:8 ~ "Below Average Score",
-          !!sym(percentile) < 2 ~ "Exceptionally Low Score",
-          TRUE ~ as.character(!!sym(range))
+    } else if (test_type == "performance_validity") {
+      table <-
+        table |>
+        dplyr::mutate(
+          range = dplyr::case_when(
+            percentile >= 25 ~ "Within Normal Limits Score",
+            percentile %in% 9:24 ~ "Low Average Score",
+            percentile %in% 2:8 ~ "Below Average Score",
+            percentile < 2 ~ "Exceptionally Low Score",
+            TRUE ~ as.character(range)
+          )
         )
-      )
-  } else if ("basc3" %in% test_type) {
-    # ... (remember to use `%in%` with subdomain checks)
-
-    table <-
-      table %>%
-      dplyr::mutate(
-        range = dplyr::case_when(
-          score >= 60 & !subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Strength",
-          score %in% 40:59 & !subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Within Normal Limits",
-          score %in% 30:39 &
-            !subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Mildly Elevated",
-          score %in% 20:29 &
-            !subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Significantly Elevated",
-          score <= 29 &
-            !subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Markedly Elevated",
-          score >= 80 &
-            subdomain != c("Adaptive Skills", "Personal Adjustment") ~ "Markedly Elevated",
-          score %in% 70:79 &
-            subdomain != c("Adaptive Skills", "Personal Adjustment") ~ "Significantly Elevated",
-          score %in% 60:69 &
-            subdomain != c("Adaptive Skills", "Personal Adjustment") ~ "Mildly Elevated",
-          score %in% 40:59 &
-            subdomain != c("Adaptive Skills", "Personal Adjustment") ~ "Within Normal Limits",
-          score <= 39 &
-            subdomain != c("Adaptive Skills", "Personal Adjustment") ~ "Strength",
-          TRUE ~ as.character(range)
+    } else if (test_type == "symptom_validity") {
+      table <-
+        table |>
+        dplyr::mutate(
+          range = dplyr::case_when(
+            percentile >= 98 ~ "Exceptionally High Score",
+            percentile %in% 91:97 ~ "Above Average Score",
+            percentile %in% 75:90 ~ "High Average Score",
+            percentile %in% 25:74 ~ "Within Normal Limits Score",
+            percentile %in% 9:24 ~ "Low Average Score",
+            percentile %in% 2:8 ~ "Below Average Score",
+            percentile < 2 ~ "Exceptionally Low Score",
+            TRUE ~ as.character(range)
+          )
         )
-      )
-  } else {
-    warning("Unhandled test_type provided.")
+    } else if (test_type == "basc3") {
+      table <-
+        table |>
+        dplyr::mutate(
+          range = dplyr::case_when(
+            score >= 60 & subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Strength",
+            score %in% 40:59 & subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Within Normal Limits",
+            score %in% 30:39 &
+              subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Mildly Elevated",
+            score %in% 20:29 &
+              subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Significantly Elevated",
+            score <= 29 &
+              subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Markedly Elevated",
+            score >= 80 &
+              subdomain != c("Adaptive Skills", "Personal Adjustment") ~ "Markedly Elevated",
+            score %in% 70:79 &
+              subdomain != c("Adaptive Skills", "Personal Adjustment") ~ "Significantly Elevated",
+            score %in% 60:69 &
+              subdomain != c("Adaptive Skills", "Personal Adjustment") ~ "Mildly Elevated",
+            score %in% 40:59 &
+              subdomain != c("Adaptive Skills", "Personal Adjustment") ~ "Within Normal Limits",
+            score <= 39 &
+              subdomain != c("Adaptive Skills", "Personal Adjustment") ~ "Strength",
+            TRUE ~ as.character(range)
+          )
+        )
+    }
   }
-
-  return(table)
-}
 
 
 #' @title gpluck_compute_percentile_range
@@ -366,14 +385,14 @@ gpluck_compute_percentile_range <-
     if (.score_type == "z_score") {
       .x <-
         .x |>
-        dplyr::mutate(z = (.score - 0) / 1) %>%
-        dplyr::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        dplyr::mutate(z = (.score - 0) / 1) |>
+        dplyr::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) |>
         dplyr::mutate(pct2 = dplyr::case_when(
           pct1 < 1 ~ ceiling(pct1),
           pct1 > 99 ~ floor(pct1),
           TRUE ~ round(pct1)
-        )) %>%
-        dplyr::mutate(pct3 = pct2) %>%
+        )) |>
+        dplyr::mutate(pct3 = pct2) |>
         dplyr::mutate(
           range = dplyr::case_when(
             pct3 >= 98 ~ "Exceptionally High",
@@ -385,20 +404,20 @@ gpluck_compute_percentile_range <-
             pct3 < 2 ~ "Exceptionally Low",
             TRUE ~ as.character(range)
           )
-        ) %>%
-        dplyr::mutate(percentile = pct1) %>%
+        ) |>
+        dplyr::mutate(percentile = pct1) |>
         dplyr::select(-c(pct1, pct2, pct3))
     } else if (.score_type == "scaled_score") {
       .x <-
         .x |>
-        dplyr::mutate(z = (.score - 10) / 3) %>%
-        dplyr::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        dplyr::mutate(z = (.score - 10) / 3) |>
+        dplyr::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) |>
         dplyr::mutate(pct2 = dplyr::case_when(
           pct1 < 1 ~ ceiling(pct1),
           pct1 > 99 ~ floor(pct1),
           TRUE ~ round(pct1)
-        )) %>%
-        dplyr::mutate(pct3 = pct2) %>%
+        )) |>
+        dplyr::mutate(pct3 = pct2) |>
         dplyr::mutate(
           range = dplyr::case_when(
             pct3 >= 98 ~ "Exceptionally High",
@@ -410,20 +429,20 @@ gpluck_compute_percentile_range <-
             pct3 < 2 ~ "Exceptionally Low",
             TRUE ~ as.character(range)
           )
-        ) %>%
-        dplyr::mutate(percentile = pct1) %>%
+        ) |>
+        dplyr::mutate(percentile = pct1) |>
         dplyr::select(-c(pct1, pct2, pct3))
     } else if (.score_type == "t_score") {
       .x <-
         .x |>
-        dplyr::mutate(z = (.score - 50) / 10) %>%
-        dplyr::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        dplyr::mutate(z = (.score - 50) / 10) |>
+        dplyr::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) |>
         dplyr::mutate(pct2 = dplyr::case_when(
           pct1 < 1 ~ ceiling(pct1),
           pct1 > 99 ~ floor(pct1),
           TRUE ~ round(pct1)
-        )) %>%
-        dplyr::mutate(pct3 = pct2) %>%
+        )) |>
+        dplyr::mutate(pct3 = pct2) |>
         dplyr::mutate(
           range = dplyr::case_when(
             pct3 >= 98 ~ "Exceptionally High",
@@ -435,20 +454,20 @@ gpluck_compute_percentile_range <-
             pct3 < 2 ~ "Exceptionally Low",
             TRUE ~ as.character(range)
           )
-        ) %>%
-        dplyr::mutate(percentile = pct1) %>%
+        ) |>
+        dplyr::mutate(percentile = pct1) |>
         dplyr::select(-c(pct1, pct2, pct3))
     } else if (.score_type == "standard_score") {
       .x <-
         .x |>
-        dplyr::mutate(z = (.score - 100) / 15) %>%
-        dplyr::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        dplyr::mutate(z = (.score - 100) / 15) |>
+        dplyr::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) |>
         dplyr::mutate(pct2 = dplyr::case_when(
           pct1 < 1 ~ ceiling(pct1),
           pct1 > 99 ~ floor(pct1),
           TRUE ~ round(pct1)
-        )) %>%
-        dplyr::mutate(pct3 = pct2) %>%
+        )) |>
+        dplyr::mutate(pct3 = pct2) |>
         dplyr::mutate(
           range = dplyr::case_when(
             pct3 >= 98 ~ "Exceptionally High",
@@ -460,56 +479,13 @@ gpluck_compute_percentile_range <-
             pct3 < 2 ~ "Exceptionally Low",
             TRUE ~ as.character(range)
           )
-        ) %>%
-        dplyr::mutate(percentile = pct1) %>%
+        ) |>
+        dplyr::mutate(percentile = pct1) |>
         dplyr::select(-c(pct1, pct2, pct3))
     }
+
+    return(.x)
   }
-
-# gpluck_compute_percentile_range2 <- function(.x,
-#                                              .score = NA,
-#                                              .score_type = c("z_score", "scaled_score", "t_score", "standard_score"),
-#                                              percentile = NA,
-#                                              range = NA,
-#                                              ...) {
-#   # Determine z-score based on the score type
-#   .score_type <- match.arg(.score_type)
-#   mean_sd_pairs <- list(
-#     z_score = c(0, 1),
-#     scaled_score = c(10, 3),
-#     t_score = c(50, 10),
-#     standard_score = c(100, 15)
-#   )
-
-#   mean_val <- mean_sd_pairs[[.score_type]][1]
-#   sd_val <- mean_sd_pairs[[.score_type]][2]
-
-#   .x <- .x |>
-#     dplyr::mutate(z = (.score - mean_val) / sd_val) %>%
-#     dplyr::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
-#     dplyr::mutate(pct2 = dplyr::case_when(
-#       pct1 < 1 ~ ceiling(pct1),
-#       pct1 > 99 ~ floor(pct1),
-#       TRUE ~ round(pct1)
-#     )) %>%
-#     dplyr::mutate(
-#       range = dplyr::case_when(
-#         pct2 >= 98 ~ "Exceptionally High",
-#         pct2 %in% 91:97 ~ "Above Average",
-#         pct2 %in% 75:90 ~ "High Average",
-#         pct2 %in% 25:74 ~ "Average",
-#         pct2 %in% 9:24 ~ "Low Average",
-#         pct2 %in% 2:8 ~ "Below Average",
-#         pct2 < 2 ~ "Exceptionally Low",
-#         TRUE ~ as.character(range)
-#       )
-#     ) %>%
-#     dplyr::mutate(percentile = pct1) %>%
-#     dplyr::select(-c(pct1, pct2))
-
-#   return(.x)
-# }
-
 
 
 #' @title compute_pctile_range
@@ -552,14 +528,14 @@ compute_pctile_range <-
     if (.score_type == "z_score") {
       .x <-
         .x |>
-        dplyr::mutate(z = (.score - 0) / 1) %>%
-        dplyr::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        dplyr::mutate(z = (.score - 0) / 1) |>
+        dplyr::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) |>
         dplyr::mutate(pct2 = dplyr::case_when(
           pct1 < 1 ~ ceiling(pct1),
           pct1 > 99 ~ floor(pct1),
           TRUE ~ round(pct1)
-        )) %>%
-        dplyr::mutate(pct3 = pct2) %>%
+        )) |>
+        dplyr::mutate(pct3 = pct2) |>
         dplyr::mutate(
           range = dplyr::case_when(
             pct3 >= 98 ~ "Exceptionally High",
@@ -571,20 +547,20 @@ compute_pctile_range <-
             pct3 < 2 ~ "Exceptionally Low",
             TRUE ~ as.character(range)
           )
-        ) %>%
-        dplyr::mutate(percentile = pct1) %>%
+        ) |>
+        dplyr::mutate(percentile = pct1) |>
         dplyr::select(-c(pct1, pct2, pct3))
     } else if (.score_type == "scaled_score") {
       .x <-
         .x |>
-        dplyr::mutate(z = (.score - 10) / 3) %>%
-        dplyr::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        dplyr::mutate(z = (.score - 10) / 3) |>
+        dplyr::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) |>
         dplyr::mutate(pct2 = dplyr::case_when(
           pct1 < 1 ~ ceiling(pct1),
           pct1 > 99 ~ floor(pct1),
           TRUE ~ round(pct1)
-        )) %>%
-        dplyr::mutate(pct3 = pct2) %>%
+        )) |>
+        dplyr::mutate(pct3 = pct2) |>
         dplyr::mutate(
           range = dplyr::case_when(
             pct3 >= 98 ~ "Exceptionally High",
@@ -596,20 +572,20 @@ compute_pctile_range <-
             pct3 < 2 ~ "Exceptionally Low",
             TRUE ~ as.character(range)
           )
-        ) %>%
-        dplyr::mutate(percentile = pct1) %>%
+        ) |>
+        dplyr::mutate(percentile = pct1) |>
         dplyr::select(-c(pct1, pct2, pct3))
     } else if (.score_type == "t_score") {
       .x <-
         .x |>
-        dplyr::mutate(z = (.score - 50) / 10) %>%
-        dplyr::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        dplyr::mutate(z = (.score - 50) / 10) |>
+        dplyr::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) |>
         dplyr::mutate(pct2 = dplyr::case_when(
           pct1 < 1 ~ ceiling(pct1),
           pct1 > 99 ~ floor(pct1),
           TRUE ~ round(pct1)
-        )) %>%
-        dplyr::mutate(pct3 = pct2) %>%
+        )) |>
+        dplyr::mutate(pct3 = pct2) |>
         dplyr::mutate(
           range = dplyr::case_when(
             pct3 >= 98 ~ "Exceptionally High",
@@ -621,20 +597,20 @@ compute_pctile_range <-
             pct3 < 2 ~ "Exceptionally Low",
             TRUE ~ as.character(range)
           )
-        ) %>%
-        dplyr::mutate(percentile = pct1) %>%
+        ) |>
+        dplyr::mutate(percentile = pct1) |>
         dplyr::select(-c(pct1, pct2, pct3))
     } else if (.score_type == "standard_score") {
       .x <-
         .x |>
-        dplyr::mutate(z = (.score - 100) / 15) %>%
-        dplyr::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        dplyr::mutate(z = (.score - 100) / 15) |>
+        dplyr::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) |>
         dplyr::mutate(pct2 = dplyr::case_when(
           pct1 < 1 ~ ceiling(pct1),
           pct1 > 99 ~ floor(pct1),
           TRUE ~ round(pct1)
-        )) %>%
-        dplyr::mutate(pct3 = pct2) %>%
+        )) |>
+        dplyr::mutate(pct3 = pct2) |>
         dplyr::mutate(
           range = dplyr::case_when(
             pct3 >= 98 ~ "Exceptionally High",
@@ -646,20 +622,20 @@ compute_pctile_range <-
             pct3 < 2 ~ "Exceptionally Low",
             TRUE ~ as.character(range)
           )
-        ) %>%
-        dplyr::mutate(percentile = pct1) %>%
+        ) |>
+        dplyr::mutate(percentile = pct1) |>
         dplyr::select(-c(pct1, pct2, pct3))
     } else if (.score_type == "raw_score") {
       .x <-
         .x |>
-        dplyr::mutate(z = (.score - mean(raw_score)) / sd(raw_score)) %>%
-        dplyr::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+        dplyr::mutate(z = (.score - mean(raw_score)) / sd(raw_score)) |>
+        dplyr::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) |>
         dplyr::mutate(pct2 = dplyr::case_when(
           pct1 < 1 ~ ceiling(pct1),
           pct1 > 99 ~ floor(pct1),
           TRUE ~ round(pct1)
-        )) %>%
-        dplyr::mutate(pct3 = pct2) %>%
+        )) |>
+        dplyr::mutate(pct3 = pct2) |>
         dplyr::mutate(
           range = dplyr::case_when(
             pct3 >= 25 ~ "Within Normal Limits Score",
@@ -668,8 +644,9 @@ compute_pctile_range <-
             pct3 < 2 ~ "Exceptionally Low Score",
             TRUE ~ as.character(range)
           )
-        ) %>%
-        dplyr::mutate(percentile = pct1) %>%
+        ) |>
+        dplyr::mutate(percentile = pct1) |>
         dplyr::select(-c(pct1, pct2, pct3))
     }
+    return(.x)
   }
