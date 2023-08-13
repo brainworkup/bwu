@@ -2,43 +2,41 @@
 % Please edit documentation in R/pdf.R
 \name{gpluck_make_score_ranges}
 \alias{gpluck_make_score_ranges}
-\title{FUNCTION_TITLE}
+\title{gpluck_make_score_ranges}
 \usage{
 gpluck_make_score_ranges(
   table,
   score = NULL,
-  percentile = NULL,
-  range = range,
+  percentile = "Percentile",
+  range = NULL,
   test_type = c("npsych_test", "rating_scale", "validity_indicator", "basc3"),
   ...
 )
 }
 \arguments{
-\item{table}{PARAM_DESCRIPTION}
+\item{score}{Optional lower bound or upper bound score column name. If omitted, use \code{Score}}
 
-\item{score}{PARAM_DESCRIPTION, Default: NULL}
+\item{percentile}{Option percentiles column name. if omitted, use \code{Percentile}}
 
-\item{percentile}{PARAM_DESCRIPTION, Default: NULL}
+\item{range}{Score performance range. if omitted, use \code{Range}}
 
-\item{range}{PARAM_DESCRIPTION, Default: range}
+\item{test_type}{A vector of test types to consider. Default: c("npsych_test", "rating_scale", "validity_indicator", "basc3")}
 
-\item{test_type}{PARAM_DESCRIPTION, Default: c("npsych_test", "rating_scale", "validity_indicator", "basc3")}
+\item{...}{Other arguments passed on to \code{dplyr::filter}}
 
-\item{...}{PARAM_DESCRIPTION}
+\item{data}{The table containing the lower bound and upper bound score columns}
 }
 \value{
-OUTPUT_DESCRIPTION
+An object that matches the input but with the ability to get score ranges for any given test type
 }
 \description{
-FUNCTION_DESCRIPTION
+This function takes a text table of score ranges for each percentile, and returns an object that matches the input but with the ability to get score ranges for any given test type
 }
 \details{
-DETAILS
+This function takes a text table of score ranges for each percentile, and returns an object that matches the input but with the ability to get score ranges for any given test type
 }
 \examples{
 \dontrun{
-if (interactive()) {
-  # EXAMPLE1
-}
+# EXAMPLE 1
 }
 }

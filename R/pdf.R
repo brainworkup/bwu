@@ -243,9 +243,6 @@ gpluck_make_columns <- function(data,
 #' }
 #' @rdname gpluck_make_score_ranges
 #' @export
-library(dplyr)
-library(rlang)
-
 gpluck_make_score_ranges <- function(table,
                                      score = NULL,
                                      percentile = "Percentile",
@@ -330,31 +327,30 @@ gpluck_make_score_ranges <- function(table,
 }
 
 
-
-
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
-#' @param .x PARAM_DESCRIPTION
-#' @param .score PARAM_DESCRIPTION, Default: NA
-#' @param .score_type PARAM_DESCRIPTION, Default: c("z_score", "scaled_score", "t_score", "standard_score")
-#' @param percentile PARAM_DESCRIPTION, Default: NA
-#' @param range PARAM_DESCRIPTION, Default: NA
-#' @param pct1 PARAM_DESCRIPTION, Default: NA
-#' @param pct2 PARAM_DESCRIPTION, Default: NA
-#' @param pct3 PARAM_DESCRIPTION, Default: NA
-#' @param z PARAM_DESCRIPTION, Default: NA
-#' @param ... PARAM_DESCRIPTION
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
+#' @title gpluck_compute_percentile_range
+#' @description Computes percentile, range, scores from vector .x and returns the score with the specified type.
+#' @param .x A numeric vector.
+#' @param .score The value of scores to be calculated according to the scoring type. Default: NA
+#' @param .score_type Type of scoring- it can be z_score, scaled_score, t_score or standard_score. Default: c("z_score", "scaled_score", "t_score", "standard_score")
+#' @param percentile Percentile of x. Default: NA
+#' @param range Difference between the highest and lowest percentiles. Default: NA
+#' @param pct1 First percentile. Default: NA
+#' @param pct2 Second percentile. Default: NA
+#' @param pct3 Third percentile. Default: NA
+#' @param z Z-scores. Default: NA
+#' @param ... Other arguments not in use.
+#' @return Returns the score with the specified type.
+#' @details Values are calculated from vector x according to the specified scoring type.
 #' @examples
 #' \dontrun{
 #' if (interactive()) {
-#'   # EXAMPLE1
+#'   x <- c(10, 20, 30, 40, 50)
+#'   gpluck_compute_percentile_range(x, .score_type = "z_score")
 #' }
 #' }
 #' @rdname gpluck_compute_percentile_range
 #' @export
-#' @importFrom stats pnorm
+#'
 gpluck_compute_percentile_range <-
   function(.x,
            .score = NA,
@@ -470,25 +466,72 @@ gpluck_compute_percentile_range <-
     }
   }
 
+# gpluck_compute_percentile_range2 <- function(.x,
+#                                              .score = NA,
+#                                              .score_type = c("z_score", "scaled_score", "t_score", "standard_score"),
+#                                              percentile = NA,
+#                                              range = NA,
+#                                              ...) {
+#   # Determine z-score based on the score type
+#   .score_type <- match.arg(.score_type)
+#   mean_sd_pairs <- list(
+#     z_score = c(0, 1),
+#     scaled_score = c(10, 3),
+#     t_score = c(50, 10),
+#     standard_score = c(100, 15)
+#   )
 
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
-#' @param .x PARAM_DESCRIPTION
-#' @param .score PARAM_DESCRIPTION, Default: NA
-#' @param .score_type PARAM_DESCRIPTION, Default: c("z_score", "scaled_score", "t_score", "standard_score", "raw_score")
-#' @param percentile PARAM_DESCRIPTION, Default: NA
-#' @param range PARAM_DESCRIPTION, Default: NA
-#' @param pct1 PARAM_DESCRIPTION, Default: NA
-#' @param pct2 PARAM_DESCRIPTION, Default: NA
-#' @param pct3 PARAM_DESCRIPTION, Default: NA
-#' @param z PARAM_DESCRIPTION, Default: NA
-#' @param ... PARAM_DESCRIPTION
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
+#   mean_val <- mean_sd_pairs[[.score_type]][1]
+#   sd_val <- mean_sd_pairs[[.score_type]][2]
+
+#   .x <- .x |>
+#     dplyr::mutate(z = (.score - mean_val) / sd_val) %>%
+#     dplyr::mutate(pct1 = round(stats::pnorm(z) * 100, 1)) %>%
+#     dplyr::mutate(pct2 = dplyr::case_when(
+#       pct1 < 1 ~ ceiling(pct1),
+#       pct1 > 99 ~ floor(pct1),
+#       TRUE ~ round(pct1)
+#     )) %>%
+#     dplyr::mutate(
+#       range = dplyr::case_when(
+#         pct2 >= 98 ~ "Exceptionally High",
+#         pct2 %in% 91:97 ~ "Above Average",
+#         pct2 %in% 75:90 ~ "High Average",
+#         pct2 %in% 25:74 ~ "Average",
+#         pct2 %in% 9:24 ~ "Low Average",
+#         pct2 %in% 2:8 ~ "Below Average",
+#         pct2 < 2 ~ "Exceptionally Low",
+#         TRUE ~ as.character(range)
+#       )
+#     ) %>%
+#     dplyr::mutate(percentile = pct1) %>%
+#     dplyr::select(-c(pct1, pct2))
+
+#   return(.x)
+# }
+
+
+
+#' @title compute_pctile_range
+#' @description Computes percentile, range, and percentiles for a given score value
+#' @param .x a numeric vector of scores
+#' @param .score a single numeric score for which percentiles are to be computed, Default: NA
+#' @param .score_type type of score, Default: c("z_score", "scaled_score", "t_score", "standard_score", "raw_score")
+#' @param percentile numeric vector of percentile rank, Default: NA
+#' @param range numeric vector of range, Default: NA
+#' @param pct1 1st percentile, Default: NA
+#' @param pct2 2nd percentile, Default: NA
+#' @param pct3 3rd percentile, Default: NA
+#' @param z Z-score, Default: NA
+#' @param ... additional arguments passed to \code{pnorm} function
+#' @return returns list of percentile, range, and percentiles
+#' @details Provides appropriate percentiles based on the score argument supplied. It covers following types
+#' of scores such as z-score, t-score, scaled, raw and standard
 #' @examples
 #' \dontrun{
 #' if (interactive()) {
-#'   # EXAMPLE1
+#'   scores <- c(35, 52, 74, 98)
+#'   compute_pctile_range(scores, 74) # this will return percentile, range, pct1, pct2 and pct3
 #' }
 #' }
 #' @rdname compute_pctile_range

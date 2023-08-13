@@ -2,30 +2,31 @@
 % Please edit documentation in R/pdf.R
 \name{gpluck_locate_areas}
 \alias{gpluck_locate_areas}
-\title{FUNCTION_TITLE}
+\title{gpluck_locate_areas}
 \usage{
 gpluck_locate_areas(file, pages = NULL, ...)
 }
 \arguments{
-\item{file}{PARAM_DESCRIPTION}
+\item{file}{The File name of the input PDF.}
 
-\item{pages}{PARAM_DESCRIPTION, Default: NULL}
+\item{pages}{A vector of character strings specifying which pages to analyse, Default: NULL}
 
-\item{...}{PARAM_DESCRIPTION}
+\item{...}{Additional arguments passed to locate_areas() in the tabulizer package.}
 }
 \value{
-OUTPUT_DESCRIPTION
+A list containing all areas found by area extraction algorithem.
 }
 \description{
-FUNCTION_DESCRIPTION
+This is a function to pluck and locate areas from file.
 }
 \details{
-DETAILS
+Use this function with caution when handling sensitive PDFs as it involves rasterizing those documents. Also use this function if your PDF contains tables and you want to access those tables programmatically.
 }
 \examples{
 \dontrun{
 if (interactive()) {
-  # EXAMPLE1
+  # Get the located areas from file "example.pdf":
+  exampleOutput <- gpluck_locate_areas("example.pdf")
 }
 }
 }

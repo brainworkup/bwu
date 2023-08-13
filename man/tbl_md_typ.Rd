@@ -20,19 +20,3 @@ Create a markdown table from a data frame for Typst.
 \details{
 This function creates a markdown table from a data frame.
 }
-\examples{
-\dontrun{
-if (interactive()) {
-  # Create example data
-  data <- data.frame(
-    Scale = c("Scale 1", "Scale 2", "Scale 3"),
-    Score = c(1, 2, 3),
-    "‰ Rank" = c(0.01, 0.02, 0.03),
-    Range = c("1-10", "11-20", "21-30")
-  )
-
-  # Create the markdown table
-  tbl_md(data)
-}
-}
-}

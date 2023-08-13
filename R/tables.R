@@ -139,6 +139,8 @@ tbl_md_typ <- function(data, caption = NULL) {
       col.names = c("**Scale**", "**Score**", "**‰ Rank**", "**Range**"),
       caption = caption
     )
+
+  return(data)
 }
 
 
@@ -207,7 +209,7 @@ make_tibble <- function(data,
 #' @importFrom janitor clean_names
 #' @importFrom glue glue
 #' @importFrom readr write_csv
-generate_g_csv_from_index_scores <- function(data, patient, scales = scales, index_score_file = glue::glue("{patient}_index_scores.xlsx") {
+generate_g_csv_from_index_scores <- function(data, patient, scales = scales, index_score_file) {
   scales <- c(
     "Academic Skills",
     "Attention",
@@ -378,24 +380,24 @@ generate_g_csv_from_index_scores <- function(data, patient, scales = scales, ind
         scale ==
           "Processing Speed" ~
           "Collective performance across measures of processing speed and cognitive efficiency",
-      scale ==
-        "Full Scale IQ (FSIQ)" ~
-        "General Intelligence (*G*)",
-      scale ==
-        "General Ability (GAI)" ~
-        "General Intelligence (*G*)",
-      scale ==
-        "Verbal Comprehension (VCI)" ~
-        "An estimate of Crystallized Intelligence (*G*c)",
-      scale ==
-        "Perceptual Reasoning (PRI)" ~
-        "An estimate of fluid intelligence (*G*f)",
-      scale ==
-        "Working Memory (WMI)" ~
-        "An estimate of verbal working memory",
-      scale ==
-        "Processing Speed (PSI)" ~
-        "Collective performance across measures of processing speed and cognitive efficiency",
+        scale ==
+          "Full Scale IQ (FSIQ)" ~
+          "General Intelligence (*G*)",
+        scale ==
+          "General Ability (GAI)" ~
+          "General Intelligence (*G*)",
+        scale ==
+          "Verbal Comprehension (VCI)" ~
+          "An estimate of Crystallized Intelligence (*G*c)",
+        scale ==
+          "Perceptual Reasoning (PRI)" ~
+          "An estimate of fluid intelligence (*G*f)",
+        scale ==
+          "Working Memory (WMI)" ~
+          "An estimate of verbal working memory",
+        scale ==
+          "Processing Speed (PSI)" ~
+          "Collective performance across measures of processing speed and cognitive efficiency",
         TRUE ~ as.character(description)
       )
     )
@@ -421,16 +423,17 @@ generate_g_csv_from_index_scores <- function(data, patient, scales = scales, ind
         ),
         scale == "Processing Speed" ~ glue::glue(
           "{description} was {range}.\n"
-        ),
-        TRUE ~ as.character(result)
+        )
       )
     )
 
   ## Relocate variables
 
   data <-
-    data |>
-    dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test) |>
+    dplyr::relocate(data,
+      c(raw_score, score, percentile, range, ci_95),
+      .before = test
+    ) |>
     dplyr::relocate(c(scaled_score, t_score, reliability, composition), .after = result) |>
     dplyr::filter(
       scale %in% c(
@@ -450,4 +453,6 @@ generate_g_csv_from_index_scores <- function(data, patient, scales = scales, ind
     append = FALSE,
     col_names = TRUE
   )
+
+  return(data)
 }

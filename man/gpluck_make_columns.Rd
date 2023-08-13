@@ -2,30 +2,31 @@
 % Please edit documentation in R/pdf.R
 \name{gpluck_make_columns}
 \alias{gpluck_make_columns}
-\title{Make columns.}
+\title{Make additional variables/columns from PDF tables.}
 \usage{
 gpluck_make_columns(
-  table,
+  data,
   test,
   test_name,
-  scale = NULL,
+  scale,
   raw_score = NULL,
   score = NULL,
+  percentile,
   range = NULL,
-  percentile = NULL,
   ci_95 = NULL,
-  domain = c("Intelligence/General Ability", "Academic Skills", "Verbal/Language",
-    "Visual Perception/Construction", "Attention/Executive", "Memory", "Motor",
-    "Social Cognition", "Behavioral/Emotional/Social", "Personality Disorders",
-    "Psychiatric Disorders", "Substance Use Disorders", "Psychosocial Problems", "ADHD",
-    "Executive Dysfunction", "Effort/Validity", ""),
+  domain = c("General Cognitive Ability", "Intelligence/General Ability",
+    "Academic Skills", "Verbal/Language", "Visual Perception/Construction",
+    "Attention/Executive", "Memory", "Motor", "Social Cognition",
+    "Emotional/Behavioral/Personality", "Behavioral/Emotional/Social",
+    "Psychiatric Disorders", "Personality Disorders", "Substance Use",
+    "Psychosocial Problems", "ADHD", "Executive Functioning", "Effort/Validity"),
   subdomain = NULL,
   narrow = NULL,
   pass = c("Planning", "Attention", "Sequential", "Simultaneous", "Knowledge", NA),
   verbal = c("Verbal", "Nonverbal", NA),
   timed = c("Timed", "Untimed", NA),
   test_type = c("npsych_test", "rating_scale", "validity_indicator", "item", NA),
-  score_type = c("raw_score", "scaled_score", "t_score", "standard_score", "z_score",
+  score_type = c("raw_score", "z_score", "scaled_score", "t_score", "standard_score",
     "percentile", "base_rate", "beta_coefficient", NA),
   absort = NULL,
   description = NULL,
@@ -34,69 +35,74 @@ gpluck_make_columns(
 )
 }
 \arguments{
-\item{table}{PARAM_DESCRIPTION}
+\item{data}{Name of data/table to import and tidy.}
 
-\item{test}{PARAM_DESCRIPTION}
+\item{test}{Name of test that information will be extracted from.}
 
-\item{test_name}{PARAM_DESCRIPTION}
+\item{test_name}{Test name as provided in test field.}
 
-\item{scale}{PARAM_DESCRIPTION, Default: NULL}
+\item{scale}{Type of scale used to report the results (scored, binary, categorical, etc.). Default: NULL}
 
-\item{raw_score}{PARAM_DESCRIPTION, Default: NULL}
+\item{raw_score}{Raw score if available. Default: NULL}
 
-\item{score}{PARAM_DESCRIPTION, Default: NULL}
+\item{score}{Score for the given test. Default: NULL}
 
-\item{range}{PARAM_DESCRIPTION, Default: NULL}
+\item{percentile}{Percentile for the given test. Default: NULL}
 
-\item{percentile}{PARAM_DESCRIPTION, Default: NULL}
+\item{range}{Range for the given test. Default: NULL}
 
-\item{ci_95}{PARAM_DESCRIPTION, Default: NULL}
+\item{ci_95}{Confidence interval level (95\%) for the given test. Default: NULL}
 
-\item{domain}{PARAM_DESCRIPTION, Default: c("Intelligence/General Ability", "Academic Skills", "Verbal/Language",
-"Visual Perception/Construction", "Attention/Executive",
-"Memory", "Motor", "Social Cognition", "Behavioral/Emotional/Social",
+\item{domain}{Domain of the test, e.g. Intelligence/General Ability, Academic Skills. Default: c("Intelligence/General Ability", "Academic Skills", "Verbal/Language", "Visual Perception/Construction", "Attention/Executive", "Memory", "Motor", "Social Cognition", "Behavioral/Emotional/Social",
 "Personality Disorders", "Psychiatric Disorders", "Substance Use Disorders",
 "Psychosocial Problems", "ADHD", "Executive Dysfunction",
 "Effort/Validity", "")}
 
-\item{subdomain}{PARAM_DESCRIPTION, Default: NULL}
+\item{subdomain}{Cognitive subdomain of the scale. Default: NULL}
 
-\item{narrow}{PARAM_DESCRIPTION, Default: NULL}
+\item{narrow}{Narrow cognitive domain of the scale. Default: NULL}
 
-\item{pass}{PARAM_DESCRIPTION, Default: c("Planning", "Attention", "Sequential", "Simultaneous", "Knowledge",
+\item{pass}{PASS Cognitive Model. Default: c("Planning", "Attention", "Sequential", "Simultaneous", "Knowledge",
 NA)}
 
-\item{verbal}{PARAM_DESCRIPTION, Default: c("Verbal", "Nonverbal", NA)}
+\item{verbal}{Type of verbal ability tested, e.g. Verbal, Nonverbal. Default: c("Verbal", "Nonverbal", NA)}
 
-\item{timed}{PARAM_DESCRIPTION, Default: c("Timed", "Untimed", NA)}
+\item{timed}{Indicates if the test is timed or not. Default: c("Timed", "Untimed", NA)}
 
-\item{test_type}{PARAM_DESCRIPTION, Default: c("npsych_test", "rating_scale", "validity_indicator", "item",
+\item{test_type}{Type of test, e.g. npsych_test, rating_scale, validity_indicator, item. Default: c("npsych_test", "rating_scale", "validity_indicator", "item",
 NA)}
 
-\item{score_type}{PARAM_DESCRIPTION, Default: c("raw_score", "scaled_score", "t_score", "standard_score", "z_score",
+\item{score_type}{Type of score reported, e.g. raw_score, scaled_score, t_score, standard_score, z_score, percentile, base_rate, beta_coefficient. Default: c("raw_score", "scaled_score", "t_score", "standard_score", "z_score",
 "percentile", "base_rate", "beta_coefficient", NA)}
 
-\item{absort}{PARAM_DESCRIPTION, Default: NULL}
+\item{absort}{Default order of scales to use for sorting. Default: NULL}
 
-\item{description}{PARAM_DESCRIPTION, Default: NULL}
+\item{description}{Description of the test or task. Default: NULL}
 
-\item{result}{PARAM_DESCRIPTION, Default: NULL}
+\item{result}{Concatenate the results to include details of test performance. Default: NULL}
 
-\item{...}{PARAM_DESCRIPTION}
+\item{...}{Other parameters.}
 }
 \value{
-OUTPUT_DESCRIPTION
+A modified data frame with additional columns.
 }
 \description{
-Make columns.
+This function takes a data frame containing text data from PDF tables, and makes additional columns of binary, range or score values for the specified domain, subdomains, test types, etc.
 }
 \details{
-DETAILS
+This function adds new columns to a data frame by extracting numerical values from PDF tables.
 }
 \examples{
 \dontrun{
 if (interactive()) {
   # EXAMPLE1
+  gpluck_make_columns(
+    data = data,
+    test = "wais4",
+    test_name = "WAIS-IV",
+    domain = "Intelligence/General Ability",
+    score_type = "z_score"
+  )
 }
 }
 }

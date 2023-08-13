@@ -2,7 +2,7 @@
 % Please edit documentation in R/pdf.R
 \name{gpluck_compute_percentile_range}
 \alias{gpluck_compute_percentile_range}
-\title{FUNCTION_TITLE}
+\title{gpluck_compute_percentile_range}
 \usage{
 gpluck_compute_percentile_range(
   .x,
@@ -18,39 +18,40 @@ gpluck_compute_percentile_range(
 )
 }
 \arguments{
-\item{.x}{PARAM_DESCRIPTION}
+\item{.x}{A numeric vector.}
 
-\item{.score}{PARAM_DESCRIPTION, Default: NA}
+\item{.score}{The value of scores to be calculated according to the scoring type. Default: NA}
 
-\item{.score_type}{PARAM_DESCRIPTION, Default: c("z_score", "scaled_score", "t_score", "standard_score")}
+\item{.score_type}{Type of scoring- it can be z_score, scaled_score, t_score or standard_score. Default: c("z_score", "scaled_score", "t_score", "standard_score")}
 
-\item{percentile}{PARAM_DESCRIPTION, Default: NA}
+\item{percentile}{Percentile of x. Default: NA}
 
-\item{range}{PARAM_DESCRIPTION, Default: NA}
+\item{range}{Difference between the highest and lowest percentiles. Default: NA}
 
-\item{pct1}{PARAM_DESCRIPTION, Default: NA}
+\item{pct1}{First percentile. Default: NA}
 
-\item{pct2}{PARAM_DESCRIPTION, Default: NA}
+\item{pct2}{Second percentile. Default: NA}
 
-\item{pct3}{PARAM_DESCRIPTION, Default: NA}
+\item{pct3}{Third percentile. Default: NA}
 
-\item{z}{PARAM_DESCRIPTION, Default: NA}
+\item{z}{Z-scores. Default: NA}
 
-\item{...}{PARAM_DESCRIPTION}
+\item{...}{Other arguments not in use.}
 }
 \value{
-OUTPUT_DESCRIPTION
+Returns the score with the specified type.
 }
 \description{
-FUNCTION_DESCRIPTION
+Computes percentile, range, scores from vector .x and returns the score with the specified type.
 }
 \details{
-DETAILS
+Values are calculated from vector x according to the specified scoring type.
 }
 \examples{
 \dontrun{
 if (interactive()) {
-  # EXAMPLE1
+  x <- c(10, 20, 30, 40, 50)
+  gpluck_compute_percentile_range(x, .score_type = "z_score")
 }
 }
 }

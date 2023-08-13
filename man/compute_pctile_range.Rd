@@ -2,7 +2,7 @@
 % Please edit documentation in R/pdf.R
 \name{compute_pctile_range}
 \alias{compute_pctile_range}
-\title{FUNCTION_TITLE}
+\title{compute_pctile_range}
 \usage{
 compute_pctile_range(
   .x,
@@ -18,39 +18,41 @@ compute_pctile_range(
 )
 }
 \arguments{
-\item{.x}{PARAM_DESCRIPTION}
+\item{.x}{a numeric vector of scores}
 
-\item{.score}{PARAM_DESCRIPTION, Default: NA}
+\item{.score}{a single numeric score for which percentiles are to be computed, Default: NA}
 
-\item{.score_type}{PARAM_DESCRIPTION, Default: c("z_score", "scaled_score", "t_score", "standard_score", "raw_score")}
+\item{.score_type}{type of score, Default: c("z_score", "scaled_score", "t_score", "standard_score", "raw_score")}
 
-\item{percentile}{PARAM_DESCRIPTION, Default: NA}
+\item{percentile}{numeric vector of percentile rank, Default: NA}
 
-\item{range}{PARAM_DESCRIPTION, Default: NA}
+\item{range}{numeric vector of range, Default: NA}
 
-\item{pct1}{PARAM_DESCRIPTION, Default: NA}
+\item{pct1}{1st percentile, Default: NA}
 
-\item{pct2}{PARAM_DESCRIPTION, Default: NA}
+\item{pct2}{2nd percentile, Default: NA}
 
-\item{pct3}{PARAM_DESCRIPTION, Default: NA}
+\item{pct3}{3rd percentile, Default: NA}
 
-\item{z}{PARAM_DESCRIPTION, Default: NA}
+\item{z}{Z-score, Default: NA}
 
-\item{...}{PARAM_DESCRIPTION}
+\item{...}{additional arguments passed to \code{pnorm} function}
 }
 \value{
-OUTPUT_DESCRIPTION
+returns list of percentile, range, and percentiles
 }
 \description{
-FUNCTION_DESCRIPTION
+Computes percentile, range, and percentiles for a given score value
 }
 \details{
-DETAILS
+Provides appropriate percentiles based on the score argument supplied. It covers following types
+of scores such as z-score, t-score, scaled, raw and standard
 }
 \examples{
 \dontrun{
 if (interactive()) {
-  # EXAMPLE1
+  scores <- c(35, 52, 74, 98)
+  compute_pctile_range(scores, 74) # this will return percentile, range, pct1, pct2 and pct3
 }
 }
 }

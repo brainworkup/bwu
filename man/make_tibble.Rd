@@ -41,16 +41,3 @@ Create a tibble with columns specified in 'columns', and set column names to 'na
 \details{
 The function filters the data by 'domain', selects columns from 'columns', and sets the column names to 'names'. It then truncates the values of 'percentile' column.
 }
-\examples{
-\dontrun{
-if (interactive()) {
-  # EXAMPLE1
-}
-}
-
-}
-\seealso{
-\link[dplyr:filter]{filter}, \link[dplyr:select]{select}, \link[dplyr:mutate]{mutate}
-\link[tidyselect:all_of]{all_of}
-\link[purrr:reexports]{set_names}
-}

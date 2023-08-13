@@ -2,7 +2,7 @@
 % Please edit documentation in R/pdf.R
 \name{gpluck_extract_table}
 \alias{gpluck_extract_table}
-\title{FUNCTION_TITLE}
+\title{gpluck_extract_table}
 \usage{
 gpluck_extract_table(
   file,
@@ -15,29 +15,28 @@ gpluck_extract_table(
 )
 }
 \arguments{
-\item{file}{PARAM_DESCRIPTION}
+\item{file}{The path to the PDF file}
 
-\item{pages}{PARAM_DESCRIPTION, Default: NULL}
+\item{pages}{A single page number or vector of page numbers, Default: NULL}
 
-\item{area}{PARAM_DESCRIPTION, Default: NULL}
+\item{area}{An area on the page given as c(x0, y0, x1, y1). Default: NULL}
 
-\item{guess}{PARAM_DESCRIPTION, Default: FALSE}
+\item{guess}{Whether to attempt to detect tables when the coordinates are not given. Default: FALSE}
 
-\item{method}{PARAM_DESCRIPTION, Default: c("decide", "lattice", "stream")}
+\item{method}{Method to use for parsing. Default: c("decide", "lattice", "stream")}
 
-\item{output}{PARAM_DESCRIPTION, Default: c("matrix", "data.frame", "character", "asis", "csv", "tsv",
-"json")}
+\item{output}{Output format (see \code{\link[tabulizer]{extract_tables}} for more details). Default: c("matrix", "data.frame", "character", "asis", "csv", "tsv", "json")}
 
-\item{...}{PARAM_DESCRIPTION}
+\item{...}{Other arguments to \code{\link[tabulizer]{extract_tables}}}
 }
 \value{
-OUTPUT_DESCRIPTION
+A parsed table in either matrix, data frame, character, asis, csv, tsv or json format.
 }
 \description{
-FUNCTION_DESCRIPTION
+This function returns the tables in a PDF file as parsed by the tabulizer package.
 }
 \details{
-DETAILS
+This is a wrapper around the \code{\link[tabulizer]{extract_tables}} function that allows for easier access to the tables in a PDF document.
 }
 \examples{
 \dontrun{
