@@ -24,12 +24,11 @@ dotplot <- function(data, x, y, linewidth = 0.5, fill = x, shape = 21, point_siz
   # Define the color palette
   color_palette <- if (is.null(colors)) {
     c(
-      "#190D33", "#27123A", "#351742", "#421E4A", "#502653",
-      "#5C2E5A", "#683863", "#73436A", "#7B4E70", "#815875",
-      "#866079", "#89697D", "#8B7280", "#8C7A81", "#8E8385",
-      "#908A87", "#919289", "#929A8A", "#94A38D", "#96AB8F",
-      "#99B392", "#9CBD95", "#A2C79A", "#ACD3A0", "#B9DFA9",
-      "#C8EAB3", "#D8F2BD", "#E6F9C7", "#F3FCD0", "#FEFED8"
+      "#7E1700", "#893107", "#934610", "#9C5717", "#A5681F", "#AD7A27",
+      "#B58B31", "#BF9F40", "#C7B354", "#CFC970", "#D2DA90", "#CDE5AC",
+      "#C0E9C2", "#ACE7D0", "#93DFD5", "#77D1D7", "#5DC0D2", "#47AECD",
+      "#389CC6", "#2F8CBF", "#277AB8", "#2169B0", "#1C58A9", "#1345A0",
+      "#023198"
     )
   } else {
     colors
