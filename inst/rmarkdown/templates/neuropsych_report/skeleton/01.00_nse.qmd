@@ -178,7 +178,6 @@ None indicated.
 
 Overall, the current neurobehavioral exam can be used as a starting point for a more comprehensive neuropsychological evaluation. Evaluation will provide an overview of the patient's cognitive, behavioral, academic, and emotional functioning. Results will help guide further assessment and treatment planning.
 
-
 ### Diagnostic Considerations
 
 - 314.01 (F90.2) Attention-Deficit/Hyperactivity Disorder (ADHD), Combined

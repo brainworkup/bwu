@@ -24,11 +24,7 @@ dotplot <- function(data, x, y, linewidth = 0.5, fill = x, shape = 21, point_siz
   # Define the color palette
   color_palette <- if (is.null(colors)) {
     c(
-      "#7E1700", "#893107", "#934610", "#9C5717", "#A5681F", "#AD7A27",
-      "#B58B31", "#BF9F40", "#C7B354", "#CFC970", "#D2DA90", "#CDE5AC",
-      "#C0E9C2", "#ACE7D0", "#93DFD5", "#77D1D7", "#5DC0D2", "#47AECD",
-      "#389CC6", "#2F8CBF", "#277AB8", "#2169B0", "#1C58A9", "#1345A0",
-      "#023198"
+      "#7E1700", "#832504", "#883008", "#8E3B0B", "#92450F", "#984E14", "#9C5717", "#A05F1B", "#A4671E", "#A86F22", "#AD7826", "#B0802B", "#B58A30", "#B99336", "#BD9C3D", "#C2A647", "#C7B051", "#CBBA5D", "#CEC56C", "#D0CE7A", "#D2D78A", "#D1DE98", "#CFE4A6", "#CBE7B3", "#C4EABD", "#BCEAC6", "#B2E8CD", "#A7E6D2", "#9BE2D4", "#8EDDD7", "#80D6D7", "#73CED5", "#65C6D5", "#59BDD2", "#4FB5D0", "#45ABCB", "#3DA3C8", "#379BC5", "#3292C2", "#2E8ABF", "#2A81BA", "#2779B7", "#2471B4", "#2269B0", "#1F60AD", "#1B57A8", "#184EA4", "#1344A0", "#0C3B9C", "#023198"
     )
   } else {
     colors
