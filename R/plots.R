@@ -1,5 +1,9 @@
 #' @title Create a dotplot of cognitive and behavioral domains.
 #' @description This function generates a dot plot with the given data, x and y. The point's aesthetics and plot theme can be customized.
+#' @importFrom ggplot2 ggplot geom_segment aes geom_point scale_fill_gradientn
+#' theme element_rect ggsave
+#' @importFrom stats reorder
+#' @importFrom ggthemes theme_fivethirtyeight
 #' @param data The data frame containing the data for the dotplot.
 #' @param x The column name in the data frame for the x-axis variable, typically
 #' the mean z-score for a cognitive domain.
@@ -12,15 +16,23 @@
 #' @param line_color The color of the lines, Default: 'black'
 #' @param colors A vector of colors for fill gradient, Default: NULL (uses pre-defined color palette)
 #' @param theme The ggplot theme to be used, Default: 'fivethirtyeight'. Other options include 'minimal' and 'classic'
+#' @param return_plot Whether to return the plot object, Default: TRUE
+#' @param filename The filename to save the plot to, Default: NULL
 #' @param ... Additional arguments to be passed to the ggplot function.
 #' @return An object of class 'ggplot' representing the dotplot.
 #' @details This function generates a dot plot with the given data, x and y. The points' aesthetics and plot theme can be customized.
 #' @rdname dotplot
+#' @examples
+#' # To get the plot object:
+#' p <- dotplot(data, x, y)
+#' # To save the plot as a PNG and not return the plot object:
+#' dotplot(data, x, y, return_plot = FALSE, filename = "plot.png")
+#' # To get the plot object and also save it:
+#' p <- dotplot(data, x, y, filename = "plot.png")
 #' @export
-#' @importFrom ggplot2 ggplot geom_segment aes geom_point scale_fill_gradientn theme element_rect
-#' @importFrom stats reorder
-#' @importFrom ggthemes theme_fivethirtyeight
-dotplot <- function(data, x, y, linewidth = 0.5, fill = x, shape = 21, point_size = 6, line_color = "black", colors = NULL, theme = "fivethirtyeight", ...) {
+dotplot <- function(data, x, y, linewidth = 0.5, fill = x, shape = 21, point_size = 6, line_color = "black", colors = NULL, theme = "fivethirtyeight", return_plot = TRUE, filename = NULL, ...) {
+  # ... (rest of the function remains unchanged)
+
   # Define the color palette
   color_palette <- if (is.null(colors)) {
     c(
@@ -73,10 +85,27 @@ dotplot <- function(data, x, y, linewidth = 0.5, fill = x, shape = 21, point_siz
       panel.border = ggplot2::element_rect(color = "white")
     )
 
-  return(plot_object)
+  # Save the plot to a file if filename is provided
+  if (!is.null(filename)) {
+    # Determine file extension to save accordingly
+    ext <- tools::file_ext(filename)
+
+    if (ext == "pdf") {
+      ggplot2::ggsave(filename = filename, plot = plot_object, device = "pdf", ...)
+    } else if (ext == "png") {
+      ggplot2::ggsave(filename = filename, plot = plot_object, device = "png", ...)
+    } else if (ext == "svg") {
+      ggplot2::ggsave(filename = filename, plot = plot_object, device = "svg", ...)
+    } else {
+      warning("File extension not recognized. Supported extensions are 'pdf', 'png', and 'svg'.")
+    }
+  }
+
+  # Return the plot if return_plot is TRUE
+  if (return_plot) {
+    return(plot_object)
+  }
 }
-
-
 
 #' Drilldown on neuropsych domains.
 #'

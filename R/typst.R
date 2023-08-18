@@ -28,7 +28,6 @@ filter_domain_scale <- function(data, domain, scale) {
   data <- data |>
     dplyr::filter(domain %in% domains, !is.na(percentile)) |>
     dplyr::filter(scale %in% scales)
-
   return(data)
 }
 
@@ -65,19 +64,21 @@ flatten_scale_text <- function(data, file) {
 #' @importFrom gt gt md gtsave
 #' @importFrom glue glue
 make_tbl_gt <- function(data, pheno, source_note = NULL, table_name = NULL) {
-  pheno <- pheno
+  # make source note
   source_note <- gt::md(source_note)
 
   # make gt table
-  table <- bwu::tbl_gt(data,
+  table <- tbl_gt(data,
     source_note = source_note,
-    table_name = table_name
+    table_name = table_name,
+    pheno = pheno
   )
+
   gt::gtsave(table, glue::glue("table_{pheno}.pdf"))
   gt::gtsave(table, glue::glue("table_{pheno}.png"))
+
   return(table)
 }
-
 
 #' Make a dotplot for cognitive domain scores
 #' This function creates a dotplot figure for a given dataset.
@@ -90,8 +91,8 @@ make_tbl_gt <- function(data, pheno, source_note = NULL, table_name = NULL) {
 #' @importFrom ggplot2 ggsave
 #' @importFrom glue glue
 #' @export
-#' @rdname make_fig
-make_fig <- function(data, pheno, x = data$z_mean_subdomain, y = data$subdomain, colors = NULL) {
+#' @rdname make_dotplot_typ
+make_dotplot_typ <- function(data, pheno, x = data$z_mean_subdomain, y = data$subdomain, colors = NULL, return_plot = TRUE, filename = c("pdf", "png", "svg")) {
   # will need to change these for each domain
   fig <- bwu::dotplot(
     data = data,
@@ -100,19 +101,30 @@ make_fig <- function(data, pheno, x = data$z_mean_subdomain, y = data$subdomain,
     y = y,
     colors = colors
   )
-  ggplot2::ggsave(glue::glue("fig_{pheno}.pdf"))
-  ggplot2::ggsave(glue::glue("fig_{pheno}.png"))
-  return(fig)
+
+  # Save the plot to specified file types
+  for (ext in filename) {
+    if (ext %in% c("pdf", "png", "svg")) {
+      ggplot2::ggsave(filename = glue::glue("fig_{pheno}.{ext}"), plot = fig, device = ext)
+    } else {
+      warning(glue::glue("File extension '{ext}' not recognized. Supported extensions are 'pdf', 'png', and 'svg'."))
+    }
+  }
+
+  # Return the plot if return_plot is TRUE
+  if (return_plot) {
+    return(fig)
+  }
 }
 
-#' Create a Table for Typst
+#' Create a Markdown Table for Typst
 #' This function creates a table of descriptive statistics for a given dataset.
 #' @param data A dataframe containing the columns to be used in the table.
 #' @return tbl_md A table of descriptive statistics.
 #' @export
-#' @rdname make_tbl_md_typ
-make_tbl_md_typ <- function(data) {
-  tbl_md <- bwu::tbl_md_typ(data[, c(2, 4, 5, 6)])
+#' @rdname markdown_table_typ
+markdown_table_typ <- function(data) {
+  tbl_md <- tbl_md_typ(data[, c(2, 4, 5, 6)])
   return(tbl_md)
 }
 

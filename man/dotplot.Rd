@@ -15,6 +15,8 @@ dotplot(
   line_color = "black",
   colors = NULL,
   theme = "fivethirtyeight",
+  return_plot = TRUE,
+  filename = NULL,
   ...
 )
 }
@@ -41,6 +43,10 @@ the cognitive domain to plot.}
 
 \item{theme}{The ggplot theme to be used, Default: 'fivethirtyeight'. Other options include 'minimal' and 'classic'}
 
+\item{return_plot}{Whether to return the plot object, Default: TRUE}
+
+\item{filename}{The filename to save the plot to, Default: NULL}
+
 \item{...}{Additional arguments to be passed to the ggplot function.}
 }
 \value{
@@ -51,4 +57,12 @@ This function generates a dot plot with the given data, x and y. The point's aes
 }
 \details{
 This function generates a dot plot with the given data, x and y. The points' aesthetics and plot theme can be customized.
+}
+\examples{
+# To get the plot object:
+p <- dotplot(data, x, y)
+# To save the plot as a PNG and not return the plot object:
+dotplot(data, x, y, return_plot = FALSE, filename = "plot.png")
+# To get the plot object and also save it:
+p <- dotplot(data, x, y, filename = "plot.png")
 }
