@@ -197,262 +197,260 @@ make_tibble <- function(data,
 }
 
 
-#' @title Make index scores to create g.csv.
+#' @title Use Excel Index Scores to Create "g.csv"
 #' @description Get 'g' from index scores
+#' @param data Dataset
 #' @param patient Patient name
 #' @param scales A character vector of scale names
+#' @param index_score_file Index score file
 #' @return A csv file of g
-#' @rdname generate_g_csv_from_index_scores
+#' @rdname generate_g
 #' @export
 #' @importFrom readxl read_xlsx
 #' @importFrom here here
 #' @importFrom janitor clean_names
 #' @importFrom glue glue
 #' @importFrom readr write_csv
-generate_g_csv_from_index_scores <- function(data, patient, scales = scales, index_score_file) {
-  scales <- c(
-    "Academic Skills",
-    "Attention",
-    "Attention/Executive",
-    "Attentional Fluency",
-    "Cognitive Efficiency",
-    "Cognitive Proficiency",
-    "Crystallized Knowledge",
-    "Delayed Recall",
-    "Executive Functions",
-    "Fluency",
-    "Fluid Reasoning",
-    "General Ability",
-    "Learning Efficiency",
-    "Memory",
-    "Planning",
-    "Processing Speed",
-    "Psychomotor Speed",
-    "Verbal/Language",
-    "Visual Perception/Construction",
-    "Working Memory"
-  )
-
-  data <- data.frame(
-    readxl::read_excel(index_score_file) |>
-      janitor::clean_names() |>
-      dplyr::mutate(z = (index - 100) / 15) |>
-      dplyr::filter(composite_name %in% scales) |>
-      dplyr::filter(!is.na(z))
-  )
-
-  names <-
-    c(
-      "scale",
-      "score",
-      "scaled_score",
-      "t_score",
-      "percentile",
-      "reliability",
-      "ci_95",
-      "composition"
+generate_g <- function(data, patient, scales, index_score_file) {
+    # Scales to include
+    scales <- c(
+      "Academic Skills",
+      "Attention",
+      "Attention/Executive",
+      "Attentional Fluency",
+      "Cognitive Efficiency",
+      "Cognitive Proficiency",
+      "Crystallized Knowledge",
+      "Delayed Recall",
+      "Executive Functions",
+      "Fluency",
+      "Fluid Reasoning",
+      "General Ability",
+      "Learning Efficiency",
+      "Memory",
+      "Planning",
+      "Processing Speed",
+      "Psychomotor Speed",
+      "Verbal/Language",
+      "Visual Perception/Construction",
+      "Working Memory"
     )
-  names(data) <- names
 
-  ## Mutate columns
-  data <- gpluck_make_columns(
-    data,
-    raw_score = "",
-    range = "",
-    test = "index",
-    test_name = "Composite Scores",
-    domain = "General Cognitive Ability",
-    subdomain = "",
-    narrow = "",
-    pass = "",
-    verbal = "",
-    timed = "",
-    test_type = "npsych_test",
-    score_type = "standard_score",
-    absort = "",
-    description = "",
-    result = ""
-  )
-
-  ## Test score ranges
-  data <- gpluck_make_score_ranges(data, test_type = "npsych_test")
-
-
-  ## Subdomains
-  data <-
-    dplyr::mutate(data,
-      subdomain = dplyr::case_when(
-        scale == "General Ability" ~ "General Intelligence",
-        scale == "Crystallized Knowledge" ~ "General Intelligence",
-        scale == "Fluid Reasoning" ~ "General Intelligence",
-        scale == "Cognitive Proficiency" ~ "Cognitive Proficiency",
-        scale == "Working Memory" ~ "Cognitive Proficiency",
-        scale == "Processing Speed" ~ "Cognitive Proficiency",
-        TRUE ~ as.character(subdomain)
+    data <-
+      data.frame(
+        readxl::read_excel(index_score_file) |>
+          janitor::clean_names() |>
+          dplyr::mutate(z = (index - 100) / 15) |>
+          dplyr::filter(composite_name %in% scales) |>
+          dplyr::filter(!is.na(z))
       )
-    )
 
-  ## Narrow subdomain
-
-  data <-
-    data |>
-    dplyr::mutate(
-      narrow = dplyr::case_when(
-        scale == "General Ability" ~ "General Intelligence",
-        scale == "Crystallized Knowledge" ~ "Crystallized Intelligence",
-        scale == "Fluid Reasoning" ~ "Fluid Intelligence",
-        scale == "Cognitive Proficiency" ~ "Cognitive Proficiency Index",
-        scale == "Working Memory" ~ "Working Memory Index",
-        scale == "Processing Speed" ~ "Processing Speed Index",
-        TRUE ~ as.character(narrow)
+    names <-
+      c(
+        "scale",
+        "score",
+        "scaled_score",
+        "t_score",
+        "percentile",
+        "reliability",
+        "ci_95",
+        "composition"
       )
+    names(data) <- names
+
+    ## Mutate columns
+    data <- gpluck_make_columns(
+      data,
+      raw_score = "",
+      range = "",
+      test = "index",
+      test_name = "Composite Scores",
+      domain = "General Cognitive Ability",
+      subdomain = "",
+      narrow = "",
+      pass = "",
+      verbal = "",
+      timed = "",
+      test_type = "npsych_test",
+      score_type = "standard_score",
+      absort = "",
+      description = "",
+      result = ""
     )
 
-  ## PASS model
+    ## Test score ranges
+    data <- gpluck_make_score_ranges(data, test_type = "npsych_test")
 
-  data <-
-    data |>
-    dplyr::mutate(
-      pass = dplyr::case_when(
-        scale == "General Ability" ~ "",
-        scale == "Crystallized Knowledge" ~ "",
-        scale == "Fluid Reasoning" ~ "",
-        scale == "Cognitive Proficiency" ~ "",
-        scale == "Working Memory" ~ "",
-        scale == "Processing Speed" ~ "",
-        TRUE ~ as.character(pass)
-      )
-    )
 
-  ## Verbal vs Nonverbal
-
-  data <-
-    data |>
-    dplyr::mutate(
-      verbal = dplyr::case_when(
-        scale == "General Ability" ~ "",
-        scale == "Crystallized Knowledge" ~ "Verbal",
-        scale == "Fluid Reasoning" ~ "Nonverbal",
-        scale == "Cognitive Proficiency" ~ "",
-        scale == "Working Memory" ~ "Verbal",
-        scale == "Processing Speed" ~ "Nonverbal",
-        TRUE ~ as.character(verbal)
-      )
-    )
-
-  ## Timed vs Untimed
-
-  data <-
-    data |>
-    dplyr::mutate(
-      timed = dplyr::case_when(
-        scale == "General Ability" ~ "",
-        scale == "Crystallized Knowledge" ~ "Untimed",
-        scale == "Fluid Reasoning" ~ "Timed",
-        scale == "Cognitive Proficiency" ~ "",
-        scale == "Working Memory" ~ "Untimed",
-        scale == "Processing Speed" ~ "Timed",
-        TRUE ~ as.character(timed)
-      )
-    )
-
-  ## Scale descriptions
-
-  data <-
-    data |>
-    dplyr::mutate(
-      description = dplyr::case_when(
-        scale ==
-          "General Ability" ~
-          "An estimate of higher cognitive reasoning and acquired knowledge (*g*)",
-        scale ==
-          "Crystallized Knowledge" ~
-          "Crystallized intelligence (*G*c)",
-        scale ==
-          "Fluid Reasoning" ~
-          "An estimate of fluid intelligence (*G*f)",
-        scale ==
-          "Cognitive Proficiency" ~
-          "A composite estimate of working memory and processing speed (i.e., cognitive proficiency)",
-        scale ==
-          "Working Memory" ~
-          "An estimate of working memory capacity",
-        scale ==
-          "Processing Speed" ~
-          "Collective performance across measures of processing speed and cognitive efficiency",
-        scale ==
-          "Full Scale IQ (FSIQ)" ~
-          "General Intelligence (*G*)",
-        scale ==
-          "General Ability (GAI)" ~
-          "General Intelligence (*G*)",
-        scale ==
-          "Verbal Comprehension (VCI)" ~
-          "An estimate of Crystallized Intelligence (*G*c)",
-        scale ==
-          "Perceptual Reasoning (PRI)" ~
-          "An estimate of fluid intelligence (*G*f)",
-        scale ==
-          "Working Memory (WMI)" ~
-          "An estimate of verbal working memory",
-        scale ==
-          "Processing Speed (PSI)" ~
-          "Collective performance across measures of processing speed and cognitive efficiency",
-        TRUE ~ as.character(description)
-      )
-    )
-
-  ## Glue result
-
-  data <-
-    data |>
-    dplyr::mutate(
-      result = dplyr::case_when(
-        scale == "General Ability" ~ glue::glue(
-          "{description} was {range} and ranked at the {percentile}th percentile, indicating performance as good as or better than {percentile}% of same-age peers from the general population.\n"
-        ),
-        scale == "Crystallized Knowledge" ~ glue::glue(
-          "{description} was classified as {range} and ranked at the {percentile}th percentile.\n"
-        ),
-        scale == "Fluid Reasoning" ~ glue::glue("{description} was classified as {range}.\n"),
-        scale == "Cognitive Proficiency" ~ glue::glue(
-          "{description} was {range}.\n"
-        ),
-        scale == "Working Memory" ~ glue::glue(
-          "{description} fell in the {range} range.\n"
-        ),
-        scale == "Processing Speed" ~ glue::glue(
-          "{description} was {range}.\n"
+    ## Subdomains
+    data <-
+      dplyr::mutate(
+        data,
+        subdomain = dplyr::case_when(
+          scale == "General Ability" ~ "General Intelligence",
+          scale == "Crystallized Knowledge" ~ "General Intelligence",
+          scale == "Fluid Reasoning" ~ "General Intelligence",
+          scale == "Cognitive Proficiency" ~ "Cognitive Proficiency",
+          scale == "Working Memory" ~ "Cognitive Proficiency",
+          scale == "Processing Speed" ~ "Cognitive Proficiency",
+          TRUE ~ as.character(subdomain)
         )
       )
-    )
 
-  ## Relocate variables
+    ## Narrow subdomain
 
-  data <-
-    dplyr::relocate(data,
-      c(raw_score, score, percentile, range, ci_95),
-      .before = test
-    ) |>
-    dplyr::relocate(c(scaled_score, t_score, reliability, composition), .after = result) |>
-    dplyr::filter(
-      scale %in% c(
-        "General Ability",
-        "Crystallized Knowledge",
-        "Fluid Reasoning",
-        "Cognitive Proficiency",
-        "Working Memory",
-        "Processing Speed"
+    data <-
+      data |>
+      dplyr::mutate(
+        narrow = dplyr::case_when(
+          scale == "General Ability" ~ "General Intelligence",
+          scale == "Crystallized Knowledge" ~ "Crystallized Intelligence",
+          scale == "Fluid Reasoning" ~ "Fluid Intelligence",
+          scale == "Cognitive Proficiency" ~ "Cognitive Proficiency Index",
+          scale == "Working Memory" ~ "Working Memory Index",
+          scale == "Processing Speed" ~ "Processing Speed Index",
+          TRUE ~ as.character(narrow)
+        )
       )
+
+    ## PASS model
+
+    data <-
+      data |>
+      dplyr::mutate(
+        pass = dplyr::case_when(
+          scale == "General Ability" ~ "",
+          scale == "Crystallized Knowledge" ~ "",
+          scale == "Fluid Reasoning" ~ "",
+          scale == "Cognitive Proficiency" ~ "",
+          scale == "Working Memory" ~ "",
+          scale == "Processing Speed" ~ "",
+          TRUE ~ as.character(pass)
+        )
+      )
+
+    ## Verbal vs Nonverbal
+
+    data <-
+      data |>
+      dplyr::mutate(
+        verbal = dplyr::case_when(
+          scale == "General Ability" ~ "",
+          scale == "Crystallized Knowledge" ~ "Verbal",
+          scale == "Fluid Reasoning" ~ "Nonverbal",
+          scale == "Cognitive Proficiency" ~ "",
+          scale == "Working Memory" ~ "Verbal",
+          scale == "Processing Speed" ~ "Nonverbal",
+          TRUE ~ as.character(verbal)
+        )
+      )
+
+    ## Timed vs Untimed
+
+    data <-
+      data |>
+      dplyr::mutate(
+        timed = dplyr::case_when(
+          scale == "General Ability" ~ "",
+          scale == "Crystallized Knowledge" ~ "Untimed",
+          scale == "Fluid Reasoning" ~ "Timed",
+          scale == "Cognitive Proficiency" ~ "",
+          scale == "Working Memory" ~ "Untimed",
+          scale == "Processing Speed" ~ "Timed",
+          TRUE ~ as.character(timed)
+        )
+      )
+
+    ## Scale descriptions
+
+    data <-
+      data |>
+      dplyr::mutate(
+        description = dplyr::case_when(
+          scale ==
+            "General Ability" ~
+            "An estimate of higher cognitive reasoning and acquired knowledge (*g*)",
+          scale ==
+            "Crystallized Knowledge" ~
+            "Crystallized intelligence (*G*c)",
+          scale ==
+            "Fluid Reasoning" ~
+            "An estimate of fluid intelligence (*G*f)",
+          scale ==
+            "Cognitive Proficiency" ~
+            "A composite estimate of working memory and processing speed (i.e., cognitive proficiency)",
+          scale ==
+            "Working Memory" ~
+            "An estimate of working memory capacity",
+          scale ==
+            "Processing Speed" ~
+            "Collective performance across measures of processing speed and cognitive efficiency",
+          scale ==
+            "Full Scale IQ (FSIQ)" ~
+            "General Intelligence (*G*)",
+          scale ==
+            "General Ability (GAI)" ~
+            "General Intelligence (*G*)",
+          scale ==
+            "Verbal Comprehension (VCI)" ~
+            "An estimate of Crystallized Intelligence (*G*c)",
+          scale ==
+            "Perceptual Reasoning (PRI)" ~
+            "An estimate of fluid intelligence (*G*f)",
+          scale ==
+            "Working Memory (WMI)" ~
+            "An estimate of verbal working memory",
+          scale ==
+            "Processing Speed (PSI)" ~
+            "Collective performance across measures of processing speed and cognitive efficiency",
+          TRUE ~ as.character(description)
+        )
+      )
+
+    ## Glue result
+
+    data <-
+      data |>
+      dplyr::mutate(
+        result = dplyr::case_when(
+          scale == "General Ability" ~ glue::glue(
+            "{description} was {range} and ranked at the {percentile}th percentile, indicating performance as good as or better than {percentile}% of same-age peers from the general population.\n"
+          ),
+          scale == "Crystallized Knowledge" ~ glue::glue(
+            "{description} was classified as {range} and ranked at the {percentile}th percentile.\n"
+          ),
+          scale == "Fluid Reasoning" ~ glue::glue("{description} was classified as {range}.\n"),
+          scale == "Cognitive Proficiency" ~ glue::glue("{description} was {range}.\n"),
+          scale == "Working Memory" ~ glue::glue("{description} fell in the {range} range.\n"),
+          scale == "Processing Speed" ~ glue::glue("{description} was {range}.\n")
+        )
+      )
+
+    ## Relocate variables
+
+    data <-
+      dplyr::relocate(data,
+                      c(raw_score, score, percentile, range, ci_95),
+                      .before = test) |>
+      dplyr::relocate(c(scaled_score, t_score, reliability, composition), .after = result) |>
+      dplyr::filter(
+        scale %in% c(
+          "General Ability",
+          "Crystallized Knowledge",
+          "Fluid Reasoning",
+          "Cognitive Proficiency",
+          "Working Memory",
+          "Processing Speed"
+        )
+      )
+
+    ## Write out CSV
+
+    readr::write_csv(
+      data,
+      here::here(patient, "csv", "g.csv"),
+      append = FALSE,
+      col_names = TRUE
     )
-
-  ## Write out CSV
-
-  readr::write_csv(data,
-    here::here(patient, "csv", "g.csv"),
-    append = FALSE,
-    col_names = TRUE
-  )
-
-  return(data)
-}
+    return(data)
+  }
