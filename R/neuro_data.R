@@ -13,12 +13,17 @@ neuro_data <- function(patient) {
   files <- dir(data_path, pattern = "*.csv")
 
   # Read and process neuropsych data
-  neuropsych <- files |>
+  neuropsych <-
+    files |>
     purrr::set_names() |>
     purrr::map(
-      ~ readr::read_csv(file.path(data_path, .), na = c("", "NA", "--", "-"), .id = "filename")
+      function(filename) {
+        dat <- readr::read_csv(file.path(data_path, filename), na = c("", "NA", "--", "-"))
+        dat$filename <- filename
+        return(dat)
+      }
     ) |>
-    purrr::list_rbind() |>
+    purrr::list_rbind(names_to = "filename") |>
     dplyr::filter(!is.na(percentile)) |>
     dplyr::distinct() |>
     dplyr::mutate(
