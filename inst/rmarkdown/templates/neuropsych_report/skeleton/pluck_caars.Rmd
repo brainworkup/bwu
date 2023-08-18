@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from CAARS"
 params:
-  patient: Biggie
+  patient: Alexandra
   test:
     label: "CAARS"
     value: [caars_sr]
@@ -58,7 +58,7 @@ library(tabulizer)
 library(tabulizerjars)
 library(tibble)
 library(tidyr)
-library(tidytable)
+library(dplyr)
 ```
 
 ## Patient
@@ -170,25 +170,25 @@ colnames(table1) <- colnames1
 
 ```{r tb1-rownames}
 if (params$test == "caars_sr") {
-  table1[1, 1] <- c("Inattention/Memory Problems")
-  table1[2, 1] <- c("Hyperactivity/Restlessness")
-  table1[3, 1] <- c("Impulsivity/Emotional Lability")
-  table1[4, 1] <- c("Problems with Self-Concept")
-  table1[5, 1] <- c("DSM-5 Inattentive Symptoms")
-  table1[6, 1] <- c("DSM-5 Hyperactive-Impulsive Symptoms")
-  table1[7, 1] <- c("DSM-5 ADHD Symptoms Total")
-  table1[8, 1] <- c("ADHD Index")
+  table1[1, 1] <- c("CAARS-SR Inattention/Memory Problems")
+  table1[2, 1] <- c("CAARS-SR Hyperactivity/Restlessness")
+  table1[3, 1] <- c("CAARS-SR Impulsivity/Emotional Lability")
+  table1[4, 1] <- c("CAARS-SR Problems with Self-Concept")
+  table1[5, 1] <- c("CAARS-SR DSM-5 Inattentive Symptoms")
+  table1[6, 1] <- c("CAARS-SR DSM-5 Hyperactive-Impulsive Symptoms")
+  table1[7, 1] <- c("CAARS-SR DSM-5 ADHD Symptoms Total")
+  table1[8, 1] <- c("CAARS-SR ADHD Index")
   table1[9, 1] <- c("CAARS-SR Inconsistency Index")
   table1 <- table1[1:9, ]
 } else if (params$test == "caars_or") {
-  table1[1, 1] <- c("Inattention/Memory Problems")
-  table1[2, 1] <- c("Hyperactivity/Restlessness")
-  table1[3, 1] <- c("Impulsivity/Emotional Lability")
-  table1[4, 1] <- c("Problems with Self-Concept")
-  table1[5, 1] <- c("DSM-5 Inattentive Symptoms")
-  table1[6, 1] <- c("DSM-5 Hyperactive-Impulsive Symptoms")
-  table1[7, 1] <- c("DSM-5 ADHD Symptoms Total")
-  table1[8, 1] <- c("ADHD Index")
+  table1[1, 1] <- c("CAARS-OR Inattention/Memory Problems")
+  table1[2, 1] <- c("CAARS-OR Hyperactivity/Restlessness")
+  table1[3, 1] <- c("CAARS-OR Impulsivity/Emotional Lability")
+  table1[4, 1] <- c("CAARS-OR Problems with Self-Concept")
+  table1[5, 1] <- c("CAARS-OR DSM-5 Inattentive Symptoms")
+  table1[6, 1] <- c("CAARS-OR DSM-5 Hyperactive-Impulsive Symptoms")
+  table1[7, 1] <- c("CAARS-OR DSM-5 ADHD Symptoms Total")
+  table1[8, 1] <- c("CAARS-OR ADHD Index")
   table1[9, 1] <- c("CAARS-OR Inconsistency Index")
   table1 <- table1[1:9, ]
 }
@@ -212,7 +212,7 @@ table3 <- table3[1:9, ]
 ```
 
 ```{r bind}
-table <- tidytable::bind_cols(table1, table2, table3)
+table <- dplyr::bind_cols(table1, table2, table3)
 ```
 
 ## Mutate columns
@@ -239,8 +239,8 @@ table <- bwu::gpluck_make_columns(
 
 table <-
   table |>
-  tidytable::mutate(
-    test_type = tidytable::case_when(
+  dplyr::mutate(
+    test_type = dplyr::case_when(
       scale == "CAARS-SR Inconsistency Index" ~ "symptom_validity",
       scale == "CAARS-OR Inconsistency Index" ~ "symptom_validity",
       TRUE ~ as.character(test_type)
@@ -249,8 +249,8 @@ table <-
 
 table <-
   table |>
-  tidytable::mutate(
-    score_type = tidytable::case_when(
+  dplyr::mutate(
+    score_type = dplyr::case_when(
       scale == "CAARS-SR Inconsistency Index" ~ "raw_score",
       scale == "CAARS-OR Inconsistency Index" ~ "raw_score",
       TRUE ~ as.character(score_type)
@@ -262,9 +262,9 @@ table <-
 
 ```{r percentile}
 table <- table %>%
-  tidytable::mutate(z = (score - 50) / 10) %>%
-  tidytable::mutate(percentile = trunc(pnorm(z) * 100)) %>%
-  tidytable::select(-z)
+  dplyr::mutate(z = (score - 50) / 10) %>%
+  dplyr::mutate(percentile = trunc(pnorm(z) * 100)) %>%
+  dplyr::select(-z)
 ```
 
 ## Test score ranges
@@ -281,8 +281,8 @@ table <- bwu::gpluck_make_score_ranges(
 ```{r domain}
 table <-
   table |>
-  tidytable::mutate(
-    domain = tidytable::case_when(
+  dplyr::mutate(
+    domain = dplyr::case_when(
       scale == "CAARS-SR Inconsistency Index" ~ "Symptom Validity",
       scale == "CAARS-OR Inconsistency Index" ~ "Symptom Validity",
       TRUE ~ as.character(domain)
@@ -293,15 +293,15 @@ table <-
 ## Subdomains
 
 ```{r subdomain}
-table[1, 10] <- c("Inattention/Memory Problems")
-table[2, 10] <- c("Hyperactivity/Restlessness")
-table[3, 10] <- c("Impulsivity/Emotional Lability")
-table[4, 10] <- c("Problems with Self-Concept")
-table[5, 10] <- c("DSM-5 Inattentive Symptoms")
-table[6, 10] <- c("DSM-5 Hyperactive-Impulsive Symptoms")
-table[7, 10] <- c("DSM-5 ADHD Symptoms Total")
-table[8, 10] <- c("ADHD Index")
-table[9, 10] <- c("Inconsistency Index")
+table[1, 10] <- c("Inattention")
+table[2, 10] <- c("Hyperactivity")
+table[3, 10] <- c("Impulsivity")
+table[4, 10] <- c("Self-Concept")
+table[5, 10] <- c("Inattention")
+table[6, 10] <- c("Hyperactivity")
+table[7, 10] <- c("ADHD Combined")
+table[8, 10] <- c("ADHD Combined")
+table[9, 10] <- c("Symptom Validity")
 ```
 
 ## Narrow subdomains
@@ -310,52 +310,52 @@ table[9, 10] <- c("Inconsistency Index")
 if (params$test == "caars_sr") {
   table <-
     table |>
-    tidytable::mutate(
-      narrow = tidytable::case_when(
+    dplyr::mutate(
+      narrow = dplyr::case_when(
         scale ==
-          "Inattention/Memory Problems" ~ "CAARS-SR Inattention/Memory Problems",
+          "CAARS-SR Inattention/Memory Problems" ~ "Inattention Self-Report",
         scale ==
-          "Hyperactivity/Restlessness" ~ "CAARS-SR Hyperactivity/Restlessness",
+          "CAARS-SR Hyperactivity/Restlessness" ~ "Hyperactivity Self-Report",
         scale ==
-          "Impulsivity/Emotional Lability" ~ "CAARS-SR Impulsivity/Emotional Lability",
+          "CAARS-SR Impulsivity/Emotional Lability" ~ "Impulsivity Self-Report",
         scale ==
-          "Problems with Self-Concept" ~ "CAARS-SR Problems with Self-Concept",
+          "CAARS-SR Problems with Self-Concept" ~ "Self-Concept Self-Report",
         scale ==
-          "DSM-5 Inattentive Symptoms" ~ "CAARS-SR DSM-5 Inattentive Symptoms",
+          "CAARS-SR DSM-5 Inattentive Symptoms" ~ "Inattention Self-Report",
         scale ==
-          "DSM-5 Hyperactive-Impulsive Symptoms" ~ "CAARS-SR DSM-5 Hyperactive-Impulsive Symptoms",
+          "CAARS-SR DSM-5 Hyperactive-Impulsive Symptoms" ~ "Hyperactivity Self-Report",
         scale ==
-          "DSM-5 ADHD Symptoms Total" ~ "CAARS-SR DSM-5 ADHD Symptoms Total",
+          "CAARS-SR DSM-5 ADHD Symptoms Total" ~ "ADHD Combined Self-Report",
         scale ==
-          "ADHD Index" ~ "CAARS-SR ADHD Index",
+          "CAARS-SR ADHD Index" ~ "ADHD Combined Self-Report",
         scale ==
-          "CAARS-SR Inconsistency Index" ~ "CAARS-SR Inconsistency Index",
+          "CAARS-SR Inconsistency Index" ~ "Inconsistency Self-Report",
         TRUE ~ as.character(narrow)
       )
     )
 } else if (params$test == "caars_or") {
   table <-
     table |>
-    tidytable::mutate(
-      narrow = tidytable::case_when(
+    dplyr::mutate(
+      narrow = dplyr::case_when(
         scale ==
-          "Inattention/Memory Problems" ~ "CAARS-OR Inattention/Memory Problems",
+          "CAARS-OR Inattention/Memory Problems" ~ "Inattention Observer-Report",
         scale ==
-          "Hyperactivity/Restlessness" ~ "CAARS-OR Hyperactivity/Restlessness",
+          "CAARS-OR Hyperactivity/Restlessness" ~ "Hyperactivity Observer-Report",
         scale ==
-          "Impulsivity/Emotional Lability" ~ "CAARS-OR Impulsivity/Emotional Lability",
+          "CAARS-OR Impulsivity/Emotional Lability" ~ "Impulsivity Observer-Report",
         scale ==
-          "Problems with Self-Concept" ~ "CAARS-OR Problems with Self-Concept",
+          "CAARS-OR Problems with Self-Concept" ~ "Self-Concept Observer-Report",
         scale ==
-          "DSM-5 Inattentive Symptoms" ~ "CAARS-OR DSM-5 Inattentive Symptoms",
+          "CAARS-OR DSM-5 Inattentive Symptoms" ~ "Inattention Observer-Report",
         scale ==
-          "DSM-5 Hyperactive-Impulsive Symptoms" ~ "CAARS-OR DSM-5 Hyperactive-Impulsive Symptoms",
+          "CAARS-OR DSM-5 Hyperactive-Impulsive Symptoms" ~ "Hyperactivity Observer-Report",
         scale ==
-          "DSM-5 ADHD Symptoms Total" ~ "CAARS-OR DSM-5 ADHD Symptoms Total",
+          "CAARS-OR DSM-5 ADHD Symptoms Total" ~ "ADHD Combined Observer-Report",
         scale ==
-          "ADHD Index" ~ "CAARS-OR ADHD Index",
+          "CAARS-OR ADHD Index" ~ "ADHD Combined Observer-Report",
         scale ==
-          "CAARS-OR Inconsistency Index" ~ "CAARS-OR Inconsistency Index",
+          "CAARS-OR Inconsistency Index" ~ "Inconsistency Observer-Report",
         TRUE ~ as.character(narrow)
       )
     )
@@ -371,54 +371,57 @@ if (params$test == "caars_sr") {
 
   table <-
     table |>
-    tidytable::mutate(
-      description = tidytable::case_when(
-        narrow == "CAARS-SR ADHD Index" ~ "composite indicator for identifying individuals 'at-risk' for ADHD",
-        narrow == "CAARS-SR Inattention/Memory Problems" ~ "i.e., trouble concentrating, difficulty planning or completing tasks, forgetfulness, absent-mindedness, being disorganized",
-        narrow == "CAARS-SR Hyperactivity/Restlessness" ~ "i.e., problems with working at the same task for long periods of time, feeling more restless than others seem to be, fidgeting",
-        narrow == "CAARS-SR Impulsivity/Emotional Lability" ~
+    dplyr::mutate(
+      description = dplyr::case_when(
+        scale == "CAARS-SR ADHD Index" ~ 
+          "composite indicator for identifying individuals 'at-risk' for ADHD",
+        scale == "CAARS-SR Inattention/Memory Problems" ~ 
+          "i.e., trouble concentrating, difficulty planning or completing tasks, forgetfulness, absent-mindedness, being disorganized",
+        scale == "CAARS-SR Hyperactivity/Restlessness" ~ 
+          "i.e., problems with working at the same task for long periods of time, feeling more restless than others seem to be, fidgeting",
+        scale == "CAARS-SR Impulsivity/Emotional Lability" ~
           "i.e., engaging in more impulsive acts than others do, low frustration tolerance, quick and frequent mood changes, feeling easily angered and irritated by people",
-        narrow == "CAARS-SR Problems with Self-Concept" ~
+        scale == "CAARS-SR Problems with Self-Concept" ~
           "i.e., poor social relationships, low self-esteem and self confidence",
-        narrow == "CAARS-SR DSM-5 Inattentive Symptoms" ~
+        scale == "CAARS-SR DSM-5 Inattentive Symptoms" ~
           "i.e., behave in a manner consistent with the DSM-5 Inattentive Presentation of ADHD",
-        narrow == "CAARS-SR DSM-5 Hyperactive-Impulsive Symptoms" ~
+        scale == "CAARS-SR DSM-5 Hyperactive-Impulsive Symptoms" ~
           "i.e., behave in a manner consistent with the DSM-5 Hyperactive-Impulsive Presentation of ADHD",
-        narrow == "CAARS-SR DSM-5 ADHD Symptoms Total" ~
+        scale == "CAARS-SR DSM-5 ADHD Symptoms Total" ~
           "i.e., behave in a manner consistent with the DSM-5 diagnostic criteria for Combined Presentation of ADHD",
         if (val_ind1 > 7) {
-          narrow == "CAARS-SR Inconsistency Index" ~ "Probably invalid"
+          scale == "CAARS-SR Inconsistency Index" ~ "Probably invalid"
         } else if (val_ind1 <= 7) {
-          narrow == "CAARS-SR Inconsistency Index" ~ "Probably valid"
+          scale == "CAARS-SR Inconsistency Index" ~ "Probably valid"
         },
         TRUE ~ as.character(description)
       )
     )
 } else if (params$test == "caars_or") {
-  table$narrow == "CAARS-OR Inconsistency Index"
-  val_ind2 <- table$raw_score[table$narrow == "CAARS-OR Inconsistency Index"]
+  table$scale == "CAARS-OR Inconsistency Index"
+  val_ind2 <- table$raw_score[table$scale == "CAARS-OR Inconsistency Index"]
 
   table <-
     table |>
-    tidytable::mutate(
-      description = tidytable::case_when(
-        narrow == "CAARS-OR ADHD Index" ~ "composite indicator for identifying individuals 'at-risk' for ADHD",
-        narrow == "CAARS-OR Inattention/Memory Problems" ~ "i.e., trouble concentrating, difficulty planning or completing tasks, forgetfulness, absent-mindedness, being disorganized",
-        narrow == "CAARS-OR Hyperactivity/Restlessness" ~ "i.e., problems with working at the same task for long periods of time, feeling more restless than others seem to be, fidgeting",
-        narrow == "CAARS-OR Impulsivity/Emotional Lability" ~
+    dplyr::mutate(
+      description = dplyr::case_when(
+        scale == "CAARS-OR ADHD Index" ~ "composite indicator for identifying individuals 'at-risk' for ADHD",
+        scale == "CAARS-OR Inattention/Memory Problems" ~ "i.e., trouble concentrating, difficulty planning or completing tasks, forgetfulness, absent-mindedness, being disorganized",
+        scale == "CAARS-OR Hyperactivity/Restlessness" ~ "i.e., problems with working at the same task for long periods of time, feeling more restless than others seem to be, fidgeting",
+        scale == "CAARS-OR Impulsivity/Emotional Lability" ~
           "i.e., engaging in more impulsive acts than others do, low frustration tolerance, quick and frequent mood changes, feeling easily angered and irritated by people",
-        narrow == "CAARS-OR Problems with Self-Concept" ~
+        scale == "CAARS-OR Problems with Self-Concept" ~
           "i.e., poor social relationships, low self-esteem and self confidence",
-        narrow ==
+        scale ==
           "CAARS-OR DSM-5 Inattentive Symptoms" ~
           "i.e., behave in a manner consistent with the DSM-5 Inattentive Presentation of ADHD",
-        narrow ==
+        scale ==
           "CAARS-OR DSM-5 Hyperactive-Impulsive Symptoms" ~ "i.e., behave in a manner consistent with the DSM-5 Hyperactive-Impulsive Presentation of ADHD",
-        narrow == "CAARS-OR DSM-5 ADHD Symptoms Total" ~ "i.e., behave in a manner consistent with the DSM-5 diagnostic criteria for Combined Presentation of ADHD",
+        scale == "CAARS-OR DSM-5 ADHD Symptoms Total" ~ "i.e., behave in a manner consistent with the DSM-5 diagnostic criteria for Combined Presentation of ADHD",
         if (val_ind2 > 7) {
-          narrow == "CAARS-OR Inconsistency Index" ~ "Probably invalid observer report"
+          scale == "CAARS-OR Inconsistency Index" ~ "Probably invalid observer report"
         } else if (val_ind2 <= 7) {
-          narrow == "CAARS-OR Inconsistency Index" ~ "Probably valid observer report"
+          scale == "CAARS-OR Inconsistency Index" ~ "Probably valid observer report"
         },
         TRUE ~ as.character(description)
       )
@@ -432,34 +435,34 @@ if (params$test == "caars_sr") {
 if (params$test == "caars_sr") {
   table <-
     table |>
-    tidytable::mutate(
-      result = tidytable::case_when(
-        narrow == "CAARS-SR ADHD Index" ~ glue::glue(
+    dplyr::mutate(
+      result = dplyr::case_when(
+        scale == "CAARS-SR ADHD Index" ~ glue::glue(
           "- {patient}'s {description} was {range}\n"
         ),
-        narrow == "CAARS-SR Inattention/Memory Problems" ~ glue::glue(
-          "- {narrow} ({description}) was {range}\n"
+        scale == "CAARS-SR Inattention/Memory Problems" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
         ),
-        narrow == "CAARS-SR Hyperactivity/Restlessness" ~ glue::glue(
-          "- {narrow} ({description}) was {range}\n"
+        scale == "CAARS-SR Hyperactivity/Restlessness" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
         ),
-        narrow == "CAARS-SR Impulsivity/Emotional Lability" ~ glue::glue(
-          "- {narrow} ({description}) was {range}\n"
+        scale == "CAARS-SR Impulsivity/Emotional Lability" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
         ),
-        narrow == "CAARS-SR Problems with Self-Concept" ~ glue::glue(
-          "- {narrow} ({description}) was {range}\n"
+        scale == "CAARS-SR Problems with Self-Concept" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
         ),
-        narrow == "CAARS-SR DSM-5 Inattentive Symptoms" ~ glue::glue(
-          "- {narrow} ({description}) was {range}\n"
+        scale == "CAARS-SR DSM-5 Inattentive Symptoms" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
         ),
-        narrow == "CAARS-SR DSM-5 Hyperactive-Impulsive Symptoms" ~ glue::glue(
-          "- {narrow} ({description}) was {range}\n"
+        scale == "CAARS-SR DSM-5 Hyperactive-Impulsive Symptoms" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
         ),
-        narrow == "CAARS-SR DSM-5 ADHD Symptoms Total" ~ glue::glue(
-          "- {narrow} ({description}) was {range}\n"
+        scale == "CAARS-SR DSM-5 ADHD Symptoms Total" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
         ),
-        narrow == "CAARS-SR Inconsistency Index" ~ glue::glue(
-          "- {description} on {narrow}\n"
+        scale == "CAARS-SR Inconsistency Index" ~ glue::glue(
+          "- {description} on {scale}\n"
         ),
         TRUE ~ as.character(result)
       )
@@ -467,34 +470,34 @@ if (params$test == "caars_sr") {
 } else if (params$test == "caars_or") {
   table <-
     table |>
-    tidytable::mutate(
-      result = tidytable::case_when(
-        narrow == "CAARS-OR ADHD Index" ~ glue::glue(
+    dplyr::mutate(
+      result = dplyr::case_when(
+        scale == "CAARS-OR ADHD Index" ~ glue::glue(
           "- {patient}'s observer-rated {description} was {range}\n"
         ),
-        narrow == "CAARS-OR Inattention/Memory Problems" ~ glue::glue(
-          "- {narrow} ({description}) was {range}\n"
+        scale == "CAARS-OR Inattention/Memory Problems" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
         ),
-        narrow == "CAARS-OR Hyperactivity/Restlessness" ~ glue::glue(
-          "- {narrow} ({description}) was {range}\n"
+        scale == "CAARS-OR Hyperactivity/Restlessness" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
         ),
-        narrow == "CAARS-OR Impulsivity/Emotional Lability" ~ glue::glue(
-          "- {narrow} ({description}) was {range}\n"
+        scale == "CAARS-OR Impulsivity/Emotional Lability" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
         ),
-        narrow == "CAARS-OR Problems with Self-Concept" ~ glue::glue(
-          "- {narrow} ({description}) was {range}\n"
+        scale == "CAARS-OR Problems with Self-Concept" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
         ),
-        narrow == "CAARS-OR DSM-5 Inattentive Symptoms" ~ glue::glue(
-          "- {narrow} ({description}) was {range}\n"
+        scale == "CAARS-OR DSM-5 Inattentive Symptoms" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
         ),
-        narrow == "CAARS-OR DSM-5 Hyperactive-Impulsive Symptoms" ~ glue::glue(
-          "- {narrow} ({description}) was {range}\n"
+        scale == "CAARS-OR DSM-5 Hyperactive-Impulsive Symptoms" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
         ),
-        narrow == "CAARS-OR DSM-5 ADHD Symptoms Total" ~ glue::glue(
-          "- {narrow} ({description}) was {range}\n"
+        scale == "CAARS-OR DSM-5 ADHD Symptoms Total" ~ glue::glue(
+          "- {scale} ({description}) was {range}\n"
         ),
-        narrow == "CAARS-OR Inconsistency Index" ~ glue::glue(
-          "- {description} on {narrow}\n"
+        scale == "CAARS-OR Inconsistency Index" ~ glue::glue(
+          "- {description} on {scale}\n"
         ),
         TRUE ~ as.character(result)
       )
@@ -509,7 +512,7 @@ if (params$test == "caars_sr") {
 ```{r relocate}
 table <-
   table |>
-  tidytable::relocate(
+  dplyr::relocate(
     c(raw_score, score, percentile, range, ci_95),
     .before = test
   )
@@ -518,15 +521,14 @@ table <-
 ## Write out csv
 
 ```{r write}
-readr::write_csv(table, here::here(patient, "csv", paste0(test, ".csv")),
-  col_names = TRUE, na = ""
-)
+file_path <- here::here(params$patient, "csv", paste0(params$test, ".csv"))
+readr::write_csv(table, file_path, col_names = TRUE, na = "")
 ```
 
 # Pluck Text
 
 ```{r text}
-file <- fs::as_fs_path(params$file)
+file <- fs::fs_path(params$file)
 
 if (params$test == "caars_sr") {
   ## extract text

@@ -35,19 +35,20 @@ filter_domain_scale <- function(data, domain, scale) {
 #' @description This function sorts the data by percentile, removes duplicates and converts the data to text. Finally, it appends the converted data to a file.
 #' @param data A dataframe containing the data
 #' @param file A character string specifying the name of the file
+#' @param ... Additional arguments passed to other functions
 #' @return A file containing the flattened and scaled text
 #' @importFrom dplyr filter arrange distinct desc mutate
 #' @export
 #' @rdname flatten_scale_text
-flatten_scale_text <- function(data, file) {
+flatten_scale_text <- function(data, file, ...) {
   # Sorting the data by percentile and removing duplicates
-  data_text <- data |>
+  sorted_data <- data |>
     dplyr::arrange(dplyr::desc(percentile)) |>
     dplyr::distinct(.keep_all = FALSE)
 
   # Convert the data to text and append to the file
   cat(
-    paste0(data_text$result),
+    paste0(sorted_data$result),
     file = file,
     sep = "\n",
     append = TRUE

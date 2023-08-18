@@ -4,12 +4,14 @@
 \alias{flatten_scale_text}
 \title{Flatten concatenated text for each neuropsych scale}
 \usage{
-flatten_scale_text(data, file)
+flatten_scale_text(data, file, ...)
 }
 \arguments{
 \item{data}{A dataframe containing the data}
 
 \item{file}{A character string specifying the name of the file}
+
+\item{...}{Additional arguments passed to other functions}
 }
 \value{
 A file containing the flattened and scaled text
