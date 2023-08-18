@@ -3,7 +3,7 @@
 
 <img src="hex-bwu.png" width="20%"/>
 
-# bwu
+# bwu (BrainWorkUp) R Package
 
 <!-- badges: start -->
 
@@ -12,7 +12,8 @@
 
 <!-- badges: end -->
 
-The goal of `bwu` is to facilitate neuropsychological evaluation …
+The goal of `bwu` is to facilitate neuropsychological evaluation data
+processing, report writing, and presentation of results.
 
 ## Installation
 
@@ -24,13 +25,8 @@ pak::pak("brainworkup/bwu")
 #> ✔ Loading metadata database ... done
 #> 
 #> 
-#> → Will update 1 package.
-#> → Will download 1 package with unknown size.
-#> + bwu 0.0.4.9000 → 0.0.3.9000 👷🏾‍♀️🔧 ⬇ (GitHub: 89c7cb6)
-#> ℹ Getting 1 pkg with unknown size
-#> ✔ Cached copy of bwu 0.0.3.9000 (source) is the latest build
-#> ✔ Installed bwu 0.0.3.9000 (github::brainworkup/bwu@89c7cb6) (164ms)
-#> ✔ 1 pkg: upd 1 [6.4s]
+#> ℹ No downloads are needed
+#> ✔ 1 pkg + 124 deps: kept 124 [8.2s]
 ```
 
 ## Example
@@ -42,7 +38,6 @@ library(bwu)
 #> Registered S3 method overwritten by 'quantmod':
 #>   method            from
 #>   as.zoo.data.frame zoo
-## basic example code
 ```
 
 What is special about using `README.Rmd` instead of just `README.md`?

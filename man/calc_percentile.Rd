@@ -2,7 +2,7 @@
 % Please edit documentation in R/scores.R
 \name{calc_percentile}
 \alias{calc_percentile}
-\title{Convert SS/T/scaled scores to z scores to percentiles.
+\title{Convert Standard Score/T-Score/Scaled Score to z-Scores to Percentiles
 This is a functioning that converts T-scores to z-scores to percentile
 ranks.}
 \usage{
@@ -21,7 +21,7 @@ calc_percentile(ability_score, mean, standard_deviation, round = 0)
 A percentile rank score
 }
 \description{
-Convert SS/T/scaled scores to z scores to percentiles.
+Convert Standard Score/T-Score/Scaled Score to z-Scores to Percentiles
 This is a functioning that converts T-scores to z-scores to percentile
 ranks.
 }

@@ -1,3 +1,20 @@
+#' Calculate Standardized and Predicted Scores
+#'
+#' This function calculates predicted, standardized, and confidence interval scores based on given parameters.
+#'
+#' @param ability_score Obtained ability score
+#' @param achievement_score Obtained achievement score
+#' @param correlation Correlation between the two variables
+#' @param mean Mean of the variable
+#' @param standard_deviation Standard deviation of the variable
+#' @param reliability Reliability of the test
+#' @param round Number of decimal places to round to
+#' @param confidence_level Confidence level for the calculation (defaults to 0.95)
+#'
+#' @rdname calc_standardized_score
+#'
+#' @return Set of scores including predicted, standardized, and confidence intervals
+#' @export
 calc_standardized_score <- function(ability_score, achievement_score, correlation, mean, standard_deviation, reliability, round = 0, confidence_level = 0.95) {
   # Calculate predicted score and difference
   predicted_score <- round(correlation * (ability_score - mean) + mean)
@@ -48,7 +65,7 @@ calc_standardized_score <- function(ability_score, achievement_score, correlatio
                     SEM = {sem}"))
 }
 
-#' @title Predicted test score
+#' @title Predicted Test Score
 #' @description Estimate the difference between an actual score and a predicted score.
 #' @importFrom glue glue
 #' @param ability_score Score 1 (ability)
@@ -72,7 +89,7 @@ calc_predicted_score <- function(ability_score, achievement_score, correlation, 
   return(glue::glue("Ability Score = {ability_score}\nPredicted Achievement Score = {z}\nActual Achievement Score = {achievement_score}\nDifference = {diff}"))
 }
 
-#' @title Compute confidence intervals (CI)
+#' @title Compute 95% Confidence Intervals
 #' @description To compute confidence intervals for test scores.
 #' @importFrom stats qnorm
 #' @importFrom glue glue
@@ -109,7 +126,7 @@ calc_ci_95 <- function(ability_score, mean, standard_deviation, reliability, rou
   ))
 }
 
-#' Convert SS/T/scaled scores to z scores to percentiles.
+#' Convert Standard Score/T-Score/Scaled Score to z-Scores to Percentiles
 #' This is a functioning that converts T-scores to z-scores to percentile
 #' ranks.
 #' @param ability_score Raw test score

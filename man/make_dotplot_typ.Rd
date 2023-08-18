@@ -2,7 +2,7 @@
 % Please edit documentation in R/typst.R
 \name{make_dotplot_typ}
 \alias{make_dotplot_typ}
-\title{Make a dotplot for cognitive domain scores
+\title{Make a Dotplot for Neurocognitive Domains in Typst
 This function creates a dotplot figure for a given dataset.}
 \usage{
 make_dotplot_typ(
@@ -16,20 +16,24 @@ make_dotplot_typ(
 )
 }
 \arguments{
-\item{data}{Dataframe containing the input data}
+\item{data}{Data.frame containing the input data}
 
 \item{pheno}{Phenotype of interest}
 
-\item{x}{Variable plotted on the x-axis, by default data_dotplot$z_mean_narrow}
+\item{x}{Variable plotted on the x-axis, by default data$z_mean_subdomain}
 
-\item{y}{Variable plotted on the y-axis, by default data_dotplot$narrow}
+\item{y}{Variable plotted on the y-axis, by default data$subdomain}
 
 \item{colors}{A vector of colors to be used for the plot}
+
+\item{return_plot}{Plot that is generated}
+
+\item{filename}{Filename extension}
 }
 \value{
-an object of class figure object
+A dotplot formatted for Typst
 }
 \description{
-Make a dotplot for cognitive domain scores
+Make a Dotplot for Neurocognitive Domains in Typst
 This function creates a dotplot figure for a given dataset.
 }

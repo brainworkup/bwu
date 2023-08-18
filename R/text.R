@@ -30,8 +30,6 @@ extract_and_save_transcript <- function(x, file, begin, end, eol = "\\n") {
   writeLines(transcript, file)
 }
 
-
-
 #' @title Extract and glue neuropsych text
 #' @description This function filters a dataframe based on a specified condition, concatenates all of the columns into a single string, and writes the result to a file.
 #' @param df A dataframe from which data is to be filtered and concatenated.
@@ -67,4 +65,29 @@ extract_and_glue_neuro_text <- function(df, filter, result, file) {
   # Return the name of the file. This is useful for
   # passing the file to other functions.
   return(df_glued)
+}
+
+
+#' @title Filter lines in a PDF file
+#'
+#' @description Filter lines from text extracted from a PDF for given words.
+#'
+#' @param extracted_text A \code{list} of strings, containing text extracted from the PDF file.
+#' @param pdf_file Path to the PDF file.
+#' @param page Optional \code{integer}: Page number in the PDF used for extraction, defaults to \code{NULL}.
+#' @param scale The word which is searched in lines and then filtered.
+#'
+#' @return A \code{vector} of strings, for all lines that contains the word in \code{scale}.
+#'
+#' @export
+filter_lines <- function(extracted_text, pdf_file, page = NULL, scale) {
+  scale_text <- extracted_text[[page]]
+
+  # Convert the string into a vector of lines
+  lines <- strsplit(scale_text, "\n")[[1]]
+
+  # Filter lines that contain the word in scale
+  scale_text_filtered <- lines[grepl(scale, lines)]
+
+  return(scale_text_filtered)
 }

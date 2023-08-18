@@ -165,7 +165,6 @@ patient <- params$patient
 
 ```{r test}
 test <- params$test
-test_name <- params$test_name
 ```
 
 ## Upload/attach PDF
@@ -226,7 +225,7 @@ area <- readRDS(here::here(patient, "pre_csv", "area_wiat4.rds"))
 ## Extract tables
 
 ```{r extract-table-pdf}
-file <- file.choose()
+# file <- file.choose()
 
 plucked_table <- tabulizer::extract_tables(
   file = file,
@@ -258,7 +257,7 @@ library(dplyr)
 library(purrr)
 
 patient <- "Biggie"
-file <- fs::as_fs_path(file.choose())
+file <- fs::fs_path(file.choose())
 
 df1 <- plucked_tables[[1]]
 df2 <- plucked_tables[[2]]

@@ -2,7 +2,7 @@
 % Please edit documentation in R/scores.R
 \name{calc_ci_95}
 \alias{calc_ci_95}
-\title{Compute confidence intervals (CI)}
+\title{Compute 95\% Confidence Intervals}
 \usage{
 calc_ci_95(
   ability_score,

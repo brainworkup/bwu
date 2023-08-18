@@ -80,14 +80,16 @@ make_tbl_gt <- function(data, pheno, source_note = NULL, table_name = NULL) {
   return(table)
 }
 
-#' Make a dotplot for cognitive domain scores
+#' Make a Dotplot for Neurocognitive Domains in Typst
 #' This function creates a dotplot figure for a given dataset.
-#' @param data Dataframe containing the input data
+#' @param data Data.frame containing the input data
 #' @param pheno Phenotype of interest
-#' @param x Variable plotted on the x-axis, by default data_dotplot$z_mean_narrow
-#' @param y Variable plotted on the y-axis, by default data_dotplot$narrow
+#' @param x Variable plotted on the x-axis, by default data$z_mean_subdomain
+#' @param y Variable plotted on the y-axis, by default data$subdomain
 #' @param colors A vector of colors to be used for the plot
-#' @return an object of class figure object
+#' @param return_plot Plot that is generated
+#' @param filename Filename extension
+#' @return A dotplot formatted for Typst
 #' @importFrom ggplot2 ggsave
 #' @importFrom glue glue
 #' @export

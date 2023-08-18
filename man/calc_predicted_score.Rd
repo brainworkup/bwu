@@ -2,7 +2,7 @@
 % Please edit documentation in R/scores.R
 \name{calc_predicted_score}
 \alias{calc_predicted_score}
-\title{Predicted test score}
+\title{Predicted Test Score}
 \usage{
 calc_predicted_score(
   ability_score,

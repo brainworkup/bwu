@@ -1,7 +1,6 @@
-#' @title Create a dotplot of cognitive and behavioral domains.
+#' @title Create a Dotplot of Neurocognitive Domains.
 #' @description This function generates a dot plot with the given data, x and y. The point's aesthetics and plot theme can be customized.
-#' @importFrom ggplot2 ggplot geom_segment aes geom_point scale_fill_gradientn
-#' theme element_rect ggsave
+#' @importFrom ggplot2 ggplot geom_segment aes geom_point scale_fill_gradientn theme element_rect ggsave
 #' @importFrom stats reorder
 #' @importFrom ggthemes theme_fivethirtyeight
 #' @param data The data frame containing the data for the dotplot.
@@ -22,21 +21,61 @@
 #' @return An object of class 'ggplot' representing the dotplot.
 #' @details This function generates a dot plot with the given data, x and y. The points' aesthetics and plot theme can be customized.
 #' @rdname dotplot
-#' @examples
-#' # To get the plot object:
-#' p <- dotplot(data, x, y)
-#' # To save the plot as a PNG and not return the plot object:
-#' dotplot(data, x, y, return_plot = FALSE, filename = "plot.png")
-#' # To get the plot object and also save it:
-#' p <- dotplot(data, x, y, filename = "plot.png")
 #' @export
 dotplot <- function(data, x, y, linewidth = 0.5, fill = x, shape = 21, point_size = 6, line_color = "black", colors = NULL, theme = "fivethirtyeight", return_plot = TRUE, filename = NULL, ...) {
-  # ... (rest of the function remains unchanged)
-
   # Define the color palette
   color_palette <- if (is.null(colors)) {
     c(
-      "#7E1700", "#832504", "#883008", "#8E3B0B", "#92450F", "#984E14", "#9C5717", "#A05F1B", "#A4671E", "#A86F22", "#AD7826", "#B0802B", "#B58A30", "#B99336", "#BD9C3D", "#C2A647", "#C7B051", "#CBBA5D", "#CEC56C", "#D0CE7A", "#D2D78A", "#D1DE98", "#CFE4A6", "#CBE7B3", "#C4EABD", "#BCEAC6", "#B2E8CD", "#A7E6D2", "#9BE2D4", "#8EDDD7", "#80D6D7", "#73CED5", "#65C6D5", "#59BDD2", "#4FB5D0", "#45ABCB", "#3DA3C8", "#379BC5", "#3292C2", "#2E8ABF", "#2A81BA", "#2779B7", "#2471B4", "#2269B0", "#1F60AD", "#1B57A8", "#184EA4", "#1344A0", "#0C3B9C", "#023198"
+      "#7E1700",
+      "#832504",
+      "#883008",
+      "#8E3B0B",
+      "#92450F",
+      "#984E14",
+      "#9C5717",
+      "#A05F1B",
+      "#A4671E",
+      "#A86F22",
+      "#AD7826",
+      "#B0802B",
+      "#B58A30",
+      "#B99336",
+      "#BD9C3D",
+      "#C2A647",
+      "#C7B051",
+      "#CBBA5D",
+      "#CEC56C",
+      "#D0CE7A",
+      "#D2D78A",
+      "#D1DE98",
+      "#CFE4A6",
+      "#CBE7B3",
+      "#C4EABD",
+      "#BCEAC6",
+      "#B2E8CD",
+      "#A7E6D2",
+      "#9BE2D4",
+      "#8EDDD7",
+      "#80D6D7",
+      "#73CED5",
+      "#65C6D5",
+      "#59BDD2",
+      "#4FB5D0",
+      "#45ABCB",
+      "#3DA3C8",
+      "#379BC5",
+      "#3292C2",
+      "#2E8ABF",
+      "#2A81BA",
+      "#2779B7",
+      "#2471B4",
+      "#2269B0",
+      "#1F60AD",
+      "#1B57A8",
+      "#184EA4",
+      "#1344A0",
+      "#0C3B9C",
+      "#023198"
     )
   } else {
     colors
@@ -107,8 +146,7 @@ dotplot <- function(data, x, y, linewidth = 0.5, fill = x, shape = 21, point_siz
   }
 }
 
-#' Drilldown on neuropsych domains.
-#'
+#' Drilldown on Neuropsych Domains.
 #' This function uses the R Highcharter package and drilldown function to "drilldown" on neuropsychological domains and test scores.
 #'
 #' \code{drilldown} Creates a highcharter drilldown interactive plot.

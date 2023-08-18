@@ -1,7 +1,7 @@
 Type: Package
 Package: bwu
 Title: BrainWorkUp Neuropsychological Report Writing Package
-Version: 0.0.1.9000
+Version: 0.0.1.9001
 Author: person("Joey", "Trampush", email = trampush@usc.edu,
       role = c("aut", "cre"))
 Maintainer: Joey Trampush <trampush@usc.edu>
@@ -59,6 +59,8 @@ Suggests:
     usethis (>= 1.5.0),
     vroom,
     xaringan
+Remotes:
+    ropensci/tabulizer
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-US

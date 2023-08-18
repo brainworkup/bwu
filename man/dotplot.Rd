@@ -2,7 +2,7 @@
 % Please edit documentation in R/plots.R
 \name{dotplot}
 \alias{dotplot}
-\title{Create a dotplot of cognitive and behavioral domains.}
+\title{Create a Dotplot of Neurocognitive Domains.}
 \usage{
 dotplot(
   data,
@@ -57,12 +57,4 @@ This function generates a dot plot with the given data, x and y. The point's aes
 }
 \details{
 This function generates a dot plot with the given data, x and y. The points' aesthetics and plot theme can be customized.
-}
-\examples{
-# To get the plot object:
-p <- dotplot(data, x, y)
-# To save the plot as a PNG and not return the plot object:
-dotplot(data, x, y, return_plot = FALSE, filename = "plot.png")
-# To get the plot object and also save it:
-p <- dotplot(data, x, y, filename = "plot.png")
 }

@@ -8,16 +8,18 @@ scico_palette(n, palette = c("roma", "hawaii", "tokyo", "vik"))
 }
 \arguments{
 \item{n}{The number of colors to sample from the Roma palette.}
+
+\item{palette}{Palettes from \code{scico}.}
 }
 \value{
-A vector of colors sampled from the Roma palette.
+A vector of colors sampled from the \code{scico} palette.
 }
 \description{
 Create a color palette from the Roma palette containing 24 colors. If n is greater than the length of roma, return the full palette.
 }
 \examples{
 \dontrun{
-scico_palette(3)
+scico_palette(11, "hawaii")
 }
 
 }
