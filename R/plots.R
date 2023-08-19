@@ -3,6 +3,7 @@
 #' @importFrom ggplot2 ggplot geom_segment aes geom_point scale_fill_gradientn theme element_rect ggsave
 #' @importFrom stats reorder
 #' @importFrom ggthemes theme_fivethirtyeight
+#' @importFrom ggtext element_markdown
 #' @param data The data frame containing the data for the dotplot.
 #' @param x The column name in the data frame for the x-axis variable, typically
 #' the mean z-score for a cognitive domain.
@@ -17,12 +18,13 @@
 #' @param theme The ggplot theme to be used, Default: 'fivethirtyeight'. Other options include 'minimal' and 'classic'
 #' @param return_plot Whether to return the plot object, Default: TRUE
 #' @param filename The filename to save the plot to, Default: NULL
+#' @param z_score_label The label for the x-axis, Default: "*z* Score (Mean = 0, SD = 1)"
 #' @param ... Additional arguments to be passed to the ggplot function.
 #' @return An object of class 'ggplot' representing the dotplot.
 #' @details This function generates a dot plot with the given data, x and y. The points' aesthetics and plot theme can be customized.
 #' @rdname dotplot
 #' @export
-dotplot <- function(data, x, y, linewidth = 0.5, fill = x, shape = 21, point_size = 6, line_color = "black", colors = NULL, theme = "fivethirtyeight", return_plot = TRUE, filename = NULL, ...) {
+dotplot <- function(data, x, y, linewidth = 0.5, fill = x, shape = 21, point_size = 6, line_color = "black", colors = NULL, theme = "fivethirtyeight", return_plot = TRUE, filename = NULL, z_score_label = NULL, ...) {
   # Define the color palette
   color_palette <- if (is.null(colors)) {
     c(
@@ -117,12 +119,18 @@ dotplot <- function(data, x, y, linewidth = 0.5, fill = x, shape = 21, point_siz
       ggplot2::theme_minimal()
     )
 
-  plot_object <- plot_object +
+  # Add x-axis label
+  plot_object <- plot_object + ggplot2::labs(x = z_score_label) +
+
+    plot_object <- plot_object +
     ggplot2::theme(
       panel.background = ggplot2::element_rect(fill = "white"),
       plot.background = ggplot2::element_rect(fill = "white"),
-      panel.border = ggplot2::element_rect(color = "white")
+      panel.border = ggplot2::element_rect(color = "white"),
+      axis.title.x = ggtext::element_markdown(),
     )
+
+
 
   # Save the plot to a file if filename is provided
   if (!is.null(filename)) {

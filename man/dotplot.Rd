@@ -17,6 +17,7 @@ dotplot(
   theme = "fivethirtyeight",
   return_plot = TRUE,
   filename = NULL,
+  z_score_label = NULL,
   ...
 )
 }
@@ -46,6 +47,8 @@ the cognitive domain to plot.}
 \item{return_plot}{Whether to return the plot object, Default: TRUE}
 
 \item{filename}{The filename to save the plot to, Default: NULL}
+
+\item{z_score_label}{The label for the x-axis, Default: "\emph{z} Score (Mean = 0, SD = 1)"}
 
 \item{...}{Additional arguments to be passed to the ggplot function.}
 }
