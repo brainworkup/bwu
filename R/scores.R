@@ -1,7 +1,5 @@
 #' Calculate Standardized and Predicted Scores
-#'
 #' This function calculates predicted, standardized, and confidence interval scores based on given parameters.
-#'
 #' @param ability_score Obtained ability score
 #' @param achievement_score Obtained achievement score
 #' @param correlation Correlation between the two variables
@@ -10,12 +8,10 @@
 #' @param reliability Reliability of the test
 #' @param round Number of decimal places to round to
 #' @param confidence_level Confidence level for the calculation (defaults to 0.95)
-#'
-#' @rdname calc_standardized_score
-#'
+#' @rdname standardized_score
 #' @return Set of scores including predicted, standardized, and confidence intervals
 #' @export
-calc_standardized_score <- function(ability_score, achievement_score, correlation, mean, standard_deviation, reliability, round = 0, confidence_level = 0.95) {
+standardized_score <- function(ability_score, achievement_score, correlation, mean, standard_deviation, reliability, round = 0, confidence_level = 0.95) {
   # Calculate predicted score and difference
   predicted_score <- round(correlation * (ability_score - mean) + mean)
   diff <- predicted_score - achievement_score
