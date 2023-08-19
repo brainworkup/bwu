@@ -122,7 +122,7 @@ tbl_gt <- function(data, pheno, table_name = NULL, source_note = NULL, title =
 #' tab_caption tab_spanner cell_text cells_source_notes
 #' @importFrom gtExtras gt_theme_538
 #' @importFrom tidyr replace_na
-table_gt <- function(data, pheno = NULL, table_name = NULL, source_note = NULL, title = NULL, tab_stubhead = NULL, caption = NULL, process_md = FALSE, vertical_padding = 0.10, groups_standard_score = c("NAB"), groups_t_score = c("NAB", "NIH EXAMINER", "Trail Making Test"), groups_scaled_score = c("WAIS-IV"), groups_z_score = c("WAIS-IV"), multiline = TRUE, ...) {
+table_gt <- function(data, pheno = NULL, table_name = NULL, source_note = NULL, title = NULL, tab_stubhead = NULL, caption = NULL, process_md = FALSE, vertical_padding = 0.10, groups_standard_score = NULL, groups_t_score = NULL, groups_scaled_score = NULL, groups_z_score = NULL, multiline = TRUE, ...) {
   # create data counts
   data_counts <- data |>
     dplyr::select(test_name, scale, score, percentile, range) |>
@@ -566,18 +566,8 @@ generate_g <- function(data, patient, scales, index_score_file) {
 }
 
 # footnotes
-footnote_t_score <- gt::md(
-  "T-Scores (*Mean* = 50, *Standard Deviation* = 10)"
-)
-footnote_scaled_score <- gt::md(
-  "Scaled Scores (*Mean* = 10, *Standard Deviation* = 3)"
-)
-footnote_standard_score <- gt::md(
-  "Index Score (*Mean* = 100, *Standard Deviation* = 15)"
-)
-footnote_z_score <- gt::md(
-  "z-Scores (*Mean* = 0, *Standard Deviation* = 1)"
-)
-footnote_percentile <- gt::md(
-  "Percentile rank..."
-)
+footnote_t_score <- gt::md("*T* Score (Mean = 50, SD = 10)")
+footnote_scaled_score <- gt::md("Scaled Score (Mean = 10, SD = 3)")
+footnote_standard_score <- gt::md("Index Score (Mean = 100, SD = 15)")
+footnote_z_score <- gt::md("*z* Score (Mean = 0, SD = 1)")
+footnote_percentile <- gt::md("Percentile rank...")

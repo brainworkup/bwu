@@ -14,10 +14,10 @@ table_gt(
   caption = NULL,
   process_md = FALSE,
   vertical_padding = 0.1,
-  groups_standard_score = c("NAB"),
-  groups_t_score = c("NAB", "NIH EXAMINER", "Trail Making Test"),
-  groups_scaled_score = c("WAIS-IV"),
-  groups_z_score = c("WAIS-IV"),
+  groups_standard_score = NULL,
+  groups_t_score = NULL,
+  groups_scaled_score = NULL,
+  groups_z_score = NULL,
   multiline = TRUE,
   ...
 )
