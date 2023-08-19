@@ -17,19 +17,18 @@
 #' tab_options cols_align tab_source_note gtsave tab_style tab_stubhead
 #' tab_caption tab_spanner cell_text cells_source_notes
 #' @importFrom gtExtras gt_theme_538
+#' @importFrom tidyr replace_na
 tbl_gt <- function(data, table_name = NULL, source_note = NULL, title = NULL, tab_stubhead = NULL, caption = NULL, process_md = FALSE, ...) {
   # create data counts (Simplified)
   data_counts <- data |>
     dplyr::select(test_name, scale, score, percentile, range) |>
-    dplyr::mutate(dplyr::across(c(score, percentile), ~ replace_na(., replace = 0)))
-
-  # No need to drop 'n' and reorder because we're not grouping anymore
+    dplyr::mutate(dplyr::across(c(score, percentile), ~ tidyr::replace_na(., replace = 0)))
 
   # create table
   table <- data_counts |>
     dplyr::mutate(
-      score = if_else(score == 0, NA_integer_, score),
-      percentile = if_else(percentile == 0, NA_integer_, percentile),
+      score = dplyr::if_else(score == 0, NA_integer_, score),
+      percentile = dplyr::if_else(percentile == 0, NA_integer_, percentile),
       test_name = as.character(paste0(test_name)),
       scale = as.character(scale)
     ) |>
