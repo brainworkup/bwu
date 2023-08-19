@@ -18,7 +18,8 @@
 #' tab_caption tab_spanner cell_text cells_source_notes
 #' @importFrom gtExtras gt_theme_538
 #' @importFrom tidyr replace_na
-tbl_gt <- function(data, table_name = NULL, source_note = NULL, title = NULL, tab_stubhead = NULL, caption = NULL, process_md = FALSE, ...) {
+tbl_gt <- function(data, pheno, table_name = NULL, source_note = NULL, title =
+                     NULL, tab_stubhead = NULL, caption = NULL, process_md = FALSE, vertical_padding = 0.125, groups_standard_score = c("NAB"), groups_t_score = c("NAB", "NIH EXAMINER", "Trail Making Test"), groups_scaled_score = c("WAIS-IV"), ...) {
   # create data counts (Simplified)
   data_counts <- data |>
     dplyr::select(test_name, scale, score, percentile, range) |>
@@ -49,15 +50,146 @@ tbl_gt <- function(data, table_name = NULL, source_note = NULL, title = NULL, ta
     gt::tab_header(title = title) |>
     gt::tab_stubhead(label = tab_stubhead) |>
     gt::sub_missing(missing_text = "--") |>
-    gt::tab_options(row_group.font.weight = "bold") |>
     gt::tab_stub_indent(rows = scale, indent = 2) |>
-    gt::cols_align(align = "center", columns = c("score", "percentile", "range")) |>
-    gt::tab_source_note(source_note = source_note) |>
+    gt::cols_align(
+      align = "center",
+      columns = c("score", "percentile", "range")
+    ) |>
+    gt::tab_footnote(
+      footnote = footnote_standard_score,
+      gt::cells_row_groups(
+        groups = groups_standard_score
+      )
+    ) |>
+    gt::tab_footnote(
+      footnote = footnote_t_score,
+      gt::cells_row_groups(
+        groups = groups_t_score
+      )
+    ) |>
+    gt::tab_footnote(
+      footnote = footnote_scaled_score,
+      gt::cells_row_groups(
+        groups = groups_scaled_score
+      )
+    ) |>
     gt::tab_style(
       style = gt::cell_text(size = "small"),
       locations = gt::cells_source_notes()
     ) |>
-    gtExtras::gt_theme_538()
+    gtExtras::gt_theme_538() |>
+    gt::tab_options(
+      row_group.font.weight = "bold",
+      footnotes.multiline = multiline
+    ) |>
+    gt::opt_vertical_padding(scale = vertical_padding)
+
+  gt::gtsave(table, glue::glue("table_{pheno}.pdf"))
+  gt::gtsave(table, glue::glue("table_{pheno}.png"))
+
+  return(table)
+}
+
+#' @title Make Table Using `gt` Package for Neurocognitive Domains v2
+#' @description Create a table of domain counts using dplyr and gt packages.
+#' @param data File or path to data.
+#' @param pheno Phenotype name.
+#' @param table_name Name of the table to be saved.
+#' @param source_note Source note to be added to the table.
+#' @param title Title of the table.
+#' @param tab_stubhead Stubhead of the table.
+#' @param caption Caption of the table.
+#' @param process_md Process markdown.
+#' @param vertical_padding Vertical padding.
+#' @param groups_standard_score Groups for standard score.
+#' @param groups_t_score Groups for t score.
+#' @param groups_scaled_score Groups for scaled score.
+#' @param groups_z_score Groups for raw score.
+#' @param multiline Multiline footnotes, Default = TRUE.
+#' @param ... Additional arguments to be passed to the function.
+#' @return A formatted table with domain counts.
+#' @details This function creates a table of domain counts from a data frame
+#' using the dplyr and gt packages. It also saves the table with the specified
+#' name. The **table_gt** function can be used to create a table of domain
+#' counts from a data frame using the dplyr and gt packages.
+#' The output is a formatted table with domain counts along with the specified table name as a PDF file.
+#' The function also supports additional arguments which are passed to it.
+#' @rdname table_gt
+#' @export
+#' @importFrom dplyr across mutate group_by summarize arrange select
+#' @importFrom gt gt cols_label tab_stub_indent tab_header sub_missing
+#' tab_options cols_align tab_source_note gtsave tab_style tab_stubhead
+#' tab_caption tab_spanner cell_text cells_source_notes
+#' @importFrom gtExtras gt_theme_538
+#' @importFrom tidyr replace_na
+table_gt <- function(data, pheno = NULL, table_name = NULL, source_note = NULL, title = NULL, tab_stubhead = NULL, caption = NULL, process_md = FALSE, vertical_padding = 0.10, groups_standard_score = c("NAB"), groups_t_score = c("NAB", "NIH EXAMINER", "Trail Making Test"), groups_scaled_score = c("WAIS-IV"), groups_z_score = c("WAIS-IV"), multiline = TRUE, ...) {
+  # create data counts
+  data_counts <- data |>
+    dplyr::select(test_name, scale, score, percentile, range) |>
+    dplyr::mutate(dplyr::across(c(score, percentile), ~ tidyr::replace_na(., replace = 0)))
+
+  # create table
+  table <- data_counts |>
+    dplyr::mutate(
+      score = dplyr::if_else(score == 0, NA_integer_, score),
+      percentile = dplyr::if_else(percentile == 0, NA_integer_, percentile),
+      test_name = as.character(paste0(test_name)),
+      scale = as.character(scale)
+    ) |>
+    # gt table formatting
+    gt::gt(
+      rowname_col = "scale",
+      groupname_col = "test_name",
+      process_md = process_md,
+      caption = caption,
+      rownames_to_stub = FALSE
+    ) |>
+    gt::cols_label(
+      test_name = gt::md("**Test**"),
+      scale = gt::md("**Scale**"),
+      score = gt::md("**Score**"),
+      percentile = gt::md("**‰ Rank**"),
+      range = gt::md("**Range**")
+    ) |>
+    gt::tab_header(title = title) |>
+    gt::tab_stubhead(label = tab_stubhead) |>
+    gt::sub_missing(missing_text = "--") |>
+    gt::tab_stub_indent(rows = scale, indent = 2) |>
+    gt::cols_align(
+      align = "center",
+      columns = c("score", "percentile", "range")
+    ) |>
+    gt::tab_footnote(
+      footnote = footnote_standard_score,
+      gt::cells_row_groups(
+        groups = groups_standard_score
+      )
+    ) |>
+    gt::tab_footnote(
+      footnote = footnote_t_score,
+      gt::cells_row_groups(
+        groups = groups_t_score
+      )
+    ) |>
+    gt::tab_footnote(
+      footnote = footnote_scaled_score,
+      gt::cells_row_groups(
+        groups = groups_scaled_score
+      )
+    ) |>
+    gt::tab_style(
+      style = gt::cell_text(size = "small"),
+      locations = gt::cells_source_notes()
+    ) |>
+    gtExtras::gt_theme_538() |>
+    gt::tab_options(
+      row_group.font.weight = "bold",
+      footnotes.multiline = multiline
+    ) |>
+    gt::opt_vertical_padding(scale = vertical_padding)
+
+  gt::gtsave(table, glue::glue("table_{pheno}.pdf"))
+  gt::gtsave(table, glue::glue("table_{pheno}.png"))
 
   return(table)
 }
@@ -432,3 +564,20 @@ generate_g <- function(data, patient, scales, index_score_file) {
   )
   return(data)
 }
+
+# footnotes
+footnote_t_score <- gt::md(
+  "T-Scores (*Mean* = 50, *Standard Deviation* = 10)"
+)
+footnote_scaled_score <- gt::md(
+  "Scaled Scores (*Mean* = 10, *Standard Deviation* = 3)"
+)
+footnote_standard_score <- gt::md(
+  "Index Score (*Mean* = 100, *Standard Deviation* = 15)"
+)
+footnote_z_score <- gt::md(
+  "z-Scores (*Mean* = 0, *Standard Deviation* = 1)"
+)
+footnote_percentile <- gt::md(
+  "Percentile rank..."
+)

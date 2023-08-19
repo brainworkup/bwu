@@ -6,12 +6,17 @@
 \usage{
 tbl_gt(
   data,
+  pheno,
   table_name = NULL,
   source_note = NULL,
   title = NULL,
   tab_stubhead = NULL,
   caption = NULL,
   process_md = FALSE,
+  vertical_padding = 0.125,
+  groups_standard_score = c("NAB"),
+  groups_t_score = c("NAB", "NIH EXAMINER", "Trail Making Test"),
+  groups_scaled_score = c("WAIS-IV"),
   ...
 )
 }

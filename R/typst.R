@@ -64,6 +64,7 @@ flatten_scale_text <- function(data, file, ...) {
 #' @export
 #' @importFrom gt gt md gtsave
 #' @importFrom glue glue
+#' @rdname make_tbl_gt
 make_tbl_gt <- function(data, pheno, source_note = NULL, table_name = NULL) {
   # make source note
   source_note <- gt::md(source_note)
