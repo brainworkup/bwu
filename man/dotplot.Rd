@@ -17,12 +17,12 @@ dotplot(
   theme = "fivethirtyeight",
   return_plot = TRUE,
   filename = NULL,
-  z_score_label = NULL,
+  z_score_label = "*z* Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]",
   ...
 )
 }
 \arguments{
-\item{data}{The data frame containing the data for the dotplot.}
+\item{data}{The dataset or df containing the data for the dotplot.}
 
 \item{x}{The column name in the data frame for the x-axis variable, typically
 the mean z-score for a cognitive domain.}
@@ -40,15 +40,18 @@ the cognitive domain to plot.}
 
 \item{line_color}{The color of the lines, Default: 'black'}
 
-\item{colors}{A vector of colors for fill gradient, Default: NULL (uses pre-defined color palette)}
+\item{colors}{A vector of colors for fill gradient, Default: NULL (uses
+pre-defined color palette)}
 
-\item{theme}{The ggplot theme to be used, Default: 'fivethirtyeight'. Other options include 'minimal' and 'classic'}
+\item{theme}{The ggplot theme to be used, Default: 'fivethirtyeight'. Other
+options include 'minimal' and 'classic'}
 
 \item{return_plot}{Whether to return the plot object, Default: TRUE}
 
 \item{filename}{The filename to save the plot to, Default: NULL}
 
-\item{z_score_label}{The label for the x-axis, Default: "\emph{z} Score (Mean = 0, SD = 1)"}
+\item{z_score_label}{The label for the x-axis, Default: c("\emph{z} Score: Mean =
+0 \link{50th‰}, SD ± 1 \link{16th‰, 84th‰}")}
 
 \item{...}{Additional arguments to be passed to the ggplot function.}
 }
@@ -56,8 +59,10 @@ the cognitive domain to plot.}
 An object of class 'ggplot' representing the dotplot.
 }
 \description{
-This function generates a dot plot with the given data, x and y. The point's aesthetics and plot theme can be customized.
+This function generates a dot plot with the given data, x and y.
+The point's aesthetics and plot theme can be customized.
 }
 \details{
-This function generates a dot plot with the given data, x and y. The points' aesthetics and plot theme can be customized.
+This function generates a dot plot with the given data, x and y. The
+points' aesthetics and plot theme can be customized.
 }
