@@ -25,7 +25,7 @@ read_write_transcript_otterai <- function(x, file, begin, end, eol = "\\n") {
   transcript <- paste(transcript, eol = "\n\n")
 
   # Write the formatted text to a markdown file
-  writeLines(transcript, file)
+  return(writeLines(transcript, file))
 }
 
 #' @title Concatenate and Flatten Neuropsych Results by Scale

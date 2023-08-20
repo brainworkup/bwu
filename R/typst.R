@@ -1,52 +1,20 @@
-#' Read data from a csv file.
-#' @param pheno Character vector for phenotype. Options are "adhd" or "emotion".
-#' @return A tibble containing the data.
-#' @export
-#' @importFrom readr read_csv
-#' @importFrom dplyr filter arrange distinct desc mutate
-#' @rdname read_data
-read_data <- function(pheno) {
-  if (pheno == "adhd" || pheno == "emotion") {
-    csv <- "neurobehav.csv"
-  } else {
-    csv <- "neurocog.csv"
-  }
-  file_path <- file.path(csv)
-  data <- readr::read_csv(file_path)
-  return(data)
-}
-
-#' @title Filters data by domain and scale
-#' @importFrom dplyr filter
-#' @param data A dataframe or tibble
-#' @param domain The domain name that the user wants to filter by
-#' @param scale A text file containing a list of scales
-#' @return Returns a filtered data frame
-#' @rdname filter_domain_scale
-#' @export
-filter_domain_scale <- function(data, domain, scale) {
-  data <- data |>
-    dplyr::filter(domain %in% domains, !is.na(percentile)) |>
-    dplyr::filter(scale %in% scales)
-  return(data)
-}
-
-#' Create a gt table and save as .png and .pdf files for Typst
+#' Create a `gt` Table and Save as .png and .pdf for Typst
+#' This function creates a gt table for a given dataset.
+#' @importFrom gt gt md gtsave
+#' @importFrom glue glue
 #' @param data Data frame with at least two columns, one for the names of each variable and one for its values.
 #' @param pheno Name of phenotype of interest for output files
 #' @param source_note Character string indicating that the index scores have a mean of 100 and standard deviation of 15.
 #' @param table_name The name of the table to be generated
 #' @return Generates the .png and .pdf file of the gt table
 #' @export
-#' @importFrom gt gt md gtsave
-#' @importFrom glue glue
-#' @rdname make_tbl_gt
-make_tbl_gt <- function(data, pheno, source_note = NULL, table_name = NULL) {
+#' @rdname make_tbl_gt_typ
+make_tbl_gt_typ <- function(data, pheno, source_note = NULL, table_name = NULL) {
   # make source note
   source_note <- gt::md(source_note)
 
   # make gt table
-  table <- table_gt(data,
+  table <- tbl_gt(data,
     source_note = source_note,
     table_name = table_name,
     pheno = pheno
@@ -76,7 +44,7 @@ make_tbl_gt <- function(data, pheno, source_note = NULL, table_name = NULL) {
 #' @rdname make_dotplot_typ
 make_dotplot_typ <- function(data, pheno, x = data$z_mean_subdomain, y = data$subdomain, colors = NULL, return_plot = TRUE, filename = c("pdf", "png", "svg"), z_score_label, ...) {
   # will need to change these for each domain
-  fig <- bwu::dotplot(
+  fig <- dotplot(
     data = data,
     pheno = pheno,
     x = x,

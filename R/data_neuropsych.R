@@ -1,8 +1,15 @@
 #' This function reads .csv files of patient data and writes four different files of the same data that are categorized by neuropsychological test type.
+#' @importFrom here here
+#' @importFrom dplyr filter distinct mutate group_by ungroup
+#' @importFrom purrr map set_names list_rbind
+#' @importFrom forcats as_factor
+#' @importFrom stats qnorm
+#' @importFrom readr read_csv write_csv
 #' @param patient character, Name of patient, e.g. "Biggie"
-#' @export
 #' @return List with 4 elements, each element is a dataframe of patient data
-neuro_data <- function(patient) {
+#' @rdname load_neuro_data
+#' @export
+load_data <- function(patient) {
   # Ensure patient is specified
   if (missing(patient)) {
     stop("Patient must be specified.")
@@ -123,4 +130,38 @@ neuro_data <- function(patient) {
     "neurobehav" = neurobehav,
     "validity" = validity
   ))
+}
+
+
+#' Read data from a csv file.
+#' @param pheno Character vector for phenotype. Options are "adhd" or "emotion".
+#' @return A tibble containing the data.
+#' @export
+#' @importFrom readr read_csv
+#' @importFrom dplyr filter arrange distinct desc mutate
+#' @rdname read_data
+read_data <- function(pheno) {
+  if (pheno == "adhd" || pheno == "emotion") {
+    csv <- "neurobehav.csv"
+  } else {
+    csv <- "neurocog.csv"
+  }
+  file_path <- file.path(csv)
+  data <- readr::read_csv(file_path)
+  return(data)
+}
+
+#' @title Filters data by domain and scale
+#' @importFrom dplyr filter
+#' @param data A dataframe or tibble
+#' @param domain The domain name that the user wants to filter by
+#' @param scale A text file containing a list of scales
+#' @return Returns a filtered data frame
+#' @rdname filter_domain_scale
+#' @export
+filter_data <- function(data, domain, scale) {
+  data <- data |>
+    dplyr::filter(domain %in% domains, !is.na(percentile)) |>
+    dplyr::filter(scale %in% scales)
+  return(data)
 }

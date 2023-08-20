@@ -1,5 +1,4 @@
 #' Dot Counting Task from NIH EXAMINER
-#'
 #' A dataset containing the prices and other attributes of almost 54,000
 #'  diamonds. The variables are as follows:
 #' raw	age	percentile	n	m	md	sd	normValue
