@@ -1,3 +1,25 @@
+#' @title Filter lines in a PDF file
+#' @description Filter lines from text extracted from a PDF for given words.
+#' @param extracted_text A \code{list} of strings, containing text extracted from the PDF file.
+#' @param pdf_file Path to the PDF file.
+#' @param page Optional \code{integer}: Page number in the PDF used for extraction, defaults to \code{NULL}.
+#' @param scale The word which is searched in lines and then filtered.
+#' @return A \code{vector} of strings, for all lines that contains the word in \code{scale}.
+#' @rdname pdf_02_filter_lines
+#' @export
+pdf_02_filter_lines <- function(extracted_text, pdf_file, page = NULL, scale) {
+  scale_text <- extracted_text[[page]]
+
+  # Convert the string into a vector of lines
+  lines <- strsplit(scale_text, "\n")[[1]]
+
+  # Filter lines that contain the word in scale
+  scale_text_filtered <- lines[grepl(scale, lines)]
+
+  return(scale_text_filtered)
+}
+
+
 #' @title gpluck_locate_areas
 #' @description This is a function to pluck and locate areas from file.
 #' @param file The File name of the input PDF.
@@ -26,9 +48,10 @@ gpluck_locate_areas <- function(file, pages = NULL, ...) {
 }
 
 
-#' @title gpluck_extract_table
+#' @title gpluck_extract_tablevscode-file://vscode-app/Applications/Visual%20Studio%20Code.app/Contents/Resources/app/out/vs/code/electron-sandbox/workbench/workbench.html
 #' @description This function returns the tables in a PDF file as parsed by the tabulizer package.
-#' @param file The path to the PDF file
+#' @importFrom tabulizer extract_tables
+#' @param file The path to the PDF file.
 #' @param pages A single page number or vector of page numbers, Default: NULL
 #' @param area An area on the page given as c(x0, y0, x1, y1). Default: NULL
 #' @param guess Whether to attempt to detect tables when the coordinates are not given. Default: FALSE
@@ -37,18 +60,11 @@ gpluck_locate_areas <- function(file, pages = NULL, ...) {
 #' @param ... Other arguments to \code{\link[tabulizer]{extract_tables}}
 #' @return A parsed table in either matrix, data frame, character, asis, csv, tsv or json format.
 #' @details This is a wrapper around the \code{\link[tabulizer]{extract_tables}} function that allows for easier access to the tables in a PDF document.
-#' @examples
-#' \dontrun{
-#' if (interactive()) {
-#'   # EXAMPLE1
-#' }
-#' }
 #' @seealso
 #'  \code{\link[tabulizer]{extract_tables}}
-#' @rdname gpluck_extract_table
+#' @rdname gpluck_extract_tables
 #' @export
-#' @importFrom tabulizer extract_tables
-gpluck_extract_table <-
+gpluck_extract_tables <-
   function(file,
            pages = NULL,
            area = NULL,
@@ -119,7 +135,7 @@ gpluck_extract_table <-
 #'     test = "wais4",
 #'     test_name = "WAIS-IV",
 #'     domain = "Intelligence/General Ability",
-#'     score_type = "z_score"
+#'     score_type = "scaled_score"
 #'   )
 #' }
 #' }

@@ -17,42 +17,18 @@ read_data <- function(pheno) {
 }
 
 #' @title Filters data by domain and scale
+#' @importFrom dplyr filter
 #' @param data A dataframe or tibble
 #' @param domain The domain name that the user wants to filter by
 #' @param scale A text file containing a list of scales
 #' @return Returns a filtered data frame
-#' @export
-#' @importFrom dplyr filter
 #' @rdname filter_domain_scale
+#' @export
 filter_domain_scale <- function(data, domain, scale) {
   data <- data |>
     dplyr::filter(domain %in% domains, !is.na(percentile)) |>
     dplyr::filter(scale %in% scales)
   return(data)
-}
-
-#' @title Flatten concatenated text for each neuropsych scale
-#' @description This function sorts the data by percentile, removes duplicates and converts the data to text. Finally, it appends the converted data to a file.
-#' @param data A dataframe containing the data
-#' @param file A character string specifying the name of the file
-#' @param ... Additional arguments passed to other functions
-#' @return A file containing the flattened and scaled text
-#' @importFrom dplyr filter arrange distinct desc mutate
-#' @export
-#' @rdname flatten_scale_text
-flatten_scale_text <- function(data, file, ...) {
-  # Sorting the data by percentile and removing duplicates
-  sorted_data <- data |>
-    dplyr::arrange(dplyr::desc(percentile)) |>
-    dplyr::distinct(.keep_all = FALSE)
-
-  # Convert the data to text and append to the file
-  cat(
-    paste0(sorted_data$result),
-    file = file,
-    sep = "\n",
-    append = TRUE
-  )
 }
 
 #' Create a gt table and save as .png and .pdf files for Typst
@@ -70,7 +46,7 @@ make_tbl_gt <- function(data, pheno, source_note = NULL, table_name = NULL) {
   source_note <- gt::md(source_note)
 
   # make gt table
-  table <- tbl_gt(data,
+  table <- table_gt(data,
     source_note = source_note,
     table_name = table_name,
     pheno = pheno

@@ -101,7 +101,7 @@ if (interactive()) {
     test = "wais4",
     test_name = "WAIS-IV",
     domain = "Intelligence/General Ability",
-    score_type = "z_score"
+    score_type = "scaled_score"
   )
 }
 }
