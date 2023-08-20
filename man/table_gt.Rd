@@ -14,9 +14,13 @@ table_gt(
   caption = NULL,
   process_md = FALSE,
   vertical_padding = 0.1,
+  footnote_scaled_score = NULL,
+  footnote_standard_score = NULL,
+  footnote_t_score = NULL,
+  footnote_z_score = NULL,
+  groups_scaled_score = NULL,
   groups_standard_score = NULL,
   groups_t_score = NULL,
-  groups_scaled_score = NULL,
   groups_z_score = NULL,
   multiline = TRUE,
   ...
@@ -41,11 +45,19 @@ table_gt(
 
 \item{vertical_padding}{Vertical padding.}
 
+\item{footnote_scaled_score}{Footnote for scaled score.}
+
+\item{footnote_standard_score}{Footnote for standard score.}
+
+\item{footnote_t_score}{Footnote for t score.}
+
+\item{footnote_z_score}{Footnote for raw score.}
+
+\item{groups_scaled_score}{Groups for scaled score.}
+
 \item{groups_standard_score}{Groups for standard score.}
 
 \item{groups_t_score}{Groups for t score.}
-
-\item{groups_scaled_score}{Groups for scaled score.}
 
 \item{groups_z_score}{Groups for raw score.}
 
@@ -64,6 +76,4 @@ This function creates a table of domain counts from a data frame
 using the dplyr and gt packages. It also saves the table with the specified
 name. The \strong{table_gt} function can be used to create a table of domain
 counts from a data frame using the dplyr and gt packages.
-The output is a formatted table with domain counts along with the specified table name as a PDF file.
-The function also supports additional arguments which are passed to it.
 }

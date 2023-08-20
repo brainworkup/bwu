@@ -9,6 +9,10 @@
 #' @param caption Caption of the table.
 #' @param process_md Process markdown.
 #' @param vertical_padding Vertical padding.
+#' @param footnote_scaled_score Footnote for scaled score.
+#' @param footnote_standard_score Footnote for standard score.
+#' @param footnote_t_score Footnote for t score.
+#' @param footnote_z_score Footnote for raw score.
 #' @param groups_standard_score Groups for standard score.
 #' @param groups_t_score Groups for t score.
 #' @param groups_scaled_score Groups for scaled score.
@@ -20,8 +24,6 @@
 #' using the dplyr and gt packages. It also saves the table with the specified
 #' name. The **table_gt** function can be used to create a table of domain
 #' counts from a data frame using the dplyr and gt packages.
-#' The output is a formatted table with domain counts along with the specified table name as a PDF file.
-#' The function also supports additional arguments which are passed to it.
 #' @rdname table_gt
 #' @export
 #' @importFrom dplyr across mutate group_by summarize arrange select
@@ -30,7 +32,7 @@
 #' tab_caption tab_spanner cell_text cells_source_notes
 #' @importFrom gtExtras gt_theme_538
 #' @importFrom tidyr replace_na
-table_gt <- function(data, pheno = NULL, table_name = NULL, source_note = NULL, title = NULL, tab_stubhead = NULL, caption = NULL, process_md = FALSE, vertical_padding = 0.10, groups_standard_score = NULL, groups_t_score = NULL, groups_scaled_score = NULL, groups_z_score = NULL, multiline = TRUE, ...) {
+table_gt <- function(data, pheno = NULL, table_name = NULL, source_note = NULL, title = NULL, tab_stubhead = NULL, caption = NULL, process_md = FALSE, vertical_padding = 0.10, footnote_scaled_score = NULL, footnote_standard_score = NULL, footnote_t_score = NULL, footnote_z_score = NULL, groups_scaled_score = NULL, groups_standard_score = NULL, groups_t_score = NULL, groups_z_score = NULL, multiline = TRUE, ...) {
   # create data counts
   data_counts <- data |>
     dplyr::select(test_name, scale, score, percentile, range) |>
@@ -474,8 +476,7 @@ generate_g <- function(data, patient, scales, index_score_file) {
 }
 
 # footnotes
-footnote_t_score <- gt::md("*T* Score (Mean = 50, SD = 10)")
-footnote_scaled_score <- gt::md("Scaled Score (Mean = 10, SD = 3)")
-footnote_standard_score <- gt::md("Index Score (Mean = 100, SD = 15)")
-footnote_z_score <- gt::md("*z* Score (Mean = 0, SD = 1)")
-footnote_percentile <- gt::md("Percentile rank...")
+footnote_scaled_score <- gt::md("Scaled Score: Mean = 10 [50th‰], SD ± 3 [16th‰, 84th‰]")
+footnote_standard_score <- gt::md("Standard Score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰]")
+footnote_t_score <- gt::md("*T* Score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
+footnote_z_score <- gt::md("*z* Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]")

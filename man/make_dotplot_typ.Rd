@@ -12,7 +12,9 @@ make_dotplot_typ(
   y = data$subdomain,
   colors = NULL,
   return_plot = TRUE,
-  filename = c("pdf", "png", "svg")
+  filename = c("pdf", "png", "svg"),
+  z_score_label,
+  ...
 )
 }
 \arguments{
@@ -29,6 +31,10 @@ make_dotplot_typ(
 \item{return_plot}{Plot that is generated}
 
 \item{filename}{Filename extension}
+
+\item{z_score_label}{Label for the z-score}
+
+\item{...}{Additional arguments passed to other functions}
 }
 \value{
 A dotplot formatted for Typst

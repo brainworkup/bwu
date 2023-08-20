@@ -91,19 +91,24 @@ make_tbl_gt <- function(data, pheno, source_note = NULL, table_name = NULL) {
 #' @param colors A vector of colors to be used for the plot
 #' @param return_plot Plot that is generated
 #' @param filename Filename extension
+#' @param z_score_label Label for the z-score
+#' @param ... Additional arguments passed to other functions
 #' @return A dotplot formatted for Typst
 #' @importFrom ggplot2 ggsave
 #' @importFrom glue glue
 #' @export
 #' @rdname make_dotplot_typ
-make_dotplot_typ <- function(data, pheno, x = data$z_mean_subdomain, y = data$subdomain, colors = NULL, return_plot = TRUE, filename = c("pdf", "png", "svg")) {
+make_dotplot_typ <- function(data, pheno, x = data$z_mean_subdomain, y = data$subdomain, colors = NULL, return_plot = TRUE, filename = c("pdf", "png", "svg"), z_score_label, ...) {
   # will need to change these for each domain
   fig <- bwu::dotplot(
     data = data,
     pheno = pheno,
     x = x,
     y = y,
-    colors = colors
+    colors = colors,
+    return_plot = return_plot,
+    filename = filename,
+    z_score_label = z_score_label
   )
 
   # Save the plot to specified file types

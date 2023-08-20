@@ -120,17 +120,17 @@ dotplot <- function(data, x, y, linewidth = 0.5, fill = x, shape = 21, point_siz
     )
 
   # Add x-axis label
-  plot_object <- plot_object + ggplot2::labs(x = z_score_label) +
+  plot_object <- plot_object +
+    ggplot2::labs(x = z_score_label)
 
-    plot_object <- plot_object +
+  # Apply theme elements
+  plot_object <- plot_object +
     ggplot2::theme(
       panel.background = ggplot2::element_rect(fill = "white"),
       plot.background = ggplot2::element_rect(fill = "white"),
       panel.border = ggplot2::element_rect(color = "white"),
-      axis.title.x = ggtext::element_markdown(),
+      axis.title.x = ggtext::element_markdown()
     )
-
-
 
   # Save the plot to a file if filename is provided
   if (!is.null(filename)) {
