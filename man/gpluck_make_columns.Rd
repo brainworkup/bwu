@@ -5,7 +5,7 @@
 \title{Insert Variables and Data from Tables into DF.}
 \usage{
 gpluck_make_columns(
-  table,
+  data,
   test,
   test_name,
   scale = NULL,
@@ -36,7 +36,7 @@ gpluck_make_columns(
 )
 }
 \arguments{
-\item{table}{Name of data/table to import and tidy.}
+\item{data}{Data frame to convert to table and then csv.}
 
 \item{test}{Name of test that information will be extracted from.}
 

@@ -23,7 +23,7 @@ pdf_02_filter_lines <- function(extracted_text, pdf_file, page = NULL, scale) {
 }
 
 
-#' @title gpluck_locate_areas
+#' @title Locate PDF Areas
 #' @description This is a function to pluck and locate areas from file.
 #' @importFrom tabulizer locate_areas
 #' @param file The File name of the input PDF.
@@ -94,7 +94,7 @@ gpluck_extract_tables <-
 #' @title Insert Variables and Data from Tables into DF.
 #' @description This function takes a data frame containing text data from PDF tables, and makes additional columns of binary, range or score values for the specified domain, subdomains, test types, etc.
 #' @importFrom dplyr mutate
-#' @param table Name of data/table to import and tidy.
+#' @param data Data frame to convert to table and then csv.
 #' @param test Name of test that information will be extracted from.
 #' @param test_name Test name as provided in test field.
 #' @param scale Name of subscale from neuropsych test or battery. Default: NULL
@@ -127,7 +127,7 @@ gpluck_extract_tables <-
 #' @details This function adds new columns to a data frame by extracting numerical values from PDF tables.
 #' @rdname gpluck_make_columns
 #' @export
-gpluck_make_columns <- function(table,
+gpluck_make_columns <- function(data,
                                 test,
                                 test_name,
                                 scale = NULL,
@@ -200,9 +200,9 @@ gpluck_make_columns <- function(table,
                                 description = NULL,
                                 result = NULL,
                                 ...) {
-  df <-
+  table <-
     dplyr::mutate(
-      table,
+      data,
       test = test,
       test_name = test_name,
       scale = scale,
@@ -224,11 +224,8 @@ gpluck_make_columns <- function(table,
       result = result,
       ...
     )
-  return(df)
+  return(table)
 }
-
-
-
 
 
 #' @title Make Score Ranges

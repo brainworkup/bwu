@@ -2,7 +2,7 @@
 % Please edit documentation in R/pdf.R
 \name{gpluck_locate_areas}
 \alias{gpluck_locate_areas}
-\title{gpluck_locate_areas}
+\title{Locate PDF Areas}
 \usage{
 gpluck_locate_areas(file, pages = NULL, ...)
 }
