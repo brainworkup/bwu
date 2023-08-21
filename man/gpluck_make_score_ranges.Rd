@@ -24,6 +24,8 @@ gpluck_make_score_ranges(
 
 \item{range}{Score performance range. if omitted, use \code{Range}}
 
+\item{subdomain}{Which subdomain.}
+
 \item{test_type}{A vector of test types to consider. Default: c("npsych_test", "rating_scale", "validity_indicator", "basc3")}
 
 \item{...}{Other arguments passed on to \code{dplyr::filter}}

@@ -50,7 +50,8 @@ bwu::flatten_scale_text(data, file = "02.02_iq.md")
 ## ---- 03-table-iq ------------
 iq <-
   bwu::make_tibble(data,
-                   pheno = domains) |>
+    pheno = domains
+  ) |>
   dplyr::filter(Scale %in% scales) |>
   dplyr::arrange(Test)
 
@@ -67,22 +68,24 @@ table_name <- "table_iq"
 pheno <- "iq"
 
 bwu::make_tbl_gt(data,
-                 pheno = pheno,
-                 source_note = source_note,
-                 table_name = table_name
-                 )
+  pheno = pheno,
+  source_note = source_note,
+  table_name = table_name
+)
 
 ## ---- 05-df-iq ------------
 pheno <- "iq"
 
 iq <- dplyr::filter(
   data,
-  scale %in% c("General Ability", "Crystallized Knowledge", "Fluid Reasoning",
-               "Premorbid Ability", "TOPF Standard Score", "Word Reading")
+  scale %in% c(
+    "General Ability", "Crystallized Knowledge", "Fluid Reasoning",
+    "Premorbid Ability", "TOPF Standard Score", "Word Reading"
+  )
 )
 
 ## ---- 06-plot-subdomain-iq --------------------
-bwu::make_fig(
+bwu::make_dotplot_typ(
   data = iq,
   pheno = pheno,
   x = iq$z_mean_subdomain,
@@ -91,7 +94,7 @@ bwu::make_fig(
 )
 
 ## ---- 07-plot-narrow-iq -------------------
-bwu::make_fig(
+bwu::make_dotplot_typ(
   data = iq,
   pheno = pheno,
   x = iq$z_mean_narrow,

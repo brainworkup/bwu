@@ -236,6 +236,7 @@ gpluck_make_columns <- function(data,
 #' @param percentile Option percentiles column name. if omitted, use `Percentile`
 #' @param range Score performance range. if omitted, use `Range`
 #' @param test_type A vector of test types to consider. Default: c("npsych_test", "rating_scale", "validity_indicator", "basc3")
+#' @param subdomain Which subdomain.
 #' @param ... Other arguments passed on to `dplyr::filter`
 #' @return An object that matches the input but with the ability to get score ranges for any given test type
 #' @details This function takes a text table of score ranges for each percentile, and returns an object that matches the input but with the ability to get score ranges for any given test type
