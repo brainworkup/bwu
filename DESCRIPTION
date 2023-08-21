@@ -15,6 +15,7 @@ Depends: R (>= 3.10)
 Imports:
     bookdown,
     dplyr,
+    forcats,
     ggplot2,
     ggtext,
     ggthemes,
@@ -45,7 +46,6 @@ Imports:
     xfun
 Suggests:
     Cairo,
-    forcats,
     fs,
     graphics,
     hablar,

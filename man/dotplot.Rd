@@ -18,6 +18,7 @@ dotplot(
   return_plot = TRUE,
   filename = NULL,
   z_score_label = "*z* Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]",
+  rel = NULL,
   ...
 )
 }
@@ -51,7 +52,9 @@ options include 'minimal' and 'classic'}
 \item{filename}{The filename to save the plot to, Default: NULL}
 
 \item{z_score_label}{The label for the x-axis, Default: c("\emph{z} Score: Mean =
-0 \link{50th‰}, SD ± 1 \link{16th‰, 84th‰}")}
+0 \link[=50th\\‰]{50th\‰}, SD ± 1 \link[=16th\\‰, 84th\\‰]{16th\‰, 84th\‰}")}
+
+\item{rel}{Relative size.}
 
 \item{...}{Additional arguments to be passed to the ggplot function.}
 }

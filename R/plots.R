@@ -2,7 +2,7 @@
 #' @description This function generates a dot plot with the given data, x and y.
 #'   The point's aesthetics and plot theme can be customized.
 #' @importFrom ggplot2 ggplot geom_segment aes geom_point scale_fill_gradientn
-#'   theme element_rect ggsave
+#'   theme element_rect ggsave rel
 #' @importFrom stats reorder
 #' @importFrom ggthemes theme_fivethirtyeight
 #' @importFrom ggtext element_markdown
@@ -23,7 +23,8 @@
 #' @param return_plot Whether to return the plot object, Default: TRUE
 #' @param filename The filename to save the plot to, Default: NULL
 #' @param z_score_label The label for the x-axis, Default: c("*z* Score: Mean =
-#'   0 [50th‰], SD ± 1 [16th‰, 84th‰]")
+#'   0 [50th\‰], SD ± 1 [16th\‰, 84th\‰]")
+#' @param rel Relative size.
 #' @param ... Additional arguments to be passed to the ggplot function.
 #' @return An object of class 'ggplot' representing the dotplot.
 #' @details This function generates a dot plot with the given data, x and y. The
@@ -44,6 +45,7 @@ dotplot <-
            return_plot = TRUE,
            filename = NULL,
            z_score_label = "*z* Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]",
+           rel = NULL,
            ...) {
     # Define the color palette
     color_palette <- if (is.null(colors)) {
@@ -151,7 +153,7 @@ dotplot <-
         plot.background = ggplot2::element_rect(fill = "white"),
         panel.border = ggplot2::element_rect(color = "white"),
         axis.title.x = ggtext::element_markdown(
-          color = "black", size = rel(0.8))
+          color = "black", size = ggplot2::rel(0.8))
       )
 
     # Save the plot to a file if filename is provided

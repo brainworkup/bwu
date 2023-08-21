@@ -2,6 +2,7 @@
 data <- bwu::read_data(pheno = "iq")
 
 domains <- c("Intelligence/General Ability")
+# domains <- c("Intelligence/General Ability", "General Cognitive Ability")
 
 scales <- c(
   "Cognitive Efficiency",
@@ -41,7 +42,7 @@ scales <- c(
   "Working Memory"
 )
 
-data <- bwu::filter_domain_scale(data, domain = domains, scale = scales)
+data <- bwu::filter_domain_scale(data, domain %in% domains, scale = scales)
 
 ## ---- 02-glue-iq ------------
 bwu::flatten_scale_text(data, file = "02.02_iq.md")

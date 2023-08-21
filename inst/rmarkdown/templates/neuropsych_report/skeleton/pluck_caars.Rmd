@@ -26,7 +26,6 @@ params:
 output:
   rmdformats::robobook:
     highlight: kate
-editor: source
 ---
 
 # CAARS Long Version SR/OR

@@ -1,6 +1,8 @@
 # tests for dotplot()
+library(bwu)
+library(testthat)
 test_that("dotplot() returns a ggplot object", {
-  data <- bwu::neurocog
+  data <- neurocog
   x <- data$z_mean_subdomain
   y <- data$subdomain
 
@@ -13,5 +15,5 @@ fig <- dotplot(
   data = data,
   x = data$z_mean_subdomain,
   y = data$subdomain,
-  colors = tokyo
+  colors = NULL
 ) # Should return an error, since data cannot be null

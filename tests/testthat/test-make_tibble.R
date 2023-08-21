@@ -1,10 +1,9 @@
 library(bwu)
 
 test_that("make_tibble() tests that a tibble can be created", {
-  tb <-
+  tbl <-
     make_tibble(
-      tibb = executive,
-      data = neurocog,
+      data = bwu::neurocog,
       pheno = "Attention/Executive"
     )
 })
