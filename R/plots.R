@@ -22,8 +22,7 @@
 #'   options include 'minimal' and 'classic'
 #' @param return_plot Whether to return the plot object, Default: TRUE
 #' @param filename The filename to save the plot to, Default: NULL
-#' @param z_score_label The label for the x-axis, Default: c("*z* Score: Mean =
-#'   0 [50th\‰], SD ± 1 [16th\‰, 84th\‰]")
+#' @param z_score_label The label for the x-axis, Default: NULL
 #' @param rel Relative size.
 #' @param ... Additional arguments to be passed to the ggplot function.
 #' @return An object of class 'ggplot' representing the dotplot.
@@ -44,7 +43,7 @@ dotplot <-
            theme = "fivethirtyeight",
            return_plot = TRUE,
            filename = NULL,
-           z_score_label = "*z* Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]",
+           z_score_label = NULL,
            rel = NULL,
            ...) {
     # Define the color palette
@@ -139,7 +138,7 @@ dotplot <-
         "fivethirtyeight" = ggthemes::theme_fivethirtyeight(),
         "minimal" = ggplot2::theme_minimal(),
         "classic" = ggplot2::theme_classic(),
-        ggplot2::theme_minimal()
+        ggthemes::theme_fivethirtyeight()
       )
 
     # Add x-axis label

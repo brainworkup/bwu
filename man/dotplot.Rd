@@ -17,7 +17,7 @@ dotplot(
   theme = "fivethirtyeight",
   return_plot = TRUE,
   filename = NULL,
-  z_score_label = "*z* Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]",
+  z_score_label = NULL,
   rel = NULL,
   ...
 )
@@ -51,8 +51,7 @@ options include 'minimal' and 'classic'}
 
 \item{filename}{The filename to save the plot to, Default: NULL}
 
-\item{z_score_label}{The label for the x-axis, Default: c("\emph{z} Score: Mean =
-0 \link[=50th\\‰]{50th\‰}, SD ± 1 \link[=16th\\‰, 84th\\‰]{16th\‰, 84th\‰}")}
+\item{z_score_label}{The label for the x-axis, Default: NULL}
 
 \item{rel}{Relative size.}
 
