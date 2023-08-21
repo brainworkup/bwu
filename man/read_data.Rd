@@ -8,6 +8,8 @@ read_data(pheno, ...)
 }
 \arguments{
 \item{pheno}{Character vector for phenotype. Options are "adhd" or "emotion".}
+
+\item{...}{Additional options.}
 }
 \value{
 A tibble containing various subsets of the data.

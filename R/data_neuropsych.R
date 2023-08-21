@@ -136,6 +136,7 @@ load_data <- function(patient) {
 #' Read Neuropsych Data for Subsetting
 #' @importFrom readr read_csv
 #' @param pheno Character vector for phenotype. Options are "adhd" or "emotion".
+#' @param ... Additional options.
 #' @return A tibble containing various subsets of the data.
 #' @rdname read_data
 #' @export
@@ -169,7 +170,7 @@ read_data <- function(pheno, ...) {
 #' @export
 filter_data <- function(data, domain, scale) {
   data <- data |>
-    dplyr::filter(domain %in% domains, !is.na(percentile)) |>
-    dplyr::filter(scale %in% scales)
+    dplyr::filter(domain == domains, !is.na(percentile)) |>
+    dplyr::filter(scale == scales)
   return(data)
 }
