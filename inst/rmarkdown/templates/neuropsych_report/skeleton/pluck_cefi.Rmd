@@ -1,5 +1,5 @@
 ---
-title: "Pluck Tables from CEFI"
+title: "Pluck Tables from CEFI PDFs"
 params:
   patient: Biggie
   test:
@@ -30,22 +30,10 @@ output:
 
 # CEFI SR/OR
 
-## Load libraries
+## Setup
 
 ```{r setup, include = FALSE}
-Sys.setenv(
-  JAVA_HOME =
-    "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home"
-)
-options(java.parameters = "-Xmx16000m")
-knitr::opts_chunk$set(
-  root.dir = normalizePath("./"),
-  echo = FALSE,
-  message = FALSE,
-  warning = FALSE,
-  error = TRUE
-)
-library(bwu)
+library(dplyr)
 library(hablar)
 library(here)
 library(knitr)
@@ -56,11 +44,24 @@ library(rJava)
 library(rmarkdown)
 library(shiny)
 library(tabulizer)
-library(tabulizerjars)
 library(tibble)
 library(tidyr)
-library(tidytable)
-library(vroom)
+library(bwu)
+library(rmdformats)
+# Set JAVA environment
+Sys.setenv(
+  JAVA_HOME =
+    "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home"
+)
+options(java.parameters = "-Xmx16000m")
+# Set knitr options
+knitr::opts_chunk$set(
+  root.dir = normalizePath("./"),
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  error = TRUE
+)
 ```
 
 ## Patient
@@ -71,21 +72,19 @@ patient <- params$patient
 
 ## Test
 
+Name of neuropsych test or rating scale.
+
 ```{r test}
 test <- params$test
 ```
 
-## Test Name
-
-```{r testname}
-test_name <- params$test_name
-```
-
-## Upload/attach PDF
+## Load PDF file and save as file.path
 
 ```{r file}
 # file <- file.choose()
 file <- params$file
+file
+pdf_file <- file.path(file)
 ```
 
 ## Pages
@@ -99,7 +98,9 @@ writeLines(file, here::here(patient, "pre_csv", paste0(test, ".pdf")))
 ```
 
 ```{r read-file}
-# test <- readLines(here::here(patient, "pre_csv", paste0(test, ".pdf")))
+# If need to read file directly
+#file <- readLines(here::here(patient, "pre_csv", paste0(test, ".pdf")))
+#pdf_file <- readLines(pdf_file))
 ```
 
 ## Locate areas
@@ -111,14 +112,14 @@ area <- list(
 )
 ```
 
-```{r areas-unknown, eval=F}
+```{r areas-unknown, eval = FALSE}
 # area <- gpluck_locate_areas(
 #   file = cefi_sr_pdf,
 #   pages = pages
 # )
 ```
 
-```{r save-area}
+```{r save-areas}
 saveRDS(area, here::here(patient, "pre_csv", paste0(test, "_area.rds")))
 ```
 
@@ -126,10 +127,10 @@ saveRDS(area, here::here(patient, "pre_csv", paste0(test, "_area.rds")))
 # area <- readRDS(here::here(patient, "pre_csv", paste0(test, "_area.rds")))
 ```
 
-## Extract table
+## Extract tables
 
 ```{r extract}
-plucked_table <- bwu::gpluck_extract_table(
+plucked_tables <- bwu::gpluck_extract_table(
   file = file,
   pages = pages,
   area = area,
@@ -165,49 +166,49 @@ colnames2 <- c(
 ## CEFI Full Scale
 
 ```{r pluck1}
-table1 <- tibble::as_tibble(plucked_table[[1]], .name_repair = "unique")
+table1 <- tibble::as_tibble(plucked_tables[[1]], .name_repair = "unique")
 colnames(table1) <- colnames1
 to_double <- c("score", "percentile")
 table1 <-
   table1 |>
   hablar::convert(dbl(all_of(to_double))) |>
-  tidytable::mutate(scale = "") |>
-  tidytable::relocate(scale, .before = score)
+  dplyr::mutate(scale = "") |>
+  dplyr::relocate(scale, .before = score)
 if (params$test == "cefi_sr") {
-  table1[1, 1] <- c("Full Scale")
+  table1[1, 1] <- c("CEFI-SR Full Scale")
 } else {
-  table1[1, 1] <- c("Full Scale")
+  table1[1, 1] <- c("CEFI-OR Full Scale")
 }
 ```
 
 ## CEFI Subscales
 
 ```{r pluck2}
-table2 <- as_tibble(plucked_table[[2]], .name_repair = "unique")
+table2 <- as_tibble(plucked_tables[[2]], .name_repair = "unique")
 colnames(table2) <- colnames2
 to_double <- c("score", "percentile")
 table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
-# rename
+# Rename
 if (params$test == "cefi_sr") {
-  table2[1, 1] <- c("Attention")
-  table2[2, 1] <- c("Emotion Regulation")
-  table2[3, 1] <- c("Flexibility")
-  table2[4, 1] <- c("Inhibitory Control")
-  table2[5, 1] <- c("Initiation")
-  table2[6, 1] <- c("Organization")
-  table2[7, 1] <- c("Planning")
-  table2[8, 1] <- c("Self-Monitoring")
-  table2[9, 1] <- c("Working Memory")
+  table2[1, 1] <- c("CEFI-SR Attention")
+  table2[2, 1] <- c("CEFI-SR Emotion Regulation")
+  table2[3, 1] <- c("CEFI-SR Flexibility")
+  table2[4, 1] <- c("CEFI-SR Inhibitory Control")
+  table2[5, 1] <- c("CEFI-SR Initiation")
+  table2[6, 1] <- c("CEFI-SR Organization")
+  table2[7, 1] <- c("CEFI-SR Planning")
+  table2[8, 1] <- c("CEFI-SR Self-Monitoring")
+  table2[9, 1] <- c("CEFI-SR Working Memory")
 } else if (params$test == "cefi_or") {
-  table2[1, 1] <- c("Attention")
-  table2[2, 1] <- c("Emotion Regulation")
-  table2[3, 1] <- c("Flexibility")
-  table2[4, 1] <- c("Inhibitory Control")
-  table2[5, 1] <- c("Initiation")
-  table2[6, 1] <- c("Organization")
-  table2[7, 1] <- c("Planning")
-  table2[8, 1] <- c("Self-Monitoring")
-  table2[9, 1] <- c("Working Memory")
+  table2[1, 1] <- c("CEFI-OR Attention")
+  table2[2, 1] <- c("CEFI-OR Emotion Regulation")
+  table2[3, 1] <- c("CEFI-OR Flexibility")
+  table2[4, 1] <- c("CEFI-OR Inhibitory Control")
+  table2[5, 1] <- c("CEFI-OR Initiation")
+  table2[6, 1] <- c("CEFI-OR Organization")
+  table2[7, 1] <- c("CEFI-OR Planning")
+  table2[8, 1] <- c("CEFI-OR Self-Monitoring")
+  table2[9, 1] <- c("CEFI-OR Working Memory")
 }
 ```
 
@@ -215,22 +216,26 @@ if (params$test == "cefi_sr") {
 
 ```{r select}
 keep <- c("scale", "score", "percentile", "ci_95")
-table1 <- table1 |> tidytable::select(all_of(keep))
-table2 <- table2 |> tidytable::select(all_of(keep))
-table <- tidytable::bind_rows(table1, table2)
+table1 <- table1 |> dplyr::select(all_of(keep))
+table2 <- table2 |> dplyr::select(all_of(keep))
+table <- dplyr::bind_rows(table1, table2)
 ```
 
 ## Mutate columns
 
 ```{r mutate}
+df <- table
 table <- bwu::gpluck_make_columns(
-  table,
-  raw_score = "",
-  range = "",
-  ci_95 = "",
+  df = df,
   test = params$test,
   test_name = params$test_name,
-  domain = "Executive Functioning",
+  scale,
+  raw_score = NA_real_,
+  score = df$score,
+  percentile,
+  range = "",
+  ci_95 = df$ci_95,
+  domain = "ADHD",
   subdomain = "",
   narrow = "",
   pass = "",
@@ -248,7 +253,7 @@ table <- bwu::gpluck_make_columns(
 ```{r ranges}
 # might need to be explicit about test_type
 table <- bwu::gpluck_make_score_ranges(
-  table = table,
+  table,
   test_type = "rating_scale"
 )
 ```
@@ -258,29 +263,18 @@ table <- bwu::gpluck_make_score_ranges(
 ```{r subdomain}
 table <-
   table |>
-  tidytable::mutate(
-    subdomain = tidytable::case_when(
-      scale == "Full Scale" ~ "Full Scale",
-      scale == "Attention" ~ "Attention",
-      scale == "Emotion Regulation" ~ "Emotion Regulation",
-      scale == "Flexibility" ~ "Flexibility",
-      scale == "Inhibitory Control" ~ "Inhibitory Control",
-      scale == "Initiation" ~ "Initiation",
-      scale == "Organization" ~ "Organization",
-      scale == "Planning" ~ "Planning",
-      scale == "Self-Monitoring" ~ "Self-Monitoring",
-      scale == "Working Memory" ~ "Working Memory",
-      scale == "Full Scale" ~ "Full Scale",
-      scale == "Attention" ~ "Attention",
-      scale == "Emotion Regulation" ~ "Emotion Regulation",
-      scale == "Flexibility" ~ "Flexibility",
-      scale == "Inhibitory Control" ~ "Inhibitory Control",
-      scale == "Initiation" ~ "Initiation",
-      scale == "Organization" ~ "Organization",
-      scale == "Planning" ~ "Planning",
-      scale == "Self-Monitoring" ~ "Self-Monitoring",
-      scale == "Working Memory" ~ "Working Memory",
-      TRUE ~ as.character(subdomain)
+  dplyr::mutate(
+    subdomain = dplyr::case_when(
+      scale %in% "Full Scale" ~ "Full Scale",
+      scale %in% "Attention" ~ "Attention",
+      scale %in% "Emotion Regulation" ~ "Emotion Regulation",
+      scale %in% "Flexibility" ~ "Flexibility",
+      scale %in% "Inhibitory Control" ~ "Inhibitory Control",
+      scale %in% "Initiation" ~ "Initiation",
+      scale %in% "Organization" ~ "Organization",
+      scale %in% "Planning" ~ "Planning",
+      scale %in% "Self-Monitoring" ~ "Self-Monitoring",
+      scale %in% "Working Memory" ~ "Working Memory"
     )
   )
 ```
@@ -291,36 +285,36 @@ table <-
 if (params$test == "cefi_sr") {
   table <-
     table |>
-    tidytable::mutate(
-      narrow = tidytable::case_when(
-        scale == "Full Scale" ~ "CEFI-SR Full Scale",
-        scale == "Attention" ~ "CEFI-SR Attention",
-        scale == "Emotion Regulation" ~ "CEFI-SR Emotion Regulation",
-        scale == "Flexibility" ~ "CEFI-SR Flexibility",
-        scale == "Inhibitory Control" ~ "CEFI-SR Inhibitory Control",
-        scale == "Initiation" ~ "CEFI-SR Initiation",
-        scale == "Organization" ~ "CEFI-SR Organization",
-        scale == "Planning" ~ "CEFI-SR Planning",
-        scale == "Self-Monitoring" ~ "CEFI-SR Self-Monitoring",
-        scale == "Working Memory" ~ "CEFI-SR Working Memory",
+    dplyr::mutate(
+      narrow = dplyr::case_when(
+        scale %in% "Full Scale" ~ "Self rated Full Scale",
+        scale %in% "Attention" ~ "Self rated Attention",
+        scale %in% "Emotion Regulation" ~ "Self rated Emotion Regulation",
+        scale %in% "Flexibility" ~ "Self rated Flexibility",
+        scale %in% "Inhibitory Control" ~ "Self rated Inhibitory Control",
+        scale %in% "Initiation" ~ "Self rated Initiation",
+        scale %in% "Organization" ~ "Self rated Organization",
+        scale %in% "Planning" ~ "Self rated Planning",
+        scale %in% "Self-Monitoring" ~ "Self rated Self-Monitoring",
+        scale %in% "Working Memory" ~ "Self rated Working Memory",
         TRUE ~ as.character(narrow)
       )
     )
-} else {
+} else if (params$test == "cefi_or") {
   table <-
     table |>
-    tidytable::mutate(
-      narrow = tidytable::case_when(
-        scale == "Full Scale" ~ "CEFI-OR Full Scale",
-        scale == "Attention" ~ "CEFI-OR Attention",
-        scale == "Emotion Regulation" ~ "CEFI-OR Emotion Regulation",
-        scale == "Flexibility" ~ "CEFI-OR Flexibility",
-        scale == "Inhibitory Control" ~ "CEFI-OR Inhibitory Control",
-        scale == "Initiation" ~ "CEFI-OR Initiation",
-        scale == "Organization" ~ "CEFI-OR Organization",
-        scale == "Planning" ~ "CEFI-OR Planning",
-        scale == "Self-Monitoring" ~ "CEFI-OR Self-Monitoring",
-        scale == "Working Memory" ~ "CEFI-OR Working Memory",
+    dplyr::mutate(
+      narrow = dplyr::case_when(
+        scale %in% "Full Scale" ~ "Observer rated Full Scale",
+        scale %in% "Attention" ~ "Observer rated Attention",
+        scale %in% "Emotion Regulation" ~ "Observer rated Emotion Regulation",
+        scale %in% "Flexibility" ~ "Observer rated Flexibility",
+        scale %in% "Inhibitory Control" ~ "Observer rated Inhibitory Control",
+        scale %in% "Initiation" ~ "Observer rated Initiation",
+        scale %in% "Organization" ~ "Observer rated Organization",
+        scale %in% "Planning" ~ "Observer rated Planning",
+        scale %in% "Self-Monitoring" ~ "Observer rated Self-Monitoring",
+        scale %in% "Working Memory" ~ "Observer rated Working Memory",
         TRUE ~ as.character(narrow)
       )
     )
@@ -333,75 +327,75 @@ if (params$test == "cefi_sr") {
 if (params$test == "cefi_sr") {
   table <-
     table |>
-    tidytable::mutate(
-      description = tidytable::case_when(
+    dplyr::mutate(
+      description = dplyr::case_when(
         scale ==
-          "Full Scale" ~
+          "CEFI-SR Full Scale" ~
           "overall level of executive functioning",
         scale ==
-          "Attention" ~
+          "CEFI-SR Attention" ~
           "i.e., avoid distractions, concentrate on tasks, and sustain attention",
         scale ==
-          "Emotion Regulation" ~
+          "CEFI-SR Emotion Regulation" ~
           "i.e., control and manage emotions, including staying calm when handling small problems and reacting with the right level of emotion",
         scale ==
-          "Flexibility" ~
+          "CEFI-SR Flexibility" ~
           "i.e., adjust behavior to meet circumstances, including coming up with different ways to solve problems, changing behavior when needed, and being able to come up with new ways to reach a goal",
         scale ==
-          "Inhibitory Control" ~
+          "CEFI-SR Inhibitory Control" ~
           "i.e., control behavior or impulses, including thinking about consequences before acting, maintaining self-control, and thinking before speaking",
         scale ==
-          "Initiation" ~
+          "CEFI-SR Initiation" ~
           "i.e., begin tasks or projects on own, including starting tasks easily, being motivated, and taking the initiative when needed",
         scale ==
-          "Organization" ~
+          "CEFI-SR Organization" ~
           "i.e., manage personal effects, work, or multiple tasks, including organizing tasks and thoughts well, managing time effectively, and working neatly",
         scale ==
-          "Planning" ~
+          "CEFI-SR Planning" ~
           "i.e., develop and implement strategies to accomplish tasks, including planning ahead and making good decisions",
         scale ==
-          "Self-Monitoring" ~
+          "CEFI-SR Self-Monitoring" ~
           "i.e., evaluate own behavior in order to determine when a different approach is necessary, including noticing and fixing mistakes, knowing when help is required, and understanding when a task is completed",
         scale ==
-          "Working Memory" ~
+          "CEFI-SR Working Memory" ~
           "i.e., keep information in mind that is important for knowing what to do and how to do it, including remembering important things, instructions, and steps",
         TRUE ~ as.character(description)
       )
     )
-} else {
+} else if (params$test == "cefi_or") {
   table <-
     table |>
-    tidytable::mutate(
-      description = tidytable::case_when(
+    dplyr::mutate(
+      description = dplyr::case_when(
         scale ==
-          "Full Scale" ~
+          "CEFI-OR Full Scale" ~
           "overall level of executive functioning",
         scale ==
-          "Attention" ~
+          "CEFI-OR Attention" ~
           "i.e., avoid distractions, concentrate on tasks, and sustain attention",
         scale ==
-          "Emotion Regulation" ~
+          "CEFI-OR Emotion Regulation" ~
           "i.e., control and manage emotions, including staying calm when handling small problems and reacting with the right level of emotion",
         scale ==
-          "Flexibility" ~
+          "CEFI-OR Flexibility" ~
           "i.e., adjust behavior to meet circumstances, including coming up with different ways to solve problems, changing behavior when needed, and being able to come up with new ways to reach a goal",
         scale ==
-          "Inhibitory Control" ~
+          "CEFI-OR Inhibitory Control" ~
           "i.e., control behavior or impulses, including thinking about consequences before acting, maintaining self-control, and thinking before speaking",
         scale ==
-          "Initiation" ~
+          "CEFI-OR Initiation" ~
           "i.e., begin tasks or projects on own, including starting tasks easily, being motivated, and taking the initiative when needed",
         scale ==
-          "Organization" ~
+          "CEFI-OR Organization" ~
           "i.e., manage personal effects, work, or multiple tasks, including organizing tasks and thoughts well, managing time effectively, and working neatly",
         scale ==
-          "Planning" ~
+          "CEFI-OR Planning" ~
           "i.e., develop and implement strategies to accomplish tasks, including planning ahead and making good decisions",
         scale ==
-          "Self-Monitoring" ~
+          "CEFI-OR Self-Monitoring" ~
           "i.e., evaluate own behavior in order to determine when a different approach is necessary, including noticing and fixing mistakes, knowing when help is required, and understanding when a task is completed",
         scale ==
-          "Working Memory" ~
+          "CEFI-OR Working Memory" ~
           "i.e., keep information in mind that is important for knowing what to do and how to do it, including remembering important things, instructions, and steps",
         TRUE ~ as.character(description)
       )
@@ -415,37 +409,37 @@ if (params$test == "cefi_sr") {
 if (params$test == "cefi_sr") {
   table <-
     table |>
-    tidytable::mutate(
-      result = tidytable::case_when(
+    dplyr::mutate(
+      result = dplyr::case_when(
         scale == "Full Scale" ~ glue::glue(
-          "- {patient}'s {description} was {range}.\n"
+          "- {patient}'s {narrow} {description} was {range}.\n"
         ),
         scale == "Attention" ~ glue::glue(
-          "- {scale} ({description}) was {range}\n"
+          "- {narrow} ({description}) was {range}.\n"
         ),
         scale == "Emotion Regulation" ~ glue::glue(
-          "- {scale} ({description}) was {range}\n"
+          "- {narrow} ({description}) was {range}\.n"
         ),
         scale == "Flexibility" ~ glue::glue(
-          "- {scale} ({description}) was {range}\n"
+          "- {narrow} ({description}) was {range}.\n"
         ),
         scale == "Inhibitory Control" ~ glue::glue(
-          "- {scale} ({description}) was {range}\n"
+          "- {narrow} ({description}) was {range}.\n"
         ),
         scale == "Initiation" ~ glue::glue(
-          "- {scale} ({description}) was {range}\n"
+          "- {narrow} ({description}) was {range}.\n"
         ),
         scale == "Organization" ~ glue::glue(
-          "- {scale} ({description}) was {range}\n"
+          "- {narrow} ({description}) was {range}.\n"
         ),
         scale == "Planning" ~ glue::glue(
-          "- {scale} ({description}) was {range}\n"
+          "- {narrow} ({description}) was {range}.\n"
         ),
         scale == "Self-Monitoring" ~ glue::glue(
-          "- {scale} ({description}) was {range}\n"
+          "- {narrow} ({description}) was {range}.\n"
         ),
         scale == "Working Memory" ~ glue::glue(
-          "- {scale} ({description}) was {range}\n"
+          "- {narrow} ({description}) was {range}.\n"
         ),
         TRUE ~ as.character(result)
       )
@@ -453,37 +447,37 @@ if (params$test == "cefi_sr") {
 } else {
   table <-
     table |>
-    tidytable::mutate(
-      result = tidytable::case_when(
+    dplyr::mutate(
+      result = dplyr::case_when(
         scale == "Full Scale" ~ glue::glue(
-          "- {patient}'s {description} was {range}.\n"
+          "- {patient}'s {narrow} {description} was {range}.\n"
         ),
         scale == "Attention" ~ glue::glue(
-          "- {scale} ({description}) was {range}\n"
+          "- {narrow} ({description}) was {range}.\n"
         ),
         scale == "Emotion Regulation" ~ glue::glue(
-          "- {scale} ({description}) was {range}\n"
+          "- {narrow} ({description}) was {range}.\n"
         ),
         scale == "Flexibility" ~ glue::glue(
-          "- {scale} ({description}) was {range}\n"
+          "- {narrow} ({description}) was {range}.\n"
         ),
         scale == "Inhibitory Control" ~ glue::glue(
-          "- {scale} ({description}) was {range}\n"
+          "- {narrow} ({description}) was {range}.\n"
         ),
         scale == "Initiation" ~ glue::glue(
-          "- {scale} ({description}) was {range}\n"
+          "- {narrow} ({description}) was {range}.\n"
         ),
         scale == "Organization" ~ glue::glue(
-          "- {scale} ({description}) was {range}\n"
+          "- {narrow} ({description}) was {range}.\n"
         ),
         scale == "Planning" ~ glue::glue(
-          "- {scale} ({description}) was {range}\n"
+          "- {narrow} ({description}) was {range}.\n"
         ),
         scale == "Self-Monitoring" ~ glue::glue(
-          "- {scale} ({description}) was {range}\n"
+          "- {narrow} ({description}) was {range}.\n"
         ),
         scale == "Working Memory" ~ glue::glue(
-          "- {scale} ({description}) was {range}\n"
+          "- {narrow} ({description}) was {range}.\n"
         ),
         TRUE ~ as.character(result)
       )
@@ -493,28 +487,36 @@ if (params$test == "cefi_sr") {
 
 # Finalize and save
 
-## Relocate variables
+<!-- ## Relocate variables -->
 
-```{r relocate}
-table <-
-  table |>
-  tidytable::relocate(
-    c(raw_score, score, percentile, range, ci_95), .before = test)
+```{r relocate, eval = FALSE}
+# table <-
+#   table |>
+#   dplyr::relocate(
+#     c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
-## Write csv
+## Write/save CEFI csv file
 
-```{r writeout}
+```{r save-csv}
+test <- params$test
 readr::write_csv(
-  table, here::here(patient, "csv", paste0(test, ".csv")), col_names = TRUE, na = "")
+  table,
+  here::here(patient, "csv", paste0(test, ".csv")), 
+  col_names = TRUE, 
+  na = ""
+  )
 ```
 
 ## Pluck Text
 
 ```{r text}
-file <- fs::as_fs_path(params$file)
+# save file as path
+file <- fs::fs_path(params$file)
 
+# CEFI Self-Report
 if (params$test == "cefi_sr") {
+  
   ## extract text
   get_text <- function(file) {
     txt <- pdftools::pdf_text(file) |>
@@ -527,15 +529,30 @@ if (params$test == "cefi_sr") {
   cefi_sr_txt
 
   # Replace long spaces with a col break symbol
-
   cefi_sr_squished <-
     stringr::str_replace_all(cefi_sr_txt, "\\s{2,}", "- ") |>
     stringr::str_remove_all(",")
   cefi_sr_squished
 
-  readr::write_lines(cefi_sr_squished, here::here(patient, "cefi_sr_text.md"), sep = "\n")
-  readr::write_lines(cefi_sr_squished, here::here(patient, "cefi_sr_text.qmd"), sep = "\n")
-} else {
+  # save as markdown
+  readr::write_lines(
+    cefi_sr_squished, 
+    here::here(patient, "cefi_sr_text.md"), 
+    sep = "\n")
+  # save as quarto
+  readr::write_lines(
+    cefi_sr_squished, 
+    here::here(patient, "cefi_sr_text.qmd"), 
+    sep = "\n")
+  # save as text
+  readr::write_lines(cefi_sr_squished, 
+    here::here(patient, "cefi_sr_text.txt"), 
+    sep = "\n"
+    )
+
+# CEFI Observer-Report
+} else if (params$test == "cefi_or") {
+
   ## extract text
   get_text <- function(file) {
     txt <- pdftools::pdf_text(file) |>
@@ -552,9 +569,21 @@ if (params$test == "cefi_sr") {
     stringr::str_replace_all(cefi_or_txt, "\\s{2,}", "- ") |>
     stringr::str_remove_all(",")
   cefi_or_squished
-
-  readr::write_lines(cefi_or_squished, here::here(patient, "cefi_or_text.md"), sep = "\n")
-  readr::write_lines(cefi_or_squished, here::here(patient, "cefi_or_text.qmd"), sep = "\n")
-
+  
+  # save as markdown
+  readr::write_lines(cefi_or_squished, 
+    here::here(patient, "cefi_or_text.md"),
+    sep = "\n"
+    )
+  # save as quarto
+  readr::write_lines(cefi_or_squished, 
+    here::here(patient, "cefi_or_text.qmd"),
+    sep = "\n"
+    )
+  # save as text
+  readr::write_lines(cefi_or_squished, 
+    here::here(patient, "cefi_or_text.txt"), 
+    sep = "\n"
+    )
 }
 ```

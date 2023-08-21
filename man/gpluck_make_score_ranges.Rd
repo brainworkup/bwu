@@ -2,14 +2,14 @@
 % Please edit documentation in R/pdf.R
 \name{gpluck_make_score_ranges}
 \alias{gpluck_make_score_ranges}
-\title{gpluck_make_score_ranges}
+\title{Make Score Ranges}
 \usage{
 gpluck_make_score_ranges(
   table,
   score = NULL,
   percentile = NULL,
-  range = range,
-  test_type = c("npsych_test", "rating_scale", "validity_indicator", "basc3", "item", NA),
+  range = NULL,
+  test_type = "npsych_test",
   ...
 )
 }
@@ -34,9 +34,4 @@ This function takes a text table of score ranges for each percentile, and return
 }
 \details{
 This function takes a text table of score ranges for each percentile, and returns an object that matches the input but with the ability to get score ranges for any given test type
-}
-\examples{
-\dontrun{
-# EXAMPLE 1
-}
 }

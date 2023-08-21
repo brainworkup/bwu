@@ -5,7 +5,7 @@
 \title{Make additional variables/columns from PDF tables.}
 \usage{
 gpluck_make_columns(
-  table,
+  df_table,
   test,
   test_name,
   scale = NULL,
@@ -19,7 +19,7 @@ gpluck_make_columns(
     "Attention/Executive", "Memory", "Motor", "Social Cognition",
     "Emotional/Behavioral/Personality", "Behavioral/Emotional/Social",
     "Psychiatric Disorders", "Personality Disorders", "Substance Use",
-    "Psychosocial Problems", "ADHD", "Executive Functioning", "Effort/Validity"),
+    "Psychosocial Problems", "ADHD", "Executive Functioning", "Effort/Validity", NA),
   subdomain = NULL,
   narrow = NULL,
   pass = c("Planning", "Attention", "Sequential", "Simultaneous", "Knowledge", NA),
@@ -35,28 +35,27 @@ gpluck_make_columns(
 )
 }
 \arguments{
-\item{table}{Name of data/table to import and tidy.}
-
 \item{test}{Name of test that information will be extracted from.}
 
 \item{test_name}{Test name as provided in test field.}
 
-\item{scale}{Type of scale used to report the results (scored, binary, categorical, etc.). Default: NULL}
+\item{scale}{Name of subscale from neuropsych test or battery. Default: NULL}
 
 \item{raw_score}{Raw score if available. Default: NULL}
 
-\item{score}{Score for the given test. Default: NULL}
+\item{score}{Standardized Score for the given test. Default: NULL}
 
-\item{range}{Range for the given test. Default: NULL}
+\item{range}{Range of performance e.g., Below Average, Average, Above
+Average, etc the given test or subscale. Default: NULL}
 
-\item{percentile}{Percentile for the given test. Default: NULL}
+\item{percentile}{Percentile the patient's performance falls at for the given test. Default: NULL}
 
 \item{ci_95}{Confidence interval level (95\%) for the given test. Default: NULL}
 
-\item{domain}{Domain of the test, e.g. Intelligence/General Ability, Academic Skills. Default: c("Intelligence/General Ability", "Academic Skills", "Verbal/Language", "Visual Perception/Construction", "Attention/Executive", "Memory", "Motor", "Social Cognition", "Behavioral/Emotional/Social",
-"Personality Disorders", "Psychiatric Disorders", "Substance Use Disorders",
-"Psychosocial Problems", "ADHD", "Executive Dysfunction",
-"Effort/Validity", "")}
+\item{domain}{Domain of the test, e.g. Academic Skills. Default: c("General
+Cognitive Ability", "Academic Skills", "Verbal/Language", "Visual
+Perception/Construction", "Attention/Executive", "Memory", "Motor", "Social
+Cognition", "Emotional/Behavioral/Personality", "Behavioral/Emotional/Social", "Personality Disorders", "Psychiatric Disorders", "Substance Use", "Psychosocial Problems", "ADHD", "Effort/Validity", "")}
 
 \item{subdomain}{Cognitive subdomain of the scale. Default: NULL}
 
@@ -69,8 +68,9 @@ NA)}
 
 \item{timed}{Indicates if the test is timed or not. Default: c("Timed", "Untimed", NA)}
 
-\item{test_type}{Type of test, e.g. npsych_test, rating_scale, validity_indicator, item. Default: c("npsych_test", "rating_scale", "validity_indicator", "item",
-NA)}
+\item{test_type}{Type of test, e.g. npsych_test, rating_scale,
+validity_indicator, item. Default: c("npsych_test", "rating_scale",
+"validity_indicator", "basc3", "item", NA)}
 
 \item{score_type}{Type of score reported, e.g. raw_score, scaled_score, t_score, standard_score, z_score, percentile, base_rate, beta_coefficient. Default: c("raw_score", "scaled_score", "t_score", "standard_score", "z_score",
 "percentile", "base_rate", "beta_coefficient", NA)}
@@ -82,6 +82,8 @@ NA)}
 \item{result}{Concatenate the results to include details of test performance. Default: NULL}
 
 \item{...}{Other parameters.}
+
+\item{df}{Name of data.frame for table to import and tidy.}
 }
 \value{
 A modified data frame with additional columns.
@@ -91,18 +93,4 @@ This function takes a data frame containing text data from PDF tables, and makes
 }
 \details{
 This function adds new columns to a data frame by extracting numerical values from PDF tables.
-}
-\examples{
-\dontrun{
-if (interactive()) {
-  # EXAMPLE1
-  gpluck_make_columns(
-    data = data,
-    test = "wais4",
-    test_name = "WAIS-IV",
-    domain = "Intelligence/General Ability",
-    score_type = "scaled_score"
-  )
-}
-}
 }
