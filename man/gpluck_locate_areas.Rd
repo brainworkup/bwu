@@ -22,14 +22,6 @@ This is a function to pluck and locate areas from file.
 \details{
 Use this function with caution when handling sensitive PDFs as it involves rasterizing those documents. Also use this function if your PDF contains tables and you want to access those tables programmatically.
 }
-\examples{
-\dontrun{
-if (interactive()) {
-  # Get the located areas from file "example.pdf":
-  exampleOutput <- gpluck_locate_areas("example.pdf")
-}
-}
-}
 \seealso{
 \code{\link[tabulizer]{locate_areas}}
 }

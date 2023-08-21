@@ -2,24 +2,25 @@
 % Please edit documentation in R/pdf.R
 \name{gpluck_make_columns}
 \alias{gpluck_make_columns}
-\title{Make additional variables/columns from PDF tables.}
+\title{Insert Variables and Data from Tables into DF.}
 \usage{
 gpluck_make_columns(
-  df_table,
+  table,
   test,
   test_name,
   scale = NULL,
   raw_score = NULL,
   score = NULL,
-  range = NULL,
-  percentile = NULL,
   ci_95 = NULL,
+  percentile = NULL,
+  range = NULL,
   domain = c("General Cognitive Ability", "Intelligence/General Ability",
     "Academic Skills", "Verbal/Language", "Visual Perception/Construction",
     "Attention/Executive", "Memory", "Motor", "Social Cognition",
     "Emotional/Behavioral/Personality", "Behavioral/Emotional/Social",
     "Psychiatric Disorders", "Personality Disorders", "Substance Use",
-    "Psychosocial Problems", "ADHD", "Executive Functioning", "Effort/Validity", NA),
+    "Psychosocial Problems", "ADHD", "Executive Functioning", "Adaptive Functioning",
+    "Effort/Validity"),
   subdomain = NULL,
   narrow = NULL,
   pass = c("Planning", "Attention", "Sequential", "Simultaneous", "Knowledge", NA),
@@ -35,6 +36,8 @@ gpluck_make_columns(
 )
 }
 \arguments{
+\item{table}{Name of data/table to import and tidy.}
+
 \item{test}{Name of test that information will be extracted from.}
 
 \item{test_name}{Test name as provided in test field.}
@@ -45,17 +48,17 @@ gpluck_make_columns(
 
 \item{score}{Standardized Score for the given test. Default: NULL}
 
-\item{range}{Range of performance e.g., Below Average, Average, Above
-Average, etc the given test or subscale. Default: NULL}
+\item{ci_95}{Confidence interval level (95\%) for the given test. Default: NULL}
 
 \item{percentile}{Percentile the patient's performance falls at for the given test. Default: NULL}
 
-\item{ci_95}{Confidence interval level (95\%) for the given test. Default: NULL}
+\item{range}{Range of performance e.g., Below Average, Average, Above
+Average, etc the given test or subscale. Default: NULL}
 
 \item{domain}{Domain of the test, e.g. Academic Skills. Default: c("General
 Cognitive Ability", "Academic Skills", "Verbal/Language", "Visual
 Perception/Construction", "Attention/Executive", "Memory", "Motor", "Social
-Cognition", "Emotional/Behavioral/Personality", "Behavioral/Emotional/Social", "Personality Disorders", "Psychiatric Disorders", "Substance Use", "Psychosocial Problems", "ADHD", "Effort/Validity", "")}
+Cognition", "Emotional/Behavioral/Personality", "Behavioral/Emotional/Social", "Personality Disorders", "Psychiatric Disorders", "Substance Use", "Psychosocial Problems", "ADHD", "Executive Function", "Adaptive Function", "Effort/Validity")}
 
 \item{subdomain}{Cognitive subdomain of the scale. Default: NULL}
 
@@ -82,8 +85,6 @@ validity_indicator, item. Default: c("npsych_test", "rating_scale",
 \item{result}{Concatenate the results to include details of test performance. Default: NULL}
 
 \item{...}{Other parameters.}
-
-\item{df}{Name of data.frame for table to import and tidy.}
 }
 \value{
 A modified data frame with additional columns.

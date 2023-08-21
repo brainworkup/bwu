@@ -25,23 +25,16 @@ pdf_02_filter_lines <- function(extracted_text, pdf_file, page = NULL, scale) {
 
 #' @title gpluck_locate_areas
 #' @description This is a function to pluck and locate areas from file.
+#' @importFrom tabulizer locate_areas
 #' @param file The File name of the input PDF.
 #' @param pages A vector of character strings specifying which pages to analyse, Default: NULL
 #' @param ... Additional arguments passed to locate_areas() in the tabulizer package.
 #' @return A list containing all areas found by area extraction algorithem.
 #' @details Use this function with caution when handling sensitive PDFs as it involves rasterizing those documents. Also use this function if your PDF contains tables and you want to access those tables programmatically.
-#' @examples
-#' \dontrun{
-#' if (interactive()) {
-#'   # Get the located areas from file "example.pdf":
-#'   exampleOutput <- gpluck_locate_areas("example.pdf")
-#' }
-#' }
 #' @seealso
 #'  \code{\link[tabulizer]{locate_areas}}
 #' @rdname gpluck_locate_areas
 #' @export
-#' @importFrom tabulizer locate_areas
 gpluck_locate_areas <- function(file, pages = NULL, ...) {
   tabulizer::locate_areas(
     file = file,
@@ -98,10 +91,10 @@ gpluck_extract_tables <-
   }
 
 
-#' @title Make additional variables/columns from PDF tables.
+#' @title Insert Variables and Data from Tables into DF.
 #' @description This function takes a data frame containing text data from PDF tables, and makes additional columns of binary, range or score values for the specified domain, subdomains, test types, etc.
 #' @importFrom dplyr mutate
-#' @param df Name of data.frame for table to import and tidy.
+#' @param table Name of data/table to import and tidy.
 #' @param test Name of test that information will be extracted from.
 #' @param test_name Test name as provided in test field.
 #' @param scale Name of subscale from neuropsych test or battery. Default: NULL
@@ -114,7 +107,7 @@ gpluck_extract_tables <-
 #' @param domain Domain of the test, e.g. Academic Skills. Default: c("General
 #' Cognitive Ability", "Academic Skills", "Verbal/Language", "Visual
 #' Perception/Construction", "Attention/Executive", "Memory", "Motor", "Social
-#' Cognition", "Emotional/Behavioral/Personality", "Behavioral/Emotional/Social", "Personality Disorders", "Psychiatric Disorders", "Substance Use", "Psychosocial Problems", "ADHD", "Effort/Validity", "")
+#' Cognition", "Emotional/Behavioral/Personality", "Behavioral/Emotional/Social", "Personality Disorders", "Psychiatric Disorders", "Substance Use", "Psychosocial Problems", "ADHD", "Executive Function", "Adaptive Function", "Effort/Validity")
 #' @param subdomain Cognitive subdomain of the scale. Default: NULL
 #' @param narrow Narrow cognitive domain of the scale. Default: NULL
 #' @param pass PASS Cognitive Model. Default: c("Planning", "Attention", "Sequential", "Simultaneous", "Knowledge",
@@ -134,15 +127,15 @@ gpluck_extract_tables <-
 #' @details This function adds new columns to a data frame by extracting numerical values from PDF tables.
 #' @rdname gpluck_make_columns
 #' @export
-gpluck_make_columns <- function(df_table,
+gpluck_make_columns <- function(table,
                                 test,
                                 test_name,
                                 scale = NULL,
                                 raw_score = NULL,
                                 score = NULL,
-                                range = NULL,
-                                percentile = NULL,
                                 ci_95 = NULL,
+                                percentile = NULL,
+                                range = NULL,
                                 domain = c(
                                   "General Cognitive Ability",
                                   "Intelligence/General Ability",
@@ -161,8 +154,8 @@ gpluck_make_columns <- function(df_table,
                                   "Psychosocial Problems",
                                   "ADHD",
                                   "Executive Functioning",
-                                  "Effort/Validity",
-                                  NA
+                                  "Adaptive Functioning",
+                                  "Effort/Validity"
                                 ),
                                 subdomain = NULL,
                                 narrow = NULL,
@@ -207,17 +200,17 @@ gpluck_make_columns <- function(df_table,
                                 description = NULL,
                                 result = NULL,
                                 ...) {
-  table <-
+  df <-
     dplyr::mutate(
-      df,
+      table,
       test = test,
       test_name = test_name,
       scale = scale,
       raw_score = raw_score,
       score = score,
+      ci_95 = ci_95,
       percentile = percentile,
       range = range,
-      ci_95 = ci_95,
       domain = domain,
       subdomain = subdomain,
       narrow = narrow,
@@ -226,17 +219,16 @@ gpluck_make_columns <- function(df_table,
       timed = timed,
       score_type = score_type,
       test_type = test_type,
-      absort =
-        paste0(
-          tolower(test),
-          "_", seq_len(nrow(table))
-        ),
+      absort = paste0(tolower(test), "_", seq_len(nrow(data))),
       description = description,
       result = result,
       ...
     )
-  return(table)
+  return(df)
 }
+
+
+
 
 
 #' @title Make Score Ranges
@@ -254,10 +246,11 @@ gpluck_make_columns <- function(df_table,
 #' @export
 gpluck_make_score_ranges <-
   function(table,
-           score = NULL,
-           percentile = NULL,
-           range = NULL,
-           test_type = "npsych_test",
+           score,
+           percentile,
+           range,
+           subdomain = NULL,
+           test_type = c("npsych_test", "rating_scale", "performance_validity", "symptom_validity", "basc3"),
            ...) {
     if (test_type == "npsych_test") {
       table <-
@@ -294,7 +287,7 @@ gpluck_make_score_ranges <-
         table |>
         dplyr::mutate(
           range = dplyr::case_when(
-            percentile >= 25 ~ "Within Normal Limits Score",
+            percentile >= 25 ~ "WNL Score",
             percentile %in% 9:24 ~ "Low Average Score",
             percentile %in% 2:8 ~ "Below Average Score",
             percentile < 2 ~ "Exceptionally Low Score",
@@ -322,7 +315,7 @@ gpluck_make_score_ranges <-
         dplyr::mutate(
           range = dplyr::case_when(
             score >= 60 & subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Strength",
-            score %in% 40:59 & subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Within Normal Limits",
+            score %in% 40:59 & subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "WNL",
             score %in% 30:39 &
               subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Mildly Elevated",
             score %in% 20:29 &
@@ -336,13 +329,14 @@ gpluck_make_score_ranges <-
             score %in% 60:69 &
               subdomain != c("Adaptive Skills", "Personal Adjustment") ~ "Mildly Elevated",
             score %in% 40:59 &
-              subdomain != c("Adaptive Skills", "Personal Adjustment") ~ "Within Normal Limits",
+              subdomain != c("Adaptive Skills", "Personal Adjustment") ~ "WNL",
             score <= 39 &
               subdomain != c("Adaptive Skills", "Personal Adjustment") ~ "Strength",
             TRUE ~ as.character(range)
           )
         )
     }
+    return(table)
   }
 
 

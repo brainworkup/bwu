@@ -6,10 +6,12 @@
 \usage{
 gpluck_make_score_ranges(
   table,
-  score = NULL,
-  percentile = NULL,
-  range = NULL,
-  test_type = "npsych_test",
+  score,
+  percentile,
+  range,
+  subdomain = NULL,
+  test_type = c("npsych_test", "rating_scale", "performance_validity",
+    "symptom_validity", "basc3"),
   ...
 )
 }
