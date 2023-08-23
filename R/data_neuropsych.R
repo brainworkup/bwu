@@ -136,13 +136,10 @@ load_data <- function(patient) {
 #' Read Neuropsych Data for Subsetting
 #' @importFrom readr read_csv
 #' @param pheno Character vector for phenotype. Options are "adhd" or "emotion".
-#' @param domains Character vector for domain. Options are "neurocog" or "neurobehav".
-#' @param scales Character vector for scale.
-#' @param ... Additional options.
 #' @return A tibble containing various subsets of the data.
 #' @rdname read_data
 #' @export
-read_data <- function(pheno, domains, scales, ...) {
+read_data <- function(pheno) {
   # Check phenotype type and file path
   if (pheno == "adhd" || pheno == "emotion") {
     csv <- "neurobehav.csv"
@@ -154,11 +151,6 @@ read_data <- function(pheno, domains, scales, ...) {
   # Read in the CSV file
   data <- readr::read_csv(file_path)
 
-  # Filter by domain and scales
-  data <- bwu::filter_data(data,
-    domain = domains,
-    scale = scales
-  )
   return(data)
 }
 
@@ -172,8 +164,8 @@ read_data <- function(pheno, domains, scales, ...) {
 #' @rdname filter_domain_scale
 #' @export
 filter_data <- function(data, domain, scale) {
-  data <- data |>
-    dplyr::filter(domain == domains, !is.na(percentile)) |>
-    dplyr::filter(scale == scales)
+  data <-
+    dplyr::filter(data, domain == domain, !is.na(percentile)) |>
+    dplyr::filter(scale == scale)
   return(data)
 }
