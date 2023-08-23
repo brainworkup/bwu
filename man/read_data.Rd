@@ -4,10 +4,14 @@
 \alias{read_data}
 \title{Read Neuropsych Data for Subsetting}
 \usage{
-read_data(pheno, ...)
+read_data(pheno, domains, scales, ...)
 }
 \arguments{
 \item{pheno}{Character vector for phenotype. Options are "adhd" or "emotion".}
+
+\item{domains}{Character vector for domain. Options are "neurocog" or "neurobehav".}
+
+\item{scales}{Character vector for scale.}
 
 \item{...}{Additional options.}
 }
