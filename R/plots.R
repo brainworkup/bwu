@@ -129,16 +129,18 @@ dotplot <-
         size = point_size,
         color = line_color
       ) +
-      ggplot2::scale_fill_gradientn(colors = color_palette, guide = "none")
+      ggplot2::scale_fill_gradientn(
+        colors = color_palette,
+        guide = "none"
+      )
 
     # Apply theme
     plot_object <- plot_object +
-      switch(
-        theme,
+      switch(theme,
         "fivethirtyeight" = ggthemes::theme_fivethirtyeight(),
         "minimal" = ggplot2::theme_minimal(),
         "classic" = ggplot2::theme_classic(),
-        ggthemes::theme_fivethirtyeight()
+        ggplot2::theme_minimal()
       )
 
     # Add x-axis label
@@ -147,13 +149,14 @@ dotplot <-
 
     # Apply theme elements
     plot_object <- plot_object
-      ggplot2::theme(
-        panel.background = ggplot2::element_rect(fill = "white"),
-        plot.background = ggplot2::element_rect(fill = "white"),
-        panel.border = ggplot2::element_rect(color = "white"),
-        axis.title.x = ggtext::element_markdown(
-          color = "black", size = ggplot2::rel(0.8))
+    ggplot2::theme(
+      panel.background = ggplot2::element_rect(fill = "white"),
+      plot.background = ggplot2::element_rect(fill = "white"),
+      panel.border = ggplot2::element_rect(color = "white"),
+      axis.title.x = ggtext::element_markdown(
+        color = "black", size = ggplot2::rel(0.8)
       )
+    )
 
     # Save the plot to a file if filename is provided
     if (!is.null(filename)) {
@@ -161,20 +164,26 @@ dotplot <-
       ext <- tools::file_ext(filename)
 
       if (ext == "pdf") {
-        ggplot2::ggsave(filename = filename,
-                        plot = plot_object,
-                        device = "pdf",
-                        ...)
+        ggplot2::ggsave(
+          filename = filename,
+          plot = plot_object,
+          device = "pdf",
+          ...
+        )
       } else if (ext == "png") {
-        ggplot2::ggsave(filename = filename,
-                        plot = plot_object,
-                        device = "png",
-                        ...)
+        ggplot2::ggsave(
+          filename = filename,
+          plot = plot_object,
+          device = "png",
+          ...
+        )
       } else if (ext == "svg") {
-        ggplot2::ggsave(filename = filename,
-                        plot = plot_object,
-                        device = "svg",
-                        ...)
+        ggplot2::ggsave(
+          filename = filename,
+          plot = plot_object,
+          device = "svg",
+          ...
+        )
       } else {
         warning("File extension not recognized. Supported extensions are 'pdf', 'png', and 'svg'.")
       }

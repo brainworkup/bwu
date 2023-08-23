@@ -90,16 +90,16 @@ tbl_gt <-
         columns = c("score", "percentile", "range")
       ) |>
       gt::tab_footnote(
+        footnote = fn_scaled_score,
+        gt::cells_row_groups(groups = grp_scaled_score)
+      ) |>
+      gt::tab_footnote(
         footnote = fn_standard_score,
         gt::cells_row_groups(groups = grp_standard_score)
       ) |>
       gt::tab_footnote(
         footnote = fn_t_score,
         gt::cells_row_groups(groups = grp_t_score)
-      ) |>
-      gt::tab_footnote(
-        footnote = fn_scaled_score,
-        gt::cells_row_groups(groups = grp_scaled_score)
       ) |>
       gt::tab_style(
         style = gt::cell_text(size = "small"),
@@ -114,8 +114,9 @@ tbl_gt <-
 
     gt::gtsave(table, glue::glue("table_{pheno}.pdf"))
     gt::gtsave(table, glue::glue("table_{pheno}.png"))
-
+    
     return(table)
+
   }
 
 
@@ -491,7 +492,7 @@ generate_g <- function(data, patient, scales, index_score_file) {
 }
 
 # footnotes
-footnote_scaled_score <- gt::md("Scaled Score: Mean = 10 [50th‰], SD ± 3 [16th‰, 84th‰]")
-footnote_standard_score <- gt::md("Standard Score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰]")
-footnote_t_score <- gt::md("*T* Score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
-footnote_z_score <- gt::md("*z* Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]")
+fn_scaled_score <- gt::md("Scaled Score: Mean = 10 [50th‰], SD ± 3 [16th‰, 84th‰]")
+fn_standard_score <- gt::md("Standard Score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰]")
+fn_t_score <- gt::md("*T* Score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
+fn_z_score <- gt::md("*z* Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]")
