@@ -18,11 +18,9 @@
 #' @param fn_scaled_score Footnote for scaled score.
 #' @param fn_standard_score Footnote for standard score.
 #' @param fn_t_score Footnote for t score.
-#' @param fn_z_score Footnote for raw score.
 #' @param grp_standard_score Groups for standard score.
 #' @param grp_t_score Groups for t score.
 #' @param grp_scaled_score Groups for scaled score.
-#' @param grp_z_score Groups for raw score.
 #' @param multiline Multiline footnotes, Default = TRUE.
 #' @param ... Additional arguments to be passed to the function.
 #' @return A formatted table with domain counts.
@@ -41,16 +39,12 @@ tbl_gt <-
            caption = NULL,
            process_md = FALSE,
            vertical_padding = NULL,
-           # footnotes
            fn_scaled_score = NULL,
            fn_standard_score = NULL,
            fn_t_score = NULL,
-           fn_z_score = NULL,
-           # footnote groups
            grp_scaled_score = NULL,
            grp_standard_score = NULL,
            grp_t_score = NULL,
-           grp_z_score = NULL,
            multiline = TRUE,
            ...) {
     # create data counts
@@ -88,19 +82,34 @@ tbl_gt <-
       gt::cols_align(
         align = "center",
         columns = c("score", "percentile", "range")
-      ) |>
-      gt::tab_footnote(
-        footnote = fn_scaled_score,
-        gt::cells_row_groups(groups = grp_scaled_score)
-      ) |>
-      gt::tab_footnote(
-        footnote = fn_standard_score,
-        gt::cells_row_groups(groups = grp_standard_score)
-      ) |>
-      gt::tab_footnote(
-        footnote = fn_t_score,
-        gt::cells_row_groups(groups = grp_t_score)
-      ) |>
+      )
+
+    # Adding footnotes are now optional
+    if (!is.null(fn_scaled_score)) {
+      table <- table |>
+        gt::tab_footnote(
+          footnote = fn_scaled_score,
+          gt::cells_row_groups(groups = grp_scaled_score)
+        )
+    }
+
+    if (!is.null(fn_standard_score)) {
+      table <- table |>
+        gt::tab_footnote(
+          footnote = fn_standard_score,
+          gt::cells_row_groups(groups = grp_standard_score)
+        )
+    }
+
+    if (!is.null(fn_t_score)) {
+      table <- table |>
+        gt::tab_footnote(
+          footnote = fn_t_score,
+          gt::cells_row_groups(groups = grp_t_score)
+        )
+    }
+
+    table <- table |>
       gt::tab_style(
         style = gt::cell_text(size = "small"),
         locations = gt::cells_source_notes()
@@ -117,8 +126,6 @@ tbl_gt <-
 
     return(table)
   }
-
-
 
 #' @title Create Kable Table from Data
 #' @description This function creates a kable table from a given data frame.
