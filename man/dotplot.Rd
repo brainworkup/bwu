@@ -2,7 +2,7 @@
 % Please edit documentation in R/plots.R
 \name{dotplot}
 \alias{dotplot}
-\title{Create a Dotplot of Neurocognitive Domains.}
+\title{Create Dotplot for Neurocognitive Domains}
 \usage{
 dotplot(
   data,
@@ -15,11 +15,8 @@ dotplot(
   line_color = "black",
   colors = NULL,
   theme = "fivethirtyeight",
-  return_plot = TRUE,
-  filename = NULL,
-  z_score_label = NULL,
-  rel = NULL,
-  ...
+  return_plot = NULL,
+  filename = NULL
 )
 }
 \arguments{
@@ -50,21 +47,10 @@ options include 'minimal' and 'classic'}
 \item{return_plot}{Whether to return the plot object, Default: TRUE}
 
 \item{filename}{The filename to save the plot to, Default: NULL}
-
-\item{z_score_label}{The label for the x-axis, Default: NULL}
-
-\item{rel}{Relative size.}
-
-\item{...}{Additional arguments to be passed to the ggplot function.}
 }
 \value{
 An object of class 'ggplot' representing the dotplot.
 }
 \description{
-This function generates a dot plot with the given data, x and y.
-The point's aesthetics and plot theme can be customized.
-}
-\details{
-This function generates a dot plot with the given data, x and y. The
-points' aesthetics and plot theme can be customized.
+This function generates a dotplot for neurocognitive and neurobehavioral domains.
 }
