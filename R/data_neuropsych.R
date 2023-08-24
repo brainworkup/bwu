@@ -164,8 +164,8 @@ read_data <- function(pheno) {
 #' @rdname filter_domain_scale
 #' @export
 filter_data <- function(data, domain, scale) {
-  data <-
-    dplyr::filter(data, domain == domain, !is.na(percentile)) |>
-    dplyr::filter(scale == scale)
+  data <- data |>
+    dplyr::filter(domain %in% domains) |>
+    dplyr::filter(scale %in% scales)
   return(data)
 }

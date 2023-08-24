@@ -114,9 +114,8 @@ tbl_gt <-
 
     gt::gtsave(table, glue::glue("table_{pheno}.pdf"))
     gt::gtsave(table, glue::glue("table_{pheno}.png"))
-    
-    return(table)
 
+    return(table)
   }
 
 
