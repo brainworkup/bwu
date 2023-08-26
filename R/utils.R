@@ -20,16 +20,20 @@ NULL
 
 find_file <- function(template, file) {
   template <- system.file("rmarkdown",
-                          "templates",
-                          template,
-                          file,
-                          package = "bwu"
+    "templates",
+    template,
+    file,
+    package = "bwu"
   )
   if (template == "") {
     stop("Couldn't find template file ", template, "/", file, call. = FALSE)
   }
   template
 }
+
+
+comma <- function(x) format(x, digits = 2, big.mark = ",")
+
 
 find_resource <- function(template, file) {
   find_file(template, file.path("resources", file))
@@ -45,17 +49,19 @@ pdf_document_format <- function(...,
                                 format,
                                 template,
                                 csl = NULL,
-                                colorlinks = TRUE)
-{
+                                colorlinks = TRUE) {
   # base format
   fmt <- inherit_pdf_document(...,
-                              template = find_resource(format, template))
+    template = find_resource(format, template)
+  )
 
   # add csl to pandoc_args
   if (!is.null(csl)) {
-    fmt$pandoc$args <- c(fmt$pandoc$args,
-                         "--csl",
-                         rmarkdown::pandoc_path_arg(csl))
+    fmt$pandoc$args <- c(
+      fmt$pandoc$args,
+      "--csl",
+      rmarkdown::pandoc_path_arg(csl)
+    )
   }
 
   if (isTRUE(colorlinks)) {
@@ -208,5 +214,3 @@ keep_only_tbl_df_classes <- function(x) {
   }
   x
 }
-
-
