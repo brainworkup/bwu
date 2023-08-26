@@ -83,6 +83,9 @@ tbl_gt <-
         align = "center",
         columns = c("score", "percentile", "range")
       )
+    gt::tab_source_note(
+      source_note = source_note
+    )
 
     # Adding footnotes are now optional
     if (!is.null(fn_scaled_score)) {
