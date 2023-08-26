@@ -1,4 +1,5 @@
-#' This function reads .csv files of patient data and writes four different files of the same data that are categorized by neuropsychological test type.
+#' @title Read/Load Neuropsych Eval CSV Files
+#' @description This function reads .csv files of patient data and writes four different files of the same data that are categorized by neuropsychological test type.
 #' @importFrom here here
 #' @importFrom dplyr filter distinct mutate group_by ungroup
 #' @importFrom purrr map set_names list_rbind
@@ -7,7 +8,7 @@
 #' @importFrom readr read_csv write_csv
 #' @param patient character, Name of patient, e.g. "Biggie"
 #' @return List with 4 elements, each element is a dataframe of patient data
-#' @rdname load_neuro_data
+#' @rdname load_data
 #' @export
 load_data <- function(patient) {
   # Ensure patient is specified
@@ -35,15 +36,14 @@ load_data <- function(patient) {
     dplyr::distinct() |>
     dplyr::mutate(
       z = stats::qnorm(percentile / 100),
-      domain = forcats::as_factor(domain),
-      subdomain = forcats::as_factor(subdomain),
-      narrow = forcats::as_factor(narrow),
-      pass = forcats::as_factor(pass),
+      # domain = forcats::as_factor(domain),
+      # subdomain = forcats::as_factor(subdomain),
+      # narrow = forcats::as_factor(narrow),
+      # pass = forcats::as_factor(pass),
       verbal = forcats::as_factor(verbal),
       timed = forcats::as_factor(timed)
     )
 
-  # Process data for the various subsets (neurocog, neurobehav, validity)
   # Subset neurocognitive data
   neurocog <-
     neuropsych |>
@@ -155,13 +155,13 @@ read_data <- function(pheno) {
 }
 
 
-#' @title Filters data by domain and scale
+#' @title Filters Data by Domain and Scale
 #' @importFrom dplyr filter
 #' @param data A dataframe or tibble
 #' @param domain The domain name that the user wants to filter by
 #' @param scale A text file containing a list of scales
 #' @return Returns a filtered data frame
-#' @rdname filter_domain_scale
+#' @rdname filter_data
 #' @export
 filter_data <- function(data, domain, scale) {
   data <- data |>

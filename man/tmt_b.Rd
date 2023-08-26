@@ -2,7 +2,7 @@
 % Please edit documentation in R/neuropsych_test_scoring.R
 \name{tmt_b}
 \alias{tmt_b}
-\title{TMT, B scoring function}
+\title{TMT, Part B Score Lookup}
 \usage{
 tmt_b(raw_score, age)
 }

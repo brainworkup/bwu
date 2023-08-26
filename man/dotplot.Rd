@@ -16,7 +16,8 @@ dotplot(
   colors = NULL,
   theme = "fivethirtyeight",
   return_plot = NULL,
-  filename = NULL
+  filename = NULL,
+  ...
 )
 }
 \arguments{
@@ -47,6 +48,8 @@ options include 'minimal' and 'classic'}
 \item{return_plot}{Whether to return the plot object, Default: TRUE}
 
 \item{filename}{The filename to save the plot to, Default: NULL}
+
+\item{...}{Additional arguments to be passed to the function.}
 }
 \value{
 An object of class 'ggplot' representing the dotplot.

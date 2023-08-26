@@ -1,4 +1,4 @@
-#' @title TMT A scoring function
+#' @title TMT, Part A Score Lookup
 #' @description Calculates the TMT predicted score for Trails A with ages between 16 and 89
 #' @param raw_score The raw score inputted
 #' @param age The age of the subject
@@ -42,7 +42,7 @@ tmt_a <- function(raw_score, age) {
 }
 
 
-#' @title TMT, B scoring function
+#' @title TMT, Part B Score Lookup
 #' @description Trails B Ages 16 - 89
 #' @param raw_score Score on the Trail Making Test B
 #' @param age Age of the participant
@@ -85,12 +85,13 @@ tmt_b <- function(raw_score, age) {
 }
 
 
-#' @title Rey Complex Figure, Copy
-#' @description Provide a brief description of the rocft_copy function.
-#' @param raw_score Description for the raw_score parameter.
-#' @param age Description for the age parameter.
-#' @return Description for the return value of the function.
-#' @details Provide additional details about the function if needed.
+#' @title Rey Complex Figure, Copy Trial Score Lookup
+#' @description Calculates a Rey Complex Figure, Copy trial score (T-score) from a raw score and age. The predicted score and standard deviation are also calculated.
+#' @param raw_score A numeric value of the raw score from the Rey Complex Figure, Copy trial.
+#' @param age A numeric value of the age of the participant. Must be between 16 and 89 years old.
+#' @return Returns a numeric value of the T-score for the Rey Complex Figure, Copy trial.
+#' @details This function takes the raw score and age of a participant and calculates the Rey Complex Figure, Copy trial T-score using the formula provided by \emph{Manly et al. (2000)}. It also returns the predicted score and standard deviation for the trial.
+#' @references Manly, J.J., Schinka, J.A., & Guerrero, L. (2000). Normative Data on the Rey Complex Figure Test in Older Adults. Archives of Clinical Neuropsychology, 15(7), 613-621.
 #' @rdname rocft_copy
 #' @export
 rocft_copy <- function(raw_score, age) {
@@ -158,14 +159,18 @@ rocft_copy <- function(raw_score, age) {
   return(t_score)
 }
 
-#' @title Rey Complex Figure, Delayed Recall
-#' @description Provide a brief description of the rocft_delay function.
-#' @param raw_score Description for the raw_score parameter.
-#' @param age Description for the age parameter.
-#' @return Description for the return value of the function.
-#' @rdname rocft_delay
+
+
+#' @title Rey Complex Figure, Delayed Recall Score Lookup
+#' @description Calculates a Rey Complex Figure, Delayed Recall (30-min) trial score (T-score) from a raw score and age. The predicted score and standard deviation are also calculated.
+#' @param raw_score A numeric value of the raw score from the Rey Complex Figure, Copy trial.
+#' @param age A numeric value of the age of the participant. Must be between 16 and 89 years old.
+#' @return Returns a numeric value of the T-score for the Rey Complex Figure, Copy trial.
+#' @details This function takes the raw score and age of a participant and calculates the Rey Complex Figure, Copy trial T-score using the formula provided by \emph{Manly et al. (2000)}. It also returns the predicted score and standard deviation for the trial.
+#' @references Manly, J.J., Schinka, J.A., & Guerrero, L. (2000). Normative Data on the Rey Complex Figure Test in Older Adults. Archives of Clinical Neuropsychology, 15(7), 613-621.
+#' @rdname rocft_delayed_recall
 #' @export
-rocft_delay <- function(raw_score, age) {
+rocft_delayed_recall <- function(raw_score, age) {
   MIN_AGE <- 16
   MAX_AGE <- 89
 

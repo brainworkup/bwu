@@ -185,30 +185,23 @@ tbl_md_typ <- function(data, caption = NULL) {
 }
 
 
-#' @title Make a tibble for plots
+#' @title Make a Tibble for Plots
 #' @description Create a tibble with columns specified in 'columns', and set column names to 'names'.
-#' @param tibb A data frame containing the data, Default: NULL
-#' @param data A character string indicating the name of the dataset, Default: '.'
-#' @param pheno A character vector indicating the domain of interest, Default: NULL
+#' @param data A data.frame/dataset, Default: '.'
 #' @param domain A character string indicating the domain of interest, Default: NULL
 #' @param columns A character vector of column names to be included in the tibble, Default: c("scale", "score", "percentile", "range", "subdomain", "test_name")
 #' @param percentile A numeric vector indicating the percentile values to be truncated, Default: NULL
+#' @param round A numeric vector indicating the number of digits to round to, Default: 0
 #' @param names A character vector of column names to be set in the tibble, Default: c("Scale", "Score", "‰ Rank", "Range", "Subdomain", "Test")
 #' @param ... Additional arguments to be passed to the function.
-#'
 #' @return A tibble with columns specified in 'columns', and set column names to 'names'.
-#'
-#' @details The function filters the data by 'domain', selects columns from 'columns', and sets the column names to 'names'. It then truncates the values of 'percentile' column.
 #' @rdname make_tibble
-#'
 #' @export
-#'
 #' @importFrom dplyr filter select mutate
 #' @importFrom tidyselect all_of
 #' @importFrom purrr set_names
 make_tibble <- function(data,
-                        pheno = NULL,
-                        domain = NULL,
+                        domain,
                         columns = c(
                           "scale",
                           "score",
@@ -218,6 +211,7 @@ make_tibble <- function(data,
                           "test_name"
                         ),
                         percentile = NULL,
+                        round = 0,
                         names = c(
                           "Scale",
                           "Score",
@@ -226,17 +220,16 @@ make_tibble <- function(data,
                           "Subdomain",
                           "Test"
                         ),
-                        tibb = NULL,
                         ...) {
+  # Filter data based on the phenotype of interest
   tibb <-
-    dplyr::filter(data, domain %in% pheno) |>
-    dplyr::select(tidyselect::all_of(columns)) |>
-    dplyr::mutate(percentile = trunc(percentile)) |>
+    dplyr::filter(data, domain == domain) %>%
+    dplyr::select(tidyselect::all_of(columns)) %>%
+    dplyr::mutate(percentile = round(percentile, digits = round)) %>%
     purrr::set_names(names)
 
   return(tibb)
 }
-
 
 #' @title Use Excel Index Scores to Create "g.csv"
 #' @description Get 'g' from index scores
@@ -264,7 +257,7 @@ generate_g <- function(data, patient, scales, index_score_file) {
     "Crystallized Knowledge",
     "Delayed Recall",
     "Executive Functions",
-    "Fluency",
+    "Verbal Fluency",
     "Fluid Reasoning",
     "General Ability",
     "Learning Efficiency",
@@ -274,7 +267,13 @@ generate_g <- function(data, patient, scales, index_score_file) {
     "Psychomotor Speed",
     "Verbal/Language",
     "Visual Perception/Construction",
-    "Working Memory"
+    "Working Memory",
+    "Full Scale IQ (FSIQ)",
+    "General Ability (GAI)",
+    "Verbal Comprehension (VCI)",
+    "Perceptual Reasoning (PRI)",
+    "Working Memory (WMI)",
+    "Processing Speed (PSI)"
   )
 
   data <-
@@ -322,7 +321,6 @@ generate_g <- function(data, patient, scales, index_score_file) {
   ## Test score ranges
   data <- gpluck_make_score_ranges(data, test_type = "npsych_test")
 
-
   ## Subdomains
   data <-
     dplyr::mutate(
@@ -347,9 +345,9 @@ generate_g <- function(data, patient, scales, index_score_file) {
         scale == "General Ability" ~ "General Intelligence",
         scale == "Crystallized Knowledge" ~ "Crystallized Intelligence",
         scale == "Fluid Reasoning" ~ "Fluid Intelligence",
-        scale == "Cognitive Proficiency" ~ "Cognitive Proficiency Index",
-        scale == "Working Memory" ~ "Working Memory Index",
-        scale == "Processing Speed" ~ "Processing Speed Index",
+        scale == "Cognitive Proficiency" ~ "Cognitive Proficiency",
+        scale == "Working Memory" ~ "Working Memory",
+        scale == "Processing Speed" ~ "Processing Speed",
         TRUE ~ as.character(narrow)
       )
     )

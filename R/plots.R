@@ -18,6 +18,7 @@
 #'   options include 'minimal' and 'classic'
 #' @param return_plot Whether to return the plot object, Default: TRUE
 #' @param filename The filename to save the plot to, Default: NULL
+#' @param ... Additional arguments to be passed to the function.
 #' @return An object of class 'ggplot' representing the dotplot.
 #' @importFrom ggplot2 ggplot geom_segment aes geom_point scale_fill_gradientn
 #'   theme element_rect ggsave
@@ -37,7 +38,8 @@ dotplot <- function(data,
                     colors = NULL,
                     theme = "fivethirtyeight",
                     return_plot = NULL,
-                    filename = NULL) {
+                    filename = NULL,
+                    ...) {
   # Define the color palette
   color_palette <- if (is.null(colors)) {
     c(

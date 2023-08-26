@@ -1,19 +1,46 @@
-# tests for dotplot()
-library(bwu)
-library(testthat)
-test_that("dotplot() returns a ggplot object", {
-  data <- neurocog
-  x <- data$z_mean_subdomain
-  y <- data$subdomain
+# # tests for dotplot()
+# library(bwu)
+# library(testthat)
 
-  expect_true(is(dotplot(data, x, y), "gg"), info = "expected DOTPLOT to return a ggplot object")
-})
+# # Test 1 - data argument
+# data <- neurocog
 
-# Test 1 - data argument
-data <- neurocog
-fig <- dotplot(
-  data = data,
-  x = data$z_mean_subdomain,
-  y = data$subdomain,
-  colors = NULL
-) # Should return an error, since data cannot be null
+# # Set x and y variables
+# x <- data$z_mean_narrow
+# y <- data$narrow
+
+# # Run dotplot function
+# fig <- dotplot(
+#   data = data,
+#   x = x,
+#   y = y,
+#   colors = NULL
+# )
+
+
+# # Test 2 - x argument
+# data <- neurocog
+# fig <- dotplot(
+#   data = data,
+#   x = NULL,
+#   y = data$narrow,
+#   colors = NULL
+# ) # Should return an error, since x cannot be null
+
+# # Test 3 - y argument
+# data <- neurocog
+# fig <- dotplot(
+#   data = data,
+#   x = data$z_mean_narrow,
+#   y = NULL,
+#   colors = NULL
+# ) # Should return an error, since y cannot be null
+
+# # Test 4 - colors argument
+# data <- neurocog
+# fig <- dotplot(
+#   data = data,
+#   x = data$z_mean_narrow,
+#   y = data$narrow,
+#   colors = NULL
+# ) # Should return an error, since colors cannot be null

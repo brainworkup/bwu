@@ -2,23 +2,20 @@
 % Please edit documentation in R/tables.R
 \name{make_tibble}
 \alias{make_tibble}
-\title{Make a tibble for plots}
+\title{Make a Tibble for Plots}
 \usage{
 make_tibble(
   data,
-  pheno = NULL,
-  domain = NULL,
+  domain,
   columns = c("scale", "score", "percentile", "range", "subdomain", "test_name"),
   percentile = NULL,
+  round = 0,
   names = c("Scale", "Score", "‰ Rank", "Range", "Subdomain", "Test"),
-  tibb = NULL,
   ...
 )
 }
 \arguments{
-\item{data}{A character string indicating the name of the dataset, Default: '.'}
-
-\item{pheno}{A character vector indicating the domain of interest, Default: NULL}
+\item{data}{A data.frame/dataset, Default: '.'}
 
 \item{domain}{A character string indicating the domain of interest, Default: NULL}
 
@@ -26,9 +23,9 @@ make_tibble(
 
 \item{percentile}{A numeric vector indicating the percentile values to be truncated, Default: NULL}
 
-\item{names}{A character vector of column names to be set in the tibble, Default: c("Scale", "Score", "‰ Rank", "Range", "Subdomain", "Test")}
+\item{round}{A numeric vector indicating the number of digits to round to, Default: 0}
 
-\item{tibb}{A data frame containing the data, Default: NULL}
+\item{names}{A character vector of column names to be set in the tibble, Default: c("Scale", "Score", "‰ Rank", "Range", "Subdomain", "Test")}
 
 \item{...}{Additional arguments to be passed to the function.}
 }
@@ -37,7 +34,4 @@ A tibble with columns specified in 'columns', and set column names to 'names'.
 }
 \description{
 Create a tibble with columns specified in 'columns', and set column names to 'names'.
-}
-\details{
-The function filters the data by 'domain', selects columns from 'columns', and sets the column names to 'names'. It then truncates the values of 'percentile' column.
 }
