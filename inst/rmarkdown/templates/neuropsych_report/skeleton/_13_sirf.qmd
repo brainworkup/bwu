@@ -1,0 +1,125 @@
+---
+format:
+  neurotyp-typst:
+    keep-typ: true
+params:
+  pheno: "sirf"
+---
+
+# SUMMARY/IMPRESSION {#sec-sirf}
+
+```{r}
+#| label: make-g
+library(tidyverse)
+library(bwu)
+
+scales <- c(
+  "Academic Skills",
+  "Attention",
+  "Attention/Executive",
+  "Attentional Fluency",
+  "Cognitive Efficiency",
+  "Cognitive Proficiency",
+  "Crystallized Knowledge",
+  "Delayed Recall",
+  "Executive Functions",
+  "Global Neurocognitive Index (G)",
+  "Verbal Fluency",
+  "Fluid Reasoning",
+  "General Ability",
+  "Learning Efficiency",
+  "Memory",
+  "Planning",
+  "Processing Speed",
+  "Psychomotor Speed",
+  "Verbal/Language",
+  "Visual Perception/Construction",
+  "Working Memory"
+)
+
+g <-
+  readxl::read_excel("index_scores.xlsx") |>
+  janitor::clean_names() |>
+  dplyr::mutate(z = (index - 100) / 15) |>
+  dplyr::filter(composite_name %in% scales) |>
+  dplyr::rename(scale = composite_name, score = index, ci_95 = x95_percent_ci) |> 
+  bwu::gpluck_make_score_ranges(range = "", test_type = "npsych_test") |> 
+  dplyr::select(scale, score, ci_95, percentile, range, reliability, z, composition) 
+
+# extra for now
+readr::write_csv(g, "csv/g.csv")
+```
+
+```{r}
+#| label: fig-domain-plot
+#| fig-cap: "Overall neurocognitive function subdomain plots of `r params$first_name` strengths and weaknesses. *Note:* *z*-scores have a mean of 0 and a standard deviation of 1."
+
+keep <- c(
+  # "Academic Skills",
+  "Attention",
+  "Attention/Executive",
+  "Attentional Fluency",
+  "Cognitive Efficiency",
+  # "Cognitive Proficiency",
+  # "Crystallized Knowledge",
+  "Delayed Recall",
+  "Executive Functions",
+  # "Global Neurocognitive Index (G)",
+  "Verbal Fluency",
+  # "Fluid Reasoning",
+  # "General Ability",
+  "Learning Efficiency",
+  # "Memory",
+  "Planning",
+  "Processing Speed",
+  "Psychomotor Speed",
+  "Verbal/Language",
+  "Visual Perception/Construction",
+  "Working Memory"
+)
+
+g <- dplyr::filter(g, scale %in% keep)
+
+pheno <- "g"
+data <- g
+x <- g$z
+y <- g$scale
+colors <- NULL
+# return_plot <- TRUE
+return_plot <- Sys.getenv("RETURN_PLOT")
+filename <- "fig_g.svg"
+
+bwu::dotplot(
+  data = g,
+  x = x,
+  y = y,
+  colors = colors,
+  return_plot = return_plot,
+  filename = filename
+)
+```
+
+```{=typst}
+#let domain_sirf(file_fig) = {
+  let font = (font: "Fira Sans", size: 9pt)
+  set text(..font)
+figure([#image(file_fig, width: 70%)],
+  placement: none,
+  caption: [
+    Overall neurocognitive function subdomain plots of Biggie's strengths and weaknesses. _Note:_ *z* Scores have a mean of 0 and a standard deviation of 1.
+    ],
+  kind: "image",
+  supplement: [*Fig.*],
+  gap: 0.5em,
+  )
+}
+```
+
+```{=typst}
+#let file_fig = "_13_sirf_files/figure-typst/fig-domain-plot-1.svg"
+#domain_sirf(
+  file_fig
+)
+```
+
+{{< include _13_sirf_text.qmd >}}

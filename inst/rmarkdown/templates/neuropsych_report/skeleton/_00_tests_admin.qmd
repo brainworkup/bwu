@@ -1,0 +1,24 @@
+# TESTS ADMINISTERED {#sec-tests}
+
+```{=typst}
+- Comprehensive Neuropsychiatric Symptom and History Interview
+- Conners' Adult ADHD Diagnostic Interview for DSM-IV (CAADID), Part I: History
+- Conners' Adult ADHD Rating Scales--Self-Report: Long Version (CAARS--S:L)
+- Conners' Adult ADHD Rating Scales--Observer Report: Long Version (CAARS--O:L)
+- Comprehensive Executive Function Inventory Adult (CEFI Adult) Self-Report Form
+- Comprehensive Executive Function Inventory Adult (CEFI Adult) Observer Form
+- Advanced Clinical Solutions (ACS):
+  - Word Choice, Test of Premorbid Functioning (TOPF)
+- Dot Counting Test
+- Wechsler Adult Intelligence Scale, 4th ed (WAIS-IV)
+- Wide Range Achievement Test, 5th ed (WRAT-5): 
+  - Word Reading
+- Neuropsychological Assessment Battery, Screener (NAB):
+  - Attention, Language, Memory, Spatial, and Executive Functions Modules
+- NIH Executive Abilities: Measures and Instruments for Neurobehavioral Evaluation and Research (NIH EXAMINER):
+  - Unstructured Task, Verbal Fluency, and Behavioral Rating Scale
+- California Verbal Learning Test, 3rd ed (CVLT-3), Brief Form
+- Rey-Osterrieth Complex Figure Test (ROCFT)
+- Trail Making Test
+- Personality Assessment Inventory (PAI)
+```

@@ -1,0 +1,63 @@
+# NEUROBEHAVIORAL STATUS EXAM {#sec-nse}
+
+```{r}
+#| label: import-nse-txt
+#| eval: false
+#| include: false
+
+patient <- "Biggie"
+scale <- "NeuropsychEval-NSE-"
+ext <- ".txt"
+
+file_path <- function(patient, scale, ext){
+  result <- ""
+  file <- file.path(paste0(scale, patient, ext))
+  return(file)
+}
+
+```
+
+## Referral
+
+`r params$patient` was referred for neuropsychological testing as part of a comprehensive work-up for attention-deficit/hyperactivity disorder (ADHD). The results and recommendations were discussed with `r params$first_name` during the feedback visit on the final day of the evaluation and will be used in academic and treatment planning.
+
+## Background
+
+The following information was obtained during an interview with `r params$patient` and from review of available medical records. Biggie has been doing well in her classes since starting law school and has never failed. However, issues have begun to arise that she has been unable to avoid, including being easily distracted, restlessness, constantly fidgeting, procrastination, and variable attention. She suspects having ADHD and has always struggled with aspects of it. Biggie's mother tried to get her evaluated and tested when she was younger, but was never able to do so because her school at the time did not agree that there were major concerns. She has noticed increasing difficulty initiating tasks, especially when it comes to writing long research papers, and has been procrastinating more and more. Biggie has read up on ADHD and believes she may have it, but has been able to hide it from others, as she has "gotten good at pretending to pay attention." She seeks further assessment and evaluation to identify any underlying neurocognitive factors influencing her academic motivations and performance.
+
+Cognitive complaints: sustained attention, working memory, and organization.
+
+## History
+
+### Past Neuropsychological Test Results
+
+Patient denied having prior testing.
+
+### Developmental History
+
+- No birth complications.
+- Developmental milestones: Normal.
+
+### Medical History
+
+- Denied major current medical concerns.
+
+### Psychiatric History
+
+Biggie shared her difficulties in breaking routines as a child. For example, her mother would withhold plans unless she was certain they would not
+be altered. Additionally, Biggie held herself and others to high
+expectations, leading to frustration and disappointment when these expectations
+were not met. She suggested that her struggles were likely linked to
+perfectionism.
+
+### Family History
+
+Older sister currently in medical school and a younger brother who is struggling with his academic career. Parents are married and successful in their careers. Family history of dysgraphia and ADHD.
+
+### Cultural/Social Background
+
+Ms. Smalls is a Caucasian female who was born and raised in Brooklyn, NY with her biological parents. She is single, never married, and has no children.
+
+### Educational History
+
+Attended a PS 198 school with an emphasis in social-emotional development and had no significant academic difficulties in the past. However, if Biggie found a task uninteresting or disliked it, she would simply not complete it. This led her teachers to believe she was incapable of the task when in reality, her lack of motivation stemmed from a lack of interest. It was always difficult for her to take notes and still is; a traditional classroom setting would have further exacerbated her difficulties in note-taking.

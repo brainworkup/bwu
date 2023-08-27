@@ -1,0 +1,148 @@
+---
+title: "NEUROCOGNITIVE EXAMINATION"
+name: Biggie Smalls
+doe: 2023-01-01
+patient: Biggie
+format:
+  neurotyp-typst:
+    keep-typ: true
+    fontsize: 11pt
+    papersize: "us-letter"
+params:
+  patient: Biggie
+  first_name: Biggie
+  last_name: Smalls
+  mrn: 123456789
+  dob: 1991-01-01
+  doe1: 2023-01-01
+  doe2: 2023-01-01
+  doe3: 2023-01-01
+  sex: female
+  sex_cap: Female
+  age: 20
+  education: 15
+  handedness: right
+  referral: Dr. Dre
+  observer: Mrs. Wallace
+  observer_relation: mother
+  he_she: she
+  he_she_cap: She
+  his_her: her
+  his_her_cap: Her
+  him_her: her
+  him_her_cap: Her
+  dx1: attention-deficit/hyperactivity disorder (ADHD)
+  dx2: anxiety
+  dx3: depression
+execute:
+  warning: false
+  echo: false
+  message: false
+  freeze: auto
+  cache: true
+editor:
+  markdown:
+    wrap: sentence
+    references: 
+      prefix: "ref-"
+    canonical: true
+fig-width: 6
+fig-asp: 0.618
+out-width: 70%
+fig-align: center
+fig-format: svg
+fig-dpi: 270
+df-print: kable
+reference-location: document
+bibliography: refs.bib
+---
+
+```{r}
+#| label: setup
+#| include: false
+xfun::pkg_load2(
+  c("ggtext", "ggthemes", "glue", "gt", "gtExtras", "hablar", "here", "htmlwidgets", "janitor", "knitr", "magick", "manipulateWidget", "png", "quarto", "readxl", "rmarkdown", "scales", "snakecase", "stats", "svglite", "tidyselect", "tidytext", "tidyverse", "tibble", "webshot2", "widgetframe", "xfun", "yaml", "bwu")
+)
+knitr::opts_knit$set(width = 80)
+options(digits = 2, warnPartialMatchArgs = FALSE)
+options(knitr.kable.NA = "--")
+knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
+knitr::knit_hooks$set(optipng = knitr::hook_optipng)
+# Fix subfigs for rmarkdown -> latex
+if (identical(knitr:::pandoc_to(), "latex")) {
+  knitr::knit_hooks$set(plot = knitr::hook_plot_tex)
+}
+Sys.setenv(PATIENT_FIRST_NAME = "Biggie", RETURN_PLOT = FALSE)
+patient <- Sys.getenv("PATIENT_FIRST_NAME")
+return_plot <- Sys.getenv("RETURN_PLOT")
+```
+
+```{r}
+#| label: data-load
+#| include: false
+neuropsychological_data <- bwu::load_data(here::here(patient))
+bwu::load_data(here::here(patient))
+```
+
+```{=typst}
+#let name = [Biggie Smalls]
+#let doe = [2023-01-01]
+#let patient = [Biggie]
+#v(2pt, weak: true)
+*PATIENT NAME:* #name \ 
+*DATES OF EXAM:* `r params$doe1`, `r params$doe2`, and `r params$doe3` \ 
+```
+
+{{< include _00_tests_admin.qmd >}}
+
+{{< include _00_nse.qmd >}}
+
+{{< include _01_behav_obs.qmd >}}
+
+# NEUROCOGNITIVE FINDINGS {#sec-test-results}
+
+{{< include _02_iq.qmd >}}
+
+{{< include _03_academics.qmd >}}
+
+{{< include _04_verbal.qmd >}}
+
+{{< include _05_spatial.qmd >}}
+
+{{< include _06_executive.qmd >}}
+
+{{< include _07_memory.qmd >}}
+
+{{< include _08_motor.qmd >}}
+
+{{< include _10_adhd.qmd >}}
+
+{{< include _11_emotion.qmd >}}
+
+{{< include _13_sirf.qmd >}}
+
+{{< include _14_recs.qmd >}}
+
+It was a pleasure to work with Biggie.
+Please contact me with any questions or concerns regarding this patient.
+
+Sincerely,
+
+```{r}
+#| label: signature
+#| out-width: 20%
+#| fig-align: left
+#| cache: true
+#| eval: true
+knitr::include_graphics("../neuropsychology/jwt_sig.png", dpi = 127)
+```
+
+**Joey W. Trampush, Ph.D.**\
+Assistant Professor of Psychiatry\
+Department of Psychiatry and the Behavioral Sciences\
+University of Southern California Keck School of Medicine\
+CA License PSY29212 
+
+# APPENDIX {#sec-appendix}
+
+{{< include _15_appendix.qmd >}}

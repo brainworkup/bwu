@@ -1,0 +1,14 @@
+---
+execute:
+  cache: true
+---
+
+Screening of `r params$first_name`'s language comprehension and expression skills was
+intact for `r params$his_her` age, demographic background, and educational history.
+`r params$first_name` demonstrated Average phonemic (letters) word fluency and
+Average semantic (categories) word fluency. Their word-finding ability and
+retrieval fluency were Average, with no notable dysfluency in informal
+conversation. Auditory comprehension and rapid reading and color naming tasks
+were also performed at an Average level.
+
+<!-- glue -->

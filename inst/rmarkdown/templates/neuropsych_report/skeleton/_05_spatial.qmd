@@ -1,0 +1,170 @@
+---
+format:
+  neurotyp-typst: default
+---
+
+## Visual Perception/Construction {#sec-spatial}
+
+{{< include _05_spatial_text.qmd >}}
+
+```{r}
+#| label: data-spatial
+library(tidyverse)
+library(gt)
+library(gtExtras)
+library(glue)
+library(bwu)
+# Read data and filter
+pheno <- "spatial"
+data <- bwu::read_data(pheno = pheno)
+domains <- "Visual Perception/Construction"
+scales <- c(
+  "Arrows",
+  "Bicycle Drawing",
+  "Block Design No Time Bonus",
+  "Block Design Partial Score",
+  "Block Design",
+  "Clock Drawing",
+  "Clocks",
+  "Design Construction",
+  "Design Copying General",
+  "Design Copying Motor",
+  "Design Copying Process",
+  "Design Copying",
+  "Figure Copy",
+  "Figure Drawing Copy",
+  "Figure Weights",
+  "Geometric Puzzles",
+  "Line Orientation",
+  "Map Reading",
+  "Matrix Reasoning",
+  "NAB Spatial Index",
+  "Object Assembly",
+  "Picture Concepts",
+  "ROCF Copy",
+  "ROCFT Copy",
+  "Spatial Domain",
+  "Visual Discrimination",
+  "Visual Puzzles",
+  "Visuospatial/Constructional Index"
+)
+data <-
+  bwu::filter_data(
+    data,
+    domain = domains,
+    scale = scales
+  )
+```
+
+```{r}
+#| label: text-spatial
+#| cache: true
+bwu::cat_neuropsych_results(data, file = "_05_spatial_raw.qmd")
+```
+
+```{r}
+#| label: qtbl-spatial
+#| dev: tikz
+#| fig-process: pdf2png
+options(tikzDefaultEngine = "xetex")
+
+# footnotes
+fn_scaled_score <- gt::md("Scaled Score: Mean = 10 [50th‰], SD ± 3 [16th‰, 84th‰]")
+fn_standard_score <- gt::md("Index Score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰]")
+fn_t_score <- gt::md("*T* Score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
+fn_z_score <- gt::md("*z* Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]")
+
+grp_spatial <- list(
+  scaled_score = c("WAIS-IV", "WISC-5", "NEPSY-2"),
+  standard_score = c("NAB"),
+  t_score = c("NAB", "Rey Complex Figure")
+)
+pheno <- "spatial"
+table_name <- "table_spatial"
+vertical_padding <- 0.10
+multiline <- TRUE
+
+# source(here::here("R", "tbl_gt.R"))
+bwu::tbl_gt(data,
+  pheno = pheno,
+  table_name = table_name,
+  fn_scaled_score = fn_scaled_score,
+  fn_standard_score = fn_standard_score,
+  fn_t_score = fn_t_score,
+  grp_scaled_score = grp_spatial[["scaled_score"]],
+  grp_standard_score = grp_spatial[["standard_score"]],
+  grp_t_score = grp_spatial[["t_score"]],
+  dynamic_grp = grp_spatial,
+  vertical_padding = vertical_padding,
+  multiline = multiline
+)
+```
+
+```{r}
+#| label: fig-spatial
+#| fig-cap: "Perception, construction, and visuospatial processing refer to abilities such as mentally visualizing how objects should look from different angles, visualizing how to put objects together so that they fit correctly, and being able to accurately and efficiently copy and/or reproduce visual-spatial information onto paper."
+
+# Arguments
+pheno <- "spatial"
+spatial <- dplyr::filter(data, !is.na(percentile), subdomain != "Spatial")
+data <- spatial
+x <- data$z_mean_subdomain
+y <- data$subdomain
+colors <- NULL
+return_plot <- Sys.getenv("RETURN_PLOT")
+filename <- "fig_spatial.svg"
+
+# Make dotplot
+bwu::dotplot(
+  data = data,
+  x = x,
+  y = y,
+  colors = colors,
+  return_plot = return_plot,
+  filename = filename
+)
+```
+
+```{=typst}
+#let domain(title: none, file_qtbl, file_fig) = {
+  let font = (font: "Fira Sans", size: 9pt)
+  set text(..font)
+  grid(
+  columns: (50%, 50%),
+  gutter: 8pt,
+figure([#image(file_qtbl)],
+  caption: [
+    #title
+  ],
+  caption-pos: top,
+  kind: "qtbl",
+  supplement: [*Table*],
+),
+figure([#image(file_fig, width: auto)],
+  caption: [
+    Perception, construction, and visuospatial processing refer to abilities
+    such as mentally visualizing how objects should look from different angles,
+    visualizing how to put objects together so that they fit correctly, and
+    being able to accurately and efficiently copy and/or reproduce
+    visual-spatial information onto paper.
+    ],
+  caption-pos: bottom,  
+  placement: none,
+  kind: "image",
+  supplement: [*Fig.*],
+  gap: 0.5em,  
+  ),
+)
+}
+```
+
+```{=typst}
+#let title = "Visual Perception/Construction"
+#let file_qtbl = "table_spatial.png"
+#let file_fig = "_05_spatial_files/figure-typst/fig-spatial-1.svg"
+#domain(
+  title: [#title Test Scores],
+  file_qtbl,
+  file_fig
+)
+```

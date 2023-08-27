@@ -1,0 +1,21 @@
+---
+execute:
+  cache: true
+---
+
+## Overall Evaluation Interpretation
+
+Biggie is a 28-year-old left-handed female with a history of medically refractory epilepsy who was referred for neuropsychological testing as part of a comprehensive presurgical work-up. General cognitive ability is well within normal limits, and there is no evidence of decline from premorbid estimates. No deficits were detected in the domains of attention, processing speed, motor functioning, or visuospatial skills. Although many aspects of executive functioning, language functioning, and memory were within normal limits, she demonstrated mildly inefficient problem solving and hypothesis testing, weaknesses in word retrieval, and inefficiency in new learning of verbal information. There is no evidence of a mood disorder at this time.
+
+In conclusion, the cognitive profile is mildly localizing and lateralizing as there are elements that suggest relative left temporal involvement. That said, there were features seen during testing that suggested mild frontal systems disruption as well.
+Although Biggie lives alone, she has arranged to have her mother stay with her for a week or two after surgery to help her and provide support in the immediate postacute period. She seems to have a good understanding of and appropriate expectations for the surgery. Taken together with her current asymptomatic mood profile, there are no obvious psychological risk factors for a poor outcome or need for presurgical mental health intervention.
+
+### Diagnostic Impression
+
+- 314.00 (F90.0) Attention-Deficit/Hyperactivity Disorder (ADHD), Predominantly
+  Inattentive Presentation
+
+- 314.01 (F90.2) Attention-Deficit/Hyperactivity Disorder (ADHD), Combined
+  Presentation
+
+- [DSM-5/ICD-10 Codes](03.01_dsm5_icd10_dx.md)

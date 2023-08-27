@@ -1,0 +1,158 @@
+---
+format:
+  neurotyp-typst:
+    keep-typ: true
+---
+
+## Motor
+
+{{< include _08_motor_text.qmd >}}
+
+```{r}
+#| label: data-motor
+library(tidyverse)
+library(gt)
+library(gtExtras)
+library(glue)
+library(bwu)
+data <- bwu::read_data(pheno = "motor")
+domains <- c("Motor")
+scales <- c(
+  "Dominant Hand Time",
+  "Dominant Hand",
+  "Dominant vs. Nondominant",
+  "Fingertip Tapping Dominant Hand Repetitions",
+  "Fingertip Tapping Dominant Hand Sequences",
+  "Fingertip Tapping Dominant Hand",
+  "Fingertip Tapping Dominant Hand",
+  "Fingertip Tapping Nondominant Hand Repetitions",
+  "Fingertip Tapping Nondominant Hand Sequences",
+  "Fingertip Tapping Nondominant Hand",
+  "Fingertip Tapping Nondominant Hand",
+  "Fingertip Tapping Repetitions",
+  "Fingertip Tapping Repetitions",
+  "Fingertip Tapping Sequences",
+  "Fingertip Tapping Sequences",
+  "FT Dominant Hand vs. Nondominant Hand",
+  "Imitating Hand Positions-Dominant",
+  "Imitating Hand Positions-Nondominant",
+  "Imitating Hand Positions",
+  "Left-Hand Time",
+  "Non-Dominant Hand Time",
+  "Nondominant Hand",
+  "Repetitions vs. Sequences",
+  "Right-Hand Time",
+  "Visuomotor Precision Errors",
+  "Visuomotor Precision Pencil Lifts",
+  "Visuomotor Precision Time",
+  "Visuomotor Precision"
+)
+data <- bwu::filter_data(data, domain = domains, scale = scales)
+```
+
+```{r}
+#| label: text-motor
+#| cache: true
+bwu::cat_neuropsych_results(data, file = "_08_motor_raw.qmd")
+```
+
+```{r}
+#| label: qtbl-motor
+#| dev: tikz
+#| fig-process: pdf2png
+options(tikzDefaultEngine = "xetex")
+
+# footnotes
+fn_scaled_score <- gt::md("Scaled Score: Mean = 10 [50th‰], SD ± 3 [16th‰, 84th‰]")
+fn_standard_score <- gt::md("Index Score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰]")
+fn_t_score <- gt::md("*T* Score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
+fn_z_score <- gt::md("*z* Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]")
+z_score_label <- "*z* Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]"
+
+pheno <- "motor"
+table_name <- "table_motor"
+
+grp_motor <- list(
+  t_score = c("Grooved Pegboard"),
+  scaled_score = c("NEPSY-2")
+)
+vertical_padding <- 0.10
+multiline <- TRUE
+
+# source(here::here("R", "tbl_gt.R"))
+bwu::tbl_gt(data,
+  pheno = pheno,
+  table_name = table_name,
+  fn_scaled_score = fn_scaled_score,
+  fn_t_score = fn_t_score,
+  grp_scaled_score = grp_motor[["scaled_score"]],
+  grp_t_score = grp_motor[["t_score"]],
+  dynamic_grp = grp_motor,
+  vertical_padding = vertical_padding,
+  multiline = multiline
+)
+```
+
+```{r}
+#| label: fig-motor
+#| fig-cap: "Sensorimotor tasks refer to the capacity to control hand movements quickly, smoothly, and with adequate precision, which are required to engage in activities such as writing and drawing."
+
+# Arguments
+motor <- dplyr::filter(data, !is.na(percentile))
+data <- motor
+x <- data$z_mean_narrow
+y <- data$narrow
+colors <- NULL
+return_plot <- Sys.getenv("RETURN_PLOT")
+filename <- "fig_motor.svg"
+
+# source(here::here("R", "dotplot.R"))
+bwu::dotplot(
+  data = data,
+  x = x,
+  y = y,
+  colors = colors,
+  return_plot = return_plot,
+  filename = filename
+)
+```
+
+```{=typst}
+#let domain(title: none, file_qtbl, file_fig) = {
+  let font = (font: "Fira Sans", size: 9pt)
+  set text(..font)
+    grid(
+      columns: (50%, 50%),
+      gutter: 8pt,
+        figure([#image(file_qtbl)],
+          caption: [#title],
+          caption-pos: top,
+          kind: "qtbl",
+          supplement: [*Table*],
+          ),
+        figure([#image(file_fig, width: auto)],
+          caption: [
+            Sensorimotor tasks refer to the capacity to control hand movements
+            quickly, smoothly, and with adequate precision, which are required
+            to engage in activities such as writing and drawing.
+            ],
+          caption-pos: bottom,
+          placement: none,
+          kind: "image",
+          supplement: [*Fig.*],
+          gap: 0.5em,
+        ),
+      )
+  }
+```
+
+```{=typst}
+#let title = "Motor"
+#let file_qtbl = "table_motor.png"
+#let file_fig = "_08_motor_files/figure-typst/fig-motor-1.svg"
+#domain(
+  title: [#title Test Scores],
+  file_qtbl,
+  file_fig
+  )
+```

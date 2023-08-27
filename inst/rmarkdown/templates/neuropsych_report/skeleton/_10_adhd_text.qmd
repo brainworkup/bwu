@@ -1,0 +1,14 @@
+---
+execute:
+  cache: true
+---
+
+`r params$patient` completed self-report rating scales of adult ADHD symptoms
+and executive functioning in everyday life. Consistent and overlapping difficulties were reported in the areas of:
+
+<!-- insert 2-3 scores -->
+
+On the companion observer-reports, it was reported that `r params$patient` evidences
+moderate to severe difficulties in the areas of:
+
+<!-- insert 2-3 scores -->
