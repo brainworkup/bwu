@@ -16,18 +16,20 @@
 #' @param tab_stubhead Stubhead of the table.
 #' @param caption Caption of the table.
 #' @param process_md Process markdown.
-#' @param vertical_padding Vertical padding.
 #' @param fn_scaled_score Footnote for scaled score.
 #' @param fn_standard_score Footnote for standard score.
 #' @param fn_t_score Footnote for t score.
 #' @param grp_standard_score Groups for standard score.
 #' @param grp_t_score Groups for t score.
 #' @param grp_scaled_score Groups for scaled score.
+#' @param dynamic_grp Generalized grouping parameter.
+#' @param vertical_padding Vertical padding.
 #' @param multiline Multiline footnotes, Default = TRUE.
 #' @param ... Additional arguments to be passed to the function.
 #' @return A formatted table with domain counts.
 #' @rdname tbl_gt
 #' @export
+# Hypothetical modified bwu::tbl_gt function
 tbl_gt <-
   function(data,
            pheno = NULL,
@@ -37,13 +39,14 @@ tbl_gt <-
            tab_stubhead = NULL,
            caption = NULL,
            process_md = FALSE,
-           vertical_padding = NULL,
            fn_scaled_score = NULL,
            fn_standard_score = NULL,
            fn_t_score = NULL,
            grp_scaled_score = NULL,
            grp_standard_score = NULL,
            grp_t_score = NULL,
+           dynamic_grp,
+           vertical_padding = NULL,
            multiline = TRUE,
            ...) {
     # create data counts
@@ -83,8 +86,16 @@ tbl_gt <-
         columns = c("score", "percentile", "range")
       )
 
-    # Adding footnotes are now optional
-    if (!is.null(fn_scaled_score)) {
+    # Extract unique row groups from the data to check against the groups we want to apply footnotes to
+    existing_row_groups <- unique(data$test_name)
+
+    # Filter out non-existent groups
+    grp_scaled_score <- intersect(grp_scaled_score, existing_row_groups)
+    grp_standard_score <- intersect(grp_standard_score, existing_row_groups)
+    grp_t_score <- intersect(grp_t_score, existing_row_groups)
+
+    # Adding footnotes
+    if (!is.null(fn_scaled_score) && any(grp_scaled_score %in% dynamic_grp[["scaled_score"]])) {
       table <- table |>
         tab_footnote(
           footnote = fn_scaled_score,
@@ -92,7 +103,7 @@ tbl_gt <-
         )
     }
 
-    if (!is.null(fn_standard_score)) {
+    if (!is.null(fn_standard_score) && any(grp_standard_score %in% dynamic_grp[["standard_score"]])) {
       table <- table |>
         tab_footnote(
           footnote = fn_standard_score,
@@ -100,13 +111,14 @@ tbl_gt <-
         )
     }
 
-    if (!is.null(fn_t_score)) {
+    if (!is.null(fn_t_score) && any(grp_t_score %in% dynamic_grp[["t_score"]])) {
       table <- table |>
         tab_footnote(
           footnote = fn_t_score,
           cells_row_groups(groups = grp_t_score)
         )
     }
+
 
     table <- table |>
       tab_style(

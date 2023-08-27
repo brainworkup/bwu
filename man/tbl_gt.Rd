@@ -13,13 +13,14 @@ tbl_gt(
   tab_stubhead = NULL,
   caption = NULL,
   process_md = FALSE,
-  vertical_padding = NULL,
   fn_scaled_score = NULL,
   fn_standard_score = NULL,
   fn_t_score = NULL,
   grp_scaled_score = NULL,
   grp_standard_score = NULL,
   grp_t_score = NULL,
+  dynamic_grp,
+  vertical_padding = NULL,
   multiline = TRUE,
   ...
 )
@@ -41,8 +42,6 @@ tbl_gt(
 
 \item{process_md}{Process markdown.}
 
-\item{vertical_padding}{Vertical padding.}
-
 \item{fn_scaled_score}{Footnote for scaled score.}
 
 \item{fn_standard_score}{Footnote for standard score.}
@@ -54,6 +53,10 @@ tbl_gt(
 \item{grp_standard_score}{Groups for standard score.}
 
 \item{grp_t_score}{Groups for t score.}
+
+\item{dynamic_grp}{Generalized grouping parameter.}
+
+\item{vertical_padding}{Vertical padding.}
 
 \item{multiline}{Multiline footnotes, Default = TRUE.}
 
