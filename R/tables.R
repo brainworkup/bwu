@@ -1,11 +1,13 @@
 #' @title Make Table Using `gt` Package for Neurocognitive Domains
 #' @description Create a table of domain counts using dplyr and gt packages.
-#' @importFrom dplyr across mutate group_by summarize arrange select
+#' @importFrom dplyr across mutate group_by summarize arrange select if_else
 #' @importFrom gt gt cols_label tab_stub_indent tab_header sub_missing
 #'   tab_options cols_align tab_source_note gtsave tab_style tab_stubhead
-#'   tab_caption tab_spanner cell_text cells_source_notes
+#'   tab_caption tab_spanner cell_text cells_source_notes md tab_footnote
+#'   opt_vertical_padding cells_row_groups
 #' @importFrom gtExtras gt_theme_538
 #' @importFrom tidyr replace_na
+#' @importFrom glue glue
 #' @param data File or path to data.
 #' @param pheno Phenotype name.
 #' @param table_name Name of the table to be saved.
@@ -46,37 +48,37 @@ tbl_gt <-
            ...) {
     # create data counts
     data_counts <- data |>
-      dplyr::select(test_name, scale, score, percentile, range) |>
-      dplyr::mutate(dplyr::across(c(score, percentile), ~ tidyr::replace_na(., replace = 0)))
+      select(test_name, scale, score, percentile, range) |>
+      mutate(across(c(score, percentile), ~ tidyr::replace_na(., replace = 0)))
 
     # create table
     table <- data_counts |>
-      dplyr::mutate(
-        score = dplyr::if_else(score == 0, NA_integer_, score),
-        percentile = dplyr::if_else(percentile == 0, NA_integer_, percentile),
+      mutate(
+        score = if_else(score == 0, NA_integer_, score),
+        percentile = if_else(percentile == 0, NA_integer_, percentile),
         test_name = as.character(paste0(test_name)),
         scale = as.character(scale)
       ) |>
       # gt table formatting
-      gt::gt(
+      gt(
         rowname_col = "scale",
         groupname_col = "test_name",
         process_md = process_md,
         caption = caption,
         rownames_to_stub = FALSE
       ) |>
-      gt::cols_label(
-        test_name = gt::md("**Test**"),
-        scale = gt::md("**Scale**"),
-        score = gt::md("**Score**"),
-        percentile = gt::md("**‰ Rank**"),
-        range = gt::md("**Range**")
+      cols_label(
+        test_name = md("**Test**"),
+        scale = md("**Scale**"),
+        score = md("**Score**"),
+        percentile = md("**‰ Rank**"),
+        range = md("**Range**")
       ) |>
-      gt::tab_header(title = title) |>
-      gt::tab_stubhead(label = tab_stubhead) |>
-      gt::sub_missing(missing_text = "--") |>
-      gt::tab_stub_indent(rows = scale, indent = 2) |>
-      gt::cols_align(
+      tab_header(title = title) |>
+      tab_stubhead(label = tab_stubhead) |>
+      sub_missing(missing_text = "--") |>
+      tab_stub_indent(rows = scale, indent = 2) |>
+      cols_align(
         align = "center",
         columns = c("score", "percentile", "range")
       )
@@ -84,45 +86,45 @@ tbl_gt <-
     # Adding footnotes are now optional
     if (!is.null(fn_scaled_score)) {
       table <- table |>
-        gt::tab_footnote(
+        tab_footnote(
           footnote = fn_scaled_score,
-          gt::cells_row_groups(groups = grp_scaled_score)
+          cells_row_groups(groups = grp_scaled_score)
         )
     }
 
     if (!is.null(fn_standard_score)) {
       table <- table |>
-        gt::tab_footnote(
+        tab_footnote(
           footnote = fn_standard_score,
-          gt::cells_row_groups(groups = grp_standard_score)
+          cells_row_groups(groups = grp_standard_score)
         )
     }
 
     if (!is.null(fn_t_score)) {
       table <- table |>
-        gt::tab_footnote(
+        tab_footnote(
           footnote = fn_t_score,
-          gt::cells_row_groups(groups = grp_t_score)
+          cells_row_groups(groups = grp_t_score)
         )
     }
 
     table <- table |>
-      gt::tab_style(
-        style = gt::cell_text(size = "small"),
-        locations = gt::cells_source_notes()
+      tab_style(
+        style = cell_text(size = "small"),
+        locations = cells_source_notes()
       ) |>
-      gt::tab_source_note(
+      tab_source_note(
         source_note = source_note
       ) |>
       gtExtras::gt_theme_538() |>
-      gt::tab_options(
+      tab_options(
         row_group.font.weight = "bold",
         footnotes.multiline = multiline
       ) |>
-      gt::opt_vertical_padding(scale = vertical_padding)
+      opt_vertical_padding(scale = vertical_padding)
 
-    gt::gtsave(table, glue::glue("table_{pheno}.pdf"))
-    gt::gtsave(table, glue::glue("table_{pheno}.png"))
+    gtsave(table, glue("table_{pheno}.pdf"))
+    gtsave(table, glue("table_{pheno}.png"))
 
     return(table)
   }
