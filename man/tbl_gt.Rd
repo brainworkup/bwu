@@ -65,8 +65,3 @@ A formatted table with domain counts.
 \description{
 Create a table of domain counts using dplyr and gt packages.
 }
-\details{
-This function creates a table of domain counts from a data frame
-using the dplyr and gt packages. It also saves the table with the specified
-name.
-}

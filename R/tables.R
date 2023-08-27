@@ -24,9 +24,6 @@
 #' @param multiline Multiline footnotes, Default = TRUE.
 #' @param ... Additional arguments to be passed to the function.
 #' @return A formatted table with domain counts.
-#' @details This function creates a table of domain counts from a data frame
-#'   using the dplyr and gt packages. It also saves the table with the specified
-#'   name.
 #' @rdname tbl_gt
 #' @export
 tbl_gt <-
@@ -83,9 +80,6 @@ tbl_gt <-
         align = "center",
         columns = c("score", "percentile", "range")
       )
-    gt::tab_source_note(
-      source_note = source_note
-    )
 
     # Adding footnotes are now optional
     if (!is.null(fn_scaled_score)) {
@@ -116,6 +110,9 @@ tbl_gt <-
       gt::tab_style(
         style = gt::cell_text(size = "small"),
         locations = gt::cells_source_notes()
+      ) |>
+      gt::tab_source_note(
+        source_note = source_note
       ) |>
       gtExtras::gt_theme_538() |>
       gt::tab_options(
