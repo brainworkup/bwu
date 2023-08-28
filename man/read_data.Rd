@@ -4,16 +4,14 @@
 \alias{read_data}
 \title{Read Neuropsych Data for Subsetting}
 \usage{
-read_data(pheno, ...)
+read_data(pheno)
 }
 \arguments{
 \item{pheno}{Character vector for phenotype. Options are "adhd" or "emotion".}
-
-\item{...}{Additional options.}
 }
 \value{
 A tibble containing various subsets of the data.
 }
 \description{
-Read Neuropsych Data for Subsetting
+This function reads in the neuropsych data for subsetting.
 }

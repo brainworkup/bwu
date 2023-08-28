@@ -1,9 +1,9 @@
 ## Behavioral Observations
 
-- *Appearance:* Appropriate grooming and dress for context.
-- *Behavior/attitude:* Cooperative, engaged.
-- *Speech/language:* Fluent and normal in rate, volume, and prosody.
-- *Mood/affect:* Neutral, range was full and appropriate.
-- *Sensory/motor:* Performance was not limited by any obvious sensory or motor difficulties.
-- *Cognitive process:* Coherent and goal directed.
-- *Motivation/effort:* Normal.
+-   *Appearance:* Appropriate grooming and dress for context.
+-   *Behavior/attitude:* Cooperative, engaged.
+-   *Speech/language:* Fluent and normal in rate, volume, and prosody.
+-   *Mood/affect:* Neutral, range was full and appropriate.
+-   *Sensory/motor:* Performance was not limited by any obvious sensory or motor difficulties.
+-   *Cognitive process:* Coherent and goal directed.
+-   *Motivation/effort:* Normal.

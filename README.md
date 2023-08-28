@@ -1,4 +1,3 @@
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 <img src="hex-bwu.png" width="20%"/>
@@ -17,87 +16,88 @@ processing, report writing, and presentation of results.
 
 ## Installation
 
+true
 You can install the development version of `bwu` like so:
 
-``` r
+```r
 pak::pak("brainworkup/bwu")
 #> ℹ Loading metadata database
 #> ✔ Loading metadata database ... done
-#> 
-#> 
+#>
+#>
 #> → Will install 123 packages.
 #> → Will update 1 package.
 #> → Will download 77 CRAN packages (100.22 MB), cached: 47 (41.21 MB).
 #> + askpass                    1.1         ⬇ (23.20 kB)
-#> + assertthat                 0.2.1      
-#> + backports                  1.4.1      
+#> + assertthat                 0.2.1
+#> + backports                  1.4.1
 #> + base64enc                  0.1-3       ⬇ (34.81 kB)
 #> + bigD                       0.2.0       ⬇ (1.16 MB)
-#> + bit                        4.0.5      
-#> + bit64                      4.0.5      
+#> + bit                        4.0.5
+#> + bit64                      4.0.5
 #> + bitops                     1.0-7       ⬇ (32.51 kB)
 #> + bookdown                   0.35        ⬇ (1.09 MB)
-#> + broom                      1.0.5      
+#> + broom                      1.0.5
 #> + bslib                      0.5.1       ⬇ (5.90 MB)
 #> + bwu           0.0.1.9002 → 0.0.1.9002 👷🔧 (GitHub: 27ae68c)
 #> + cachem                     1.0.8       ⬇ (69.43 kB)
 #> + callr                      3.7.3       ⬇ (431.09 kB)
-#> + cellranger                 1.1.0      
+#> + cellranger                 1.1.0
 #> + cli                        3.6.1       ⬇ (1.38 MB)
 #> + clipr                      0.8.0       ⬇ (51.12 kB)
-#> + colorspace                 2.1-0      
+#> + colorspace                 2.1-0
 #> + commonmark                 1.9.0       ⬇ (357.18 kB)
 #> + crayon                     1.5.2       ⬇ (162.31 kB)
 #> + curl                       5.0.2       ⬇ (811.87 kB)
-#> + data.table                 1.14.8     
+#> + data.table                 1.14.8
 #> + digest                     0.6.33      ⬇ (297.88 kB)
-#> + dplyr                      1.1.2      
+#> + dplyr                      1.1.2
 #> + ellipsis                   0.3.2       ⬇ (39.03 kB)
 #> + evaluate                   0.21        ⬇ (81.80 kB)
 #> + fansi                      1.0.4       ⬇ (387.75 kB)
-#> + farver                     2.1.1      
+#> + farver                     2.1.1
 #> + fastmap                    1.1.1       ⬇ (201.10 kB)
 #> + fontawesome                0.5.2       ⬇ (1.36 MB)
 #> + forcats                    1.0.0       ⬇ (422.45 kB)
 #> + fs                         1.6.3       ⬇ (625.41 kB)
-#> + generics                   0.1.3      
+#> + generics                   0.1.3
 #> + ggplot2                    3.4.3       ⬇ (3.34 MB)
 #> + ggtext                     0.1.2       ⬇ (1.26 MB)
 #> + ggthemes                   4.2.4       ⬇ (435.69 kB)
-#> + glue                       1.6.2      
+#> + glue                       1.6.2
 #> + gridtext                   0.1.5       ⬇ (955.55 kB)
-#> + gt                         0.9.0      
+#> + gt                         0.9.0
 #> + gtable                     0.3.4       ⬇ (218.00 kB)
 #> + gtExtras                   0.4.5       ⬇ (4.19 MB)
-#> + here                       1.0.1      
+#> + here                       1.0.1
 #> + highcharter                0.9.4       ⬇ (1.63 MB)
 #> + highr                      0.10        ⬇ (38.98 kB)
-#> + hms                        1.1.3      
+#> + hms                        1.1.3
 #> + htmltools                  0.5.6       ⬇ (355.65 kB)
 #> + htmlwidgets                1.6.2       ⬇ (803.88 kB)
 #> + httr                       1.4.7       ⬇ (474.94 kB)
 #> + igraph                     1.5.1       ⬇ (9.38 MB)
-#> + isoband                    0.2.7      
-#> + janitor                    2.2.0      
+#> + isoband                    0.2.7
+#> + janitor                    2.2.0
 #> + jpeg                       0.1-10      ⬇ (455.37 kB)
 #> + jquerylib                  0.1.4       ⬇ (526.36 kB)
 #> + jsonlite                   1.8.7       ⬇ (1.13 MB)
 #> + juicyjuice                 0.1.0       ⬇ (1.13 MB)
-#> + kableExtra                 1.3.4      
+#> + kableExtra                 1.3.4
 #> + knitr                      1.43        ⬇ (1.47 MB)
-#> + labeling                   0.4.2      
+#> + labeling                   0.4.2
 #> + lifecycle                  1.0.3       ⬇ (123.60 kB)
-#> + lubridate                  1.9.2      
+#> + lubridate                  1.9.2
 #> + magrittr                   2.0.3       ⬇ (232.37 kB)
 #> + markdown                   1.8         ⬇ (196.68 kB)
 #> + memoise                    2.0.1       ⬇ (47.96 kB)
 #> + mime                       0.12        ⬇ (36.62 kB)
-#> + munsell                    0.5.0      
+#> + munsell                    0.5.0
 #> + openssl                    2.1.0       ⬇ (2.89 MB)
 #> + paletteer                  1.5.0       ⬇ (436.69 kB)
 #> + pillar                     1.9.0       ⬇ (648.66 kB)
 #> + pkgconfig                  2.0.3       ⬇ (18.18 kB)
-#> + png                        0.1-8      
+#> + png                        0.1-8
 #> + prismatic                  1.1.1       ⬇ (788.48 kB)
 #> + processx                   3.8.2       ⬇ (316.26 kB)
 #> + ps                         1.7.5       ⬇ (314.49 kB)
@@ -105,51 +105,51 @@ pak::pak("brainworkup/bwu")
 #> + quantmod                   0.4.25      ⬇ (1.06 MB)
 #> + R6                         2.5.1       ⬇ (83.05 kB)
 #> + rappdirs                   0.3.3       ⬇ (47.30 kB)
-#> + RColorBrewer               1.1-3      
+#> + RColorBrewer               1.1-3
 #> + Rcpp                       1.0.11      ⬇ (3.31 MB)
 #> + reactable                  0.4.4       ⬇ (1.06 MB)
 #> + reactR                     0.4.4       ⬇ (612.72 kB)
-#> + readr                      2.1.4      
+#> + readr                      2.1.4
 #> + readxl                     1.4.3       ⬇ (1.56 MB)
-#> + rematch                    1.0.1      
+#> + rematch                    1.0.1
 #> + rematch2                   2.1.2       ⬇ (45.50 kB)
-#> + rJava                      1.0-6      
-#> + rjson                      0.2.21     
+#> + rJava                      1.0-6
+#> + rjson                      0.2.21
 #> + rlang                      1.1.1       ⬇ (1.89 MB)
-#> + rlist                      0.4.6.2    
+#> + rlist                      0.4.6.2
 #> + rmarkdown                  2.24        ⬇ (2.61 MB)
 #> + rprojroot                  2.0.3       ⬇ (100.78 kB)
 #> + rstudioapi                 0.15.0      ⬇ (299.49 kB)
-#> + rvest                      1.0.3      
+#> + rvest                      1.0.3
 #> + sass                       0.4.7       ⬇ (2.41 MB)
-#> + scales                     1.2.1      
-#> + selectr                    0.4-2      
-#> + snakecase                  0.11.0     
+#> + scales                     1.2.1
+#> + selectr                    0.4-2
+#> + snakecase                  0.11.0
 #> + stringi                    1.7.12      ⬇ (14.63 MB)
 #> + stringr                    1.5.0       ⬇ (311.21 kB)
-#> + svglite                    2.1.1      
+#> + svglite                    2.1.1
 #> + sys                        3.4.2       ⬇ (51.52 kB)
 #> + systemfonts                1.0.4       ⬇ (6.85 MB)
 #> + tabulizer                  0.2.3      👷🏿‍♀️🔧 (GitHub: 08e3d76)
 #> + tabulizerjars              1.0.1      👷🏽‍♀️🔧 (GitHub: d1924e0)
 #> + tibble                     3.2.1       ⬇ (682.28 kB)
-#> + tidyr                      1.3.0      
-#> + tidyselect                 1.2.0      
-#> + timechange                 0.2.0      
+#> + tidyr                      1.3.0
+#> + tidyselect                 1.2.0
+#> + timechange                 0.2.0
 #> + tinytex                    0.46        ⬇ (134.90 kB)
-#> + TTR                        0.24.3     
-#> + tzdb                       0.4.0      
+#> + TTR                        0.24.3
+#> + tzdb                       0.4.0
 #> + utf8                       1.2.3       ⬇ (210.11 kB)
 #> + V8                         4.3.3       ⬇ (9.66 MB)
 #> + vctrs                      0.6.3       ⬇ (1.97 MB)
-#> + viridisLite                0.4.2      
-#> + vroom                      1.6.3      
-#> + webshot                    0.5.5      
+#> + viridisLite                0.4.2
+#> + vroom                      1.6.3
+#> + webshot                    0.5.5
 #> + withr                      2.5.0       ⬇ (230.91 kB)
 #> + xfun                       0.40        ⬇ (439.12 kB)
-#> + XML                        3.99-0.14  
+#> + XML                        3.99-0.14
 #> + xml2                       1.3.5       ⬇ (478.13 kB)
-#> + xts                        0.13.1     
+#> + xts                        0.13.1
 #> + yaml                       2.3.7       ⬇ (228.15 kB)
 #> + zoo                        1.8-12
 #> ℹ Getting 77 pkgs (100.22 MB), 47 (41.21 MB) cached
@@ -384,7 +384,7 @@ pak::pak("brainworkup/bwu")
 
 This is a basic example which shows you how to solve a common problem:
 
-``` r
+```r
 library(bwu)
 #> Registered S3 method overwritten by 'quantmod':
 #>   method            from
@@ -394,21 +394,21 @@ library(bwu)
 What is special about using `README.Rmd` instead of just `README.md`?
 You can include R chunks like so:
 
-``` r
+```r
 summary(dots)
-#>       raw             age          percentile             n        
-#>  Min.   : 1.00   Min.   : 3.50   Min.   :0.001355   Min.   :152.0  
-#>  1st Qu.:10.00   1st Qu.:11.30   1st Qu.:0.256329   1st Qu.:305.0  
-#>  Median :14.00   Median :29.00   Median :0.472222   Median :373.0  
-#>  Mean   :14.08   Mean   :37.59   Mean   :0.491065   Mean   :402.1  
-#>  3rd Qu.:18.00   3rd Qu.:63.80   3rd Qu.:0.740458   3rd Qu.:524.0  
-#>  Max.   :27.00   Max.   :94.20   Max.   :0.998750   Max.   :524.0  
-#>        m               md              sd          normValue    
-#>  Min.   :13.40   Min.   :13.00   Min.   :4.271   Min.   :20.01  
-#>  1st Qu.:13.40   1st Qu.:13.00   1st Qu.:4.806   1st Qu.:43.45  
-#>  Median :14.25   Median :14.00   Median :5.062   Median :49.30  
-#>  Mean   :14.25   Mean   :14.12   Mean   :4.920   Mean   :49.71  
-#>  3rd Qu.:14.73   3rd Qu.:15.00   3rd Qu.:5.062   3rd Qu.:56.45  
+#>       raw             age          percentile             n
+#>  Min.   : 1.00   Min.   : 3.50   Min.   :0.001355   Min.   :152.0
+#>  1st Qu.:10.00   1st Qu.:11.30   1st Qu.:0.256329   1st Qu.:305.0
+#>  Median :14.00   Median :29.00   Median :0.472222   Median :373.0
+#>  Mean   :14.08   Mean   :37.59   Mean   :0.491065   Mean   :402.1
+#>  3rd Qu.:18.00   3rd Qu.:63.80   3rd Qu.:0.740458   3rd Qu.:524.0
+#>  Max.   :27.00   Max.   :94.20   Max.   :0.998750   Max.   :524.0
+#>        m               md              sd          normValue
+#>  Min.   :13.40   Min.   :13.00   Min.   :4.271   Min.   :20.01
+#>  1st Qu.:13.40   1st Qu.:13.00   1st Qu.:4.806   1st Qu.:43.45
+#>  Median :14.25   Median :14.00   Median :5.062   Median :49.30
+#>  Mean   :14.25   Mean   :14.12   Mean   :4.920   Mean   :49.71
+#>  3rd Qu.:14.73   3rd Qu.:15.00   3rd Qu.:5.062   3rd Qu.:56.45
 #>  Max.   :17.16   Max.   :17.00   Max.   :5.124   Max.   :80.23
 ```
 
@@ -428,6 +428,6 @@ example workflow can be found here:
 
 <img src="man/figures/README-unnamed-chunk-4-1.gif" width="50%" align="center/"/>
 
-------------------------------------------------------------------------
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->

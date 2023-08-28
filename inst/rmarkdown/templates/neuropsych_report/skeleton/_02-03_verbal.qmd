@@ -176,7 +176,6 @@ bwu::dotplot(
       )
   }
 ```
-
 ```{=typst}
 #let title = "Verbal/Language"
 #let file_qtbl = "table_verbal.png"
