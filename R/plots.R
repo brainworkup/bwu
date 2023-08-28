@@ -185,8 +185,6 @@ dotplot <- function(data,
 #' Creates a highcharter drilldown interactive plot.
 #'
 #' @param data Dataset to use.
-#' @param mu_z Mean z-score.
-#' @param mu_percentile Mean percentile.
 #' @param patient Name of patient.
 #' @param neuro_domain Name of neuropsych domain to add to HC series.
 #' @param theme The highcharter theme to use.
@@ -199,78 +197,128 @@ dotplot <- function(data,
 #' @return A drilldown plot
 #' @rdname drilldown
 #' @export
-drilldown <-
-  function(data,
-           mu_z,
-           mu_percentile,
-           patient,
-           neuro_domain = c(
-             "Neuropsychological Test Scores",
-             "Behavioral Rating Scales",
-             "Effort/Validity Test Scores"
-           ),
-           theme) {
-    # Create 4 levels of data.frames for drilldown -----------------------
-    ## Level 1 -------------------------------------------------------
-    ## Domain scores
-    # 1. create mean z-scores for domain
-    df1 <- data |>
-      group_by(domain) |>
-      summarize(
-        mu_z = mean(z),
-        mu_percentile = mean(percentile)
-      ) |>
-      mutate(range = "") |>
-      ungroup()
+drilldown <- function(data, patient, neuro_domain = c(
+                        "Neuropsychological Test Scores",
+                        "Behavioral Rating Scales",
+                        "Effort/Validity Test Scores"
+                      ), theme) {
+  # Create 4 levels of data.frames for drilldown -----------------------
+  ## Level 1 -------------------------------------------------------
+  ## Domain scores
+  # 1. create mean z-scores for domain
+  df1 <- data |>
+    group_by(domain) |>
+    summarize(
+      mu_z = mean(z, na.rm = TRUE),
+      mu_percentile = mean(percentile, na.rm = TRUE)
+    ) |>
+    mutate(range = "") |>
+    ungroup()
 
-    df1$mu_z <- round(df1$mu_z, 2L)
-    df1$mu_percentile <- round(df1$mu_percentile, 0L)
-    df1 <- df1 |>
-      mutate(
-        range = case_when(
-          mu_percentile >= 98 ~ "Exceptionally High",
-          mu_percentile %in% 91:97 ~ "Above Average",
-          mu_percentile %in% 75:90 ~ "High Average",
-          mu_percentile %in% 25:74 ~ "Average",
-          mu_percentile %in% 9:24 ~ "Low Average",
-          mu_percentile %in% 2:8 ~ "Below Average",
-          mu_percentile < 2 ~ "Exceptionally Low",
-          TRUE ~ as.character(range)
-        )
+  df1$mu_z <- round(df1$mu_z, 2L)
+  df1$mu_percentile <- round(df1$mu_percentile, 0L)
+  df1 <- df1 |>
+    mutate(
+      range = case_when(
+        mu_percentile >= 98 ~ "Exceptionally High",
+        mu_percentile %in% 91:97 ~ "Above Average",
+        mu_percentile %in% 75:90 ~ "High Average",
+        mu_percentile %in% 25:74 ~ "Average",
+        mu_percentile %in% 9:24 ~ "Low Average",
+        mu_percentile %in% 2:8 ~ "Below Average",
+        mu_percentile < 2 ~ "Exceptionally Low",
+        TRUE ~ as.character(range)
       )
-
-    # 2. sort hi to lo
-    df1 <- arrange(df1, desc(mu_percentile))
-
-    # 3. create data.frame with new column with domain name lowercase
-    df_level1_status <- tibble(
-      name = df1$domain,
-      y = df1$mu_z,
-      y2 = df1$mu_percentile,
-      range = df1$range,
-      drilldown = tolower(name)
     )
 
-    ## Level 2 -------------------------------------------------------
-    ## Subdomain scores
-    ## function to create second level of drilldown (subdomain scores)
-    df_level2_drill <-
-      lapply(unique(data$domain), function(x_level) {
-        df2 <- subset(data, data$domain %in% x_level)
+  # 2. sort hi to lo
+  df1 <- arrange(df1, desc(mu_percentile))
 
-        # same as above
-        df2 <- df2 |>
-          group_by(subdomain) |>
+  # 3. create data.frame with new column with domain name lowercase
+  df_level1_status <- tibble(
+    name = df1$domain,
+    y = df1$mu_z,
+    y2 = df1$mu_percentile,
+    range = df1$range,
+    drilldown = tolower(name)
+  )
+
+  ## Level 2 -------------------------------------------------------
+  ## Subdomain scores
+  ## function to create second level of drilldown (subdomain scores)
+  df_level2_drill <-
+    lapply(unique(data$domain), function(x_level) {
+      df2 <- subset(data, data$domain %in% x_level)
+
+      # same as above
+      df2 <- df2 |>
+        group_by(subdomain) |>
+        summarize(
+          mu_z = mean(z, na.rm = TRUE),
+          mu_percentile = mean(percentile, na.rm = TRUE)
+        ) |>
+        mutate(range = NA) |>
+        ungroup()
+
+      df2$mu_z <- round(df2$mu_z, 2L)
+      df2$mu_percentile <- round(df2$mu_percentile, 0L)
+      df2 <- df2 |>
+        mutate(
+          range = case_when(
+            mu_percentile >= 98 ~ "Exceptionally High",
+            mu_percentile %in% 91:97 ~ "Above Average",
+            mu_percentile %in% 75:90 ~ "High Average",
+            mu_percentile %in% 25:74 ~ "Average",
+            mu_percentile %in% 9:24 ~ "Low Average",
+            mu_percentile %in% 2:8 ~ "Below Average",
+            mu_percentile < 2 ~ "Exceptionally Low",
+            TRUE ~ as.character(range)
+          )
+        )
+
+      # 2. sort hi to lo
+      df2 <- arrange(df2, desc(mu_percentile))
+
+      # 3. create data.frame with new column with domain name lowercase
+      df_level2_status <- tibble(
+        name = df2$subdomain,
+        y = df2$mu_z,
+        y2 = df2$mu_percentile,
+        range = df2$range,
+        drilldown = tolower(paste(x_level, name, sep = "_"))
+      )
+
+      list(
+        id = tolower(x_level),
+        type = "column",
+        data = list_parse(df_level2_status)
+      )
+    })
+
+  ## Level 3 -------------------------------------------------------
+  ## Narrow subdomains
+  df_level3_drill <-
+    lapply(unique(data$domain), function(x_level) {
+      df2 <- subset(data, data$domain %in% x_level)
+
+      # reuse function but with y_level
+      lapply(unique(df2$subdomain), function(y_level) {
+        # 1. create mean z-scores for subdomain
+        # df3 becomes pronoun for domain
+        df3 <- subset(df2, df2$subdomain %in% y_level)
+
+        df3 <- df3 |>
+          group_by(narrow) |>
           summarize(
-            mu_z = mean(z),
-            mu_percentile = mean(percentile)
+            mu_z = mean(z, na.rm = TRUE),
+            mu_percentile = mean(percentile, na.rm = TRUE)
           ) |>
           mutate(range = NA) |>
           ungroup()
 
-        df2$mu_z <- round(df2$mu_z, 2L)
-        df2$mu_percentile <- round(df2$mu_percentile, 0L)
-        df2 <- df2 |>
+        df3$mu_z <- round(df3$mu_z, 2L)
+        df3$mu_percentile <- round(df3$mu_percentile, 0L)
+        df3 <- df3 |>
           mutate(
             range = case_when(
               mu_percentile >= 98 ~ "Exceptionally High",
@@ -284,49 +332,50 @@ drilldown <-
             )
           )
 
-        # 2. sort hi to lo
-        df2 <- arrange(df2, desc(mu_percentile))
+        df3 <- arrange(df3, desc(mu_percentile))
 
-        # 3. create data.frame with new column with domain name lowercase
-        df_level2_status <- tibble(
-          name = df2$subdomain,
-          y = df2$mu_z,
-          y2 = df2$mu_percentile,
-          range = df2$range,
-          drilldown = tolower(paste(x_level, name, sep = "_"))
+        df_level3_status <- tibble(
+          name = df3$narrow,
+          y = df3$mu_z,
+          y2 = df3$mu_percentile,
+          range = df3$range,
+          drilldown = tolower(paste(x_level, y_level, name, sep = "_"))
         )
 
         list(
-          id = tolower(x_level),
+          id = tolower(paste(x_level, y_level, sep = "_")),
           type = "column",
-          data = list_parse(df_level2_status)
+          data = list_parse(df_level3_status)
         )
       })
+    }) |>
+    unlist(recursive = FALSE)
 
-    ## Level 3 -------------------------------------------------------
-    ## Narrow subdomains
-    df_level3_drill <-
-      lapply(unique(data$domain), function(x_level) {
-        df2 <- subset(data, data$domain %in% x_level)
+  ## Level 4 -------------------------------------------------------
+  ## Scale scores
+  ## reuse both functions
+  df_level4_drill <-
+    lapply(unique(data$domain), function(x_level) {
+      df2 <- subset(data, data$domain %in% x_level)
 
-        # reuse function but with y_level
-        lapply(unique(df2$subdomain), function(y_level) {
-          # 1. create mean z-scores for subdomain
-          # df3 becomes pronoun for domain
-          df3 <- subset(df2, df2$subdomain %in% y_level)
+      lapply(unique(df2$subdomain), function(y_level) {
+        df3 <- subset(df2, df2$subdomain %in% y_level)
 
-          df3 <- df3 |>
-            group_by(narrow) |>
+        lapply(unique(df3$narrow), function(z_level) {
+          df4 <- subset(df3, df3$narrow %in% z_level)
+
+          df4 <- df4 |>
+            group_by(scale) |>
             summarize(
-              mu_z = mean(z),
-              mu_percentile = mean(percentile)
+              mu_z = mean(z, na.rm = TRUE),
+              mu_percentile = mean(percentile, na.rm = TRUE)
             ) |>
             mutate(range = NA) |>
             ungroup()
 
-          df3$mu_z <- round(df3$mu_z, 2L)
-          df3$mu_percentile <- round(df3$mu_percentile, 0L)
-          df3 <- df3 |>
+          df4$mu_z <- round(df4$mu_z, 2L)
+          df4$mu_percentile <- round(df4$mu_percentile, 0L)
+          df4 <- df4 |>
             mutate(
               range = case_when(
                 mu_percentile >= 98 ~ "Exceptionally High",
@@ -340,135 +389,78 @@ drilldown <-
               )
             )
 
-          df3 <- arrange(df3, desc(mu_percentile))
+          df4 <- arrange(df4, desc(mu_percentile))
 
-          df_level3_status <- tibble(
-            name = df3$narrow,
-            y = df3$mu_z,
-            y2 = df3$mu_percentile,
-            range = df3$range,
-            drilldown = tolower(paste(x_level, y_level, name, sep = "_"))
+          df_level4_status <- tibble(
+            name = df4$scale,
+            y = df4$mu_z,
+            y2 = df4$mu_percentile,
+            range = df4$range
           )
 
           list(
-            id = tolower(paste(x_level, y_level, sep = "_")),
+            id = tolower(paste(x_level, y_level, z_level, sep = "_")),
             type = "column",
-            data = list_parse(df_level3_status)
+            data = list_parse(df_level4_status)
           )
         })
       }) |>
-      unlist(recursive = FALSE)
+        unlist(recursive = FALSE)
+    }) |>
+    unlist(recursive = FALSE)
 
-    ## Level 4 -------------------------------------------------------
-    ## Scale scores
-    ## reuse both functions
-    df_level4_drill <-
-      lapply(unique(data$domain), function(x_level) {
-        df2 <- subset(data, data$domain %in% x_level)
+  # Create charts ----------------------------------
+  # Tooltip
+  x <- c("Name", "Score", "Percentile", "Range")
+  y <-
+    c("{point.name}", "{point.y}", "{point.y2}", "{point.range}")
+  tt <- tooltip_table(x, y)
 
-        lapply(unique(df2$subdomain), function(y_level) {
-          df3 <- subset(df2, df2$subdomain %in% y_level)
-
-          lapply(unique(df3$narrow), function(z_level) {
-            df4 <- subset(df3, df3$narrow %in% z_level)
-
-            df4 <- df4 |>
-              group_by(scale) |>
-              summarize(
-                mu_z = mean(z),
-                mu_percentile = mean(percentile)
-              ) |>
-              mutate(range = NA) |>
-              ungroup()
-
-            df4$mu_z <- round(df4$mu_z, 2L)
-            df4$mu_percentile <- round(df4$mu_percentile, 0L)
-            df4 <- df4 |>
-              mutate(
-                range = case_when(
-                  mu_percentile >= 98 ~ "Exceptionally High",
-                  mu_percentile %in% 91:97 ~ "Above Average",
-                  mu_percentile %in% 75:90 ~ "High Average",
-                  mu_percentile %in% 25:74 ~ "Average",
-                  mu_percentile %in% 9:24 ~ "Low Average",
-                  mu_percentile %in% 2:8 ~ "Below Average",
-                  mu_percentile < 2 ~ "Exceptionally Low",
-                  TRUE ~ as.character(range)
-                )
-              )
-
-            df4 <- arrange(df4, desc(mu_percentile))
-
-            df_level4_status <- tibble(
-              name = df4$scale,
-              y = df4$mu_z,
-              y2 = df4$mu_percentile,
-              range = df4$range
-            )
-
-            list(
-              id = tolower(paste(x_level, y_level, z_level, sep = "_")),
-              type = "column",
-              data = list_parse(df_level4_status)
-            )
-          })
-        }) |>
-          unlist(recursive = FALSE)
-      }) |>
-      unlist(recursive = FALSE)
-
-    # Create charts ----------------------------------
-    # Tooltip
-    x <- c("Name", "Score", "Percentile", "Range")
-    y <-
-      c("{point.name}", "{point.y}", "{point.y2}", "{point.range}")
-    tt <- tooltip_table(x, y)
-
-    ## Create drilldown bar plot of zscores
-    plot <-
-      highchart() |>
-      hc_title(
-        text = patient,
-        style = list(fontSize = "15px")
-      ) |>
-      hc_add_series(df_level1_status,
-        type = "bar",
-        name = neuro_domain,
-        hcaes(x = name, y = y)
-      ) |>
-      hc_xAxis(
-        type = "category",
-        title = list(text = "Scale"),
-        categories = df_level1_status$name
-      ) |>
-      hc_yAxis(
-        title = list(text = "Z-Score (M = 0, SD = 1)"),
-        labels = list(format = "{value}")
-      ) |>
-      hc_tooltip(
-        pointFormat = tt,
-        useHTML = TRUE,
-        valueDecimals = 1
-      ) |>
-      hc_plotOptions(series = list(
-        colorByPoint = TRUE,
-        allowPointSelect = TRUE,
-        dataLabels = TRUE
-      )) |>
-      hc_drilldown(
-        allowPointDrilldown = TRUE,
-        series = c(
-          df_level2_drill,
-          df_level3_drill,
-          df_level4_drill
-        )
-      ) |>
-      hc_colorAxis(minColor = "red", maxColor = "blue") |>
-      hc_add_theme(theme) |>
-      hc_chart(
-        style = list(fontFamily = "Cabin"),
-        backgroundColor = list("gray")
+  ## Create drilldown bar plot of zscores
+  plot <-
+    highchart() |>
+    hc_title(
+      text = patient,
+      style = list(fontSize = "15px")
+    ) |>
+    hc_add_series(df_level1_status,
+      type = "bar",
+      name = neuro_domain,
+      hcaes(x = name, y = y)
+    ) |>
+    hc_xAxis(
+      type = "category",
+      title = list(text = "Scale"),
+      categories = df_level1_status$name
+    ) |>
+    hc_yAxis(
+      title = list(text = "Z-Score (M = 0, SD = 1)"),
+      labels = list(format = "{value}")
+    ) |>
+    hc_tooltip(
+      pointFormat = tt,
+      useHTML = TRUE,
+      valueDecimals = 1
+    ) |>
+    hc_plotOptions(series = list(
+      colorByPoint = TRUE,
+      allowPointSelect = TRUE,
+      dataLabels = TRUE
+    )) |>
+    hc_drilldown(
+      allowPointDrilldown = TRUE,
+      series = c(
+        df_level2_drill,
+        df_level3_drill,
+        df_level4_drill
       )
+    ) |>
+    hc_colorAxis(minColor = "red", maxColor = "blue") |>
+    hc_add_theme(theme) |>
+    hc_chart(
+      style = list(fontFamily = "Cabin"),
+      backgroundColor = list("gray")
+    )
 
-    return(plot)
-  }
+  return(plot)
+}

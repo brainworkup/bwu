@@ -6,8 +6,6 @@
 \usage{
 drilldown(
   data,
-  mu_z,
-  mu_percentile,
   patient,
   neuro_domain = c("Neuropsychological Test Scores", "Behavioral Rating Scales",
     "Effort/Validity Test Scores"),
@@ -16,10 +14,6 @@ drilldown(
 }
 \arguments{
 \item{data}{Dataset to use.}
-
-\item{mu_z}{Mean z-score.}
-
-\item{mu_percentile}{Mean percentile.}
 
 \item{patient}{Name of patient.}
 
