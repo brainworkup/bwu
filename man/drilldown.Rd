@@ -6,25 +6,32 @@
 \usage{
 drilldown(
   data,
+  mu_z,
+  mu_percentile,
   patient,
   neuro_domain = c("Neuropsychological Test Scores", "Behavioral Rating Scales",
     "Effort/Validity Test Scores"),
-  theme = NULL
+  theme
 )
 }
 \arguments{
 \item{data}{Dataset to use.}
 
+\item{mu_z}{Mean z-score.}
+
+\item{mu_percentile}{Mean percentile.}
+
 \item{patient}{Name of patient.}
 
 \item{neuro_domain}{Name of neuropsych domain to add to HC series.}
+
+\item{theme}{The highcharter theme to use.}
 }
 \value{
 A drilldown plot
 }
 \description{
-This function uses the R Highcharter package and drilldown function to "drilldown" on neuropsychological domains and test scores.
-}
-\details{
-\code{drilldown} Creates a highcharter drilldown interactive plot.
+This function uses the R Highcharter package and drilldown function to
+"drilldown" on neuropsychological domains and test scores. \code{drilldown}
+Creates a highcharter drilldown interactive plot.
 }

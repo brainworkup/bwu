@@ -17,7 +17,7 @@ age(birthDate, refDate = Sys.Date(), unit = "year")
 OUTPUT_DESCRIPTION
 }
 \description{
-FUNCTION_DESCRIPTION
+Compute age of someone.
 }
 \seealso{
 \link[lubridate:as.period]{as.period}, \link[lubridate:interval]{interval}

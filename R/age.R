@@ -1,5 +1,5 @@
 #' @title Compute age
-#' @description FUNCTION_DESCRIPTION
+#' @description Compute age of someone.
 #' @param birthDate Date of birth
 #' @param refDate Reference date, Default: Sys.Date()
 #' @param unit Date unit, Default: 'year'

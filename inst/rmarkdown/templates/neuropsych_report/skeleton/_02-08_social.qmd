@@ -1,0 +1,265 @@
+---
+format:
+  neurotyp-typst:
+    keep-typ: true
+---
+
+## Social Cognition {#sec-social}
+
+{{< include _02_08_social_text.qmd >}}
+
+```{r}
+#| label: data-social
+TODO:
+# source("data_social.R")
+library(tidyverse)
+library(gt)
+library(gtExtras)
+library(glue)
+library(bwu)
+
+pheno <- "social"
+df <-readr::read_csv("read_data_scales.csv")
+domains <- df$domains
+string_representation <- df$scales
+
+# Extract the inner part of the string to get the content inside c(...)
+inner_string <- gsub("^.+\"c\\((.*)\\)\"$", "\\1", string_representation)
+
+# Use eval and parse to convert the string into an actual R object
+scales <- eval(parse(text = paste("c(", inner_string, ")", sep = "")))
+
+data <- bwu::read_data(pheno = pheno)
+
+data <-
+  bwu::filter_data(data,
+    domain = domains,
+    scale = scales
+  )
+```
+
+```{r}
+#| label: text-social-sr
+#| cache: true
+
+# Self-report
+data_sr <-
+  data |>
+  dplyr::filter(test == "cefi_sr" | test == "caars_sr") |>
+  dplyr::arrange(dplyr::desc(percentile)) |>
+  dplyr::distinct(.keep_all = FALSE)
+
+# Flatten the text
+bwu::cat_neuropsych_results(data = data_sr, file = "_10_social_raw.qmd")
+```
+
+```{r}
+#| label: text-social-or
+#| cache: true
+
+# Observer reports
+data_or <-
+  data |>
+  dplyr::filter(test == "cefi_or" | test == "caars_or") |>
+  dplyr::arrange(dplyr::desc(percentile)) |>
+  dplyr::distinct(.keep_all = FALSE)
+
+# Flatten the text
+bwu::cat_neuropsych_results(data = data_or, file = "_10_social_raw.qmd")
+```
+
+```{r}
+#| label: qtbl-social-sr
+#| dev: tikz
+#| fig-process: pdf2png
+options(tikzDefaultEngine = "xetex")
+
+grp_social <- list( standard_score = c("CEFI Self-Report", "CEFI Observer-Report"), t_score = c("CAARS Self-Report", "CAARS Observer-Report"))
+grp_caars <- list( t_score = c( "CAARS Self-Report", "CAARS Observer-Report" ) )
+grp_cefi <- list( standard_score = c( "CEFI Self-Report", "CEFI Observer-Report" ) )
+
+# footnotes
+fn_standard_score <- gt::md("CEFI: Standard Score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰], lower scores reflect reduced functioning.")
+fn_t_score <- gt::md("CAARS: *T* Score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]; higher scores reflect reduced functioning.")
+
+data <- data_sr
+pheno <- "self_report"
+table_name <- "table_sr"
+fn_standard_score <- fn_standard_score
+fn_t_score <- fn_t_score
+grp_sr <- list( standard_score = c( "CEFI Self-Report" ), t_score = c( "CAARS Self-Report" ) )
+vertical_padding <- 0.10
+multiline <- TRUE
+
+# Self-Report
+# source(here::here("R", "tbl_gt.R"))
+bwu::tbl_gt(
+  data = data,
+  pheno = pheno,
+  table_name = table_name,
+  fn_standard_score = fn_standard_score,
+  fn_t_score = fn_t_score,
+  grp_standard_score = grp_sr[["standard_score"]],
+  grp_t_score = grp_sr[["t_score"]],
+  dynamic_grp = grp_sr,
+  vertical_padding = vertical_padding,
+  multiline = multiline
+)
+```
+
+```{r}
+#| label: qtbl-social-or
+#| dev: tikz
+#| fig-process: pdf2png
+options(tikzDefaultEngine = "xetex")
+
+# footnotes
+fn_standard_score <- gt::md("CEFI: Standard Score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰], lower scores reflect reduced functioning.")
+fn_t_score <- gt::md("CAARS: *T* Score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]; higher scores reflect reduced functioning.")
+
+# Observer-Report
+data <- data_or
+pheno <- "observer_report"
+table_name <- "table_or"
+fn_standard_score <- fn_standard_score
+fn_t_score <- fn_t_score
+grp_or <- list( standard_score = c( "CEFI Observer-Report" ), t_score = c( "CAARS Observer-Report" ) )
+vertical_padding <- 0.10
+multiline <- TRUE
+
+# Observer-Report
+bwu::tbl_gt(
+  data = data,
+  pheno = pheno,
+  table_name = table_name,
+  fn_standard_score = fn_standard_score,
+  fn_t_score = fn_t_score,
+  grp_standard_score = grp_or[["standard_score"]],
+  grp_t_score = grp_or[["t_score"]],
+  dynamic_grp = grp_or,
+  vertical_padding = vertical_padding,
+  multiline = multiline
+)
+```
+
+```{r}
+#| label: fig-caars
+#| fig-cap: "Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other."
+
+# data for caars dotplot
+pheno <- "caars"
+data_caars <- dplyr::filter(data, filename %in% c("caars_sr.csv", "caars_or.csv"))
+colors <- NULL
+return_plot <- Sys.getenv("RETURN_PLOT")
+filename <- "fig_caars.svg"
+x <- data_caars$z_mean_subdomain
+y <- data_caars$subdomain
+
+# Make dotplot
+bwu::dotplot(
+  data = data_caars,
+  x = x,
+  y = y,
+  colors = NULL,
+  return_plot = return_plot,
+  filename = filename
+)
+```
+
+```{r}
+#| label: fig-cefi
+#| fig-cap: "Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other."
+
+# data for cefi dotplot
+pheno <- "cefi"
+data_cefi <- dplyr::filter(data, filename %in% c("cefi_sr.csv", "cefi_or.csv"))
+colors <- NULL
+return_plot <- Sys.getenv("RETURN_PLOT")
+filename <- "fig_cefi.svg"
+x <- data_cefi$z_mean_narrow
+y <- data_cefi$narrow
+
+# Make dotplot
+bwu::dotplot(
+  data = data_cefi,
+  x = x,
+  y = y,
+  colors = colors,
+  return_plot = return_plot,
+  filename = filename
+)
+```
+
+
+```{=typst}
+#let domain(title: none, file_qtbl, file_fig) = {
+  let font = (font: "Fira Sans", size: 9pt)
+  set text(..font)
+    grid(
+      columns: (50%, 50%),
+      gutter: 8pt,
+        figure([#image(file_qtbl)],
+          caption: [#title],
+          caption-pos: top,
+          kind: "qtbl",
+          supplement: [*Table*],
+          ),
+        figure([#image(file_fig, width: auto)],
+          caption: [Adult social symptom reports collapsed/averaged together across raters.],
+          caption-pos: bottom,
+          placement: none,
+          kind: "image",
+          supplement: [*Fig.*],
+          gap: 0.5em,
+        ),
+      )
+  }
+```
+
+```{=typst}
+#let title = "Self Rating Scales of social and Executive Function"
+#let file_qtbl = "table_self_report.png"
+#let file_fig = "_10_social_files/figure-typst/fig-caars-1.svg"
+#domain(
+  title: [#title],
+  file_qtbl,
+  file_fig
+)
+```
+
+```{=typst}
+#let domain(title: none, file_qtbl, file_fig) = {
+  let font = (font: "Fira Sans", size: 9pt)
+  set text(..font)
+    grid(
+      columns: (50%, 50%),
+      gutter: 8pt,
+        figure([#image(file_qtbl)],
+          caption: [#title],
+          caption-pos: top,
+          kind: "qtbl",
+          supplement: [*Table*],
+          ),
+        figure([#image(file_fig, width: auto)],
+          caption: [
+            Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other.
+            ],
+          caption-pos: bottom,
+          placement: none,
+          kind: "image",
+          supplement: [*Fig.*],
+          gap: 0.5em,
+        ),
+      )
+  }
+```
+```{=typst}
+#let title = "Observer Rating Scales of social and Executive Function"
+#let file_qtbl = "table_observer_report.png"
+#let file_fig = "_10_social_files/figure-typst/fig-cefi-1.svg"
+#domain(
+  title: [#title],
+  file_qtbl,
+  file_fig
+)
+```

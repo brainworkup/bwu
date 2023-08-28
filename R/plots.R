@@ -1,6 +1,7 @@
 #' Create Dotplot for Neurocognitive Domains
 #'
-#' This function generates a dotplot for neurocognitive and neurobehavioral domains.
+#' This function generates a dotplot for neurocognitive and neurobehavioral
+#' domains.
 #'
 #' @param data The dataset or df containing the data for the dotplot.
 #' @param x The column name in the data frame for the x-axis variable, typically
@@ -43,7 +44,56 @@ dotplot <- function(data,
   # Define the color palette
   color_palette <- if (is.null(colors)) {
     c(
-      "#7E1700", "#832504", "#883008", "#8E3B0B", "#92450F", "#984E14", "#9C5717", "#A05F1B", "#A4671E", "#A86F22", "#AD7826", "#B0802B", "#B58A30", "#B99336", "#BD9C3D", "#C2A647", "#C7B051", "#CBBA5D", "#CEC56C", "#D0CE7A", "#D2D78A", "#D1DE98", "#CFE4A6", "#CBE7B3", "#C4EABD", "#BCEAC6", "#B2E8CD", "#A7E6D2", "#9BE2D4", "#8EDDD7", "#80D6D7", "#73CED5", "#65C6D5", "#59BDD2", "#4FB5D0", "#45ABCB", "#3DA3C8", "#379BC5", "#3292C2", "#2E8ABF", "#2A81BA", "#2779B7", "#2471B4", "#2269B0", "#1F60AD", "#1B57A8", "#184EA4", "#1344A0", "#0C3B9C", "#023198"
+      "#7E1700",
+      "#832504",
+      "#883008",
+      "#8E3B0B",
+      "#92450F",
+      "#984E14",
+      "#9C5717",
+      "#A05F1B",
+      "#A4671E",
+      "#A86F22",
+      "#AD7826",
+      "#B0802B",
+      "#B58A30",
+      "#B99336",
+      "#BD9C3D",
+      "#C2A647",
+      "#C7B051",
+      "#CBBA5D",
+      "#CEC56C",
+      "#D0CE7A",
+      "#D2D78A",
+      "#D1DE98",
+      "#CFE4A6",
+      "#CBE7B3",
+      "#C4EABD",
+      "#BCEAC6",
+      "#B2E8CD",
+      "#A7E6D2",
+      "#9BE2D4",
+      "#8EDDD7",
+      "#80D6D7",
+      "#73CED5",
+      "#65C6D5",
+      "#59BDD2",
+      "#4FB5D0",
+      "#45ABCB",
+      "#3DA3C8",
+      "#379BC5",
+      "#3292C2",
+      "#2E8ABF",
+      "#2A81BA",
+      "#2779B7",
+      "#2471B4",
+      "#2269B0",
+      "#1F60AD",
+      "#1B57A8",
+      "#184EA4",
+      "#1344A0",
+      "#0C3B9C",
+      "#023198"
     )
   } else {
     colors
@@ -117,7 +167,8 @@ dotplot <- function(data,
         device = "svg"
       )
     } else {
-      warning("File extension not recognized. Supported extensions are 'pdf', 'png', and 'svg'.")
+      warning("File extension not recognized.
+              Supported extensions are 'pdf', 'png', and 'svg'.")
     }
   }
 
@@ -129,32 +180,36 @@ dotplot <- function(data,
 
 #' Drilldown on Neuropsych Domains
 #'
-#' This function uses the R Highcharter package and drilldown function to "drilldown" on neuropsychological domains and test scores.
-#'
-#' \code{drilldown} Creates a highcharter drilldown interactive plot.
+#' This function uses the R Highcharter package and drilldown function to
+#' "drilldown" on neuropsychological domains and test scores. \code{drilldown}
+#' Creates a highcharter drilldown interactive plot.
 #'
 #' @param data Dataset to use.
+#' @param mu_z Mean z-score.
+#' @param mu_percentile Mean percentile.
 #' @param patient Name of patient.
 #' @param neuro_domain Name of neuropsych domain to add to HC series.
-#'
+#' @param theme The highcharter theme to use.
 #' @importFrom dplyr group_by summarize mutate case_when arrange ungroup
-#' @importFrom tibble tibble
 #' @importFrom highcharter tooltip_table highchart hc_title hc_add_series hcaes
-#' hc_xAxis hc_yAxis hc_tooltip hc_plotOptions hc_drilldown hc_add_theme
-#' hc_theme_merge hc_theme_sandsignika hc_theme_darkunica hc_theme_monokai
-#'
+#'   hc_xAxis hc_yAxis hc_tooltip hc_plotOptions hc_drilldown hc_add_theme
+#'   hc_theme_merge hc_theme_sandsignika hc_theme_darkunica hc_theme_monokai
+#'   list_parse hc_colorAxis hc_chart
+#' @importFrom tibble tibble
 #' @return A drilldown plot
 #' @rdname drilldown
 #' @export
 drilldown <-
   function(data,
+           mu_z,
+           mu_percentile,
            patient,
            neuro_domain = c(
              "Neuropsychological Test Scores",
              "Behavioral Rating Scales",
              "Effort/Validity Test Scores"
            ),
-           theme = NULL) {
+           theme) {
     # Create 4 levels of data.frames for drilldown -----------------------
     ## Level 1 -------------------------------------------------------
     ## Domain scores
@@ -162,8 +217,8 @@ drilldown <-
     df1 <- data |>
       group_by(domain) |>
       summarize(
-        mu_z = mean(.data$z),
-        mu_percentile = mean(.data$percentile)
+        mu_z = mean(z),
+        mu_percentile = mean(percentile)
       ) |>
       mutate(range = "") |>
       ungroup()
@@ -188,7 +243,7 @@ drilldown <-
     df1 <- arrange(df1, desc(mu_percentile))
 
     # 3. create data.frame with new column with domain name lowercase
-    df_level1_status <- data.frame(
+    df_level1_status <- tibble(
       name = df1$domain,
       y = df1$mu_z,
       y2 = df1$mu_percentile,
@@ -207,13 +262,12 @@ drilldown <-
         df2 <- df2 |>
           group_by(subdomain) |>
           summarize(
-            mu_z = mean(.data$z),
-            mu_percentile = mean(.data$percentile)
+            mu_z = mean(z),
+            mu_percentile = mean(percentile)
           ) |>
           mutate(range = NA) |>
           ungroup()
 
-        # round z-score to 2 decimals and pct to 0 decimals and make ranges
         df2$mu_z <- round(df2$mu_z, 2L)
         df2$mu_percentile <- round(df2$mu_percentile, 0L)
         df2 <- df2 |>
@@ -234,7 +288,7 @@ drilldown <-
         df2 <- arrange(df2, desc(mu_percentile))
 
         # 3. create data.frame with new column with domain name lowercase
-        df_level2_status <- data.frame(
+        df_level2_status <- tibble(
           name = df2$subdomain,
           y = df2$mu_z,
           y2 = df2$mu_percentile,
@@ -251,7 +305,6 @@ drilldown <-
 
     ## Level 3 -------------------------------------------------------
     ## Narrow subdomains
-    ## reuse function
     df_level3_drill <-
       lapply(unique(data$domain), function(x_level) {
         df2 <- subset(data, data$domain %in% x_level)
@@ -265,8 +318,8 @@ drilldown <-
           df3 <- df3 |>
             group_by(narrow) |>
             summarize(
-              mu_z = mean(.data$z),
-              mu_percentile = mean(.data$percentile)
+              mu_z = mean(z),
+              mu_percentile = mean(percentile)
             ) |>
             mutate(range = NA) |>
             ungroup()
@@ -289,7 +342,7 @@ drilldown <-
 
           df3 <- arrange(df3, desc(mu_percentile))
 
-          df_level3_status <- data.frame(
+          df_level3_status <- tibble(
             name = df3$narrow,
             y = df3$mu_z,
             y2 = df3$mu_percentile,
@@ -303,7 +356,8 @@ drilldown <-
             data = list_parse(df_level3_status)
           )
         })
-      }) |> unlist(recursive = FALSE)
+      }) |>
+      unlist(recursive = FALSE)
 
     ## Level 4 -------------------------------------------------------
     ## Scale scores
@@ -321,8 +375,8 @@ drilldown <-
             df4 <- df4 |>
               group_by(scale) |>
               summarize(
-                mu_z = mean(.data$z),
-                mu_percentile = mean(.data$percentile)
+                mu_z = mean(z),
+                mu_percentile = mean(percentile)
               ) |>
               mutate(range = NA) |>
               ungroup()
@@ -345,7 +399,7 @@ drilldown <-
 
             df4 <- arrange(df4, desc(mu_percentile))
 
-            df_level4_status <- data.frame(
+            df_level4_status <- tibble(
               name = df4$scale,
               y = df4$mu_z,
               y2 = df4$mu_percentile,
@@ -358,52 +412,63 @@ drilldown <-
               data = list_parse(df_level4_status)
             )
           })
-        }) |> unlist(recursive = FALSE)
-      }) |> unlist(recursive = FALSE)
+        }) |>
+          unlist(recursive = FALSE)
+      }) |>
+      unlist(recursive = FALSE)
 
     # Create charts ----------------------------------
     # Tooltip
     x <- c("Name", "Score", "Percentile", "Range")
-    y <- c("{point.name}", "{point.y}", "{point.y2}", "{point.range}")
-    tt <- highcharter::tooltip_table(x, y)
+    y <-
+      c("{point.name}", "{point.y}", "{point.y2}", "{point.range}")
+    tt <- tooltip_table(x, y)
 
     ## Create drilldown bar plot of zscores
     plot <-
-      highcharter::highchart() |>
-      highcharter::hc_title(
+      highchart() |>
+      hc_title(
         text = patient,
         style = list(fontSize = "15px")
       ) |>
-      highcharter::hc_add_series(
-        df_level1_status,
+      hc_add_series(df_level1_status,
         type = "bar",
         name = neuro_domain,
-        highcharter::hcaes(x = name, y = y)
+        hcaes(x = name, y = y)
       ) |>
-      highcharter::hc_xAxis(
+      hc_xAxis(
         type = "category",
         title = list(text = "Scale"),
         categories = df_level1_status$name
       ) |>
-      highcharter::hc_yAxis(
-        title = list(text = "z-Score"),
+      hc_yAxis(
+        title = list(text = "Z-Score (M = 0, SD = 1)"),
         labels = list(format = "{value}")
       ) |>
-      highcharter::hc_tooltip(
+      hc_tooltip(
         pointFormat = tt,
         useHTML = TRUE,
         valueDecimals = 1
       ) |>
-      highcharter::hc_plotOptions(series = list(
+      hc_plotOptions(series = list(
         colorByPoint = TRUE,
         allowPointSelect = TRUE,
         dataLabels = TRUE
       )) |>
-      highcharter::hc_drilldown(
+      hc_drilldown(
         allowPointDrilldown = TRUE,
-        series = c(df_level2_drill, df_level3_drill, df_level4_drill)
+        series = c(
+          df_level2_drill,
+          df_level3_drill,
+          df_level4_drill
+        )
       ) |>
-      highcharter::hc_add_theme(theme)
+      hc_colorAxis(minColor = "red", maxColor = "blue") |>
+      hc_add_theme(theme) |>
+      hc_chart(
+        style = list(fontFamily = "Cabin"),
+        backgroundColor = list("gray")
+      )
 
     return(plot)
   }

@@ -55,5 +55,6 @@ options include 'minimal' and 'classic'}
 An object of class 'ggplot' representing the dotplot.
 }
 \description{
-This function generates a dotplot for neurocognitive and neurobehavioral domains.
+This function generates a dotplot for neurocognitive and neurobehavioral
+domains.
 }

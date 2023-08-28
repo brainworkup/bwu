@@ -1,0 +1,28 @@
+---
+execute:
+  cache: true
+---
+
+<<PROMPT>>
+
+Summarize and interpret these rating scales related to social cognition and
+social functioning. For scores that are below average or worse on neuropsych tests, give a brief
+example of how this could impact the patient's daily functioning. For scores
+that are above average or higher on rating scales, give a brief example of how this could impact
+the patient's daily functioning. Organize your summary and interpretation from
+scores that are above average to below average to delineate relative strengths
+and weaknesses, respectively.
+
+<<EXAMPLE>>
+
+`r params$patient` completed self-report rating scales of adult ADHD symptoms
+and executive functioning in everyday life. Consistent and overlapping difficulties were reported in the areas of:
+
+<!-- insert 2-3 scores -->
+
+On the companion observer-reports, it was reported that `r params$patient` evidences
+moderate to severe difficulties in the areas of:
+
+<!-- insert 2-3 scores -->
+
+<<START>>
