@@ -7,7 +7,7 @@ params:
 
 ## Memory {#sec-memory}
 
-{{< include _07_memory_text.qmd >}}
+{{< include _02-06_memory_text.qmd >}}
 
 ```{r}
 #| label: data-memory
@@ -107,7 +107,7 @@ data <-
 ```{r}
 #| label: text-memory
 #| cache: true
-bwu::cat_neuropsych_results(data, file = "_07_memory_raw.qmd")
+bwu::cat_neuropsych_results(data, file = "_02-06_memory_text.qmd")
 ```
 
 ```{r}

@@ -5,7 +5,7 @@ format:
 
 ## Visual Perception/Construction {#sec-spatial}
 
-{{< include _05_spatial_text.qmd >}}
+{{< include _02-04_spatial_text.qmd >}}
 
 ```{r}
 #| label: data-spatial
@@ -59,7 +59,7 @@ data <-
 ```{r}
 #| label: text-spatial
 #| cache: true
-bwu::cat_neuropsych_results(data, file = "_05_spatial_raw.qmd")
+bwu::cat_neuropsych_results(data, file = "_02-04_spatial_text.qmd")
 ```
 
 ```{r}

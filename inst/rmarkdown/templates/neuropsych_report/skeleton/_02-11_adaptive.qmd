@@ -4,60 +4,33 @@ format:
     keep-typ: true
 ---
 
-## Motor
+## Adaptive Functioning
 
-{{< include _08_motor_text.qmd >}}
+{{< include _02-11_adaptive_text.qmd >}}
 
 ```{r}
-#| label: data-motor
+#| label: data-adaptive
 library(tidyverse)
 library(gt)
 library(gtExtras)
 library(glue)
 library(bwu)
-data <- bwu::read_data(pheno = "motor")
-domains <- c("Motor")
+data <- bwu::read_data(pheno = "adaptive")
+domains <- c("Adaptive")
 scales <- c(
-  "Dominant Hand Time",
-  "Dominant Hand",
-  "Dominant vs. Nondominant",
-  "Fingertip Tapping Dominant Hand Repetitions",
-  "Fingertip Tapping Dominant Hand Sequences",
-  "Fingertip Tapping Dominant Hand",
-  "Fingertip Tapping Dominant Hand",
-  "Fingertip Tapping Nondominant Hand Repetitions",
-  "Fingertip Tapping Nondominant Hand Sequences",
-  "Fingertip Tapping Nondominant Hand",
-  "Fingertip Tapping Nondominant Hand",
-  "Fingertip Tapping Repetitions",
-  "Fingertip Tapping Repetitions",
-  "Fingertip Tapping Sequences",
-  "Fingertip Tapping Sequences",
-  "FT Dominant Hand vs. Nondominant Hand",
-  "Imitating Hand Positions-Dominant",
-  "Imitating Hand Positions-Nondominant",
-  "Imitating Hand Positions",
-  "Left-Hand Time",
-  "Non-Dominant Hand Time",
-  "Nondominant Hand",
-  "Repetitions vs. Sequences",
-  "Right-Hand Time",
-  "Visuomotor Precision Errors",
-  "Visuomotor Precision Pencil Lifts",
-  "Visuomotor Precision Time",
-  "Visuomotor Precision"
+
 )
 data <- bwu::filter_data(data, domain = domains, scale = scales)
 ```
 
 ```{r}
-#| label: text-motor
+#| label: text-adaptive
 #| cache: true
-bwu::cat_neuropsych_results(data, file = "_08_motor_raw.qmd")
+bwu::cat_neuropsych_results(data, file = "_02-11_adaptive_text.qmd")
 ```
 
 ```{r}
-#| label: qtbl-motor
+#| label: qtbl-adaptive
 #| dev: tikz
 #| fig-process: pdf2png
 options(tikzDefaultEngine = "xetex")
@@ -69,10 +42,10 @@ fn_t_score <- gt::md("*T* Score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰
 fn_z_score <- gt::md("*z* Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]")
 z_score_label <- "*z* Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]"
 
-pheno <- "motor"
-table_name <- "table_motor"
+pheno <- "adaptive"
+table_name <- "table_Adaptive"
 
-grp_motor <- list(
+grp_adaptive <- list(
   t_score = c("Grooved Pegboard"),
   scaled_score = c("NEPSY-2")
 )
@@ -85,26 +58,26 @@ bwu::tbl_gt(data,
   table_name = table_name,
   fn_scaled_score = fn_scaled_score,
   fn_t_score = fn_t_score,
-  grp_scaled_score = grp_motor[["scaled_score"]],
-  grp_t_score = grp_motor[["t_score"]],
-  dynamic_grp = grp_motor,
+  grp_scaled_score = grp_adaptive[["scaled_score"]],
+  grp_t_score = grp_adaptive[["t_score"]],
+  dynamic_grp = grp_adaptive,
   vertical_padding = vertical_padding,
   multiline = multiline
 )
 ```
 
 ```{r}
-#| label: fig-motor
-#| fig-cap: "Sensorimotor tasks refer to the capacity to control hand movements quickly, smoothly, and with adequate precision, which are required to engage in activities such as writing and drawing."
+#| label: fig-adaptive
+#| fig-cap: "ADD CAPTION HERE"
 
 # Arguments
-motor <- dplyr::filter(data, !is.na(percentile))
-data <- motor
+adaptive <- dplyr::filter(data, !is.na(percentile))
+data <- adaptive
 x <- data$z_mean_narrow
 y <- data$narrow
 colors <- NULL
 return_plot <- Sys.getenv("RETURN_PLOT")
-filename <- "fig_motor.svg"
+filename <- "fig_adaptive.svg"
 
 # source(here::here("R", "dotplot.R"))
 bwu::dotplot(
@@ -147,9 +120,9 @@ bwu::dotplot(
 ```
 
 ```{=typst}
-#let title = "Motor"
-#let file_qtbl = "table_motor.png"
-#let file_fig = "_08_motor_files/figure-typst/fig-motor-1.svg"
+#let title = "Adaptive"
+#let file_qtbl = "table_adaptive.png"
+#let file_fig = "fig_adaptive.svg"
 #domain(
   title: [#title Test Scores],
   file_qtbl,

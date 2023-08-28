@@ -5,7 +5,7 @@ format:
 
 ## Attention/Executive {#sec-executive}
 
-{{< include _06_executive_text.qmd >}}
+{{< include _02-05_executive_text.qmd >}}
 
 ```{r}
 #| label: data-executive
@@ -95,9 +95,7 @@ data <- bwu::filter_data(data, domain = domains, scale = scales)
 ```{r}
 #| label: text-executive
 #| cache: true
-
-# Concatenate text for neuropsych results and insert into Quarto/Markdown files
-bwu::cat_neuropsych_results(data, file = "_06_executive_raw.qmd")
+bwu::cat_neuropsych_results(data, file = "_02-05_executive_text.qmd")
 ```
 
 ```{r}

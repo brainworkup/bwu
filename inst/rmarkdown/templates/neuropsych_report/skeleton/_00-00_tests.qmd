@@ -1,4 +1,6 @@
-# TESTS ADMINISTERED {#sec-tests}
+<!---
+ # TESTS ADMINISTERED {#sec-tests} 
+--->
 
 ```{=typst}
 - Comprehensive Neuropsychiatric Symptom and History Interview

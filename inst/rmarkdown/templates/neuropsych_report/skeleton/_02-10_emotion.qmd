@@ -3,18 +3,18 @@ format:
   neurotyp-typst:
     keep-typ: true
 params:
-  first_name: ""
-  his_her: ""
-  he_she: ""
-  he_she_cap: ""
-  his_her_cap: ""
-  him_her: ""
-  him_her_cap: ""
+  first_name: NULL
+  his_her: NULL
+  he_she: NULL
+  he_she_cap: NULL
+  his_her_cap: NULL
+  him_her: NULL
+  him_her_cap: NULL
 ---
 
 # Emotional/Behavioral/Personality {#sec-emotion}
 
-{{< include _11_emotion_text.qmd >}}
+{{< include _02-10_emotion_text.qmd >}}
 
 ```{r}
 #| label: data-emotion
@@ -92,7 +92,7 @@ data <-
 ```{r}
 #| label: text-emotion
 #| cache: true
-bwu::cat_neuropsych_results(data = data, file = "_11_emotion_raw.qmd")
+bwu::cat_neuropsych_results(data = data, file = "_02-10_emotion_text.qmd")
 ```
 
 ```{r}

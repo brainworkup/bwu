@@ -6,7 +6,9 @@ params:
   pheno: "sirf"
 ---
 
-# SUMMARY/IMPRESSION {#sec-sirf}
+<!---
+ # SUMMARY/IMPRESSION {#sec-sirf} 
+--->
 
 ```{r}
 #| label: make-g
@@ -85,7 +87,6 @@ data <- g
 x <- g$z
 y <- g$scale
 colors <- NULL
-# return_plot <- TRUE
 return_plot <- Sys.getenv("RETURN_PLOT")
 filename <- "fig_g.svg"
 
@@ -98,6 +99,7 @@ bwu::dotplot(
   filename = filename
 )
 ```
+
 
 ```{=typst}
 #let domain_sirf(file_fig) = {
@@ -122,4 +124,4 @@ figure([#image(file_fig, width: 70%)],
 )
 ```
 
-{{< include _13_sirf_text.qmd >}}
+{{< include _03-00_sirf_text.qmd >}}

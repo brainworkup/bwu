@@ -1,6 +1,6 @@
 ---
 title: "Neuropsychological Evaluation Results"
-patient: "Biggie"
+patient: Biggie
 date: 2023-01-01
 author: "Joey Trampush, PhD"
 institute: "Department of Psychiatry and the Behavioral Sciences"
@@ -45,6 +45,7 @@ library(revealjs)
 library(svglite)
 library(tibble)
 library(vroom)
+library(readr)
 library(widgetframe)
 library(xaringan)
 library(xaringanExtra)
@@ -108,7 +109,9 @@ background-size: contain
 
 ### Distribution of Scores: _Population-level Interpretation_
 
-```{r gauss-plot1, fig.cap = "Performance classification of neuropsychological test scores in the general population.", fig.retina = 3, fig.asp = 0.5, out.width = "50%"}
+
+```{r, gauss-plot1, fig.cap = 'Performance classification of neuropsychological
+test scores in the general population.', fig.retina = 3, fig.asp = 0.5, out.width = '50%'}
 knitr::include_graphics("plot_narrow.png", auto_pdf = TRUE)
 ```
 
@@ -145,7 +148,7 @@ data <- readr::read_csv("neurocog.csv")
 neuro_domain <- "Neuropsychological Test Scores"
 theme <- theme_merge
 plot1 <- 
-  bwu::drilldown(
+  drilldown(
     data = data,
     patient = patient,
     neuro_domain = neuro_domain,
@@ -165,7 +168,7 @@ background-repeat: repeat
 background-size: 15%
 background-color: var(--usc-black)
 
-### Behavioral/Emotional/Personality
+### Behavioral/Emotional/Personality Functioning
 
 #### Summary of self-report and observer-report scales from the PAI, CAARS, and CEFI
 
@@ -175,7 +178,7 @@ data <- readr::read_csv("neurobehav.csv")
 neuro_domain <- "Behavioral Rating Scales"
 theme <- theme_merge
 plot2 <- 
-  bwu::drilldown(
+  drilldown(
     data = data,
     patient = patient,
     neuro_domain = neuro_domain,
@@ -205,7 +208,7 @@ data <- readr::read_csv("validity.csv")
 neuro_domain <- "Effort/Validity Test Scores"
 theme <- theme_merge
 plot3 <- 
-  bwu::drilldown(
+  drilldown(
     data = data,
     patient = patient,
     neuro_domain = neuro_domain,

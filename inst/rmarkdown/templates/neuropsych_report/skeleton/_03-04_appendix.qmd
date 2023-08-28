@@ -25,9 +25,9 @@ knitr::include_graphics("tbl_range.png", dpi = 270)
 
 ## Test Score Distributions
 
-@fig-gauss-plot-narrow can be used as a guide to help interpret individual test
-scores in terms of the degree of distance a score fell in relation to normative
-expectations and the magnitude of clinical severity. Test scores are easiest to interpret as percentiles^[A *percentile* shows `r params$first_name`'s standing relative to peers. For example, a percentile rank of 70 means `r params$first_name` performed as well as or better than 70% of individuals the same age.], which are provided in the tables below, and as *z*-scores (M = 0, SD = 1)^[*z* = -1 (16th percentile), *z* = 0 (50th percentile), and *z* = 1 (84th percentile)], which are used to plot the various test and domain scores below.
+[@fig-gauss-plot-narrow] can be used as a guide to help interpret individual test scores in terms of the degree of distance a score fell in relation to normative expectations and the magnitude of clinical severity.
+Test scores are easiest to interpret as percentiles[^1], which are provided in the tables below, and as *z*-scores (M = 0, SD = 1)[^2], which are used to plot the various test and domain scores below
+.
 
 ```{r}
 #| label: fig-gauss-plot-narrow
@@ -49,3 +49,7 @@ knitr::include_graphics("plot_narrow.png")
 #| cache: true
 knitr::include_graphics("plot_broad.png")
 ```
+
+[^1]: A *percentile* shows `r params$first_name`'s standing relative to peers. For example, a percentile rank of 70 means `r params$first_name` performed as well as or better than 70% of individuals the same age.
+
+[^2]: *z* = -1 (16th percentile), *z* = 0 (50th percentile), and *z* = 1 (84th percentile)

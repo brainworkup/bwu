@@ -7,7 +7,7 @@ params:
 
 ## Verbal/Language {#sec-verbal}
 
-{{< include _04_verbal_text.qmd >}}
+{{< include _02-03_verbal_text.qmd >}}
 
 ```{r}
 #| label: data-verbal
@@ -83,7 +83,7 @@ data_verbal <- bwu::filter_data(data, domain = domains, scale = scales)
 #| label: text-verbal
 #| cache: true
 data <- data_verbal
-bwu::cat_neuropsych_results(data, file = "_04_verbal_raw.qmd")
+bwu::cat_neuropsych_results(data, file = "_02-03_verbal_text.qmd")
 ```
 
 ```{r}
@@ -176,6 +176,7 @@ bwu::dotplot(
       )
   }
 ```
+
 ```{=typst}
 #let title = "Verbal/Language"
 #let file_qtbl = "table_verbal.png"

@@ -3,6 +3,25 @@ execute:
   cache: true
 ---
 
+<<PROMPT>>
+
+Summarize and interpret this personality assessment using the PAI (Personality
+Assessment Inventory) as part of a comprehensive neuropsychological evaluation.
+For scores that are abover average or higher, give a brief example of
+how this could impact the patient's daily functioning. Organize your
+summary and interpretation in order from scores that are above average to below average
+to delineate relative strengths and weaknesses, respectively.
+
+Summarize and interpret this personality assessment using the BASC-3 Self-Report
+of Personality) for children and adolescents as part of a comprehensive neuropsychological evaluation.
+For scores that are abover average or higher, give a brief example of
+how this could impact the patient's daily functioning. Organize your
+summary and interpretation in order from scores that are above average to below average
+to delineate relative strengths and weaknesses, respectively.
+
+<<START>>
+
+
 `r params$first_name` completed an objective, self-report inventory of
 personality and emotional functioning. Given `r params$his_her` scores on the validity
 scales, there are no problems with interpreting the clinical profile. They

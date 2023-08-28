@@ -7,7 +7,7 @@ params:
 
 ## Academic Skills {#sec-academics}
 
-{{< include _03_academics_text.qmd >}}
+{{< include _02-02_academics_text.qmd >}}
 
 ```{r}
 #| label: data-academics
@@ -91,7 +91,7 @@ data <- bwu::filter_data(data, domain = domains, scale = scales)
 ```{r}
 #| label: text-academics
 #| cache: true
-bwu::cat_neuropsych_results(data, file = "_03_academics_raw.qmd")
+bwu::cat_neuropsych_results(data, file = "_02-02_academics_text.qmd")
 ```
 
 ```{r}
@@ -112,8 +112,6 @@ grp_academics <- list(
 )
 vertical_padding <- 0.10
 multiline <- TRUE
-
-# source(here::here("R", "tbl_gt.R"))
 bwu::tbl_gt(
   data = data,
   pheno = pheno,

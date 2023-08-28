@@ -6,7 +6,7 @@ format:
 
 ## Motor
 
-{{< include _08_motor_text.qmd >}}
+{{< include _02-07_motor_text.qmd >}}
 
 ```{r}
 #| label: data-motor
@@ -53,7 +53,7 @@ data <- bwu::filter_data(data, domain = domains, scale = scales)
 ```{r}
 #| label: text-motor
 #| cache: true
-bwu::cat_neuropsych_results(data, file = "_08_motor_raw.qmd")
+bwu::cat_neuropsych_results(data, file = "_02-07_motor_text.qmd")
 ```
 
 ```{r}

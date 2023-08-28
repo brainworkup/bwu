@@ -1,76 +1,19 @@
-# RECOMMENDATIONS {#sec-recs}
+It was a pleasure to work with Biggie.
+Please contact me with any questions or concerns regarding this patient.
 
-## Recommendations for Medical/Healthcare
+Sincerely,
 
-- Treatment options for ADHD include a combination of behavioral techniques,
-  consideration of stimulant medication, environmental organization, and the
-  maintenance of a long-term perspective of ADHD as a chronic condition.
-  `r params$first_name` may wish to discuss whether medical treatment of
-  `r params$his_her` symptoms is indicated with one of our psychiatrists.
+```{r}
+#| label: signature
+#| out-width: 20%
+#| fig-align: left
+#| cache: true
+#| eval: true
+knitr::include_graphics("jwt_sig.png", dpi = 127)
+```
 
-- _Psychotherapy_ Individual therapy to address features of anxiety, heightened
-  stress, ward off any emerging depression, and to instill adaptive coping
-  skills. Mindfulness, distress tolerance skills, and cognitive-behavioral
-  techniques should be woven into the therapeutic process.
-
-## Recommendations for School/High Stakes Exams
-
-- _Accommodated testing_ Given her weakness in processing speed, extended time accommodations for high-stakes exams (e.g., BAR EXAM) in particular are apt to more readily enable `r params$first_name` to demonstrate `r params$his_her` competencies in a more effective and consistent manner, given `r params$his_her` weakness in processing speed. Further, additional test taking time will enable `r params$first_name` to identify and utilize organizational strategies and allay feelings of anxiety that accompany time-intensive tasks to channel `r params$his_her` skills in the most effective manner.
-
-- _Classroom recordings_ `r params$first_name` should be provided with lecture
-  notes/slides prior to class for advanced preparation and review and be allowed
-  to audio or video record the lecture for later review.
-
-## Recommendations for Home
-
-1. _[iA Writer](https://ia.net/) writing app for writing assignments_ iA Writer
-   is a plain text markdown based writing tool used by many professional
-   journalists. The app has a simple, distraction free interface and a Focus
-   Mode that reduces the temptation to continuously re-read and tweak your text.
-
-   - [An ADHD-friendly Writing App](https://ia.net/topics/an-adhd-friendly-writing-app)
-
-   - [After all, everyone is distracted once in a while](https://ia.net/topics/after-all-everyone-is-distracted-once-in-a-while)
-
-- Set reminders. Calendars, alarms, written notes, and lists can provide
-  additional assistance in remembering tasks.
-
-- _Mindfulness_ is a technique in which `r params$first_name` can learn to ignore
-  distracting thoughts and concentrate on the task at hand. People of all ages
-  can benefit from mindfulness training, which can help them to develop
-  cognitive control.
-
-- High quality sleep, balanced nutrition, and frequent, vigorous exercise are
-  critical to maximizing attention and focus.
-
-- _Processing speed and repetition_ Repetition is an important factor in
-  building speed. Repeated and extensive practice will enable `r params$first_name`
-  to perform some tasks in a more automatic fashion to increase performance
-  speed. For example, in attempting to remember factual details `r params$first_name`
-  should use flash cards or index cards, with a unique color allocated to each
-  academic subject (or theme within a given subject). Facts should be introduced
-  in a graduated manner (e.g., two or three at a time), and in turn, drilled to
-  mastery. Once the newly introduced facts are mastered and recalled over
-  several consecutive days, several subsequent facts should be introduced and
-  drilled into mastery. As the process unfolds, the final portion of each review
-  session should be devoted to reviewing the expanding pile of facts already
-  mastered.
-
-- _Books and online recommendations_
-
-  - [Taking Charge of Adult ADHD, Second Edition: Proven Strategies to Succeed at Work, at Home, and in Relationships](https://www.guilford.com/books/Taking-Charge-of-Adult-ADHD/Russell-Barkley/9781462546855)
-
-  - [ADHD 2.0](https://drhallowell.com/read/books-by-ned/)
-
-  - [PsychCentral for Adult ADHD](https://psychcentral.com/adhd/adhd-resources#for-adults-with-adhd)
-
-  - [Launching in Young Adulthood with ADHD… Ready or Not!](https://www.chrisdendy.com/product-page/launching-in-young-adulthood-with-adhd-ready-or-not)
-
-## Recommendations for Follow-Up Evaluation
-
-- Follow-up assessment is not recommended at this time unless further concerns
-  arise that need to be addressed.
-
-- Follow-up assessment in 12-18 months is recommended to gauge
-  `r params$first_name`'s progress and to assess the impact of the above
-  interventions, unless further concerns arise that need to be addressed sooner.
+**Joey W. Trampush, Ph.D.**\
+Assistant Professor of Psychiatry\
+Department of Psychiatry and the Behavioral Sciences\
+University of Southern California Keck School of Medicine\
+CA License PSY29212  

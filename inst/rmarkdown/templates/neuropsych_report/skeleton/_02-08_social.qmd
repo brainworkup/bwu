@@ -3,7 +3,7 @@ format:
   neurotyp-typst:
     keep-typ: true
 ---
-
+TODO:
 ## Social Cognition {#sec-social}
 
 {{< include _02_08_social_text.qmd >}}
@@ -50,23 +50,9 @@ data_sr <-
   dplyr::distinct(.keep_all = FALSE)
 
 # Flatten the text
-bwu::cat_neuropsych_results(data = data_sr, file = "_10_social_raw.qmd")
+bwu::cat_neuropsych_results(data = data_sr, file = "_02-08_social_text.qmd")
 ```
 
-```{r}
-#| label: text-social-or
-#| cache: true
-
-# Observer reports
-data_or <-
-  data |>
-  dplyr::filter(test == "cefi_or" | test == "caars_or") |>
-  dplyr::arrange(dplyr::desc(percentile)) |>
-  dplyr::distinct(.keep_all = FALSE)
-
-# Flatten the text
-bwu::cat_neuropsych_results(data = data_or, file = "_10_social_raw.qmd")
-```
 
 ```{r}
 #| label: qtbl-social-sr
@@ -87,7 +73,7 @@ pheno <- "self_report"
 table_name <- "table_sr"
 fn_standard_score <- fn_standard_score
 fn_t_score <- fn_t_score
-grp_sr <- list( standard_score = c( "CEFI Self-Report" ), t_score = c( "CAARS Self-Report" ) )
+grp_sr <- list( standard_score = c("CEFI Self-Report"), t_score = c("CAARS Self-Report"))
 vertical_padding <- 0.10
 multiline <- TRUE
 
@@ -102,41 +88,6 @@ bwu::tbl_gt(
   grp_standard_score = grp_sr[["standard_score"]],
   grp_t_score = grp_sr[["t_score"]],
   dynamic_grp = grp_sr,
-  vertical_padding = vertical_padding,
-  multiline = multiline
-)
-```
-
-```{r}
-#| label: qtbl-social-or
-#| dev: tikz
-#| fig-process: pdf2png
-options(tikzDefaultEngine = "xetex")
-
-# footnotes
-fn_standard_score <- gt::md("CEFI: Standard Score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰], lower scores reflect reduced functioning.")
-fn_t_score <- gt::md("CAARS: *T* Score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]; higher scores reflect reduced functioning.")
-
-# Observer-Report
-data <- data_or
-pheno <- "observer_report"
-table_name <- "table_or"
-fn_standard_score <- fn_standard_score
-fn_t_score <- fn_t_score
-grp_or <- list( standard_score = c( "CEFI Observer-Report" ), t_score = c( "CAARS Observer-Report" ) )
-vertical_padding <- 0.10
-multiline <- TRUE
-
-# Observer-Report
-bwu::tbl_gt(
-  data = data,
-  pheno = pheno,
-  table_name = table_name,
-  fn_standard_score = fn_standard_score,
-  fn_t_score = fn_t_score,
-  grp_standard_score = grp_or[["standard_score"]],
-  grp_t_score = grp_or[["t_score"]],
-  dynamic_grp = grp_or,
   vertical_padding = vertical_padding,
   multiline = multiline
 )
@@ -161,30 +112,6 @@ bwu::dotplot(
   x = x,
   y = y,
   colors = NULL,
-  return_plot = return_plot,
-  filename = filename
-)
-```
-
-```{r}
-#| label: fig-cefi
-#| fig-cap: "Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other."
-
-# data for cefi dotplot
-pheno <- "cefi"
-data_cefi <- dplyr::filter(data, filename %in% c("cefi_sr.csv", "cefi_or.csv"))
-colors <- NULL
-return_plot <- Sys.getenv("RETURN_PLOT")
-filename <- "fig_cefi.svg"
-x <- data_cefi$z_mean_narrow
-y <- data_cefi$narrow
-
-# Make dotplot
-bwu::dotplot(
-  data = data_cefi,
-  x = x,
-  y = y,
-  colors = colors,
   return_plot = return_plot,
   filename = filename
 )
@@ -217,9 +144,9 @@ bwu::dotplot(
 ```
 
 ```{=typst}
-#let title = "Self Rating Scales of social and Executive Function"
+#let title = "Social Cognition"
 #let file_qtbl = "table_self_report.png"
-#let file_fig = "_10_social_files/figure-typst/fig-caars-1.svg"
+#let file_fig = "_02-08_social_files/figure-typst/fig-social-1.svg"
 #domain(
   title: [#title],
   file_qtbl,

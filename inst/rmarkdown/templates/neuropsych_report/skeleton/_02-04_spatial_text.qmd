@@ -3,6 +3,12 @@ execute:
   cache: true
 ---
 
+<<PROMPT>>
+
+Summarize and interpret these neuropsychological test scores related to visuospatial skills, visual perception, visuomotor integration, and construction. For scores that are below average or worse, give a brief example of how this could impact the patient's daily functioning. Organize your summary and interpretation in order from scores that are above average to below average to delineate relative strengths and weaknesses, respectively.
+
+<<START>>
+
 Performance across measures of visual perception, construction, motor
 integration, and spatial navigation of visual/environmental information was
 Average overall. Visuoperceptual matching requiring close attention to visual

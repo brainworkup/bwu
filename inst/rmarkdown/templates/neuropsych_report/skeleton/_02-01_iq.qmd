@@ -5,7 +5,7 @@ format:
 
 ## General Cognitive Ability {#sec-iq}
 
-{{< include _02_iq_text.qmd >}}
+{{< include _02-01_iq_text.qmd >}}
 
 ```{r}
 #| label: data-iq
@@ -16,8 +16,6 @@ library(glue)
 library(bwu)
 # phenotype
 pheno <- "iq"
-# data
-data <- bwu::read_data(pheno = pheno)
 # Filter by domain
 domains <- c("General Cognitive Ability")
 # Filter by scale
@@ -58,6 +56,9 @@ scales <- c(
   "Working Memory Index",
   "Working Memory"
 )
+# data
+data <- bwu::read_data(pheno = pheno)
+
 # Filter data
 data_iq <- bwu::filter_data(data, domain = domains, scale = scales)
 ```
@@ -65,7 +66,7 @@ data_iq <- bwu::filter_data(data, domain = domains, scale = scales)
 ```{r}
 #| label: text-iq
 #| cache: true
-bwu::cat_neuropsych_results(data_iq, file = "_02_iq_raw.qmd")
+bwu::cat_neuropsych_results(data_iq, file = "_02-01_iq_text.qmd")
 ```
 
 ```{r}
@@ -154,7 +155,6 @@ bwu::dotplot(
       )
   }
 ```
-
 ```{=typst}
 #let title = "General Cognitive Ability"
 #let file_qtbl = "table_iq.png"

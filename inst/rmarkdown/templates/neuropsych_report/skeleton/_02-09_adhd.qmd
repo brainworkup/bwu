@@ -8,7 +8,7 @@ params:
 
 ## ADHD/Executive Functioning {#sec-adhd}
 
-{{< include _10_adhd_text.qmd >}}
+{{< include _02-09_adhd_text.qmd >}}
 
 ```{r}
 #| label: data-adhd
@@ -51,7 +51,7 @@ data_sr <-
   dplyr::distinct(.keep_all = FALSE)
 
 # Flatten the text
-bwu::cat_neuropsych_results(data = data_sr, file = "_10_adhd_raw.qmd")
+bwu::cat_neuropsych_results(data = data_sr, file = "_02-09_adhd_text.qmd")
 ```
 
 ```{r}
@@ -66,7 +66,7 @@ data_or <-
   dplyr::distinct(.keep_all = FALSE)
 
 # Flatten the text
-bwu::cat_neuropsych_results(data = data_or, file = "_10_adhd_raw.qmd")
+bwu::cat_neuropsych_results(data = data_or, file = "_02-09_adhd_text.qmd")
 ```
 
 ```{r}
