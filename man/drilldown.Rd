@@ -2,21 +2,29 @@
 % Please edit documentation in R/plots.R
 \name{drilldown}
 \alias{drilldown}
-\title{Drilldown on Neuropsych Domains.
-This function uses the R Highcharter package and drilldown function to "drilldown" on neuropsychological domains and test scores.}
+\title{Drilldown on Neuropsych Domains}
 \usage{
-drilldown(data, mean_z = NULL, mean_pct = NULL)
+drilldown(
+  data,
+  patient,
+  neuro_domain = c("Neuropsychological Test Scores", "Behavioral Rating Scales",
+    "Effort/Validity Test Scores"),
+  theme = NULL
+)
 }
 \arguments{
 \item{data}{Dataset to use.}
 
-\item{mean_z}{Mean z-score.}
+\item{patient}{Name of patient.}
 
-\item{mean_pct}{Mean percentile.}
+\item{neuro_domain}{Name of neuropsych domain to add to HC series.}
 }
 \value{
 A drilldown plot
 }
 \description{
+This function uses the R Highcharter package and drilldown function to "drilldown" on neuropsychological domains and test scores.
+}
+\details{
 \code{drilldown} Creates a highcharter drilldown interactive plot.
 }

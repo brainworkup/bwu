@@ -126,7 +126,7 @@ h2 {
 } */
 
 .title-slide h1 {
-  font-family: "Major Mono Display", monospace;
+  font-family: "Droid Serif", monospace;
   color: var(--usc-gold);
   font-size: 3.5em;
   word-wrap: break-word;
@@ -136,7 +136,7 @@ h2 {
 }
 
 .title-slide h2 {
-  font-family: "Major Mono Display", monospace;
+  font-family: "Droid Serif", monospace;
   font-weight: 600;
   font-size: 1.5em;
   color: var(--usc-cardinal);
@@ -196,7 +196,8 @@ blockquote {
 /* copied from fighton-theme2 in case doesn't work */
 .remark-slide-content {
   background-color: var(--near-black);
-  color: var(--near-white); /* might not be necessary */
+  color: var(--near-white);
+  /* might not be necessary */
   font-size: 1rem;
   padding: 16px 64px 16px 64px;
   width: 100%;
@@ -797,17 +798,21 @@ div.FOO {
 } */
 
 .fat-font {
-  font-family: 'Fira Code';
+  font-family: "Fira Code";
   font-size: 30px;
   color: #7fff00;
 }
 
 p.a {
-  font: 20px Arial, sans-serif;
+  font:
+    20px Arial,
+    sans-serif;
 }
 
 p.b {
-  font: italic small-caps bold 12px/30px Georgia, serif;
+  font:
+    italic small-caps bold 12px/30px Georgia,
+    serif;
 }
 
 .fade {

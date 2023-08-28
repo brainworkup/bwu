@@ -2,7 +2,7 @@
 % Please edit documentation in R/data_neuropsych.R
 \name{filter_data}
 \alias{filter_data}
-\title{Filters Data by Domain and Scale}
+\title{Filters data by domain and scale}
 \usage{
 filter_data(data, domain, scale)
 }
@@ -17,5 +17,5 @@ filter_data(data, domain, scale)
 Returns a filtered data frame
 }
 \description{
-Filters Data by Domain and Scale
+Filters data by domain and scale
 }

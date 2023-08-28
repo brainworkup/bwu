@@ -2,7 +2,7 @@
 % Please edit documentation in R/data_neuropsych.R
 \name{load_data}
 \alias{load_data}
-\title{Read/Load Neuropsych Eval CSV Files}
+\title{This function reads .csv files of patient data and writes four different files of the same data that are categorized by neuropsychological test type.}
 \usage{
 load_data(patient)
 }

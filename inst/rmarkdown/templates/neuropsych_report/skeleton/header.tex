@@ -1,6 +1,8 @@
 \usepackage{scrlayer-scrpage}
 \clearpairofpagestyles
 
-\ihead{\ifnum\value{page}>1\ifodd\value{page}\textbf{CONFIDENTIAL}\\Smalls, Biggie\\2023-01-01\fi\fi}
-\ohead{\ifnum\value{page}>1\ifodd\value{page}\else\textbf{CONFIDENTIAL}\\Smalls, Biggie\\2023-01-01\fi\fi}
+\ihead{\ifnum\value{page}>1\ifodd\value{page}\textbf{CONFIDENTIAL}\\`r
+params$last_name`, `r params$first_name`\\`r params$doe2`\fi\fi}
+\ohead{\ifnum\value{page}>1\ifodd\value{page}\else\textbf{CONFIDENTIAL}\\`r
+params$last_name`, `r params$first_name`\\`r params$doe2`\fi\fi}
 \cfoot*{\pagemark}
