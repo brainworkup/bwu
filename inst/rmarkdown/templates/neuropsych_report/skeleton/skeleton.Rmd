@@ -11,6 +11,7 @@ output:
     keep_md: true
     keep_tex: true
     always_allow_html: true
+    template: neuro_report
 editor_options:
   markdown:
     wrap: 80

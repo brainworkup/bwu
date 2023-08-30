@@ -3,11 +3,11 @@ title: "Plant CSV file of Neuropsych Measures/Tests"
 params:
   patient:
     label: "Patient First Name:"
-    value: Biggie
+    value: Georgia
     input: text
   test_name:
     label: "Full Name of Test/Test Battery:"
-    value: ""
+    value: NIH EXAMINER
     input: radio
     choices:
       - NIH EXAMINER
@@ -20,6 +20,7 @@ params:
       - D-KEFS
       - Grooved Pegboard
       - KTEA-3
+      - NEPSY-2
       - WMS-IV
       - Cognitive Estimation Test
       - Raven's 2
@@ -38,6 +39,7 @@ params:
       - dkefs
       - ktea3
       - pegboard
+      - nepsy2
       - wms4
       - cet
       - ravens
@@ -70,6 +72,17 @@ params:
         - Numbers & Letters Part B Efficiency
         - Numbers & Letters Part C Efficiency
         - Numbers & Letters Part D Efficiency
+        - Driving Scenes
+      NEPSY-2:
+        - Comprehension of Instructions
+        - Visuomotor Precision
+        - Word Generation-Semantic
+        - Word Generation-Initial Letter
+        - Semantic vs. Initial Letter
+        - Narrative Memory Free and Cued Recall
+        - Narrative Memory Free Recall
+        - Narrative Memory Recognition
+        - List Memory
         - Driving Scenes
       DKEFS:
         - D-KEFS Color Naming
@@ -135,7 +148,7 @@ params:
       - Effort/Validity
   subdomain:
     label: "Subdomain:"
-    value: NULL
+    value: Select Subdomain
     input: select
     choices:
       General Ability:
@@ -171,7 +184,7 @@ params:
         - Social Perception
   narrow:
     label: "Narrow subdomain:"
-    value: Select domain
+    value: Select Narrow Subdomain
     input: select
     choices:
       General Cognition:
@@ -249,7 +262,7 @@ params:
         - Reading Speed
   pass:
     label: "PASS:"
-    value: ""
+    value: Planning
     input: radio
     choices:
       - Planning
@@ -260,14 +273,14 @@ params:
       - Other
   verbal:
     label: "Verbal or Nonverbal Test:"
-    value: ""
+    value: Verbal
     input: radio
     choices:
       - Verbal
       - Nonverbal
   timed:
     label: "Timed or Untimed Test:"
-    value: ""
+    value: Timed
     input: radio
     choices:
       - Timed
@@ -300,9 +313,9 @@ params:
       - npsych_test
       - rating_scale
       - validity_indicator
-  absort:
-  description:
-  result:
+  absort: NULL
+  description: NULL
+  result: NULL
 output:
   rmdformats::robobook:
     highlight: kate
@@ -326,14 +339,15 @@ library(bwu)
 library(here)
 library(knitr)
 library(magrittr)
-library(readr)
 library(rmarkdown)
 library(shiny)
 library(snakecase)
+library(glue)
 library(table.glue)
 library(tibble)
 library(tidyr)
-library(tidytable)
+library(dplyr)
+library(tidyverse)
 ```
 
 ## Patient
@@ -487,6 +501,7 @@ data <- scale_description(data, scale = params$scale, description = "description
 ## Function for z/percentile/range
 
 ```{r fx-zpr}
+library(dplyr)
 compute_percentile_range <- function(
     data,
     score,
@@ -622,11 +637,11 @@ data <- compute_result(
 ## Compute CI 95%
 
 ```{r ci95}
-ci_values <- bwu::ci(
-  x = as.numeric(params$score),
-  m = as.numeric(params$mean),
-  sd = as.numeric(params$stdev),
-  rel = as.numeric(params$reliability)
+ci_values <- bwu::calc_ci_95(
+  ability_score = as.numeric(params$score),
+  mean = as.numeric(params$mean),
+  standard_deviation = as.numeric(params$stdev),
+  reliability = as.numeric(params$reliability)
 )
 data$true_score <- ci_values["true_score"]
 data$ci_lo <- ci_values["ci_lo"]

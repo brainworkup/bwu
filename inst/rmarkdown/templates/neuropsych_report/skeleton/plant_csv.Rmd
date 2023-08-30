@@ -3,7 +3,7 @@ title: "Plant CSV file of Neuropsych Measures/Tests"
 params:
   patient:
     label: "Patient First Name:"
-    value: Biggie
+    value: Georgia
     input: text
   test_name:
     label: "Full Name of Test/Test Battery:"
@@ -135,7 +135,7 @@ params:
       - Effort/Validity
   subdomain:
     label: "Subdomain:"
-****    value: "NULL"
+    value: "NULL"
     input: select
     choices:
       General Ability:
@@ -334,6 +334,7 @@ library(table.glue)
 library(tibble)
 library(tidyr)
 library(tidytable)
+library(tidyverse)
 ```
 
 ## Patient
@@ -345,7 +346,7 @@ patient <- params$patient
 ## Make data.frame
 
 ```{r make-df}
-df <- tidytable::tidytable(
+df <- data.frame(
   test = (params$test),
   test_name = (params$test_name),
   test_type = (params$test_type),
@@ -578,7 +579,7 @@ gpluck_compute_percentile_range <-
 ## Compute percentile, range
 
 ```{r compute-pr}
-df2 <- compute_pctile_range(
+df2 <- bwu::gpluck_compute_percentile_range(
   .x = df1,
   .score = df1$score,
   .score_type = df1$score_type,
@@ -684,20 +685,12 @@ df3 <- compute_result(
 ## Compute CI 95%
 
 ```{r ci95}
-# df3$ci_95 <- bwu::ci(
-#   x = as.numeric(df3$score),
-#   m = as.numeric(params$mean),
-#   sd = as.numeric(params$stdev),
-#   rel = as.numeric(params$reliability)
-# )
-
-ci_values <- bwu::ci(
-  x = as.numeric(df3$score),
-  m = as.numeric(params$mean),
-  sd = as.numeric(params$stdev),
-  rel = as.numeric(params$reliability)
+ci_values <- bwu::calc_ci_95(
+  ability_score = as.numeric(params$score),
+  mean = as.numeric(params$mean),
+  standard_deviation = as.numeric(params$stdev),
+  reliability = as.numeric(params$reliability)
 )
-
 df3$true_score <- ci_values["true_score"]
 df3$ci_lo <- ci_values["ci_lo"]
 df3$ci_hi <- ci_values["ci_hi"]

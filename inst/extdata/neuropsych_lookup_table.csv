@@ -1,0 +1,97 @@
+﻿standard_score,t_score,scaled_score,z_score,percentile,range
+145,80,19,3,99.9,Exceptionally High
+144,79,19,2.9,99.81,Exceptionally High
+143,,,,99.8,Exceptionally High
+142,78,,2.75,99.7,Exceptionally High
+141,,,,99.7,Exceptionally High
+140,77,18,2.67,99.6,Exceptionally High
+139,76,18,2.6,99.5,Exceptionally High
+138,75.3,17.6,2.533,99.44,Exceptionally High
+137,75,18,2.5,99.38,Exceptionally High
+136,74,17,2.4,99.18,Exceptionally High
+135,73,17,2.33,99,Exceptionally High
+134,,,,99,Exceptionally High
+133,72,,2.25,99,Exceptionally High
+132,,,,98,Exceptionally High
+131,71,16.3,2.1,98.21,Exceptionally High
+130,70,16,2,98,Exceptionally High
+129,69,15.7,1.9,97,Above Average
+128,68,,1.75,97,Above Average
+127,,,,96,Above Average
+126,,,,96,Above Average
+125,67,15,1.67,95,Above Average
+124,66,,,95,Above Average
+123,65,,1.5,94,Above Average
+122,,,,93,Above Average
+121,64,,,92,Above Average
+120,63,14,1.33,91,Above Average
+119,,,,90,High Average 
+118,62,,1.25,88,High Average 
+117,,,,87,High Average 
+116,61,,,86,High Average 
+115,60,13,1,84,High Average 
+114,59,,,82,High Average 
+113,58,,0.75,81,High Average 
+112,,,,79,High Average 
+111,,,,77,High Average 
+110,57,12,0.67,75.8,High Average 
+109,56,,,73,Average 
+108,55,,0.55,70,Average 
+107,,,,68,Average 
+106,54,11,0.4,65.54,Average 
+105,53,11,0.33,63,Average 
+104,,,,61,Average 
+103,,,,58,Average 
+102,52,,0.25,55,Average 
+101,51,,,53,Average 
+100,50,10,0,50,Average 
+99,49,9.7,-0.1,46.02,Average 
+98,48,,-0.25,45,Average 
+97,,,,42,Average 
+96,,,,40,Average 
+95,47,9,-0.33,37,Average 
+94,46,,,34,Average 
+93,45,,-0.5,32,Average 
+92,,,,30,Average 
+91,44,8.2,-0.6,27.43,Average 
+90,43,8,-0.67,25,Average 
+89,,,,23,Low Average 
+88,42,,-0.75,21,Low Average 
+87,41,,,19,Low Average 
+86,,,,18,Low Average 
+85,40,7,-1,16,Low Average 
+84,,,,14,Low Average 
+83,38,,-1.25,13,Low Average 
+82,,,,12,Low Average 
+81,,,,10,Low Average 
+80,37,6,-1.33,9,Low Average 
+79,,,,8,Borderline 
+78,35,,-1.5,7,Borderline 
+77,,,,6,Borderline 
+76,,,,5,Borderline 
+75,33,5,-1.67,5,Borderline 
+74,,,,4,Borderline 
+73,32,,-1.75,4,Borderline 
+72,,,,3,Borderline 
+71,,,,3,Borderline 
+70,30,4,-2,2,Borderline 
+69,,,,2,Impaired 
+68,28,,-2.25,2,Impaired 
+67,,,,1,Mild (69-55) 
+66,,,,1,Mild (69-55) 
+65,27,3,-2.33,1,Moderate (54-40) 
+64,,,,1,Moderate (54-40) 
+63,25,,-2.5,1,Severe (39-25) 
+62,,,,1,Severe (39-25) 
+61,,,,0.5,Profound (<25) 
+60,23,2,-2.67,0.4,Profound (<25) 
+59,,,,0.3,Profound (<25) 
+58,22,,-2.75,0.2,Profound (<25) 
+57,,,,0.1,Profound (<25) 
+56,,,,0.1,Profound (<25) 
+55,20,1,-3,0.1,Profound (<25) 
+54,,,,0.1,Profound (<25) 
+53,,,,0.1,Profound (<25) 
+52,,,,0.1,Profound (<25) 
+51,,,,<0.1 ,Profound (<25) 
+50,,,,<0.1 ,Profound (<25) 
