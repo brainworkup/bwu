@@ -1,0 +1,439 @@
+---
+title: "Pluck Tables from Brown EF/A Scales"
+params:
+  patient: Biggie
+  test:
+    label: "Brown EF/A"
+    value: [brown_efa_parent]
+    input: select
+    multiple: no
+    choices:
+      - brown_efa_parent
+      - brown_efa_self
+      - brown_efa_teacher
+  test_name:
+    label: "Test Name:"
+    value: [Brown EF/A Self Report]
+    input: select
+    multiple: no
+    choices:
+      - Brown EF/A Parent Ratings
+      - Brown EF/A Self-Report
+      - Brown EF/A Teacher Ratings
+  file:
+    label: "No file selected"
+    value: file
+    input: file
+  pages: [2]
+output:
+  rmdformats::robobook:
+    highlight: kate
+---
+
+# Brown EF/A
+
+## Setup
+
+```{r setup, include = FALSE}
+library(dplyr)
+library(fs)
+library(hablar)
+library(here)
+library(knitr)
+library(magrittr)
+library(miniUI)
+library(readr)
+library(rJava)
+library(rmarkdown)
+library(shiny)
+library(tabulizer)
+library(tibble)
+library(tidyr)
+library(bwu)
+library(rmdformats)
+# Set JAVA environment
+Sys.setenv(
+  JAVA_HOME =
+    "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home"
+)
+options(java.parameters = "-Xmx16000m")
+# Set knitr options
+knitr::opts_chunk$set(
+  root.dir = normalizePath("./"),
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  error = TRUE
+)
+```
+
+## Patient
+
+```{r patient}
+# patient <- "Georgia"
+patient <- params$patient
+```
+
+## Test
+
+```{r test}
+test <- params$test
+test_name <- params$test_name
+```
+
+## Load PDF file and save as file.path
+
+```{r file}
+# pdf_file <- file.path(file.choose())
+# pdf_file <- "/Users/joey/neuropsychology/Georgia/pdf/Brown-EF-A-Scales---Individual-Report_51189762_1693167228924.pdf"
+pdf_file <- params$file
+```
+
+## Pages
+
+```{r pages}
+pages <- params$pages
+```
+
+## Write/Read PDF file.path
+
+```{r write-file}
+writeLines(pdf_file, here::here(patient, "pre_csv", paste0(test, ".pdf")))
+```
+
+```{r read-file}
+file <- readLines(here::here(patient, "pre_csv", paste0(test, ".pdf")))
+```
+
+## Locate areas or Extract areas
+
+```{r areas}
+# areas <- tabulizer::locate_areas(file = pdf_file, pages = c(2))
+# df <- tabulizer::extract_areas(file = pdf_file, pages = c(2))
+```
+
+```{r areas-known}
+areas <- list(
+  brown_efa_parent = c(500, 51, 589, 562)
+)
+```
+
+```{r locate-areas-pdf}
+# areas <- bwu::gpluck_locate_areas(
+#   file = pdf_file,
+#   pages = pages
+# )
+```
+
+```{r save-areas}
+# saveRDS(areas, here::here(patient, "pre_csv", paste0(test, "_areas.rds")))
+```
+
+```{r read-areas}
+# areas <- readRDS(here::here(patient, "pre_csv", paste0(test, "_areas.rds")))
+```
+
+# Extract tables
+
+```{r extract}
+plucked_tables <- bwu::gpluck_extract_tables(
+  file = pdf_file,
+  pages = pages,
+  area = areas,
+  guess = NULL,
+  method = "stream",
+  output = "matrix"
+)
+```
+
+# Tidy Tables
+
+## Convert to tibble and format
+
+```{r pluck-df}
+
+df <- data.frame(plucked_tables[[1]])
+
+# Rename columns
+colnames1 <- c(
+  "scale",
+  "description",
+  "raw_score",
+  "score",
+  "percentile",
+  "ci_95")
+colnames(df) <- colnames1
+
+# Convert columns to double
+to_double <- c("score", "percentile")
+df[to_double] <- lapply(df[to_double], as.numeric)
+```
+
+## Scale names
+
+```{r}
+# Modify 'scale' value based on params$test
+if (params$test == "brown_efa_parent") {
+  df[1, "scale"] <- "Brown EF/A PR Activation"
+  df[2, "scale"] <- "Brown EF/A PR Focus"
+  df[3, "scale"] <- "Brown EF/A PR Effort"
+  df[4, "scale"] <- "Brown EF/A PR Emotion"
+  df[5, "scale"] <- "Brown EF/A PR Memory"
+  df[6, "scale"] <- "Brown EF/A PR Action"
+  df[7, "scale"] <- "Brown EF/A PR Total Composite"
+} else {
+  df[1, "scale"] <- "Brown EF/A SR Attention"
+  df[2, "scale"] <- "Brown EF/A SR Emotion Regulation"
+  df[3, "scale"] <- "Brown EF/A SR Flexibility"
+  df[4, "scale"] <- "Brown EF/A SR Inhibitory Control"
+  df[5, "scale"] <- "Brown EF/A SR Initiation"
+  df[6, "scale"] <- "Brown EF/A SR Organization"
+  df[7, "scale"] <- "Brown EF/A SR Planning"
+  df[8, "scale"] <- "Brown EF/A SR Self-Monitoring"
+  df[9, "scale"] <- "Brown EF/A SR Working Memory"
+}
+# TODO: teacher report
+```
+
+## Format Tables
+
+```{r}
+df <- bwu::gpluck_make_columns(
+  data = df,
+  test = params$test,
+  test_name = params$test_name,
+  raw_score = "",
+  range = "",
+  domain = "ADHD",
+  subdomain = "Executive Function",
+  narrow = "",
+  pass = "",
+  verbal = "",
+  timed = "",
+  test_type = "rating_scale",
+  score_type = "t_score",
+  absort,
+  description = "",
+  result = ""
+)
+
+df <- 
+  dplyr::relocate(df,
+    c(test, test_name), .before = scale) |> 
+  dplyr::relocate(c(raw_score), .before = score)
+```
+
+## Test score ranges
+
+```{r test-score-ranges}
+df <- bwu::gpluck_make_score_ranges(table = df, test_type = "rating_scale")
+```
+
+## Narrow subdomains
+
+```{r narrow-subdomains}
+if (params$test == "brown_efa_parent") {
+  df <-
+    dplyr::mutate(df,
+      narrow = dplyr::case_when(
+        scale == "Brown EF/A PR Activation" ~ "Activation",
+        scale == "Brown EF/A PR Focus" ~ "Focus",
+        scale == "Brown EF/A PR Effort" ~ "Effort",
+        scale == "Brown EF/A PR Emotion" ~ "Emotion",
+        scale == "Brown EF/A PR Memory" ~ "Memory",
+        scale == "Brown EF/A PR Action" ~ "Action",
+        scale == "Brown EF/A PR Total Composite" ~ "Overall Executive Function",
+        TRUE ~ as.character(narrow)
+      )
+    )
+} else {
+  df <-
+    dplyr::mutate(df,
+      narrow = dplyr::case_when(
+        scale == "Brown EF/A SR Activation" ~ "Activation",
+        scale == "Brown EF/A SR Focus" ~ "Focus",
+        scale == "Brown EF/A SR Effort" ~ "Effort",
+        scale == "Brown EF/A SR Emotion" ~ "Emotion",
+        scale == "Brown EF/A SR Memory" ~ "Memory",
+        scale == "Brown EF/A SR Action" ~ "Action",
+        scale == "Brown EF/A SR Total Composite" ~ "Overall Executive Function",
+        TRUE ~ as.character(narrow)
+      )
+    )
+}
+```
+
+## Scale descriptions
+
+```{r}
+df <-
+  df |>
+  mutate(
+    description = case_when(
+      scale == "Brown EF/A PR Activation" ~ "Organizing, prioritizing, and activating to work (parent rated)",
+      scale == "Brown EF/A PR Focus" ~ "Focusing, sustaining, and shifting attention to tasks (parent rated)",
+      scale == "Brown EF/A PR Effort" ~ "Regulating alertness, sustaining effort, and adjusting processing speed (parent rated)",
+      scale == "Brown EF/A PR Emotion" ~ "Managing frustration and modulating emotions (parent rated)",
+      scale == "Brown EF/A PR Memory" ~ "Utilizing working memory and accessing recall (parent rated)",
+      scale == "Brown EF/A PR Action" ~ "Monitoring and self-regulating action (parent rated)",
+      scale == "Brown EF/A PR Total Composite" ~ "General executive functioning in daily life (parent rated)",
+      TRUE ~ as.character(description)
+    )
+  )
+```
+
+## Glue results
+
+```{r result}
+if (params$test == "brown_efa_parent") {
+  df <-
+    dplyr::mutate(df,
+      result = dplyr::case_when(
+        scale == "Brown EF/A PR Activation" ~ glue::glue(
+          "- {patient}'s self-reported {description} was {range}.\n"
+        ),
+        scale == "Brown EF/A PR Focus" ~ glue::glue(
+          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Brown EF/A PR Effort" ~ glue::glue(
+          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Brown EF/A PR Emotion" ~ glue::glue(
+          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Brown EF/A PR Memory" ~ glue::glue(
+          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Brown EF/A PR Action" ~ glue::glue(
+          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Brown EF/A PR Total Composite" ~ glue::glue(
+          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
+        ),
+        TRUE ~ as.character(result)
+      )
+    )
+} else {
+  df <-
+    dplyr::mutate(df,
+      result = dplyr::case_when(
+        scale == "Brown EF/A SR Activation" ~ glue::glue(
+          "- {patient}'s self-reported {description} was {range}.\n"
+        ),
+        scale == "Brown EF/A SR Focus" ~ glue::glue(
+          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Brown EF/A SR Effort" ~ glue::glue(
+          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Brown EF/A SR Emotion" ~ glue::glue(
+          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Brown EF/A SR Memory" ~ glue::glue(
+          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Brown EF/A SR Action" ~ glue::glue(
+          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Brown EF/A SR Total Composite" ~ glue::glue(
+          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
+        ),
+        TRUE ~ as.character(result)
+      )
+    )
+}
+```
+
+# Finalize and save
+
+## Write/save csv files
+
+```{r save-csv}
+test <- params$test
+readr::write_csv(
+  df,
+  here::here(patient, "csv", paste0(test, ".csv")), 
+  col_names = TRUE, 
+  na = ""
+  )
+```
+
+## Pluck Text
+
+```{r text}
+# save file as path
+file <- fs::as_fs_path(params$file)
+
+# Brown EFA Parent
+if (params$test == "brown_efa_parent") {
+  
+  ## extract text
+  get_text <- function(file) {
+    txt <- pdftools::pdf_text(file) |>
+      stringr::str_split("\n") |>
+      unlist()
+  }
+  brown_efa_parent_txt <- pdftools::pdf_text(file) |>
+    stringr::str_split("\n") |>
+    unlist()
+  brown_efa_parent_txt
+
+  # Replace long spaces with a col break symbol
+  brown_efa_parent_squished <-
+    stringr::str_replace_all(brown_efa_parent_txt, "\\s{2,}", "- ") |>
+    stringr::str_remove_all(",")
+  brown_efa_parent_squished
+
+  # save as markdown
+  readr::write_lines(
+    brown_efa_parent_squished, 
+    here::here(patient, "brown_efa_parent_text.md"), 
+    sep = "\n")
+  # save as quarto
+  readr::write_lines(
+    brown_efa_parent_squished, 
+    here::here(patient, "brown_efa_parent_text.qmd"), 
+    sep = "\n")
+  # save as text
+  readr::write_lines(brown_efa_parent_squished, 
+    here::here(patient, "brown_efa_parent_text.txt"), 
+    sep = "\n"
+    )
+
+# Brown EFA Self Report
+} else if (params$test == "brown_efa_self") {
+
+  ## extract text
+  get_text <- function(file) {
+    txt <- pdftools::pdf_text(file) |>
+      stringr::str_split("\n") |>
+      unlist()
+  }
+  brown_efa_self_txt <- pdftools::pdf_text(file) |>
+    stringr::str_split("\n") |>
+    unlist()
+  brown_efa_self_txt
+
+  # Replace long spaces with a col break symbol
+  brown_efa_self_squished <-
+    stringr::str_replace_all(brown_efa_self_txt, "\\s{2,}", "- ") |>
+    stringr::str_remove_all(",")
+  brown_efa_self_squished
+  
+  # save as markdown
+  readr::write_lines(brown_efa_self_squished, 
+    here::here(patient, "brown_efa_self_text.md"),
+    sep = "\n"
+    )
+  # save as quarto
+  readr::write_lines(brown_efa_self_squished, 
+    here::here(patient, "brown_efa_self_text.qmd"),
+    sep = "\n"
+    )
+  # save as text
+  readr::write_lines(brown_efa_self_squished, 
+    here::here(patient, "brown_efa_self_text.txt"), 
+    sep = "\n"
+    )
+}
+```
