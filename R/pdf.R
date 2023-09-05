@@ -200,9 +200,8 @@ gpluck_make_columns <- function(data,
                                 description = NULL,
                                 result = NULL,
                                 ...) {
-  table <-
+  table <- data |>
     dplyr::mutate(
-      data,
       test = test,
       test_name = test_name,
       scale = scale,
@@ -220,6 +219,7 @@ gpluck_make_columns <- function(data,
       score_type = score_type,
       test_type = test_type,
       absort = paste0(tolower(test), "_", seq_len(nrow(data))),
+      row_names = paste0(tolower(test), "_", (tolower(scale))),
       description = description,
       result = result,
       ...
