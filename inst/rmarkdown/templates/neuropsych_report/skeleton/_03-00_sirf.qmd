@@ -54,7 +54,7 @@ readr::write_csv(g, "csv/g.csv")
 
 ```{r}
 #| label: fig-domain-plot
-#| fig-cap: "Overall neurocognitive function subdomain plots of `r params$first_name` strengths and weaknesses. *Note:* *z*-scores have a mean of 0 and a standard deviation of 1."
+#| fig-cap: "Overall neurocognitive function subdomain plots of `r params$first_name`'s strengths and weaknesses. *Note:* *z*-scores have a mean of 0 and a standard deviation of 1."
 
 keep <- c(
   # "Academic Skills",
@@ -87,7 +87,8 @@ data <- g
 x <- g$z
 y <- g$scale
 colors <- NULL
-return_plot <- Sys.getenv("RETURN_PLOT")
+return_plot <- TRUE
+# return_plot <- Sys.getenv("RETURN_PLOT")
 filename <- "fig_g.svg"
 
 bwu::dotplot(
@@ -108,7 +109,7 @@ bwu::dotplot(
 figure([#image(file_fig, width: 70%)],
   placement: none,
   caption: [
-    Overall neurocognitive function subdomain plots of Biggie's strengths and weaknesses. _Note:_ *z* Scores have a mean of 0 and a standard deviation of 1.
+    Overall neurocognitive function subdomain plots of Ashish's strengths and weaknesses. _Note:_ *z* Scores have a mean of 0 and a standard deviation of 1.
     ],
   kind: "image",
   supplement: [*Fig.*],
@@ -118,7 +119,7 @@ figure([#image(file_fig, width: 70%)],
 ```
 
 ```{=typst}
-#let file_fig = "_13_sirf_files/figure-typst/fig-domain-plot-1.svg"
+#let file_fig = "_03-00_sirf_files/figure-typst/fig-domain-plot-1.svg"
 #domain_sirf(
   file_fig
 )

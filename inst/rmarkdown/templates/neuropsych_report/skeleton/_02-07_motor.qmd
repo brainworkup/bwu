@@ -2,6 +2,8 @@
 format:
   neurotyp-typst:
     keep-typ: true
+params:
+  pheno: "motor"
 ---
 
 ## Motor
@@ -149,7 +151,7 @@ bwu::dotplot(
 ```{=typst}
 #let title = "Motor"
 #let file_qtbl = "table_motor.png"
-#let file_fig = "_08_motor_files/figure-typst/fig-motor-1.svg"
+#let file_fig = "_02-07_motor_files/figure-typst/fig-motor-1.svg"
 #domain(
   title: [#title Test Scores],
   file_qtbl,

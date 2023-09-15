@@ -84,7 +84,6 @@ table_name <- "table_spatial"
 vertical_padding <- 0.10
 multiline <- TRUE
 
-# source(here::here("R", "tbl_gt.R"))
 bwu::tbl_gt(data,
   pheno = pheno,
   table_name = table_name,
@@ -111,7 +110,8 @@ data <- spatial
 x <- data$z_mean_subdomain
 y <- data$subdomain
 colors <- NULL
-return_plot <- Sys.getenv("RETURN_PLOT")
+return_plot <- TRUE
+# return_plot <- Sys.getenv("RETURN_PLOT")
 filename <- "fig_spatial.svg"
 
 # Make dotplot
@@ -161,7 +161,7 @@ figure([#image(file_fig, width: auto)],
 ```{=typst}
 #let title = "Visual Perception/Construction"
 #let file_qtbl = "table_spatial.png"
-#let file_fig = "_05_spatial_files/figure-typst/fig-spatial-1.svg"
+#let file_fig = "_02-04_spatial_files/figure-typst/fig-spatial-1.svg"
 #domain(
   title: [#title Test Scores],
   file_qtbl,

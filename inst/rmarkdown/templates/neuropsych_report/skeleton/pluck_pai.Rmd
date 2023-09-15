@@ -1,7 +1,7 @@
 ---
 title: "Import CSV file from PAI"
 params:
-  patient: Georgia
+  patient: Biggie
   test: pai
   test_name: PAI
   file:
@@ -11,7 +11,7 @@ params:
 output:
   rmdformats::robobook:
     highlight: kate
-runtime: shiny
+# runtime: shiny
 ---
 
 ## Setup
@@ -28,11 +28,10 @@ knitr::opts_chunk$set(
 )
 library(hablar)
 library(here)
-library(readr)
 library(rmarkdown)
 library(rmdformats)
 library(tibble)
-xfun::pkg_load2("stringi", "pdftools", "tabulizer", "dplyr", "vroom", "pdftables", "qpdf", "tidyverse", "magrittr", "rJava", "shiny", "tabulizerjars", "tidyr", "dplyr", "data.table", "stringr", "rlist", "parallel", "DT")
+xfun::pkg_load2("pdftools", "tabulizer", "vroom", "tidyverse", "magrittr", "rJava", "shiny", "tabulizerjars")
 library(rlang)
 library(bwu)
 ```
@@ -319,7 +318,7 @@ df_clinical <- df_clinical |> dplyr::slice(
 ```{r mutate}
 df_clinical <-
   bwu::gpluck_make_columns(
-    table = df_clinical,
+    data = df_clinical,
     raw_score = "",
     range = "",
     ci_95 = "",
@@ -339,12 +338,10 @@ df_clinical <-
     description = "",
     result = ""
   )
-```
 
-```{r}
 df_validity <-
   bwu::gpluck_make_columns(
-    table = df_validity,
+    data = df_validity,
     raw_score = "",
     range = "",
     ci_95 = "",
@@ -364,12 +361,10 @@ df_validity <-
     description = "",
     result = ""
   )
-```
 
-```{r}
 df_inatt <-
   bwu::gpluck_make_columns(
-    table = df_inatt,
+    data = df_inatt,
     raw_score = "",
     range = "",
     ci_95 = "",
@@ -817,16 +812,19 @@ readr::write_csv(
 )
 ```
 
-## Pluck Text
+# Pluck Text
 
 ```{r text}
 library(pdftools)
 library(stringr)
 
-patient <- "Georgia"
+# save file as path
+file <- fs::as_fs_path(params$file)
+```
 
-file <- here::here(patient, "pdf", "pai.pdf")
 ## extract text
+
+```{r text-extract}
 get_text <- function(file) {
   txt <- pdftools::pdf_text(file) |>
     stringr::str_split("\n") |>
@@ -835,18 +833,36 @@ get_text <- function(file) {
 pai_text <- get_text(file)
 pai_text
 
-# save dirty
+```
+
+## save dirty
+
+```{r text-save-dirty}
 readr::write_lines(pai_text, here::here(patient, "pai_text.md"), sep = "\n")
 readr::write_lines(pai_text, here::here(patient, "pai_text.qmd"), sep = "\n")
 readr::write_lines(pai_text, here::here(patient, "pai_text.typ"), sep = "\n")
 
-# Replace long spaces with a col break symbol
+```
+
+## Replace long spaces with a col break symbol
+
+```{r text-replace}
+
 pai_text_squished <-
   stringr::str_replace_all(pai_text, "\\s{2,}", "- ") |>
   stringr::str_remove_all(",")
 pai_text_squished
 
 # save
+readr::write_lines(pai_text_squished, here::here(patient, "pai_text_squished.md"), sep = "\n")
+readr::write_lines(pai_text_squished, here::here(patient, "pai_text_squished.qmd"), sep = "\n")
+readr::write_lines(pai_text_squished, here::here(patient, "pai_text_squished.typ"), sep = "\n")
+```
+
+## save txt
+
+```{r text-save}
+
 readr::write_lines(pai_text_squished, here::here(patient, "pai_text_squished.md"), sep = "\n")
 readr::write_lines(pai_text_squished, here::here(patient, "pai_text_squished.qmd"), sep = "\n")
 readr::write_lines(pai_text_squished, here::here(patient, "pai_text_squished.typ"), sep = "\n")

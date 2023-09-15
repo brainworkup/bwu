@@ -102,7 +102,7 @@ data <- data_verbal
 pheno <- "verbal"
 table_name <- "table_verbal"
 grp_verbal <- list(
-  scaled_score = c("WAIS-IV", "WISC-5", "NEPSY-2"),
+  scaled_score = c("WAIS-IV", "WISC-5", "NEPSY-2", "D-KEFS"),
   standard_score = c("NAB"),
   t_score = c("NAB", "NIH EXAMINER")
 )
@@ -136,7 +136,8 @@ data <- verbal
 x <- data$z_mean_subdomain
 y <- data$subdomain
 colors <- NULL
-return_plot <- Sys.getenv("RETURN_PLOT")
+return_plot <- FALSE
+# return_plot <- Sys.getenv("RETURN_PLOT")
 filename <- "fig_verbal.svg"
 
 # Make dotplot
@@ -180,7 +181,7 @@ bwu::dotplot(
 ```{=typst}
 #let title = "Verbal/Language"
 #let file_qtbl = "table_verbal.png"
-#let file_fig = "_04_verbal_files/figure-typst/fig-verbal-1.svg"
+#let file_fig = "_02-03_verbal_files/figure-typst/fig-verbal-1.svg"
 #domain(
   title: [#title Test Scores],
   file_qtbl,

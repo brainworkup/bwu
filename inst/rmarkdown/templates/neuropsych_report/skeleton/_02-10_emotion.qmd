@@ -203,8 +203,8 @@ data <- emotion
 x <- data$z_mean_subdomain
 y <- data$subdomain
 colors <- NULL
-# return_plot <- TRUE
-return_plot <- Sys.getenv("RETURN_PLOT")
+return_plot <- TRUE
+# return_plot <- Sys.getenv("RETURN_PLOT")
 filename <- "fig_emotion.svg"
 
 # Make dotplot
@@ -234,7 +234,7 @@ figure([#image(file_fig, width: auto)],
 ```
 
 ```{=typst}
-#let file_fig = "_11_emotion_files/figure-typst/fig-emotion-1.svg"
+#let file_fig = "_02-10_emotion_files/figure-typst/fig-emotion-1.svg"
 #domain_emotion(
   file_fig
 )

@@ -204,3 +204,8 @@ output:
 ## bwu 0.0.1.9003
 
 - Updating a bunch of files etc
+
+## bwu 0.0.1.9004
+
+- using bwu to write reports temporarily
+- updated pluck_caars, pai

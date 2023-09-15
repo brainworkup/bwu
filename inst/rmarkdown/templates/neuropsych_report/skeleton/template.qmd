@@ -48,7 +48,7 @@ editor:
     canonical: true
 fig-width: 6
 fig-asp: 0.618
-out-width: 70%
+out-width: "70%"
 fig-align: center
 fig-format: svg
 fig-dpi: 270
@@ -92,57 +92,50 @@ bwu::load_data(here::here(patient))
 *PATIENT NAME:* #name \ 
 *DATES OF EXAM:* `r params$doe1`, `r params$doe2`, and `r params$doe3` \ 
 ```
+# TESTS ADMINISTERED {#sec-tests}
 
-{{< include _00_tests_admin.qmd >}}
+{{< include _00-00_tests.qmd >}}
 
-{{< include _00_nse.qmd >}}
+# NEUROBEHAVIORAL STATUS EXAM {#sec-nse}
 
-{{< include _01_behav_obs.qmd >}}
+{{< include _01-00_nse.qmd >}}
+
+{{< include _02-00_behav-obs.qmd >}}
 
 # NEUROCOGNITIVE FINDINGS {#sec-test-results}
 
-{{< include _02_iq.qmd >}}
+{{< include _02-01_iq.qmd >}}
 
-{{< include _03_academics.qmd >}}
+<!-- {{< include _02-02_academics.qmd >}} -->
 
-{{< include _04_verbal.qmd >}}
+{{< include _02-03_verbal.qmd >}}
 
-{{< include _05_spatial.qmd >}}
+{{< include _02-04_spatial.qmd >}}
 
-{{< include _06_executive.qmd >}}
+{{< include _02-05_executive.qmd >}}
 
-{{< include _07_memory.qmd >}}
+{{< include _02-06_memory.qmd >}}
 
-{{< include _08_motor.qmd >}}
+<!-- {{< include _02-07_motor.qmd >}} -->
 
-{{< include _10_adhd.qmd >}}
+<!-- {{< include _02-08_social.qmd >}} -->
 
-{{< include _11_emotion.qmd >}}
+{{< include _02-09_adhd.qmd >}}
 
-{{< include _13_sirf.qmd >}}
+{{< include _02-10_emotion.qmd >}}
 
-{{< include _14_recs.qmd >}}
+<!-- {{< include _02-11_adaptive.qmd >}}  -->
 
-It was a pleasure to work with Biggie.
-Please contact me with any questions or concerns regarding this patient.
+# SUMMARY/IMPRESSION {#sec-sirf}
 
-Sincerely,
+{{< include _03-00_sirf.qmd >}}
 
-```{r}
-#| label: signature
-#| out-width: 20%
-#| fig-align: left
-#| cache: true
-#| eval: true
-knitr::include_graphics("../neuropsychology/jwt_sig.png", dpi = 127)
-```
+# RECOMMENDATIONS {#sec-recs}
 
-**Joey W. Trampush, Ph.D.**\
-Assistant Professor of Psychiatry\
-Department of Psychiatry and the Behavioral Sciences\
-University of Southern California Keck School of Medicine\
-CA License PSY29212 
+{{< include _03-01_recs.qmd >}}
+
+{{< include _03-02_signature.qmd >}}
 
 # APPENDIX {#sec-appendix}
 
-{{< include _15_appendix.qmd >}}
+{{< include _03-04_appendix.qmd >}}

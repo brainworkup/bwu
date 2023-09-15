@@ -178,7 +178,7 @@ bwu::dotplot(
 ```{=typst}
 #let title = "Academic Achievement"
 #let file_qtbl = "table_academics.png"
-#let file_fig = "_03_academics_files/figure-typst/fig-academics-1.svg"
+#let file_fig = "_02-02_academics_files/figure-typst/fig-academics-1.svg"
 #domain(
   title: [#title Test Scores],
   file_qtbl,

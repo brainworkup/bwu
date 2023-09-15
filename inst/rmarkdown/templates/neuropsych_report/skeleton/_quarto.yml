@@ -1,0 +1,5 @@
+project:
+  title: "Neurotyp"
+  output-dir: _output
+execute:
+  freeze: true

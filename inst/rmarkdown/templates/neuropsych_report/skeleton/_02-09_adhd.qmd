@@ -13,6 +13,7 @@ params:
 ```{r}
 #| label: data-adhd
 # source("data_adhd.R")
+patient <- "Ashish"
 library(tidyverse)
 library(gt)
 library(gtExtras)
@@ -20,7 +21,7 @@ library(glue)
 library(bwu)
 
 pheno <- "adhd"
-df <-readr::read_csv("read_data_scales.csv")
+df <- readr::read_csv("read_data_scales.csv")
 domains <- df$domains
 string_representation <- df$scales
 
@@ -151,7 +152,8 @@ bwu::tbl_gt(
 pheno <- "caars"
 data_caars <- dplyr::filter(data, filename %in% c("caars_sr.csv", "caars_or.csv"))
 colors <- NULL
-return_plot <- Sys.getenv("RETURN_PLOT")
+return_plot <- TRUE
+# return_plot <- Sys.getenv("RETURN_PLOT")
 filename <- "fig_caars.svg"
 x <- data_caars$z_mean_subdomain
 y <- data_caars$subdomain
@@ -175,7 +177,8 @@ bwu::dotplot(
 pheno <- "cefi"
 data_cefi <- dplyr::filter(data, filename %in% c("cefi_sr.csv", "cefi_or.csv"))
 colors <- NULL
-return_plot <- Sys.getenv("RETURN_PLOT")
+return_plot <- TRUE
+# return_plot <- Sys.getenv("RETURN_PLOT")
 filename <- "fig_cefi.svg"
 x <- data_cefi$z_mean_narrow
 y <- data_cefi$narrow
@@ -220,7 +223,7 @@ bwu::dotplot(
 ```{=typst}
 #let title = "Self Rating Scales of ADHD and Executive Function"
 #let file_qtbl = "table_self_report.png"
-#let file_fig = "_10_adhd_files/figure-typst/fig-caars-1.svg"
+#let file_fig = "_02-09_adhd_files/figure-typst/fig-caars-1.svg"
 #domain(
   title: [#title],
   file_qtbl,
@@ -257,7 +260,7 @@ bwu::dotplot(
 ```{=typst}
 #let title = "Observer Rating Scales of ADHD and Executive Function"
 #let file_qtbl = "table_observer_report.png"
-#let file_fig = "_10_adhd_files/figure-typst/fig-cefi-1.svg"
+#let file_fig = "_02-09_adhd_files/figure-typst/fig-cefi-1.svg"
 #domain(
   title: [#title],
   file_qtbl,

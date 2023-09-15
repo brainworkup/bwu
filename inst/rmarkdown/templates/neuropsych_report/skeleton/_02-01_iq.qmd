@@ -1,6 +1,8 @@
 ---
 format:
   neurotyp-typst: default
+params:
+  pheno: "iq"
 ---
 
 ## General Cognitive Ability {#sec-iq}
@@ -76,12 +78,16 @@ bwu::cat_neuropsych_results(data_iq, file = "_02-01_iq_text.qmd")
 options(tikzDefaltEngine = "xetex")
 
 # footnotes
-fn_standard_score <- gt::md("Index Score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰]")
+fn_standard_score <- gt::md("Standard Score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰]")
 pheno <- "iq"
 table_name <- "table_iq"
-source_note <- gt::md("Index Score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰]")
+source_note <- gt::md("Standard Score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰]")
 grp_iq <- list(
-  standard_score = c("Composite Scores", "NAB", "Test of Premorbid Functioning", "WRAT-5", "WAIS-IV", "WISC-5"))
+  standard_score = c(
+    "Composite Scores", "NAB", "Test of Premorbid Functioning",
+    "WRAT-5", "WAIS-IV", "WISC-5"
+  )
+)
 vertical_padding <- 0.10
 multiline <- TRUE
 data <- data_iq
@@ -90,6 +96,8 @@ bwu::tbl_gt(
   data = data,
   pheno = pheno,
   table_name = table_name,
+  # fn_standard_score = fn_standard_score,
+  grp_standard_score = grp_iq[["standard_score"]],
   dynamic_grp = grp_iq,
   vertical_padding = vertical_padding,
   source_note = source_note,
@@ -109,13 +117,14 @@ iq <-
     scale %in% c(
       "General Ability", "Crystallized Knowledge", "Fluid Reasoning",
       "Premorbid Ability", "TOPF Standard Score"
-      )
+    )
   )
 data <- iq
 x <- data$z_mean_narrow
 y <- data$narrow
 colors <- NULL
-return_plot <- Sys.getenv("RETURN_PLOT")
+return_plot <- TRUE
+# return_plot <- Sys.getenv("RETURN_PLOT")
 filename <- "fig_iq.svg"
 
 # Make dotplot
@@ -155,10 +164,11 @@ bwu::dotplot(
       )
   }
 ```
+
 ```{=typst}
 #let title = "General Cognitive Ability"
 #let file_qtbl = "table_iq.png"
-#let file_fig = "_02_iq_files/figure-typst/fig-iq-1.svg"
+#let file_fig = "_02-01_iq_files/figure-typst/fig-iq-1.svg"
 #domain(
   title: [#title Index Scores],
   file_qtbl,

@@ -122,7 +122,7 @@ bwu::dotplot(
 ```{=typst}
 #let title = "Adaptive"
 #let file_qtbl = "table_adaptive.png"
-#let file_fig = "fig_adaptive.svg"
+#let file_fig = "_02-11_adaptive_files/figure-typst/fig-adaptive-1.svg"
 #domain(
   title: [#title Test Scores],
   file_qtbl,

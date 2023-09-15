@@ -187,9 +187,10 @@ data <- executive
 x <- data$z_mean_subdomain
 y <- data$subdomain
 colors <- NULL
-return_plot <- Sys.getenv("RETURN_PLOT")
+return_plot <- TRUE
+# return_plot <- Sys.getenv("RETURN_PLOT")
 filename <- "fig_executive.svg"
-# return_plot <- TRUE
+
 bwu::dotplot(
   data = data,
   x = x,
@@ -232,7 +233,7 @@ bwu::dotplot(
 ```{=typst}
 #let title = "Attention/Executive"
 #let file_qtbl = "table_executive.png"
-#let file_fig = "_06_executive_files/figure-typst/fig-executive-1.svg"
+#let file_fig = "_02-05_executive_files/figure-typst/fig-executive-1.svg"
 #domain(
   title: [#title Test Scores],
   file_qtbl,

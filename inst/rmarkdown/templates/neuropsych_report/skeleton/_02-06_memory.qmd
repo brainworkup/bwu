@@ -156,16 +156,17 @@ exclude <- c("CVLT-3 Total Intrusions", "CVLT-3 Total Repetitions", "CVLT-3 Forc
 
 # Arguments
 pheno <- "memory"
-memory <- data |> 
-  dplyr::filter(!is.na(percentile)) |> 
-  dplyr::filter(scale != "NAB Memory Index") |> 
+memory <- data |>
+  dplyr::filter(!is.na(percentile)) |>
+  dplyr::filter(scale != "NAB Memory Index") |>
   dplyr::filter(!scale %in% exclude)
 
 data <- memory
 x <- data$z_mean_narrow
 y <- data$narrow
 colors <- NULL
-return_plot <- Sys.getenv("RETURN_PLOT")
+return_plot <- TRUE
+# return_plot <- Sys.getenv("RETURN_PLOT")
 filename <- "fig_memory.svg"
 
 # Make dotplot
@@ -210,7 +211,7 @@ bwu::dotplot(
 ```{=typst}
 #let title = "Learning and Memory"
 #let file_qtbl = "table_memory.png"
-#let file_fig = "_07_memory_files/figure-typst/fig-memory-1.svg"
+#let file_fig = "_02-06_memory_files/figure-typst/fig-memory-1.svg"
 #domain(
   title: [#title Test Scores],
   file_qtbl,
