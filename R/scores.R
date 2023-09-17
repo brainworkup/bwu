@@ -145,3 +145,30 @@ calc_percentile <- function(ability_score, mean, standard_deviation, round = 0) 
 
   return(glue::glue("Ability Score = {ability_score}\nPercentile Rank = {percentile}"))
 }
+
+
+#' Normalize a vector
+#'
+#' @param x A numeric vector
+#' @return A normalized numeric vector
+#' @export
+normalization <- function(x) {
+  return((x - min(x)) / (max(x) - min(x)))
+}
+
+#' Standardization of a vector
+#'
+#' This function takes a vector as input and returns the standardization of that vector.
+#'
+#' @param x A vector.
+#'
+#' @return The standardization of the vector.
+#'
+#' @examples
+#' x <- c(1, 2, 3)
+#' standardization(x)
+#'
+#' @export
+standardization <- function(x) {
+  return((x - mean(x)) / sd(x))
+}
