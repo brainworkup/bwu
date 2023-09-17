@@ -13,7 +13,7 @@ params:
 ```{r}
 #| label: data-adhd
 # source("data_adhd.R")
-patient <- "Ashish"
+patient <- "Biggie"
 library(tidyverse)
 library(gt)
 library(gtExtras)

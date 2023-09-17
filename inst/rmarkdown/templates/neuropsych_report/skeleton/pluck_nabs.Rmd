@@ -1,5 +1,5 @@
 ---
-title: "Pluck Tables from NAB Screener"
+title: "Pluck Tables from NAB-Screener (NAB-S)"
 params:
   patient: Biggie
   test:
@@ -301,7 +301,7 @@ area <- readRDS(here::here(patient, "pre_csv", "area_nabs.rds"))
 ## Extract tables
 
 ```{r extract}
-plucked_table <- bwu::gpluck_extract_table(
+plucked_tables <- bwu::gpluck_extract_tables(
   file = file,
   pages = pages,
   area = area,
@@ -314,7 +314,7 @@ plucked_table <- bwu::gpluck_extract_table(
 # NAB Index Score
 
 ```{r pluck1}
-table1 <- tibble::as_tibble(plucked_table[[1]])
+table1 <- tibble::as_tibble(plucked_tables[[1]])
 colnames(table1) <- params$column_names1
 table1$raw_score <- ""
 to_double <- c("raw_score", "score", "percentile")
@@ -345,7 +345,7 @@ table1[6, 1] <- c("NAB Total Index")
 # NAB Attention
 
 ```{r pluck2}
-table2 <- as_tibble(plucked_table[[2]])
+table2 <- as_tibble(plucked_tables[[2]])
 colnames(table2) <- params$column_names2
 to_double <- c("raw_score", "z_score", "score", "percentile")
 table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
@@ -395,7 +395,7 @@ if (params$test == "nabs") {
 # NAB Language
 
 ```{r pluck3}
-table3 <- as_tibble(plucked_table[[3]])
+table3 <- as_tibble(plucked_tables[[3]])
 colnames(table3) <- params$column_names2
 to_double <- c("raw_score", "z_score", "score", "percentile")
 table3 <-
@@ -426,7 +426,7 @@ if (params$test == "nabs") {
 # NAB Memory
 
 ```{r pluck4}
-table4 <- as_tibble(plucked_table[[4]])
+table4 <- as_tibble(plucked_tables[[4]])
 colnames(table4) <- params$column_names3
 to_double <- c("raw_score", "z_score", "score", "percentile")
 table4 <- table4 |> hablar::convert(dbl(all_of(to_double)))
@@ -469,7 +469,7 @@ if (params$test == "nabs") {
 # NAB Spatial
 
 ```{r pluck5}
-table5 <- as_tibble(plucked_table[[5]])
+table5 <- as_tibble(plucked_tables[[5]])
 colnames(table5) <- params$column_names3
 to_double <- c("raw_score", "z_score", "score", "percentile")
 table5 <- table5 |> hablar::convert(dbl(all_of(to_double)))
@@ -495,7 +495,7 @@ table5[2, 1] <- c("Design Construction")
 # NAB Executive Functions
 
 ```{r pluck6}
-table6 <- as_tibble(plucked_table[[6]])
+table6 <- as_tibble(plucked_tables[[6]])
 colnames(table6) <- params$column_names3
 to_double <- c("raw_score", "z_score", "score", "percentile")
 table6 <- table6 |> hablar::convert(dbl(all_of(to_double)))

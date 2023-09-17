@@ -70,7 +70,7 @@ knitr::opts_chunk$set(
 ## Patient
 
 ```{r patient}
-# patient <- "Georgia"
+# patient <- "Biggie"
 patient <- params$patient
 ```
 
@@ -85,7 +85,7 @@ test_name <- params$test_name
 
 ```{r file}
 # pdf_file <- file.path(file.choose())
-# pdf_file <- "/Users/joey/neuropsychology/Georgia/pdf/Brown-EF-A-Scales---Individual-Report_51189762_1693167228924.pdf"
+# pdf_file <- "/Users/joey/neuropsychology/Biggie/pdf/Brown-EF-A-Scales---Individual-Report_51189762_1693167228924.pdf"
 pdf_file <- params$file
 ```
 

@@ -13,7 +13,7 @@ test <- "ktea3"
 ## Patient initials
 
 ```{r patient}
-patient <- "Georgia"
+patient <- "Biggie"
 ```
 
 ## Pages
