@@ -18,8 +18,8 @@
 ^journal$
 ^\.DS\_Store$
 ^\.github$
-^bwu\.code-workspace$
-^dendron\.code-workspace$
+^bwu\.code\-workspace$
+^dendron\.code\-workspace$
 ^bwu\.Rproj$
 ^neuropsych\-report$
 ^neuropsych\-report\.html$
@@ -64,3 +64,6 @@
 ^tufte\.Rmd$
 ^neuropsych_report_child$
 ^neuropsych_report_adult$
+^Ashish$
+^Tiffany$
+^Untitled\.R$
