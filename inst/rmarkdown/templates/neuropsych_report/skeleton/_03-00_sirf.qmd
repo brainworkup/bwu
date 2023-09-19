@@ -108,9 +108,9 @@ bwu::dotplot(
   set text(..font)
 figure([#image(file_fig, width: 70%)],
   placement: none,
-  caption: [
-    Overall neurocognitive function subdomain plots of Biggie's strengths and weaknesses. _Note:_ *z* Scores have a mean of 0 and a standard deviation of 1.
-    ],
+  caption: figure.caption(position: bottom, [Overall neurocognitive function
+  subdomain plots of `r params$first_name`'s strengths and weaknesses. _Note:_
+  *z*-Scores have a mean of 0 and a standard deviation of 1.]),
   kind: "image",
   supplement: [*Fig.*],
   gap: 0.5em,

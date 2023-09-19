@@ -2,6 +2,8 @@
 format:
   neurotyp-typst:
     keep-typ: true
+params:
+  pheno: "adaptive"
 ---
 
 ## Adaptive Functioning
@@ -17,7 +19,7 @@ library(glue)
 library(bwu)
 data <- bwu::read_data(pheno = "adaptive")
 domains <- c("Adaptive")
-scales <- c(
+scales <- c(TODO:
 
 )
 data <- bwu::filter_data(data, domain = domains, scale = scales)
@@ -38,28 +40,27 @@ options(tikzDefaultEngine = "xetex")
 # footnotes
 fn_scaled_score <- gt::md("Scaled Score: Mean = 10 [50th‰], SD ± 3 [16th‰, 84th‰]")
 fn_standard_score <- gt::md("Index Score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰]")
-fn_t_score <- gt::md("*T* Score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
-fn_z_score <- gt::md("*z* Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]")
-z_score_label <- "*z* Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]"
+fn_t_score <- gt::md("*T*-Score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
+fn_z_score <- gt::md("*z*-Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]")
+z_score_label <- "*z*-Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]"
 
 pheno <- "adaptive"
-table_name <- "table_Adaptive"
+table_name <- "table_adaptive"
 
 grp_adaptive <- list(
-  t_score = c("Grooved Pegboard"),
-  scaled_score = c("NEPSY-2")
+  standard_score = c("ABAS-3"),
+  scaled_score = c("ABAS-3")
 )
-vertical_padding <- 0.10
+vertical_padding <- 0.05
 multiline <- TRUE
 
-# source(here::here("R", "tbl_gt.R"))
 bwu::tbl_gt(data,
   pheno = pheno,
   table_name = table_name,
   fn_scaled_score = fn_scaled_score,
-  fn_t_score = fn_t_score,
+  fn_standard_score = fn_standard_score,
   grp_scaled_score = grp_adaptive[["scaled_score"]],
-  grp_t_score = grp_adaptive[["t_score"]],
+  grp_standard_score = grp_adaptive[["standard_score"]],
   dynamic_grp = grp_adaptive,
   vertical_padding = vertical_padding,
   multiline = multiline
@@ -76,10 +77,10 @@ data <- adaptive
 x <- data$z_mean_narrow
 y <- data$narrow
 colors <- NULL
-return_plot <- Sys.getenv("RETURN_PLOT")
+return_plot <- TRUE
+# return_plot <- Sys.getenv("RETURN_PLOT")
 filename <- "fig_adaptive.svg"
 
-# source(here::here("R", "dotplot.R"))
 bwu::dotplot(
   data = data,
   x = x,
@@ -98,17 +99,16 @@ bwu::dotplot(
       columns: (50%, 50%),
       gutter: 8pt,
         figure([#image(file_qtbl)],
-          caption: [#title],
-          caption-pos: top,
+          caption: figure.caption(position: top, [#title]),
           kind: "qtbl",
           supplement: [*Table*],
           ),
         figure([#image(file_fig, width: auto)],
-          caption: [
+          caption: figure.caption(position: bottom, [
             Sensorimotor tasks refer to the capacity to control hand movements
             quickly, smoothly, and with adequate precision, which are required
             to engage in activities such as writing and drawing.
-            ],
+            ]),
           caption-pos: bottom,
           placement: none,
           kind: "image",

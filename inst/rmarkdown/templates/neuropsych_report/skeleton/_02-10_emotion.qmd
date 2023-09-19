@@ -3,13 +3,14 @@ format:
   neurotyp-typst:
     keep-typ: true
 params:
-  first_name: NULL
-  his_her: NULL
-  he_she: NULL
-  he_she_cap: NULL
-  his_her_cap: NULL
-  him_her: NULL
-  him_her_cap: NULL
+  first_name: ""
+  his_her: ""
+  he_she: ""
+  he_she_cap: ""
+  his_her_cap: ""
+  him_her: ""
+  him_her_cap: ""
+  pheno: "emotion"
 ---
 
 # Emotional/Behavioral/Personality {#sec-emotion}
@@ -23,7 +24,7 @@ pheno <- "emotion"
 data <- bwu::read_data(pheno = pheno)
 domains <- c(
   "Psychiatric Disorders", "Personality Disorders", "Substance Use",
-  "Psychosocial Problems"
+  "Psychosocial Problems", "Behavioral/Emotional/Social"
 )
 scales <- c(
   "Activity Level",
@@ -38,8 +39,6 @@ scales <- c(
   "Antisocial Features",
   "Anxiety-Related Disorders",
   "Anxiety",
-  "BAI-2 Total Score",
-  "BID-2 Total Score",
   "Borderline Features",
   "Cognitive (A)",
   "Cognitive (D)",
@@ -78,15 +77,48 @@ scales <- c(
   "Traumatic Stress",
   "Treatment Rejection",
   "Verbal Aggression",
-  "Warmth"
-  # ADD BASC3 SRP
+  "Warmth",
+  "BAI-2 Total Score",
+  "BID-2 Total Score",
+  "Activities of Daily Living",
+  "Adaptability",
+  "Adaptive Skills",
+  "Aggression",
+  "Anxiety",
+  "Attention Problems",
+  "Attitude to School",
+  "Attitude to Teachers",
+  "Atypicality",
+  "Behavioral Symptoms Index",
+  "Conduct Problems",
+  "Depression",
+  "Emotional Symptoms Index",
+  "Externalizing Problems",
+  "Functional Communication",
+  "Hyperactivity",
+  "Inattention/Hyperactivity",
+  "Internalizing Problems",
+  "Interpersonal Relations",
+  "Leadership",
+  "Locus of Control",
+  "Personal Adjustment",
+  "Relations with Parents",
+  "School Problems",
+  "Self-Esteem",
+  "Self-Reliance",
+  "Sensation Seeking",
+  "Sense of Inadequacy",
+  "Social Skills",
+  "Social Stress",
+  "Somatization",
+  "Withdrawal"
 )
 data <-
   bwu::filter_data(
     data,
     domain = domains,
     scale = scales
-)
+  )
 ```
 
 ```{r}
@@ -103,10 +135,7 @@ bwu::cat_neuropsych_results(data = data, file = "_02-10_emotion_text.qmd")
 options(tikzDefaultEngine = "xetex")
 
 # footnotes
-# fn_standard_score <- gt::md("Standard Score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰]")
-fn_t_score <- gt::md("*T* Score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
-# fn_scaled_score <- gt::md("Scaled Score: Mean = 10 [50th‰], SD ± 3 [16th‰, 84th‰]")
-# fn_z_score <- gt::md("*z* Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]")
+fn_t_score <- gt::md("*T*-Score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
 
 pheno <- "emotion"
 table_name <- "table_emotion"
@@ -118,11 +147,23 @@ vertical_padding <- 0.05
 data2 <-
   dplyr::filter(data, domain %in% c(
     "Psychiatric Disorders",
-    "Personality Disorders", "Substance Use"
+    "Personality Disorders",
+    "Substance Use",
+    "Behavioral/Emotional/Social"
   )) |>
   dplyr::arrange(test_name) |>
-  dplyr::arrange(subdomain)
+  dplyr::arrange(subdomain) |>
+  dplyr::arrange(absort)
+```
 
+```{r}
+#| label: qtbl-emotion-2
+#| dev: tikz
+#| fig-process: pdf2png
+#| eval: false
+options(tikzDefaultEngine = "xetex")
+
+# PAI
 data_emotion <- data2[, c(10, 1, 3, 4, 5)]
 colnames(data_emotion)[1] <- "test_name"
 data3 <- data_emotion
@@ -136,6 +177,29 @@ bwu::tbl_gt(
   multiline = FALSE
 )
 ```
+
+```{r}
+#| label: qtbl-basc3
+#| dev: tikz
+#| fig-process: pdf2png
+#| eval: true
+options(tikzDefaultEngine = "xetex")
+
+# BASC-3
+
+data_emotion <- data2[, c(7, 1, 3, 4, 8, 10)]
+data3 <- data_emotion
+
+bwu::tbl_gt(
+  data = data3,
+  pheno = pheno,
+  table_name = table_name,
+  dynamic_grp = grp_emotion,
+  vertical_padding = vertical_padding,
+  multiline = FALSE
+)
+```
+
 
 ```{r}
 #| eval: false
@@ -197,7 +261,10 @@ table_social <- bwu::tbl_gt(
 pheno <- "emotion"
 emotion <-
   dplyr::filter(data) |>
-  dplyr::filter(domain %in% c("Psychiatric Disorders", "Personality Disorders", "Substance Use"))
+  dplyr::filter(domain %in% c(
+    "Psychiatric Disorders", "Personality Disorders",
+    "Substance Use", "Behavioral/Emotional/Social"
+  ))
 
 data <- emotion
 x <- data$z_mean_subdomain
@@ -224,8 +291,7 @@ bwu::dotplot(
   set text(..font)
 figure([#image(file_fig, width: auto)],
   placement: none,
-  caption: [Emotional/Behavioral/Personality],
-  caption-pos: bottom,
+  caption: figure.caption(position: bottom, [Emotional/Behavioral/Personality]),
   kind: "image",
   supplement: [*Fig.*],
   gap: 0.5em,

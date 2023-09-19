@@ -4,51 +4,40 @@
 
 ## Recommendations for Medical/Healthcare
 
--   Treatment options for ADHD include a combination of behavioral techniques, consideration of stimulant medication, environmental organization, and the maintenance of a long-term perspective of ADHD as a chronic condition.
-    `r params$first_name` may wish to discuss whether medical treatment of `r params$his_her` symptoms is indicated with one of our psychiatrists.
+- Treatment options for ADHD include a combination of behavioral techniques, consideration of stimulant medication, environmental organization, and the maintenance of a long-term perspective of ADHD as a chronic condition. `r params$first_name` may wish to discuss whether medical treatment of `r params$his_her` symptoms is indicated with one of our psychiatrists.
 
--   *Psychotherapy* Individual therapy to address features of anxiety, heightened stress, ward off any emerging depression, and to instill adaptive coping skills.
-    Mindfulness, distress tolerance skills, and cognitive-behavioral techniques should be woven into the therapeutic process.
+- *Psychotherapy* Individual therapy to address features of anxiety, heightened stress, ward off any emerging depression, and to instill adaptive coping skills. Mindfulness, distress tolerance skills, and cognitive-behavioral techniques should be woven into the therapeutic process.
 
 ## Recommendations for School/High Stakes Exams
 
--   *Accommodated testing* Given her weakness in processing speed, extended time accommodations for high-stakes exams (e.g., BAR EXAM) in particular are apt to more readily enable `r params$first_name` to demonstrate `r params$his_her` competencies in a more effective and consistent manner, given `r params$his_her` weakness in processing speed.
-    Further, additional test taking time will enable `r params$first_name` to identify and utilize organizational strategies and allay feelings of anxiety that accompany time-intensive tasks to channel `r params$his_her` skills in the most effective manner.
+- *Accommodated testing* Given her weakness in processing speed, extended time accommodations for high-stakes exams (e.g., BAR EXAM) in particular are apt to more readily enable `r params$first_name` to demonstrate `r params$his_her` competencies in a more effective and consistent manner, given `r params$his_her` weakness in processing speed. Further, additional test taking time will enable `r params$first_name` to identify and utilize organizational strategies and allay feelings of anxiety that accompany time-intensive tasks to channel `r params$his_her` skills in the most effective manner.
 
--   *Classroom recordings* `r params$first_name` should be provided with lecture notes/slides prior to class for advanced preparation and review and be allowed to audio or video record the lecture for later review.
+- *Classroom recordings* `r params$first_name` should be provided with lecture notes/slides prior to class for advanced preparation and review and be allowed to audio or video record the lecture for later review.
 
 ## Recommendations for Home
 
-1.  [*iA Writer*] *writing app for writing assignments* iA Writer is a plain text markdown based writing tool used by many professional journalists.
-    The app has a simple, distraction free interface and a Focus Mode that reduces the temptation to continuously re-read and tweak your text.
+1. [*iA Writer*] *writing app for writing assignments* iA Writer is a plain text markdown based writing tool used by many professional journalists. The app has a simple, distraction free interface and a Focus Mode that reduces the temptation to continuously re-read and tweak your text.
 
-    -   [An ADHD-friendly Writing App]
-    -   [After all, everyone is distracted once in a while]
+   - [An ADHD-friendly Writing App]
+   - [After all, everyone is distracted once in a while]
 
--   Set reminders.
-    Calendars, alarms, written notes, and lists can provide additional assistance in remembering tasks.
+- Set reminders. Calendars, alarms, written notes, and lists can provide additional assistance in remembering tasks.
 
--   *Mindfulness* is a technique in which `r params$first_name` can learn to ignore distracting thoughts and concentrate on the task at hand.
-    People of all ages can benefit from mindfulness training, which can help them to develop cognitive control.
+- *Mindfulness* is a technique in which `r params$first_name` can learn to ignore distracting thoughts and concentrate on the task at hand. People of all ages can benefit from mindfulness training, which can help them to develop cognitive control.
 
--   High quality sleep, balanced nutrition, and frequent, vigorous exercise are critical to maximizing attention and focus.
+- High quality sleep, balanced nutrition, and frequent, vigorous exercise are critical to maximizing attention and focus.
 
--   *Processing speed and repetition* Repetition is an important factor in building speed.
-    Repeated and extensive practice will enable `r params$first_name` to perform some tasks in a more automatic fashion to increase performance speed.
-    For example, in attempting to remember factual details `r params$first_name` should use flash cards or index cards, with a unique color allocated to each academic subject (or theme within a given subject).
-    Facts should be introduced in a graduated manner (e.g., two or three at a time), and in turn, drilled to mastery.
-    Once the newly introduced facts are mastered and recalled over several consecutive days, several subsequent facts should be introduced and drilled into mastery.
-    As the process unfolds, the final portion of each review session should be devoted to reviewing the expanding pile of facts already mastered.
+- *Processing speed and repetition* Repetition is an important factor in building speed. Repeated and extensive practice will enable `r params$first_name` to perform some tasks in a more automatic fashion to increase performance speed. For example, in attempting to remember factual details `r params$first_name` should use flash cards or index cards, with a unique color allocated to each academic subject (or theme within a given subject). Facts should be introduced in a graduated manner (e.g., two or three at a time), and in turn, drilled to mastery. Once the newly introduced facts are mastered and recalled over several consecutive days, several subsequent facts should be introduced and drilled into mastery. As the process unfolds, the final portion of each review session should be devoted to reviewing the expanding pile of facts already mastered.
 
--   *Books and online recommendations*
+- *Books and online recommendations*
 
-    -   [Taking Charge of Adult ADHD, Second Edition: Proven Strategies to Succeed at Work, at Home, and in Relationships]
-    -   [ADHD 2.0]
-    -   [PsychCentral for Adult ADHD]
-    -   [Launching in Young Adulthood with ADHD... Ready or Not!]
+  - [Taking Charge of Adult ADHD, Second Edition: Proven Strategies to Succeed at Work, at Home, and in Relationships]
+  - [ADHD 2.0]
+  - [PsychCentral for Adult ADHD]
+  - [Launching in Young Adulthood with ADHD... Ready or Not!]
 
 ## Recommendations for Follow-Up Evaluation
 
--   Follow-up assessment is not recommended at this time unless further concerns arise that need to be addressed.
+- Follow-up assessment is not recommended at this time unless further concerns arise that need to be addressed.
 
--   Follow-up assessment in 12-18 months is recommended to gauge `r params$first_name`'s progress and to assess the impact of the above interventions, unless further concerns arise that need to be addressed sooner.
+- Follow-up assessment in 12-18 months is recommended to gauge `r params$first_name`'s progress and to assess the impact of the above interventions, unless further concerns arise that need to be addressed sooner.

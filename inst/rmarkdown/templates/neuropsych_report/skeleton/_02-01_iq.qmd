@@ -123,7 +123,7 @@ data <- iq
 x <- data$z_mean_narrow
 y <- data$narrow
 colors <- NULL
-return_plot <- TRUE
+return_plot <- FALSE
 # return_plot <- Sys.getenv("RETURN_PLOT")
 filename <- "fig_iq.svg"
 
@@ -140,22 +140,20 @@ bwu::dotplot(
 
 ```{=typst}
 #let domain(title: none, file_qtbl, file_fig) = {
-  let font = (font: "Fira Sans", size:  9pt)
+  let font = (font: "Fira Sans", size: 9pt)
   set text(..font)
     grid(
       columns: (50%, 50%),
       gutter: 8pt,
         figure([#image(file_qtbl)],
-          caption: [#title],
-          caption-pos: top,
+          caption: figure.caption(position: top, [#title]),
           kind: "qtbl",
           supplement: [*Table*],
           ),
         figure([#image(file_fig, width: auto)],
-          caption: [
+          caption: figure.caption(position: bottom, [
             _Premorbid Ability_ is an estimate of intellectual functioning prior to known or suspected onset of brain disease or dysfunction. _General Ability_ is the overall skill to reason, solve problems, and gain useful knowledge. _Crystallized Knowledge_ involves understanding the world through language and reasoning. _Fluid Reasoning_ is the logical analysis and solution of new problems, identifying underlying patterns, and applying logic.
-            ],
-          caption-pos: bottom,  
+            ]),
           placement: none,
           kind: "image",
           supplement: [*Fig.*],

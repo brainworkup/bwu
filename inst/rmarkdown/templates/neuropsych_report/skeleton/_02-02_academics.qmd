@@ -156,15 +156,14 @@ bwu::dotplot(
       columns: (50%, 50%),
       gutter: 8pt,
         figure([#image(file_qtbl)],
-          caption: [#title],
-          caption-pos: top,
+          caption: figure.caption(position: top, [#title]),
           kind: "qtbl",
           supplement: [*Table*],
           ),
         figure([#image(file_fig, width: auto)],
-          caption: [
+          caption: figure.caption(position: bottom, [
             _Reading ability_ consists of three interrelated abilities: decoding, comprehension, and fluency. _Writing ability_ can be described in terms of spelling, grammar, expression of ideas, and writing fluency. _Math ability_ can be described in terms of calculation skills, applied problem solving, and math fluency.
-            ],
+            ]),
           caption-pos: bottom,
           placement: none,
           kind: "image",

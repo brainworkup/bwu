@@ -187,7 +187,7 @@ data <- executive
 x <- data$z_mean_subdomain
 y <- data$subdomain
 colors <- NULL
-return_plot <- TRUE
+return_plot <- FALSE
 # return_plot <- Sys.getenv("RETURN_PLOT")
 filename <- "fig_executive.svg"
 
@@ -201,6 +201,7 @@ bwu::dotplot(
 )
 ```
 
+
 ```{=typst}
 #let domain(title: none, file_qtbl, file_fig) = {
   let font = (font: "Fira Sans", size:  9pt)
@@ -209,19 +210,17 @@ bwu::dotplot(
       columns: (50%, 50%),
       gutter: 8pt,
         figure([#image(file_qtbl)],
-          caption: [#title],
-          caption-pos: top,
+          caption: figure.caption(position: top, [#title]),
           kind: "qtbl",
           supplement: [*Table*],
           ),
         figure([#image(file_fig, width: auto)],
-          caption: [
+          caption: figure.caption(position: bottom, [
             Attention and executive functions are essential for successful
             cognitive functioning, enabling us to perform everyday tasks, handle
             academic challenges, solve problems, manage our emotions, and
             interact effectively with others and our environment.
-            ],
-          caption-pos: bottom,
+            ]),
           placement: none,
           kind: "image",
           supplement: [*Fig.*],

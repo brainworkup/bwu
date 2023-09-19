@@ -159,16 +159,14 @@ bwu::dotplot(
       columns: (50%, 50%),
       gutter: 8pt,
         figure([#image(file_qtbl)],
-          caption: [#title],
-          caption-pos: top,
+          caption: figure.caption(position: top, [#title]),
           kind: "qtbl",
           supplement: [*Table*],
           ),
         figure([#image(file_fig, width: auto)],
-          caption: [
+          caption: figure.caption(position: bottom, [
             Verbal and language functioning refers to the ability to access and apply acquired word knowledge, to verbalize meaningful concepts, to understand complex multistep instructions, to think about verbal information, and to express oneself using words.
-            ],
-          caption-pos: bottom,  
+            ]),
           placement: none,
           kind: "image",
           supplement: [*Fig.*],

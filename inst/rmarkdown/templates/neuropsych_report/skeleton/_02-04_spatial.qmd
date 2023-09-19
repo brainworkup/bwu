@@ -110,7 +110,7 @@ data <- spatial
 x <- data$z_mean_subdomain
 y <- data$subdomain
 colors <- NULL
-return_plot <- TRUE
+return_plot <- FALSE
 # return_plot <- Sys.getenv("RETURN_PLOT")
 filename <- "fig_spatial.svg"
 
@@ -133,22 +133,20 @@ bwu::dotplot(
   columns: (50%, 50%),
   gutter: 8pt,
 figure([#image(file_qtbl)],
-  caption: [
+  caption: figure.caption(position: top, [
     #title
-  ],
-  caption-pos: top,
+  ]),
   kind: "qtbl",
   supplement: [*Table*],
 ),
 figure([#image(file_fig, width: auto)],
-  caption: [
+  caption: figure.caption(position: bottom, [
     Perception, construction, and visuospatial processing refer to abilities
     such as mentally visualizing how objects should look from different angles,
     visualizing how to put objects together so that they fit correctly, and
     being able to accurately and efficiently copy and/or reproduce
     visual-spatial information onto paper.
-    ],
-  caption-pos: bottom,  
+    ]),
   placement: none,
   kind: "image",
   supplement: [*Fig.*],

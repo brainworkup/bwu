@@ -165,7 +165,7 @@ data <- memory
 x <- data$z_mean_narrow
 y <- data$narrow
 colors <- NULL
-return_plot <- TRUE
+return_plot <- FALSE
 # return_plot <- Sys.getenv("RETURN_PLOT")
 filename <- "fig_memory.svg"
 
@@ -189,16 +189,14 @@ bwu::dotplot(
       columns: (50%, 50%),
       gutter: 8pt,
         figure([#image(file_qtbl)],
-          caption: [#title],
-          caption-pos: top,
+          caption: figure.caption(position: top, [#title]),
           kind: "qtbl",
           supplement: [*Table*],
           ),
         figure([#image(file_fig, width: auto)],
-          caption: [
+          caption: figure.caption(position: bottom, [
             Learning and memory refer to the rate and ease with which new information (e.g., facts, stories, lists, faces, names) can be encoded, stored, and later recalled from long-term memory.
-            ],
-          caption-pos: bottom,
+            ]),
           placement: none,
           kind: "image",
           supplement: [*Fig.*],

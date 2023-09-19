@@ -127,18 +127,16 @@ bwu::dotplot(
       columns: (50%, 50%),
       gutter: 8pt,
         figure([#image(file_qtbl)],
-          caption: [#title],
-          caption-pos: top,
+          caption: figure.caption(position: top, [#title]),
           kind: "qtbl",
           supplement: [*Table*],
           ),
         figure([#image(file_fig, width: auto)],
-          caption: [
+          caption: figure.caption(position: bottom, [
             Sensorimotor tasks refer to the capacity to control hand movements
             quickly, smoothly, and with adequate precision, which are required
             to engage in activities such as writing and drawing.
-            ],
-          caption-pos: bottom,
+            ]),
           placement: none,
           kind: "image",
           supplement: [*Fig.*],

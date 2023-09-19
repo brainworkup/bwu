@@ -13,7 +13,7 @@ params:
 ```{r}
 #| label: data-adhd
 # source("data_adhd.R")
-patient <- "Biggie"
+patient <- "Tiffany"
 library(tidyverse)
 library(gt)
 library(gtExtras)
@@ -152,7 +152,7 @@ bwu::tbl_gt(
 pheno <- "caars"
 data_caars <- dplyr::filter(data, filename %in% c("caars_sr.csv", "caars_or.csv"))
 colors <- NULL
-return_plot <- TRUE
+return_plot <- FALSE
 # return_plot <- Sys.getenv("RETURN_PLOT")
 filename <- "fig_caars.svg"
 x <- data_caars$z_mean_subdomain
@@ -177,7 +177,7 @@ bwu::dotplot(
 pheno <- "cefi"
 data_cefi <- dplyr::filter(data, filename %in% c("cefi_sr.csv", "cefi_or.csv"))
 colors <- NULL
-return_plot <- TRUE
+return_plot <- FALSE
 # return_plot <- Sys.getenv("RETURN_PLOT")
 filename <- "fig_cefi.svg"
 x <- data_cefi$z_mean_narrow
@@ -203,14 +203,12 @@ bwu::dotplot(
       columns: (50%, 50%),
       gutter: 8pt,
         figure([#image(file_qtbl)],
-          caption: [#title],
-          caption-pos: top,
+          caption: figure.caption(position: top, [#title]),
           kind: "qtbl",
           supplement: [*Table*],
           ),
         figure([#image(file_fig, width: auto)],
-          caption: [Adult ADHD symptom reports collapsed/averaged together across raters.],
-          caption-pos: bottom,
+          caption: figure.caption(position: bottom, [Adult ADHD symptom reports collapsed/averaged together across raters.]),
           placement: none,
           kind: "image",
           supplement: [*Fig.*],
@@ -239,16 +237,14 @@ bwu::dotplot(
       columns: (50%, 50%),
       gutter: 8pt,
         figure([#image(file_qtbl)],
-          caption: [#title],
-          caption-pos: top,
+          caption: figure.caption(position: top, [#title]),
           kind: "qtbl",
           supplement: [*Table*],
           ),
         figure([#image(file_fig, width: auto)],
-          caption: [
+          caption: figure.caption(position: bottom, [
             Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other.
-            ],
-          caption-pos: bottom,
+            ]),
           placement: none,
           kind: "image",
           supplement: [*Fig.*],
@@ -257,6 +253,7 @@ bwu::dotplot(
       )
   }
 ```
+
 ```{=typst}
 #let title = "Observer Rating Scales of ADHD and Executive Function"
 #let file_qtbl = "table_observer_report.png"
