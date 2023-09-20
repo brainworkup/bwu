@@ -1065,7 +1065,7 @@ knitr::read_chunk(here::here(patient, "02.07_memory.R"))
 
 <!-- \newpage -->
 
-<!-- ### Motor -->
+### Motor
 
 (ref:fn-mtr) *T* Score (M = 50, SD = 10)
 
@@ -1100,7 +1100,7 @@ knitr::read_chunk(here::here(patient, "02.08_motor.R"))
 
 <!-- \newpage -->
 
-<!-- ### Social Cognition -->
+### Social Cognition
 
 (ref:fn-soc) Scaled Score (M = 10, SD = 3)
 
@@ -1188,8 +1188,6 @@ knitr::read_chunk(here::here(patient, "02.10_adhd.R"))
 
 ```{r 04-kable-adhd, eval = params$eval_adhd, double_escape = TRUE, escape = FALSE, fig.fullwidth = TRUE}
 ```
-
-
 
 <!-- \newpage -->
 
