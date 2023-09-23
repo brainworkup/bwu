@@ -1,3 +1,5 @@
+# APPENDIX {sec-appendix .unnumbered}
+
 ## Test Selection Procedures
 
 Neuropsychological tests are intrinsically performance-based, and cognitive performance assessed during this neuropsychological evaluation is summarized above.
@@ -41,7 +43,7 @@ knitr::include_graphics("plot_narrow.png")
 
 ```{r}
 #| label: fig-gauss-plot-broad
-#| eval: false
+#| eval: true
 #| fig.cap: "Classification of neuropsychological test scores that are positively skewed in the general population [@schoenbergReportingStandardsNeuropsychological2017]."
 #| fig.width: 6.0
 #| fig.height: 5.0
@@ -53,3 +55,8 @@ knitr::include_graphics("plot_broad.png")
 [^1]: A *percentile* shows `r params$first_name`'s standing relative to peers. For example, a percentile rank of 70 means `r params$first_name` performed as well as or better than 70% of individuals the same age.
 
 [^2]: *z* = -1 (16th percentile), *z* = 0 (50th percentile), and *z* = 1 (84th percentile)
+
+## References {.unnumbered}
+
+::: {#refs}
+:::

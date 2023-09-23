@@ -1,17 +1,8 @@
----
-execute:
-  cache: true
----
-
 <<PROMPT>>
 
-Summarize and interpret these neuropsychological test scores related to learning
-and memory. For scores that are Below
-Average, give a brief example of how this could impact the patient's daily
-functioning. Organize your summary and interpretation in order from scores that are
-Above Average to Below Average to delineate relative strengths and weaknesses, respectively.
+Summarize and interpret these neuropsychological test scores related to learning and memory. For scores that are Below Average, give a brief example of how this could impact the patient's daily functioning. Organize your summary and interpretation in order from scores that are Above Average to Below Average to delineate relative strengths and weaknesses, respectively. Keep the verbal memory test scores together (e.g., list learning, story learning) and the nonverbal/visual memory test scores together.
 
-<<START>>
+<<EXAMPLE>>
 
 Learning and recall of rote verbal information (word list) was Average overall.
 Recall of the list after a short delay was Average. Recall of the list after a

@@ -1,5 +1,45 @@
 project:
-  title: "Neurotyp"
-  output-dir: _output
+  title: 'NEUROCOGNITIVE EXAMINATION'
+  # output-dir: neuro_report
+  # pre-render: prerender.R
+  render:
+    - _02-01_iq.qmd
+    # - _02-02_academics.qmd
+    - _02-03_verbal.qmd
+    - _02-04_spatial.qmd
+    - _02-05_executive.qmd
+    - _02-06_memory.qmd
+    # - _02-07_motor.qmd
+    # - _02-08_social.qmd
+    - _02-09_adhd.qmd
+    - _02-10_emotion.qmd
+    # - _02-11_adaptive.qmd
+    - _03-00_sirf.qmd
+    - Biggie.qmd
+
+format:
+  neurotyp-typst:
+    keep-typ: true
+    fontsize: 11pt
+    papersize: 'us-letter'
+
 execute:
-  freeze: true
+  warning: false
+  echo: false
+  message: false
+  freeze: auto
+  cache: true
+
+editor:
+  markdown:
+    wrap: sentence
+    canonical: true
+fig-width: 6
+fig-asp: 0.618
+out-width: '70%'
+fig-align: center
+fig-format: svg
+fig-dpi: 270
+df-print: kable
+reference-location: document
+bibliography: refs.bib

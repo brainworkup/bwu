@@ -1,11 +1,3 @@
----
-format:
-  neurotyp-typst:
-    keep-typ: true
-params:
-  pheno: "adhd"
----
-
 ## ADHD/Executive Functioning {#sec-adhd}
 
 {{< include _02-09_adhd_text.qmd >}}
@@ -152,8 +144,8 @@ bwu::tbl_gt(
 pheno <- "caars"
 data_caars <- dplyr::filter(data, filename %in% c("caars_sr.csv", "caars_or.csv"))
 colors <- NULL
-return_plot <- FALSE
-# return_plot <- Sys.getenv("RETURN_PLOT")
+# return_plot <- FALSE
+return_plot <- Sys.getenv("RETURN_PLOT")
 filename <- "fig_caars.svg"
 x <- data_caars$z_mean_subdomain
 y <- data_caars$subdomain
@@ -177,8 +169,8 @@ bwu::dotplot(
 pheno <- "cefi"
 data_cefi <- dplyr::filter(data, filename %in% c("cefi_sr.csv", "cefi_or.csv"))
 colors <- NULL
-return_plot <- FALSE
-# return_plot <- Sys.getenv("RETURN_PLOT")
+# return_plot <- FALSE
+return_plot <- Sys.getenv("RETURN_PLOT")
 filename <- "fig_cefi.svg"
 x <- data_cefi$z_mean_narrow
 y <- data_cefi$narrow
@@ -219,7 +211,7 @@ bwu::dotplot(
 ```
 
 ```{=typst}
-#let title = "Self Rating Scales of ADHD and Executive Function"
+#let title = "Self-Report Rating of ADHD and Executive Function"
 #let file_qtbl = "table_self_report.png"
 #let file_fig = "_02-09_adhd_files/figure-typst/fig-caars-1.svg"
 #domain(

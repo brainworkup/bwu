@@ -1,14 +1,4 @@
----
-format:
-  neurotyp-typst:
-    keep-typ: true
-params:
-  pheno: "sirf"
----
-
-<!---
- # SUMMARY/IMPRESSION {#sec-sirf} 
---->
+# SUMMARY/IMPRESSION {#sec-sirf} 
 
 ```{r}
 #| label: make-g
@@ -52,6 +42,11 @@ g <-
 readr::write_csv(g, "csv/g.csv")
 ```
 
+---
+params:
+  first_name: "Biggie"
+---
+
 ```{r}
 #| label: fig-domain-plot
 #| fig-cap: "Overall neurocognitive function subdomain plots of `r params$first_name`'s strengths and weaknesses. *Note:* *z*-scores have a mean of 0 and a standard deviation of 1."
@@ -87,8 +82,8 @@ data <- g
 x <- g$z
 y <- g$scale
 colors <- NULL
-return_plot <- TRUE
-# return_plot <- Sys.getenv("RETURN_PLOT")
+# return_plot <- TRUE
+return_plot <- Sys.getenv("RETURN_PLOT")
 filename <- "fig_g.svg"
 
 bwu::dotplot(
@@ -106,7 +101,7 @@ bwu::dotplot(
 #let domain_sirf(file_fig) = {
   let font = (font: "Fira Sans", size: 9pt)
   set text(..font)
-figure([#image(file_fig, width: 70%)],
+figure([#image(file_fig, width: 95%)],
   placement: none,
   caption: figure.caption(position: bottom, [Overall neurocognitive function
   subdomain plots of `r params$first_name`'s strengths and weaknesses. _Note:_

@@ -1,8 +1,3 @@
----
-execute:
-  cache: true
----
-
 <<PROMPT>>
 
 Summarize and interpret these neuropsychological test scores related to
@@ -12,8 +7,8 @@ functioning. Organize your summary and interpretation in order from scores that
 are above average to below average to delineate relative strengths and
 weaknesses, respectively.
 
-<<EXAMPLES>>
+<<EXAMPLE>>
 
-Biggie demonstrated notable prowess in assessments measuring working memory capacity and advanced cognitive reasoning, both of which were classified in the Exceptionally High and Above Average categories respectively. Additional evaluations of her verbal and visual memory functionality, crystallized intelligence, language comprehension, and premorbid verbal ability level were all situated within the Above Average range. These results indicate Biggie's impressive versatility in terms of her cognitive capabilities, particularly in the areas of working memory capacity, advanced cognitive reasoning, and verbal/visual memory functionality. Nevertheless, attentional function and overall performance across measures of processing speed and cognitive efficiency were categorized as Average. This could potentially present difficulties in her capacity to maintain focus on tasks, assimilate instructions, or pay attention to intricate details. Relative deficiencies in these areas could imply challenges in handling time-sensitive tasks or exhibiting self-discipline in routine activities. Such factors might pose obstacles when embarking on complex work tasks requiring efficient multitasking, as well as more nuanced impairments such as difficulty maintaining concentration during discussions.
+`r params$first_name` demonstrated notable prowess in assessments measuring working memory capacity and advanced cognitive reasoning, both of which were classified in the Exceptionally High and Above Average categories respectively. Additional evaluations of `r params$his_her` verbal and visual memory functionality, crystallized intelligence, language comprehension, and premorbid verbal ability level were all situated within the Above Average range. These results indicate Biggie's impressive versatility in terms of `r params$his_her` cognitive capabilities, particularly in the areas of working memory capacity, advanced cognitive reasoning, and verbal/visual memory functionality. Nevertheless, attentional function and overall performance across measures of processing speed and cognitive efficiency were categorized as Average. This could potentially present difficulties in `r params$his_her` capacity to maintain focus on tasks, assimilate instructions, or pay attention to intricate details. Relative deficiencies in these areas could imply challenges in handling time-sensitive tasks or exhibiting self-discipline in routine activities. Such factors might pose obstacles when embarking on complex work tasks requiring efficient multitasking, as well as more nuanced impairments such as difficulty maintaining concentration during discussions.
 
 <<START>>

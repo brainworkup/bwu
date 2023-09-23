@@ -1,18 +1,26 @@
 params:
-  last_name: Smalls
+  patient: Biggie
   first_name: Biggie
+  last_name: Smalls
   mrn: NULL
-  dob: 1995-01-01
-  doe1: 2023-04-01
-  doe2: 2023-04-02
-  doe3: 2023-04-03
-  sex: female
-  sex_cap: Female
-  age: 28
-  educyrs: 16
-  he_she: she
-  he_she_cap: She
-  his_her: her
-  his_her_cap: Her
-  him_her: her
-  him_her_cap: Her
+  dob: ''
+  doe1: ''
+  doe2: ''
+  doe3: ''
+  sex: male
+  sex_cap: Male
+  age: 22
+  education: 15
+  handedness: right
+  referral: Dr. Dre
+  observer: Mrs. Wallace
+  observer_relation: mother
+  he_she: he
+  he_she_cap: He
+  his_her: his
+  his_her_cap: His
+  him_her: him
+  him_her_cap: Him
+  dx1: attention-deficit/hyperactivity disorder (ADHD)
+  dx2: anxiety
+  dx3: depression

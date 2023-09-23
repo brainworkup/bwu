@@ -1,18 +1,3 @@
----
-format:
-  neurotyp-typst:
-    keep-typ: true
-params:
-  first_name: ""
-  his_her: ""
-  he_she: ""
-  he_she_cap: ""
-  his_her_cap: ""
-  him_her: ""
-  him_her_cap: ""
-  pheno: "emotion"
----
-
 # Emotional/Behavioral/Personality {#sec-emotion}
 
 {{< include _02-10_emotion_text.qmd >}}
@@ -131,7 +116,7 @@ bwu::cat_neuropsych_results(data = data, file = "_02-10_emotion_text.qmd")
 #| label: qtbl-emotion
 #| dev: tikz
 #| fig-process: pdf2png
-#| eval: true
+#| eval: false
 options(tikzDefaultEngine = "xetex")
 
 # footnotes
@@ -182,7 +167,7 @@ bwu::tbl_gt(
 #| label: qtbl-basc3
 #| dev: tikz
 #| fig-process: pdf2png
-#| eval: true
+#| eval: false
 options(tikzDefaultEngine = "xetex")
 
 # BASC-3
@@ -200,8 +185,8 @@ bwu::tbl_gt(
 )
 ```
 
-
 ```{r}
+#| label: pai-tables
 #| eval: false
 
 tbl1 <-
@@ -210,11 +195,11 @@ tbl1 <-
   dplyr::arrange(subdomain)
 tbl1 <- tbl1[, c(11, 2, 4, 5, 6)]
 colnames(tbl1)[1] <- "test_name"
-table_psych <- bwu::tbl_gt(
-  tbl1,
-  table_name = "table_psych",
-  source_note = source_note
-)
+# table_psych <- bwu::tbl_gt(
+#   tbl1,
+#   table_name = "table_psych",
+#   source_note = source_note
+# )
 
 tbl2 <-
   dplyr::filter(data_emotion, domain == "Personality Disorders") |>
@@ -222,11 +207,11 @@ tbl2 <-
   dplyr::arrange(subdomain)
 tbl2 <- tbl2[, c(11, 2, 4, 5, 6)]
 colnames(tbl2)[1] <- "test_name"
-table_personality <- bwu::tbl_gt(
-  tbl2,
-  table_name = "table_personality",
-  source_note = source_note
-)
+# table_personality <- bwu::tbl_gt(
+#   tbl2,
+#   table_name = "table_personality",
+#   source_note = source_note
+# )
 
 tbl3 <-
   dplyr::filter(data_emotion, domain == "Substance Use") |>
@@ -234,11 +219,11 @@ tbl3 <-
   dplyr::arrange(subdomain)
 tbl3 <- tbl3[, c(11, 2, 4, 5, 6)]
 colnames(tbl3)[1] <- "test_name"
-table_sud <- bwu::tbl_gt(
-  tbl3,
-  table_name = "table_sud",
-  source_note = source_note
-)
+# table_sud <- bwu::tbl_gt(
+#   tbl3,
+#   table_name = "table_sud",
+#   source_note = source_note
+# )
 
 tbl4 <-
   dplyr::filter(data_emotion, domain == "Psychosocial Problems") |>
@@ -246,11 +231,11 @@ tbl4 <-
   dplyr::arrange(subdomain)
 tbl4 <- tbl4[, c(11, 2, 4, 5, 6)]
 colnames(tbl4)[1] <- "test_name"
-table_social <- bwu::tbl_gt(
-  tbl4,
-  table_name = "table_social",
-  source_note = source_note
-)
+# table_social <- bwu::tbl_gt(
+#   tbl4,
+#   table_name = "table_social",
+#   source_note = source_note
+# )
 ```
 
 ```{r}
@@ -270,8 +255,8 @@ data <- emotion
 x <- data$z_mean_subdomain
 y <- data$subdomain
 colors <- NULL
-return_plot <- TRUE
-# return_plot <- Sys.getenv("RETURN_PLOT")
+# return_plot <- FALSE
+return_plot <- Sys.getenv("RETURN_PLOT")
 filename <- "fig_emotion.svg"
 
 # Make dotplot
@@ -286,7 +271,7 @@ bwu::dotplot(
 ```
 
 ```{=typst}
-#let domain_emotion(file_fig) = {
+#let domain(file_fig) = {
   let font = (font: "Fira Sans", size: 9pt)
   set text(..font)
 figure([#image(file_fig, width: auto)],
@@ -301,7 +286,7 @@ figure([#image(file_fig, width: auto)],
 
 ```{=typst}
 #let file_fig = "_02-10_emotion_files/figure-typst/fig-emotion-1.svg"
-#domain_emotion(
+#domain(
   file_fig
 )
 ```

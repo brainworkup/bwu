@@ -1,8 +1,3 @@
----
-execute:
-  cache: true
----
-
 <<PROMPT>>
 
 Summarize and interpret these neuropsychological test scores related to
@@ -11,10 +6,12 @@ Average, give a brief example of how this could impact the patient's daily
 functioning. Organize your summary and interpretation in order from scores that are
 Above Average to Below Average to delineate relative strengths and weaknesses, respectively.
 
-<<START>>
+<<EXAMPLE>>
 
 All scores in this area were Average. Fine motor speed and dexterity were
 Average bilaterally. No evidence of atypical lateralization of fine nor gross
 motor skills. No evidence of dyspraxia. Graphomotor speed and accuracy (i.e.,
 graphomotor control) was intact. Gross motor functioning including balance and
 gait appeared intact on observation.
+
+<<START>>

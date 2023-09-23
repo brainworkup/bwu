@@ -1,6 +1,4 @@
-<!---
- # NEUROBEHAVIORAL STATUS EXAM {#sec-nse} 
---->
+# NEUROBEHAVIORAL STATUS EXAM {#sec-nse}
 
 ```{r}
 #| label: import-nse-txt
@@ -9,27 +7,32 @@
 patient <- "Biggie"
 scale <- "NeuropsychEval-NSE-"
 ext <- ".txt"
-file_path <- function(patient, scale, ext){
+file_path <- function(patient, scale, ext) {
   result <- ""
   file <- file.path(paste0(scale, patient, ext))
   return(file)
 }
+file_path <- here::here(patient, "NeuropsychEval_NSE_Biggie.txt")
+start_pattern <- "Biggie"
+end_pattern <- "Joey"
+output_path <- "~/neuropsychological.reports/Biggie/nse_text.md"
+txt <- bwu::extract_text(patient, file_path, start_pattern, end_pattern)
+bwu::save_as_markdown(text = txt, output_path)
 ```
 
 ## Referral
 
-`r params$patient` was referred for neuropsychological testing as part of a comprehensive work-up for attention-deficit/hyperactivity disorder (ADHD).
-The results and recommendations were discussed with `r params$first_name` during the feedback visit on the final day of the evaluation and will be used in academic and treatment planning.
+`r params$first_name` was referred for neuropsychological testing as part of a comprehensive work-up for attention-deficit/hyperactivity disorder (ADHD). The results and recommendations were discussed with `r params$first_name` during the feedback visit on the final day of the evaluation and will be used in academic and treatment planning.
 
 ## Background
 
 The following information was obtained during an interview with `r params$patient` and from review of available medical records.
-Biggie has been doing well in her classes since starting law school and has never failed.
-However, issues have begun to arise that she has been unable to avoid, including being easily distracted, restlessness, constantly fidgeting, procrastination, and variable attention.
-She suspects having ADHD and has always struggled with aspects of it.
-Biggie's mother tried to get her evaluated and tested when she was younger, but was never able to do so because her school at the time did not agree that there were major concerns.
-She has noticed increasing difficulty initiating tasks, especially when it comes to writing long research papers, and has been procrastinating more and more.
-Biggie has read up on ADHD and believes she may have it, but has been able to hide it from others, as she has "gotten good at pretending to pay attention." She seeks further assessment and evaluation to identify any underlying neurocognitive factors influencing her academic motivations and performance.
+`r params$first_name` has been doing well in `r params$his_her` classes since starting law school and has never failed.
+However, issues have begun to arise that `r params$he_she` has been unable to avoid, including being easily distracted, restlessness, constantly fidgeting, procrastination, and variable attention.
+`r params$he_she_cap` suspects having ADHD and has always struggled with aspects of it.
+`r params$first_name`'s mother tried to get `r params$his_her` evaluated and tested when `r params$he_she` was younger, but was never able to do so because `r params$his_her` school at the time did not agree that there were major concerns.
+`r params$he_she_cap` has noticed increasing difficulty initiating tasks, especially when it comes to writing long research papers, and has been procrastinating more and more.
+`r params$first_name` has read up on ADHD and believes `r params$he_she` may have it, but has been able to hide it from others, as `r params$he_she` has "gotten good at pretending to pay attention." `r params$he_she_cap` seeks further assessment and evaluation to identify any underlying neurocognitive factors influencing `r params$his_her` academic motivations and performance.
 
 Cognitive complaints: sustained attention, working memory, and organization.
 
@@ -50,10 +53,10 @@ Patient denied having prior testing.
 
 ### Psychiatric History
 
-Biggie shared her difficulties in breaking routines as a child.
-For example, her mother would withhold plans unless she was certain they would not be altered.
-Additionally, Biggie held herself and others to high expectations, leading to frustration and disappointment when these expectations were not met.
-She suggested that her struggles were likely linked to perfectionism.
+`r params$first_name` shared `r params$his_her` difficulties in breaking routines as a child.
+For example, `r params$his_her` mother would withhold plans unless `r params$he_she` was certain they would not be altered.
+Additionally, `r params$first_name` held herself and others to high expectations, leading to frustration and disappointment when these expectations were not met.
+`r params$he_she_cap` suggested that `r params$his_her` struggles were likely linked to perfectionism.
 
 ### Family History
 
@@ -63,12 +66,12 @@ Family history of dysgraphia and ADHD.
 
 ### Cultural/Social Background
 
-Ms. Smalls is a Caucasian female who was born and raised in Brooklyn, NY with her biological parents.
-She is single, never married, and has no children.
+Mr./Ms. `r params$last_name` is a Caucasian `r params$sex` who was born and raised in Brooklyn, NY with `r params$his_her` biological parents.
+`r params$he_she_cap` is single, never married, and has no children.
 
 ### Educational History
 
 Attended a PS 198 school with an emphasis in social-emotional development and had no significant academic difficulties in the past.
-However, if Biggie found a task uninteresting or disliked it, she would simply not complete it.
-This led her teachers to believe she was incapable of the task when in reality, her lack of motivation stemmed from a lack of interest.
-It was always difficult for her to take notes and still is; a traditional classroom setting would have further exacerbated her difficulties in note-taking.
+However, if `r params$first_name` found a task uninteresting or disliked it, `r params$he_she` would simply not complete it.
+This led `r params$his_her` teachers to believe `r params$he_she` was incapable of the task when in reality, `r params$his_her` lack of motivation stemmed from a lack of interest.
+It was always difficult for `r params$his_her` to take notes and still is; a traditional classroom setting would have further exacerbated `r params$his_her` difficulties in note-taking.

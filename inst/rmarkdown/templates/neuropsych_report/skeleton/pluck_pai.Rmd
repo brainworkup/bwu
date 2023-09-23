@@ -861,8 +861,9 @@ readr::write_lines(pai_text_squished, here::here(patient, "pai_text_squished.typ
 
 ## save txt
 
-```{r text-save}
+Save text to markdown, quarto, and typst formats.
 
+```{r text-save}
 readr::write_lines(pai_text_squished, here::here(patient, "pai_text_squished.md"), sep = "\n")
 readr::write_lines(pai_text_squished, here::here(patient, "pai_text_squished.qmd"), sep = "\n")
 readr::write_lines(pai_text_squished, here::here(patient, "pai_text_squished.typ"), sep = "\n")

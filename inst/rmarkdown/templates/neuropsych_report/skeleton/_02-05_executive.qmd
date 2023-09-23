@@ -1,8 +1,3 @@
----
-format:
-  neurotyp-typst: default
----
-
 ## Attention/Executive {#sec-executive}
 
 {{< include _02-05_executive_text.qmd >}}
@@ -187,8 +182,8 @@ data <- executive
 x <- data$z_mean_subdomain
 y <- data$subdomain
 colors <- NULL
-return_plot <- FALSE
-# return_plot <- Sys.getenv("RETURN_PLOT")
+# return_plot <- FALSE
+return_plot <- Sys.getenv("RETURN_PLOT")
 filename <- "fig_executive.svg"
 
 bwu::dotplot(
@@ -204,7 +199,7 @@ bwu::dotplot(
 
 ```{=typst}
 #let domain(title: none, file_qtbl, file_fig) = {
-  let font = (font: "Fira Sans", size:  9pt)
+  let font = (font: "Fira Sans", size: 9pt)
   set text(..font)
     grid(
       columns: (50%, 50%),

@@ -235,7 +235,7 @@ library(tabulizer)
 library(tabulizerjars)
 library(tibble)
 library(tidyr)
-library(tidytable)
+library(dplyr)
 ```
 
 ## Patient
@@ -319,11 +319,11 @@ colnames(table1) <- params$column_names1
 table1$raw_score <- ""
 to_double <- c("raw_score", "score", "percentile")
 table1 <- table1 |> hablar::convert(dbl(all_of(to_double))) |>
-  tidytable::relocate(raw_score, .before = score)
+  dplyr::relocate(raw_score, .before = score)
 ```
 
 ```{r slice1}
-table1 <- table1 %>% tidytable::mutate(absort = paste0(seq_len(nrow(table1))))
+table1 <- table1 %>% dplyr::mutate(absort = paste0(seq_len(nrow(table1))))
 table1$absort <- as.numeric(table1$absort)
 table1 <-
   table1 |>
@@ -352,7 +352,7 @@ table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
 ```
 
 ```{r clean2}
-table2 <- table2 |> tidytable::mutate(absort = paste0(seq_len(nrow(table2))))
+table2 <- table2 |> dplyr::mutate(absort = paste0(seq_len(nrow(table2))))
 table2$absort <- as.numeric(table2$absort)
 table2 <-
   table2 |>
@@ -433,7 +433,7 @@ table4 <- table4 |> hablar::convert(dbl(all_of(to_double)))
 ```
 
 ```{r clean4}
-table4 <- table4 |> tidytable::mutate(absort = paste0(seq_len(nrow(table4))))
+table4 <- table4 |> dplyr::mutate(absort = paste0(seq_len(nrow(table4))))
 table4$absort <- as.numeric(table4$absort)
 table4 <- table4 |>
   arrange(desc(raw_score)) |>
@@ -476,7 +476,7 @@ table5 <- table5 |> hablar::convert(dbl(all_of(to_double)))
 ```
 
 ```{r clean-table5}
-table5 <- table5 |> tidytable::mutate(absort = paste0(seq_len(nrow(table5))))
+table5 <- table5 |> dplyr::mutate(absort = paste0(seq_len(nrow(table5))))
 table5$absort <- as.numeric(table5$absort)
 table5 <- table5 |>
   arrange(desc(raw_score)) |>
@@ -502,7 +502,7 @@ table6 <- table6 |> hablar::convert(dbl(all_of(to_double)))
 ```
 
 ```{r clean-table6}
-table6 <- table6 |> tidytable::mutate(absort = paste0(seq_len(nrow(table6))))
+table6 <- table6 |> dplyr::mutate(absort = paste0(seq_len(nrow(table6))))
 table6$absort <- as.numeric(table6$absort)
 table6 <- table6 |>
   arrange(desc(raw_score)) |>
@@ -522,12 +522,12 @@ table6[3, 1] <- c("Word Generation Perseverations")
 ## Select variables to keep
 
 ```{r keep}
-table1 <- table1 |> tidytable::select(all_of(params$keep1))
-table2 <- table2 |> tidytable::select(all_of(params$keep2))
-table3 <- table3 |> tidytable::select(all_of(params$keep2))
-table4 <- table4 |> tidytable::select(all_of(params$keep2))
-table5 <- table5 |> tidytable::select(all_of(params$keep2))
-table6 <- table6 |> tidytable::select(all_of(params$keep2))
+table1 <- table1 |> dplyr::select(all_of(params$keep1))
+table2 <- table2 |> dplyr::select(all_of(params$keep2))
+table3 <- table3 |> dplyr::select(all_of(params$keep2))
+table4 <- table4 |> dplyr::select(all_of(params$keep2))
+table5 <- table5 |> dplyr::select(all_of(params$keep2))
+table6 <- table6 |> dplyr::select(all_of(params$keep2))
 ```
 
 # Mutate/Format Tables
@@ -677,28 +677,26 @@ table6 <-
 ```{r domain1}
 table1 <-
   table1 |>
-  tidytable::mutate(
-    domain = tidytable::case_when(
-      scale == "NAB Total Index" ~ "Intelligence/General Ability",
-      scale == "NAB Attention Index" ~ "Intelligence/General Ability",
-      scale == "NAB Language Index" ~ "Intelligence/General Ability",
-      scale == "NAB Memory Index" ~ "Intelligence/General Ability",
-      scale == "NAB Spatial Index" ~ "Intelligence/General Ability",
-      scale == "NAB Executive Functions Index" ~ "Intelligence/General Ability",
+  dplyr::mutate(
+    domain = dplyr::case_when(
+      scale == "NAB Total Index" ~ "General Cognitive Ability",
+      scale == "NAB Attention Index" ~ "General Cognitive Ability",
+      scale == "NAB Language Index" ~ "General Cognitive Ability",
+      scale == "NAB Memory Index" ~ "General Cognitive Ability",
+      scale == "NAB Spatial Index" ~ "General Cognitive Ability",
+      scale == "NAB Executive Functions Index" ~ "General Cognitive Ability",
       TRUE ~ as.character(domain)
     )
   )
-```
 
-```{r domain6}
 # table6 <-
 #   table6 |>
-#   tidytable::mutate(
-#     domain = tidytable::case_when(
+#   dplyr::mutate(
+#     domain = dplyr::case_when(
 #       scale == "Word Generation" ~ "Verbal/Language",
 #       TRUE ~ as.character(domain)
 #     )
-#   )
+#   )  
 ```
 
 ## Subdomains
@@ -706,8 +704,8 @@ table1 <-
 ```{r subdomain1}
 table1 <-
   table1 |>
-  tidytable::mutate(
-    subdomain = tidytable::case_when(
+  dplyr::mutate(
+    subdomain = dplyr::case_when(
       scale == "NAB Attention Index" ~ "Neuropsychological Functioning",
       scale == "NAB Language Index" ~ "Neuropsychological Functioning",
       scale == "NAB Memory Index" ~ "Neuropsychological Functioning",
@@ -758,8 +756,8 @@ stl <- c(
 ```{r subdomain2}
 table2 <-
   table2 |>
-  tidytable::mutate(
-    subdomain = tidytable::case_when(
+  dplyr::mutate(
+    subdomain = dplyr::case_when(
       scale %in% orientation ~ "Attentional Functioning",
       scale %in% dsf ~ "Attentional Functioning",
       scale %in% dsb ~ "Working Memory",
@@ -775,8 +773,8 @@ table2 <-
 ```{r subdomain3}
 table3 <-
   table3 |>
-  tidytable::mutate(
-    subdomain = tidytable::case_when(
+  dplyr::mutate(
+    subdomain = dplyr::case_when(
       scale %in% c("Auditory Comprehension") ~ "Listening Ability",
       scale %in% c("Naming") ~ "Word Retrieval",
       TRUE ~ as.character(subdomain)
@@ -789,8 +787,8 @@ Learning Efficiency
 ```{r subdomain4}
 table4 <-
   table4 |>
-  tidytable::mutate(
-    subdomain = tidytable::case_when(
+  dplyr::mutate(
+    subdomain = dplyr::case_when(
       scale ==
         "Shape Learning Immediate Recognition" ~ "Learning Efficiency",
       scale ==
@@ -811,8 +809,8 @@ table4 <-
 ```{r subdomain5}
 table5 <-
   table5 |>
-  tidytable::mutate(
-    subdomain = tidytable::case_when(
+  dplyr::mutate(
+    subdomain = dplyr::case_when(
       scale == "Visual Discrimination" ~ "Perception",
       scale == "Design Construction" ~ "Construction",
       TRUE ~ as.character(subdomain)
@@ -823,10 +821,10 @@ table5 <-
 ```{r subdomain6}
 table6 <-
   table6 |>
-  tidytable::mutate(
-    subdomain = tidytable::case_when(
+  dplyr::mutate(
+    subdomain = dplyr::case_when(
       scale == "Mazes" ~ "Executive Functioning",
-      scale == "Word Generation" ~ "Word Fluency",
+      scale == "Word Generation" ~ "Executive Functioning",
       scale == "Word Generation Perseverations" ~ "Attentional Functioning",
       TRUE ~ as.character(subdomain)
     )
@@ -838,8 +836,8 @@ table6 <-
 ```{r narrow1}
 table1 <-
   table1 |>
-  tidytable::mutate(
-    narrow = tidytable::case_when(
+  dplyr::mutate(
+    narrow = dplyr::case_when(
       scale == "NAB Total Index" ~ "NAB Total Index",
       scale == "NAB Attention Index" ~ "NAB Attention Index",
       scale == "NAB Language Index" ~ "NAB Language Index",
@@ -854,8 +852,8 @@ table1 <-
 ```{r narrow2}
 table2 <-
   table2 |>
-  tidytable::mutate(
-    narrow = tidytable::case_when(
+  dplyr::mutate(
+    narrow = dplyr::case_when(
       scale %in% orientation ~ "Orientation",
       scale %in% dsf ~ "Attentional Capacity",
       scale %in% dsb ~ "Working Memory Capacity",
@@ -871,8 +869,8 @@ table2 <-
 ```{r narrow3}
 table3 <-
   table3 |>
-  tidytable::mutate(
-    narrow = tidytable::case_when(
+  dplyr::mutate(
+    narrow = dplyr::case_when(
       scale == "Auditory Comprehension" ~ "Auditory Comprehension",
       scale == "Naming" ~ "Naming",
       TRUE ~ as.character(narrow)
@@ -883,8 +881,8 @@ table3 <-
 ```{r narrow4}
 table4 <-
   table4 |>
-  tidytable::mutate(
-    narrow = tidytable::case_when(
+  dplyr::mutate(
+    narrow = dplyr::case_when(
       scale %in% shl ~ "Visual Memory",
       scale %in% stl ~ "Story Memory",
       TRUE ~ as.character(narrow)
@@ -895,8 +893,8 @@ table4 <-
 ```{r narrow5}
 table5 <-
   table5 |>
-  tidytable::mutate(
-    narrow = tidytable::case_when(
+  dplyr::mutate(
+    narrow = dplyr::case_when(
       scale == "Visual Discrimination" ~ "Visual Perception",
       scale == "Design Construction" ~ "Figure Construction",
       TRUE ~ as.character(narrow)
@@ -907,10 +905,10 @@ table5 <-
 ```{r narrow6}
 table6 <-
   table6 |>
-  tidytable::mutate(
-    narrow = tidytable::case_when(
+  dplyr::mutate(
+    narrow = dplyr::case_when(
       scale == "Mazes" ~ "Planning",
-      scale == "Word Generation" ~ "Word Generation",
+      scale == "Word Generation" ~ "Generativity",
       scale == "Word Generation Perseverations" ~ "Response Monitoring",
       TRUE ~ as.character(narrow)
     )
@@ -922,8 +920,8 @@ table6 <-
 ```{r pass1}
 table1 <-
   table1 |>
-  tidytable::mutate(
-    pass = tidytable::case_when(
+  dplyr::mutate(
+    pass = dplyr::case_when(
       scale == "NAB Attention Index" ~ "Attention",
       scale == "NAB Language Index" ~ "",
       scale == "NAB Memory Index" ~ "",
@@ -938,8 +936,8 @@ table1 <-
 ```{r pass2}
 table2 <-
   table2 |>
-  tidytable::mutate(
-    pass = tidytable::case_when(
+  dplyr::mutate(
+    pass = dplyr::case_when(
       scale %in% orientation ~ "Attention",
       scale %in% dsf ~ "Sequential",
       scale %in% dsb ~ "Attention",
@@ -953,8 +951,8 @@ table2 <-
 ```{r pass3}
 table3 <-
   table3 |>
-  tidytable::mutate(
-    pass = tidytable::case_when(
+  dplyr::mutate(
+    pass = dplyr::case_when(
       scale == "Auditory Comprehension" ~ "Sequential",
       scale == "Naming" ~ "Knowledge",
       TRUE ~ as.character(pass)
@@ -965,8 +963,8 @@ table3 <-
 ```{r pass4}
 table4 <-
   table4 |>
-  tidytable::mutate(
-    pass = tidytable::case_when(
+  dplyr::mutate(
+    pass = dplyr::case_when(
       scale %in% shl ~ "Simultaneous",
       scale %in% stl ~ "Sequential",
       TRUE ~ as.character(pass)
@@ -977,8 +975,8 @@ table4 <-
 ```{r pass5}
 table5 <-
   table5 |>
-  tidytable::mutate(
-    pass = tidytable::case_when(
+  dplyr::mutate(
+    pass = dplyr::case_when(
       scale == "Visual Discrimination" ~ "Simultaneous",
       scale == "Design Construction" ~ "Simultaneous",
       TRUE ~ as.character(pass)
@@ -989,8 +987,8 @@ table5 <-
 ```{r pass6}
 table6 <-
   table6 |>
-  tidytable::mutate(
-    pass = tidytable::case_when(
+  dplyr::mutate(
+    pass = dplyr::case_when(
       scale == "Mazes" ~ "Planning",
       scale == "Word Generation" ~ "Sequential",
       scale == "Word Generation Perseverations" ~ "Attention",
@@ -1004,8 +1002,8 @@ table6 <-
 ```{r verbal-table1}
 table1 <-
   table1 |>
-  tidytable::mutate(
-    verbal = tidytable::case_when(
+  dplyr::mutate(
+    verbal = dplyr::case_when(
       scale == "NAB Attention Index" ~ "",
       scale == "NAB Language Index" ~ "Verbal",
       scale == "NAB Memory Index" ~ "",
@@ -1020,8 +1018,8 @@ table1 <-
 ```{r verbal2}
 table2 <-
   table2 |>
-  tidytable::mutate(
-    verbal = tidytable::case_when(
+  dplyr::mutate(
+    verbal = dplyr::case_when(
       scale %in% orientation ~ "Verbal",
       scale %in% dsf ~ "Verbal",
       scale %in% dsb ~ "Verbal",
@@ -1035,8 +1033,8 @@ table2 <-
 ```{r verbal4}
 table4 <-
   table4 |>
-  tidytable::mutate(
-    verbal = tidytable::case_when(
+  dplyr::mutate(
+    verbal = dplyr::case_when(
       scale %in% shl ~ "Nonverbal",
       scale %in% stl ~ "Verbal",
       TRUE ~ as.character(verbal)
@@ -1047,8 +1045,8 @@ table4 <-
 ```{r verbal6}
 table6 <-
   table6 |>
-  tidytable::mutate(
-    verbal = tidytable::case_when(
+  dplyr::mutate(
+    verbal = dplyr::case_when(
       scale == "Mazes" ~ "Nonverbal",
       scale == "Word Generation" ~ "Verbal",
       scale == "Word Generation Perseverations" ~ "Verbal",
@@ -1062,8 +1060,8 @@ table6 <-
 ```{r timed}
 table1 <-
   table1 |>
-  tidytable::mutate(
-    timed = tidytable::case_when(
+  dplyr::mutate(
+    timed = dplyr::case_when(
       scale == "NAB Attention Index" ~ "",
       scale == "NAB Language Index" ~ "Untimed",
       scale == "NAB Memory Index" ~ "",
@@ -1076,8 +1074,8 @@ table1 <-
 
 table2 <-
   table2 |>
-  tidytable::mutate(
-    timed = tidytable::case_when(
+  dplyr::mutate(
+    timed = dplyr::case_when(
       scale %in% orientation ~ "Untimed",
       scale %in% dsf ~ "Untimed",
       scale %in% dsb ~ "Untimed",
@@ -1089,8 +1087,8 @@ table2 <-
 
 table3 <-
   table3 |>
-  tidytable::mutate(
-    timed = tidytable::case_when(
+  dplyr::mutate(
+    timed = dplyr::case_when(
       scale == "Auditory Comprehension" ~ "Untimed",
       scale == "Naming" ~ "Untimed",
       TRUE ~ as.character(timed)
@@ -1099,8 +1097,8 @@ table3 <-
 
 table4 <-
   table4 |>
-  tidytable::mutate(
-    timed = tidytable::case_when(
+  dplyr::mutate(
+    timed = dplyr::case_when(
       scale %in% shl ~ "Untimed",
       scale %in% stl ~ "Untimed",
       TRUE ~ as.character(timed)
@@ -1109,8 +1107,8 @@ table4 <-
 
 table5 <-
   table5 |>
-  tidytable::mutate(
-    timed = tidytable::case_when(
+  dplyr::mutate(
+    timed = dplyr::case_when(
       scale == "Visual Discrimination" ~ "Untimed",
       scale == "Design Construction" ~ "Timed",
       TRUE ~ as.character(timed)
@@ -1119,8 +1117,8 @@ table5 <-
 
 table6 <-
   table6 |>
-  tidytable::mutate(
-    timed = tidytable::case_when(
+  dplyr::mutate(
+    timed = dplyr::case_when(
       scale == "Mazes" ~ "Timed",
       scale == "Word Generation" ~ "Timed",
       scale == "Word Generation Perseverations" ~ "Timed",
@@ -1134,8 +1132,8 @@ table6 <-
 ```{r score-table2}
 table2 <-
   table2 |>
-  tidytable::mutate(
-    score_type = tidytable::case_when(
+  dplyr::mutate(
+    score_type = dplyr::case_when(
       scale == "Orientation" ~ "percentile",
       scale == "Orientation to Self" ~ "base_rate",
       scale == "Orientation to Time" ~ "base_rate",
@@ -1151,8 +1149,8 @@ table2 <-
 ```{r score-table3}
 table3 <-
   table3 |>
-  tidytable::mutate(
-    score_type = tidytable::case_when(
+  dplyr::mutate(
+    score_type = dplyr::case_when(
       scale == "Auditory Comprehension Colors" ~ "base_rate",
       scale == "Auditory Comprehension Shapes" ~ "base_rate",
       scale == "Auditory Comprehension Colors/Shapes/Numbers" ~ "base_rate",
@@ -1166,8 +1164,8 @@ table3 <-
 ```{r score-table4}
 table4 <-
   table4 |>
-  tidytable::mutate(
-    score_type = tidytable::case_when(
+  dplyr::mutate(
+    score_type = dplyr::case_when(
       scale == "Shape Learning Percent Retention" ~ "percentile",
       scale == "Story Learning Percent Retention" ~ "percentile",
       TRUE ~ as.character(score_type)
@@ -1178,8 +1176,8 @@ table4 <-
 ```{r score-table6}
 table6 <-
   table6 |>
-  tidytable::mutate(
-    score_type = tidytable::case_when(
+  dplyr::mutate(
+    score_type = dplyr::case_when(
       scale == "Word Generation Perseverations" ~ "percentile",
       TRUE ~ as.character(score_type)
     )
@@ -1191,8 +1189,8 @@ table6 <-
 ```{r description1}
 table1 <-
   table1 |>
-  tidytable::mutate(
-    description = tidytable::case_when(
+  dplyr::mutate(
+    description = dplyr::case_when(
       scale ==
         "NAB Total Index" ~ "Finally, a comprehensive measure of neuropsychological functioning (independent of general intelligence) in the domains of attentional and executive functioning, language, spatial processing, and memory",
       scale ==
@@ -1213,8 +1211,8 @@ table1 <-
 ```{r description2}
 table2 <-
   table2 |>
-  tidytable::mutate(
-    description = tidytable::case_when(
+  dplyr::mutate(
+    description = dplyr::case_when(
       scale ==
         "Orientation" ~ "Orientation to person, place, time, and situation",
       scale ==
@@ -1241,8 +1239,8 @@ table2 <-
 ```{r description3}
 table3 <-
   table3 |>
-  tidytable::mutate(
-    description = tidytable::case_when(
+  dplyr::mutate(
+    description = dplyr::case_when(
       scale ==
         "Auditory Comprehension" ~ "Auditory comprehension (i.e., the ability to receive, process, and execute oral instructions of increasing syntactic complexity)",
       scale ==
@@ -1255,8 +1253,8 @@ table3 <-
 ```{r description4}
 table4 <-
   table4 |>
-  tidytable::mutate(
-    description = tidytable::case_when(
+  dplyr::mutate(
+    description = dplyr::case_when(
       scale ==
         "Shape Learning Immediate Recognition" ~ "Learning and recognition of visual material (abstract shapes)",
       scale ==
@@ -1277,8 +1275,8 @@ table4 <-
 ```{r description5}
 table5 <-
   table5 |>
-  tidytable::mutate(
-    description = tidytable::case_when(
+  dplyr::mutate(
+    description = dplyr::case_when(
       scale ==
         "Visual Discrimination" ~ "Perceptual processing, discrimination, and pattern matching of a series of abstract images requiring close attention to visual detail",
       scale ==
@@ -1291,8 +1289,8 @@ table5 <-
 ```{r description6}
 table6 <-
   table6 |>
-  tidytable::mutate(
-    description = tidytable::case_when(
+  dplyr::mutate(
+    description = dplyr::case_when(
       scale == "Mazes" ~ "Planning and foresight, inhibition, and psychomotor speed examined through a series of maze-tracing tasks",
       scale == "Word Generation" ~ "Retrieval fluency, ideational fluency, and generativity",
       scale == "Word Generation Perseverations" ~ "Self-monitoring and perseverative tendencies",
@@ -1306,8 +1304,8 @@ table6 <-
 ```{r result1}
 table1 <-
   table1 |>
-  tidytable::mutate(
-    result = tidytable::case_when(
+  dplyr::mutate(
+    result = dplyr::case_when(
       scale ==
         "NAB Total Index" ~ glue::glue(
         "{description} fell in the {range} range.\n"
@@ -1340,8 +1338,8 @@ table1 <-
 ```{r result2}
 table2 <-
   table2 |>
-  tidytable::mutate(
-    result = tidytable::case_when(
+  dplyr::mutate(
+    result = dplyr::case_when(
       scale ==
         "Orientation" ~ glue::glue("{description} was intact.\n"),
       scale ==
@@ -1368,8 +1366,8 @@ table2 <-
 ```{r result3}
 table3 <-
   table3 |>
-  tidytable::mutate(
-    result = tidytable::case_when(
+  dplyr::mutate(
+    result = dplyr::case_when(
       scale ==
         "Auditory Comprehension" ~ glue::glue("{description} was {range}.\n"),
       scale ==
@@ -1382,8 +1380,8 @@ table3 <-
 ```{r result4}
 table4 <-
   table4 |>
-  tidytable::mutate(
-    result = tidytable::case_when(
+  dplyr::mutate(
+    result = dplyr::case_when(
       scale == "Shape Learning Immediate Recognition" ~
         glue::glue("{description} was {range}.\n"),
       scale == "Shape Learning Delayed Recognition" ~
@@ -1404,8 +1402,8 @@ table4 <-
 ```{r result5}
 table5 <-
   table5 |>
-  tidytable::mutate(
-    result = tidytable::case_when(
+  dplyr::mutate(
+    result = dplyr::case_when(
       scale == "Visual Discrimination" ~
         glue::glue("{description} was {range}.\n"),
       scale == "Design Construction" ~
@@ -1418,8 +1416,8 @@ table5 <-
 ```{r result6}
 table6 <-
   table6 |>
-  tidytable::mutate(
-    result = tidytable::case_when(
+  dplyr::mutate(
+    result = dplyr::case_when(
       scale == "Mazes" ~
         glue::glue("{description} fell in the {range} range.\n"),
       scale == "Word Generation" ~
@@ -1459,7 +1457,7 @@ table6 <-
 ## Merge NAB tables
 
 ```{r merge}
-nabs <- tidytable::bind_rows(
+nabs <- dplyr::bind_rows(
   table1,
   table2,
   table3,
@@ -1474,7 +1472,7 @@ nabs <- tidytable::bind_rows(
 ```{r reorder, eval = params$slice}
 nabs <-
   nabs |>
-  tidytable::slice(
+  dplyr::slice(
     index = (6),
     att = c(1, 7, 12:19),
     lan = c(2, 20, 24),
@@ -1499,7 +1497,7 @@ if (any(is.na(nabs$percentile))) {
 ```{r writeout-g}
 table <- nabs
 test <- "g"
-tidytable::fwrite(
+dplyr::fwrite(
   table,
   here::here(patient, paste0(test, ".csv")),
   append = TRUE
