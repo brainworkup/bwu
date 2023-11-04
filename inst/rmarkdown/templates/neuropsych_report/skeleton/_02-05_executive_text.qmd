@@ -1,56 +1,13 @@
 <<PROMPT>>
 
-Summarize and interpret these neuropsychological test scores related to
-attention and executive functioning. For scores that are Below Average, give a brief
-example of how this could impact the patient's daily functioning.
-Organize your summary and interpretation from scores that are Above Average to
-Below Average to delineate relative strengths and weaknesses, respectively.
+Summarize and interpret these neuropsychological test scores related to attention and executive functioning. For scores that are Below Average, give a brief example of how this could impact the patient's daily functioning. Organize your summary and interpretation from scores that are Above Average to Below Average to delineate relative strengths and weaknesses, respectively.
 
 <<EXAMPLE>>
 
-### Attentional Skills
-- _Attention Index:_ Average; Biggie's general attentional
-capacity is in line with typical expectations.
-- _Auditory Attentional Capacity:_ High Average (9 digits forward). This indicates that Biggie has a strong ability to focus and maintain attention when receiving auditory information.
-- _Efficiency in Selective Attention:_ Average; Biggie can focus on specific details and ignore irrelevant information at an average efficiency.
-- _Scanning, Divided Attention, Cognitive Flexibility:_
-Average; This signifies that Biggie can divide their attention among
-multiple tasks, adapt to new information, and visually track moving objects to
-an average degree (i.e., attentional fluency).
-- _Divided Attention, Information Processing Speed, Inhibition:_ Average; This
-indicates a typical capacity to multitask, process information, and control
-impulses (i.e., attentional fluency).
+Biggie demonstrates an exceptionally high auditory attentional capacity, indicating a strong ability to process a large amount of information at once. His attentional capacity and working memory are above average, allowing him to effectively retrieve, generate, and present ideas. His auditory attentional capacity is high, particularly in maintaining sequences of orally presented information. His psychomotor speed, visual scanning ability, and visual-motor coordination are also high, indicating a high efficiency in processing and coordinating visual information.
 
-### Working Memory
-- _Working Memory for Orally Presented Information:_ High Average (7 digits
-backward). Biggie can effectively retain and process spoken information in their
-short-term memory. 
-- _Maintenance and Resequencing of Verbal Information:_
-Exceptionally High; This showcases a strong ability to hold onto and rearrange
-sequences of numbers and letters in working memory.
+In terms of average scores, Biggie shows a typical level of focus, concentration, and sustained attention. His ability to scan, track visuomotor activities, divide his attention, and exhibit cognitive flexibility are all average. He exhibits average self-monitoring and perseverative tendencies, indicating a typical level of cognitive control. Biggie's psychomotor speed and basic psychomotor processing speed are both average, suggesting he performs tasks at a normal speed.
 
-### Processing Speed
-- _Psychomotor Speed:_ Low Average; Biggie might be somewhat slower in
-activities that require rapid and coordinated physical movements.
-- _Efficiency of Psychomotor Speed, Visual Scanning Ability, and Visual-Motor Coordination:_ High Average; Biggie possesses good visual skills and hand-eye coordination which are important in activities like reading and fine motor tasks.
-
-### Executive Skills
-- _Executive Functions Index:_ Average; Across various executive
-functions, Biggie's performance is consistent with normative expectations.
-- _Strategic Planning and Organization:_ High Average; Biggie can plan and
-organize actions well before executing them, reflecting an ability to anticipate
-future events and needs.
-- _Planning, Foresight, Inhibition, and Psychomotor Speed:_ Average; Biggie's ability
-to plan ahead, inhibit impulses, and move with purpose and speed is typical.
-
-<<EXAMPLE>>
-
-Orientation to person, place, time, and situation was intact. No gross
-behavioral apathy or disinhibition observed. Auditory attentional capacity was
-Average (# digits forward). Working memory for orally presented information was
-Average (# digits backward). Formal testing of an array of attention and
-executive functions revealed heterogeneous skills. A composite index of both
-basic and complex verbal and nonverbal attentional capacity/functioning was
-Average. A composite index of higher executive skills was Average.
+Biggie's performance falls into the low average range when it comes to planning and foresight, inhibition, and psychomotor speed examined through maze-tracing tasks. This could potentially impact his ability to plan and execute complex tasks in daily life. His performance on a complex measure of divided attention, information processing speed, and inhibition is also low average, which may affect his ability to quickly process information and control impulses. Biggie's inhibition/cognitive control and set-shifting/cognitive flexibility are also low average, which could affect his ability to switch between tasks or control his behavior in daily life.
 
 <<START>>

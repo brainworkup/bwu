@@ -2,9 +2,6 @@
 
 ```{r}
 #| label: make-g
-library(tidyverse)
-library(bwu)
-
 scales <- c(
   "Academic Skills",
   "Attention",
@@ -29,6 +26,7 @@ scales <- c(
   "Working Memory"
 )
 
+# make g
 g <-
   readxl::read_excel("index_scores.xlsx") |>
   janitor::clean_names() |>
@@ -38,21 +36,17 @@ g <-
   bwu::gpluck_make_score_ranges(range = "", test_type = "npsych_test") |> 
   dplyr::select(scale, score, ci_95, percentile, range, reliability, z, composition) 
 
-# extra for now
+# save g.csv
 readr::write_csv(g, "csv/g.csv")
 ```
 
----
-params:
-  first_name: "Biggie"
----
-
 ```{r}
-#| label: fig-domain-plot
-#| fig-cap: "Overall neurocognitive function subdomain plots of `r params$first_name`'s strengths and weaknesses. *Note:* *z*-scores have a mean of 0 and a standard deviation of 1."
+#| label: fig-sirf
+#| fig-cap: "Overall neurocognitive function subdomain plots of the patient's strengths and weaknesses. _Note:_ _z_-Scores have a mean of 0 and a standard deviation of 1."
 
+# scales
 keep <- c(
-  # "Academic Skills",
+  "Academic Skills",
   "Attention",
   "Attention/Executive",
   "Attentional Fluency",
@@ -96,16 +90,13 @@ bwu::dotplot(
 )
 ```
 
-
 ```{=typst}
-#let domain_sirf(file_fig) = {
+#let domain(file_fig) = {
   let font = (font: "Fira Sans", size: 9pt)
   set text(..font)
-figure([#image(file_fig, width: 95%)],
+figure([#image(file_fig, width: 70%)],
   placement: none,
-  caption: figure.caption(position: bottom, [Overall neurocognitive function
-  subdomain plots of `r params$first_name`'s strengths and weaknesses. _Note:_
-  *z*-Scores have a mean of 0 and a standard deviation of 1.]),
+  caption: figure.caption(position: bottom, [Overall neurocognitive function subdomain plots of the patient's strengths and weaknesses. _Note:_ _z_-Scores have a mean of 0 and a standard deviation of 1.]),
   kind: "image",
   supplement: [*Fig.*],
   gap: 0.5em,
@@ -114,10 +105,8 @@ figure([#image(file_fig, width: 95%)],
 ```
 
 ```{=typst}
-#let file_fig = "_03-00_sirf_files/figure-typst/fig-domain-plot-1.svg"
-#domain_sirf(
+#let file_fig = "_03-00_sirf_files/figure-typst/fig-sirf-1.svg"
+#domain(
   file_fig
 )
 ```
-
-{{< include _03-00_sirf_text.qmd >}}

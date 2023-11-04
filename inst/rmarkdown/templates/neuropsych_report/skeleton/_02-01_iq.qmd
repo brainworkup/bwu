@@ -78,10 +78,11 @@ pheno <- "iq"
 table_name <- "table_iq"
 grp_iq <- list(
   standard_score = c(
-    "Composite Scores", "NAB", "Test of Premorbid Functioning", "WRAT-5", "WAIS-IV", "WISC-5"
+    "Composite Scores", "NAB", "Test of Premorbid Functioning", "WRAT-5",
+    "WAIS-IV", "WISC-5"
   )
 )
-vertical_padding <- 0.10
+vertical_padding <- 0
 multiline <- TRUE
 
 bwu::tbl_gt(
@@ -107,14 +108,13 @@ iq <-
     data,
     scale %in% c(
       "General Ability", "Crystallized Knowledge", "Fluid Reasoning",
-      "Premorbid Ability", "TOPF Standard Score", "Word Reading"
+      "Premorbid Ability", "TOPF Standard Score", "Word Reading", "NAB Executive Functions Index"
     )
   )
 data <- iq
-x <- data$z_mean_narrow
-y <- data$narrow
+x <- data$z_mean_subdomain
+y <- data$subdomain
 colors <- NULL
-# return_plot <- TRUE
 return_plot <- Sys.getenv("RETURN_PLOT")
 filename <- "fig_iq.svg"
 
@@ -142,7 +142,11 @@ bwu::dotplot(
           supplement: [*Table*],
           ),
         figure([#image(file_fig, width: auto)],
-          caption: figure.caption(position: bottom, ["_Premorbid Ability_ is an estimate of intellectual functioning prior to known or suspected onset of brain disease or dysfunction. _General Ability_ is the overall skill to reason, solve problems, and gain useful knowledge. _Crystallized Knowledge_ involves understanding the world through language and reasoning. _Fluid Reasoning_ is the logical analysis and solution of new problems, identifying underlying patterns, and applying logic."]),
+          caption: figure.caption(position: bottom, [_Premorbid Ability_ is an
+          estimate of intellectual functioning prior to known or suspected onset
+          of brain disease or dysfunction. _Neuropsychological Functioning_
+          is the overall skill to reason, solve problems, and gain useful
+          knowledge.]),
           placement: none,
           kind: "image",
           supplement: [*Fig.*],

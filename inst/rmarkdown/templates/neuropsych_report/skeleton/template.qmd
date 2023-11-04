@@ -1,13 +1,7 @@
 ---
-title: "NEUROCOGNITIVE EXAMINATION"
 name: Biggie Smalls
 doe: 2023-01-01
 patient: Biggie
-format:
-  neurotyp-typst:
-    keep-typ: true
-    fontsize: 11pt
-    papersize: "us-letter"
 params:
   patient: Biggie
   first_name: Biggie
@@ -34,46 +28,23 @@ params:
   dx1: attention-deficit/hyperactivity disorder (ADHD)
   dx2: anxiety
   dx3: depression
-execute:
-  warning: false
-  echo: false
-  message: false
-  freeze: auto
-  cache: true
-editor:
-  markdown:
-    wrap: sentence
-    references: 
-      prefix: "ref-"
-    canonical: true
-fig-width: 6
-fig-asp: 0.618
-out-width: "70%"
-fig-align: center
-fig-format: svg
-fig-dpi: 270
-df-print: kable
-reference-location: document
-bibliography: refs.bib
 ---
 
 ```{r}
 #| label: setup
 #| include: false
 xfun::pkg_load2(
-  c("ggtext", "ggthemes", "glue", "gt", "gtExtras", "hablar", "here", "htmlwidgets", "janitor", "knitr", "magick", "manipulateWidget", "png", "quarto", "readxl", "rmarkdown", "scales", "snakecase", "stats", "svglite", "tidyselect", "tidytext", "tidyverse", "tibble", "webshot2", "widgetframe", "xfun", "yaml", "bwu")
+  c("ggtext", "ggthemes", "glue", "gt", "gtExtras", "hablar", "here", "htmlwidgets", "janitor", "knitr", "magick", "manipulateWidget", "quarto", "readxl", "rmarkdown", "scales", "snakecase", "stats", "svglite", "tidyselect", "tidytext", "tidyverse", "webshot2", "widgetframe", "xfun", "yaml", "bwu")
 )
 knitr::opts_knit$set(width = 80)
 options(digits = 2, warnPartialMatchArgs = FALSE)
 options(knitr.kable.NA = "--")
 knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
 knitr::knit_hooks$set(optipng = knitr::hook_optipng)
-# Fix subfigs for rmarkdown -> latex
 if (identical(knitr:::pandoc_to(), "latex")) {
   knitr::knit_hooks$set(plot = knitr::hook_plot_tex)
 }
-Sys.setenv(PATIENT_FIRST_NAME = "Biggie", RETURN_PLOT = FALSE)
-patient <- Sys.getenv("PATIENT_FIRST_NAME")
+patient <- Sys.getenv("PATIENT")
 return_plot <- Sys.getenv("RETURN_PLOT")
 ```
 
@@ -88,25 +59,19 @@ bwu::load_data(here::here(patient))
 #let name = [Biggie Smalls]
 #let doe = [2023-01-01]
 #let patient = [Biggie]
-#v(2pt, weak: true)
+#v(0em, weak: true)
 *PATIENT NAME:* #name \ 
 *DATES OF EXAM:* `r params$doe1`, `r params$doe2`, and `r params$doe3` \ 
 ```
-# TESTS ADMINISTERED {#sec-tests}
-
 {{< include _00-00_tests.qmd >}}
-
-# NEUROBEHAVIORAL STATUS EXAM {#sec-nse}
 
 {{< include _01-00_nse.qmd >}}
 
 {{< include _02-00_behav-obs.qmd >}}
 
-# NEUROCOGNITIVE FINDINGS {#sec-test-results}
-
 {{< include _02-01_iq.qmd >}}
 
-<!-- {{< include _02-02_academics.qmd >}} -->
+{{< include _02-02_academics.qmd >}}
 
 {{< include _02-03_verbal.qmd >}}
 
@@ -116,26 +81,22 @@ bwu::load_data(here::here(patient))
 
 {{< include _02-06_memory.qmd >}}
 
-<!-- {{< include _02-07_motor.qmd >}} -->
+{{< include _02-07_motor.qmd >}}
 
-<!-- {{< include _02-08_social.qmd >}} -->
+{{< include _02-08_social.qmd >}}
 
 {{< include _02-09_adhd.qmd >}}
 
 {{< include _02-10_emotion.qmd >}}
 
-<!-- {{< include _02-11_adaptive.qmd >}}  -->
-
-# SUMMARY/IMPRESSION {#sec-sirf}
+{{< include _02-11_adaptive.qmd >}} 
 
 {{< include _03-00_sirf.qmd >}}
 
-# RECOMMENDATIONS {#sec-recs}
+{{< include _03-00_sirf_text.qmd >}}
 
 {{< include _03-01_recs.qmd >}}
 
 {{< include _03-02_signature.qmd >}}
-
-# APPENDIX {#sec-appendix}
 
 {{< include _03-04_appendix.qmd >}}

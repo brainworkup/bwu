@@ -69,14 +69,14 @@ Given Biggie's age and educational setting, it's crucial that he has immediate a
 
 - [ADHD 2.0](https://drhallowell.com/read/books-by-ned/)
 
-- [Messages: The Communication Skills Book](https://g.co/kgs/EKmwBy)
+- (https://g.co/kgs/EKmwBy)[Messages: The Communication Skills Book]
 
-- [PsychCentral for Adult ADHD](https://psychcentral.com/adhd/adhd-resources#for-adults-with-adhd)
+- (https://psychcentral.com/adhd/adhd-resources#for-adults-with-adhd)[PsychCentral for Adult ADHD]
 
-- [Launching in Young Adulthood with ADHD… Ready or Not!](https://www.chrisdendy.com/product-page/launching-in-young-adulthood-with-adhd-ready-or-not)
+- [Launching in Young Adulthood with ADHD… Ready or
+Not!](https://www.chrisdendy.com/product-page/launching-in-young-adulthood-with-adhd-ready-or-not)
+
 
 ## Recommendations for Follow-Up Evaluation
-
-- Follow-up assessment is not recommended at this time unless further concerns arise that need to be addressed.
 
 - Follow-up assessment in 12-18 months is recommended to gauge `r params$first_name`'s progress and to assess the impact of the above interventions, unless further concerns arise that need to be addressed sooner.

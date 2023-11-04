@@ -22,7 +22,11 @@ bwu::save_as_markdown(text = txt, output_path)
 
 ## Referral
 
-`r params$first_name` was referred for neuropsychological testing as part of a comprehensive work-up for attention-deficit/hyperactivity disorder (ADHD). The results and recommendations were discussed with `r params$first_name` during the feedback visit on the final day of the evaluation and will be used in academic and treatment planning.
+`r params$first_name` was referred for neuropsychological testing as part of a
+comprehensive work-up for attention-deficit/hyperactivity disorder (ADHD).
+Findings from the evaluation will be used in formulating an effective academic
+and treatment strategy. Results and recommendations were discussed with `r
+params$first_name` during the feedback visit on the final day of the evaluation.
 
 ## Background
 
@@ -66,7 +70,7 @@ Family history of dysgraphia and ADHD.
 
 ### Cultural/Social Background
 
-Mr./Ms. `r params$last_name` is a Caucasian `r params$sex` who was born and raised in Brooklyn, NY with `r params$his_her` biological parents.
+`r params$first_name` is a Caucasian `r params$sex` who was born and raised in Brooklyn, NY with `r params$his_her` biological parents.
 `r params$he_she_cap` is single, never married, and has no children.
 
 ### Educational History

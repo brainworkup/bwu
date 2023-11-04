@@ -1,6 +1,4 @@
-<!---
- # TESTS ADMINISTERED {#sec-tests} 
---->
+# TESTS ADMINISTERED {#sec-tests} 
 
 ```{=typst}
 - Comprehensive Neuropsychiatric Symptom and History Interview
@@ -9,18 +7,18 @@
 - Conners' Adult ADHD Rating Scales--Observer Report: Long Version (CAARS--O:L)
 - Comprehensive Executive Function Inventory Adult (CEFI Adult) Self-Report Form
 - Comprehensive Executive Function Inventory Adult (CEFI Adult) Observer Form
-- Advanced Clinical Solutions (ACS):
-  - Word Choice, Test of Premorbid Functioning (TOPF)
+- Advanced Clinical Solutions (ACS): Word Choice, Test of Premorbid Functioning (TOPF)
 - Dot Counting Test
-- Wechsler Adult Intelligence Scale, 4th ed (WAIS-IV)
-- Wide Range Achievement Test, 5th ed (WRAT-5): 
-  - Word Reading
-- Neuropsychological Assessment Battery, Screener (NAB):
-  - Attention, Language, Memory, Spatial, and Executive Functions Modules
-- NIH Executive Abilities: Measures and Instruments for Neurobehavioral Evaluation and Research (NIH EXAMINER):
-  - Unstructured Task, Verbal Fluency, and Behavioral Rating Scale
+- Wechsler Adult Intelligence Scale, 4th ed (WAIS-4): Coding
+- Wide Range Achievement Test, 5th ed (WRAT-5): Word Reading
+- Neuropsychological Assessment Battery, Screener (NAB): Attention, Language, Memory, Spatial, and Executive Functions Modules
+- NIH Executive Abilities--Measures and Instruments for Neurobehavioral
+Evaluation and Research (NIH EXAMINER): Unstructured Task, Verbal Fluency, Behavioral Rating Scale
 - California Verbal Learning Test, 3rd ed (CVLT-3), Brief Form
 - Rey-Osterrieth Complex Figure Test (ROCFT)
 - Trail Making Test
+- Delis-Kaplan Executive Function System (D-KEFS): Color-Word Interference Test
 - Personality Assessment Inventory (PAI)
+- Beck Anxiety Inventory (BAI)
+- Beck Depression Inventory, 2nd ed (BDI-2)
 ```

@@ -103,7 +103,7 @@ table_name <- "table_academics"
 grp_academics <- list(
   standard_score = c("KTEA-3", "WIAT-4")
 )
-vertical_padding <- 0.10
+vertical_padding <- 0
 multiline <- TRUE
 bwu::tbl_gt(
   data = data,

@@ -56,8 +56,8 @@ options(tikzDefaultEngine = "xetex")
 # footnotes
 fn_scaled_score <- gt::md("Scaled Score: Mean = 10 [50th‰], SD ± 3 [16th‰, 84th‰]")
 fn_standard_score <- gt::md("Index Score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰]")
-fn_t_score <- gt::md("*T* Score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
-fn_z_score <- gt::md("*z* Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]")
+fn_t_score <- gt::md("_T_-Score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
+fn_z_score <- gt::md("_z_-Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]")
 
 grp_social <- list(
   scaled_score = c("NEPSY-2", "ACS Social Cognition"),
@@ -65,7 +65,7 @@ grp_social <- list(
 )
 pheno <- "social"
 table_name <- "table_social"
-vertical_padding <- 0.10
+vertical_padding <- 0
 multiline <- TRUE
 
 bwu::tbl_gt(data,

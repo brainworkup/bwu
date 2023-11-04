@@ -88,8 +88,8 @@ options(tikzDefaultEngine = "xetex")
 # footnotes
 fn_scaled_score <- gt::md("Scaled Score: Mean = 10 [50th‰], SD ± 3 [16th‰, 84th‰]")
 fn_standard_score <- gt::md("Index Score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰]")
-fn_t_score <- gt::md("*T* Score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
-fn_z_score <- "*z* Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]"
+fn_t_score <- gt::md("_T_-Score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
+fn_z_score <- "_z_-Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]"
 
 data <- data_verbal
 pheno <- "verbal"
@@ -99,7 +99,7 @@ grp_verbal <- list(
   standard_score = c("NAB"),
   t_score = c("NAB", "NIH EXAMINER")
 )
-vertical_padding <- 0.10
+vertical_padding <- 0
 multiline <- TRUE
 
 bwu::tbl_gt(
@@ -107,10 +107,10 @@ bwu::tbl_gt(
   pheno = pheno,
   table_name = table_name,
   fn_scaled_score = fn_scaled_score,
-  fn_standard_score = fn_standard_score,
+  # fn_standard_score = fn_standard_score,
   fn_t_score = fn_t_score,
   grp_scaled_score = grp_verbal[["scaled_score"]],
-  grp_standard_score = grp_verbal[["standard_score"]],
+  # grp_standard_score = grp_verbal[["standard_score"]],
   grp_t_score = grp_verbal[["t_score"]],
   dynamic_grp = grp_verbal,
   vertical_padding = vertical_padding,
@@ -129,7 +129,6 @@ data <- verbal
 x <- data$z_mean_subdomain
 y <- data$subdomain
 colors <- NULL
-# return_plot <- FALSE
 return_plot <- Sys.getenv("RETURN_PLOT")
 filename <- "fig_verbal.svg"
 
@@ -156,7 +155,7 @@ bwu::dotplot(
           kind: "qtbl",
           supplement: [*Table*],
           ),
-        figure([#image(file_fig, width: auto)],
+        figure([#image(file_fig)],
           caption: figure.caption(position: bottom, [
             Verbal and language functioning refers to the ability to access and apply acquired word knowledge, to verbalize meaningful concepts, to understand complex multistep instructions, to think about verbal information, and to express oneself using words.
             ]),

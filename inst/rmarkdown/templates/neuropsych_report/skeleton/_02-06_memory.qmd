@@ -112,8 +112,8 @@ options(tikzDefaultEngine = "xetex")
 # footnotes
 fn_standard_score <- gt::md("Index Score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰]")
 fn_scaled_score <- gt::md("Scaled Score: Mean = 10 [50th‰], SD ± 3 [16th‰, 84th‰]")
-fn_t_score <- gt::md("*T* Score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
-fn_z_score <- gt::md("*z* Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]")
+fn_t_score <- gt::md("_T_-Score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
+fn_z_score <- gt::md("_z_-Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]")
 
 pheno <- "memory"
 table_name <- "table_memory"
@@ -122,7 +122,7 @@ grp_memory <- list(
   scaled_score = c("CVLT-3 Brief", "NEPSY-2", "CVLT Child", "CVLT-3"),
   t_score = c("NAB", "Rey Complex Figure")
 )
-vertical_padding <- 0.10
+vertical_padding <- 0
 multiline <- TRUE
 
 # source(here::here("R", "tbl_gt.R"))

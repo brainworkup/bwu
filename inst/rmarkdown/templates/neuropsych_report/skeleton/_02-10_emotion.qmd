@@ -63,8 +63,8 @@ scales <- c(
   "Treatment Rejection",
   "Verbal Aggression",
   "Warmth",
-  "BAI-2 Total Score",
-  "BID-2 Total Score",
+  "BAI Total Score",
+  "BDI-2 Total Score",
   "Activities of Daily Living",
   "Adaptability",
   "Adaptive Skills",
@@ -109,7 +109,10 @@ data <-
 ```{r}
 #| label: text-emotion
 #| cache: true
-bwu::cat_neuropsych_results(data = data, file = "_02-10_emotion_text.qmd")
+bwu::cat_neuropsych_results(
+  data = data,
+  file = "_02-10_emotion_text.qmd"
+)
 ```
 
 ```{r}
@@ -124,10 +127,10 @@ fn_t_score <- gt::md("*T*-Score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰
 
 pheno <- "emotion"
 table_name <- "table_emotion"
+vertical_padding <- 0.05
 grp_emotion <- list(
   t_score = c("PAI", "BASC-3 PRS", "BASC-3 SRP", "BASC-3 TRS")
 )
-vertical_padding <- 0.05
 
 data2 <-
   dplyr::filter(data, domain %in% c(
@@ -248,7 +251,7 @@ emotion <-
   dplyr::filter(data) |>
   dplyr::filter(domain %in% c(
     "Psychiatric Disorders", "Personality Disorders",
-    "Substance Use", "Behavioral/Emotional/Social"
+    "Substance Use", "Behavioral/Emotional/Socialx``"
   ))
 
 data <- emotion
@@ -274,7 +277,7 @@ bwu::dotplot(
 #let domain(file_fig) = {
   let font = (font: "Fira Sans", size: 9pt)
   set text(..font)
-figure([#image(file_fig, width: auto)],
+figure([#image(file_fig, width: 70%)],
   placement: none,
   caption: figure.caption(position: bottom, [Emotional/Behavioral/Personality]),
   kind: "image",

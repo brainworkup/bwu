@@ -1,19 +1,11 @@
 <<PROMPT>>
 
-Summarize and interpret these neuropsychological test scores related to learning and memory. For scores that are Below Average, give a brief example of how this could impact the patient's daily functioning. Organize your summary and interpretation in order from scores that are Above Average to Below Average to delineate relative strengths and weaknesses, respectively. Keep the verbal memory test scores together (e.g., list learning, story learning) and the nonverbal/visual memory test scores together.
+Summarize and interpret these neuropsychological test scores related to learning and memory. For scores that are Below Average, give a brief example of how this could impact the patient's daily functioning. Organize your summary and interpretation in order from scores that are Above Average to Below Average to delineate relative strengths and weaknesses, respectively. 
+
+Keep the verbal memory test scores together (e.g., list learning, story learning) and the nonverbal/visual memory test scores together.
 
 <<EXAMPLE>>
 
-Learning and recall of rote verbal information (word list) was Average overall.
-Recall of the list after a short delay was Average. Recall of the list after a
-long delay was Average, as `r params$he_she` was able to recall nearly all the
-material `r params$he_she` had learned. Memory recall of more complex verbal
-information (short story) was Average for immediate free recall. Delayed recall
-of the story details was preserved|diminished over time. Learning and
-recognition of visual material (abstract shapes) was Average. Recognition of the
-target visual material among non-target distractors after a delay period was
-Average, suggesting stable memory consolidation over time. Finally, spontaneous,
-long-term delayed recall (20-25 min) recall and reproduction of a complex
-abstract figure fell within the Average range.
+Learning and recall of rote verbal information (word list) was Average overall. Recall of the list after a short delay was Average. Recall of the list after a long delay was Average, as he was able to recall nearly all the material he had learned. Memory recall of more complex verbal information (short story) was Average for immediate free recall. Delayed recall of the story details was preserved|diminished over time. Learning and recognition of visual material (abstract shapes) was Average. Recognition of the target visual material among non-target distractors after a delay period was Average, suggesting stable memory consolidation over time. Finally, spontaneous, long-term delayed recall (20-25 min) recall and reproduction of a complex abstract figure fell within the Average range.
 
 <<START>>

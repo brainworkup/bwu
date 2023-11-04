@@ -66,8 +66,8 @@ options(tikzDefaultEngine = "xetex")
 # footnotes
 fn_scaled_score <- gt::md("Scaled Score: Mean = 10 [50th‰], SD ± 3 [16th‰, 84th‰]")
 fn_standard_score <- gt::md("Index Score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰]")
-fn_t_score <- gt::md("*T* Score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
-fn_z_score <- gt::md("*z* Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]")
+fn_t_score <- gt::md("_T_-Score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
+fn_z_score <- gt::md("_z_-Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]")
 
 grp_spatial <- list(
   scaled_score = c("WAIS-IV", "WISC-5", "NEPSY-2"),
@@ -76,17 +76,17 @@ grp_spatial <- list(
 )
 pheno <- "spatial"
 table_name <- "table_spatial"
-vertical_padding <- 0.10
+vertical_padding <- 0
 multiline <- TRUE
 
 bwu::tbl_gt(data,
   pheno = pheno,
   table_name = table_name,
   fn_scaled_score = fn_scaled_score,
-  fn_standard_score = fn_standard_score,
+  # fn_standard_score = fn_standard_score,
   fn_t_score = fn_t_score,
   grp_scaled_score = grp_spatial[["scaled_score"]],
-  grp_standard_score = grp_spatial[["standard_score"]],
+  # grp_standard_score = grp_spatial[["standard_score"]],
   grp_t_score = grp_spatial[["t_score"]],
   dynamic_grp = grp_spatial,
   vertical_padding = vertical_padding,
@@ -105,7 +105,6 @@ data <- spatial
 x <- data$z_mean_subdomain
 y <- data$subdomain
 colors <- NULL
-# return_plot <- FALSE
 return_plot <- Sys.getenv("RETURN_PLOT")
 filename <- "fig_spatial.svg"
 
@@ -124,31 +123,29 @@ bwu::dotplot(
 #let domain(title: none, file_qtbl, file_fig) = {
   let font = (font: "Fira Sans", size: 9pt)
   set text(..font)
-  grid(
-  columns: (50%, 50%),
-  gutter: 8pt,
-figure([#image(file_qtbl)],
-  caption: figure.caption(position: top, [
-    #title
-  ]),
-  kind: "qtbl",
-  supplement: [*Table*],
-),
-figure([#image(file_fig, width: auto)],
-  caption: figure.caption(position: bottom, [
-    Perception, construction, and visuospatial processing refer to abilities
-    such as mentally visualizing how objects should look from different angles,
-    visualizing how to put objects together so that they fit correctly, and
-    being able to accurately and efficiently copy and/or reproduce
-    visual-spatial information onto paper.
-    ]),
-  placement: none,
-  kind: "image",
-  supplement: [*Fig.*],
-  gap: 0.5em,  
-  ),
-)
-}
+    grid(
+      columns: (50%, 50%),
+      rows: (50%, 50%),
+      gutter: 8pt,
+        figure([#image(file_qtbl)],
+          caption: figure.caption(position: top, [#title]),
+          kind: "qtbl",
+          supplement: [*Table*],
+          ),
+        figure([#image(file_fig)],
+          caption: figure.caption(position: bottom, [Perception, construction,
+          and visuospatial processing refer to abilities such as mentally
+          visualizing how objects should look from different angles, visualizing
+          how to put objects together so that they fit correctly, and being able
+          to accurately and efficiently copy and/or reproduce visual-spatial
+          information onto paper.]),
+          placement: none,
+          kind: "image",
+          supplement: [*Fig.*],
+          gap: 0.5em,
+          ),
+        )
+    }
 ```
 
 ```{=typst}

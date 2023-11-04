@@ -4,12 +4,9 @@ Please contact me with any questions or concerns regarding this patient.
 Sincerely,
 
 ```{r}
-#| label: signature
-#| out-width: 20%
 #| fig-align: left
-#| cache: true
-#| eval: true
-knitr::include_graphics("jwt_sig.png", dpi = 127)
+#| out-width: 20%
+knitr::include_graphics("jwt_sig.png")
 ```
 
 **Joey W. Trampush, Ph.D.**\

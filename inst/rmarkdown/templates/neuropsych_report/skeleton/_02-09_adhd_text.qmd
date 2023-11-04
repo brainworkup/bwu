@@ -1,14 +1,6 @@
 <<PROMPT>>
 
-Summarize and interpret these rating scales related to
-attention-deficit/hyperactivity disorder (ADHD) (CAARS-SR, CAARS-OR) and
-executive functioning (CEFI-SR, CEFI-OR), for both the self-report measures and
-the observer rated measures. Organize your summary and interpretation from
-scores that are above average to below average to delineate relative strengths
-and weaknesses, respectively. Ignore the DSM-5 symptom count scales (e.g., DSM-5
-Hyperactive-Impulsive Symptoms, DSM-5 Inattentive Symptoms) on the CAARS-SR
-and CAARS-OR, as these are not valid because patients can easily look the DSM-5
-up online. Also, no need to include scores that are in the average range.
+Summarize and interpret these rating scales related to attention-deficit/hyperactivity disorder (ADHD) (CAARS-SR, CAARS-OR) and executive functioning (CEFI-SR, CEFI-OR), for both the self-report measures and the observer rated measures. Organize your summary and interpretation from scores that are above average to below average to delineate relative strengths and weaknesses, respectively. Ignore the DSM-5 symptom count scales (e.g., DSM-5 Hyperactive-Impulsive Symptoms, DSM-5 Inattentive Symptoms) on the CAARS-SR and CAARS-OR, as these are not valid because patients can easily look the DSM-5 up online. Also, no need to include scores that are in the average range.
 
 On the CAARS scales, higher scores reflect reduced functioning, but on the CEFI scales, lower scores reflect reduced functioning.
 
@@ -18,13 +10,11 @@ For scores that are below average or worse on the CEFI, give a brief example of 
 
 <<EXAMPLE>>
 
-`r params$patient` completed self-report rating scales of adult ADHD symptoms
-and executive functioning in everyday life. Consistent and overlapping difficulties were reported in the areas of:
+Biggie completed self-report rating scales of adult ADHD symptoms and executive functioning in everyday life. Consistent and overlapping difficulties were reported in the areas of:
 
 <!-- insert 2-3 of the highest and lowest scores on the CAARS-SR and CEFI-SR -->
 
-On the companion observer-reports, it was reported that `r params$patient` evidences
-moderate to severe difficulties in the areas of:
+On the companion observer-reports, it was reported that Biggie evidences moderate to severe difficulties in the areas of:
 
 <!-- insert 2-3 of the highest and lowest scores on the CAARS-SR and CEFI-SR -->
 

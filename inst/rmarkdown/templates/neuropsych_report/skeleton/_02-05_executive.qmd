@@ -103,6 +103,10 @@ options(tikzDefaultEngine = "xetex")
 data <- dplyr::filter(data, test_name != "CVLT-3 Brief") |>
   dplyr::filter(scale != "Orientation") |>
   dplyr::filter(scale %in% c(
+    # "D-KEFS Inhibition Total Errors",
+    "D-KEFS Inhibition",
+    # "D-KEFS Switching Total Errors",
+    "D-KEFS Switching",
     "NAB Attention Index",
     "Digits Forward",
     # "Digits Forward Longest Span",
@@ -143,18 +147,18 @@ data <- dplyr::filter(data, test_name != "CVLT-3 Brief") |>
 # footnotes
 fn_scaled_score <- gt::md("Scaled Score: Mean = 10 [50th‰], SD ± 3 [16th‰, 84th‰]")
 fn_standard_score <- gt::md("Index Score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰]")
-fn_t_score <- gt::md("*T* Score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
-fn_z_score <- gt::md("*z* Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]")
-z_score_label <- "*z* Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]"
+fn_t_score <- gt::md("_T_-Score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
+fn_z_score <- gt::md("_z_-Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]")
+z_score_label <- "_z_-Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]"
 
 pheno <- "executive"
 table_name <- "table_executive"
 grp_executive <- list(
-  scaled_score = c("WAIS-IV"),
+  scaled_score = c("WAIS-IV", "D-KEFS"),
   standard_score = c("NAB"),
   t_score = c("NAB", "NIH EXAMINER", "Trail Making Test")
 )
-vertical_padding <- 0.10
+vertical_padding <- 0
 multiline <- TRUE
 
 bwu::tbl_gt(data,
@@ -162,10 +166,10 @@ bwu::tbl_gt(data,
   table_name = table_name,
   vertical_padding = vertical_padding,
   fn_scaled_score = fn_scaled_score,
-  fn_standard_score = fn_standard_score,
+  # fn_standard_score = fn_standard_score,
   fn_t_score = fn_t_score,
   grp_scaled_score = grp_executive[["scaled_score"]],
-  grp_standard_score = grp_executive[["standard_score"]],
+  # grp_standard_score = grp_executive[["standard_score"]],
   grp_t_score = grp_executive[["t_score"]],
   dynamic_grp = grp_executive,
   multiline = multiline
@@ -182,7 +186,6 @@ data <- executive
 x <- data$z_mean_subdomain
 y <- data$subdomain
 colors <- NULL
-# return_plot <- FALSE
 return_plot <- Sys.getenv("RETURN_PLOT")
 filename <- "fig_executive.svg"
 

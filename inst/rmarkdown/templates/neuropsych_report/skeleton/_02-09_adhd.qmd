@@ -1,11 +1,9 @@
-## ADHD/Executive Functioning {#sec-adhd}
+## ADHD/Executive Function {#sec-adhd}
 
 {{< include _02-09_adhd_text.qmd >}}
 
 ```{r}
 #| label: data-adhd
-# source("data_adhd.R")
-patient <- "Tiffany"
 library(tidyverse)
 library(gt)
 library(gtExtras)
@@ -42,7 +40,6 @@ data_sr <-
   dplyr::filter(test == "cefi_sr" | test == "caars_sr") |>
   dplyr::arrange(dplyr::desc(percentile)) |>
   dplyr::distinct(.keep_all = FALSE)
-
 # Flatten the text
 bwu::cat_neuropsych_results(data = data_sr, file = "_02-09_adhd_text.qmd")
 ```
@@ -68,25 +65,33 @@ bwu::cat_neuropsych_results(data = data_or, file = "_02-09_adhd_text.qmd")
 #| fig-process: pdf2png
 options(tikzDefaultEngine = "xetex")
 
-grp_adhd <- list( standard_score = c("CEFI Self-Report", "CEFI Observer-Report"), t_score = c("CAARS Self-Report", "CAARS Observer-Report"))
-grp_caars <- list( t_score = c( "CAARS Self-Report", "CAARS Observer-Report" ) )
-grp_cefi <- list( standard_score = c( "CEFI Self-Report", "CEFI Observer-Report" ) )
-
+grp_adhd <- list(
+  standard_score = c("CEFI Self-Report", "CEFI Observer-Report"),
+  t_score = c("CAARS Self-Report", "CAARS Observer-Report")
+)
+grp_caars <- list(
+  t_score = c("CAARS Self-Report", "CAARS Observer-Report")
+)
+grp_cefi <- list(
+  standard_score = c("CEFI Self-Report", "CEFI Observer-Report")
+)
 # footnotes
 fn_standard_score <- gt::md("CEFI: Standard Score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰], lower scores reflect reduced functioning.")
-fn_t_score <- gt::md("CAARS: *T* Score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]; higher scores reflect reduced functioning.")
-
+fn_t_score <- gt::md("CAARS: *T*-Score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]; higher scores reflect reduced functioning.")
+# variables
 data <- data_sr
 pheno <- "self_report"
 table_name <- "table_sr"
+vertical_padding <- 0
+multiline <- TRUE
 fn_standard_score <- fn_standard_score
 fn_t_score <- fn_t_score
-grp_sr <- list( standard_score = c( "CEFI Self-Report" ), t_score = c( "CAARS Self-Report" ) )
-vertical_padding <- 0.10
-multiline <- TRUE
+grp_sr <- list(
+  standard_score = c("CEFI Self-Report"),
+  t_score = c("CAARS Self-Report")
+)
 
 # Self-Report
-# source(here::here("R", "tbl_gt.R"))
 bwu::tbl_gt(
   data = data,
   pheno = pheno,
@@ -108,18 +113,21 @@ bwu::tbl_gt(
 options(tikzDefaultEngine = "xetex")
 
 # footnotes
-fn_standard_score <- gt::md("CEFI: Standard Score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰], lower scores reflect reduced functioning.")
-fn_t_score <- gt::md("CAARS: *T* Score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]; higher scores reflect reduced functioning.")
+fn_standard_score <- gt::md("CEFI Standard Score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰]; lower scores reflect reduced functioning.")
+fn_t_score <- gt::md("CAARS *T*-Score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]; higher scores reflect reduced functioning.")
 
 # Observer-Report
 data <- data_or
 pheno <- "observer_report"
 table_name <- "table_or"
+vertical_padding <- 0
+multiline <- TRUE
 fn_standard_score <- fn_standard_score
 fn_t_score <- fn_t_score
-grp_or <- list( standard_score = c( "CEFI Observer-Report" ), t_score = c( "CAARS Observer-Report" ) )
-vertical_padding <- 0.10
-multiline <- TRUE
+grp_or <- list(
+  standard_score = c("CEFI Observer-Report"),
+  t_score = c("CAARS Observer-Report")
+)
 
 # Observer-Report
 bwu::tbl_gt(
@@ -155,7 +163,7 @@ bwu::dotplot(
   data = data_caars,
   x = x,
   y = y,
-  colors = NULL,
+  colors = colors,
   return_plot = return_plot,
   filename = filename
 )
@@ -186,21 +194,25 @@ bwu::dotplot(
 )
 ```
 
-
 ```{=typst}
 #let domain(title: none, file_qtbl, file_fig) = {
   let font = (font: "Fira Sans", size: 9pt)
   set text(..font)
     grid(
       columns: (50%, 50%),
+      rows: (50%, 50%),
       gutter: 8pt,
         figure([#image(file_qtbl)],
           caption: figure.caption(position: top, [#title]),
           kind: "qtbl",
           supplement: [*Table*],
           ),
-        figure([#image(file_fig, width: auto)],
-          caption: figure.caption(position: bottom, [Adult ADHD symptom reports collapsed/averaged together across raters.]),
+        figure([#image(file_fig)],
+          caption: figure.caption(position: bottom, [Adult ADHD symptom reports
+          collapsed/averaged together across raters and subdomains of ADHD. The
+          above figures were generated based on the Conners’ Adult ADHD Rating Scales, Long
+          Version (CAARS–S:L), an instrument that is helpful when considering a
+          diagnosis of ADHD or related problems.]),
           placement: none,
           kind: "image",
           supplement: [*Fig.*],
@@ -227,13 +239,14 @@ bwu::dotplot(
   set text(..font)
     grid(
       columns: (50%, 50%),
+      rows: (50%, 50%),
       gutter: 8pt,
         figure([#image(file_qtbl)],
           caption: figure.caption(position: top, [#title]),
           kind: "qtbl",
           supplement: [*Table*],
           ),
-        figure([#image(file_fig, width: auto)],
+        figure([#image(file_fig)],
           caption: figure.caption(position: bottom, [
             Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other.
             ]),
@@ -247,7 +260,7 @@ bwu::dotplot(
 ```
 
 ```{=typst}
-#let title = "Observer Rating Scales of ADHD and Executive Function"
+#let title = "Observer Ratings of ADHD and Executive Function"
 #let file_qtbl = "table_observer_report.png"
 #let file_fig = "_02-09_adhd_files/figure-typst/fig-cefi-1.svg"
 #domain(
