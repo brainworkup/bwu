@@ -50,32 +50,26 @@ load_data <- function(patient) {
     filter(test_type == "npsych_test") |>
     # domain
     group_by(domain, .add = TRUE) |>
-    filter(!is.na(percentile)) |>
     mutate(z_mean_domain = mean(z), z_sd_domain = sd(z)) |>
     ungroup() |>
     # subdomain
     group_by(subdomain, .add = TRUE) |>
-    filter(!is.na(percentile)) |>
     mutate(z_mean_subdomain = mean(z), z_sd_subdomain = sd(z)) |>
     ungroup() |>
     # narrow
     group_by(narrow, .add = TRUE) |>
-    filter(!is.na(percentile)) |>
     mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) |>
     ungroup() |>
     # pass
     group_by(pass, .add = TRUE) |>
-    filter(!is.na(percentile)) |>
     mutate(z_mean_pass = mean(z), z_sd_pass = sd(z)) |>
     ungroup() |>
     # verbal
     group_by(verbal, .add = TRUE) |>
-    filter(!is.na(percentile)) |>
     mutate(z_mean_verbal = mean(z), z_sd_verbal = sd(z)) |>
     ungroup() |>
     # timed
     group_by(timed, .add = TRUE) |>
-    filter(!is.na(percentile)) |>
     mutate(z_mean_timed = mean(z), z_sd_timed = sd(z)) |>
     ungroup()
 
@@ -85,17 +79,14 @@ load_data <- function(patient) {
     filter(test_type == "rating_scale") |>
     # domain
     group_by(domain, .add = TRUE) |>
-    filter(!is.na(percentile)) |>
     mutate(z_mean_domain = mean(z), z_sd_domain = sd(z)) |>
     ungroup() |>
     # subdomain
     group_by(subdomain, .add = TRUE) |>
-    filter(!is.na(percentile)) |>
     mutate(z_mean_subdomain = mean(z), z_sd_subdomain = sd(z)) |>
     ungroup() |>
     # narrow
     group_by(narrow, .add = TRUE) |>
-    filter(!is.na(percentile)) |>
     mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) |>
     ungroup()
 

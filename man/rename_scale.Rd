@@ -2,7 +2,7 @@
 % Please edit documentation in R/rename_scale.R
 \name{rename_scale}
 \alias{rename_scale}
-\title{FUNCTION_TITLE}
+\title{Rename Scale}
 \usage{
 rename_scale(table, scale, name1, name2)
 }
@@ -19,19 +19,5 @@ rename_scale(table, scale, name1, name2)
 OUTPUT_DESCRIPTION
 }
 \description{
-FUNCTION_DESCRIPTION
-}
-\details{
-DETAILS
-}
-\examples{
-\dontrun{
-if(interactive()){
- #EXAMPLE1
- }
-}
-}
-\seealso{
-\link[dplyr:mutate]{mutate}
-\link[stringr:str_replace]{str_replace}
+Change the name of a npsych scale.
 }
