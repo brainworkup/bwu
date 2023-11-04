@@ -17,110 +17,110 @@ load_data <- function(patient) {
   }
 
   # Define path for the data
-  data_path <- here(patient, "csv")
+  data_path <- here::here(patient, "csv")
   files <- dir(data_path, pattern = "*.csv")
 
   # Read and process neuropsych data
   neuropsych <-
     files |>
-    set_names() |>
-    map(
+    purrr::set_names() |>
+    purrr::map(
       function(filename) {
-        dat <- read_csv(file.path(data_path, filename), na = c("", "NA", "--", "-"))
-        dat$filename <- filename
-        return(dat)
+        data <- readr::read_csv(file.path(data_path, filename), na = c("", "NA", "--", "-"))
+        data$filename <- filename
+        return(data)
       }
     ) |>
-    list_rbind(names_to = "filename") |>
-    filter(!is.na(percentile)) |>
-    distinct() |>
-    mutate(
+    purrr::list_rbind(names_to = "filename") |>
+    dplyr::filter(!is.na(percentile)) |>
+    dplyr::distinct() |>
+    dplyr::mutate(
       z = qnorm(percentile / 100),
       domain = as.character(domain),
       subdomain = as.character(subdomain),
       narrow = as.character(narrow),
       pass = as.character(pass),
-      verbal = as_factor(verbal),
-      timed = as_factor(timed)
+      verbal = forcats::as_factor(verbal),
+      timed = forcats::as_factor(timed)
     )
 
   # Subset neurocognitive data
   neurocog <-
     neuropsych |>
-    filter(test_type == "npsych_test") |>
+    dplyr::filter(test_type == "npsych_test") |>
     # domain
     group_by(domain, .add = TRUE) |>
-    mutate(z_mean_domain = mean(z), z_sd_domain = sd(z)) |>
-    ungroup() |>
+    dplyr::mutate(z_mean_domain = mean(z), z_sd_domain = sd(z)) |>
+    dplyr::ungroup() |>
     # subdomain
-    group_by(subdomain, .add = TRUE) |>
-    mutate(z_mean_subdomain = mean(z), z_sd_subdomain = sd(z)) |>
-    ungroup() |>
+    dplyr::group_by(subdomain, .add = TRUE) |>
+    dplyr::mutate(z_mean_subdomain = mean(z), z_sd_subdomain = sd(z)) |>
+    dplyr::ungroup() |>
     # narrow
-    group_by(narrow, .add = TRUE) |>
-    mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) |>
-    ungroup() |>
+    dplyr::group_by(narrow, .add = TRUE) |>
+    dplyr::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) |>
+    dplyr::ungroup() |>
     # pass
-    group_by(pass, .add = TRUE) |>
-    mutate(z_mean_pass = mean(z), z_sd_pass = sd(z)) |>
-    ungroup() |>
+    dplyr::group_by(pass, .add = TRUE) |>
+    dplyr::mutate(z_mean_pass = mean(z), z_sd_pass = sd(z)) |>
+    dplyr::ungroup() |>
     # verbal
-    group_by(verbal, .add = TRUE) |>
-    mutate(z_mean_verbal = mean(z), z_sd_verbal = sd(z)) |>
-    ungroup() |>
+    dplyr::group_by(verbal, .add = TRUE) |>
+    dplyr::mutate(z_mean_verbal = mean(z), z_sd_verbal = sd(z)) |>
+    dplyr::ungroup() |>
     # timed
-    group_by(timed, .add = TRUE) |>
-    mutate(z_mean_timed = mean(z), z_sd_timed = sd(z)) |>
-    ungroup()
+    dplyr::group_by(timed, .add = TRUE) |>
+    dplyr::mutate(z_mean_timed = mean(z), z_sd_timed = sd(z)) |>
+    dplyr::ungroup()
 
   # Subset neurobehavioral data
   neurobehav <-
     neuropsych |>
-    filter(test_type == "rating_scale") |>
+    dplyr::filter(test_type == "rating_scale") |>
     # domain
-    group_by(domain, .add = TRUE) |>
-    mutate(z_mean_domain = mean(z), z_sd_domain = sd(z)) |>
-    ungroup() |>
+    dplyr::group_by(domain, .add = TRUE) |>
+    dplyr::mutate(z_mean_domain = mean(z), z_sd_domain = sd(z)) |>
+    dplyr::ungroup() |>
     # subdomain
-    group_by(subdomain, .add = TRUE) |>
-    mutate(z_mean_subdomain = mean(z), z_sd_subdomain = sd(z)) |>
-    ungroup() |>
+    dplyr::group_by(subdomain, .add = TRUE) |>
+    dplyr::mutate(z_mean_subdomain = mean(z), z_sd_subdomain = sd(z)) |>
+    dplyr::ungroup() |>
     # narrow
-    group_by(narrow, .add = TRUE) |>
-    mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) |>
-    ungroup()
+    dplyr::group_by(narrow, .add = TRUE) |>
+    dplyr::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) |>
+    dplyr::ungroup()
 
   # Subset validity data
   validity <-
     neuropsych |>
-    filter(
+    dplyr::filter(
       test_type %in% c("performance_validity", "symptom_validity")
     ) |>
     # domain
-    group_by(domain, .add = TRUE) |>
-    mutate(z_mean_domain = mean(z), z_sd_domain = sd(z)) |>
-    ungroup() |>
+    dplyr::group_by(domain, .add = TRUE) |>
+    dplyr::mutate(z_mean_domain = mean(z), z_sd_domain = sd(z)) |>
+    dplyr::ungroup() |>
     # subdomain
-    group_by(subdomain, .add = TRUE) |>
-    mutate(z_mean_subdomain = mean(z), z_sd_subdomain = sd(z)) |>
-    ungroup() |>
+    dplyr::group_by(subdomain, .add = TRUE) |>
+    dplyr::mutate(z_mean_subdomain = mean(z), z_sd_subdomain = sd(z)) |>
+    dplyr::ungroup() |>
     # narrow
-    group_by(narrow, .add = TRUE) |>
-    mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) |>
-    ungroup()
+    dplyr::group_by(narrow, .add = TRUE) |>
+    dplyr::mutate(z_mean_narrow = mean(z), z_sd_narrow = sd(z)) |>
+    dplyr::ungroup()
 
   # Write processed data to CSVs
-  write_csv(neuropsych, here(patient, "neuropsych.csv"))
-  write_csv(neurocog, here(patient, "neurocog.csv"))
-  write_csv(neurobehav, here(patient, "neurobehav.csv"))
-  write_csv(validity, here(patient, "validity.csv"))
+  readr::write_csv(neuropsych, here::here(patient, "neuropsych.csv"))
+  readr::write_csv(neurocog, here::here(patient, "neurocog.csv"))
+  readr::write_csv(neurobehav, here::here(patient, "neurobehav.csv"))
+  readr::write_csv(validity, here::here(patient, "validity.csv"))
 
-  return(list(
-    "neuropsych" = neuropsych,
-    "neurocog" = neurocog,
-    "neurobehav" = neurobehav,
-    "validity" = validity
-  ))
+  # return(list(
+  #   "neuropsych" = neuropsych,
+  #   "neurocog" = neurocog,
+  #   "neurobehav" = neurobehav,
+  #   "validity" = validity
+  # ))
 }
 
 
