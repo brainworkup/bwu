@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from NAB-Screener (NAB-S)"
 params:
-  patient: Biggie
+  patient: Bridget
   test:
     label: "Test"
     value: nabs
@@ -23,7 +23,8 @@ params:
   pages: [2,5,6,7,8,8]
   table1:
     label: "NAB Index Score Summary Table"
-    value: ""
+    value: [NAB Attention Index, NAB Language Index, NAB Memory Index, NAB
+    Spatial Index, NAB Executive Functions Index, NAB Total Index]
     input: select
     multiple: yes
     choices:
@@ -41,7 +42,7 @@ params:
       - NAB Total Index      
   table2:
     label: "NAB Attention"
-    value: ""
+    value: ["Orientation", "Orientation to Self", "Orientation to Time", "Orientation to Place", "Orientation to Situation", "Digits Forward", "Digits Forward Longest Span", "Digits Backward", "Digits Backward Longest Span", "Numbers & Letters Part A Speed", "Numbers & Letters Part A Errors", "Numbers & Letters Part A Efficiency", "Numbers & Letters Part B Efficiency"]
     input: select
     multiple: yes
     choices:
@@ -67,7 +68,6 @@ params:
     input: select
     multiple: yes
     choices:
-      - "Oral Production"
       - "Auditory Comprehension"
       - "Auditory Comprehension Colors"
       - "Auditory Comprehension Shapes"
@@ -75,7 +75,8 @@ params:
       - "Naming"
       - "Naming Semantic Cuing"
       - "Naming Phonemic Cuing"
-      - "Reading Comprehension" # check
+      - "Oral Production"
+      - "Reading Comprehension"
       - "Writing"
       - "Bill Payment"
   table4:
@@ -108,10 +109,10 @@ params:
     multiple: yes
     choices:
       - "Mazes"
-      - "Judgment"
-      - "Categories"
       - "Word Generation"
       - "Word Generation Perseverations"
+      - "Judgment"
+      - "Categories"
   column_names1:
     label: "Table 1 Column Names"
     value: [scale, score, percentile, ci_95, category]
@@ -298,7 +299,7 @@ saveRDS(area, here::here(patient, "pre_csv", "area_nabs.rds"))
 area <- readRDS(here::here(patient, "pre_csv", "area_nabs.rds"))
 ```
 
-## Extract tables
+# Extract tables
 
 ```{r extract}
 plucked_tables <- bwu::gpluck_extract_tables(
@@ -420,7 +421,7 @@ if (params$test == "nabs") {
   table3[4, 1] <- c("Writing")
   table3[5, 1] <- c("Bill Payment")
 }
-# table3[1, 5] <- 1
+table3[5, 5] <- 1
 ```
 
 # NAB Memory
@@ -1470,16 +1471,25 @@ nabs <- dplyr::bind_rows(
 ## Slice/Reorder table
 
 ```{r reorder, eval = params$slice}
-nabs <-
-  nabs |>
-  dplyr::slice(
-    index = (6),
-    att = c(1, 7, 12:19),
-    lan = c(2, 20, 24),
-    mem = c(3, 27:32),
-    spt = c(4, 33:34),
-    exe = c(5, 35:37)
-  )
+
+# Concatenate the indices into a single vector
+row_indices <- c(6, 1, 7, 12:19, 2, 20, 24, 3, 27:32, 4, 33:34, 5, 35:37)
+
+# Use slice to select the rows by these indices
+nabs <- nabs |>
+  dplyr::slice(row_indices)
+
+
+# nabs <-
+#   nabs |>
+#   dplyr::slice(
+#     index = (6),
+#     att = c(1, 7, 12:19),
+#     lan = c(2, 20, 24),
+#     mem = c(3, 27:32),
+#     spt = c(4, 33:34),
+#     exe = c(5, 35:37)
+#   )
 ```
 
 ## Write final csv table
@@ -1497,9 +1507,13 @@ if (any(is.na(nabs$percentile))) {
 ```{r writeout-g}
 table <- nabs
 test <- "g"
-dplyr::fwrite(
+vroom::vroom_write(
   table,
-  here::here(patient, paste0(test, ".csv")),
-  append = TRUE
+  here::here(patient, paste0("csv/", test, ".csv")),
+  delim = ",",
+  append = TRUE,
+  bom = TRUE,
+  col_names = TRUE,
+  na = ""
 )
 ```

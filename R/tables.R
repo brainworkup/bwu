@@ -29,7 +29,6 @@
 #' @return A formatted table with domain counts.
 #' @rdname tbl_gt
 #' @export
-# Hypothetical modified bwu::tbl_gt function
 tbl_gt <-
   function(data,
            pheno = NULL,
