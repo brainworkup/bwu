@@ -176,6 +176,7 @@ params:
         - Delayed Recall
       Motor:
         - Fine Motor Dexterity
+        - Gross Motor Functioning
       Effort:
         - Performance Validity
         - Symptom Validity
@@ -678,7 +679,7 @@ vroom::vroom_write(
   table,
   here::here(patient, "csv", paste0(test, ".csv")),
   delim = ",",
-  append = TRUE,
+  append = FALSE,
   bom = TRUE,
   na = ""
 )
@@ -689,7 +690,7 @@ table <- data
 test <- "g"
 vroom::vroom_write(
   table,
-  here::here(patient, paste0(test, ".csv")),
+  here::here(patient, "csv", paste0(test, ".csv")),
   delim = ",",
   append = TRUE,
   bom = TRUE,

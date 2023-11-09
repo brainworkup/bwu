@@ -2,7 +2,7 @@
 % Please edit documentation in R/neuropsych_test_scoring.R
 \name{rocft_recall_t_score}
 \alias{rocft_recall_t_score}
-\title{Rey Complex Figure, Delayed Recall Score Lookup}
+\title{Rey Complex Figure, Long-Term Delayed Recall Score Lookup}
 \usage{
 rocft_recall_t_score(age, raw_score)
 }
