@@ -1,5 +1,5 @@
 ---
-title: "Plant CSV file of Neuropsych Measures/Tests"
+title: "Plant Validity Indicators"
 params:
   patient:
     label: "Patient First Name:"
@@ -7,104 +7,82 @@ params:
     input: text
   test_name:
     label: "Full Name of Test/Test Battery:"
-    value: NIH EXAMINER
+    value: ""
     input: radio
     choices:
-      - NIH EXAMINER
-      - Rey Complex Figure
-      - Test of Premorbid Functioning
-      - Trail Making Test
-      - NAB
-      - ACS Social Cognition
-      - ACS Word Choice
-      - D-KEFS
-      - Grooved Pegboard
-      - KTEA-3
-      - NEPSY-2
-      - WMS-IV
-      - Cognitive Estimation Test
-      - "Raven's 2"
+      Performance Validity:
+        - ACS Word Choice
+        - Reliable Digit Span
+        - CVLT-3
+        - PAI
+        - TOMM
+        - DCT
+      Symptom Validity:
+        - CAARS Self-Report
+        - CAARS Observer-Report
+        - CEFI Self-Report
+        - CEFI Observer-Report
   test:
     label: "Test/Measure File Name:"
     value: ""
     input: radio
     choices:
-      - examiner
-      - rocft
-      - topf
-      - tmt
-      - nab
-      - social_cognition
+      - caars_sr
+      - caars_or
+      - cefi_sr
+      - cefi_or
       - word_choice
-      - dkefs
-      - ktea3
-      - pegboard
-      - nepsy2
-      - wms4
-      - cet
-      - ravens
+      - rds
+      - cvlt3_brief
+      - pai
+      - tomm
+      - dct
   scale:
     label: "Scale/Subtest:"
     value: Select Scale
     input: select
     choices:
-      Examiner:
-        - Unstructured Task
-        - Letter Fluency
-        - Category Fluency
-      Rey Complex Figure:
-        - ROCFT Copy
-        - ROCFT Delayed Recall
-      Trail Making Test:
-        - TMT, Part A
-        - TMT, Part B
       ACS:
-        - TOPF Standard Score
         - ACS Word Choice
-        - Affect Naming
-      NAB:
-        - Mazes
-        - Judgment
-        - Categories
-        - Word Generation
-        - Dots
-        - Numbers & Letters Part A Efficiency
-        - Numbers & Letters Part B Efficiency
-        - Numbers & Letters Part C Efficiency
-        - Numbers & Letters Part D Efficiency
-        - Driving Scenes
-      NEPSY-2:
-        - Comprehension of Instructions
-        - Visuomotor Precision
-        - Word Generation-Semantic
-        - Word Generation-Initial Letter
-        - Semantic vs. Initial Letter
-        - Narrative Memory Free and Cued Recall
-        - Narrative Memory Free Recall
-        - Narrative Memory Recognition
-        - List Memory
-        - Driving Scenes
-      DKEFS:
-        - D-KEFS Color Naming
-        - D-KEFS Word Reading
-        - D-KEFS Inhibition
-        - D-KEFS Switching
-        - D-KEFS Inhibition Total Errors
-        - D-KEFS Switching Total Errors
-      WMS-IV:
-        - Symbol Span
-        - Spatial Addition
-      Grooved Pegboard:
-        - Dominant Hand
-        - Nondominant Hand
-      KTEA-3:
-        - Decoding Fluency
-        - Nonsense Word Decoding
-        - Reading Comprehension
-      Cognitive Estimation:
-        - Deviation Score
-      Ravens 2:
-        - "Raven's 2 Index Score"
+        - Word Choice Correct
+        - Reliable Digit Span
+      CVLT3:
+        - CVLT-3 Forced-Choice Recognition Hits
+      DCT:
+        - E-Score
+      TOMM:
+        - TOMM Trial 1
+        - TOMM Trial 2
+      ADHD:
+        - Inconsistency Index
+        - CAARS-SR Inconsistency Index
+        - CAARS-OR Inconsistency Index
+      Executive Functioning:
+        - Consistency Index
+        - Negative Impression
+        - Consistency Index
+        - Negative Impression
+        - CEFI-SR Consistency Index
+        - CEFI-SR Negative Impression
+        - CEFI-OR Consistency Index
+        - CEFI-OR Negative Impression
+      PAI Validity Scales:
+        - Inconsistency Index
+        - Infrequency Index
+        - Negative Impression Management
+        - Positive Impression Management
+        - Malingering Index
+        - Rogers Discriminant Function
+        - Negative Distortion Scale
+        - Hong Malingering Index
+        - Multiscale Feigning Index
+        - Malingered Pain-Related Disability Discriminant Function
+        - Defensiveness Index
+        - Cashel Discriminant Function
+        - Positive Distortion Scale
+        - Hong Defensiveness Index
+        - Back Random Responding
+        - Hong Randomness Index
   raw_score:
     label: "Raw score:"
     value: 10
@@ -115,155 +93,70 @@ params:
     input: numeric
   score_type:
     label: "Type of Test Score:"
-    value: ""
+    value: raw_score
     input: radio
     choices:
+      - raw_score
       - z_score
       - scaled_score
       - t_score
       - standard_score
-      - raw_score
       - beta_coefficient
   domain:
     label: "Domain:"
     value: Select domain
     input: radio
     choices:
-      - Intelligence/General Ability
-      - Academic Skills
-      - Verbal/Language
-      - Visual Perception/Construction
-      - Attention/Executive
-      - Memory
-      - Motor
-      - Social Cognition
-      - ADHD/Executive Functioning
-      - Behavioral/Emotional/Social
-      - Personality Disorders
-      - Psychiatric Disorders
-      - Substance Use Disorders
-      - Psychosocial Problems
-      - ADHD
-      - Executive Dysfunction
-      - Effort/Validity
+      - Performance Validity
+      - Symptom Validity
   subdomain:
     label: "Subdomain:"
-    value: Select Subdomain
+    value: "NULL"
     input: select
     choices:
-      General Ability:
-        - Crystallized Intelligence
-        - Cognitive Proficiency
-        - Neuropsychological Functioning
-        - Premorbid Ability
-        - Fluid Reasoning
-      Attention/Executive:
-        - Attentional Functioning
-        - Executive Functioning
-        - Working Memory
-        - Processing Speed
-      Verbal:
-        - Word Fluency
-        - Listening Ability
-        - Word Retrieval
-      Spatial:
-        - Organization
-        - Reasoning
-        - Perception
-        - Construction
-      Memory:
-        - Learning Efficiency
-        - Delayed Recall
-      Motor:
-        - Fine Motor Dexterity
-        - Gross Motor Functioning
-      Effort:
-        - Performance Validity
-        - Symptom Validity
-      Social Cognition:
-        - Affect Recognition
-        - Social Perception
+      Performance Validity:
+        - Cognitive Effort
+      Symptom Validity:
+        - Response Inconsistency
+        - Negative Impression
+        - Positive Impression
   narrow:
     label: "Narrow subdomain:"
-    value: Select Narrow Subdomain
+    value: Select domain
     input: select
     choices:
-      General Cognition:
-        - General Ability
-        - Word Reading
-        - General Ability Index
-        - Crystallized Knowledge Index
-        - Fluid Reasoning Index
-        - Cognitive Proficiency Index
-        - Working Memory Index
-        - Processing Speed Index
-      Attention:
-        - Attentional Capacity
-        - Attentional Fluency
-        - Response Monitoring
-        - Attention Span
-        - Divided Attention
-        - Selective Attention
-      Executive Functioning:
-        - Planning
-        - Judgment
-        - Concept Formation
-        - Generativity
-        - Executive Functions Index
-        - Strategic Planning
-        - Abstract Reasoning
-        - Inhibition
-        - Set-Shifting
-        - Decision-Making
-        - Cognitive Control
-        - Cognitive Flexibility
-        - ""
-      Working Memory:
-        - Working Memory Capacity
-        - Verbal Working Memory
-        - Nonverbal Working Memory
-        - Working Memory Index
-        - Working Memory
-      Processing Speed:
-        - Psychomotor Speed
-        - Cognitive Efficiency
-        - Processing Speed Index
-      Language:
-        - Phonemic Fluency
-        - Semantic Fluency
-        - Word Generation
-        - Naming Facility
-        - Verbal Reasoning
-      Spatial:
-        - Figure Copy
-        - Visual Perception
-        - Figure Construction
-        - Perceptual Organization
-        - Nonverbal Reasoning
-        - Visuomotor Integration
-      Memory:
-        - Visual Memory
-        - Story Memory
-        - Word-List Learning
-        - Recognition Memory
-      Social Cognition:
-        - Social Perception
-        - Affect Naming
-        - Prosody-Face Matching
-        - Prosody-Pair Matching
-      Effort:
-        - Embedded
-        - Standalone
-      Motor:
-        - Dominant Hand Dexterity
-        - Nondominant Hand Dexterity
-      Academics:
-        - Reading Comprehension
-        - Reading Decoding
-        - Reading Speed
+      ADHD/EF:
+        - CAARS-OR Inconsistency Index
+        - CAARS-SR Inconsistency Index
+        - CEFI-OR Consistency Index
+        - CEFI-OR Negative Impression
+        - CEFI-SR Consistency Index
+        - CEFI-SR Negative Impression
+      Cognitive Performance:
+        - Word Choice Correct
+        - Reliable Digit Span
+        - CVLT-3 Forced-Choice Recognition Hits
+        - Dot Counting E-Score
+      Personality Assessment:
+        - Inconsistency Index
+        - Infrequency Index
+        - Negative Impression Management
+        - Positive Impression Management
+        - Malingering Index
+        - Rogers Discriminant Function
+        - Negative Distortion Scale
+        - Hong Malingering Index
+        - Multiscale Feigning Index
+        - Malingered Pain-Related Disability Discriminant Function
+        - Defensiveness Index
+        - Cashel Discriminant Function
+        - Positive Distortion Scale
+        - Hong Defensiveness Index
+        - Back Random Responding
+        - Hong Randomness Index
   pass:
     label: "PASS:"
-    value: Planning
+    value: ""
     input: radio
     choices:
       - Planning
@@ -271,17 +164,16 @@ params:
       - Sequential
       - Simultaneous
       - Knowledge
-      - Other
   verbal:
     label: "Verbal or Nonverbal Test:"
-    value: Verbal
+    value: ""
     input: radio
     choices:
       - Verbal
       - Nonverbal
   timed:
     label: "Timed or Untimed Test:"
-    value: Timed
+    value: ""
     input: radio
     choices:
       - Timed
@@ -298,14 +190,14 @@ params:
     choices: [1, 3, 10, 15]
   reliability:
     label: "Reliability:"
-    value: 0.85
+    value: 0.90
     input: slider
     min: 0
     max: 1
     step: 0.01
   test_type:
     label: "Test Type:"
-    value: npsych_test
+    value: validity_indicator
     input: radio
     choices:
       - npsych_test
