@@ -30,7 +30,7 @@ params:
     label: "No file selected"
     value: file
     input: file
-  pages: [2,4,4,4,4,6,6]
+  pages: [2,4,4,4,4]
   table1:
     label: "Index Scores"
     value: ""
@@ -173,7 +173,7 @@ params:
 # Domains to evaluate or not
   eval_iq:
     label: "General Cognitive Ability"
-    value: FALSE
+    value: TRUE
   eval_vci:
     label: "Verbal/Language"
     value: TRUE
@@ -248,6 +248,7 @@ patient <- params$patient
 
 ```{r test}
 test <- params$test
+test_name <- params$test_name
 ```
 
 ## Version
@@ -260,7 +261,8 @@ version <- params$version
 
 ```{r choose}
 # file <- file.choose()
-file <- params$file
+# file <- params$file
+file <- file.path(params$file)
 ```
 
 ## Pages
@@ -270,12 +272,35 @@ pages <- params$pages
 ```
 
 ```{r write-file}
-writeLines(file, here::here(patient, "pre_csv", "wais4_pdf"))
+# writeLines(file, here::here(patient, "pre_csv", "wais4_pdf"))
 ```
 
 ```{r read-file}
 # file <- readLines(here::here(patient, "pre_csv", "wais4_pdf"))
 ```
+
+
+## Extract Areas with Tabulizer
+
+```{r eval=FALSE}
+library(tabulizer)
+
+f <- file.path("")
+
+# locate areas and extract
+plucked_tables <- extract_areas(
+  file = f,
+  pages = c(2, 3, 3, 3, 3),
+  method = "stream",
+  output = "matrix"
+)
+
+# Loop over the list and write each matrix to a CSV file
+for (i in seq_along(plucked_tables)) {
+  write.csv(plucked_tables[[i]], file = paste0("table_", i, ".csv"), row.names = FALSE)
+}
+```
+
 
 ## Locate areas
 
@@ -327,14 +352,13 @@ if (params$version == "full") {
 
 ```{r read-area}
 # area <- readRDS(here::here(patient, "pre_csv", "area_wais4.rds"))
-# 
 # area <- list(area)
 ```
 
 ## Extract tables
 
 ```{r extract}
-plucked_table <- bwu::gpluck_extract_table(
+plucked_tables <- bwu::gpluck_extract_table(
   file = file,
   pages = pages,
   area = area,
@@ -342,6 +366,14 @@ plucked_table <- bwu::gpluck_extract_table(
   method = "stream",
   output = "matrix"
 )
+
+# Save the entire list to an R data file
+save(plucked_tables, file = "plucked_tables.RData")
+```
+
+```{r}
+# Load the entire list from an R data file
+load("plucked_tables.RData")
 ```
 
 # WAIS-IV Index Scores (Table 1)
@@ -349,10 +381,20 @@ plucked_table <- bwu::gpluck_extract_table(
 ## Pluck and tidy tables
 
 ```{r pluck1, eval = params$eval_iq}
-table1 <- tibble::as_tibble(plucked_table[[1]])
-colnames(table1) <- params$colnames1
+# Assuming you have plucked_tables and params already defined
+
+# Convert to data.frame
+table1 <- as.data.frame(plucked_tables[[1]])
+
+# Rename columns
+colnames1 <- params[["colnames1"]]
+colnames(table1) <- colnames1
+
+# Convert columns to double
 to_double <- c("raw_score", "score", "percentile")
-table1 <- table1 |> hablar::convert(dbl(all_of(to_double)))
+table1[to_double] <- lapply(table1[to_double], as.numeric)
+
+
 table1[, 1] <- (params$table1)
 table1 <- table1 |> dplyr::select(all_of(params$keep1))
 ```
@@ -564,9 +606,9 @@ table1 <- table1 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 
 ```{r pluck2, eval = params$eval_vci}
 if (params$version == "brief") {
-  table2 <- as.data.frame(plucked_table[[1]])
+  table2 <- as.data.frame(plucked_tables[[1]])
 } else if (params$version == "full") {
-  table2 <- as.data.frame(plucked_table[[2]])
+  table2 <- as.data.frame(plucked_tables[[2]])
 }
 colnames(table2) <- params$colnames2
 to_double <- c("raw_score", "score", "percentile")
@@ -602,7 +644,8 @@ table2 <- bwu::gpluck_make_columns(
 ```{r ranges2, eval = params$eval_vci}
 table2 <- bwu::gpluck_make_score_ranges(
   table = table2,
-  test_type = "npsych_test")
+  test_type = "npsych_test"
+)
 ```
 
 ## Subdomains
@@ -681,9 +724,9 @@ table2 <- table2 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 
 ```{r pluck3, eval = params$eval_pri}
 if (params$version == "brief") {
-  table3 <- as.data.frame(plucked_table[[2]])
+  table3 <- as.data.frame(plucked_tables[[2]])
 } else if (params$version == "full") {
-  table3 <- as.data.frame(plucked_table[[3]])
+  table3 <- as.data.frame(plucked_tables[[3]])
 }
 colnames(table3) <- params$colnames2
 to_double <- c("raw_score", "score", "percentile")
@@ -812,9 +855,9 @@ table3 <- table3 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 
 ```{r pluck4, eval = params$eval_wmi}
 if (params$version == "brief") {
-  table4 <- as.data.frame(plucked_table[[3]])
+  table4 <- as.data.frame(plucked_tables[[3]])
 } else if (params$version == "full") {
-  table4 <- as.data.frame(plucked_table[[4]])
+  table4 <- as.data.frame(plucked_tables[[4]])
 }
 colnames(table4) <- params$colnames2
 to_double <- c("raw_score", "score", "percentile")
@@ -950,9 +993,9 @@ table4 <- table4 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 
 ```{r pluck5, eval = params$eval_psi}
 if (params$version == "brief") {
-  table5 <- as.data.frame(plucked_table[[4]])
+  table5 <- as.data.frame(plucked_tables[[4]])
 } else if (params$version == "full") {
-  table5 <- as.data.frame(plucked_table[[5]])
+  table5 <- as.data.frame(plucked_tables[[5]])
 }
 colnames(table5) <- params$colnames2
 to_double <- c("raw_score", "score", "percentile")
@@ -1073,9 +1116,9 @@ table5 <- table5 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 
 ```{r pluck6, eval = params$eval_bd}
 if (params$version == "brief") {
-  table6 <- as.data.frame(plucked_table[[5]])
+  table6 <- as.data.frame(plucked_tables[[5]])
 } else if (params$version == "full") {
-  table6 <- as.data.frame(plucked_table[[6]])
+  table6 <- as.data.frame(plucked_tables[[6]])
 }
 colnames(table6) <- params$colnames3
 to_double <- c("raw_score", "score", "percentile")
@@ -1152,9 +1195,9 @@ table6 <- table6 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 
 ```{r pluck7, eval = params$eval_span}
 if (params$version == "brief") {
-  table7 <- as.data.frame(plucked_table[[6]])
+  table7 <- as.data.frame(plucked_tables[[6]])
 } else if (params$version == "full") {
-  table7 <- as.data.frame(plucked_table[[7]])
+  table7 <- as.data.frame(plucked_tables[[7]])
 }
 colnames(table7) <- params$colnames4
 to_double <- c("raw_score", "score", "percentile")
@@ -1299,7 +1342,9 @@ table7 <-
 table7 <-
   table7 |>
   dplyr::relocate(
-    c(raw_score, score, percentile, range, ci_95), .before = test)
+    c(raw_score, score, percentile, range, ci_95),
+    .before = test
+  )
 ```
 
 # Finalize and save csv
@@ -1309,7 +1354,7 @@ table7 <-
 ```{r merge}
 if (params$version == "full") {
   wais4 <-
-    dplyr::bind_rows(table1, table2, table3, table6, table4, table7, table5)
+    dplyr::bind_rows(table1, table2, table3, table4, table5)
 }
 if (params$version == "brief") {
   wais4 <-
@@ -1371,10 +1416,11 @@ readr::write_csv(wais4, here::here(patient, "csv", "wais4.csv"))
 
 ```{r writeout-g}
 table <- wais4
-test <- "g"
-readr::write_csv(
+test <- "g2"
+file_path <- here::here(patient, "csv", paste0(test, ".csv"))
+tidytable::fwrite(
   table,
-  here::here(patient, paste0(test, ".csv")),
+  file_path,
   append = TRUE
 )
 ```

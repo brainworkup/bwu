@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from NAB-Screener (NAB-S)"
 params:
-  patient: Bridget
+  patient: Biggie
   test:
     label: "Test"
     value: nabs
@@ -287,8 +287,10 @@ area <- list(
 ```{r areas-get, eval = FALSE}
 # if unknown
 file <- file.choose()
-area2 <- bwu::gpluck_locate_areas(file = file,
-  pages = c(2, 5, 6, 7, 8, 8))
+area2 <- bwu::gpluck_locate_areas(
+  file = file,
+  pages = c(2, 5, 6, 7, 8, 8)
+)
 ```
 
 ```{r s-area}
@@ -319,7 +321,8 @@ table1 <- tibble::as_tibble(plucked_tables[[1]])
 colnames(table1) <- params$column_names1
 table1$raw_score <- ""
 to_double <- c("raw_score", "score", "percentile")
-table1 <- table1 |> hablar::convert(dbl(all_of(to_double))) |>
+table1 <- table1 |>
+  hablar::convert(dbl(all_of(to_double))) |>
   dplyr::relocate(raw_score, .before = score)
 ```
 
@@ -697,7 +700,7 @@ table1 <-
 #       scale == "Word Generation" ~ "Verbal/Language",
 #       TRUE ~ as.character(domain)
 #     )
-#   )  
+#   )
 ```
 
 ## Subdomains
@@ -1471,7 +1474,6 @@ nabs <- dplyr::bind_rows(
 ## Slice/Reorder table
 
 ```{r reorder, eval = params$slice}
-
 # Concatenate the indices into a single vector
 row_indices <- c(6, 1, 7, 12:19, 2, 20, 24, 3, 27:32, 4, 33:34, 5, 35:37)
 
@@ -1506,14 +1508,11 @@ if (any(is.na(nabs$percentile))) {
 
 ```{r writeout-g}
 table <- nabs
-test <- "g"
-vroom::vroom_write(
+test <- "g2"
+file_path <- here::here(patient, "csv", paste0(test, ".csv"))
+tidytable::fwrite(
   table,
-  here::here(patient, paste0("csv/", test, ".csv")),
-  delim = ",",
-  append = TRUE,
-  bom = TRUE,
-  col_names = TRUE,
-  na = ""
+  file_path,
+  append = TRUE
 )
 ```
