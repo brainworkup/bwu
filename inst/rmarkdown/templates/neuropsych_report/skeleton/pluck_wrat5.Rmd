@@ -9,20 +9,20 @@ params:
     multiple: no
     choices:
       - wrat5
-      - wisc5
+      - wrat4
   test_name:
     label: "Test Name"
     value: [WRAT-5]
     input: select
     multiple: no
     choices:
-      - WRAT-5
-      - WISC-V
+      - "WRAT-5"
+      - "WRAT-4"
   file:
     label: "No file selected"
     value: file
     input: file
-  pages: [2,4,4,4,4]
+  pages: [8]
   table1:
     label: "SCORE SUMMARY"
     value: [Word Reading]
@@ -57,17 +57,6 @@ params:
       - score
       - percentile
       - ci_95
-  keep2:
-    label: "Variables to Keep, Set 2"
-    value: [scale, raw_score, score, ci_95, percentile]
-    input: select
-    multiple: yes
-    choices:
-      - scale
-      - raw_score
-      - score
-      - ci_95
-      - percentile
 # Domains to evaluate or not
   eval_iq:
     label: "General Cognitive Ability"
@@ -114,7 +103,6 @@ library(bwu)
 library(hablar)
 library(here)
 library(knitr)
-library(magrittr)
 library(readr)
 library(rJava)
 library(rmarkdown)
@@ -122,7 +110,6 @@ library(rmdformats)
 library(shiny)
 library(snakecase)
 library(tabulizer)
-library(tabulizerjars)
 library(tibble)
 library(tidyr)
 library(dplyr)
@@ -139,12 +126,6 @@ patient <- params$patient
 ```{r test}
 test <- params$test
 test_name <- params$test_name
-```
-
-## Version
-
-```{r version}
-version <- params$version
 ```
 
 ## Upload/attach PDF
@@ -169,13 +150,12 @@ pages <- params$pages
 # file <- readLines(here::here(patient, "pre_csv", "wais4_pdf"))
 ```
 
-
 ## Extract Areas with Tabulizer
 
 ```{r eval=FALSE}
 library(tabulizer)
 
-f <- file.path("")
+f <- file.path("/Users/joey/neuropsychology/Bridget/pdf/ADHD-MCAT Eval Young Adult-505986fe-aa3d-4a6b-8cfc-4e7c7f93129d.pdf")
 
 # locate areas and extract
 plucked_tables <- extract_areas(
@@ -186,27 +166,20 @@ plucked_tables <- extract_areas(
 )
 
 # Loop over the list and write each matrix to a CSV file
+test <- "wrat5"
 for (i in seq_along(plucked_tables)) {
-  write.csv(plucked_tables[[i]], file = paste0("table_", i, ".csv"), row.names = FALSE)
+  write.csv(plucked_tables[[i]], file = paste0(test, "_", i, ".csv"), row.names = FALSE)
 }
-```
 
+# Save the entire list to an R data file
+save(plucked_tables, file = "plucked_tables_wrat5.RData")
+```
 
 ## Locate areas
 
-```{r areas-known}
+```{r areas-known, eval = FALSE}
 # if known
-
 area <- list(c(149, 53, 224, 559))
-```
-
-```{r areas-get, eval = FALSE}
-# if unknown
-# file <- file.choose()
-# area <- bwu::gpluck_locate_areas(
-#   file = file,
-#   pages = c(2,4,4,4,4,6,6)
-# )
 ```
 
 ```{r write-area}
@@ -223,7 +196,7 @@ area <- list(c(149, 53, 224, 559))
 
 ## Extract tables
 
-```{r extract}
+```{r extract-tables, eval = FALSE}
 plucked_tables <- bwu::gpluck_extract_table(
   file = file,
   pages = pages,
@@ -233,13 +206,11 @@ plucked_tables <- bwu::gpluck_extract_table(
   output = "matrix"
 )
 
-# Save the entire list to an R data file
-save(plucked_tables, file = "plucked_tables_wrat5.RData")
 ```
 
 ```{r}
 # Load the entire list from an R data file
-load("plucked_tables.RData")
+load("plucked_tables_wrat5.RData")
 ```
 
 # WRAT-5 (Table 1)
@@ -250,19 +221,19 @@ load("plucked_tables.RData")
 # Assuming you have plucked_tables and params already defined
 
 # Convert to data.frame
-table1 <- as.data.frame(plucked_tables[[1]])
+table <- as.data.frame(plucked_tables[[1]])
 
 # Rename columns
 colnames1 <- params[["colnames1"]]
-colnames(table1) <- colnames1
+colnames(table) <- colnames1
 
 # Convert columns to double
 to_double <- c("raw_score", "score", "percentile")
-table1[to_double] <- lapply(table1[to_double], as.numeric)
+table[to_double] <- lapply(table[to_double], as.numeric)
 
 
-table1[, 1] <- (params$table1)
-table1 <- table1 |> dplyr::select(all_of(params$keep1))
+table[, 1] <- (params$table)
+table <- table |> dplyr::select(all_of(params$keep1))
 ```
 
 ## Mutate columns
@@ -270,8 +241,8 @@ table1 <- table1 |> dplyr::select(all_of(params$keep1))
 ```{r mutate1, eval = params$eval_iq}
 domain <- "Academic Skills"
 timed <- "Untimed"
-table1 <- bwu::gpluck_make_columns(
-  table1,
+table <- bwu::gpluck_make_columns(
+  table,
   range = "",
   test = params$test,
   test_name = params$test_name,
@@ -291,10 +262,8 @@ table1 <- bwu::gpluck_make_columns(
 ## Test score ranges
 
 ```{r range1, eval = params$eval_iq}
-table1 <- bwu::gpluck_make_score_ranges(table = table1, test_type = "npsych_test")
+table <- bwu::gpluck_make_score_ranges(table = table, test_type = "npsych_test")
 ```
-
-
 
 ## Subdomains
 
@@ -338,10 +307,10 @@ table <-
   mutate(
     pass = case_when(
       scale == "Math Computation" ~ "Simultaneous",
-      scale == "Spelling" ~ "Successive",
-      scale == "Word Reading" ~ "Successive",
-      scale == "Sentence Comprehension" ~ "Successive",
-      scale == "Reading Composite" ~ "Successive",
+      scale == "Spelling" ~ "Sequential",
+      scale == "Word Reading" ~ "Sequential",
+      scale == "Sentence Comprehension" ~ "Sequential",
+      scale == "Reading Composite" ~ "Sequential",
       TRUE ~ as.character(pass)
     )
   )
@@ -388,27 +357,24 @@ table <-
   table |>
   dplyr::mutate(
     description = dplyr::case_when(
-      scale == "Math Computation" ~ "paper-and-pencil math calculation",
-      scale == "Spelling" ~ "spelling words from dictations",
-      scale == "Word Reading" ~ "word reading/decoding on a word recognition test",
-      scale == "Sentence Comprehension" ~ "reading passage comprehension",
-      scale == "Reading Composite" ~ "general reading performance",
+      scale == "Math Computation" ~ "Paper-and-pencil math calculation",
+      scale == "Spelling" ~ "Spelling words from dictations",
+      scale == "Word Reading" ~ "Word reading/decoding on a word recognition test",
+      scale == "Sentence Comprehension" ~ "Reading passage comprehension",
+      scale == "Reading Composite" ~ "General reading performance",
       TRUE ~ as.character(description)
     )
   )
 ```
 
-
 ## Glue result
 
 ```{r result1}
-table1 <-
-  table1 |>
+table <-
+  table |>
   dplyr::mutate(
     result = dplyr::case_when(
-      scale == "Math Computation" ~ glue::glue(
-        "{description} was {range} overall.\n"
-      ),
+      scale == "Math Computation" ~ glue::glue("{description} was {range} overall.\n"),
       scale == "Spelling" ~ glue::glue(
         "{description} was {range} and ranked at the {percentile}th percentile, indicating performance as good as or better than {percentile}% of same-age peers from the general population.\n"
       ),
@@ -418,9 +384,9 @@ table1 <-
       scale == "Sentence Comprehension" ~ glue::glue(
         "{description} was classified as {range} and ranked at the {percentile}th percentile.\n"
       ),
-      scale == "Reading Composite)" ~ glue::glue(
+      scale == "Reading Composite" ~ glue::glue(
         "{description} fell in the {range} range.\n"
-      TRUE ~ as.character(result)
+      )
     )
   )
 ```
@@ -428,9 +394,8 @@ table1 <-
 ## Relocate variables
 
 ```{r relocate1, eval = params$eval_iq}
-table1 <- table1 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+wrat5 <- table |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
-
 
 # Finalize and save csv
 
