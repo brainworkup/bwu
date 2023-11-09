@@ -41,7 +41,7 @@ library(tibble)
 ## Patient
 
 ```{r patient}
-patient <- "Lauren"
+patient <- "Biggie"
 ```
 
 ## Test
@@ -83,7 +83,8 @@ area <- list(c(149, 53, 224, 559))
 ```{r locate}
 area <- bwu::gpluck_locate_areas(
   file = wrat5_pdf,
-  pages = pages)
+  pages = pages
+)
 ```
 
 ```{r save-areas}
@@ -126,7 +127,7 @@ column_names <- c(
   "grade_equiv",
   "nce"
   # "gsv"
-  )
+)
 ```
 
 ## Convert to tibble and format

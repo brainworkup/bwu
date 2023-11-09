@@ -1,154 +1,51 @@
 ---
-title: "Pluck Tables from WAIS-IV"
+title: "Pluck Tables from WRAT-5"
 params:
   patient: Biggie
   test:
     label: "Test"
-    value: wais4
+    value: wrat5
     input: select
     multiple: no
     choices:
-      - wais4
+      - wrat5
       - wisc5
   test_name:
     label: "Test Name"
-    value: [WAIS-IV]
+    value: [WRAT-5]
     input: select
     multiple: no
     choices:
-      - WAIS-IV
+      - WRAT-5
       - WISC-V
-  version:
-    label: "Brief (4 subtest) or Full (8 subtest) version"
-    value: brief
-    input: select
-    multiple: no
-    choices:
-      - brief
-      - full
   file:
     label: "No file selected"
     value: file
     input: file
-  pages: [2,4,4,4,4,6,6]
+  pages: [2,4,4,4,4]
   table1:
-    label: "Index Scores"
-    value: ""
+    label: "SCORE SUMMARY"
+    value: [Word Reading]
     input: select
     multiple: yes
     choices:
-      - Verbal Comprehension (VCI)
-      - Perceptual Reasoning (PRI)
-      - Working Memory (WMI)
-      - Processing Speed (PSI)
-      - Full Scale (FSIQ)
-      - General Ability (GAI)
-  table2:
-    label: "Verbal Comprehension (VCI)"
-    value: [Similarities]
-    input: select
-    multiple: yes
-    choices:
-      - Similarities
-      - Vocabulary
-      - Information
-      - Comprehension
-  table3:
-    label: "Perceptual Reasoning (PRI)"
-    value: [Matrix Reasoning]
-    input: select
-    multiple: yes
-    choices:
-      - Block Design
-      - Matrix Reasoning
-      - Visual Puzzles
-      - Figure Weights
-  table4:
-    label: "Working Memory (WMI)"
-    value: [Letter-Number Sequencing]
-    input: select
-    multiple: yes
-    choices:
-      - Digit Span
-      - Arithmetic
-      - Letter-Number Sequencing
-  table5:
-    label: "Processing Speed (PSI)"
-    value: [Coding]
-    input: select
-    multiple: yes
-    choices:
-      - Symbol Search
-      - Coding
-      - Cancellation
-  table6:
-    label: "Perceptual Reasoning Process Score Summary"
-    value: [Block Design No Time Bonus]
-    input: select
-    multiple: yes
-    choices:
-      - Block Design No Time Bonus
-  table7:
-    label: "Working Memory Process Score Summary"
-    value: [Digit Span Forward]
-    input: select
-    multiple: yes
-    choices:
-      - Digit Span Forward
-      - Digit Span Backward
-      - Digit Span Sequencing
-      - Longest Digit Span Forward
-      - Longest Digit Span Backward
-      - Longest Digit Span Sequence
-      - Longest Letter-Number Sequence
+      - Math Computation
+      - Spelling
+      - Word Reading
+      - Sentence Comprehension
+      - Reading Composite
   colnames1:
     label: "Table 1 Column Names"
-    value: [scale, raw_score, abbrev, score, percentile, ci_95, category]
+    value: [scale, raw_score, score, ci_95, percentile, category, grade_equiv, gsv]
     input: select
     multiple: yes
     choices:
       - scale
       - raw_score
-      - abbrev
       - score
-      - percentile
       - ci_95
+      - percentile
       - category
-  colnames2:
-    label: "Tables 2-5 Column Names"
-    value: [scale, raw_score, score, percentile, ref_group_ss, sem]
-    input: select
-    multiple: yes
-    choices:
-      - scale
-      - raw_score
-      - score
-      - percentile
-      - ref_group_ss
-      - sem
-  colnames3:
-    label: "Table 6 Column Names"
-    value: [scale, raw_score, score, percentile, sem]
-    input: select
-    multiple: yes
-    choices:
-      - scale
-      - raw_score
-      - score
-      - percentile
-      - sem
-  colnames4:
-    label: "Table 7 Column Names"
-    value: [scale, raw_score, score, percentile, base_rate, sem]
-    input: select
-    multiple: yes
-    choices:
-      - scale
-      - raw_score
-      - score
-      - percentile
-      - base_rate
-      - sem
   keep1:
     label: "Variables to Keep, Set 1"
     value: [scale, raw_score, score, percentile, ci_95]
@@ -162,18 +59,19 @@ params:
       - ci_95
   keep2:
     label: "Variables to Keep, Set 2"
-    value: [scale, raw_score, score, percentile]
+    value: [scale, raw_score, score, ci_95, percentile]
     input: select
     multiple: yes
     choices:
       - scale
       - raw_score
       - score
+      - ci_95
       - percentile
 # Domains to evaluate or not
   eval_iq:
     label: "General Cognitive Ability"
-    value: FALSE
+    value: TRUE
   eval_vci:
     label: "Verbal/Language"
     value: TRUE
@@ -186,12 +84,6 @@ params:
   eval_psi:
     label: "Processing Speed"
     value: TRUE
-  eval_bd:
-    label: "Block Design No Time Bonus"
-    value: FALSE
-  eval_span:
-    label: "Longest Span Subtests"
-    value: FALSE
   match:
     label: "Subset/Match Rows"
     input: checkbox
@@ -201,9 +93,7 @@ output:
     highlight: kate
 ---
 
-# WAIS-IV
-
-<!-- Remember to use the VCI/PRI comparison output from Q-Interactive so tables don't shift on the page. -->
+# WRAT-5
 
 ## Load libraries
 
@@ -248,6 +138,7 @@ patient <- params$patient
 
 ```{r test}
 test <- params$test
+test_name <- params$test_name
 ```
 
 ## Version
@@ -260,7 +151,8 @@ version <- params$version
 
 ```{r choose}
 # file <- file.choose()
-file <- params$file
+# file <- params$file
+file <- file.path(params$file)
 ```
 
 ## Pages
@@ -270,43 +162,42 @@ pages <- params$pages
 ```
 
 ```{r write-file}
-writeLines(file, here::here(patient, "pre_csv", "wais4_pdf"))
+# writeLines(file, here::here(patient, "pre_csv", "wais4_pdf"))
 ```
 
 ```{r read-file}
 # file <- readLines(here::here(patient, "pre_csv", "wais4_pdf"))
 ```
 
+
+## Extract Areas with Tabulizer
+
+```{r eval=FALSE}
+library(tabulizer)
+
+f <- file.path("")
+
+# locate areas and extract
+plucked_tables <- extract_areas(
+  file = f,
+  pages = c(8),
+  method = "stream",
+  output = "matrix"
+)
+
+# Loop over the list and write each matrix to a CSV file
+for (i in seq_along(plucked_tables)) {
+  write.csv(plucked_tables[[i]], file = paste0("table_", i, ".csv"), row.names = FALSE)
+}
+```
+
+
 ## Locate areas
 
 ```{r areas-known}
 # if known
-if (params$version == "full") {
-  area <- list(
-    index = c(133, 50, 196, 560),
-    vci = c(303, 50, 338, 560),
-    pri = c(388, 50, 421, 560),
-    wmi = c(473, 50, 507, 560),
-    psi = c(560, 50, 576, 560),
-    bd = c(411, 50, 431, 560),
-    ds = c(491, 50, 510, 560)
-  )
-} else if (params$version == "brief") {
-  area <- list(
-    vci = c(168, 50, 189, 560),
-    pri = c(238, 50, 260, 560),
-    wmi = c(308, 50, 329, 560),
-    psi = c(376, 50, 402, 560)
-  )
-}
-# with FSIQ
-# index = c(132, 50, 227, 560),
-# vci = c(364, 50, 398, 560),
-# pri = c(450, 50, 484, 560),
-# wmi = c(535, 50, 570, 560),
-# psi = c(620, 50, 656, 560),
-# bd = c(355, 50, 375, 560),
-# ds = c(436, 50, 533, 560)
+
+area <- list(c(149, 53, 224, 559))
 ```
 
 ```{r areas-get, eval = FALSE}
@@ -327,14 +218,13 @@ if (params$version == "full") {
 
 ```{r read-area}
 # area <- readRDS(here::here(patient, "pre_csv", "area_wais4.rds"))
-# 
 # area <- list(area)
 ```
 
 ## Extract tables
 
 ```{r extract}
-plucked_table <- bwu::gpluck_extract_table(
+plucked_tables <- bwu::gpluck_extract_table(
   file = file,
   pages = pages,
   area = area,
@@ -342,17 +232,35 @@ plucked_table <- bwu::gpluck_extract_table(
   method = "stream",
   output = "matrix"
 )
+
+# Save the entire list to an R data file
+save(plucked_tables, file = "plucked_tables_wrat5.RData")
 ```
 
-# WAIS-IV Index Scores (Table 1)
+```{r}
+# Load the entire list from an R data file
+load("plucked_tables.RData")
+```
+
+# WRAT-5 (Table 1)
 
 ## Pluck and tidy tables
 
 ```{r pluck1, eval = params$eval_iq}
-table1 <- tibble::as_tibble(plucked_table[[1]])
-colnames(table1) <- params$colnames1
+# Assuming you have plucked_tables and params already defined
+
+# Convert to data.frame
+table1 <- as.data.frame(plucked_tables[[1]])
+
+# Rename columns
+colnames1 <- params[["colnames1"]]
+colnames(table1) <- colnames1
+
+# Convert columns to double
 to_double <- c("raw_score", "score", "percentile")
-table1 <- table1 |> hablar::convert(dbl(all_of(to_double)))
+table1[to_double] <- lapply(table1[to_double], as.numeric)
+
+
 table1[, 1] <- (params$table1)
 table1 <- table1 |> dplyr::select(all_of(params$keep1))
 ```
@@ -360,17 +268,19 @@ table1 <- table1 |> dplyr::select(all_of(params$keep1))
 ## Mutate columns
 
 ```{r mutate1, eval = params$eval_iq}
+domain <- "Academic Skills"
+timed <- "Untimed"
 table1 <- bwu::gpluck_make_columns(
   table1,
   range = "",
   test = params$test,
   test_name = params$test_name,
-  domain = "",
+  domain = domain,
   subdomain = "",
   narrow = "",
   pass = "",
   verbal = "",
-  timed = "",
+  timed = timed,
   test_type = "npsych_test",
   score_type = "standard_score",
   description = "",
@@ -384,55 +294,37 @@ table1 <- bwu::gpluck_make_columns(
 table1 <- bwu::gpluck_make_score_ranges(table = table1, test_type = "npsych_test")
 ```
 
-## Domains
 
-```{r domain1, eval = params$eval_iq}
-table1 <-
-  table1 |>
-  dplyr::mutate(
-    domain = dplyr::case_when(
-      scale == "Verbal Comprehension (VCI)" ~ "General Cognitive Ability",
-      scale == "Perceptual Reasoning (PRI)" ~ "General Cognitive Ability",
-      scale == "Working Memory (WMI)" ~ "General Cognitive Ability",
-      scale == "Processing Speed (PSI)" ~ "General Cognitive Ability",
-      scale == "Full Scale IQ (FSIQ)" ~ "General Cognitive Ability",
-      scale == "General Ability (GAI)" ~ "General Cognitive Ability",
-      TRUE ~ as.character(domain)
-    )
-  )
-```
 
-## Subdomain
+## Subdomains
 
-```{r subdomain1, eval = params$eval_iq}
-table1 <-
-  table1 |>
-  dplyr::mutate(
-    subdomain = dplyr::case_when(
-      scale == "Full Scale IQ (FSIQ)" ~ "General Intelligence",
-      scale == "General Ability (GAI)" ~ "General Intelligence",
-      scale == "Verbal Comprehension (VCI)" ~ "Crystallized Knowledge",
-      scale == "Perceptual Reasoning (PRI)" ~ "Fluid Reasoning",
-      scale == "Working Memory (WMI)" ~ "Working Memory",
-      scale == "Processing Speed (PSI)" ~ "Processing Speed",
+```{r subdomains}
+table <-
+  table |>
+  mutate(
+    subdomain = case_when(
+      scale == "Math Computation" ~ "Math",
+      scale == "Spelling" ~ "Writing",
+      scale == "Word Reading" ~ "Reading",
+      scale == "Sentence Comprehension" ~ "Reading",
+      scale == "Reading Composite" ~ "Reading",
       TRUE ~ as.character(subdomain)
     )
   )
 ```
 
-## Narrow subdomain
+## Narrow subdomains
 
-```{r narrow1, eval = params$eval_iq}
-table1 <-
-  table1 |>
-  dplyr::mutate(
-    narrow = dplyr::case_when(
-      scale == "Full Scale IQ (FSIQ)" ~ "General Intelligence",
-      scale == "General Ability (GAI)" ~ "General Intelligence",
-      scale == "Verbal Comprehension (VCI)" ~ "Crystallized Knowledge",
-      scale == "Perceptual Reasoning (PRI)" ~ "Fluid Reasoning",
-      scale == "Working Memory (WMI)" ~ "Working Memory",
-      scale == "Processing Speed (PSI)" ~ "Processing Speed",
+```{r narrow}
+table <-
+  table |>
+  mutate(
+    narrow = case_when(
+      scale == "Math Computation" ~ "Mathematical Achievement",
+      scale == "Spelling" ~ "Spelling Ability",
+      scale == "Word Reading" ~ "Reading Decoding",
+      scale == "Sentence Comprehension" ~ "Reading Comprehension",
+      scale == "Reading Composite" ~ "Reading Index",
       TRUE ~ as.character(narrow)
     )
   )
@@ -440,17 +332,16 @@ table1 <-
 
 ## PASS model
 
-```{r pass1, eval = params$eval_iq}
-table1 <-
-  table1 |>
-  dplyr::mutate(
-    pass = dplyr::case_when(
-      scale == "Full Scale IQ (FSIQ)" ~ "",
-      scale == "General Ability (GAI)" ~ "",
-      scale == "Verbal Comprehension (VCI)" ~ "",
-      scale == "Perceptual Reasoning (PRI)" ~ "",
-      scale == "Working Memory (WMI)" ~ "",
-      scale == "Processing Speed (PSI)" ~ "",
+```{r pass}
+table <-
+  table |>
+  mutate(
+    pass = case_when(
+      scale == "Math Computation" ~ "Simultaneous",
+      scale == "Spelling" ~ "Successive",
+      scale == "Word Reading" ~ "Successive",
+      scale == "Sentence Comprehension" ~ "Successive",
+      scale == "Reading Composite" ~ "Successive",
       TRUE ~ as.character(pass)
     )
   )
@@ -458,17 +349,16 @@ table1 <-
 
 ## Verbal vs Nonverbal
 
-```{r verbal1, eval = params$eval_iq}
-table1 <-
-  table1 |>
-  dplyr::mutate(
-    verbal = dplyr::case_when(
-      scale == "Full Scale IQ (FSIQ)" ~ "",
-      scale == "General Ability (GAI)" ~ "",
-      scale == "Verbal Comprehension (VCI)" ~ "Verbal",
-      scale == "Perceptual Reasoning (PRI)" ~ "Nonverbal",
-      scale == "Working Memory (WMI)" ~ "Verbal",
-      scale == "Processing Speed (PSI)" ~ "Nonverbal",
+```{r verbal}
+table <-
+  table |>
+  mutate(
+    verbal = case_when(
+      scale == "Math Computation" ~ "Nonverbal",
+      scale == "Spelling" ~ "Verbal",
+      scale == "Word Reading" ~ "Verbal",
+      scale == "Sentence Comprehension" ~ "Verbal",
+      scale == "Reading Composite" ~ "Verbal",
       TRUE ~ as.character(verbal)
     )
   )
@@ -476,77 +366,60 @@ table1 <-
 
 ## Timed vs Untimed
 
-```{r timed1, eval = params$eval_iq}
-table1 <-
-  table1 |>
-  dplyr::mutate(
-    timed = dplyr::case_when(
-      scale == "Full Scale IQ (FSIQ)" ~ "",
-      scale == "General Ability (GAI)" ~ "",
-      scale == "Verbal Comprehension (VCI)" ~ "Untimed",
-      scale == "Perceptual Reasoning (PRI)" ~ "Timed",
-      scale == "Working Memory (WMI)" ~ "Untimed",
-      scale == "Processing Speed (PSI)" ~ "Timed",
+```{r timed}
+table <-
+  table |>
+  mutate(
+    timed = case_when(
+      scale == "Math Computation" ~ "Timed",
+      scale == "Spelling" ~ "Untimed",
+      scale == "Word Reading" ~ "Untimed",
+      scale == "Sentence Comprehension" ~ "Untimed",
+      scale == "Reading Composite" ~ "Untimed",
       TRUE ~ as.character(timed)
     )
   )
 ```
 
-## Descriptions
+## Scale descriptions
 
-```{r desc1, eval = params$eval_iq}
-table1 <-
-  table1 |>
+```{r description}
+table <-
+  table |>
   dplyr::mutate(
     description = dplyr::case_when(
-      scale ==
-        "Full Scale IQ (FSIQ)" ~
-        "General Intelligence (*G*)",
-      scale ==
-        "General Ability (GAI)" ~
-        "A subset of intellectual functioning with reduced influences of working memory and processing speed",
-      scale ==
-        "Verbal Comprehension (VCI)" ~
-        "Verbal Comprehension (i.e., the ability to verbalize meaningful concepts, think about verbal information, and express oneself using words)",
-      scale ==
-        "Perceptual Reasoning (PRI)" ~
-        "Fluid Reasoning (i.e., the ability to use reasoning to identify and apply solutions to problems)",
-      scale ==
-        "Working Memory (WMI)" ~
-        "Working Memory (*G*wm)^[(ref:working-memory)]",
-      scale ==
-        "Processing Speed (PSI)" ~
-        "Processing Speed (*G*s)^[(ref:processing-speed)]",
+      scale == "Math Computation" ~ "paper-and-pencil math calculation",
+      scale == "Spelling" ~ "spelling words from dictations",
+      scale == "Word Reading" ~ "word reading/decoding on a word recognition test",
+      scale == "Sentence Comprehension" ~ "reading passage comprehension",
+      scale == "Reading Composite" ~ "general reading performance",
       TRUE ~ as.character(description)
     )
   )
 ```
 
+
 ## Glue result
 
-```{r result1, eval = params$eval_iq}
+```{r result1}
 table1 <-
   table1 |>
   dplyr::mutate(
     result = dplyr::case_when(
-      scale == "Full Scale IQ (FSIQ)" ~ glue::glue(
+      scale == "Math Computation" ~ glue::glue(
         "{description} was {range} overall.\n"
       ),
-      scale == "General Ability (GAI)" ~ glue::glue(
+      scale == "Spelling" ~ glue::glue(
         "{description} was {range} and ranked at the {percentile}th percentile, indicating performance as good as or better than {percentile}% of same-age peers from the general population.\n"
       ),
-      scale == "Verbal Comprehension (VCI)" ~ glue::glue(
+      scale == "Word Reading" ~ glue::glue(
         "{description} was classified as {range} and ranked at the {percentile}th percentile.\n"
       ),
-      scale == "Perceptual Reasoning (PRI)" ~ glue::glue(
+      scale == "Sentence Comprehension" ~ glue::glue(
         "{description} was classified as {range} and ranked at the {percentile}th percentile.\n"
       ),
-      scale == "Working Memory (WMI)" ~ glue::glue(
+      scale == "Reading Composite)" ~ glue::glue(
         "{description} fell in the {range} range.\n"
-      ),
-      scale == "Processing Speed (PSI)" ~ glue::glue(
-        "{description} was {range}.\n"
-      ),
       TRUE ~ as.character(result)
     )
   )
@@ -558,811 +431,13 @@ table1 <-
 table1 <- table1 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
-# VCI (Table 2)
-
-## Pluck and tidy tables
-
-```{r pluck2, eval = params$eval_vci}
-if (params$version == "brief") {
-  table2 <- as.data.frame(plucked_table[[1]])
-} else if (params$version == "full") {
-  table2 <- as.data.frame(plucked_table[[2]])
-}
-colnames(table2) <- params$colnames2
-to_double <- c("raw_score", "score", "percentile")
-table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
-table2[, 1] <- (params$table2)
-table2 <- table2 |> dplyr::select(all_of(params$keep2))
-```
-
-## Mutate columns
-
-```{r mutate2, eval = params$eval_vci}
-table2 <- bwu::gpluck_make_columns(
-  table2,
-  range = "",
-  ci_95 = "",
-  test = params$test,
-  test_name = params$test_name,
-  domain = "Verbal/Language",
-  subdomain = "",
-  narrow = "",
-  pass = "Sequential",
-  verbal = "Verbal",
-  timed = "Untimed",
-  test_type = "npsych_test",
-  score_type = "scaled_score",
-  description = "",
-  result = ""
-)
-```
-
-## Test score ranges
-
-```{r ranges2, eval = params$eval_vci}
-table2 <- bwu::gpluck_make_score_ranges(
-  table = table2,
-  test_type = "npsych_test")
-```
-
-## Subdomains
-
-```{r subdomain2, eval = params$eval_vci}
-table2 <-
-  table2 |>
-  dplyr::mutate(
-    subdomain = dplyr::case_when(
-      scale == "Similarities" ~ "Word Reasoning",
-      scale == "Vocabulary" ~ "Word Knowledge",
-      scale == "Information" ~ "General World Knowledge",
-      scale == "Comprehension" ~ "Acquired Knowledge",
-      TRUE ~ as.character(subdomain)
-    )
-  )
-```
-
-## Narrow subdomains
-
-```{r narrow2, eval = params$eval_vci}
-table2 <-
-  table2 |>
-  dplyr::mutate(
-    narrow = dplyr::case_when(
-      scale == "Similarities" ~ "Verbal Reasoning",
-      scale == "Vocabulary" ~ "Lexical Knowledge",
-      scale == "Information" ~ "General Verbal Information",
-      scale == "Comprehension" ~ "General Verbal Information",
-      TRUE ~ as.character(narrow)
-    )
-  )
-```
-
-## Scale descriptions
-
-```{r desc2, eval = params$eval_vci}
-table2 <-
-  table2 |>
-  dplyr::mutate(
-    description = dplyr::case_when(
-      scale ==
-        "Similarities" ~ "Verbal inductive reasoning",
-      scale ==
-        "Vocabulary" ~ "Word/lexical knowledge",
-      scale ==
-        "Information" ~ "Acquired knowledge/ability to acquire, retain, and retrieve general factual knowledge",
-      scale ==
-        "Comprehension" ~ "Practical knowledge and judgment of general principles and social situations",
-      TRUE ~ as.character(description)
-    )
-  )
-```
-
-## Glue results
-
-```{r result2, eval = params$eval_vci}
-table2 <-
-  table2 %>%
-  dplyr::mutate(
-    result = glue::glue(
-      "{description} was {range}.\n"
-    )
-  )
-```
-
-## Relocate variables
-
-```{r reloc2, eval = params$eval_vci}
-table2 <- table2 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
-```
-
-# PRI (Table 3)
-
-## Pluck and tidy tables
-
-```{r pluck3, eval = params$eval_pri}
-if (params$version == "brief") {
-  table3 <- as.data.frame(plucked_table[[2]])
-} else if (params$version == "full") {
-  table3 <- as.data.frame(plucked_table[[3]])
-}
-colnames(table3) <- params$colnames2
-to_double <- c("raw_score", "score", "percentile")
-table3 <- table3 |> hablar::convert(dbl(all_of(to_double)))
-table3$scale <- params$table3
-table3 <- table3 |> dplyr::select(all_of(params$keep2))
-```
-
-## Mutate columns
-
-```{r mutate3, eval = params$eval_pri}
-table3 <- bwu::gpluck_make_columns(
-  table3,
-  range = "",
-  ci_95 = "",
-  test = params$test,
-  test_name = params$test_name,
-  domain = "Visual Perception/Construction",
-  subdomain = "",
-  narrow = "",
-  timed = "",
-  verbal = "Nonverbal",
-  pass = "Simultaneous",
-  test_type = "npsych_test",
-  score_type = "scaled_score",
-  description = "",
-  result = ""
-)
-```
-
-## Test score ranges
-
-```{r ranges3, eval = params$eval_pri}
-table3 <- bwu::gpluck_make_score_ranges(table = table3, test_type = "npsych_test")
-```
-
-## Subdomains
-
-```{r subdomain3, eval = params$eval_pri}
-table3 <-
-  table3 |>
-  dplyr::mutate(
-    subdomain = dplyr::case_when(
-      scale == "Block Design" ~ "Visual Processing",
-      scale == "Matrix Reasoning" ~ "Reasoning",
-      scale == "Visual Puzzles" ~ "Visual Processing",
-      scale == "Figure Weights" ~ "Fluid Reasoning",
-      TRUE ~ as.character(subdomain)
-    )
-  )
-```
-
-## Narrow subdomain
-
-```{r narrow3, eval = params$eval_pri}
-table3 <-
-  table3 |>
-  dplyr::mutate(
-    narrow = dplyr::case_when(
-      scale == "Block Design" ~ "Visuoconstruction",
-      scale == "Matrix Reasoning" ~ "Nonverbal Reasoning",
-      scale == "Visual Puzzles" ~ "Visualization",
-      scale == "Figure Weights" ~ "General Sequential Reasoning",
-      TRUE ~ as.character(narrow)
-    )
-  )
-```
-
-## Timed vs Untimed
-
-```{r timed3, eval = params$eval_pri}
-table3 <-
-  table3 |>
-  dplyr::mutate(
-    timed = dplyr::case_when(
-      scale == "Block Design" ~ "Timed",
-      scale == "Matrix Reasoning" ~ "Untimed",
-      scale == "Visual Puzzles" ~ "Timed",
-      scale == "Figure Weights" ~ "Timed",
-      TRUE ~ as.character(timed)
-    )
-  )
-```
-
-## Description
-
-```{r desc3, eval = params$eval_pri}
-table3 <-
-  table3 |>
-  dplyr::mutate(
-    description = dplyr::case_when(
-      scale ==
-        "Block Design" ~ "Understanding visual-spatial relationships to construct geometric designs from a model",
-      scale ==
-        "Matrix Reasoning" ~ "Inductive reasoning and nonverbal problem-solving",
-      scale ==
-        "Visual Puzzles" ~ "Generate visual images in the mind's eye",
-      scale ==
-        "Figure Weights" ~ "General sequential (deductive) reasoning and quantitative reasoning",
-      TRUE ~ as.character(description)
-    )
-  )
-```
-
-## Glue results
-
-```{r result3, eval = params$eval_pri}
-table3 <-
-  table3 %>%
-  dplyr::mutate(
-    result = glue::glue(
-      "{description} was {range}.\n"
-    )
-  )
-```
-
-## Relocate variables
-
-```{r reloc3, eval = params$eval_pri}
-table3 <- table3 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
-```
-
-# WMI (Table 4)
-
-## Pluck and tidy tables
-
-```{r pluck4, eval = params$eval_wmi}
-if (params$version == "brief") {
-  table4 <- as.data.frame(plucked_table[[3]])
-} else if (params$version == "full") {
-  table4 <- as.data.frame(plucked_table[[4]])
-}
-colnames(table4) <- params$colnames2
-to_double <- c("raw_score", "score", "percentile")
-table4 <- table4 |> hablar::convert(dbl(all_of(to_double)))
-table4$scale <- params$table4
-table4 <- table4 |> dplyr::select(all_of(params$keep2))
-```
-
-## Mutate columns
-
-```{r mutate4, eval = params$eval_wmi}
-table4 <- bwu::gpluck_make_columns(
-  table4,
-  range = "",
-  ci_95 = "",
-  test = params$test,
-  test_name = params$test_name,
-  domain = "Attention/Executive",
-  subdomain = "Working Memory",
-  narrow = "",
-  pass = "Attention",
-  verbal = "Verbal",
-  timed = "Untimed",
-  test_type = "npsych_test",
-  score_type = "scaled_score",
-  description = "",
-  result = ""
-)
-```
-
-## Test score ranges
-
-```{r ranges4, eval = params$eval_wmi}
-table4 <- bwu::gpluck_make_score_ranges(table = table4, test_type = "npsych_test")
-```
-
-## Subdomains
-
-```{r subdomain4, eval = params$eval_wmi}
-table4 <-
-  table4 |>
-  dplyr::mutate(
-    subdomain = dplyr::case_when(
-      scale == "Digit Span" ~ "Working Memory",
-      scale == "Arithmetic" ~ "Working Memory",
-      scale == "Letter-Number Sequencing" ~ "Working Memory",
-      TRUE ~ as.character(subdomain)
-    )
-  )
-```
-
-## Narrow subdomains
-
-```{r narrow4, eval = params$eval_wmi}
-table4 <-
-  table4 |>
-  dplyr::mutate(
-    narrow = dplyr::case_when(
-      scale == "Digit Span" ~ "Working Memory Capacity",
-      scale == "Arithmetic" ~ "Verbal Working Memory",
-      scale == "Letter-Number Sequencing" ~ "Verbal Working Memory",
-      TRUE ~ as.character(narrow)
-    )
-  )
-```
-
-## Timed vs Untimed
-
-```{r timed4, eval = params$eval_wmi}
-table4 <-
-  table4 |>
-  dplyr::mutate(
-    timed = dplyr::case_when(
-      scale == "Digit Span" ~ "Untimed",
-      scale == "Arithmetic" ~ "Timed",
-      scale == "Letter-Number Sequencing" ~ "Untimed",
-      TRUE ~ as.character(timed)
-    )
-  )
-```
-
-## PASS model
-
-```{r pass4, eval = params$eval_wmi}
-table4 <-
-  table4 |>
-  dplyr::mutate(
-    pass = dplyr::case_when(
-      scale == "Digit Span" ~ "Attention",
-      scale == "Arithmetic" ~ "Attention",
-      scale == "Letter-Number Sequencing" ~ "Attention",
-      TRUE ~ as.character(pass)
-    )
-  )
-```
-
-## Scale descriptions
-
-```{r desc4, eval = params$eval_wmi}
-table4 <-
-  table4 |>
-  dplyr::mutate(
-    description = dplyr::case_when(
-      scale == "Digit Span" ~ "Registering, maintaining, and manipulating auditory information",
-      scale == "Arithmetic" ~ "Solving math word problems in working memory",
-      scale == "Letter-Number Sequencing" ~ "Maintenance and resequencing of progressively lengthier number and letter strings in working memory",
-      TRUE ~ as.character(description)
-    )
-  )
-```
-
-## Glue results
-
-```{r result4, eval = params$eval_wmi}
-table4 <-
-  table4 %>%
-  dplyr::mutate(
-    result = glue::glue(
-      "{description} was {range}.\n"
-    )
-  )
-```
-
-## Relocate variables
-
-```{r reloc, eval = params$eval_wmi}
-table4 <- table4 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
-```
-
-# PSI (Table 5)
-
-## Pluck and tidy tables
-
-```{r pluck5, eval = params$eval_psi}
-if (params$version == "brief") {
-  table5 <- as.data.frame(plucked_table[[4]])
-} else if (params$version == "full") {
-  table5 <- as.data.frame(plucked_table[[5]])
-}
-colnames(table5) <- params$colnames2
-to_double <- c("raw_score", "score", "percentile")
-table5 <- table5 |> hablar::convert(dbl(all_of(to_double)))
-table5$scale <- params$table5
-table5 <- table5 |> dplyr::select(all_of(params$keep2))
-```
-
-## Mutate columns
-
-```{r mutate5, eval = params$eval_wmi}
-table5 <- bwu::gpluck_make_columns(
-  table5,
-  range = "",
-  ci_95 = "",
-  test = params$test,
-  test_name = params$test_name,
-  domain = "Attention/Executive",
-  subdomain = "Processing Speed",
-  narrow = "",
-  pass = "Planning",
-  verbal = "Nonverbal",
-  timed = "Timed",
-  test_type = "npsych_test",
-  score_type = "scaled_score",
-  description = "",
-  result = ""
-)
-```
-
-## Test score ranges
-
-```{r ranges5, eval = params$eval_wmi}
-table5 <- bwu::gpluck_make_score_ranges(table = table5, test_type = "npsych_test")
-```
-
-## Subdomains
-
-```{r subdomain5, eval = params$eval_wmi}
-table5 <-
-  table5 |>
-  dplyr::mutate(
-    subdomain = dplyr::case_when(
-      scale == "Coding" ~ "Processing Speed",
-      scale == "Symbol Search" ~ "Processing Speed",
-      scale == "Cancellation" ~ "Processing Speed",
-      TRUE ~ as.character(subdomain)
-    )
-  )
-```
-
-## Narrow subdomains
-
-```{r narrow5, eval = params$eval_psi}
-table5 <-
-  table5 |>
-  dplyr::mutate(
-    narrow = dplyr::case_when(
-      scale == "Coding" ~ "Cognitive Efficiency",
-      scale == "Symbol Search" ~ "Cognitive Efficiency",
-      scale == "Cancellation" ~ "Attentional Fluency",
-      TRUE ~ as.character(narrow)
-    )
-  )
-```
-
-## PASS model
-
-```{r pass5, eval = params$eval_psi}
-table5 <-
-  table5 |>
-  dplyr::mutate(
-    pass = dplyr::case_when(
-      scale == "Cancellation" ~ "Attention",
-      scale == "Coding" ~ "Planning",
-      scale == "Symbol Search" ~ "Attention",
-      TRUE ~ as.character(pass)
-    )
-  )
-```
-
-## Scale descriptions
-
-```{r desc5, eval = params$eval_psi}
-table5 <-
-  table5 |>
-  dplyr::mutate(
-    description = dplyr::case_when(
-      scale == "Coding" ~ "Efficiency of psychomotor speed, visual scanning ability, and visual-motor coordination",
-      scale == "Symbol Search" ~ "Visual-perceptual decision-making speed",
-      scale == "Cancellation" ~ "Selective visual attention, visual discrimination, and visual-perceptual processing",
-      TRUE ~ as.character(description)
-    )
-  )
-```
-
-## Glue results
-
-```{r result5, eval = params$eval_psi}
-table5 <-
-  table5 %>%
-  dplyr::mutate(
-    result = glue::glue(
-      "{description} was {range}.\n"
-    )
-  )
-```
-
-## Relocate variables
-
-```{r relocate5, eval = params$eval_psi}
-table5 <- table5 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
-```
-
-# Block Design Process Score Summary (Table 6)
-
-## Pluck and tidy tables
-
-```{r pluck6, eval = params$eval_bd}
-if (params$version == "brief") {
-  table6 <- as.data.frame(plucked_table[[5]])
-} else if (params$version == "full") {
-  table6 <- as.data.frame(plucked_table[[6]])
-}
-colnames(table6) <- params$colnames3
-to_double <- c("raw_score", "score", "percentile")
-table6 <- table6 %>% hablar::convert(dbl(all_of(to_double)))
-table6$scale <- params$table6
-table6 <- table6 %>% dplyr::select(all_of(params$keep2))
-```
-
-## Mutate columns
-
-```{r mutate6, eval = params$eval_bd}
-table6 <- bwu::gpluck_make_columns(
-  table6,
-  range = "",
-  ci_95 = "",
-  test = params$test,
-  test_name = params$test_name,
-  domain = "Visual Perception/Construction",
-  subdomain = "Visual Processing",
-  narrow = "Construction (Untimed)",
-  timed = "Untimed",
-  verbal = "Nonverbal",
-  pass = "Simultaneous",
-  test_type = "npsych_test",
-  score_type = "scaled_score",
-  description = "",
-  result = ""
-)
-```
-
-## Test score ranges
-
-```{r ranges6, eval = params$eval_bd}
-table6 <- bwu::gpluck_make_score_ranges(table = table6, test_type = "npsych_test")
-```
-
-## Scale descriptions
-
-```{r desc6, eval = params$eval_bd}
-table6 <-
-  table6 |>
-  dplyr::mutate(
-    description = dplyr::case_when(
-      scale ==
-        "Block Design No Time Bonus" ~
-        "Untimed Block Design performance",
-      TRUE ~ as.character(description)
-    )
-  )
-```
-
-## Glue results
-
-```{r result6, eval = params$eval_bd}
-# result text
-table6 <-
-  table6 %>%
-  dplyr::mutate(
-    result = glue::glue(
-      "{description} was {range}.\n"
-    )
-  )
-```
-
-## Relocate variables
-
-```{r relocate6, eval = params$eval_bd}
-table6 <- table6 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
-```
-
-# Span Process Score Summary (Table 7)
-
-## Pluck and tidy tables
-
-```{r pluck7, eval = params$eval_span}
-if (params$version == "brief") {
-  table7 <- as.data.frame(plucked_table[[6]])
-} else if (params$version == "full") {
-  table7 <- as.data.frame(plucked_table[[7]])
-}
-colnames(table7) <- params$colnames4
-to_double <- c("raw_score", "score", "percentile")
-table7 <- table7 |> hablar::convert(dbl(all_of(to_double)))
-table7$scale <- params$table7
-table7 <- table7 |> dplyr::select(all_of(params$keep2))
-```
-
-## Mutate columns
-
-```{r mutate7, eval = params$eval_span}
-table7 <- bwu::gpluck_make_columns(
-  table7,
-  range = "",
-  ci_95 = "",
-  test = params$test,
-  test_name = params$test_name,
-  domain = "Attention/Executive",
-  subdomain = "Working Memory",
-  narrow = "",
-  pass = "",
-  verbal = "Verbal",
-  timed = "Untimed",
-  test_type = "npsych_test",
-  score_type = "",
-  description = "",
-  result = ""
-)
-```
-
-## Test score ranges
-
-```{r ranges7, eval = params$eval_span}
-table7 <- bwu::gpluck_make_score_ranges(table = table7, test_type = "npsych_test")
-```
-
-## Narrow subdomains
-
-```{r narrow7, eval = params$eval_span}
-table7 <-
-  table7 %>%
-  dplyr::mutate(
-    narrow = dplyr::case_when(
-      scale == "Digit Span Forward" ~ "Verbal Attention",
-      scale == "Digit Span Backward" ~ "Verbal Working Memory",
-      scale == "Digit Span Sequencing" ~ "Verbal Working Memory",
-      scale == "Longest Digit Span Forward" ~ "Verbal Attention",
-      scale == "Longest Digit Span Backward" ~ "Verbal Working Memory",
-      scale == "Longest Digit Span Sequence" ~ "Verbal Working Memory",
-      scale == "Longest Letter-Number Sequence" ~ "Verbal Working Memory",
-      TRUE ~ as.character(narrow)
-    )
-  )
-```
-
-## PASS model
-
-```{r pass7, eval = params$eval_span}
-table7 <-
-  table7 |>
-  dplyr::mutate(
-    pass = dplyr::case_when(
-      scale == "Digit Span Forward" ~ "Sequential",
-      scale == "Digit Span Backward" ~ "Attention",
-      scale == "Digit Span Sequencing" ~ "Attention",
-      scale == "Longest Digit Span Forward" ~ "Sequential",
-      scale == "Longest Digit Span Backward" ~ "Attention",
-      scale == "Longest Digit Span Sequence" ~ "Attention",
-      scale == "Longest Letter-Number Sequence" ~ "Attention",
-      TRUE ~ as.character(pass)
-    )
-  )
-```
-
-## Score type
-
-```{r score7, eval = params$eval_span}
-table7 <-
-  table7 |>
-  dplyr::mutate(
-    score_type = dplyr::case_when(
-      scale == "Digit Span Forward" ~ "scaled_score",
-      scale == "Digit Span Backward" ~ "scaled_score",
-      scale == "Digit Span Sequencing" ~ "scaled_score",
-      scale == "Longest Digit Span Forward" ~ "raw_score",
-      scale == "Longest Digit Span Backward" ~ "raw_score",
-      scale == "Longest Digit Span Sequence" ~ "raw_score",
-      scale == "Longest Letter-Number Sequence" ~ "raw_score",
-      TRUE ~ as.character(score_type)
-    )
-  )
-```
-
-## Scale descriptions
-
-```{r desc7, eval = params$eval_span}
-table7 <-
-  table7 |>
-  dplyr::mutate(
-    description = dplyr::case_when(
-      scale ==
-        "Digit Span Forward" ~
-        "Forward digit span/attention span",
-      scale ==
-        "Digit Span Backward" ~
-        "Verbal working memory manipulation",
-      scale ==
-        "Digit Span Sequencing" ~
-        "Verbal working memory and sequencing",
-      scale ==
-        "Longest Digit Span Forward" ~
-        "Auditory attentional capacity",
-      scale ==
-        "Longest Digit Span Backward" ~
-        "Working memory for orally presented information",
-      scale ==
-        "Longest Digit Span Sequence" ~
-        "Recall of digits sequences/resequencing",
-      scale ==
-        "Longest Letter-Number Sequence" ~
-        "Longest letter-number sequence span",
-      TRUE ~ as.character(description)
-    )
-  )
-```
-
-## Glue results
-
-```{r result7, eval = params$eval_span}
-table7 <-
-  table7 %>%
-  dplyr::mutate(
-    result = glue::glue(
-      "{description} was {range}.\n"
-    )
-  )
-```
-
-## Relocate variables
-
-```{r relocate7, eval = params$eval_span}
-table7 <-
-  table7 |>
-  dplyr::relocate(
-    c(raw_score, score, percentile, range, ci_95), .before = test)
-```
 
 # Finalize and save csv
-
-## Merge tables
-
-```{r merge}
-if (params$version == "full") {
-  wais4 <-
-    dplyr::bind_rows(table1, table2, table3, table6, table4, table7, table5)
-}
-if (params$version == "brief") {
-  wais4 <-
-    dplyr::bind_rows(table2, table3, table4, table5)
-}
-```
-
-## Match subtests to include
-
-```{r match, eval = params$match}
-match_wais4 <- c(
-  # IQ
-  "Full Scale (FSIQ)",
-  "General Ability (GAI)",
-  # VCI
-  "Verbal Comprehension (VCI)",
-  "Similarities",
-  "Vocabulary",
-  # PRI
-  "Perceptual Reasoning (PRI)",
-  "Matrix Reasoning",
-  "Block Design",
-  "Block Design No Time Bonus",
-  "Figure Weights",
-  # WMI
-  "Working Memory (WMI)",
-  "Letter-Number Sequencing",
-  "Longest Letter-Number Sequence",
-  "Digit Span",
-  "Digit Span Forward",
-  "Digit Span Backward",
-  "Digit Span Sequencing",
-  "Longest Digit Span Forward",
-  "Longest Digit Span Backward",
-  "Longest Digit Span Sequence",
-  "Arithmetic",
-  # PSI
-  "Processing Speed (PSI)",
-  "Coding",
-  "Symbol Search",
-  "Cancellation"
-)
-wais4 <- wais4[match(
-  x = match_wais4,
-  table = wais4$scale,
-  nomatch = "NA" # this might not work, used to be "NA"
-)]
-```
 
 ## Write out final csv
 
 ```{r write}
-readr::write_csv(wais4, here::here(patient, "csv", "wais4.csv"))
+readr::write_csv(wrat5, here::here(patient, "csv", "wrat5.csv"))
 ```
 
 # Experimental
@@ -1370,11 +445,12 @@ readr::write_csv(wais4, here::here(patient, "csv", "wais4.csv"))
 ## Write to "g"
 
 ```{r writeout-g}
-table <- wais4
-test <- "g"
-readr::write_csv(
+table <- wrat5
+test <- "g2"
+file_path <- here::here(patient, "csv", paste0(test, ".csv"))
+tidytable::fwrite(
   table,
-  here::here(patient, paste0(test, ".csv")),
+  file_path,
   append = TRUE
 )
 ```
