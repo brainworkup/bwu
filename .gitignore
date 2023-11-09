@@ -99,3 +99,6 @@ Untitled.R
 Ashish/
 Tiffany/
 .dbxignore
+binary_storage/
+*.tgz
+*.tar.gz

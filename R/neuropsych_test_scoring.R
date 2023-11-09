@@ -6,41 +6,30 @@
 #' @rdname tmt_a
 #' @export
 tmt_a <- function(raw_score, age) {
-  predicted_score <-
-    26.50094 - (0.2665049 * age) + (0.0069935 * (age * age))
+  predicted_score <- 26.50094 - (0.2665049 * age) + (0.0069935 * (age * age))
+  predicted_sd <- 8.760348 - (0.1138093 * age) + (0.0028324 * (age * age))
 
-  predicted_sd <-
-    8.760348 - (0.1138093 * age) + (0.0028324 * (age * age))
-
-  if (raw_score < predicted_score) {
-    z_score <- ((raw_score - predicted_score) / predicted_sd) * -1
-  } else if (raw_score > predicted_score) {
-    z_score <- ((raw_score - predicted_score) / predicted_sd)
-  }
+  # For TMT, a lower raw score is better, so we invert the z-score calculation.
+  z_score <- (predicted_score - raw_score) / predicted_sd
 
   t_score <- (z_score * 10) + 50
 
+  # Round the scores
   t_score <- round(t_score, digits = 0)
   z_score <- round(z_score, digits = 2)
-
   predicted_score <- round(predicted_score, digits = 2)
   predicted_sd <- round(predicted_sd, digits = 2)
 
-  t_score <-
-    paste0(
-      "TMT, A T-score: ",
-      t_score,
-      ", z-score = ",
-      z_score,
-      ", Predicted score = ",
-      predicted_score,
-      ", Predicted SD = ",
-      predicted_sd
-    )
+  # Create output string
+  t_score <- paste0(
+    "TMT-A T-score: ", t_score,
+    ", z-score = ", z_score,
+    ", Predicted score = ", predicted_score,
+    ", Predicted SD = ", predicted_sd
+  )
 
   return(t_score)
 }
-
 
 #' @title TMT, Part B Score Lookup
 #' @description Trails B Ages 16 - 89
@@ -50,40 +39,30 @@ tmt_a <- function(raw_score, age) {
 #' @rdname tmt_b
 #' @export
 tmt_b <- function(raw_score, age) {
-  predicted_score <-
-    64.07469 - (0.9881013 * age) + (0.0235581 * (age * age))
+  predicted_score <- 64.07469 - (0.9881013 * age) + (0.0235581 * (age * age))
+  predicted_sd <- 29.8444 - (0.8080508 * age) + (0.0148732 * (age * age))
 
-  predicted_sd <-
-    29.8444 - (0.8080508 * age) + (0.0148732 * (age * age))
-
-  if (raw_score < predicted_score) {
-    z_score <- ((raw_score - predicted_score) / predicted_sd) * -1
-  } else if (raw_score > predicted_score) {
-    z_score <- ((raw_score - predicted_score) / predicted_sd)
-  }
+  # For TMT, a lower raw score is better, so we invert the z-score calculation.
+  z_score <- (predicted_score - raw_score) / predicted_sd
 
   t_score <- (z_score * 10) + 50
 
+  # Round the scores
   t_score <- round(t_score, digits = 0)
   z_score <- round(z_score, digits = 2)
-
   predicted_score <- round(predicted_score, digits = 2)
   predicted_sd <- round(predicted_sd, digits = 2)
 
+  # Create output string
   t_score <- paste0(
-    "TMT, B T-score: ",
-    t_score,
-    ", z-score = ",
-    z_score,
-    ", Predicted score = ",
-    predicted_score,
-    ", Predicted SD = ",
-    predicted_sd
+    "TMT-B T-score: ", t_score,
+    ", z-score = ", z_score,
+    ", Predicted score = ", predicted_score,
+    ", Predicted SD = ", predicted_sd
   )
 
   return(t_score)
 }
-
 
 #' @title Rey Complex Figure, Copy Trial Score Lookup
 #' @description Calculates a Rey Complex Figure, Copy trial score (T-score) from a raw score and age. The predicted score and standard deviation are also calculated.
