@@ -4,11 +4,11 @@
 \name{dots}
 \alias{dots}
 \title{Dot Counting Task from NIH EXAMINER
-A dataset containing the prices and other attributes of almost 54,000
-diamonds. The variables are as follows:
+A dataset containing dot counting task data.
+The variables are as follows:
 raw age percentile n m md sd normValue}
 \format{
-A data frame with 53940 rows and 10 variables:
+A data frame with several rows and 8 variables:
 \describe{
 \item{raw}{raw score}
 \item{age}{age in years}
@@ -25,8 +25,8 @@ dots
 }
 \description{
 Dot Counting Task from NIH EXAMINER
-A dataset containing the prices and other attributes of almost 54,000
-diamonds. The variables are as follows:
+A dataset containing dot counting task data.
+The variables are as follows:
 raw age percentile n m md sd normValue
 }
 \keyword{datasets}

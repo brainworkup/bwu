@@ -71,13 +71,13 @@ tmt_b <- function(raw_score, age) {
 #' @return Returns a numeric value of the T-score for the Rey Complex Figure, Copy trial.
 #' @details This function takes the raw score and age of a participant and calculates the Rey Complex Figure, Copy trial T-score using the formula provided by \emph{Manly et al. (2000)}. It also returns the predicted score and standard deviation for the trial.
 #' @references Manly, J.J., Schinka, J.A., & Guerrero, L. (2000). Normative Data on the Rey Complex Figure Test in Older Adults. Archives of Clinical Neuropsychology, 15(7), 613-621.
-#' @rdname rocft_copy
+#' @rdname rocft_copy_t_score
 #' @export
-rocft_copy <- function(raw_score, age) {
+rocft_copy_t_score <- function(age, raw_score) {
   MIN_AGE <- 16
   MAX_AGE <- 89
 
-  validate_inputs <- function(raw_score, age) {
+  validate_inputs <- function(age, raw_score) {
     if (raw_score == "") {
       return("No raw score provided")
     }
@@ -135,7 +135,7 @@ rocft_copy <- function(raw_score, age) {
     ", Predicted SD = ",
     predicted_sd
   )
-  return(t_score)
+  return(cat(t_score))
 }
 
 
@@ -147,13 +147,13 @@ rocft_copy <- function(raw_score, age) {
 #' @return Returns a numeric value of the T-score for the Rey Complex Figure, Copy trial.
 #' @details This function takes the raw score and age of a participant and calculates the Rey Complex Figure, Copy trial T-score using the formula provided by \emph{Manly et al. (2000)}. It also returns the predicted score and standard deviation for the trial.
 #' @references Manly, J.J., Schinka, J.A., & Guerrero, L. (2000). Normative Data on the Rey Complex Figure Test in Older Adults. Archives of Clinical Neuropsychology, 15(7), 613-621.
-#' @rdname rocft_delayed_recall
+#' @rdname rocft_recall_t_score
 #' @export
-rocft_delayed_recall <- function(raw_score, age) {
+rocft_recall_t_score <- function(age, raw_score) {
   MIN_AGE <- 16
   MAX_AGE <- 89
 
-  validate_inputs <- function(raw_score, age) {
+  validate_inputs <- function(age, raw_score) {
     if (raw_score == "") {
       return("No raw score provided")
     }
@@ -220,5 +220,5 @@ rocft_delayed_recall <- function(raw_score, age) {
     ", Predicted SD = ",
     predicted_sd
   )
-  return(t_score)
+  return(cat(t_score))
 }

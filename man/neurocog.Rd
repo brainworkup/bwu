@@ -3,57 +3,55 @@
 \docType{data}
 \name{neurocog}
 \alias{neurocog}
-\title{neurocog data documentation}
+\title{neurocog dataset}
 \format{
 A data frame with unknown rows and 26 or so variables:
 \describe{
-\item{filename}{name of test file}
-\item{scale}{age in years}
-\item{score}{percentile rank}
-\item{percentile}{sample size per group}
-\item{range}{mean score}
-\item{ci_95}{median score}
-\item{raw_score}{standard deviation of score}
-\item{test}{T score fot dot counting task}
-\item{test_name}{T score fot dot counting task}
-\item{domain}{T score fot dot counting task}
-\item{subdomain}{T score fot dot counting task}
-\item{narrow}{T score fot dot counting task}
-\item{domain_broad}{T score fot dot counting task}
-\item{domain_test}{T score fot dot counting task}
-\item{test_type}{T score fot dot counting task}
-\item{score_type}{T score fot dot counting task}
-\item{timed}{T score fot dot counting task}
-\item{verbal}{T score fot dot counting task}
-\item{pass}{T score fot dot counting task}
-\item{absort}{T score fot dot counting task}
-\item{z}{T score fot dot counting task}
-\item{z_mean_dom}{T score fot dot counting task}
-\item{z_sd_dom}{T score fot dot counting task}
-\item{pct_mean_dom}{T score fot dot counting task}
-\item{pct_sd_dom}{T score fot dot counting task}
-\item{z_mean_sub}{T score fot dot counting task}
-\item{z_sd_sub}{T score fot dot counting task}
-\item{pct_mean_sub}{T score fot dot counting task}
-\item{pct_sd_sub}{T score fot dot counting task}
-\item{z_mean_narrow}{T score fot dot counting task}
-\item{z_sd_narrow}{T score fot dot counting task}
-\item{pct_mean_narrow}{T score fot dot counting task}
-\item{pct_sd_narrow}{T score fot dot counting task}
-\item{z_mean_verbal}{T score fot dot counting task}
-\item{z_sd_verbal}{T score fot dot counting task}
-\item{z_mean_pass}{T score fot dot counting task}
-\item{z_sd_pass}{T score fot dot counting task}
-\item{z_mean_timed}{T score fot dot counting task}
-\item{z_sd_timed}{T score fot dot counting task}
+\item{filename}{Name of test file.}
+\item{scale}{Age in years.}
+\item{score}{Percentile rank.}
+\item{percentile}{Sample size per group.}
+\item{range}{Mean score.}
+\item{ci_95}{Median score.}
+\item{raw_score}{Standard deviation of score.}
+\item{test}{Test name.}
+\item{test_name}{Specific name of the test.}
+\item{domain}{Domain of the test.}
+\item{subdomain}{Subdomain of the test.}
+\item{narrow}{Narrow category of the test.}
+\item{domain_broad}{Broad domain of the test.}
+\item{domain_test}{Specific test within the broad domain.}
+\item{test_type}{Type of the test.}
+\item{score_type}{Type of the score.}
+\item{timed}{Whether the test is timed.}
+\item{verbal}{Verbal/nonverbal score.}
+\item{pass}{PASS model.}
+\item{absort}{Absorption score.}
+\item{z}{Z-score.}
+\item{z_mean_dom}{Mean Z-score for domain.}
+\item{z_sd_dom}{Standard deviation of Z-score for domain.}
+\item{pct_mean_dom}{Mean percentile for domain.}
+\item{pct_sd_dom}{Standard deviation of percentile for domain.}
+\item{z_mean_sub}{Mean Z-score for subdomain.}
+\item{z_sd_sub}{Standard deviation of Z-score for subdomain.}
+\item{pct_mean_sub}{Mean percentile for subdomain.}
+\item{pct_sd_sub}{Standard deviation of percentile for subdomain.}
+\item{z_mean_narrow}{Mean Z-score for narrow category.}
+\item{z_sd_narrow}{Standard deviation of Z-score for narrow category.}
+\item{pct_mean_narrow}{Mean percentile for narrow category.}
+\item{pct_sd_narrow}{Standard deviation of percentile for narrow category.}
+\item{z_mean_verbal}{Mean Z-score for verbal score.}
+\item{z_sd_verbal}{Standard deviation of Z-score for verbal score.}
+\item{z_mean_pass}{Mean Z-score for passing score.}
+\item{z_sd_pass}{Standard deviation of Z-score for passing score.}
+\item{z_mean_timed}{Mean Z-score for timed score.}
+\item{z_sd_timed}{Standard deviation of Z-score for timed score.}
 }
 }
 \usage{
 neurocog
 }
 \description{
-A dataset containing neuropsych data
-diamonds. The variables are as follows:
-raw	age	percentile	n	m	md	sd	normValue
+A dataset containing neuropsych data.
 }
 \keyword{datasets}

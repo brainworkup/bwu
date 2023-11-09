@@ -247,18 +247,18 @@ patient <- params$patient
 ## Make data.frame
 
 ```{r make-df}
-df <- tidytable::tidytable(
+data <- data.frame(
   test = (params$test),
   test_name = (params$test_name),
   test_type = (params$test_type),
   scale = (params$scale),
   raw_score = as.numeric(params$raw_score),
   score = as.numeric(params$score),
-  ci_95 = NA,
-  score_adj = NA,
-  ci_95_lower = NA,
-  ci_95_upper = NA,
   percentile = NA,
+  true_score = NA,
+  ci_95 = NA,
+  ci_lo = NA,
+  ci_hi = NA,
   range = NA,
   range_lower = NA,
   range_upper = NA,
