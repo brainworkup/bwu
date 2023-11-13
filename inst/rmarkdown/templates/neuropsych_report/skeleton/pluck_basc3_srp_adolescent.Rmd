@@ -1,0 +1,607 @@
+---
+title: "Pluck Tables BASC-3 SRP Adolescent"
+params:
+  patient: Georgia
+  test: basc3_srp_adolescent
+  test_name: "BASC-3 SRP"
+  file:
+    label: "Upload BASC-3 SRP PDF file"
+    value: file
+    input: file
+  pages: [4, 4]
+output:
+  rmdformats::robobook:
+    highlight: kate
+---
+
+# BASC-3 SRP Adolescent
+
+## Setup
+
+```{r setup, include = FALSE}
+library(dplyr)
+library(fs)
+library(hablar)
+library(here)
+library(knitr)
+library(magrittr)
+library(miniUI)
+library(readr)
+library(rJava)
+library(rmarkdown)
+library(shiny)
+library(tabulizer)
+library(tibble)
+library(tidyr)
+library(bwu)
+library(rmdformats)
+# Set JAVA environment
+Sys.setenv(
+  JAVA_HOME =
+    "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home"
+)
+options(java.parameters = "-Xmx16000m")
+# Set knitr options
+knitr::opts_chunk$set(
+  root.dir = normalizePath("./"),
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  error = TRUE
+)
+```
+
+## Patient
+
+```{r patient}
+patient <- params$patient
+```
+
+## Test
+
+Name of neuropsych test or rating scale.
+
+```{r test}
+test <- params$test
+test_name <- params$test_name
+```
+
+## Pages
+
+```{r pages}
+pages <- params$pages
+```
+
+## Load PDF file and save as file.path
+
+```{r file}
+# pdf_file <- file.path(file.choose())
+# pdf_file <- "/Users/joey/neuropsychology/Georgia/pdf/basc3_srp.pdf"
+pdf_file <- params$file
+```
+
+## Write/Read PDF file.path
+
+```{r write-file}
+writeLines(pdf_file, here::here(patient, "pre_csv", paste0(test, ".pdf")))
+```
+
+```{r read-file}
+# pdf_file <- readLines(here::here(patient, "pre_csv", paste0(test, ".pdf")))
+```
+
+## Locate areas
+
+```{r areas}
+# SRP
+areas <- list(
+  table1 = c(177, 88, 242, 520),
+  table2 = c(413, 37, 620, 575)
+)
+```
+
+```{r locate-areas}
+# areas <- bwu::gpluck_locate_areas(
+#   file = pdf_file,
+#   pages = pages
+# )
+```
+
+```{r save-areas}
+readr::write_rds(areas, here::here(patient, "pre_csv", "areas_basc3_srp.rds"))
+```
+
+```{r}
+# areas <- readr::read_rds(here::here(patient, "pre_csv", "areas_basc3_srp.rds"))
+```
+
+## Extract tables
+
+```{r extract}
+plucked_tables <- bwu::gpluck_extract_tables(
+  file = pdf_file,
+  pages = pages,
+  area = areas,
+  guess = NULL,
+  method = "lattice",
+  output = "matrix"
+)
+```
+
+# CLINICAL AND ADAPTIVE SCORE TABLE
+
+## Column names per test/subtest/measure
+
+This will vary by measure/table.
+
+## Convert to tibble and format
+
+```{r pluck-df1}
+table1 <- data.frame(plucked_tables[[1]])
+column_names1 <- c("scale", "raw_score", "score", "percentile", "ci_95")
+colnames(table1) <- column_names1
+# Convert columns to double
+to_double <- c("raw_score", "score", "percentile")
+table1[to_double] <- lapply(table1[to_double], as.numeric)
+```
+
+```{r pluck-df2}
+table2 <- data.frame(plucked_tables[[2]])
+column_names2 <- c("scale", "raw_score", "score", "percentile", "ci_95", "difference", "sig_level", "freq_of_diff")
+colnames(table2) <- column_names2
+# Convert columns to double
+to_double <- c("raw_score", "score", "percentile")
+table2[to_double] <- lapply(table2[to_double], as.numeric)
+```
+
+## Select variables to keep
+
+```{r vars}
+keep <- c("scale", "raw_score", "score", "percentile", "ci_95")
+table1 <- table1 |> dplyr::select(all_of(keep))
+table2 <- table2 |> dplyr::select(all_of(keep))
+```
+
+# Mutate columns
+
+```{r mutate1}
+table1 <- bwu::gpluck_make_columns(
+  data = table1,
+  test = params$test,
+  test_name = params$test_name,
+  domain = "Behavioral/Emotional/Social",
+  range = "",
+  subdomain = "",
+  narrow = "",
+  timed = "",
+  verbal = "",
+  pass = "",
+  test_type = "rating_scale",
+  score_type = "t_score",
+  absort = "",
+  description = "",
+  result = ""
+)
+```
+
+```{r mutate2}
+table2 <- bwu::gpluck_make_columns(
+  data = table2,
+  test = params$test,
+  test_name = params$test_name,
+  domain = "Behavioral/Emotional/Social",
+  range = "",
+  subdomain = "",
+  narrow = "",
+  timed = "",
+  verbal = "",
+  pass = "",
+  test_type = "rating_scale",
+  score_type = "t_score",
+  absort = "",
+  description = "",
+  result = ""
+)
+```
+
+## Test score ranges
+
+```{r test-score-ranges}
+table1 <- bwu::gpluck_make_score_ranges(table = table1, test_type = "rating_scale")
+table2 <- bwu::gpluck_make_score_ranges(table = table2, test_type = "rating_scale")
+```
+
+## Subdomains
+
+```{r subdomain1}
+table1 <-
+  table1 |>
+  mutate(
+    subdomain = case_when(
+      scale == "School Problems" ~ "School Problems",
+      scale == "Internalizing Problems" ~ "Internalizing Problems",
+      scale == "Inattention/Hyperactivity" ~ "Inattention/Hyperactivity",
+      scale == "Emotional Symptoms Index" ~ "BEmotional Symptoms Index",
+      scale == "Personal Adjustment" ~ "Personal Adjustment",
+      TRUE ~ as.character(subdomain)
+    )
+  )
+
+table2 <-
+  table2 |>
+  mutate(
+    subdomain = case_when(
+      scale == "Attitude to School" ~ "School Problems",
+      scale == "Attitude to Teachers" ~ "School Problems",
+      scale == "Sensation Seeking" ~ "School Problems",
+      scale == "Atypicality" ~ "Internalizing Problems",
+      scale == "Locus of Control" ~ "Internalizing Problems",
+      scale == "Social Stress" ~ "Internalizing Problems",
+      scale == "Anxiety" ~ "Internalizing Problems",
+      scale == "Depression" ~ "Internalizing Problems",
+      scale == "Sense of Inadequacy" ~ "Internalizing Problems",
+      scale == "Somatization" ~ "Internalizing Problems",
+      scale == "Attention Problems" ~ "Inattention/Hyperactivity",
+      scale == "Hyperactivity" ~ "Inattention/Hyperactivity",
+      scale == "Relations with Parents" ~ "Personal Adjustment",
+      scale == "Interpersonal Relations" ~ "Personal Adjustment",
+      scale == "Self-Esteem" ~ "Personal Adjustment",
+      scale == "Self-Reliance" ~ "Personal Adjustment",
+      TRUE ~ as.character(subdomain)
+    )
+)
+
+```
+
+### Narrow subdomains
+
+```{r narrow1}
+table1 <-
+  table1 |>
+  mutate(
+    narrow = case_when(
+      scale == "School Problems" ~ "School",
+      scale == "Internalizing Problems" ~ "Mood",
+      scale == "Inattention/Hyperactivity" ~ "ADHD",
+      scale == "Emotional Symptoms Index" ~ "Emotionality",
+      scale == "Personal Adjustment" ~ "Personality",
+      TRUE ~ as.character(narrow)
+    )
+)
+
+table2 <-
+  table2 |>
+  mutate(
+    narrow = case_when(
+      scale == "Attitude to School" ~ "School",
+      scale == "Attitude to Teachers" ~ "School",
+      scale == "Sensation Seeking" ~ "ADHD",
+      scale == "Atypicality" ~ "ASD",
+      scale == "Locus of Control" ~ "Personality",
+      scale == "Social Stress" ~ "Social",
+      scale == "Anxiety" ~ "Mood",
+      scale == "Depression" ~ "Mood",
+      scale == "Sense of Inadequacy" ~ "Personality",
+      scale == "Somatization" ~ "Personality",
+      scale == "Attention Problems" ~ "ADHD",
+      scale == "Hyperactivity" ~ "ADHD",
+      scale == "Relations with Parents" ~ "Social",
+      scale == "Interpersonal Relations" ~ "Social",
+      scale == "Self-Esteem" ~ "Personality",
+      scale == "Self-Reliance" ~ "Personality",
+      TRUE ~ as.character(narrow)
+    )
+)
+```
+
+### Scale descriptions
+
+As necessary.
+
+```{r description1}
+table1 <-
+  table1 |>
+  mutate(
+    description = case_when(
+      scale == "School Problems" ~ "School Problems composite scale",
+      scale == "Internalizing Problems" ~ "Internalizing Problems composite scale",
+      scale == "Inattention/Hyperactivity" ~ "Innattention/Hyperactivity composite scale",
+      scale == "Emotional Symptoms Index" ~ "Emotional Symptoms Index composite scale",
+      scale == "Personal Adjustment" ~ "Personal Adjustment composite scale",
+      TRUE ~ as.character(description)
+    )
+)
+table2 <-
+  table2 |>
+  mutate(
+    description = case_when(
+      scale == "Attitude to School" ~ "tendency to feel alienated, hostile, or dissatisfied toward school",
+      scale == "Attitude to Teachers" ~ "tendency to resent or dislike teachers or think they are unfair",
+      scale == "Sensation Seeking" ~ "tendency to take risks and seek excitement",
+      scale == "Atypicality" ~ "demonstration of clear, logical thought patterns and a general awareness of surroundings",
+      scale == "Locus of Control" ~ "having little control over events occurring in his/her life and reports being blamed for things that he/she did not do.",
+      scale == "Social Stress" ~ "difficulty establishing and maintaining close relationships with others and reports being isolated and lonely",
+      scale == "Anxiety" ~ "tendency to be nervous, fearful, or worried about real or imagined problems",
+      scale == "Depression" ~ "excessive feelings of unhappiness, sadness, or stress",
+      scale == "Sense of Inadequacy" ~ "tendency to feel unsuccessful or generally inadequate",
+      scale == "Somatization" ~ "tendency to be overly sensitive or to complain about relatively minor physical problems/discomfort",       scale == "Attention Problems" ~ "tendency to be easily distracted and unable to concentrate for an extended period of time",
+      scale == "Hyperactivity" ~ "tendency to be overly active, rush through work or activities, and act without thinking",
+      scale == "Relations with Parents" ~ "tendency to feel valued and supported by parents",
+      scale == "Interpersonal Relations" ~ "feeling liked and respected by peers",
+      scale == "Self-Esteem" ~ "negative self-image, both in terms of personal and physical attributes",
+      scale == "Self-Reliance" ~ "thinking that one is dependable and being confident of one’s abilities",
+      TRUE ~ as.character(description)
+    )
+  )
+```
+
+## Row bind
+
+```{r bind-rows}
+df <- bind_rows(table1, table2)
+```
+
+## Glue results
+
+```{r result}
+df <- df |> 
+  rowwise() |>
+  mutate(result = glue::glue("{patient}'s self-reported {description} was {range}.\n"))
+```
+
+# Finalize and save
+
+## Write/save csv files
+
+```{r save-csv}
+test <- params$test
+readr::write_csv(
+  df,
+  here::here(patient, "csv", paste0(test, ".csv")), 
+  col_names = TRUE, 
+  na = ""
+  )
+```
+
+## Pluck Text
+
+```{r text}
+# save file as path
+file <- fs::fs_path(params$file)
+
+# BASC-3 SRP Child
+if (params$test == "basc3_srp_child") {
+  
+  ## extract text
+  get_text <- function(file) {
+    txt <- pdftools::pdf_text(file) |>
+      stringr::str_split("\n") |>
+      unlist()
+  }
+  basc3_srp_txt <- pdftools::pdf_text(file) |>
+    stringr::str_split("\n") |>
+    unlist()
+  basc3_srp_txt
+
+  # Replace long spaces with a col break symbol
+  basc3_srp_squished <-
+    stringr::str_replace_all(basc3_srp_txt, "\\s{2,}", "- ") |>
+    stringr::str_remove_all(",")
+  basc3_srp_squished
+
+  # save as markdown
+  readr::write_lines(
+    basc3_srp_squished, 
+    here::here(patient, "basc3_srp_text.md"), 
+    sep = "\n")
+  # save as quarto
+  readr::write_lines(
+    basc3_srp_squished, 
+    here::here(patient, "basc3_srp_text.qmd"), 
+    sep = "\n")
+  # save as text
+  readr::write_lines(basc3_srp_squished, 
+    here::here(patient, "basc3_srp_text.txt"), 
+    sep = "\n"
+    )
+
+# BASC-3 SRP Adolescent
+} else if (params$test == "basc3_srp_adolescent") {
+
+  ## extract text
+  get_text <- function(file) {
+    txt <- pdftools::pdf_text(file) |>
+      stringr::str_split("\n") |>
+      unlist()
+  }
+  basc3_srp_adolescent_txt <- pdftools::pdf_text(file) |>
+    stringr::str_split("\n") |>
+    unlist()
+  basc3_srp_adolescent_txt
+
+  # Replace long spaces with a col break symbol
+  basc3_srp_adolescent_squished <-
+    stringr::str_replace_all(basc3_srp_adolescent_txt, "\\s{2,}", "- ") |>
+    stringr::str_remove_all(",")
+  basc3_srp_adolescent_squished
+  
+  # save as markdown
+  readr::write_lines(basc3_srp_adolescent_squished, 
+    here::here(patient, "basc3_srp_adolescent_text.md"),
+    sep = "\n"
+    )
+  # save as quarto
+  readr::write_lines(basc3_srp_adolescent_squished, 
+    here::here(patient, "basc3_srp_adolescent_text.qmd"),
+    sep = "\n"
+    )
+  # save as text
+  readr::write_lines(basc3_srp_adolescent_squished, 
+    here::here(patient, "basc3_srp_adolescent_text.txt"), 
+    sep = "\n"
+    )
+}
+```
+
+## Pluck Text
+
+```{r text2}
+library(pdftools)
+library(stringr)
+
+patient <- "Georgia"
+
+file <- here::here(patient, "pdf", "basc3_srp.pdf")
+
+## extract text
+get_text <- function(file) {
+  txt <- pdftools::pdf_text(file) |>
+    stringr::str_split("\n") |>
+    unlist()
+}
+text <- get_text(file)
+text
+
+get_table <- function(files, ...) {
+  L <- tabulizer::extract_tables(files, output = "data.frame")
+  i <- which.max(lengths(L))
+  data.frame(L[[i]])
+}
+tables <- get_table1(files = file)
+
+# save dirty
+readr::write_lines(text, here::here(patient, "basc3_srp_text.md"), sep = "\n")
+readr::write_lines(text, here::here(patient, "basc3_srp_text.qmd"), sep = "\n")
+readr::write_lines(text, here::here(patient, "basc3_srp_text.typ"), sep = "\n")
+readr::write_lines(text, here::here(patient, "basc3_srp_text.txt"), sep = "\n")
+
+# Replace long spaces with a col break symbol
+text_squished <-
+  stringr::str_replace_all(text, "\\s{2,}", "- ") |>
+  stringr::str_remove_all(",")
+text_squished
+
+# save
+readr::write_lines(text_squished, here::here(patient, "basc3_srp_text_squished.md"), sep = "\n")
+readr::write_lines(text_squished, here::here(patient, "basc3_srp_text_squished.qmd"), sep = "\n")
+readr::write_lines(text_squished, here::here(patient, "basc3_srp_text_squished.typ"), sep = "\n")
+readr::write_lines(text_squished, here::here(patient, "basc3_srp_text_squished.txt"), sep = "\n")
+```
+
+```{r}
+md_table <- knitr::kable(data.frame(text = squished_table))
+```
+
+# convert to table
+
+If you've extracted text from a PDF and it has the format you've shown, one way to parse it is by recognizing patterns in the text.
+
+From your sample text:
+
+-   Each section of the table begins with a title (e.g., "Supplemental basc3_srp Indices") and then lists different variables along with two scores.
+-   Each variable and its scores are separated by a hyphen (`-`).
+-   There is a pattern of "Name of the variable- Raw value- T score".
+
+Let's try to extract this using regular expressions and the string manipulation functions available in the `stringr` package:
+
+```{r}
+library(stringr)
+library(tibble)
+
+parse_extracted_text <- function(text) {
+  # Split text by lines
+  lines <- unlist(strsplit(text, split = "\n"))
+  
+  # Filter lines containing scores
+  score_lines <- lines[str_detect(lines, "-")]
+  
+  # Extract names, raw values, and T scores using regex
+  names <- str_extract(score_lines, ".*(?=\\s*-\\s*)")
+  values <- str_extract_all(score_lines, "(?<=-\\s*)[^-]*")
+  
+  # Convert to data.frame
+  df <- tibble(
+    Name = names,
+    RawValue = sapply(values, function(x) x[1]),
+    TScore = sapply(values, function(x) x[2])
+  )
+  
+  return(df)
+}
+
+# Sample text you provided
+text <- "Additional Profile Information
+Supplemental basc3_srp Indices
+Negative Distortion Indicators- Raw value- T score
+Malingering Index- 0- 44
+Instrumental Aggression Scale*- 15- 45
+Level of Care Index*- 1- 42
+Chronic Suicide Risk (S_Chron) Index*- 5- 45
+RXR Estimated Score*- N/A- 49 (4T lower than RXR)"
+
+df <- parse_extracted_text(text)
+print(df)
+```
+
+Note:
+
+-   This solution assumes that your text follows the format you provided consistently.
+-   You might need to adjust the function if the text has variations.
+-   You can then further clean the `df`, for instance, by stripping off extra spaces or converting `N/A` to `NA`.
+
+After extracting, you can save the data frame as a CSV or RDS file for further use.
+
+```{r}
+library(stringr)
+library(tibble)
+
+parse_extracted_text <- function(text) {
+  # Split text by lines
+  lines <- unlist(strsplit(text, split = "\n"))
+  
+  # Filter lines containing scores
+  score_lines <- lines[str_detect(lines, "-")]
+  
+  # Split by hyphen and trim whitespace
+  split_values <- str_split(score_lines, "-")
+  trimmed_values <- lapply(split_values, str_trim)
+  
+  # Convert to data.frame
+  df <- tibble(
+    Name = sapply(trimmed_values, `[[`, 1),
+    RawValue = sapply(trimmed_values, `[[`, 2),
+    TScore = sapply(trimmed_values, `[[`, 3)
+  )
+  
+  return(df)
+}
+
+# Sample text you provided
+text <- "Additional Profile Information
+Supplemental basc3_srp Indices
+Negative Distortion Indicators- Raw value- T score
+Malingering Index- 0- 44
+Instrumental Aggression Scale*- 15- 45
+Level of Care Index*- 1- 42
+Chronic Suicide Risk (S_Chron) Index*- 5- 45
+RXR Estimated Score*- N/A- 49 (4T lower than RXR)"
+
+df <- parse_extracted_text(text)
+print(df)
+
+```
+
+If you want to further process the `TScore` column to split out any additional annotations (like "4T lower than RXR"), you can use similar string processing functions.
+Also, be aware that this function works well for the sample data you provided; if the format changes in other PDFs, you might need to make adjustments.
+
+Here's a quick way to further process the `TScore` column to get a cleaned version:
+
+```{r}
+df <- df |>
+  dplyr::mutate(TScore_Cleaned = stringr::str_extract(TScore, "^\\d+"))
+
+print(df)
+```
+
+This will give you a new column `TScore_Cleaned` with just the numeric TScore, assuming all TScores are whole numbers.
+If they could be decimals, you'd need to adjust the regex slightly.
