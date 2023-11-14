@@ -206,17 +206,17 @@ drilldown <- function(data, patient, neuro_domain = c(
   ## Level 1 -------------------------------------------------------
   ## Domain scores
   # 1. create mean z-scores for domain
-  ncog1 <- data %>%
+  df1 <- data %>%
     dplyr::group_by(domain) %>%
     dplyr::summarize(
       zMean = mean(z),
       zPct = mean(percentile)
     ) %>%
     dplyr::mutate(range = NA)
-  ncog1$zMean <- round(ncog1$zMean, 2L)
-  ncog1$zPct <- round(ncog1$zPct, 0L)
-  ncog1 <-
-    ncog1 %>%
+  df1$zMean <- round(df1$zMean, 2L)
+  df1$zPct <- round(df1$zPct, 0L)
+  df1 <-
+    df1 %>%
     dplyr::mutate(
       range = dplyr::case_when(
         zPct >= 98 ~ "Exceptionally High",
@@ -231,27 +231,27 @@ drilldown <- function(data, patient, neuro_domain = c(
     )
 
   # 2. sort hi to lo
-  ncog1 <- dplyr::arrange(ncog1, desc(zMean))
+  df1 <- dplyr::arrange(df1, desc(zMean))
 
   # 3. create tibble with new column with domain name lowercase
-  ncog_level1_status <- tibble(
-    name = ncog1$domain,
-    y = ncog1$zMean,
-    y2 = ncog1$zPct,
-    range = ncog1$range,
+  df_level1_status <- tibble(
+    name = df1$domain,
+    y = df1$zMean,
+    y2 = df1$zPct,
+    range = df1$range,
     drilldown = tolower(name)
   )
 
   ## Level 2 -------------------------------------------------------
   ## Subdomain scores
   ## function to create second level of drilldown (subdomain scores)
-  ncog_level2_drill <-
+  df_level2_drill <-
     lapply(unique(neurocog$domain), function(x_level) {
-      ncog2 <- subset(neurocog, neurocog$domain %in% x_level)
+      df2 <- subset(neurocog, neurocog$domain %in% x_level)
 
       # same as above
-      ncog2 <-
-        ncog2 %>%
+      df2 <-
+        df2 %>%
         dplyr::group_by(subdomain) %>%
         dplyr::summarize(
           zMean = mean(z),
@@ -260,10 +260,10 @@ drilldown <- function(data, patient, neuro_domain = c(
         dplyr::mutate(range = NA)
 
       # round z-score to 1 decimal
-      ncog2$zMean <- round(ncog2$zMean, 2L)
-      ncog2$zPct <- round(ncog2$zPct, 0L)
-      ncog2 <-
-        ncog2 %>%
+      df2$zMean <- round(df2$zMean, 2L)
+      df2$zPct <- round(df2$zPct, 0L)
+      df2 <-
+        df2 %>%
         dplyr::mutate(
           range = dplyr::case_when(
             zPct >= 98 ~ "Exceptionally High",
@@ -278,47 +278,47 @@ drilldown <- function(data, patient, neuro_domain = c(
         )
 
       # 2. sort hi to lo
-      ncog2 <- dplyr::arrange(ncog2, desc(zMean))
+      df2 <- dplyr::arrange(df2, desc(zMean))
 
       # 3. create tibble with new column with domain name lowercase
-      ncog_level2_status <- tibble(
-        name = ncog2$subdomain,
-        y = ncog2$zMean,
-        y2 = ncog2$zPct,
-        range = ncog2$range,
+      df_level2_status <- tibble(
+        name = df2$subdomain,
+        y = df2$zMean,
+        y2 = df2$zPct,
+        range = df2$range,
         drilldown = tolower(paste(x_level, name, sep = "_"))
       )
 
       list(
         id = tolower(x_level),
         type = "column",
-        data = list_parse(ncog_level2_status)
+        data = list_parse(df_level2_status)
       )
     })
 
   ## Level 3 -------------------------------------------------------
   ## Narrow subdomains
   ## reuse function
-  ncog_level3_drill <-
+  df_level3_drill <-
     lapply(unique(neurocog$domain), function(x_level) {
-      ncog2 <- subset(neurocog, neurocog$domain %in% x_level)
+      df2 <- subset(neurocog, neurocog$domain %in% x_level)
 
       # reuse function but with y_level
-      lapply(unique(ncog2$subdomain), function(y_level) {
+      lapply(unique(df2$subdomain), function(y_level) {
         # 1. create mean z-scores for subdomain
-        # ncog3 becomes pronoun for domain
-        ncog3 <- subset(ncog2, ncog2$subdomain %in% y_level)
+        # df3 becomes pronoun for domain
+        df3 <- subset(df2, df2$subdomain %in% y_level)
 
-        ncog3 <- ncog3 %>%
+        df3 <- df3 %>%
           dplyr::group_by(narrow) %>%
           dplyr::summarize(zMean = mean(z), zPct = mean(percentile)) %>%
           dplyr::mutate(range = NA)
 
         # round z-score to 1 decimal
-        ncog3$zMean <- round(ncog3$zMean, 2L)
-        ncog3$zPct <- round(ncog3$zPct, 0L)
-        ncog3 <-
-          ncog3 %>%
+        df3$zMean <- round(df3$zMean, 2L)
+        df3$zPct <- round(df3$zPct, 0L)
+        df3 <-
+          df3 %>%
           dplyr::mutate(
             range = dplyr::case_when(
               zPct >= 98 ~ "Exceptionally High",
@@ -332,20 +332,20 @@ drilldown <- function(data, patient, neuro_domain = c(
             )
           )
 
-        ncog3 <- dplyr::arrange(ncog3, desc(zMean))
+        df3 <- dplyr::arrange(df3, desc(zMean))
 
-        ncog_level3_status <- tibble(
-          name = ncog3$narrow,
-          y = ncog3$zMean,
-          y2 = ncog3$zPct,
-          range = ncog3$range,
+        df_level3_status <- tibble(
+          name = df3$narrow,
+          y = df3$zMean,
+          y2 = df3$zPct,
+          range = df3$range,
           drilldown = tolower(paste(x_level, y_level, name, sep = "_"))
         )
 
         list(
           id = tolower(paste(x_level, y_level, sep = "_")),
           type = "column",
-          data = list_parse(ncog_level3_status)
+          data = list_parse(df_level3_status)
         )
       })
     }) %>% unlist(recursive = FALSE)
@@ -353,18 +353,18 @@ drilldown <- function(data, patient, neuro_domain = c(
   ## Level 4 -------------------------------------------------------
   ## Scale scores
   ## reuse both functions
-  ncog_level4_drill <-
+  df_level4_drill <-
     lapply(unique(neurocog$domain), function(x_level) {
-      ncog2 <- subset(neurocog, neurocog$domain %in% x_level)
+      df2 <- subset(neurocog, neurocog$domain %in% x_level)
 
-      lapply(unique(ncog2$subdomain), function(y_level) {
-        ncog3 <- subset(ncog2, ncog2$subdomain %in% y_level)
+      lapply(unique(df2$subdomain), function(y_level) {
+        df3 <- subset(df2, df2$subdomain %in% y_level)
 
-        lapply(unique(ncog3$narrow), function(z_level) {
-          ncog4 <- subset(ncog3, ncog3$narrow %in% z_level)
+        lapply(unique(df3$narrow), function(z_level) {
+          df4 <- subset(df3, df3$narrow %in% z_level)
 
-          ncog4 <-
-            ncog4 %>%
+          df4 <-
+            df4 %>%
             dplyr::group_by(scale) %>%
             dplyr::summarize(
               zMean = mean(z),
@@ -373,10 +373,10 @@ drilldown <- function(data, patient, neuro_domain = c(
             dplyr::mutate(range = NA)
 
           # round z-score to 1 decimal
-          ncog4$zMean <- round(ncog4$zMean, 2L)
-          ncog4$zPct <- round(ncog4$zPct, 0L)
-          ncog4 <-
-            ncog4 %>%
+          df4$zMean <- round(df4$zMean, 2L)
+          df4$zPct <- round(df4$zPct, 0L)
+          df4 <-
+            df4 %>%
             dplyr::mutate(
               range = dplyr::case_when(
                 zPct >= 98 ~ "Exceptionally High",
@@ -390,19 +390,19 @@ drilldown <- function(data, patient, neuro_domain = c(
               )
             )
 
-          ncog4 <- dplyr::arrange(ncog4, desc(zMean))
+          df4 <- dplyr::arrange(df4, desc(zMean))
 
-          ncog_level4_status <- tibble(
-            name = ncog4$scale,
-            y = ncog4$zMean,
-            y2 = ncog4$zPct,
-            range = ncog4$range
+          df_level4_status <- tibble(
+            name = df4$scale,
+            y = df4$zMean,
+            y2 = df4$zPct,
+            range = df4$range
           )
 
           list(
             id = tolower(paste(x_level, y_level, z_level, sep = "_")),
             type = "column",
-            data = list_parse(ncog_level4_status)
+            data = list_parse(df_level4_status)
           )
         })
       }) %>% unlist(recursive = FALSE)
@@ -429,7 +429,7 @@ drilldown <- function(data, patient, neuro_domain = c(
       text = patient,
       style = list(fontSize = "15px")
     ) %>%
-    highcharter::hc_add_series(ncog_level1_status,
+    highcharter::hc_add_series(df_level1_status,
       type = "bar",
       name = "Neuropsychological Test Scores",
       highcharter::hcaes(x = name, y = y)
@@ -455,7 +455,7 @@ drilldown <- function(data, patient, neuro_domain = c(
     )) %>%
     highcharter::hc_drilldown(
       allowPointDrilldown = TRUE,
-      series = c(ncog_level2_drill, ncog_level3_drill, ncog_level4_drill)
+      series = c(df_level2_drill, df_level3_drill, df_level4_drill)
     ) %>%
     highcharter::hc_colorAxis(
       minColor = "red",
