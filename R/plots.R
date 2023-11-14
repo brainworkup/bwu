@@ -209,10 +209,13 @@ drilldown <- function(data, patient, neuro_domain = c(
   df1 <- data %>%
     dplyr::group_by(domain) %>%
     dplyr::summarize(
-      zMean = mean(z),
-      zPct = mean(percentile)
+      zMean = mean(z, na.rm = TRUE),
+      zPct = mean(percentile, na.rm = TRUE)
     ) %>%
-    dplyr::mutate(range = NA)
+    dplyr::mutate(range = NA) |> 
+    dplyr::ungroup # NOTE this is new
+
+
   df1$zMean <- round(df1$zMean, 2L)
   df1$zPct <- round(df1$zPct, 0L)
   df1 <-
@@ -221,9 +224,9 @@ drilldown <- function(data, patient, neuro_domain = c(
       range = dplyr::case_when(
         zPct >= 98 ~ "Exceptionally High",
         zPct %in% 91:97 ~ "Above Average",
-        zPct %in% 75:90 ~ "High-Average",
+        zPct %in% 75:90 ~ "High Average",
         zPct %in% 25:74 ~ "Average",
-        zPct %in% 9:24 ~ "Low-Average",
+        zPct %in% 9:24 ~ "Low Average",
         zPct %in% 2:8 ~ "Below Average",
         zPct < 2 ~ "Exceptionally Low",
         TRUE ~ as.character(range)
@@ -231,7 +234,7 @@ drilldown <- function(data, patient, neuro_domain = c(
     )
 
   # 2. sort hi to lo
-  df1 <- dplyr::arrange(df1, desc(zMean))
+  df1 <- dplyr::arrange(df1, desc(zPct)) # NOTE this is new
 
   # 3. create tibble with new column with domain name lowercase
   df_level1_status <- tibble(
@@ -246,18 +249,19 @@ drilldown <- function(data, patient, neuro_domain = c(
   ## Subdomain scores
   ## function to create second level of drilldown (subdomain scores)
   df_level2_drill <-
-    lapply(unique(neurocog$domain), function(x_level) {
-      df2 <- subset(neurocog, neurocog$domain %in% x_level)
+    lapply(unique(data$domain), function(x_level) {
+      df2 <- subset(data, data$domain %in% x_level)
 
       # same as above
       df2 <-
         df2 %>%
         dplyr::group_by(subdomain) %>%
         dplyr::summarize(
-          zMean = mean(z),
-          zPct = mean(percentile)
+          zMean = mean(z, na.rm = TRUE),
+          zPct = mean(percentile, na.rm = TRUE)
         ) %>%
-        dplyr::mutate(range = NA)
+        dplyr::mutate(range = NA) |> 
+        dplyr::ungroup # NOTE this is new
 
       # round z-score to 1 decimal
       df2$zMean <- round(df2$zMean, 2L)
@@ -268,9 +272,9 @@ drilldown <- function(data, patient, neuro_domain = c(
           range = dplyr::case_when(
             zPct >= 98 ~ "Exceptionally High",
             zPct %in% 91:97 ~ "Above Average",
-            zPct %in% 75:90 ~ "High-Average",
+            zPct %in% 75:90 ~ "High Average",
             zPct %in% 25:74 ~ "Average",
-            zPct %in% 9:24 ~ "Low-Average",
+            zPct %in% 9:24 ~ "Low Average",
             zPct %in% 2:8 ~ "Below Average",
             zPct < 2 ~ "Exceptionally Low",
             TRUE ~ as.character(range)
@@ -278,7 +282,7 @@ drilldown <- function(data, patient, neuro_domain = c(
         )
 
       # 2. sort hi to lo
-      df2 <- dplyr::arrange(df2, desc(zMean))
+      df2 <- dplyr::arrange(df2, desc(zPct)) # NOTE this is new
 
       # 3. create tibble with new column with domain name lowercase
       df_level2_status <- tibble(
@@ -300,8 +304,8 @@ drilldown <- function(data, patient, neuro_domain = c(
   ## Narrow subdomains
   ## reuse function
   df_level3_drill <-
-    lapply(unique(neurocog$domain), function(x_level) {
-      df2 <- subset(neurocog, neurocog$domain %in% x_level)
+    lapply(unique(data$domain), function(x_level) {
+      df2 <- subset(data, data$domain %in% x_level)
 
       # reuse function but with y_level
       lapply(unique(df2$subdomain), function(y_level) {
@@ -311,8 +315,11 @@ drilldown <- function(data, patient, neuro_domain = c(
 
         df3 <- df3 %>%
           dplyr::group_by(narrow) %>%
-          dplyr::summarize(zMean = mean(z), zPct = mean(percentile)) %>%
-          dplyr::mutate(range = NA)
+          dplyr::summarize(
+            zMean = mean(z, na.rm = TRUE), 
+            zPct = mean(percentile, na.rm = TRUE)) %>%
+          dplyr::mutate(range = NA) |> 
+          ungroup # NOTE this is new
 
         # round z-score to 1 decimal
         df3$zMean <- round(df3$zMean, 2L)
@@ -323,16 +330,16 @@ drilldown <- function(data, patient, neuro_domain = c(
             range = dplyr::case_when(
               zPct >= 98 ~ "Exceptionally High",
               zPct %in% 91:97 ~ "Above Average",
-              zPct %in% 75:90 ~ "High-Average",
+              zPct %in% 75:90 ~ "High Average",
               zPct %in% 25:74 ~ "Average",
-              zPct %in% 9:24 ~ "Low-Average",
+              zPct %in% 9:24 ~ "Low Average",
               zPct %in% 2:8 ~ "Below Average",
               zPct < 2 ~ "Exceptionally Low",
               TRUE ~ as.character(range)
             )
           )
 
-        df3 <- dplyr::arrange(df3, desc(zMean))
+        df3 <- dplyr::arrange(df3, desc(zPct))
 
         df_level3_status <- tibble(
           name = df3$narrow,
@@ -354,8 +361,8 @@ drilldown <- function(data, patient, neuro_domain = c(
   ## Scale scores
   ## reuse both functions
   df_level4_drill <-
-    lapply(unique(neurocog$domain), function(x_level) {
-      df2 <- subset(neurocog, neurocog$domain %in% x_level)
+    lapply(unique(data$domain), function(x_level) {
+      df2 <- subset(data, data$domain %in% x_level)
 
       lapply(unique(df2$subdomain), function(y_level) {
         df3 <- subset(df2, df2$subdomain %in% y_level)
@@ -367,10 +374,11 @@ drilldown <- function(data, patient, neuro_domain = c(
             df4 %>%
             dplyr::group_by(scale) %>%
             dplyr::summarize(
-              zMean = mean(z),
-              zPct = mean(percentile)
+              zMean = mean(z, na.rm = TRUE),
+              zPct = mean(percentile, na.rm = TRUE)
             ) %>%
-            dplyr::mutate(range = NA)
+            dplyr::mutate(range = NA) |> 
+            dplyr::ungroup # NOTE this is new
 
           # round z-score to 1 decimal
           df4$zMean <- round(df4$zMean, 2L)
@@ -381,9 +389,9 @@ drilldown <- function(data, patient, neuro_domain = c(
               range = dplyr::case_when(
                 zPct >= 98 ~ "Exceptionally High",
                 zPct %in% 91:97 ~ "Above Average",
-                zPct %in% 75:90 ~ "High-Average",
+                zPct %in% 75:90 ~ "High Average",
                 zPct %in% 25:74 ~ "Average",
-                zPct %in% 9:24 ~ "Low-Average",
+                zPct %in% 9:24 ~ "Low Average",
                 zPct %in% 2:8 ~ "Below Average",
                 zPct < 2 ~ "Exceptionally Low",
                 TRUE ~ as.character(range)
@@ -409,14 +417,6 @@ drilldown <- function(data, patient, neuro_domain = c(
     }) %>% unlist(recursive = FALSE)
 
   # Create charts ----------------------------------
-
-  # Themes
-  theme_merge <-
-    highcharter::hc_theme_merge(
-      highcharter::hc_theme_monokai(),
-      highcharter::hc_theme_darkunica()
-    )
-
   # Tooltip
   x <- c("Name", "Score", "Percentile", "Range")
   y <- c("{point.name}", "{point.y}", "{point.y2}", "{point.range}")
@@ -431,7 +431,7 @@ drilldown <- function(data, patient, neuro_domain = c(
     ) %>%
     highcharter::hc_add_series(df_level1_status,
       type = "bar",
-      name = "Neuropsychological Test Scores",
+      name = neuro_domain,
       highcharter::hcaes(x = name, y = y)
     ) %>%
     highcharter::hc_xAxis(
@@ -440,7 +440,7 @@ drilldown <- function(data, patient, neuro_domain = c(
       categories = .$name
     ) %>%
     highcharter::hc_yAxis(
-      title = list(text = "z-score"),
+      title = list(text = "z-Score (Mean = 0, SD = 1)"),
       labels = list(format = "{value}")
     ) %>%
     highcharter::hc_tooltip(
@@ -448,25 +448,30 @@ drilldown <- function(data, patient, neuro_domain = c(
       useHTML = TRUE,
       valueDecimals = 1
     ) %>%
-    highcharter::hc_plotOptions(series = list(
-      colorByPoint = TRUE,
-      allowPointSelect = TRUE,
-      dataLabels = TRUE
-    )) %>%
+    highcharter::hc_plotOptions(
+      series = list(
+        colorByPoint = TRUE,
+        allowPointSelect = TRUE,
+        dataLabels = TRUE
+      )
+    ) %>%
     highcharter::hc_drilldown(
       allowPointDrilldown = TRUE,
-      series = c(df_level2_drill, df_level3_drill, df_level4_drill)
+      series = c(
+        df_level2_drill,
+        df_level3_drill,
+        df_level4_drill
+      )
     ) %>%
     highcharter::hc_colorAxis(
       minColor = "red",
       maxColor = "blue"
     ) %>%
-    highcharter::hc_add_theme(theme_merge) %>%
+    highcharter::hc_add_theme(theme) %>%
     highcharter::hc_chart(
       style = list(fontFamily = "Cabin"),
       backgroundColor = list("gray")
     )
-  # highcharter::hc_add_theme(hc_theme_sandsignika())
 
   return(plot)
 }
