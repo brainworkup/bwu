@@ -112,13 +112,15 @@ calc_ci_95 <- function(ability_score, mean, standard_deviation, reliability, rou
   error <- z * sem
 
   # Compute confidence interval
-  upper_ci_95 <- round(true_score - error, digits = round)
-  lower_ci_95 <- round(true_score + error, digits = round)
+  lower_ci_95 <- round(true_score - error, digits = round)
+  upper_ci_95 <- round(true_score + error, digits = round)
 
-  # Return the observed score, true score and confidence interval
-  return(glue::glue(
-    "Ability Score = {ability_score}\n
-    True Score = {true_score} (95% CI: {upper_ci_95}-{lower_ci_95})"
+  # Return a list of values
+  return(list(
+    ability_score = ability_score,
+    true_score = true_score,
+    lower_ci_95 = lower_ci_95,
+    upper_ci_95 = upper_ci_95
   ))
 }
 
