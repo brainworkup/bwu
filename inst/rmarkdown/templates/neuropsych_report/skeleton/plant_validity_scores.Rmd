@@ -154,16 +154,6 @@ params:
         - Hong Defensiveness Index
         - Back Random Responding
         - Hong Randomness Index
-  pass:
-    label: "PASS:"
-    value: ""
-    input: radio
-    choices:
-      - Planning
-      - Attention
-      - Sequential
-      - Simultaneous
-      - Knowledge
   verbal:
     label: "Verbal or Nonverbal Test:"
     value: ""
@@ -283,13 +273,12 @@ data <- data.frame(
 ## Function for scale description
 
 ```{r fx-desc}
-#' Function for scale desc
+#' Function for scale description
 #'
 #' @param data Data table
 #' @param scale Name of scale
 #' @param description Description of subtest
 #' @importFrom dplyr mutate case_when
-#'
 #' @return Data table with description column
 #' @export
 scale_description <- function(data, scale, description) {
@@ -449,7 +438,7 @@ compute_result <- function(data, scale, description, range, result) {
     mutate(result = case_when(
       scale %in% names(phrase_dict) ~ {
         phrase <- phrase_dict[[scale]]
-        glue::glue("{description} {phrase} {range}.\n")
+        glue::glue("{description} {phrase} {range} range.\n")
       },
       TRUE ~ result
     ))
@@ -471,15 +460,22 @@ data <- compute_result(
 ## Compute CI 95%
 
 ```{r ci95}
+scale_score <- as.numeric(params$score)
+scale_mean <- as.numeric(params$mean)
+scale_sd <- as.numeric(params$stdev)
+scale_rel <- as.numeric(params$reliability)
+
 ci_values <- bwu::calc_ci_95(
-  ability_score = as.numeric(params$score),
-  mean = as.numeric(params$mean),
-  standard_deviation = as.numeric(params$stdev),
-  reliability = as.numeric(params$reliability)
+  ability_score = scale_score,
+  mean = scale_mean,
+  standard_deviation = scale_sd,
+  reliability = scale_rel
 )
+
 data$true_score <- ci_values["true_score"]
-data$ci_lo <- ci_values["ci_lo"]
-data$ci_hi <- ci_values["ci_hi"]
+data$ci_lo <- ci_values["lower_ci_95"]
+data$ci_hi <- ci_values["upper_ci_95"]
+data$ci_95 <- paste0(data$ci_lo, " - ", data$ci_hi)
 ```
 
 ## Write out CSV and XLSX

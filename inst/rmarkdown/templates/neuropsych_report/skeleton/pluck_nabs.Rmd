@@ -1204,7 +1204,7 @@ table1 <-
       scale ==
         "NAB Memory Index" ~ "A composite measure of the examinee's verbal and visual memory functioning",
       scale ==
-        "NAB Spatial Index" ~ "A composite screening measure of (ref:first-name)'s visuoperceptual skills, attention to detail, and visuoconstructional skills",
+        "NAB Spatial Index" ~ "A composite screening measure of `r params$first_name`'s visuoperceptual skills, attention to detail, and visuoconstructional skills",
       scale ==
         "NAB Executive Functions Index" ~ "A composite measure of executive skills involving planning, inhibition, speed/fluency, and generativity",
       TRUE ~ as.character(description)
@@ -1234,7 +1234,7 @@ table2 <-
       scale ==
         "Numbers & Letters Part A Efficiency" ~ "An overall measure of efficiency in performing a selective attention letter cancellation task",
       scale ==
-        "Numbers & Letters Part B Efficiency" ~ "(ref:first-name)'s performance on a complex measure of divided attention, information processing speed, and inhibition",
+        "Numbers & Letters Part B Efficiency" ~ "`r params$first_name`'s performance on a complex measure of divided attention, information processing speed, and inhibition",
       TRUE ~ as.character(description)
     )
   )

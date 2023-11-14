@@ -77,8 +77,8 @@ Sys.setenv(
 options(java.parameters = "-Xmx16000m")
 knitr::opts_chunk$set(
   root.dir = normalizePath("./"),
-  echo = FALSE,
-  message = FALSE,
+  echo = TRUE,
+  message = TRUE,
   warning = FALSE,
   error = TRUE
 )
@@ -161,7 +161,7 @@ save(plucked_tables_wrat5, file = "plucked_tables_wrat5.RData")
 
 ```{r areas-known, eval = FALSE}
 # if known
-area <- list(c(149, 53, 224, 559))
+# area <- list(c(149, 53, 224, 559))
 ```
 
 ```{r write-area}
@@ -202,7 +202,7 @@ load("plucked_tables_wrat5.RData")
 # Assuming you have plucked_tables_wrat5 and params already defined
 
 # Convert to data.frame
-df <- as.data.frame(plucked_tables_wrat5[[1]])
+df <- data.frame(plucked_tables_wrat5[[1]])
 
 # Rename columns
 colnames <- params[["colnames"]]
@@ -212,8 +212,10 @@ colnames(df) <- colnames
 to_double <- c("raw_score", "score", "percentile")
 df[to_double] <- lapply(df[to_double], as.numeric)
 
+# Names for scales
 df[, 1] <- (params$table)
-df <- df |> dplyr::select(all_of(params$keep))
+keep <- params$keep
+df <- dplyr::select(df, all_of(keep))
 ```
 
 ## Mutate columns
@@ -221,11 +223,14 @@ df <- df |> dplyr::select(all_of(params$keep))
 ```{r mutate}
 domain <- "Academic Skills"
 timed <- "Untimed"
+test <- params$test
+test_name <- params$test_name
+
 df <- bwu::gpluck_make_columns(
   df,
   range = "",
-  test = params$test,
-  test_name = params$test_name,
+  test = test,
+  test_name = test_name,
   domain = domain,
   subdomain = "",
   narrow = "",
@@ -248,6 +253,7 @@ df <- bwu::gpluck_make_score_ranges(table = df, test_type = "npsych_test")
 ## Subdomains
 
 ```{r subdomains}
+library(dplyr)
 df <-
   df |>
   mutate(
@@ -369,6 +375,47 @@ df <-
       )
     )
   )
+```
+
+# Compute CI 95%
+
+```{r}
+library(bwu)
+
+# Assuming df is your dataframe and calc_ci_95 is your function
+for (i in 1:nrow(df)) {
+  ci_values <- calc_ci_95(
+    ability_score = df$score[i],
+    mean = 100,
+    standard_deviation = 15,
+    reliability = .95
+  )
+  
+  df$true_score[i] <- paste0(ci_values["true_score"])
+  df$ci_lo[i] <- paste0(ci_values["lower_ci_95"])
+  df$ci_hi[i] <- paste0(ci_values["upper_ci_95"])
+  df$ci[i] <- paste0(ci_values["lower_ci_95"], " - ", ci_values["upper_ci_95"])
+}
+
+```
+
+```{r ci, eval = FALSE}
+scale_score <- df$score
+scale_mean <- 100
+scale_sd <- 15
+scale_rel <- .95
+
+ci_values <- bwu::calc_ci_95(
+  ability_score = scale_score,
+  mean = scale_mean,
+  standard_deviation = scale_sd,
+  reliability = scale_rel
+)
+
+df$true_score <- ci_values["true_score"]
+df$ci_lo <- ci_values["lower_ci_95"]
+df$ci_hi <- ci_values["upper_ci_95"]
+df$ci <- paste0(df$ci_lo, " - ", df$ci_hi)
 ```
 
 ## Relocate variables
