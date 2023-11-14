@@ -118,7 +118,6 @@ tbl_gt <-
         )
     }
 
-
     table <- table |>
       tab_style(
         style = cell_text(size = "small"),

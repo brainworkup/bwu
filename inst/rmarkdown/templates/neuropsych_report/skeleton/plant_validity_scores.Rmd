@@ -3,7 +3,7 @@ title: "Plant Validity Indicators"
 params:
   patient:
     label: "Patient First Name:"
-    value: Biggie
+    value: Bridget
     input: text
   test_name:
     label: "Full Name of Test/Test Battery:"
@@ -190,7 +190,7 @@ params:
     choices: [1, 3, 10, 15]
   reliability:
     label: "Reliability:"
-    value: 0.90
+    value: 0.81
     input: slider
     min: 0
     max: 1
@@ -283,102 +283,51 @@ data <- data.frame(
 ## Function for scale description
 
 ```{r fx-desc}
-#' Title
+#' Function for scale desc
 #'
 #' @param data Data table
 #' @param scale Name of scale
 #' @param description Description of subtest
 #' @importFrom dplyr mutate case_when
 #'
-#' @return
+#' @return Data table with description column
 #' @export
-#'
-#' @examples
 scale_description <- function(data, scale, description) {
-  mutate(
+  dplyr::mutate(
     data,
-    description = case_when(
-      scale == "ROCFT Copy" ~
-        "Copying of a complex figure requiring visuospatial integration, planning and organization, and efficient encoding of visuospatial material",
-      scale == "ROCFT Delayed Recall" ~
-        "Spontaneous, long-term delayed recall (20-25 min) recall and reproduction of a complex abstract figure",
-      scale == "Judgment" ~
-        "This subtest is designed to assess an individual's judgment and decision-making capabilities in situations that are likely to occur in everyday life. Participants are asked to provide responses to a series of hypothetical situations, and their answers are assessed for appropriateness, safety, and practicality. This task taps into multiple aspects of executive functioning, including problem-solving, decision-making, logical thinking, and the application of social norms and rules.",
-      scale == "Mazes" ~
-        "This subtest presents the individual with a series of seven paper-and-pencil mazes that increase in complexity and difficulty. The goal is to solve each maze as quickly as possible without making errors. This task measures planning, spatial problem-solving, visual-motor coordination, and the ability to modify a plan as needed. Timed performance also brings in an element of processing speed.",
-      scale == "Categories" ~
-        "This task requires the individual to sort items into categories based on certain common features. The individual must form the conceptual rules for the categories and shift these rules as needed. This task evaluates executive skills such as concept formation, cognitive flexibility, and abstract reasoning.",
-      scale == "Word Generation" ~
-        "This subtest assesses verbal fluency and generativity, critical components of executive functioning. Typically, the individual might be asked to name as many words as possible that begin with a certain letter or belong to a certain category within a set time limit. This measures the ability to self-initiate, sustain productivity over time, and access and retrieve information from semantic memory.",
-      scale == "Dots" ~
-        "This subtest assesses visual attention, working memory, and scanning ability. The participant is required to quickly locate and mark specific dot patterns on a page filled with distractor patterns, which tests their ability to focus, hold information in mind, and visually scan the page effectively.",
-      scale == "Numbers & Letters Part A Efficiency" ~
-        "This subtest is a letter cancellation task. It assesses visual scanning, attention to detail, and processing speed. Participants are asked to cross out specific letters within a matrix of letters and numbers, requiring them to maintain focus and work efficiently.",
-      scale == "Numbers & Letters Part B Efficiency" ~
-        "Although the name suggests 'letter counting', this task is more likely to assess sustained attention, discrimination, and visual scanning as participants are usually required to count specific numbers or letters in a grid or matrix.",
-      scale == "Numbers & Letters Part C Efficiency" ~
-        "(ref:first-name) was given a series of numbers and asked to add them together in a serial manner. This measures working memory, mental flexibility, attention, and numerical processing skills.",
-      scale == "Numbers & Letters Part D Efficiency" ~
-        "This task combines the 'letter cancellation' task from Part A and 'serial addition' task from Part C. It measures the ability to switch attention between two different tasks (task switching), sustaining attention, working memory, processing speed, and cognitive flexibility.",
-      scale == "Driving Scences" ~
-        "This subtest assesses visual attention, working memory, visual scanning, and selective attention within the context of a simulated driving scene. Participants are shown pictures of traffic scenes and asked to recall specific details or identify specific aspects, which requires concentration, visual memory, and the ability to selectively attend to important details amidst distractors.",
-      scale == "D-KEFS Color Naming" ~
-        "Rapid color naming",
-      scale == "D-KEFS Word Reading" ~
-        "Rapid word reading",
-      scale == "D-KEFS Inhibition" ~
-        "Inhibition/cognitive control",
-      scale == "D-KEFS Switching" ~
-        "Set-shifting/cognitive flexibility",
-      scale == "D-KEFS Inhibition Total Errors" ~
-        "Response monitoring during an inhibition task",
-      scale == "D-KEFS Switching Total Errors" ~
-        "Response monitoring during a set-shifting task",
-      scale == "Dominant Hand" ~
-        "Fine-motor dexterity (dominant hand)",
-      scale == "Nondominant Hand" ~
-        "Nondominant hand dexterity",
-      scale == "TOPF Standard Score" ~
-        "An estimate of premorbid verbal ability level",
-      scale == "Unstructured Task" ~
-        "Strategic planning and organization aptitude to formulate an action in advance of performance or intended performance",
-      scale == "Letter Fluency" ~
-        "Letter/phonemic word fluency",
-      scale == "Category Fluency" ~
-        "Categorical/semantic word fluency",
-      scale == "Deviation Score" ~
-        "Abstract reasoning (hypothesis generation and concept formation)",
-      scale == "Nonsense Word Decoding" ~
-        "Phonic decoding skills as assessed by reading aloud a list of pseudowords",
-      scale == "Decoding Fluency" ~
-        "Phonic decoding fluency",
-      scale == "Reading Comprehension" ~
-        "Reading comprehension skills at the level of the word, sentence, and passage",
-      scale == "TMT, Part A" ~ "Visual search speed, scanning, speed of     processing, and motor speed and coordination on Part A of the Trail Making Test",
-      scale == "TMT, Part B" ~
-        "On Trails B, which requires more cognitive effort as it involves alternating between number and letter sequences, requiring more cognitive flexibility, divided attention, visual search and scanning, and the ability to maintain and shift cognitive sets",
-      scale == "Symbol Span" ~
-        "Nonverbal working memory",
-      scale == "Social Perception" ~
-        "General aspects of emotional intelligence and social cognition",
-      scale == "Affect Naming" ~
-        "Identifying and naming variation in affective expression",
-      scale == "Prosody-Face Matching" ~
-        "Linking prosody to a facial expression",
-      scale == "Prosody-Pair Matching" ~
-        "Linking prosody to an interacting pair of people and explaining the intent of the speaker",
-      scale == "Raven's 2 Index Score" ~
-        "Fluid reasoning",
-      scale == "D-KEFS Color-Word Interference Test" ~
-        "Inhibition, cognitive flexibility, and word reading",
-      scale == "D-KEFS Verbal Fluency Test" ~
-        "Verbal fluency",
-      scale == "D-KEFS Trail Making Test" ~
-        "Set-shifting, planning, and problem-solving",
-      scale == "D-KEFS Design Fluency Test" ~
-        "Executive functioning, planning, and set-shifting",
-      scale == "D-KEFS Card Sorting Test" ~
-        "Executive functioning, planning, and set-shifting",
+    description = dplyr::case_when(
+    scale == "ACS Word Choice" ~ "Forced-choice recognition",
+    scale == "Word Choice Correct" ~ "Forced-choice recognition",
+    scale == "Reliable Digit Span" ~ "Forced-choice recognition",
+    scale == "CVLT-3 Forced-Choice Recognition Hits" ~ "Forced-choice recognition",
+    scale == "E-Score" ~ "Forced-choice recognition",
+    scale == "TOMM Trial 1" ~ "Forced-choice recognition",
+    scale == "TOMM Trial 2" ~ "Forced-choice recognition",
+    scale == "Inconsistency Index" ~ "consistency of responses",
+    scale == "CAARS-SR Inconsistency Index" ~ "consistency of responses",
+    scale == "CAARS-OR Inconsistency Index" ~ "consistency of responses",
+    scale == "Consistency Index" ~ "consistency of responses",
+    scale == "Negative Impression" ~ "faking bad",
+    scale == "CEFI-SR Consistency Index" ~ "consistency of responses",
+    scale == "CEFI-SR Negative Impression" ~ "Faking bad",
+    scale == "CEFI-OR Consistency Index" ~ "Consistency of responses",
+    scale == "CEFI-OR Negative Impression" ~ "Faking bad",
+    scale == "Inconsistency Index" ~ "consistency of responses",
+    scale == "Infrequency Index" ~ "Infrequent responses",
+    scale == "Negative Impression Management" ~ "Faking bad",
+    scale == "Positive Impression Management" ~ "Faking good",
+    scale == "Malingering Index" ~ "faking bad",
+    scale == "Rogers Discriminant Function" ~ "faking bad",
+    scale == "Negative Distortion Scale" ~ "faking bad",
+    scale == "Hong Malingering Index" ~ "faking bad",
+    scale == "Multiscale Feigning Index" ~ "faking bad",
+    scale == "Malingered Pain-Related Disability Discriminant Function" ~ "faking bad",
+    scale == "Defensiveness Index" ~ "Defensiveness",
+    scale == "Cashel Discriminant Function" ~ "Faking bad",
+    scale == "Positive Distortion Scale" ~ "Faking goood",
+    scale == "Hong Defensiveness Index" ~ "Defensiveness",
+    scale == "Back Random Responding" ~ "Back random responding",
+    scale == "Hong Randomness Index" ~ "Random responding",
       TRUE ~ as.character(description)
     )
   )
@@ -460,41 +409,38 @@ library(rlang)
 compute_result <- function(data, scale, description, range, result) {
   # Simplify the dictionary
   phrase_dict <- c(
-    "Affect Naming" = "was",
-    "Category Fluency" = "fell within the",
-    "D-KEFS Color Naming" = "was",
-    "D-KEFS Inhibition Total Errors" = "was",
-    "D-KEFS Inhibition" = "was",
-    "D-KEFS Switching Total Errors" = "was",
-    "D-KEFS Switching" = "was",
-    "D-KEFS Word Reading" = "was",
-    "Decoding Fluency" = "fell within the",
-    "Deviation Score" = "fell within the",
-    "Dominant Hand" = "was",
-    "Dots" = "was",
-    "Driving Scences" = "was",
-    "Judgment" = "fell within the",
-    "Letter Fluency" = "was",
-    "Mazes" = "was",
-    "Nondominant Hand" = "was",
-    "Nonsense Word Decoding" = "were",
-    "Numbers & Letters Part A Efficiency" = "was",
-    "Numbers & Letters Part B Efficiency" = "was",
-    "Numbers & Letters Part C Efficiency" = "was",
-    "Numbers & Letters Part D Efficiency" = "was",
-    "Prosody-Face Matching" = "was",
-    "Prosody-Pair Matching" = "was",
-    "Raven's 2 Index Score" = "was",
-    "Reading Comprehension" = "was",
-    "ROCFT Copy" = "was",
-    "ROCFT Delayed Recall" = "fell within the",
-    "Social Perception" = "was",
-    "Symbol Span" = "was",
-    "TMT, Part A" = "was",
-    "TMT, Part B" = "was",
-    "TOPF Standard Score" = "fell within the",
-    "Unstructured Task" = "fell within the",
-    "Word Generation" = "was"
+    "ACS Word Choice" = "fell within",
+    "Word Choice Correct" = "fell within",
+    "Reliable Digit Span" = "fell within",
+    "CVLT-3 Forced-Choice Recognition Hits" = "fell within",
+    "E-Score" = "fell within",
+    "TOMM Trial 1" = "fell within",
+    "TOMM Trial 2" = "fell within",
+    "Inconsistency Index" = "fell within",
+    "CAARS-SR Inconsistency Index" = "fell within",
+    "CAARS-OR Inconsistency Index" = "fell within",
+    "Consistency Index" = "fell within",
+    "Negative Impression" = "fell within",
+    "CEFI-SR Consistency Index" = "fell within",
+    "CEFI-SR Negative Impression" = "fell within",
+    "CEFI-OR Consistency Index" = "fell within",
+    "CEFI-OR Negative Impression" = "fell within",
+    "Inconsistency Index" = "fell within",
+    "Infrequency Index" = "fell within",
+    "Negative Impression Management" = "fell within",
+    "Positive Impression Management" = "fell within",
+    "Malingering Index" = "fell within",
+    "Rogers Discriminant Function" = "fell within",
+    "Negative Distortion Scale" = "fell within",
+    "Hong Malingering Index" = "fell within",
+    "Multiscale Feigning Index" = "fell within",
+    "Malingered Pain-Related Disability Discriminant Function" = "fell within",
+    "Defensiveness Index" = "fell within",
+    "Cashel Discriminant Function" = "fell within",
+    "Positive Distortion Scale" = "fell within",
+    "Hong Defensiveness Index" = "fell within",
+    "Back Random Responding" = "fell within",
+    "Hong Randomness Index" = "fell within"
   )
 
   # Update the data using the dictionary
@@ -552,17 +498,6 @@ tidytable::fwrite(
 ```{r writeout-test}
 table <- data
 test <- table$test
-file_path <- here::here(patient, "csv", paste0(test, ".csv"))
-tidytable::fwrite(
-  table,
-  file_path,
-  append = TRUE
-)
-```
-
-```{r writeout-g}
-table <- data
-test <- "g"
 file_path <- here::here(patient, "csv", paste0(test, ".csv"))
 tidytable::fwrite(
   table,

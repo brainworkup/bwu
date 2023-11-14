@@ -20,7 +20,7 @@ params:
       - WISC-V
   version:
     label: "Brief (4 subtest) or Full (8 subtest) version"
-    value: brief
+    value: full
     input: select
     multiple: no
     choices:
@@ -30,10 +30,10 @@ params:
     label: "No file selected"
     value: file
     input: file
-  pages: [2,4,4,4,4]
+  pages: [2,3,3,3,3]
   table1:
     label: "Index Scores"
-    value: ""
+    value: "Verbal Comprehension (VCI)"
     input: select
     multiple: yes
     choices:
@@ -44,8 +44,8 @@ params:
       - Full Scale (FSIQ)
       - General Ability (GAI)
   table2:
-    label: "Verbal Comprehension (VCI)"
-    value: [Similarities]
+    label: "Verbal Comprehension (VCI) Subtests"
+    value: [Similarities, Vocabulary]
     input: select
     multiple: yes
     choices:
@@ -172,13 +172,13 @@ params:
       - percentile
 # Domains to evaluate or not
   eval_iq:
-    label: "General Cognitive Ability"
+    label: "General Ability"
     value: TRUE
   eval_vci:
-    label: "Verbal/Language"
+    label: "Verbal Comprehension"
     value: TRUE
   eval_pri:
-    label: "Visual Perception/Construction"
+    label: "Perceptual Reasoning"
     value: TRUE
   eval_wmi:
     label: "Working Memory"
@@ -271,6 +271,30 @@ file <- file.path(params$file)
 pages <- params$pages
 ```
 
+## Extract Areas with Tabulizer
+
+```{r eval = FALSE}
+library(tabulizer)
+
+f <- file.path(file.choose(""))
+
+# locate areas and extract
+plucked_tables_wais4 <- extract_areas(
+  file = f,
+  pages = c(2,3,3,3,3),
+  method = "stream",
+  output = "matrix"
+  )
+
+# Loop over the list and write each matrix to a CSV file
+for (i in seq_along(plucked_tables_wais4)) {
+  write.csv(plucked_tables_wais4[[i]], file = paste0(test, "_", i, ".csv"), row.names = FALSE)
+}
+
+# Save the entire list to an R data file
+save(plucked_tables_wais4, file = "plucked_tables_wais4.RData")
+```
+
 ```{r write-file}
 # writeLines(file, here::here(patient, "pre_csv", "wais4_pdf"))
 ```
@@ -279,32 +303,9 @@ pages <- params$pages
 # file <- readLines(here::here(patient, "pre_csv", "wais4_pdf"))
 ```
 
-
-## Extract Areas with Tabulizer
-
-```{r eval=FALSE}
-library(tabulizer)
-
-f <- file.path("")
-
-# locate areas and extract
-plucked_tables <- extract_areas(
-  file = f,
-  pages = c(2, 3, 3, 3, 3),
-  method = "stream",
-  output = "matrix"
-)
-
-# Loop over the list and write each matrix to a CSV file
-for (i in seq_along(plucked_tables)) {
-  write.csv(plucked_tables[[i]], file = paste0("table_", i, ".csv"), row.names = FALSE)
-}
-```
-
-
 ## Locate areas
 
-```{r areas-known}
+```{r areas-known, eval = FALSE}
 # if known
 if (params$version == "full") {
   area <- list(
@@ -334,15 +335,6 @@ if (params$version == "full") {
 # ds = c(436, 50, 533, 560)
 ```
 
-```{r areas-get, eval = FALSE}
-# if unknown
-# file <- file.choose()
-# area <- bwu::gpluck_locate_areas(
-#   file = file,
-#   pages = c(2,4,4,4,4,6,6)
-# )
-```
-
 ```{r write-area}
 # saveRDS(
 #   area,
@@ -357,8 +349,8 @@ if (params$version == "full") {
 
 ## Extract tables
 
-```{r extract}
-plucked_tables <- bwu::gpluck_extract_table(
+```{r extract-tables, eval = FALSE}
+plucked_tables_wais4 <- bwu::gpluck_extract_table(
   file = file,
   pages = pages,
   area = area,
@@ -366,14 +358,11 @@ plucked_tables <- bwu::gpluck_extract_table(
   method = "stream",
   output = "matrix"
 )
-
-# Save the entire list to an R data file
-save(plucked_tables, file = "plucked_tables.RData")
 ```
 
 ```{r}
 # Load the entire list from an R data file
-load("plucked_tables.RData")
+load("plucked_tables_wais4.RData")
 ```
 
 # WAIS-IV Index Scores (Table 1)
@@ -381,10 +370,14 @@ load("plucked_tables.RData")
 ## Pluck and tidy tables
 
 ```{r pluck1, eval = params$eval_iq}
-# Assuming you have plucked_tables and params already defined
+
+# Assuming you have plucked_tables_wais4 and params already defined
+
+# Use this because q-int didnt give PRI
+table1 <- readr::read_csv("wais4_1.csv")
 
 # Convert to data.frame
-table1 <- as.data.frame(plucked_tables[[1]])
+# table1 <- as.data.frame(plucked_tables_wais4[[1]])
 
 # Rename columns
 colnames1 <- params[["colnames1"]]
@@ -402,11 +395,13 @@ table1 <- table1 |> dplyr::select(all_of(params$keep1))
 ## Mutate columns
 
 ```{r mutate1, eval = params$eval_iq}
+test <- params$test
+test_name <- params$test_name
 table1 <- bwu::gpluck_make_columns(
   table1,
   range = "",
-  test = params$test,
-  test_name = params$test_name,
+  test = test,
+  test_name = test_name,
   domain = "",
   subdomain = "",
   narrow = "",
@@ -555,10 +550,10 @@ table1 <-
         "Fluid Reasoning (i.e., the ability to use reasoning to identify and apply solutions to problems)",
       scale ==
         "Working Memory (WMI)" ~
-        "Working Memory (*G*wm)^[(ref:working-memory)]",
+        "Working Memory (*G*wm)",
       scale ==
         "Processing Speed (PSI)" ~
-        "Processing Speed (*G*s)^[(ref:processing-speed)]",
+        "Processing Speed (*G*s)",
       TRUE ~ as.character(description)
     )
   )
@@ -605,16 +600,64 @@ table1 <- table1 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 ## Pluck and tidy tables
 
 ```{r pluck2, eval = params$eval_vci}
-if (params$version == "brief") {
-  table2 <- as.data.frame(plucked_tables[[1]])
-} else if (params$version == "full") {
-  table2 <- as.data.frame(plucked_tables[[2]])
-}
-colnames(table2) <- params$colnames2
+
+# Convert to data.frame
+table2 <- as.data.frame(plucked_tables_wais4[[2]])
+
+# Rename columns
+colnames2 <- params[["colnames2"]]
+colnames(table2) <- colnames2
+
+# Convert columns to double
 to_double <- c("raw_score", "score", "percentile")
-table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
+table2[to_double] <- lapply(table2[to_double], as.numeric)
+
 table2[, 1] <- (params$table2)
 table2 <- table2 |> dplyr::select(all_of(params$keep2))
+
+
+# if (params$version == "brief") {
+#   table2 <- as.data.frame(plucked_table[[1]])
+# } else if (params$version == "full") {
+#   table2 <- as.data.frame(plucked_table[[2]])
+# }
+# colnames2 <- params$colnames2
+# colnames(table2) <- params$colnames2
+# to_double <- c("raw_score", "score", "percentile")
+# table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
+# table2[, 1] <- (params$table2)
+# table2 <- table2 |> dplyr::select(all_of(params$keep2))
+```
+
+```{r eval=FALSE}
+library(dplyr)
+
+# Initialize a list to store the transformed data.frames
+transformed_tables <- list()
+
+# Loop through plucked_tables_wais4 from index 2 to 5
+for (i in 2:5) {
+  # Convert to data.frame
+  table <- as.data.frame(plucked_tables_wais4[[i]])
+  
+  # Rename columns using the respective 'colnames' from params
+  colnames_param <- params[[paste0("colnames", i)]]
+  colnames(table) <- colnames_param
+  
+  # Convert columns to double
+  to_double <- c("raw_score", "score", "percentile")
+  table[to_double] <- lapply(table[to_double], as.numeric)
+  
+  # Add the test name as the first column
+  table[, 1] <- params[[paste0("table", i)]]
+  
+  # Select the relevant columns
+  table <- table %>% select(all_of(params[[paste0("keep", i)]]))
+  
+  # Store the transformed table in the list
+  transformed_tables[[i-1]] <- table
+}
+
 ```
 
 ## Mutate columns
@@ -644,8 +687,7 @@ table2 <- bwu::gpluck_make_columns(
 ```{r ranges2, eval = params$eval_vci}
 table2 <- bwu::gpluck_make_score_ranges(
   table = table2,
-  test_type = "npsych_test"
-)
+  test_type = "npsych_test")
 ```
 
 ## Subdomains
@@ -723,11 +765,13 @@ table2 <- table2 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 ## Pluck and tidy tables
 
 ```{r pluck3, eval = params$eval_pri}
-if (params$version == "brief") {
-  table3 <- as.data.frame(plucked_tables[[2]])
-} else if (params$version == "full") {
-  table3 <- as.data.frame(plucked_tables[[3]])
-}
+table3 <- as.data.frame(plucked_tables_wais4[[3]])
+
+# if (params$version == "brief") {
+#   table3 <- as.data.frame(plucked_table[[2]])
+# } else if (params$version == "full") {
+#   table3 <- as.data.frame(plucked_table[[3]])
+# }
 colnames(table3) <- params$colnames2
 to_double <- c("raw_score", "score", "percentile")
 table3 <- table3 |> hablar::convert(dbl(all_of(to_double)))
@@ -854,11 +898,12 @@ table3 <- table3 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 ## Pluck and tidy tables
 
 ```{r pluck4, eval = params$eval_wmi}
-if (params$version == "brief") {
-  table4 <- as.data.frame(plucked_tables[[3]])
-} else if (params$version == "full") {
-  table4 <- as.data.frame(plucked_tables[[4]])
-}
+table4 <- as.data.frame(plucked_tables_wais4[[4]])
+# if (params$version == "brief") {
+#   table4 <- as.data.frame(plucked_table[[3]])
+# } else if (params$version == "full") {
+#   table4 <- as.data.frame(plucked_table[[4]])
+# }
 colnames(table4) <- params$colnames2
 to_double <- c("raw_score", "score", "percentile")
 table4 <- table4 |> hablar::convert(dbl(all_of(to_double)))
@@ -992,11 +1037,12 @@ table4 <- table4 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 ## Pluck and tidy tables
 
 ```{r pluck5, eval = params$eval_psi}
-if (params$version == "brief") {
-  table5 <- as.data.frame(plucked_tables[[4]])
-} else if (params$version == "full") {
-  table5 <- as.data.frame(plucked_tables[[5]])
-}
+table5 <- as.data.frame(plucked_tables_wais4[[5]])
+# if (params$version == "brief") {
+#   table5 <- as.data.frame(plucked_table[[4]])
+# } else if (params$version == "full") {
+#   table5 <- as.data.frame(plucked_table[[5]])
+# }
 colnames(table5) <- params$colnames2
 to_double <- c("raw_score", "score", "percentile")
 table5 <- table5 |> hablar::convert(dbl(all_of(to_double)))
@@ -1116,9 +1162,9 @@ table5 <- table5 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 
 ```{r pluck6, eval = params$eval_bd}
 if (params$version == "brief") {
-  table6 <- as.data.frame(plucked_tables[[5]])
+  table6 <- as.data.frame(plucked_table[[5]])
 } else if (params$version == "full") {
-  table6 <- as.data.frame(plucked_tables[[6]])
+  table6 <- as.data.frame(plucked_table[[6]])
 }
 colnames(table6) <- params$colnames3
 to_double <- c("raw_score", "score", "percentile")
@@ -1195,9 +1241,9 @@ table6 <- table6 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 
 ```{r pluck7, eval = params$eval_span}
 if (params$version == "brief") {
-  table7 <- as.data.frame(plucked_tables[[6]])
+  table7 <- as.data.frame(plucked_table[[6]])
 } else if (params$version == "full") {
-  table7 <- as.data.frame(plucked_tables[[7]])
+  table7 <- as.data.frame(plucked_table[[7]])
 }
 colnames(table7) <- params$colnames4
 to_double <- c("raw_score", "score", "percentile")
@@ -1342,9 +1388,7 @@ table7 <-
 table7 <-
   table7 |>
   dplyr::relocate(
-    c(raw_score, score, percentile, range, ci_95),
-    .before = test
-  )
+    c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
 # Finalize and save csv
@@ -1352,19 +1396,27 @@ table7 <-
 ## Merge tables
 
 ```{r merge}
-if (params$version == "full") {
-  wais4 <-
-    dplyr::bind_rows(table1, table2, table3, table4, table5)
-}
-if (params$version == "brief") {
-  wais4 <-
-    dplyr::bind_rows(table2, table3, table4, table5)
-}
+wais4 <- dplyr::bind_rows(table1, table2, table3, table4, table5)
+# if (params$version == "full") {
+#   wais4 <-
+#     dplyr::bind_rows(table1, table2, table3, table4, table5)
+# }
+# if (params$version == "brief") {
+#   wais4 <-
+#     dplyr::bind_rows(table2, table3, table4, table5)
+# }
 ```
 
 ## Match subtests to include
 
 ```{r match, eval = params$match}
+# Concatenate the indices into a single vector
+# row_indices <- c(6, 1, 7, 12:19, 2, 20, 24, 3, 27:32, 4, 33:34, 5, 35:37)
+
+# Use slice to select the rows by these indices
+# nabs <- nabs |>
+#   dplyr::slice(row_indices)
+
 match_wais4 <- c(
   # IQ
   "Full Scale (FSIQ)",
@@ -1381,6 +1433,7 @@ match_wais4 <- c(
   "Figure Weights",
   # WMI
   "Working Memory (WMI)",
+  "Arithmetic",
   "Letter-Number Sequencing",
   "Longest Letter-Number Sequence",
   "Digit Span",
@@ -1390,18 +1443,25 @@ match_wais4 <- c(
   "Longest Digit Span Forward",
   "Longest Digit Span Backward",
   "Longest Digit Span Sequence",
-  "Arithmetic",
   # PSI
   "Processing Speed (PSI)",
   "Coding",
   "Symbol Search",
   "Cancellation"
 )
-wais4 <- wais4[match(
+
+matched_indices <- match(
   x = match_wais4,
   table = wais4$scale,
-  nomatch = "NA" # this might not work, used to be "NA"
-)]
+  nomatch = NA
+)
+
+# Remove NA values from the matched indices
+matched_indices <- na.omit(matched_indices)
+
+# Subset wais4 using the non-NA matched indices
+wais4_subset <- wais4[matched_indices, ] # Assuming wais4 is a dataframe
+
 ```
 
 ## Write out final csv
@@ -1412,7 +1472,7 @@ readr::write_csv(wais4, here::here(patient, "csv", "wais4.csv"))
 
 # Experimental
 
-## Write to "g"
+## Write to "g2"
 
 ```{r writeout-g}
 table <- wais4
