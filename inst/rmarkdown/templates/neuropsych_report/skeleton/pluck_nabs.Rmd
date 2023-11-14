@@ -64,7 +64,7 @@ params:
       - "Numbers & Letters Part D Disruption"
   table3:
     label: "NAB Language"
-    value: ""
+    value: ["Auditory Comprehension"]
     input: select
     multiple: yes
     choices:
@@ -81,7 +81,7 @@ params:
       - "Bill Payment"
   table4:
     label: "NAB Memory"
-    value: ""
+    value: ["Shape Learning Immediate Recognition"]
     input: select
     multiple: yes
     choices:
@@ -96,7 +96,7 @@ params:
       - "List Learning Long Delayed Recall" #TODO
   table5:
     label: "NAB Spatial"
-    value: ""
+    value: ["Visual Discrimination"]
     input: select
     multiple: yes
     choices:
@@ -199,7 +199,7 @@ params:
   match:
     label: "Subset/Match Rows"
     input: checkbox
-    value: FALSE
+    value: TRUE
 output:
   rmdformats::robobook:
     highlight: kate
@@ -217,12 +217,12 @@ Sys.setenv(
 options(java.parameters = "-Xmx16000m")
 knitr::opts_chunk$set(
   root.dir = normalizePath("./"),
-  echo = FALSE,
-  message = FALSE,
+  echo = TRUE,
+  message = TRUE,
   warning = FALSE,
   error = TRUE
 )
-library(data.table)
+library(tidytable)
 library(bwu)
 library(hablar)
 library(here)
@@ -249,12 +249,13 @@ patient <- params$patient
 
 ```{r test}
 test <- params$test
+test_name <- params$test_name
 ```
 
 ## Upload/attach PDF
 
 ```{r choose}
-file <- params$file
+file <- file.path(params$file)
 ```
 
 ## Pages
@@ -424,7 +425,7 @@ if (params$test == "nabs") {
   table3[4, 1] <- c("Writing")
   table3[5, 1] <- c("Bill Payment")
 }
-table3[5, 5] <- 1
+# table3[5, 5] <- 1
 ```
 
 # NAB Memory
@@ -467,7 +468,6 @@ if (params$test == "nabs") {
   table4[5, 1] <- c("Story Learning Short Delayed Recall")
   table4[6, 1] <- c("Story Learning Long Delayed Recall")
 }
-# TODO:
 ```
 
 # NAB Spatial
@@ -1469,6 +1469,7 @@ nabs <- dplyr::bind_rows(
   table5,
   table6
 )
+df <- nabs
 ```
 
 ## Slice/Reorder table
@@ -1491,6 +1492,30 @@ nabs <- nabs |>
 #     spt = c(4, 33:34),
 #     exe = c(5, 35:37)
 #   )
+```
+
+# Compute CI 95%
+
+```{r}
+library(bwu)
+
+df <- nabs
+
+# Assuming df is your dataframe and calc_ci_95 is your function
+for (i in 1:nrow(df)) {
+  ci_values <- calc_ci_95(
+    ability_score = df$score[i],
+    mean = 50,
+    standard_deviation = 10,
+    reliability = .85
+  )
+  
+  df$true_score[i] <- paste0(ci_values["true_score"])
+  df$ci_lo[i] <- paste0(ci_values["lower_ci_95"])
+  df$ci_hi[i] <- paste0(ci_values["upper_ci_95"])
+  df$ci[i] <- paste0(ci_values["lower_ci_95"], " - ", ci_values["upper_ci_95"])
+}
+
 ```
 
 ## Write final csv table

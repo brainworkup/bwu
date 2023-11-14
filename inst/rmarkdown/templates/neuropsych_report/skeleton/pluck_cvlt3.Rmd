@@ -140,8 +140,8 @@ Sys.setenv(
 options(java.parameters = "-Xmx16000m")
 knitr::opts_chunk$set(
   root.dir = normalizePath("../"),
-  echo = FALSE,
-  message = FALSE,
+  echo = TRUE,
+  message = TRUE,
   warning = FALSE,
   error = TRUE
 )

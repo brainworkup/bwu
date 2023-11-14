@@ -202,265 +202,271 @@ drilldown <- function(data, patient, neuro_domain = c(
                         "Behavioral Rating Scales",
                         "Effort/Validity Test Scores"
                       ), theme) {
-  # Create 4 levels of data.frames for drilldown -----------------------
+  # Create 4 levels of dataframes for drilldown ----------------------------------
   ## Level 1 -------------------------------------------------------
   ## Domain scores
   # 1. create mean z-scores for domain
-  df1 <- data |>
-    group_by(domain) |>
-    summarize(
-      mu_z = mean(z, na.rm = TRUE),
-      mu_percentile = mean(percentile, na.rm = TRUE)
-    ) |>
-    mutate(range = "") |>
-    ungroup()
-
-  df1$mu_z <- round(df1$mu_z, 2L)
-  df1$mu_percentile <- round(df1$mu_percentile, 0L)
-  df1 <- df1 |>
-    mutate(
-      range = case_when(
-        mu_percentile >= 98 ~ "Exceptionally High",
-        mu_percentile %in% 91:97 ~ "Above Average",
-        mu_percentile %in% 75:90 ~ "High Average",
-        mu_percentile %in% 25:74 ~ "Average",
-        mu_percentile %in% 9:24 ~ "Low Average",
-        mu_percentile %in% 2:8 ~ "Below Average",
-        mu_percentile < 2 ~ "Exceptionally Low",
+  ncog1 <- data %>%
+    dplyr::group_by(domain) %>%
+    dplyr::summarize(
+      zMean = mean(z),
+      zPct = mean(percentile)
+    ) %>%
+    dplyr::mutate(range = NA)
+  ncog1$zMean <- round(ncog1$zMean, 2L)
+  ncog1$zPct <- round(ncog1$zPct, 0L)
+  ncog1 <-
+    ncog1 %>%
+    dplyr::mutate(
+      range = dplyr::case_when(
+        zPct >= 98 ~ "Exceptionally High",
+        zPct %in% 91:97 ~ "Above Average",
+        zPct %in% 75:90 ~ "High-Average",
+        zPct %in% 25:74 ~ "Average",
+        zPct %in% 9:24 ~ "Low-Average",
+        zPct %in% 2:8 ~ "Below Average",
+        zPct < 2 ~ "Exceptionally Low",
         TRUE ~ as.character(range)
       )
     )
 
   # 2. sort hi to lo
-  df1 <- arrange(df1, desc(mu_percentile))
+  ncog1 <- dplyr::arrange(ncog1, desc(zMean))
 
-  # 3. create data.frame with new column with domain name lowercase
-  df_level1_status <- tibble(
-    name = df1$domain,
-    y = df1$mu_z,
-    y2 = df1$mu_percentile,
-    range = df1$range,
+  # 3. create tibble with new column with domain name lowercase
+  ncog_level1_status <- tibble(
+    name = ncog1$domain,
+    y = ncog1$zMean,
+    y2 = ncog1$zPct,
+    range = ncog1$range,
     drilldown = tolower(name)
   )
 
   ## Level 2 -------------------------------------------------------
   ## Subdomain scores
   ## function to create second level of drilldown (subdomain scores)
-  df_level2_drill <-
-    lapply(unique(data$domain), function(x_level) {
-      df2 <- subset(data, data$domain %in% x_level)
+  ncog_level2_drill <-
+    lapply(unique(neurocog$domain), function(x_level) {
+      ncog2 <- subset(neurocog, neurocog$domain %in% x_level)
 
       # same as above
-      df2 <- df2 |>
-        group_by(subdomain) |>
-        summarize(
-          mu_z = mean(z, na.rm = TRUE),
-          mu_percentile = mean(percentile, na.rm = TRUE)
-        ) |>
-        mutate(range = NA) |>
-        ungroup()
+      ncog2 <-
+        ncog2 %>%
+        dplyr::group_by(subdomain) %>%
+        dplyr::summarize(
+          zMean = mean(z),
+          zPct = mean(percentile)
+        ) %>%
+        dplyr::mutate(range = NA)
 
-      df2$mu_z <- round(df2$mu_z, 2L)
-      df2$mu_percentile <- round(df2$mu_percentile, 0L)
-      df2 <- df2 |>
-        mutate(
-          range = case_when(
-            mu_percentile >= 98 ~ "Exceptionally High",
-            mu_percentile %in% 91:97 ~ "Above Average",
-            mu_percentile %in% 75:90 ~ "High Average",
-            mu_percentile %in% 25:74 ~ "Average",
-            mu_percentile %in% 9:24 ~ "Low Average",
-            mu_percentile %in% 2:8 ~ "Below Average",
-            mu_percentile < 2 ~ "Exceptionally Low",
+      # round z-score to 1 decimal
+      ncog2$zMean <- round(ncog2$zMean, 2L)
+      ncog2$zPct <- round(ncog2$zPct, 0L)
+      ncog2 <-
+        ncog2 %>%
+        dplyr::mutate(
+          range = dplyr::case_when(
+            zPct >= 98 ~ "Exceptionally High",
+            zPct %in% 91:97 ~ "Above Average",
+            zPct %in% 75:90 ~ "High-Average",
+            zPct %in% 25:74 ~ "Average",
+            zPct %in% 9:24 ~ "Low-Average",
+            zPct %in% 2:8 ~ "Below Average",
+            zPct < 2 ~ "Exceptionally Low",
             TRUE ~ as.character(range)
           )
         )
 
       # 2. sort hi to lo
-      df2 <- arrange(df2, desc(mu_percentile))
+      ncog2 <- dplyr::arrange(ncog2, desc(zMean))
 
-      # 3. create data.frame with new column with domain name lowercase
-      df_level2_status <- tibble(
-        name = df2$subdomain,
-        y = df2$mu_z,
-        y2 = df2$mu_percentile,
-        range = df2$range,
+      # 3. create tibble with new column with domain name lowercase
+      ncog_level2_status <- tibble(
+        name = ncog2$subdomain,
+        y = ncog2$zMean,
+        y2 = ncog2$zPct,
+        range = ncog2$range,
         drilldown = tolower(paste(x_level, name, sep = "_"))
       )
 
       list(
         id = tolower(x_level),
         type = "column",
-        data = list_parse(df_level2_status)
+        data = list_parse(ncog_level2_status)
       )
     })
 
   ## Level 3 -------------------------------------------------------
   ## Narrow subdomains
-  df_level3_drill <-
-    lapply(unique(data$domain), function(x_level) {
-      df2 <- subset(data, data$domain %in% x_level)
+  ## reuse function
+  ncog_level3_drill <-
+    lapply(unique(neurocog$domain), function(x_level) {
+      ncog2 <- subset(neurocog, neurocog$domain %in% x_level)
 
       # reuse function but with y_level
-      lapply(unique(df2$subdomain), function(y_level) {
+      lapply(unique(ncog2$subdomain), function(y_level) {
         # 1. create mean z-scores for subdomain
-        # df3 becomes pronoun for domain
-        df3 <- subset(df2, df2$subdomain %in% y_level)
+        # ncog3 becomes pronoun for domain
+        ncog3 <- subset(ncog2, ncog2$subdomain %in% y_level)
 
-        df3 <- df3 |>
-          group_by(narrow) |>
-          summarize(
-            mu_z = mean(z, na.rm = TRUE),
-            mu_percentile = mean(percentile, na.rm = TRUE)
-          ) |>
-          mutate(range = NA) |>
-          ungroup()
+        ncog3 <- ncog3 %>%
+          dplyr::group_by(narrow) %>%
+          dplyr::summarize(zMean = mean(z), zPct = mean(percentile)) %>%
+          dplyr::mutate(range = NA)
 
-        df3$mu_z <- round(df3$mu_z, 2L)
-        df3$mu_percentile <- round(df3$mu_percentile, 0L)
-        df3 <- df3 |>
-          mutate(
-            range = case_when(
-              mu_percentile >= 98 ~ "Exceptionally High",
-              mu_percentile %in% 91:97 ~ "Above Average",
-              mu_percentile %in% 75:90 ~ "High Average",
-              mu_percentile %in% 25:74 ~ "Average",
-              mu_percentile %in% 9:24 ~ "Low Average",
-              mu_percentile %in% 2:8 ~ "Below Average",
-              mu_percentile < 2 ~ "Exceptionally Low",
+        # round z-score to 1 decimal
+        ncog3$zMean <- round(ncog3$zMean, 2L)
+        ncog3$zPct <- round(ncog3$zPct, 0L)
+        ncog3 <-
+          ncog3 %>%
+          dplyr::mutate(
+            range = dplyr::case_when(
+              zPct >= 98 ~ "Exceptionally High",
+              zPct %in% 91:97 ~ "Above Average",
+              zPct %in% 75:90 ~ "High-Average",
+              zPct %in% 25:74 ~ "Average",
+              zPct %in% 9:24 ~ "Low-Average",
+              zPct %in% 2:8 ~ "Below Average",
+              zPct < 2 ~ "Exceptionally Low",
               TRUE ~ as.character(range)
             )
           )
 
-        df3 <- arrange(df3, desc(mu_percentile))
+        ncog3 <- dplyr::arrange(ncog3, desc(zMean))
 
-        df_level3_status <- tibble(
-          name = df3$narrow,
-          y = df3$mu_z,
-          y2 = df3$mu_percentile,
-          range = df3$range,
+        ncog_level3_status <- tibble(
+          name = ncog3$narrow,
+          y = ncog3$zMean,
+          y2 = ncog3$zPct,
+          range = ncog3$range,
           drilldown = tolower(paste(x_level, y_level, name, sep = "_"))
         )
 
         list(
           id = tolower(paste(x_level, y_level, sep = "_")),
           type = "column",
-          data = list_parse(df_level3_status)
+          data = list_parse(ncog_level3_status)
         )
       })
-    }) |>
-    unlist(recursive = FALSE)
+    }) %>% unlist(recursive = FALSE)
 
   ## Level 4 -------------------------------------------------------
   ## Scale scores
   ## reuse both functions
-  df_level4_drill <-
-    lapply(unique(data$domain), function(x_level) {
-      df2 <- subset(data, data$domain %in% x_level)
+  ncog_level4_drill <-
+    lapply(unique(neurocog$domain), function(x_level) {
+      ncog2 <- subset(neurocog, neurocog$domain %in% x_level)
 
-      lapply(unique(df2$subdomain), function(y_level) {
-        df3 <- subset(df2, df2$subdomain %in% y_level)
+      lapply(unique(ncog2$subdomain), function(y_level) {
+        ncog3 <- subset(ncog2, ncog2$subdomain %in% y_level)
 
-        lapply(unique(df3$narrow), function(z_level) {
-          df4 <- subset(df3, df3$narrow %in% z_level)
+        lapply(unique(ncog3$narrow), function(z_level) {
+          ncog4 <- subset(ncog3, ncog3$narrow %in% z_level)
 
-          df4 <- df4 |>
-            group_by(scale) |>
-            summarize(
-              mu_z = mean(z, na.rm = TRUE),
-              mu_percentile = mean(percentile, na.rm = TRUE)
-            ) |>
-            mutate(range = NA) |>
-            ungroup()
+          ncog4 <-
+            ncog4 %>%
+            dplyr::group_by(scale) %>%
+            dplyr::summarize(
+              zMean = mean(z),
+              zPct = mean(percentile)
+            ) %>%
+            dplyr::mutate(range = NA)
 
-          df4$mu_z <- round(df4$mu_z, 2L)
-          df4$mu_percentile <- round(df4$mu_percentile, 0L)
-          df4 <- df4 |>
-            mutate(
-              range = case_when(
-                mu_percentile >= 98 ~ "Exceptionally High",
-                mu_percentile %in% 91:97 ~ "Above Average",
-                mu_percentile %in% 75:90 ~ "High Average",
-                mu_percentile %in% 25:74 ~ "Average",
-                mu_percentile %in% 9:24 ~ "Low Average",
-                mu_percentile %in% 2:8 ~ "Below Average",
-                mu_percentile < 2 ~ "Exceptionally Low",
+          # round z-score to 1 decimal
+          ncog4$zMean <- round(ncog4$zMean, 2L)
+          ncog4$zPct <- round(ncog4$zPct, 0L)
+          ncog4 <-
+            ncog4 %>%
+            dplyr::mutate(
+              range = dplyr::case_when(
+                zPct >= 98 ~ "Exceptionally High",
+                zPct %in% 91:97 ~ "Above Average",
+                zPct %in% 75:90 ~ "High-Average",
+                zPct %in% 25:74 ~ "Average",
+                zPct %in% 9:24 ~ "Low-Average",
+                zPct %in% 2:8 ~ "Below Average",
+                zPct < 2 ~ "Exceptionally Low",
                 TRUE ~ as.character(range)
               )
             )
 
-          df4 <- arrange(df4, desc(mu_percentile))
+          ncog4 <- dplyr::arrange(ncog4, desc(zMean))
 
-          df_level4_status <- tibble(
-            name = df4$scale,
-            y = df4$mu_z,
-            y2 = df4$mu_percentile,
-            range = df4$range
+          ncog_level4_status <- tibble(
+            name = ncog4$scale,
+            y = ncog4$zMean,
+            y2 = ncog4$zPct,
+            range = ncog4$range
           )
 
           list(
             id = tolower(paste(x_level, y_level, z_level, sep = "_")),
             type = "column",
-            data = list_parse(df_level4_status)
+            data = list_parse(ncog_level4_status)
           )
         })
-      }) |>
-        unlist(recursive = FALSE)
-    }) |>
-    unlist(recursive = FALSE)
+      }) %>% unlist(recursive = FALSE)
+    }) %>% unlist(recursive = FALSE)
 
   # Create charts ----------------------------------
+
+  # Themes
+  theme_merge <-
+    highcharter::hc_theme_merge(
+      highcharter::hc_theme_monokai(),
+      highcharter::hc_theme_darkunica()
+    )
+
   # Tooltip
   x <- c("Name", "Score", "Percentile", "Range")
-  y <-
-    c("{point.name}", "{point.y}", "{point.y2}", "{point.range}")
-  tt <- tooltip_table(x, y)
+  y <- c("{point.name}", "{point.y}", "{point.y2}", "{point.range}")
+  tt <- highcharter::tooltip_table(x, y)
 
-  ## Create drilldown bar plot of zscores
+  ## Create drilldown bar plot zscores
   plot <-
-    highchart() |>
-    hc_title(
+    highcharter::highchart() %>%
+    highcharter::hc_title(
       text = patient,
       style = list(fontSize = "15px")
-    ) |>
-    hc_add_series(df_level1_status,
+    ) %>%
+    highcharter::hc_add_series(ncog_level1_status,
       type = "bar",
-      name = neuro_domain,
-      hcaes(x = name, y = y)
-    ) |>
-    hc_xAxis(
+      name = "Neuropsychological Test Scores",
+      highcharter::hcaes(x = name, y = y)
+    ) %>%
+    highcharter::hc_xAxis(
       type = "category",
-      title = list(text = "Scale"),
-      categories = df_level1_status$name
-    ) |>
-    hc_yAxis(
-      title = list(text = "Z-Score (M = 0, SD = 1)"),
+      title = list(text = "Domain"),
+      categories = .$name
+    ) %>%
+    highcharter::hc_yAxis(
+      title = list(text = "z-score"),
       labels = list(format = "{value}")
-    ) |>
-    hc_tooltip(
+    ) %>%
+    highcharter::hc_tooltip(
       pointFormat = tt,
       useHTML = TRUE,
       valueDecimals = 1
-    ) |>
-    hc_plotOptions(series = list(
+    ) %>%
+    highcharter::hc_plotOptions(series = list(
       colorByPoint = TRUE,
       allowPointSelect = TRUE,
       dataLabels = TRUE
-    )) |>
-    hc_drilldown(
+    )) %>%
+    highcharter::hc_drilldown(
       allowPointDrilldown = TRUE,
-      series = c(
-        df_level2_drill,
-        df_level3_drill,
-        df_level4_drill
-      )
-    ) |>
-    hc_colorAxis(minColor = "red", maxColor = "blue") |>
-    hc_add_theme(theme) |>
-    hc_chart(
+      series = c(ncog_level2_drill, ncog_level3_drill, ncog_level4_drill)
+    ) %>%
+    highcharter::hc_colorAxis(
+      minColor = "red",
+      maxColor = "blue"
+    ) %>%
+    highcharter::hc_add_theme(theme_merge) %>%
+    highcharter::hc_chart(
       style = list(fontFamily = "Cabin"),
       backgroundColor = list("gray")
     )
+  # highcharter::hc_add_theme(hc_theme_sandsignika())
 
   return(plot)
 }
