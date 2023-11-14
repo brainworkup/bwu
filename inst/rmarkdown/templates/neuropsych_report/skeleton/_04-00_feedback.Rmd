@@ -1,0 +1,217 @@
+---
+title: "Neuropsychological Evaluation Results"
+patient: Bridget
+date: 2023-11-08
+author: "Joey Trampush, PhD"
+institute: "Department of Psychiatry and the Behavioral Sciences"
+output:
+  xaringan::moon_reader:
+    css: ["npsych-fonts.css", "npsych-theme.css"]
+    lib_dir: libs
+    self_contained: true
+    anchor_sections: false
+    seal: false
+    nature:
+      highlightStyle: monokai
+      highlightLines: true
+      countIncrementalSlides: false
+      highlightLanguage: ["r", "css", "yaml"]
+      ratio: '16:9'
+      navigation: list(click = true)
+      slideNumberFormat: |
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
+          </div>
+        </div>
+      includePresenterNotes: yes
+      beforeInit: ["macros.js"]
+---
+
+```{r patient, include=FALSE}
+patient <- rmarkdown::metadata$patient
+patient <- "Bridget"
+```
+
+```{r setup, include=FALSE}
+## load libraries
+library(crosstalk)
+library(dplyr)
+library(gifski)
+library(highcharter)
+library(htmlwidgets)
+library(knitr)
+library(languageserver)
+library(manipulateWidget)
+library(revealjs)
+library(svglite)
+library(tibble)
+library(vroom)
+library(readr)
+library(widgetframe)
+library(xaringan)
+library(xaringanExtra)
+library(xaringanthemer)
+library(tidyverse)
+library(bwu)
+## knitr options
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.path = "figs/",
+  fig.width = 12,
+  fig.height = 4,
+  fig.asp = .5,
+  fig.retina = 3,
+  out.width = "100%",
+  fig.showtext = TRUE,
+  comment = NULL,
+  cache = FALSE,
+  cache.path = "cache/",
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  dev = c("svg", "svglite"),
+  hiline = TRUE
+)
+```
+
+```{r, read-data}
+neuropsych <-
+  readr::read_csv(here::here(patient, "neuropsych.csv"), show_col_types = TRUE)
+neurocog <-
+  readr::read_csv(here::here(patient, "neurocog.csv"), show_col_types = TRUE) |>
+  dplyr::filter(scale != "Orientation") |>
+  dplyr::filter(narrow != "Response Monitoring") |>
+  dplyr::filter(narrow != "Recognition Memory")
+neurobehav <-
+  readr::read_csv(here::here(patient, "neurobehav.csv"), show_col_types = TRUE)
+validity <-
+  readr::read_csv(here::here(patient, "validity.csv"), show_col_types = TRUE)
+```
+
+name: title
+class: title-slide, center, middle
+background-image: url(logo_usc_ksom_black.jpg)
+background-position: bottom
+background-repeat: no-repeat
+background-size: 25%
+background-color: var(--usc-black)
+
+# `r rmarkdown::metadata$title`
+## `r rmarkdown::metadata$patient`
+### `r rmarkdown::metadata$author`
+### `r rmarkdown::metadata$institute`
+### `r rmarkdown::metadata$date`
+
+---
+
+name: gauss1
+class: middle center
+background-size: contain
+
+### Distribution of Scores: _Population-level Interpretation_
+
+```{r, gauss-plot1, fig.cap = 'Performance classification of neuropsychological test scores in the general population.', fig.retina = 3, fig.asp = 0.5, out.width = '50%'}
+knitr::include_graphics("plot_narrow.png", auto_pdf = TRUE)
+```
+
+---
+
+class: left, middle, right top
+background-color: var(--near-black)
+class: background
+background-image: url(logo_usc_ksom_black.jpg)
+background-position: right top
+background-repeat: repeat
+background-size: 15%
+background-color: var(--usc-black)
+
+### Neurocognitive Evaluation
+
+#### Summary of neuropsychological testing results
+
+```{r merge-themes, echo=FALSE}
+# if using single theme
+theme <- highcharter::hc_theme_sandsignika()
+# if merging themes
+theme_merge <- 
+  highcharter::hc_theme_merge(
+    highcharter::hc_theme_monokai(),
+    highcharter::hc_theme_darkunica()
+)
+```
+
+
+```{r drilldown-plot1, fig.cap = "Drilldown from broad to narrow neurocognitive domains.", fig.width = 12, fig.height = 8, fig.retina = 3, out.width = '100%'}
+
+data <- neurocog
+neuro_domain <- "Neuropsychological Test Scores"
+theme <- theme_merge
+plot1 <- 
+  bwu::drilldown(
+    data = data,
+    patient = patient,
+    neuro_domain = neuro_domain,
+    theme = theme
+  )
+plot1
+```
+
+---
+
+class: left, middle, right top
+background-color: var(--near-black)
+class: background
+background-image: url(logo_usc_ksom_black.jpg)
+background-position: right top
+background-repeat: repeat
+background-size: 15%
+background-color: var(--usc-black)
+
+### Behavioral/Emotional/Personality Functioning
+
+#### Summary of self-report and observer-report scales from the PAI, CAARS, and CEFI
+
+```{r drilldown-plot2, fig.cap = 'Drilldown from broad to narrow behavioral domains.', fig.width = 12, fig.height = 8, fig.retina = 3, out.width = '100%'}
+
+data <- neurobehav
+neuro_domain <- "Behavioral Rating Scales"
+theme <- theme_merge
+plot2 <- 
+  bwu::drilldown(
+    data = data,
+    patient = patient,
+    neuro_domain = neuro_domain,
+    theme = theme
+  )
+plot2
+```
+
+---
+
+class: left, middle, right top
+background-color: var(--near-black)
+class: background
+background-image: url(logo_usc_ksom_black.jpg)
+background-position: right top
+background-repeat: repeat
+background-size: 15%
+background-color: var(--usc-black)
+
+### Effort/Validity Testing
+
+#### Summary of cognitive performance validity and ratings of symptom validity
+
+```{r drilldown-plot3, fig.cap = 'Drilldown from broad to narrow validity domains.', fig.width = 12, fig.height = 8, fig.retina = 3, out.width = '100%'}
+
+data <- validity
+neuro_domain <- "Effort/Validity Test Scores"
+theme <- theme_merge
+plot3 <- 
+  bwu::drilldown(
+    data = data,
+    patient = patient,
+    neuro_domain = neuro_domain,
+    theme = theme
+  )
+plot3
+```
