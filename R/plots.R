@@ -212,8 +212,8 @@ drilldown <- function(data, patient, neuro_domain = c(
       zMean = mean(z, na.rm = TRUE),
       zPct = mean(percentile, na.rm = TRUE)
     ) %>%
-    dplyr::mutate(range = NA) |> 
-    dplyr::ungroup # NOTE this is new
+    dplyr::mutate(range = NA) |>
+    ungroup() # NOTE this is new
 
 
   df1$zMean <- round(df1$zMean, 2L)
@@ -260,8 +260,8 @@ drilldown <- function(data, patient, neuro_domain = c(
           zMean = mean(z, na.rm = TRUE),
           zPct = mean(percentile, na.rm = TRUE)
         ) %>%
-        dplyr::mutate(range = NA) |> 
-        dplyr::ungroup # NOTE this is new
+        dplyr::mutate(range = NA) |>
+        dplyr::ungroup() # NOTE this is new
 
       # round z-score to 1 decimal
       df2$zMean <- round(df2$zMean, 2L)
@@ -316,10 +316,11 @@ drilldown <- function(data, patient, neuro_domain = c(
         df3 <- df3 %>%
           dplyr::group_by(narrow) %>%
           dplyr::summarize(
-            zMean = mean(z, na.rm = TRUE), 
-            zPct = mean(percentile, na.rm = TRUE)) %>%
-          dplyr::mutate(range = NA) |> 
-          ungroup # NOTE this is new
+            zMean = mean(z, na.rm = TRUE),
+            zPct = mean(percentile, na.rm = TRUE)
+          ) %>%
+          dplyr::mutate(range = NA) |>
+          ungroup() # NOTE this is new
 
         # round z-score to 1 decimal
         df3$zMean <- round(df3$zMean, 2L)
@@ -377,8 +378,8 @@ drilldown <- function(data, patient, neuro_domain = c(
               zMean = mean(z, na.rm = TRUE),
               zPct = mean(percentile, na.rm = TRUE)
             ) %>%
-            dplyr::mutate(range = NA) |> 
-            dplyr::ungroup # NOTE this is new
+            dplyr::mutate(range = NA) |>
+            dplyr::ungroup() # NOTE this is new
 
           # round z-score to 1 decimal
           df4$zMean <- round(df4$zMean, 2L)
