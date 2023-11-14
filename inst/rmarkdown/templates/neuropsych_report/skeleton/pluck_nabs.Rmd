@@ -762,13 +762,13 @@ table2 <-
   table2 |>
   dplyr::mutate(
     subdomain = dplyr::case_when(
-      scale %in% orientation ~ "Attentional Functioning",
-      scale %in% dsf ~ "Attentional Functioning",
+      scale %in% orientation ~ "Attention",
+      scale %in% dsf ~ "Attention",
       scale %in% dsb ~ "Working Memory",
       scale == "Numbers & Letters Part A Speed" ~ "Processing Speed",
-      scale == "Numbers & Letters Part A Errors" ~ "Attentional Functioning",
+      scale == "Numbers & Letters Part A Errors" ~ "Attention",
       scale == "Numbers & Letters Part A Efficiency" ~ "Processing Speed",
-      scale == "Numbers & Letters Part B Efficiency" ~ "Attentional Functioning",
+      scale == "Numbers & Letters Part B Efficiency" ~ "Attention",
       TRUE ~ as.character(subdomain)
     )
   )
@@ -829,7 +829,7 @@ table6 <-
     subdomain = dplyr::case_when(
       scale == "Mazes" ~ "Executive Functioning",
       scale == "Word Generation" ~ "Executive Functioning",
-      scale == "Word Generation Perseverations" ~ "Attentional Functioning",
+      scale == "Word Generation Perseverations" ~ "Attention",
       TRUE ~ as.character(subdomain)
     )
   )
@@ -859,7 +859,7 @@ table2 <-
   dplyr::mutate(
     narrow = dplyr::case_when(
       scale %in% orientation ~ "Orientation",
-      scale %in% dsf ~ "Attentional Capacity",
+      scale %in% dsf ~ "Attention Span",
       scale %in% dsb ~ "Working Memory Capacity",
       scale == "Numbers & Letters Part A Speed" ~ "Psychomotor Speed",
       scale == "Numbers & Letters Part A Errors" ~ "Response Monitoring",
@@ -1347,11 +1347,11 @@ table2 <-
       scale ==
         "Orientation" ~ glue::glue("{description} was intact.\n"),
       scale ==
-        "Digits Forward" ~ glue::glue("{description} was {range}.\n"),
+        "Digits Forward" ~ glue::glue("{description} fell within the {range}.\n"),
       scale ==
         "Digits Forward Longest Span" ~ glue::glue("{description} was {range} ({raw_score} digits forward).\n"),
       scale ==
-        "Digits Backward" ~ glue::glue("{description} was {range}.\n"),
+        "Digits Backward" ~ glue::glue("{description} fell within the {range}.\n"),
       scale ==
         "Digits Backward Longest Span" ~ glue::glue("{description} was {range} ({raw_score} digits backward).\n"),
       scale ==
@@ -1359,9 +1359,9 @@ table2 <-
       scale ==
         "Numbers & Letters Part B Efficiency" ~ glue::glue("{description} was {range}.\n"),
       scale ==
-        "Numbers & Letters Part A Speed" ~ glue::glue("{description} was {range}.\n"),
+        "Numbers & Letters Part A Speed" ~ glue::glue("{description} fell within the {range}.\n"),
       scale ==
-        "Numbers & Letters Part A Errors" ~ glue::glue("{description} was {range}.\n"),
+        "Numbers & Letters Part A Errors" ~ glue::glue("{description} fell within the {range}.\n"),
       TRUE ~ as.character(result)
     )
   )
@@ -1480,7 +1480,6 @@ row_indices <- c(6, 1, 7, 12:19, 2, 20, 24, 3, 27:32, 4, 33:34, 5, 35:37)
 # Use slice to select the rows by these indices
 nabs <- nabs |>
   dplyr::slice(row_indices)
-
 
 # nabs <-
 #   nabs |>

@@ -95,8 +95,8 @@ params:
         - Symbol Span
         - Spatial Addition
       Grooved Pegboard:
-        - Dominant Hand
-        - Nondominant Hand
+        - Dominant Hand Time
+        - Nondominant Hand Time
       KTEA-3:
         - Decoding Fluency
         - Nonsense Word Decoding
@@ -111,7 +111,7 @@ params:
     input: numeric
   score:
     label: "Standardized score:"
-    value: 50
+    value: 62
     input: numeric
   score_type:
     label: "Type of Test Score:"
@@ -327,8 +327,8 @@ Sys.setenv(
 options(java.parameters = "-Xmx16000m")
 knitr::opts_chunk$set(
   root.dir = normalizePath("./"),
-  echo = FALSE,
-  message = FALSE,
+  echo = TRUE,
+  message = TRUE,
   warning = FALSE,
   error = TRUE
 )
@@ -393,17 +393,15 @@ data <- data.frame(
 ## Function for scale description
 
 ```{r fx-desc}
-#' Title
+#' Function for scale description
 #'
 #' @param data Data table
 #' @param scale Name of scale
 #' @param description Description of subtest
 #' @importFrom dplyr mutate case_when
 #'
-#' @return
+#' @return Data table with description column
 #' @export
-#'
-#' @examples
 scale_description <- function(data, scale, description) {
   mutate(
     data,
@@ -444,9 +442,9 @@ scale_description <- function(data, scale, description) {
         "Response monitoring during an inhibition task",
       scale == "D-KEFS Switching Total Errors" ~
         "Response monitoring during a set-shifting task",
-      scale == "Dominant Hand" ~
+      scale == "Dominant Hand Time" ~
         "Fine-motor dexterity (dominant hand)",
-      scale == "Nondominant Hand" ~
+      scale == "Nondominant Hand Time" ~
         "Nondominant hand dexterity",
       scale == "TOPF Standard Score" ~
         "An estimate of premorbid verbal ability level",
@@ -573,41 +571,41 @@ library(rlang)
 compute_result <- function(data, scale, description, range, result) {
   # Simplify the dictionary
   phrase_dict <- c(
-    "Affect Naming" = "was",
-    "Category Fluency" = "fell within the",
-    "D-KEFS Color Naming" = "performed with the",
-    "D-KEFS Inhibition Total Errors" = "was",
-    "D-KEFS Inhibition" = "fell within the",
-    "D-KEFS Switching Total Errors" = "was",
-    "D-KEFS Switching" = "fell within the",
-    "D-KEFS Word Reading" = "fell within the",
-    "Decoding Fluency" = "fell within the",
-    "Deviation Score" = "fell within the",
-    "Dominant Hand" = "was",
-    "Dots" = "was",
-    "Driving Scences" = "was",
-    "Judgment" = "fell within the",
+    "Dominant Hand Time" = "fell within the",
+    "Nondominant Hand Time" = "fell within the",
+    "Unstructured Task" = "fell within the",
     "Letter Fluency" = "fell within the",
-    "Mazes" = "was",
-    "Nondominant Hand" = "was",
-    "Nonsense Word Decoding" = "fell within the",
-    "Numbers & Letters Part A Efficiency" = "was",
-    "Numbers & Letters Part B Efficiency" = "was",
-    "Numbers & Letters Part C Efficiency" = "was",
-    "Numbers & Letters Part D Efficiency" = "was",
-    "Prosody-Face Matching" = "was",
-    "Prosody-Pair Matching" = "was",
-    "Raven's 2 Index Score" = "was",
-    "Reading Comprehension" = "was",
-    "ROCFT Copy" = "fell within the",
-    "ROCFT Delayed Recall" = "fell within the",
-    "Social Perception" = "was",
-    "Symbol Span" = "was",
+    "Category Fluency" = "fell within the",
+    "D-KEFS Word Reading" = "fell within the",
+    "D-KEFS Color Naming" = "performed within the",
+    "D-KEFS Inhibition" = "fell within the",
+    "D-KEFS Switching" = "fell within the",
+    "D-KEFS Inhibition Total Errors" = "fell within the",
+    "D-KEFS Switching Total Errors" = "fell within the",
     "TMT, Part A" = "fell within the",
     "TMT, Part B" = "fell within the",
     "TOPF Standard Score" = "fell within the",
-    "Unstructured Task" = "fell within the",
-    "Word Generation" = "was"
+    "ROCFT Copy" = "fell within the",
+    "ROCFT Delayed Recall" = "fell within the",
+    "Judgment" = "fell within the",
+    "Dots" = "fell within the",
+    "Driving Scences" = "fell within the",
+    "Mazes" = "fell within the",
+    "Word Generation" = "fell within the",
+    "Numbers & Letters Part A Efficiency" = "fell within the",
+    "Numbers & Letters Part B Efficiency" = "fell within the",
+    "Numbers & Letters Part C Efficiency" = "fell within the",
+    "Numbers & Letters Part D Efficiency" = "fell within the",
+    "Affect Naming" = "fell within the",
+    "Social Perception" = "was",
+    "Prosody-Face Matching" = "was",
+    "Prosody-Pair Matching" = "was",
+    "Symbol Span" = "fell within the",
+    "Nonsense Word Decoding" = "fell within the",
+    "Decoding Fluency" = "fell within the",
+    "Reading Comprehension" = "was",
+    "Raven's 2 Index Score" = "fell within the",
+    "Deviation Score" = "was"
   )
 
   # Update the data using the dictionary
@@ -651,8 +649,9 @@ ci_values <- bwu::calc_ci_95(
 )
 
 data$true_score <- ci_values["true_score"]
-data$ci_lo <- ci_values["ci_lo"]
-data$ci_hi <- ci_values["ci_hi"]
+data$ci_lo <- ci_values["lower_ci_95"]
+data$ci_hi <- ci_values["upper_ci_95"]
+data$ci_95 <- paste0(data$ci_lo, " - ", data$ci_hi)
 ```
 
 ## Write out CSV and XLSX
