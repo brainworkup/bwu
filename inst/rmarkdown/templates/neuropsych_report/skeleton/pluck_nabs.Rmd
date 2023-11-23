@@ -1196,7 +1196,7 @@ table1 <-
   dplyr::mutate(
     description = dplyr::case_when(
       scale ==
-        "NAB Total Index" ~ "Finally, a comprehensive measure of neuropsychological functioning (independent of general intelligence) in the domains of attentional and executive functioning, language, spatial processing, and memory",
+        "NAB Total Index" ~ "A comprehensive measure of neuropsychological functioning (independent of general intelligence) in the domains of attentional and executive functioning, language, spatial processing, and memory",
       scale ==
         "NAB Attention Index" ~ "An overall screening measure of the examinee's attentional functioning",
       scale ==
