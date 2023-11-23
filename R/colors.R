@@ -141,7 +141,6 @@ tokyo <- c(
   "#FEFED8"
 )
 
-
 #' Vik Color Palette
 #'
 #' A color palette named `vik`.
@@ -217,7 +216,6 @@ make_shades <- function(color, n, lighter = TRUE) {
   return(shades)
 }
 
-
 #' Plot colors
 #'
 #' Plot a vector of colours to see what they look like
@@ -247,7 +245,6 @@ plot_colors <- function(colors) {
     ggplot2::scale_fill_identity() +
     ggplot2::theme_void()
 }
-
 
 #' @title Create a color palette from the Scico palette
 #'
