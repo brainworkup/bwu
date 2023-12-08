@@ -120,7 +120,6 @@ pages <- params$pages
 ## Extract Areas and Tables with Tabulizer
 
 ```{r eval = FALSE}
-
 f <- file.path("/Users/joey/reports/Daniel/pdf/ADHD Young Adult Battery 2024-210a6756-acdd-488e-86e1-1446de4cb331.pdf")
 
 # locate areas and extract
@@ -354,13 +353,12 @@ for (i in 1:nrow(df)) {
     standard_deviation = 15,
     reliability = .95
   )
-  
+
   df$true_score[i] <- paste0(ci_values["true_score"])
   df$ci_lo[i] <- paste0(ci_values["lower_ci_95"])
   df$ci_hi[i] <- paste0(ci_values["upper_ci_95"])
   df$ci[i] <- paste0(ci_values["lower_ci_95"], " - ", ci_values["upper_ci_95"])
 }
-
 ```
 
 ```{r ci, eval = FALSE}
@@ -428,6 +426,6 @@ readr::write_excel_csv(
   file_path,
   append = TRUE,
   col_names = !has_headers(file_path),
-  quote = "all"
+  quote = "none"
 )
 ```

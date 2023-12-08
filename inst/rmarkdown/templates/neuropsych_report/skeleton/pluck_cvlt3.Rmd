@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from CVLT-3/CVLT-3 Brief"
 params:
-  patient: Biggie
+  patient: Daniel
   test:
     label: "Test"
     value: cvlt3_brief
@@ -22,7 +22,7 @@ params:
     label: "Select File:"
     value: File
     input: file
-  pages: [12,14,12,12,12,15,12] # full [18,20,18,18,18,22,18]
+  pages: [11,13,11,11,11,14,11] # full [18,20,18,18,18,22,18]
   table1:
     label: "Learning Trials:"
     value: [Trial 1 Correct, Trial 2 Correct, Trial 3 Correct, Trial 4 Correct]
@@ -172,12 +172,13 @@ patient <- params$patient
 
 ```{r test}
 test <- params$test
+test_name <- params$test_name
 ```
 
 ## Upload/attach PDF
 
 ```{r choose}
-file <- params$file
+file <- file.path(params$file)
 # file <- file.choose()
 ```
 
@@ -188,7 +189,7 @@ pages <- params$pages
 ```
 
 ```{r save}
-writeLines(file, here::here(patient, "pre_csv", "cvlt3_pdf"))
+#writeLines(file, here::here(patient, "pre_csv", "cvlt3_pdf"))
 ```
 
 ```{r read}
@@ -232,7 +233,7 @@ if (params$test == "cvlt3") {
 ```
 
 ```{r save-areas}
-saveRDS(area, here::here(patient, "pre_csv", "area_cvlt3.rds"))
+#saveRDS(area, here::here(patient, "pre_csv", "area_cvlt3.rds"))
 ```
 
 ```{r read-areas}
@@ -706,32 +707,44 @@ if (params$test == "cvlt3") {
 }
 ```
 
-## Write out final csv
+# Write out final csv
 
 ```{r write-csv}
 if (params$test == "cvlt3") {
   readr::write_csv(
     cvlt3,
-    here::here(patient, "csv", "cvlt3.csv")
+    here::here("csv", "cvlt3.csv")
   )
 } else if (params$test == "cvlt3_brief") {
   readr::write_csv(
     cvlt3_brief,
-    here::here(patient, "csv", "cvlt3_brief.csv")
+    here::here("csv", "cvlt3_brief.csv")
   )
 }
 ```
 
-# Experimental
+## Write to "g2"
 
-## Write to "g"
+```{r}
+has_headers <- function(file_path) {
+  if (!file.exists(file_path)) {
+    return(FALSE) # File doesn't exist, headers are needed
+  }
+  # Check if the file has at least one line (header)
+  return(length(readLines(file_path, n = 1)) > 0)
+}
+```
 
 ```{r writeout-g}
 table <- cvlt3_brief
-test <- "g"
-tidytable::fwrite(
+test <- "g2"
+file_path <- here::here("csv", paste0(test, ".csv"))
+
+readr::write_excel_csv(
   table,
-  here::here(patient, paste0(test, ".csv")),
-  append = TRUE
+  file_path,
+  append = TRUE,
+  col_names = !has_headers(file_path),
+  quote = "none"
 )
 ```

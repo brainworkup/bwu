@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from CEFI PDFs"
 params:
-  patient: Biggie
+  patient: Daniel
   test:
     label: "CEFI"
     value: [cefi_sr]
@@ -60,8 +60,8 @@ options(java.parameters = "-Xmx16000m")
 # Set knitr options
 knitr::opts_chunk$set(
   root.dir = normalizePath("./"),
-  echo = FALSE,
-  message = FALSE,
+  echo = TRUE,
+  message = TRUE,
   warning = FALSE,
   error = TRUE
 )
@@ -86,7 +86,7 @@ test_name <- params$test_name
 
 ```{r file}
 # file <- file.choose()
-file <- params$file
+file <- file.path(params$file)
 ```
 
 ## Pages
@@ -98,7 +98,7 @@ pages <- params$pages
 ## Write/Read PDF file.path
 
 ```{r write-file}
-writeLines(file, here::here(patient, "pre_csv", paste0(test, ".pdf")))
+writeLines(file, here::here("pre_csv", paste0(test, ".pdf")))
 ```
 
 ```{r read-file}
@@ -116,7 +116,7 @@ areas <- list(
 ```
 
 ```{r save-areas}
-saveRDS(areas, here::here(patient, "pre_csv", paste0(test, "_areas.rds")))
+saveRDS(areas, here::here("pre_csv", paste0(test, "_areas.rds")))
 ```
 
 ```{r read-area}
@@ -448,7 +448,7 @@ if (params$test == "cefi_sr") {
 test <- params$test
 readr::write_csv(
   table,
-  here::here(patient, "csv", paste0(test, ".csv")), 
+  here::here("csv", paste0(test, ".csv")), 
   col_names = TRUE, 
   na = ""
   )
@@ -483,16 +483,16 @@ if (params$test == "cefi_sr") {
   # save as markdown
   readr::write_lines(
     cefi_sr_squished, 
-    here::here(patient, "cefi_sr_text.md"), 
+    here::here("cefi_sr_text.md"), 
     sep = "\n")
   # save as quarto
   readr::write_lines(
     cefi_sr_squished, 
-    here::here(patient, "cefi_sr_text.qmd"), 
+    here::here("cefi_sr_text.qmd"), 
     sep = "\n")
   # save as text
   readr::write_lines(cefi_sr_squished, 
-    here::here(patient, "cefi_sr_text.txt"), 
+    here::here("cefi_sr_text.txt"), 
     sep = "\n"
     )
 
@@ -518,17 +518,17 @@ if (params$test == "cefi_sr") {
   
   # save as markdown
   readr::write_lines(cefi_or_squished, 
-    here::here(patient, "cefi_or_text.md"),
+    here::here("cefi_or_text.md"),
     sep = "\n"
     )
   # save as quarto
   readr::write_lines(cefi_or_squished, 
-    here::here(patient, "cefi_or_text.qmd"),
+    here::here("cefi_or_text.qmd"),
     sep = "\n"
     )
   # save as text
   readr::write_lines(cefi_or_squished, 
-    here::here(patient, "cefi_or_text.txt"), 
+    here::here("cefi_or_text.txt"), 
     sep = "\n"
     )
 }
