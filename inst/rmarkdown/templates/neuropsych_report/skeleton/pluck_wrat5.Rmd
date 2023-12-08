@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from WRAT-5"
 params:
-  patient: Bridget
+  patient: Biggie
   test:
     label: "Test"
     value: wrat5
@@ -137,7 +137,7 @@ file <- file.path(params$file)
 
 ```{r eval=FALSE}
 
-f <- file.path("/Users/joey/neuropsychology/Bridget/pdf/ADHD-MCAT Eval Young Adult-3bd6f0a6-1999-4d35-b619-867d2523e4ee.pdf")
+f <- file.path("/Users/joey/neuropsychology/Biggie/pdf/ADHD-MCAT Eval Young Adult-3bd6f0a6-1999-4d35-b619-867d2523e4ee.pdf")
 
 # locate areas and extract
 plucked_tables_wrat5 <- tabulizer::extract_areas(

@@ -64,7 +64,7 @@ params:
       - "Numbers & Letters Part D Disruption"
   table3:
     label: "NAB Language"
-    value: ["Auditory Comprehension"]
+    value: ["Auditory Comprehension", "Auditory Comprehension Colors", "Auditory Comprehension Shapes", "Auditory Comprehension Colors/Shapes/Numbers", "Naming", "Naming Semantic Cuing", "Naming Phonemic Cuing"]
     input: select
     multiple: yes
     choices:
@@ -81,7 +81,7 @@ params:
       - "Bill Payment"
   table4:
     label: "NAB Memory"
-    value: ["Shape Learning Immediate Recognition"]
+    value: ["Shape Learning Immediate Recognition", "Shape Learning Delayed Recognition", "Shape Learning Percent Retention", "Story Learning Immediate Recall", "Story Learning Delayed Recall", "Story Learning Percent Retention"]
     input: select
     multiple: yes
     choices:
@@ -96,7 +96,7 @@ params:
       - "List Learning Long Delayed Recall" #TODO
   table5:
     label: "NAB Spatial"
-    value: ["Visual Discrimination"]
+    value: ["Visual Discrimination", "Design Construction"]
     input: select
     multiple: yes
     choices:
@@ -104,7 +104,7 @@ params:
       - "Design Construction"
   table6:
     label: "NAB Executive Functions"
-    value: ""
+    value: ["Mazes", "Word Generation", "Word Generation Perseverations"]
     input: select
     multiple: yes
     choices:
@@ -1509,13 +1509,12 @@ for (i in 1:nrow(df)) {
     standard_deviation = 10,
     reliability = .85
   )
-  
+
   df$true_score[i] <- paste0(ci_values["true_score"])
   df$ci_lo[i] <- paste0(ci_values["lower_ci_95"])
   df$ci_hi[i] <- paste0(ci_values["upper_ci_95"])
   df$ci[i] <- paste0(ci_values["lower_ci_95"], " - ", ci_values["upper_ci_95"])
 }
-
 ```
 
 ## Write final csv table
