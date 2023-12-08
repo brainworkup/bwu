@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from WRAT-5"
 params:
-  patient: Biggie
+  patient: Daniel
   test:
     label: "Test"
     value: wrat5
@@ -22,7 +22,7 @@ params:
     label: "No file selected"
     value: file
     input: file
-  pages: [8]
+  pages: 7
   table:
     label: "SCORE SUMMARY"
     value: [Word Reading]
@@ -117,76 +117,36 @@ test_name <- params$test_name
 pages <- params$pages
 ```
 
-## Upload/attach PDF
+## Extract Areas and Tables with Tabulizer
 
-```{r choose}
-# file <- file.choose()
-# file <- params$file
-file <- file.path(params$file)
-```
+```{r eval = FALSE}
 
-```{r write-file}
-# writeLines(file, here::here(patient, "pre_csv", "wais4_pdf"))
-```
-
-```{r read-file}
-# file <- readLines(here::here(patient, "pre_csv", "wais4_pdf"))
-```
-
-## Extract Areas with Tabulizer
-
-```{r eval=FALSE}
-
-f <- file.path("/Users/joey/neuropsychology/Biggie/pdf/ADHD-MCAT Eval Young Adult-3bd6f0a6-1999-4d35-b619-867d2523e4ee.pdf")
+f <- file.path("/Users/joey/reports/Daniel/pdf/ADHD Young Adult Battery 2024-210a6756-acdd-488e-86e1-1446de4cb331.pdf")
 
 # locate areas and extract
 plucked_tables_wrat5 <- tabulizer::extract_areas(
   file = f,
-  pages = c(8),
+  pages = c(7),
   method = "stream",
   output = "matrix"
 )
+```
 
+```{r eval = FALSE}
 # Loop over the list and write each matrix to a CSV file
 test <- "wrat5"
 for (i in seq_along(plucked_tables_wrat5)) {
-  write.csv(plucked_tables_wrat5[[i]], file = paste0(test, "_", i, ".csv"), row.names = FALSE)
+  readr::write_(plucked_tables_wrat5[[i]], file = paste0(test, "_", i, ".csv"))
 }
 
 # Save the entire list to an R data file
 save(plucked_tables_wrat5, file = "plucked_tables_wrat5.RData")
 ```
 
-## Locate areas
+## Upload/attach PDF
 
-```{r areas-known, eval = FALSE}
-# if known
-# area <- list(c(149, 53, 224, 559))
-```
-
-```{r write-area}
-# saveRDS(
-#   area,
-#   file = here::here(patient, "pre_csv", "area_wais4.rds"),
-#   compress = FALSE)
-```
-
-```{r read-area}
-# area <- readRDS(here::here(patient, "pre_csv", "area_wais4.rds"))
-# area <- list(area)
-```
-
-## Extract tables
-
-```{r extract-tables, eval=FALSE}
-plucked_tables_wrat5 <- bwu::gpluck_extract_table(
-  file = file,
-  pages = pages,
-  area = area,
-  guess = "FALSE",
-  method = "stream",
-  output = "matrix"
-)
+```{r choose, eval = FALSE}
+file <- file.path(params$file)
 ```
 
 ```{r}
@@ -339,6 +299,9 @@ df <-
 ## Scale descriptions
 
 ```{r description}
+# Remove leading/trailing whitespace and convert to lowercase
+scale <- trimws(df$scale)
+
 df <-
   df |>
   dplyr::mutate(
@@ -348,6 +311,7 @@ df <-
       scale == "Spelling" ~ "Written spelling from dictations",
       scale == "Sentence Comprehension" ~ "Reading comprehension skills at the level of word, sentence, and passage",
       scale == "Reading Composite" ~ "A composite score of decoding and comprehension that balances word-level and text-level reading skills",
+      is.na(scale) ~ NA_character_,
       TRUE ~ as.character(description)
     )
   )
@@ -421,7 +385,7 @@ df$ci <- paste0(df$ci_lo, " - ", df$ci_hi)
 ## Relocate variables
 
 ```{r relocate}
-wrat5 <- df |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
+df <- df |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .before = test)
 ```
 
 # Finalize and save csv
@@ -429,20 +393,41 @@ wrat5 <- df |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95), .b
 ## Write out final csv
 
 ```{r write}
-readr::write_csv(wrat5, here::here(patient, "csv", "wrat5.csv"))
-```
+table <- df
+test <- params$test
+file_path <- here::here("csv", paste0(test, ".csv"))
 
-# Experimental
+readr::write_excel_csv(
+  table,
+  file_path,
+  col_names = TRUE
+)
+
+rm(file_path)
+```
 
 ## Write to "g2"
 
+```{r}
+has_headers <- function(file_path) {
+  if (!file.exists(file_path)) {
+    return(FALSE) # File doesn't exist, headers are needed
+  }
+  # Check if the file has at least one line (header)
+  return(length(readLines(file_path, n = 1)) > 0)
+}
+```
+
 ```{r writeout-g}
-table <- wrat5
+table <- df
 test <- "g2"
-file_path <- here::here(patient, "csv", paste0(test, ".csv"))
-tidytable::fwrite(
+file_path <- here::here("csv", paste0(test, ".csv"))
+
+readr::write_excel_csv(
   table,
   file_path,
-  append = TRUE
+  append = TRUE,
+  col_names = !has_headers(file_path),
+  quote = "all"
 )
 ```

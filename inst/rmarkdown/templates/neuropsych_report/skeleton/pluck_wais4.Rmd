@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from WAIS-IV"
 params:
-  patient: Biggie
+  patient: Daniel
   test:
     label: "Test"
     value: wais4
@@ -215,27 +215,25 @@ Sys.setenv(
 options(java.parameters = "-Xmx16000m")
 knitr::opts_chunk$set(
   root.dir = normalizePath("./"),
-  echo = FALSE,
-  message = FALSE,
+  echo = TRUE,
+  message = TRUE,
   warning = FALSE,
   error = TRUE
 )
-library(bwu)
 library(hablar)
 library(here)
 library(knitr)
 library(magrittr)
 library(readr)
-library(rJava)
 library(rmarkdown)
 library(rmdformats)
 library(shiny)
 library(snakecase)
 library(tabulizer)
-library(tabulizerjars)
 library(tibble)
 library(tidyr)
 library(dplyr)
+library(bwu)
 ```
 
 ## Patient
@@ -249,19 +247,12 @@ patient <- params$patient
 ```{r test}
 test <- params$test
 test_name <- params$test_name
-```
-
-## Version
-
-```{r version}
 version <- params$version
 ```
 
 ## Upload/attach PDF
 
-```{r choose}
-# file <- file.choose()
-# file <- params$file
+```{r choose, eval = FALSE}
 file <- file.path(params$file)
 ```
 
@@ -276,15 +267,17 @@ pages <- params$pages
 ```{r eval = FALSE}
 library(tabulizer)
 
-f <- file.path(file.choose(""))
+f <- file.path("/Users/joey/reports/Daniel/pdf/ADHD Young Adult Battery 2024-210a6756-acdd-488e-86e1-1446de4cb331.pdf")
+
+# f <- file.path(file.choose(""))
 
 # locate areas and extract
-plucked_tables_wais4 <- extract_areas(
+plucked_tables_wais4 <- tabulizer::extract_areas(
   file = f,
   pages = c(2,3,3,3,3),
   method = "stream",
   output = "matrix"
-  )
+)
 
 # Loop over the list and write each matrix to a CSV file
 for (i in seq_along(plucked_tables_wais4)) {
@@ -293,14 +286,6 @@ for (i in seq_along(plucked_tables_wais4)) {
 
 # Save the entire list to an R data file
 save(plucked_tables_wais4, file = "plucked_tables_wais4.RData")
-```
-
-```{r write-file}
-# writeLines(file, here::here(patient, "pre_csv", "wais4_pdf"))
-```
-
-```{r read-file}
-# file <- readLines(here::here(patient, "pre_csv", "wais4_pdf"))
 ```
 
 ## Locate areas
@@ -333,18 +318,6 @@ if (params$version == "full") {
 # psi = c(620, 50, 656, 560),
 # bd = c(355, 50, 375, 560),
 # ds = c(436, 50, 533, 560)
-```
-
-```{r write-area}
-# saveRDS(
-#   area,
-#   file = here::here(patient, "pre_csv", "area_wais4.rds"),
-#   compress = FALSE)
-```
-
-```{r read-area}
-# area <- readRDS(here::here(patient, "pre_csv", "area_wais4.rds"))
-# area <- list(area)
 ```
 
 ## Extract tables
@@ -1467,20 +1440,33 @@ wais4_subset <- wais4[matched_indices, ] # Assuming wais4 is a dataframe
 ## Write out final csv
 
 ```{r write}
-readr::write_csv(wais4, here::here(patient, "csv", "wais4.csv"))
+wais4 <- wais4 |> dplyr::select(-row_names) 
+
+readr::write_excel_csv(wais4, here::here("csv", "wais4.csv"), col_names = TRUE)
 ```
 
-# Experimental
-
 ## Write to "g2"
+
+```{r}
+has_headers <- function(file_path) {
+  if (!file.exists(file_path)) {
+    return(FALSE) # File doesn't exist, headers are needed
+  }
+  # Check if the file has at least one line (header)
+  return(length(readLines(file_path, n = 1)) > 0)
+}
+```
 
 ```{r writeout-g}
 table <- wais4
 test <- "g2"
-file_path <- here::here(patient, "csv", paste0(test, ".csv"))
-tidytable::fwrite(
+file_path <- here::here("csv", paste0(test, ".csv"))
+
+readr::write_excel_csv(
   table,
   file_path,
-  append = TRUE
+  append = TRUE,
+  col_names = !has_headers(file_path),
+  quote = "all"
 )
 ```
