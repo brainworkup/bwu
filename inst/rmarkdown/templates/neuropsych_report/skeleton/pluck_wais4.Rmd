@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from WAIS-IV"
 params:
-  patient: Daniel
+  patient: Biggie
   test:
     label: "Test"
     value: wais4
@@ -267,7 +267,7 @@ pages <- params$pages
 ```{r eval = FALSE}
 library(tabulizer)
 
-f <- file.path("/Users/joey/reports/Daniel/pdf/ADHD Young Adult Battery 2024-210a6756-acdd-488e-86e1-1446de4cb331.pdf")
+f <- file.path("/Users/joey/reports/Biggie/pdf/ADHD Young Adult Battery 2024-210a6756-acdd-488e-86e1-1446de4cb331.pdf")
 
 # f <- file.path(file.choose(""))
 

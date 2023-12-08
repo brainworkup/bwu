@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from CVLT-3/CVLT-3 Brief"
 params:
-  patient: Daniel
+  patient: Biggie
   test:
     label: "Test"
     value: cvlt3_brief

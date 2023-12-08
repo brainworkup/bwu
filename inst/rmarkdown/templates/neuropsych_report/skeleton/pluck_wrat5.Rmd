@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from WRAT-5"
 params:
-  patient: Daniel
+  patient: Biggie
   test:
     label: "Test"
     value: wrat5
@@ -120,7 +120,7 @@ pages <- params$pages
 ## Extract Areas and Tables with Tabulizer
 
 ```{r eval = FALSE}
-f <- file.path("/Users/joey/reports/Daniel/pdf/ADHD Young Adult Battery 2024-210a6756-acdd-488e-86e1-1446de4cb331.pdf")
+f <- file.path("/Users/joey/reports/Biggie/pdf/ADHD Young Adult Battery 2024-210a6756-acdd-488e-86e1-1446de4cb331.pdf")
 
 # locate areas and extract
 plucked_tables_wrat5 <- tabulizer::extract_areas(

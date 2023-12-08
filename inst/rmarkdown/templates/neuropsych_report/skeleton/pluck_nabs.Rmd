@@ -393,8 +393,9 @@ if (params$test == "nabs") {
   table2[7, 1] <- c("Numbers & Letters Part D Efficiency")
   table2[8, 1] <- c("Driving Scenes")
 }
-# table2[10, 5] <- 0.5
-# table2[12, 5] <- 0.5
+# table2[10, 5] <- 1
+# table2[12, 5] <- 1
+# table2[13, 5] <- 1
 ```
 
 # NAB Language
@@ -425,7 +426,7 @@ if (params$test == "nabs") {
   table3[4, 1] <- c("Writing")
   table3[5, 1] <- c("Bill Payment")
 }
-# table3[5, 5] <- 1
+# table3[1, 5] <- 1
 ```
 
 # NAB Memory
@@ -1204,7 +1205,7 @@ table1 <-
       scale ==
         "NAB Memory Index" ~ "A composite measure of the examinee's verbal and visual memory functioning",
       scale ==
-        "NAB Spatial Index" ~ "A composite screening measure of `r params$first_name`'s visuoperceptual skills, attention to detail, and visuoconstructional skills",
+        "NAB Spatial Index" ~ "A composite screening measure of visuoperceptual skills, attention to detail, and visuoconstructional skills",
       scale ==
         "NAB Executive Functions Index" ~ "A composite measure of executive skills involving planning, inhibition, speed/fluency, and generativity",
       TRUE ~ as.character(description)
@@ -1234,7 +1235,7 @@ table2 <-
       scale ==
         "Numbers & Letters Part A Efficiency" ~ "An overall measure of efficiency in performing a selective attention letter cancellation task",
       scale ==
-        "Numbers & Letters Part B Efficiency" ~ "`r params$first_name`'s performance on a complex measure of divided attention, information processing speed, and inhibition",
+        "Numbers & Letters Part B Efficiency" ~ "Performance on a complex measure of divided attention, information processing speed, and inhibition",
       TRUE ~ as.character(description)
     )
   )
@@ -1517,25 +1518,21 @@ for (i in 1:nrow(df)) {
 }
 ```
 
-## Write final csv table
+# Write final csv table
 
 ```{r write-out}
-readr::write_csv(nabs, here::here(patient, "csv", "nabs.csv"), col_names = TRUE, na = "")
+readr::write_excel_csv(nabs, here::here("csv", "nabs.csv"), col_names = TRUE, na = "")
 
 if (any(is.na(nabs$percentile))) {
   stop("STOP!!! NA value found in percentile column. Please fill in missing values.")
 }
 ```
 
-# Write g
+# Write g2
 
 ```{r writeout-g}
 table <- nabs
 test <- "g2"
-file_path <- here::here(patient, "csv", paste0(test, ".csv"))
-tidytable::fwrite(
-  table,
-  file_path,
-  append = TRUE
-)
+file_path <- here::here("csv", paste0(test, ".csv"))
+readr::write_excel_csv(nabs, here::here("csv", "nabs.csv"), append = TRUE, na = "")
 ```
