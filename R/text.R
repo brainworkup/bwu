@@ -89,3 +89,28 @@ glue_neuropsych_results <- function(df, filter, result, file) {
   # passing the file to other functions.
   return(df_glued)
 }
+
+
+#' Concatenate Results
+#'
+#' This function takes a data frame as input and adds a summary column to it. The summary column contains a concatenated string that describes the patient's score, range, percentile, and classification.
+#'
+#' @param df A data frame containing the patient's scores and related information.
+#'
+#' @return A character vector containing the concatenated summary strings.
+#'
+#' @examples
+#' df <- data.frame(scale = c("IQ", "Memory"), score = c(100, 80), range = c("Above Average", "Below Average"), percentile = c(75, 25), ci_95 = c("[95, 105]", "[75, 85]"), description = c("intelligence", "memory"))
+#' concatenate_results(df)
+#'
+#' @export
+concatenate_results <- function(df) {
+  df$summary <- apply(df, 1, function(row) {
+    sw <- ifelse(row["range"] %in% c("Above Average", "High Average", "Exceptionally High"), "a relative strength",
+      ifelse(row["range"] %in% c("Below Average", "Low Average", "Exceptionally Low"), "a relative weakness", "an area of typical functioning")
+    )
+    percentile_as_percentage <- paste0(row["percentile"], "%")
+    glue("The patient's {row['scale']} score of {row['score']} ({row['ci_95']}) is classified as {row['range']} and is ranked at the {row['percentile']}th percentile, indicating performance as good as or better than {percentile_as_percentage} of same age peers from the general population. This estimate of {row['description']} is considered {sw}.")
+  })
+  return(df$summary)
+}

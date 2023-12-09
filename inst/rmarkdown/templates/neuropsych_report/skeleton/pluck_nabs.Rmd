@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from NAB-Screener (NAB-S)"
 params:
-  patient: Biggie
+  patient: Daniel
   test:
     label: "Test"
     value: nabs
@@ -393,9 +393,9 @@ if (params$test == "nabs") {
   table2[7, 1] <- c("Numbers & Letters Part D Efficiency")
   table2[8, 1] <- c("Driving Scenes")
 }
-# table2[10, 5] <- 1
-# table2[12, 5] <- 1
-# table2[13, 5] <- 1
+table2[10, 5] <- 1
+table2[12, 5] <- 1
+table2[13, 5] <- 1
 ```
 
 # NAB Language
@@ -426,7 +426,7 @@ if (params$test == "nabs") {
   table3[4, 1] <- c("Writing")
   table3[5, 1] <- c("Bill Payment")
 }
-# table3[1, 5] <- 1
+table3[1, 5] <- 1
 ```
 
 # NAB Memory

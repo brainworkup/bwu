@@ -1,7 +1,7 @@
 ---
 title: "Import CSV file from PAI"
 params:
-  patient: Biggie
+  patient: Daniel
   test: pai
   test_name: PAI
   file:
@@ -11,7 +11,6 @@ params:
 output:
   rmdformats::robobook:
     highlight: kate
-# runtime: shiny
 ---
 
 ## Setup
@@ -71,17 +70,6 @@ file_path <- here::here("pdf", "pai.pdf")
 
 This creates a file path that joins your project directory, the value stored in `patient`, "pre_csv", and "pai.pdf".
 
-### 2. Writing to a File:
-
-The `writeLines()` function is used to write text lines to a file.
-The first argument should be the content (i.e., the text lines) you want to write, and the second argument should be the file path.
-So, if you wanted to write some text to the file at the path we just created, you would do:
-
-```{r}
-content <- "This is some sample content." # replace with your actual content
-writeLines(content, file_path)
-```
-
 ### 3. Reading from a File:
 
 The `readLines()` function reads text lines from a file.
@@ -97,7 +85,6 @@ Bringing it all together, using the two chunks you provided:
 ```{r write}
 file_path <- here::here("pdf", "pai.pdf")
 content <- "This is some sample content." # replace with your actual content
-writeLines(content, file_path)
 ```
 
 ```{r read}
@@ -822,7 +809,7 @@ library(stringr)
 file <- fs::as_fs_path(params$file)
 ```
 
-## extract text
+## Extract and save dirty text
 
 ```{r text-extract}
 get_text <- function(file) {
@@ -831,18 +818,16 @@ get_text <- function(file) {
     unlist()
 }
 pai_text <- get_text(file)
-pai_text
 
+readr::write_lines(pai_text, here::here("pai_text_dirty.md"), sep = "\n")
+readr::write_lines(pai_text, here::here("pai_text_dirty.txt"), sep = "\n")
+readr::write_lines(pai_text, here::here("pai_text_dirty.typ"), sep = "\n")
 ```
 
-## save dirty
+## Squish text and save
 
-```{r text-save-dirty}
-readr::write_lines(pai_text, here::here("pai_text.md"), sep = "\n")
-readr::write_lines(pai_text, here::here("pai_text.qmd"), sep = "\n")
-```
-
-## Replace long spaces with a col break symbol
+Replace long spaces with a col break symbol.
+Save text to markdown, quarto, and typst formats.
 
 ```{r text-replace}
 
@@ -853,16 +838,6 @@ pai_text_squished
 
 # save
 readr::write_lines(pai_text_squished, here::here("pai_text_squished.md"), sep = "\n")
-readr::write_lines(pai_text_squished, here::here("pai_text_squished.qmd"), sep = "\n")
-
-```
-
-## save txt
-
-Save text to markdown, quarto, and typst formats.
-
-```{r text-save}
-readr::write_lines(pai_text_squished, here::here("pai_text_squished.md"), sep = "\n")
-readr::write_lines(pai_text_squished, here::here("pai_text_squished.qmd"), sep = "\n")
+readr::write_lines(pai_text_squished, here::here("pai_text_squished.txt"), sep = "\n")
 readr::write_lines(pai_text_squished, here::here("pai_text_squished.typ"), sep = "\n")
 ```
