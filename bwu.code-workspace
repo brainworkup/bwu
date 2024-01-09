@@ -67,57 +67,6 @@
       }
     ],
     "peacock.surpriseMeOnStartup": false,
-    "githubPullRequests.ignoredPullRequestBranches": [
-      "main"
-    ],
-    "cSpell.words": [
-      "caars",
-      "komadown",
-      "marginnote",
-      "newthought",
-      "rdname"
-    ],
-    "cSpell.enableFiletypes": [
-      "quarto"
-    ],
-    "deno.codeLens.implementations": true,
-    "deno.codeLens.referencesAllFunctions": true,
-    "deno.codeLens.test": true,
-    "deno.inlayHints.parameterTypes.enabled": true,
-    "deno.inlayHints.propertyDeclarationTypes.enabled": true,
-    "deno.inlayHints.variableTypes.enabled": true,
-    "deno.internalDebug": true,
-    "deno.unstable": true,
-    "deno.enable": true,
-    "editor.fontFamily": "JetBrains Mono, Fira Code",
-    "editor.fontSize": 14,
-    "editor.fontWeight": "400",
-    "editor.lineHeight": 21,
-    "editor.fontLigatures": true,
-    "editor.letterSpacing": 0.5,
-    "[markdown]": {
-      "editor.fontFamily": "iA Writer Quattro, iA Writer Mono",
-      "editor.fontLigatures": true,
-      "editor.fontSize": 16,
-      "editor.lineHeight": 21,
-      "editor.fontWeight": "400",
-      "editor.wordWrap": "wordWrapColumn",
-      "editor.wordWrapColumn": 80,
-      "editor.lineNumbers": "on",
-      "editor.defaultFormatter": "trunk.io",
-      "editor.formatOnSave": true,
-      "editor.renderWhitespace": "selection",
-      "editor.quickSuggestions": {
-        "other": true,
-        "comments": false,
-        "strings": true
-      },
-      "editor.snippetSuggestions": "bottom",
-      "editor.tabCompletion": "on",
-      "editor.acceptSuggestionOnEnter": "on",
-      "editor.wordBasedSuggestions": true,
-      "editor.tabSize": 2,
-      "editor.suggest.showSnippets": true,
-      "files.trimTrailingWhitespace": false
-    }
+    "githubPullRequests.ignoredPullRequestBranches": ["main"]
   }
+}
