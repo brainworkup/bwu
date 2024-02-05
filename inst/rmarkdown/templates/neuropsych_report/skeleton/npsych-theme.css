@@ -1,4 +1,4 @@
-/* 
+/*
    Tachyons
    COLOR VARIABLES
    Grayscale
@@ -811,8 +811,7 @@ p.a {
 
 p.b {
   font:
-    italic small-caps bold 12px/30px Biggie,
-    serif;
+    italic small-caps bold 12px/30px Georgia, serif;
 }
 
 .fade {
