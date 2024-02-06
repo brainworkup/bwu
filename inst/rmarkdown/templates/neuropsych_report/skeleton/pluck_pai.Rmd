@@ -25,12 +25,12 @@ knitr::opts_chunk$set(
   warning = FALSE,
   error = TRUE
 )
+xfun::pkg_load2("pdftools", "tabulizer", "vroom", "tidyverse", "magrittr", "rJava", "shiny")
 library(hablar)
 library(here)
 library(rmarkdown)
 library(rmdformats)
 library(tibble)
-xfun::pkg_load2("pdftools", "tabulizer", "vroom", "tidyverse", "magrittr", "rJava", "shiny")
 library(rlang)
 library(bwu)
 ```

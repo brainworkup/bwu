@@ -49,15 +49,15 @@ params:
     input: select
     choices:
       Examiner:
-        - Unstructured Task
+        - "Unstructured Task"
         - Letter Fluency
         - Category Fluency
       Rey Complex Figure:
         - ROCFT Copy
         - ROCFT Delayed Recall
       Trail Making Test:
-        - TMT, Part A
-        - TMT, Part B
+        - "TMT, Part A"
+        - "TMT, Part B"
       ACS:
         - TOPF Standard Score
         - ACS Word Choice
@@ -76,9 +76,9 @@ params:
       NEPSY-2:
         - Comprehension of Instructions
         - Visuomotor Precision
-        - Word Generation-Semantic
-        - Word Generation-Initial Letter
-        - Semantic vs. Initial Letter
+        - "Word Generation-Semantic"
+        - "Word Generation-Initial Letter"
+        - "Semantic vs. Initial Letter"
         - Narrative Memory Free and Cued Recall
         - Narrative Memory Free Recall
         - Narrative Memory Recognition
@@ -163,6 +163,9 @@ params:
         - Working Memory
         - Processing Speed
       Verbal:
+        - Fluency
+        - Comprehension
+        - Retrieval
         - Word Fluency
         - Listening Ability
         - Word Retrieval
@@ -191,12 +194,12 @@ params:
       General Cognition:
         - General Ability
         - Word Reading
-        - General Ability Index
-        - Crystallized Knowledge Index
-        - Fluid Reasoning Index
-        - Cognitive Proficiency Index
-        - Working Memory Index
-        - Processing Speed Index
+        - General Ability
+        - Crystallized Knowledge
+        - Fluid Reasoning
+        - Cognitive Proficiency
+        - Working Memory
+        - Processing Speed
       Attention:
         - Attention Span
         - Attentional Fluency

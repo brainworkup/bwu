@@ -274,7 +274,7 @@ f <- file.path("/Users/joey/reports/Biggie/pdf/ADHD Young Adult Battery 2024-210
 # locate areas and extract
 plucked_tables_wais4 <- tabulizer::extract_areas(
   file = f,
-  pages = c(2,3,3,3,3),
+  pages = c(2, 3, 3, 3, 3),
   method = "stream",
   output = "matrix"
 )
@@ -343,7 +343,6 @@ load("plucked_tables_wais4.RData")
 ## Pluck and tidy tables
 
 ```{r pluck1, eval = params$eval_iq}
-
 # Assuming you have plucked_tables_wais4 and params already defined
 
 # Use this because q-int didnt give PRI
@@ -573,7 +572,6 @@ table1 <- table1 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 ## Pluck and tidy tables
 
 ```{r pluck2, eval = params$eval_vci}
-
 # Convert to data.frame
 table2 <- as.data.frame(plucked_tables_wais4[[2]])
 
@@ -612,25 +610,24 @@ transformed_tables <- list()
 for (i in 2:5) {
   # Convert to data.frame
   table <- as.data.frame(plucked_tables_wais4[[i]])
-  
+
   # Rename columns using the respective 'colnames' from params
   colnames_param <- params[[paste0("colnames", i)]]
   colnames(table) <- colnames_param
-  
+
   # Convert columns to double
   to_double <- c("raw_score", "score", "percentile")
   table[to_double] <- lapply(table[to_double], as.numeric)
-  
+
   # Add the test name as the first column
   table[, 1] <- params[[paste0("table", i)]]
-  
+
   # Select the relevant columns
   table <- table %>% select(all_of(params[[paste0("keep", i)]]))
-  
-  # Store the transformed table in the list
-  transformed_tables[[i-1]] <- table
-}
 
+  # Store the transformed table in the list
+  transformed_tables[[i - 1]] <- table
+}
 ```
 
 ## Mutate columns
@@ -660,7 +657,8 @@ table2 <- bwu::gpluck_make_columns(
 ```{r ranges2, eval = params$eval_vci}
 table2 <- bwu::gpluck_make_score_ranges(
   table = table2,
-  test_type = "npsych_test")
+  test_type = "npsych_test"
+)
 ```
 
 ## Subdomains
@@ -670,10 +668,10 @@ table2 <-
   table2 |>
   dplyr::mutate(
     subdomain = dplyr::case_when(
-      scale == "Similarities" ~ "Word Reasoning",
-      scale == "Vocabulary" ~ "Word Knowledge",
-      scale == "Information" ~ "General World Knowledge",
-      scale == "Comprehension" ~ "Acquired Knowledge",
+      scale == "Similarities" ~ "Reasoning",
+      scale == "Vocabulary" ~ "Knowledge",
+      scale == "Information" ~ "Knowledge",
+      scale == "Comprehension" ~ "Comprehension",
       TRUE ~ as.character(subdomain)
     )
   )
@@ -686,10 +684,10 @@ table2 <-
   table2 |>
   dplyr::mutate(
     narrow = dplyr::case_when(
-      scale == "Similarities" ~ "Verbal Reasoning",
-      scale == "Vocabulary" ~ "Lexical Knowledge",
-      scale == "Information" ~ "General Verbal Information",
-      scale == "Comprehension" ~ "General Verbal Information",
+      scale == "Similarities" ~ "Word Reasoning",
+      scale == "Vocabulary" ~ "Word Knowledge",
+      scale == "Information" ~ "World Knowledge",
+      scale == "Comprehension" ~ "Acquired Knowledge",
       TRUE ~ as.character(narrow)
     )
   )
@@ -787,10 +785,10 @@ table3 <-
   table3 |>
   dplyr::mutate(
     subdomain = dplyr::case_when(
-      scale == "Block Design" ~ "Visual Processing",
+      scale == "Block Design" ~ "Construction",
       scale == "Matrix Reasoning" ~ "Reasoning",
-      scale == "Visual Puzzles" ~ "Visual Processing",
-      scale == "Figure Weights" ~ "Fluid Reasoning",
+      scale == "Visual Puzzles" ~ "Perception",
+      scale == "Figure Weights" ~ "Reasoning",
       TRUE ~ as.character(subdomain)
     )
   )
@@ -935,8 +933,8 @@ table4 <-
   dplyr::mutate(
     narrow = dplyr::case_when(
       scale == "Digit Span" ~ "Working Memory Capacity",
-      scale == "Arithmetic" ~ "Verbal Working Memory",
-      scale == "Letter-Number Sequencing" ~ "Verbal Working Memory",
+      scale == "Arithmetic" ~ "Working Memory Capacit",
+      scale == "Letter-Number Sequencing" ~ "Working Memory Capacit",
       TRUE ~ as.character(narrow)
     )
   )
@@ -1361,7 +1359,9 @@ table7 <-
 table7 <-
   table7 |>
   dplyr::relocate(
-    c(raw_score, score, percentile, range, ci_95), .before = test)
+    c(raw_score, score, percentile, range, ci_95),
+    .before = test
+  )
 ```
 
 # Finalize and save csv
@@ -1434,13 +1434,12 @@ matched_indices <- na.omit(matched_indices)
 
 # Subset wais4 using the non-NA matched indices
 wais4_subset <- wais4[matched_indices, ] # Assuming wais4 is a dataframe
-
 ```
 
 ## Write out final csv
 
 ```{r write}
-wais4 <- wais4 |> dplyr::select(-row_names) 
+wais4 <- wais4 |> dplyr::select(-row_names)
 
 readr::write_excel_csv(wais4, here::here("csv", "wais4.csv"), col_names = TRUE)
 ```

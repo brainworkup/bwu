@@ -32,7 +32,15 @@ load_data <- function(patient) {
       }
     ) |>
     purrr::list_rbind(names_to = "filename") |>
-    dplyr::filter(!is.na(percentile)) |>
+    # Add a check for 'percentile' column before filtering
+    purrr::map(
+      function(data) {
+        if ("percentile" %in% names(data)) {
+          data <- dplyr::filter(data, !is.na(percentile))
+        }
+        return(data)
+      }
+    ) |>
     dplyr::distinct() |>
     dplyr::mutate(
       z = qnorm(percentile / 100),
