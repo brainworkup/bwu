@@ -11,47 +11,33 @@
 #' @rdname load_data
 #' @export
 load_data <- function(patient) {
-  # Ensure patient is specified
   if (missing(patient)) {
     stop("Patient must be specified.")
   }
 
-  # Define path for the data
   data_path <- here::here(patient, "csv")
-  files <- dir(data_path, pattern = "*.csv")
+  files <- dir(data_path, pattern = "*.csv", full.names = TRUE)
 
-  # Read and process neuropsych data
   neuropsych <-
-    files |>
-    purrr::set_names() |>
-    purrr::map(
-      function(filename) {
-        data <- readr::read_csv(file.path(data_path, filename), na = c("", "NA", "--", "-"))
-        data$filename <- filename
-        return(data)
-      }
-    ) |>
-    purrr::list_rbind(names_to = "filename") |>
-    # Add a check for 'percentile' column before filtering
-    purrr::map(
-      function(data) {
-        if ("percentile" %in% names(data)) {
-          data <- dplyr::filter(data, !is.na(percentile))
-        }
-        return(data)
-      }
-    ) |>
-    purrr::reduce(bind_rows) |> # Combine list of data frames into a single data frame
+    purrr::map_df(files, function(filename) {
+      data <- readr::read_csv(filename, na = c("", "NA", "--", "-"))
+      data$filename <- basename(filename)
+      data
+    }) |>
     dplyr::distinct() |>
-    dplyr::mutate(
-      z = qnorm(percentile / 100),
-      domain = as.character(domain),
-      subdomain = as.character(subdomain),
-      narrow = as.character(narrow),
-      pass = as.character(pass),
-      verbal = forcats::as_factor(verbal),
-      timed = forcats::as_factor(timed)
-    )
+    (\(df) {
+      df <- dplyr::mutate(
+        df,
+        z = ifelse("percentile" %in% names(df), qnorm(df$percentile / 100), NA_real_),
+        domain = as.character(df$domain),
+        subdomain = as.character(df$subdomain),
+        narrow = as.character(df$narrow),
+        pass = as.character(df$pass),
+        verbal = forcats::as_factor(df$verbal),
+        timed = forcats::as_factor(df$timed)
+      )
+      df
+    })()
 
   # Subset neurocognitive data
   neurocog <-
@@ -124,8 +110,6 @@ load_data <- function(patient) {
   readr::write_csv(neurobehav, here::here(patient, "neurobehav.csv"))
   readr::write_csv(validity, here::here(patient, "validity.csv"))
 }
-
-
 
 #' Read Neuropsych Data for Subsetting
 #' @description This function reads in the neuropsych data for subsetting.
