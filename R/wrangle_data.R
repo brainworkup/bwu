@@ -41,6 +41,7 @@ load_data <- function(patient) {
         return(data)
       }
     ) |>
+    purrr::reduce(bind_rows) |> # Combine list of data frames into a single data frame
     dplyr::distinct() |>
     dplyr::mutate(
       z = qnorm(percentile / 100),
