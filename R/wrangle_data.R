@@ -22,21 +22,21 @@ load_data <- function(patient) {
     purrr::map_df(files, function(filename) {
       data <- readr::read_csv(filename, na = c("", "NA", "--", "-"))
       data$filename <- basename(filename)
-      data
+      return(data)
     }) |>
     dplyr::distinct() |>
     (\(df) {
-      df <- dplyr::mutate(
-        df,
-        z = ifelse("percentile" %in% names(df), qnorm(df$percentile / 100), NA_real_),
-        domain = as.character(df$domain),
-        subdomain = as.character(df$subdomain),
-        narrow = as.character(df$narrow),
-        pass = as.character(df$pass),
-        verbal = forcats::as_factor(df$verbal),
-        timed = forcats::as_factor(df$timed)
-      )
-      df
+      df <- df |>
+        dplyr::mutate(
+          z = ifelse(!is.na(percentile), qnorm(percentile / 100), NA_real_),
+          domain = as.character(domain),
+          subdomain = as.character(subdomain),
+          narrow = as.character(narrow),
+          pass = as.character(pass),
+          verbal = forcats::as_factor(verbal),
+          timed = forcats::as_factor(timed)
+        )
+      return(df)
     })()
 
   # Subset neurocognitive data
@@ -169,21 +169,21 @@ load_data2 <- function() {
     purrr::map_df(files, function(filename) {
       data <- readr::read_csv(filename, na = c("", "NA", "--", "-"))
       data$filename <- basename(filename)
-      data
+      return(data)
     }) |>
     dplyr::distinct() |>
     (\(df) {
-      df <- dplyr::mutate(
-        df,
-        z = ifelse("percentile" %in% names(df), qnorm(df$percentile / 100), NA_real_),
-        domain = as.character(df$domain),
-        subdomain = as.character(df$subdomain),
-        narrow = as.character(df$narrow),
-        pass = as.character(df$pass),
-        verbal = forcats::as_factor(df$verbal),
-        timed = forcats::as_factor(df$timed)
-      )
-      df
+      df <- df |>
+        dplyr::mutate(
+          z = ifelse(!is.na(percentile), qnorm(percentile / 100), NA_real_),
+          domain = as.character(domain),
+          subdomain = as.character(subdomain),
+          narrow = as.character(narrow),
+          pass = as.character(pass),
+          verbal = forcats::as_factor(verbal),
+          timed = forcats::as_factor(timed)
+        )
+      return(df)
     })()
 
   # Subset neurocognitive data
