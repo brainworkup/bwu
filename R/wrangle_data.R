@@ -57,7 +57,7 @@ load_data <- function(patient) {
     neuropsych |>
     dplyr::filter(test_type == "npsych_test") |>
     # domain
-    group_by(domain, .add = TRUE) |>
+    dplyr::group_by(domain, .add = TRUE) |>
     dplyr::mutate(z_mean_domain = mean(z), z_sd_domain = sd(z)) |>
     dplyr::ungroup() |>
     # subdomain
@@ -122,13 +122,6 @@ load_data <- function(patient) {
   readr::write_csv(neurocog, here::here(patient, "neurocog.csv"))
   readr::write_csv(neurobehav, here::here(patient, "neurobehav.csv"))
   readr::write_csv(validity, here::here(patient, "validity.csv"))
-
-  # return(list(
-  #   "neuropsych" = neuropsych,
-  #   "neurocog" = neurocog,
-  #   "neurobehav" = neurobehav,
-  #   "validity" = validity
-  # ))
 }
 
 
