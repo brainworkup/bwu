@@ -1,7 +1,7 @@
 ---
 title: "Import CSV file from PAI"
 params:
-  patient: Daniel
+  patient: Biggie
   test: pai
   test_name: PAI
   file:
@@ -126,14 +126,16 @@ plucked_table <-
 ```{r subset}
 df_clinical <- plucked_table |>
   dplyr::select(
-    SOM_T:AGG_P_T, ALC_Est, DRG_Est) |>
+    SOM_T:AGG_P_T, ALC_Est, DRG_Est
+  ) |>
   tidyr::gather() |>
   dplyr::rename(scale = key, score = value)
 
 df_validity <- plucked_table |>
   dplyr::select(
     ICN_T:PIM_T,
-    MAL_T:HRI_T) |>
+    MAL_T:HRI_T
+  ) |>
   tidyr::gather() |>
   dplyr::rename(scale = key, score = value)
 
@@ -830,7 +832,6 @@ Replace long spaces with a col break symbol.
 Save text to markdown, quarto, and typst formats.
 
 ```{r text-replace}
-
 pai_text_squished <-
   stringr::str_replace_all(pai_text, "\\s{2,}", "- ") |>
   stringr::str_remove_all(",")

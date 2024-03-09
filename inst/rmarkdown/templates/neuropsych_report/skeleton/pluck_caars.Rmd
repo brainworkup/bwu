@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from CAARS"
 params:
-  patient: Daniel
+  patient: Biggie
   test:
     label: "CAARS"
     value: [caars_sr]
@@ -369,11 +369,11 @@ if (params$test == "caars_sr") {
     table |>
     dplyr::mutate(
       description = dplyr::case_when(
-        scale == "CAARS-SR ADHD Index" ~ 
+        scale == "CAARS-SR ADHD Index" ~
           "composite indicator for identifying individuals 'at-risk' for ADHD (self-reported)",
-        scale == "CAARS-SR Inattention/Memory Problems" ~ 
+        scale == "CAARS-SR Inattention/Memory Problems" ~
           "i.e., trouble concentrating, difficulty planning or completing tasks, forgetfulness, absent-mindedness, being disorganized",
-        scale == "CAARS-SR Hyperactivity/Restlessness" ~ 
+        scale == "CAARS-SR Hyperactivity/Restlessness" ~
           "i.e., problems with working at the same task for long periods of time, feeling more restless than others seem to be, fidgeting",
         scale == "CAARS-SR Impulsivity/Emotional Lability" ~
           "i.e., engaging in more impulsive acts than others do, low frustration tolerance, quick and frequent mood changes, feeling easily angered and irritated by people",
@@ -537,10 +537,11 @@ if (params$test == "caars_sr") {
     stringr::str_split("\n") |>
     unlist()
   caars_sr_txt
-  
+
   readr::write_lines(
-    caars_sr_txt, here::here("caars_sr_dirty.txt"), sep = "\n"
-    )
+    caars_sr_txt, here::here("caars_sr_dirty.txt"),
+    sep = "\n"
+  )
 
   # Replace long spaces with a col break symbol
 
@@ -551,7 +552,6 @@ if (params$test == "caars_sr") {
 
   readr::write_lines(caars_sr_squished, here::here("caars_sr_text.md"), sep = "\n")
   readr::write_lines(caars_sr_squished, here::here("caars_sr_text.txt"), sep = "\n\n")
-  
 } else {
   ## extract text
   get_text <- function(file) {
@@ -563,10 +563,11 @@ if (params$test == "caars_sr") {
     stringr::str_split("\n") |>
     unlist()
   caars_or_txt
-  
+
   readr::write_lines(
-    caars_or_txt, here::here("caars_or_dirty.txt"), sep = "\n"
-    )
+    caars_or_txt, here::here("caars_or_dirty.txt"),
+    sep = "\n"
+  )
 
   # Replace long spaces with a col break symbol
   caars_or_squished <-

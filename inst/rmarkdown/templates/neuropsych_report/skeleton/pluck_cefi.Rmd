@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from CEFI PDFs"
 params:
-  patient: Daniel
+  patient: Biggie
   test:
     label: "CEFI"
     value: [cefi_sr]
@@ -103,7 +103,7 @@ writeLines(file, here::here("pre_csv", paste0(test, ".pdf")))
 
 ```{r read-file}
 # If need to read file directly
-#file <- readLines(here::here(patient, "pre_csv", paste0(test, ".pdf")))
+# file <- readLines(here::here(patient, "pre_csv", paste0(test, ".pdf")))
 ```
 
 ## Locate areas
@@ -248,9 +248,11 @@ table <- bwu::gpluck_make_columns(
   result = NA
 )
 
-table <- 
+table <-
   dplyr::relocate(table,
-    c(test, test_name), .before = scale) |> 
+    c(test, test_name),
+    .before = scale
+  ) |>
   dplyr::relocate(c(raw_score), .before = score)
 ```
 
@@ -307,7 +309,7 @@ if (params$test == "cefi_sr") {
   table <-
     dplyr::mutate(table,
       description = dplyr::case_when(
-        scale ==  "CEFI-SR Full Scale" ~
+        scale == "CEFI-SR Full Scale" ~
           "overall level of executive functioning",
         scale == "CEFI-SR Attention" ~
           "i.e., avoid distractions, concentrate on tasks, and sustain attention",
@@ -448,10 +450,10 @@ if (params$test == "cefi_sr") {
 test <- params$test
 readr::write_csv(
   table,
-  here::here("csv", paste0(test, ".csv")), 
-  col_names = TRUE, 
+  here::here("csv", paste0(test, ".csv")),
+  col_names = TRUE,
   na = ""
-  )
+)
 ```
 
 ## Pluck Text
@@ -462,7 +464,6 @@ file <- fs::as_fs_path(params$file)
 
 # CEFI Self-Report
 if (params$test == "cefi_sr") {
-  
   ## extract text
   get_text <- function(file) {
     txt <- pdftools::pdf_text(file) |>
@@ -482,23 +483,24 @@ if (params$test == "cefi_sr") {
 
   # save as markdown
   readr::write_lines(
-    cefi_sr_squished, 
-    here::here("cefi_sr_text.md"), 
-    sep = "\n")
+    cefi_sr_squished,
+    here::here("cefi_sr_text.md"),
+    sep = "\n"
+  )
   # save as quarto
   readr::write_lines(
-    cefi_sr_squished, 
-    here::here("cefi_sr_text.qmd"), 
-    sep = "\n")
-  # save as text
-  readr::write_lines(cefi_sr_squished, 
-    here::here("cefi_sr_text.txt"), 
+    cefi_sr_squished,
+    here::here("cefi_sr_text.qmd"),
     sep = "\n"
-    )
+  )
+  # save as text
+  readr::write_lines(cefi_sr_squished,
+    here::here("cefi_sr_text.txt"),
+    sep = "\n"
+  )
 
-# CEFI Observer-Report
+  # CEFI Observer-Report
 } else if (params$test == "cefi_or") {
-
   ## extract text
   get_text <- function(file) {
     txt <- pdftools::pdf_text(file) |>
@@ -515,21 +517,21 @@ if (params$test == "cefi_sr") {
     stringr::str_replace_all(cefi_or_txt, "\\s{2,}", "- ") |>
     stringr::str_remove_all(",")
   cefi_or_squished
-  
+
   # save as markdown
-  readr::write_lines(cefi_or_squished, 
+  readr::write_lines(cefi_or_squished,
     here::here("cefi_or_text.md"),
     sep = "\n"
-    )
+  )
   # save as quarto
-  readr::write_lines(cefi_or_squished, 
+  readr::write_lines(cefi_or_squished,
     here::here("cefi_or_text.qmd"),
     sep = "\n"
-    )
+  )
   # save as text
-  readr::write_lines(cefi_or_squished, 
-    here::here("cefi_or_text.txt"), 
+  readr::write_lines(cefi_or_squished,
+    here::here("cefi_or_text.txt"),
     sep = "\n"
-    )
+  )
 }
 ```
