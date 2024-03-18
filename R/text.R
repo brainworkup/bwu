@@ -114,3 +114,26 @@ concatenate_results <- function(df) {
   })
   return(df$summary)
 }
+
+# Function to save extracted text as a markdown file
+#' @title Save extracted text as markdown.
+#' @description FUNCTION_DESCRIPTION
+#' @param text Name of file.
+#' @param output_path Where to save outoput.
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
+#' }
+#' @rdname save_as_markdown
+#' @export
+save_as_markdown <- function(text, output_path) {
+  # Add line breaks to separate paragraphs (optional)
+  formatted_text <- paste(text, collapse = "\n\n")
+
+  # Write the formatted text to a markdown file
+  writeLines(formatted_text, output_path)
+}

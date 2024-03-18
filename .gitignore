@@ -103,3 +103,4 @@ binary_storage/
 *.tgz
 *.tar.gz
 bwu.code-workspace
+.trunk/
