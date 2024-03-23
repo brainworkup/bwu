@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from NAB-Screener (NAB-S)"
 params:
-  patient: Biggie
+  patient: Daniel
   test:
     label: "Test"
     value: nabs
@@ -15,7 +15,7 @@ params:
     value: NAB
     input: select
     multiple: no
-    choices: [NAB, NAB-S]
+    choices: [NAB, NAB-S]    
   file:
     label: "No file selected"
     value: file
@@ -39,7 +39,7 @@ params:
       - NAB Memory Index
       - NAB Spatial Index
       - NAB Executive Functions Index
-      - NAB Total Index
+      - NAB Total Index      
   table2:
     label: "NAB Attention"
     value: ["Orientation", "Orientation to Self", "Orientation to Time", "Orientation to Place", "Orientation to Situation", "Digits Forward", "Digits Forward Longest Span", "Digits Backward", "Digits Backward Longest Span", "Numbers & Letters Part A Speed", "Numbers & Letters Part A Errors", "Numbers & Letters Part A Efficiency", "Numbers & Letters Part B Efficiency"]
@@ -900,8 +900,8 @@ table5 <-
   table5 |>
   dplyr::mutate(
     narrow = dplyr::case_when(
-      scale == "Visual Discrimination" ~ "Visual Perception",
-      scale == "Design Construction" ~ "Figure Construction",
+      scale == "Visual Discrimination" ~ "Perception",
+      scale == "Design Construction" ~ "Construction",
       TRUE ~ as.character(narrow)
     )
   )
@@ -1534,5 +1534,5 @@ if (any(is.na(nabs$percentile))) {
 table <- nabs
 test <- "g2"
 file_path <- here::here("csv", paste0(test, ".csv"))
-readr::write_excel_csv(nabs, file_path, append = TRUE, na = "")
+readr::write_excel_csv(nabs, here::here("csv", "nabs.csv"), append = TRUE, na = "")
 ```

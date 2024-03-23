@@ -10,15 +10,15 @@ params:
     value: NIH EXAMINER
     input: radio
     choices:
-      - NIH EXAMINER
-      - Rey Complex Figure
-      - Test of Premorbid Functioning
-      - Trail Making Test
-      - NAB
-      - ACS Social Cognition
-      - ACS Word Choice
+      - "NIH EXAMINER"
+      - "Rey Complex Figure"
+      - "Test of Premorbid Functioning"
+      - "Trail Making Test"
+      - "NAB"
+      - "ACS Social Cognition"
+      - "ACS Word Choice"
       - "D-KEFS"
-      - Grooved Pegboard
+      - "Grooved Pegboard"
       - "KTEA-3"
       - "NEPSY-2"
       - "WMS-IV"
@@ -50,58 +50,58 @@ params:
     choices:
       Examiner:
         - "Unstructured Task"
-        - Letter Fluency
-        - Category Fluency
+        - "Letter Fluency"
+        - "Category Fluency"
       Rey Complex Figure:
-        - ROCFT Copy
-        - ROCFT Delayed Recall
+        - "ROCFT Copy"
+        - "ROCFT Delayed Recall"
       Trail Making Test:
         - "TMT, Part A"
         - "TMT, Part B"
       ACS:
-        - TOPF Standard Score
-        - ACS Word Choice
-        - Affect Naming
+        - "TOPF Standard Score"
+        - "ACS Word Choice"
+        - "Affect Naming"
       NAB:
-        - Mazes
-        - Judgment
-        - Categories
-        - Word Generation
-        - Dots
+        - "Mazes"
+        - "Judgment"
+        - "Categories"
+        - "Word Generation"
+        - "Dots"
         - "Numbers & Letters Part A Efficiency"
         - "Numbers & Letters Part B Efficiency"
         - "Numbers & Letters Part C Efficiency"
         - "Numbers & Letters Part D Efficiency"
         - "Driving Scenes"
       NEPSY-2:
-        - Comprehension of Instructions
-        - Visuomotor Precision
+        - "Comprehension of Instructions"
+        - "Visuomotor Precision"
         - "Word Generation-Semantic"
         - "Word Generation-Initial Letter"
         - "Semantic vs. Initial Letter"
-        - Narrative Memory Free and Cued Recall
-        - Narrative Memory Free Recall
-        - Narrative Memory Recognition
-        - List Memory
+        - "Narrative Memory Free and Cued Recall"
+        - "Narrative Memory Free Recall"
+        - "Narrative Memory Recognition"
+        - "List Memory"
       DKEFS:
-        - D-KEFS Color Naming
-        - D-KEFS Word Reading
-        - D-KEFS Inhibition
-        - D-KEFS Switching
-        - D-KEFS Inhibition Total Errors
-        - D-KEFS Switching Total Errors
+        - "D-KEFS Color Naming"
+        - "D-KEFS Word Reading"   
+        - "D-KEFS Inhibition"
+        - "D-KEFS Switching"
+        - "D-KEFS Inhibition Total Errors"
+        - "D-KEFS Switching Total Errors"
       WMS-IV:
-        - Symbol Span
-        - Spatial Addition
+        - "Symbol Span"
+        - "Spatial Addition"
       Grooved Pegboard:
-        - Dominant Hand Time
-        - Nondominant Hand Time
+        - "Dominant Hand Time"
+        - "Nondominant Hand Time"
       KTEA-3:
-        - Decoding Fluency
-        - Nonsense Word Decoding
-        - Reading Comprehension
+        - "Decoding Fluency"
+        - "Nonsense Word Decoding"
+        - "Reading Comprehension"
       Cognitive Estimation:
-        - Deviation Score
+        - "Deviation Score"
       Ravens 2:
         - "Raven's 2 Index Score"
   raw_score:
@@ -110,7 +110,7 @@ params:
     input: numeric
   score:
     label: "Standardized score:"
-    value: 62
+    value: 50
     input: numeric
   score_type:
     label: "Type of Test Score:"

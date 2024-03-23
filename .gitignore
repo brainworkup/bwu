@@ -104,3 +104,4 @@ binary_storage/
 *.tar.gz
 bwu.code-workspace
 .trunk/
+test_that_tmt.R

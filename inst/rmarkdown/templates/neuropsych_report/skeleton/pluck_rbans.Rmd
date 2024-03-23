@@ -1,0 +1,703 @@
+---
+title: "Create table and csv for RBANS"
+params:
+  patient: Biggie
+  test:
+    label: "Test"
+    value: rbans
+    input: select
+    multiple: no
+    choices:
+      - rbans
+      - rbans_a
+      - rbans_b
+      - rbans_c
+      - rbans_d
+  test_name:
+    label: "Test Name"
+    value: RBANS
+    input: select
+    multiple: no
+    choices: [RBANS, RBANS Update Form A, RBANS Update Form B, RBANS Update Form C, RBANS Update Form D]
+  file:
+    label: "No file selected"
+    value: file
+    input: file
+  eval: TRUE
+output:
+  rmdformats::robobook:
+    highlight: kate
+---
+
+# Data
+
+-   Export CSV file from Q-interactive
+
+# Setup
+
+```{r setup, include=F}
+# Set JAVA environment
+Sys.setenv(
+  JAVA_HOME =
+    "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home"
+)
+options(java.parameters = "-Xmx16000m")
+knitr::opts_chunk$set(
+  root.dir = normalizePath("./"),
+  echo = FALSE,
+  eval = TRUE,
+  include = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  error = TRUE
+)
+library(tidyverse)
+library(tabulizer)
+library(rJava)
+library(shiny)
+library(here)
+library(pdftools)
+library(fs)
+library(magrittr)
+library(hablar)
+library(googledrive)
+library(bwu)
+```
+
+## Patient
+
+```{r patient}
+patient <- params$patient
+```
+
+## Test
+
+Name of neuropsych test or rating scale.
+
+```{r test}
+test <- params$test
+test_name <- params$test_name
+```
+
+## Load text/csv file and save as file.path
+
+```{r file}
+#input_file_path <- file.choose()
+input_file_path <- file.path(params$file)
+```
+
+## Google Drive
+
+```{r}
+library(googledrive)
+
+# Set the scope to allow viewing and managing files in Google Drive
+drive_scopes(scopes = "https://www.googleapis.com/auth/drive.file")
+
+# Authenticate and create a drive
+drive_auth()
+drive <- drive_get()
+
+# Upload a file to the drive
+file_path <- "/Users/joey/My Drive/004004907_3_10_2024.csv"
+drive_upload(media = file_path, name = "004004907_3_10_2024.csv")
+```
+
+## RAW SCORES
+
+```{r}
+library(tidyverse)
+input_file_path <- "data/004004907_3_10_2024.csv"
+test_name_prefix <- "RBANS Update Form A "
+output_file_path <- "data/processed_rbans_raw_data.csv"
+
+df <- read_csv(input_file_path,
+               col_names = FALSE,
+               show_col_types = FALSE,
+               locale = locale(encoding = "UTF-16LE")
+)
+
+# function
+pluck_rbans_raw <- function(input_file_path,
+                            test_name_prefix,
+                            output_file_path = NULL) {
+  df <- read_csv(
+    input_file_path,
+    col_names = FALSE,
+    show_col_types = FALSE,
+    locale = locale(encoding = "UTF-16LE")
+  )
+
+  # Rename the columns
+  names(df) <- c("Subtest", "NA", "Raw score")
+
+  # Remove the second column
+  df <- df |> select(Subtest, `Raw score`)
+
+  # Find the start of the "Raw Score" section
+  start_line <- which(df == "RAW SCORES") + 1
+
+  # Find the stop of the "Raw Score" section
+  stop_line <- which(df == "SCALED SCORES") - 1
+
+  # Read from the "Raw Score" section
+  df_raw <- df |>
+    dplyr::slice(start_line:stop_line)
+
+  # Keep only rows with the specified prefix in the first column
+  df_raw <- df_raw |> filter(str_starts(Subtest, test_name_prefix))
+
+  # Your new names stored in a character vector (ensure it matches the number of columns in `df`)
+  vars <- c("scale", "raw_score")
+
+  # Use `set_names()` to rename the columns
+  df_raw <- df_raw |> set_names(vars)
+  df_raw$scale <- as.character(df_raw$scale)
+  df_raw$raw_score <- as.numeric(df_raw$raw_score)
+
+  # Write the combined data to a CSV file
+  write_csv(df_raw, output_file_path)
+
+  return(df_raw)
+
+}
+rbans_raw <- pluck_rbans_raw(input_file_path, output_file_path = output_file_path, test_name_prefix)
+```
+
+## SCALED SCORES
+
+```{r}
+# input_file_path <- "data/004004907_3_10_2024.csv"
+# test_name_prefix <- "RBANS Update Form A "
+output_file_path <- "data/processed_rbans_scaled_data.csv"
+
+# function
+pluck_rbans_score <- function(input_file_path,
+                              test_name_prefix,
+                              output_file_path = NULL) {
+  df <- read_csv(
+    input_file_path,
+    col_names = FALSE,
+    show_col_types = FALSE,
+    locale = locale(encoding = "UTF-16LE")
+  )
+
+  # Rename the columns
+  names(df) <- c("Subtest", "NA", "Scaled score")
+
+  # Remove the second column
+  df <- df |> select(Subtest, `Scaled score`)
+
+  # Find the start of the "Raw Score" section
+  start_line <- which(df == "SCALED SCORES") + 1
+
+  # Find the stop of the "Raw Score" section
+  stop_line <- which(df == "CONTEXTUAL EVENTS") - 1
+
+  # Read from the "score" section
+  df_score <- df |>
+    dplyr::slice(start_line:stop_line)
+
+  # Keep only rows with the specified prefix in the first column
+  df_score <- df_score |> filter(str_starts(Subtest, test_name_prefix))
+
+  # Your new names stored in a character vector (ensure it matches the number of columns in `df`)
+  vars <- c("scale", "score")
+
+  # Use `set_names()` to rename the columns
+  df_score <- df_score |> set_names(vars)
+  df_score$scale <- as.character(df_score$scale)
+  df_score$score <- as.numeric(df_score$score)
+
+  # Write the combined data to a CSV file
+  write_csv(df_score, output_file_path)
+
+  return(df_score)
+}
+rbans_score <- pluck_rbans_score(input_file_path, test_name_prefix, output_file_path = output_file_path)
+```
+
+## SUBTEST COMPLETION TIMES
+
+```{r}
+# input_file_path <- "data/004004907_3_10_2024.csv"
+# test_name_prefix <- "RBANS Update Form A "
+output_file_path <- "data/processed_rbans_completion_time_data.csv"
+
+# function
+pluck_rbans_completion_times <- function(input_file_path,
+                                         test_name_prefix,
+                                         output_file_path = NULL) {
+  df <- read_csv(
+    input_file_path,
+    col_names = FALSE,
+    show_col_types = FALSE,
+    locale = locale(encoding = "UTF-16LE")
+  )
+
+  # Rename the columns
+  names(df) <- c("Subtest", "NA", "Completion Time (seconds)")
+
+  # Remove the second column
+  df <- df |> select(Subtest, `Completion Time (seconds)`)
+
+  # Find the start of the section
+  start_line <- which(df == "SUBTEST COMPLETION TIMES") + 1
+
+  # Find the stop of the section
+  stop_line <- which(df == "RULES TRIGGERED") - 1
+
+  # Read from the "Raw Score" section
+  df_times <- df |>
+    dplyr::slice(start_line:stop_line)
+
+  # Keep only rows with the specified prefix in the first column
+  df_times <- df_times |> filter(str_starts(Subtest, test_name_prefix))
+
+  # Your new names stored in a character vector (ensure it matches the number of columns in `df`)
+  vars <- c("scale", "completion_time_seconds")
+
+  # Use `set_names()` to rename the columns
+  df_times <- df_times |> set_names(vars)
+  df_times$scale <- as.character(df_times$scale)
+  df_times$completion_time_seconds <- as.numeric(df_times$completion_time_seconds)
+
+  # Write the combined data to a CSV file
+  write_csv(df_times, output_file_path)
+
+  return(df_times)
+
+}
+rbans_time <- pluck_rbans_completion_times(input_file_path, test_name_prefix, output_file_path = output_file_path)
+```
+
+## COMPOSITE SCORES
+
+```{r}
+# input_file_path <- "data/004004907_3_10_2024.csv"
+# test_name_prefix <- "RBANS Update Form A "
+output_file_path <- "data/processed_rbans_composite_data.csv"
+
+# function
+pluck_rbans_composite <- function(input_file_path,
+                                  test_name_prefix,
+                                  output_file_path = NULL) {
+  df <- read_csv(
+    input_file_path,
+    col_names = FALSE,
+    show_col_types = FALSE,
+    locale = locale(encoding = "UTF-16LE")
+  )
+
+  # Assume the first row after "Composite Score" has the column names
+  start_line <- which(df$X1 == "Composite Score")
+  # Assuming there's no specific end line, use the end of the file
+  stop_line <- nrow(df)
+
+  # Extracting the relevant section
+  df_composite <- df |>
+    slice((start_line + 1):stop_line) |>
+    tidyr::separate(
+      X3,
+      sep = ",",
+      into = c(
+        "percentile",
+        "ci_90_lo",
+        "ci_90_up",
+        "ci_95_lower",
+        "ci_95_upper"
+      )
+    ) |>
+    slice(-1) |>
+    rename(scale = X1, score = X2) |>
+    # Filter based on the prefix
+    filter(str_starts(scale, test_name_prefix)) |>
+    select(-c(ci_90_lo, ci_90_up)) |>
+    mutate(
+      scale = as.character(scale),
+      score = as.numeric(score),
+      percentile = as.numeric(percentile),
+      ci_95_lower = as.numeric(ci_95_lower),
+      ci_95_upper = as.numeric(ci_95_upper)
+    )
+
+  # Optionally write to a CSV file
+  if (!is.null(output_file_path)) {
+    write_csv(df_composite, output_file_path)
+  }
+
+  return(df_composite)
+
+}
+
+rbans_composite <- pluck_rbans_composite(input_file_path, test_name_prefix, output_file_path = output_file_path)
+```
+
+## MERGE
+
+```{r}
+#' Process and Save RBANS Data
+#'
+#' This function processes RBANS raw, score, and composite data frames by joining them,
+#' updating specific values, and saving the combined data to a CSV file.
+#'
+#' @param rbans_raw A data frame containing raw RBANS data.
+#' @param rbans_score A data frame containing RBANS scores.
+#' @param rbans_time A df containing completion times.
+#' @param rbans_composite A data frame containing RBANS composite scores.
+#' @param test_name_prefix A string representing the prefix to be removed from the scale names.
+#' @param output_file_path A string specifying the path to save the combined CSV file.
+#' @import dplyr
+#' @import stringr
+#' @export
+process_and_save_rbans_data <- function(rbans_raw,
+                                        rbans_score,
+                                        rbans_time,
+                                        rbans_composite,
+                                        test_name_prefix,
+                                        output_file_path) {
+  library(dplyr)
+  library(stringr)
+  
+  # Join the data into one dataframe by the test name
+  df <- left_join(rbans_raw, rbans_score, by = "scale") |>
+    mutate(percentile = as.numeric(""), range = as.character("")) |>
+    left_join(rbans_time, by = "scale")
+  
+  # Update specific percentile values
+  df$percentile[df$scale == "RBANS Update Form A Line Orientation"] <- 20
+  df$percentile[df$scale == "RBANS Update Form A Picture Naming"] <- 20
+  df$percentile[df$scale == "RBANS Update Form A List Recall"] <- 70
+  df$percentile[df$scale == "RBANS Update Form A List Recognition"] <- 50
+  
+  # Recalculate percentiles based on score
+  df <- df |>
+    mutate(z = ifelse(!is.na(score), (score - 10) / 3, NA)) |>
+    mutate(percentile = ifelse(is.na(percentile), trunc(pnorm(z) * 100), percentile)) |>
+    select(-z)
+  
+  # Merge with composite scores
+  df <- bind_rows(df, rbans_composite) |>
+    relocate(completion_time_seconds, .after = ci_95_upper)
+  
+  # Test score ranges (assuming bwu::gpluck_make_score_ranges is a predefined function)
+  df <- bwu::gpluck_make_score_ranges(table = df, test_type = "npsych_test")
+  
+  # Remove prefix from scale names
+  df <- df |>
+    mutate(scale = str_remove(scale, test_name_prefix))
+
+  scales_to_rename <- c(
+    "Immediate Memory Index (IMI)" = "Immediate Memory Index",
+    "Visuospatial/ Constructional Index (VCI)" = "Visuospatial/Constructional Index",
+    "Language Index (LGI)" = "Language Index",
+    "Attention Index (ATI)" = "Attention Index",
+    "Delayed Memory Index (DRI)" = "Delayed Memory Index",
+    "Total Scale (TOT)" = "RBANS Total Index"
+  )
+  
+  df$scale <- map_chr(df$scale, ~ if_else(.x %in% names(scales_to_rename), scales_to_rename[.x], .x))
+
+  # Write the combined data to a CSV file
+  return(write_csv(df, output_file_path))
+}
+
+df <- process_and_save_rbans_data(
+  rbans_raw = rbans_raw, 
+  rbans_score = rbans_score,
+  rbans_time = rbans_time,
+  rbans_composite = rbans_composite, 
+  test_name_prefix = test_name_prefix, 
+  output_file_path = output_file_path
+  )
+
+# Write the combined data to a CSV file
+output_file_path <- "data/rbans.csv"
+write_csv(df, output_file_path)
+```
+
+# MUTATE
+
+```{r mutate}
+
+rbans <- df
+
+rbans <- bwu::gpluck_make_columns(
+  data = rbans,
+  test = params$test,
+  test_name = params$test_name,
+  ci_95 = paste0(rbans$ci_95_lower, "-", rbans$ci_95_upper),
+  domain = "",
+  subdomain = "",
+  narrow = "",
+  pass = "",
+  verbal = "",
+  timed = "",
+  test_type = "npsych_test",
+  score_type = "",
+  description = "",
+  result = ""
+)
+```
+
+## Domain
+
+```{r domain}
+rbans <-
+  rbans |> 
+  dplyr::mutate(
+    domain = dplyr::case_when(
+      scale == "RBANS Total Index" ~ "General Cognitive Ability",
+      scale == "Immediate Memory Index" ~ "Memory",
+      scale == "List Learning" ~ "Memory",
+      scale == "Story Memory" ~ "Memory",
+      scale == "Visuospatial/Constructional Index" ~ "Visual Perception/Construction",
+      scale == "Figure Copy" ~ "Visual Perception/Construction",
+      scale == "Line Orientation" ~ "Visual Perception/Construction",
+      scale == "Language Index" ~ "Verbal/Language",
+      scale == "Picture Naming" ~ "Verbal/Language",
+      scale == "Semantic Fluency" ~ "Verbal/Language",
+      scale == "Attention Index" ~ "Attention/Executive",
+      scale == "Digit Span" ~ "Attention/Executive",
+      scale == "Coding" ~ "Attention/Executive",
+      scale == "Delayed Memory Index" ~ "Memory",
+      scale == "List Recall" ~ "Memory",
+      scale == "List Recognition" ~ "Memory",
+      scale == "Story Recall" ~ "Memory",
+      scale == "Figure Recall" ~ "Memory",
+      TRUE ~ domain
+    )
+  )
+```
+
+## Subdomain
+
+```{r}
+rbans <-
+  rbans |>
+  dplyr::mutate(
+    subdomain = dplyr::case_when(
+      scale == "RBANS Total Index" ~ "Neuropsychological Functioning",
+      scale == "Immediate Memory Index" ~ "Neuropsychological Functioning",
+      scale == "List Learning" ~ "Learning Efficiency",
+      scale == "Story Memory" ~ "Learning Efficiency",
+      scale == "Visuospatial/Constructional Index" ~ "Neuropsychological Functioning",
+      scale == "Figure Copy" ~ "Organization",
+      scale == "Line Orientation" ~ "Perception",
+      scale == "Language Index" ~ "Neuropsychological Functioning",
+      scale == "Picture Naming" ~ "Retrieval",
+      scale == "Semantic Fluency" ~ "Fluency",
+      scale == "Attention Index" ~ "Neuropsychological Functioning",
+      scale == "Digit Span" ~ "Attention",
+      scale == "Coding" ~ "Processing Speed",
+      scale == "Delayed Memory Index" ~ "Neuropsychological Functioning",
+      scale == "List Recall" ~ "Delayed Recall",
+      scale == "List Recognition" ~ "Recognition Memory",
+      scale == "Story Recall" ~ "Delayed Recall",
+      scale == "Figure Recall" ~ "Delayed Recall",
+      TRUE ~ subdomain
+    )
+  )
+```
+
+## Narrow
+
+```{r}
+rbans <-
+  rbans |>
+  mutate(
+    narrow = case_when(
+      scale == "RBANS Total Index" ~ "RBANS Total Index",
+      scale == "Immediate Memory Index" ~ "RBANS Memory Index",
+      scale == "List Learning" ~ "Word-List Learning",
+      scale == "Story Memory" ~ "Story Memory",
+      scale == "Visuospatial/Constructional Index" ~ "RBANS Visuospatial/Constructional Index",
+      scale == "Figure Copy" ~ "Figure Copy",
+      scale == "Line Orientation" ~ "Visual Perception",
+      scale == "Language Index" ~ "RBANS Language Index",
+      scale == "Picture Naming" ~ "Naming",
+      scale == "Semantic Fluency" ~ "Semantic Fluency",
+      scale == "Attention Index" ~ "RBANS Attention Index",
+      scale == "Digit Span" ~ "Attention Span",
+      scale == "Coding" ~ "Cognitive Efficiency",
+      scale == "Delayed Memory Index" ~ "RBANS Memory Index",
+      scale == "List Recall" ~ "Word-List Learning",
+      scale == "List Recognition" ~ "Recognition Memory",
+      scale == "Story Recall" ~ "Story Memory",
+      scale == "Figure Recall" ~ "Visual Memory",
+      TRUE ~ narrow
+    )
+  )
+```
+
+## Timed/Untimed
+
+```{r}
+rbans <-
+  rbans |>
+  mutate(
+    timed = case_when(
+      scale == "RBANS Total Index" ~ "",
+      scale == "Immediate Memory Index" ~ "Untimed",
+      scale == "List Learning" ~ "Untimed",
+      scale == "Story Memory" ~ "Untimed",
+      scale == "Visuospatial/Constructional Index" ~ "Untimed",
+      scale == "Figure Copy" ~ "Untimed",
+      scale == "Line Orientation" ~ "Untimed",
+      scale == "Language Index" ~ "",
+      scale == "Picture Naming" ~ "Untimed",
+      scale == "Semantic Fluency" ~ "Timed",
+      scale == "Attention Index" ~ "",
+      scale == "Digit Span" ~ "Untimed",
+      scale == "Coding" ~ "Timed",
+      scale == "Delayed Memory Index" ~ "Untimed",
+      scale == "List Recall" ~ "Untimed",
+      scale == "List Recognition" ~ "Untimed",
+      scale == "Story Recall" ~ "Untimed",
+      scale == "Figure Recall" ~ "Untimed",
+      TRUE ~ timed
+    )
+  )
+```
+
+## Verbal/Nonverbal
+
+```{r}
+rbans <-
+  rbans |>
+  mutate(
+    verbal = case_when(
+      scale == "RBANS Total Index" ~ "",
+      scale == "Immediate Memory Index" ~ "Verbal",
+      scale == "List Learning" ~ "Verbal",
+      scale == "Story Memory" ~ "Verbal",
+      scale == "Visuospatial/Constructional Index" ~ "Nonverbal",
+      scale == "Figure Copy" ~ "Nonverbal",
+      scale == "Line Orientation" ~ "Nonverbal",
+      scale == "Language Index" ~ "Verbal",
+      scale == "Picture Naming" ~ "Verbal",
+      scale == "Semantic Fluency" ~ "Verbal",
+      scale == "Attention Index" ~ "",
+      scale == "Digit Span" ~ "Verbal",
+      scale == "Coding" ~ "Nonverbal",
+      scale == "Delayed Memory Index" ~ "",
+      scale == "List Recall" ~ "Verbal",
+      scale == "List Recognition" ~ "Verbal",
+      scale == "Story Recall" ~ "Verbal",
+      scale == "Figure Recall" ~ "Nonverbal",
+      TRUE ~ verbal
+    )
+  )
+```
+
+## PASS
+
+```{r pass}
+rbans <-
+  rbans |>
+  mutate(
+    pass = case_when(
+      scale == "RBANS Total Index" ~ "",
+      scale == "Immediate Memory Index" ~ "Sequential",
+      scale == "List Learning" ~ "Sequential",
+      scale == "Story Memory" ~ "Sequential",
+      scale == "Visuospatial/Constructional Index" ~ "Simultaneous",
+      scale == "Figure Copy" ~ "Simultaneous",
+      scale == "Line Orientation" ~ "Simultaneous",
+      scale == "Language Index" ~ "Sequential",
+      scale == "Picture Naming" ~ "Knowledge",
+      scale == "Semantic Fluency" ~ "Sequential",
+      scale == "Attention Index" ~ "Attention",
+      scale == "Digit Span" ~ "Attention",
+      scale == "Coding" ~ "Planning",
+      scale == "Delayed Memory Index" ~ "",
+      scale == "List Recall" ~ "Sequential",
+      scale == "List Recognition" ~ "Sequential",
+      scale == "Story Recall" ~ "Sequential",
+      scale == "Figure Recall" ~ "Simultaneous",
+      TRUE ~ as.character(pass)
+    )
+  )
+```
+
+## Score type
+
+```{r score-type}
+rbans <-
+  rbans |>
+  mutate(
+    score_type = case_when(
+      scale == "RBANS Total Index" ~ "standard_score",
+      scale == "Immediate Memory Index" ~ "standard_score",
+      scale == "List Learning" ~ "scaled_score",
+      scale == "Story Memory" ~ "scaled_score",
+      scale == "Visuospatial/Constructional Index" ~ "standard_score",
+      scale == "Figure Copy" ~ "scaled_score",
+      scale == "Line Orientation" ~ "percentile",
+      scale == "Language Index" ~ "standard_score",
+      scale == "Picture Naming" ~ "percentile",
+      scale == "Semantic Fluency" ~ "scaled_score",
+      scale == "Attention Index" ~ "standard_score",
+      scale == "Digit Span" ~ "scaled_score",
+      scale == "Coding" ~ "scaled_score",
+      scale == "Delayed Memory Index" ~ "standard_score",
+      scale == "List Recall" ~ "percentile",
+      scale == "List Recognition" ~ "percentile",
+      scale == "Story Recall" ~ "scaled_score",
+      scale == "Figure Recall" ~ "scaled_score",
+      TRUE ~ as.character(score_type)
+    )
+  )
+```
+
+## Descriptions
+
+```{r}
+rbans <-
+  rbans |>
+  mutate(
+    description = case_when(
+      scale == "RBANS Total Index" ~ "composite indicator of general cognitive functioning",
+      scale == "Immediate Memory Index" ~ "composite verbal learning of a word list and a logical story",
+      scale == "List Learning" ~ "word list learning",
+      scale == "Story Memory" ~ "expository story learning",
+      scale == "Visuospatial/Constructional Index" ~ "broad visuospatial processing",
+      scale == "Figure Copy" ~ "copy of a complex abstract figure",
+      scale == "Line Orientation" ~ "basic perception of visual stimuli",
+      scale == "Language Index" ~ "general language processing",
+      scale == "Picture Naming" ~ "confrontation naming/expressive vocabulary",
+      scale == "Semantic Fluency" ~ "semantic word fluency/generativity",
+      scale == "Attention Index" ~ "general attentional and executive functioning",
+      scale == "Digit Span" ~ "attention span and auditory attention",
+      scale == "Coding" ~ "speed of information processing",
+      scale == "Delayed Memory Index" ~ "long-term recall of verbal information",
+      scale == "List Recall" ~ "long-term recall of a word list",
+      scale == "List Recognition" ~ "delayed recognition of a word list",
+      scale == "Story Recall" ~ "long-term recall of a detailed story",
+      scale == "Figure Recall" ~ "long-term recall and reconstruction of a complex abstract figure",
+      TRUE ~ as.character(description)
+    )
+  )
+```
+
+## Glue results
+
+```{r}
+rbans <-
+  rbans |>
+  dplyr::mutate(
+    result = glue::glue(
+      "{patient}'s score on {.data$scale} ({.data$description}) was {.data$range}."
+    )
+  )
+```
+
+# EXPORT
+
+```{r}
+readr::write_csv(rbans, here::here("data", "rbans.csv"), col_names = TRUE, na = "")
+```
+
+```{r}
+cat("Finished!")
+```

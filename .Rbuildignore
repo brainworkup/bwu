@@ -69,3 +69,4 @@
 ^Untitled\.R$
 ^\.dbxignore$
 ^binary_storage$
+^test\_that\_tmt\.R$
