@@ -30,7 +30,7 @@ params:
     label: "No file selected"
     value: file
     input: file
-  pages: [2,3,3,3,3]
+  pages: [2,4]
   table1:
     label: "Index Scores"
     value: "Verbal Comprehension (VCI)"
@@ -267,14 +267,14 @@ pages <- params$pages
 ```{r eval = FALSE}
 library(tabulizer)
 
-f <- file.path("/Users/joey/reports/Biggie/pdf/ADHD Young Adult Battery 2024-210a6756-acdd-488e-86e1-1446de4cb331.pdf")
+f <- file.path("/Users/joey/reports/Biggie/pdf/Biggie_adhd_ld_battery-2a4e56ea-524d-496f-a277-5d4f356a60ca.pdf")
 
 # f <- file.path(file.choose(""))
 
 # locate areas and extract
 plucked_tables_wais4 <- tabulizer::extract_areas(
   file = f,
-  pages = c(2, 3, 3, 3, 3),
+  pages = c(2, 4, 4, 4, 4),
   method = "stream",
   output = "matrix"
 )
@@ -404,7 +404,7 @@ table1 <-
       scale == "Perceptual Reasoning (PRI)" ~ "General Cognitive Ability",
       scale == "Working Memory (WMI)" ~ "General Cognitive Ability",
       scale == "Processing Speed (PSI)" ~ "General Cognitive Ability",
-      scale == "Full Scale IQ (FSIQ)" ~ "General Cognitive Ability",
+      scale == "Full Scale (FSIQ)" ~ "General Cognitive Ability",
       scale == "General Ability (GAI)" ~ "General Cognitive Ability",
       TRUE ~ as.character(domain)
     )
@@ -418,7 +418,7 @@ table1 <-
   table1 |>
   dplyr::mutate(
     subdomain = dplyr::case_when(
-      scale == "Full Scale IQ (FSIQ)" ~ "General Intelligence",
+      scale == "Full Scale (FSIQ)" ~ "General Intelligence",
       scale == "General Ability (GAI)" ~ "General Intelligence",
       scale == "Verbal Comprehension (VCI)" ~ "Crystallized Knowledge",
       scale == "Perceptual Reasoning (PRI)" ~ "Fluid Reasoning",
@@ -436,7 +436,7 @@ table1 <-
   table1 |>
   dplyr::mutate(
     narrow = dplyr::case_when(
-      scale == "Full Scale IQ (FSIQ)" ~ "General Intelligence",
+      scale == "Full Scale (FSIQ)" ~ "General Intelligence",
       scale == "General Ability (GAI)" ~ "General Intelligence",
       scale == "Verbal Comprehension (VCI)" ~ "Crystallized Knowledge",
       scale == "Perceptual Reasoning (PRI)" ~ "Fluid Reasoning",
@@ -454,7 +454,7 @@ table1 <-
   table1 |>
   dplyr::mutate(
     pass = dplyr::case_when(
-      scale == "Full Scale IQ (FSIQ)" ~ "",
+      scale == "Full Scale (FSIQ)" ~ "",
       scale == "General Ability (GAI)" ~ "",
       scale == "Verbal Comprehension (VCI)" ~ "",
       scale == "Perceptual Reasoning (PRI)" ~ "",
@@ -472,7 +472,7 @@ table1 <-
   table1 |>
   dplyr::mutate(
     verbal = dplyr::case_when(
-      scale == "Full Scale IQ (FSIQ)" ~ "",
+      scale == "Full Scale (FSIQ)" ~ "",
       scale == "General Ability (GAI)" ~ "",
       scale == "Verbal Comprehension (VCI)" ~ "Verbal",
       scale == "Perceptual Reasoning (PRI)" ~ "Nonverbal",
@@ -490,7 +490,7 @@ table1 <-
   table1 |>
   dplyr::mutate(
     timed = dplyr::case_when(
-      scale == "Full Scale IQ (FSIQ)" ~ "",
+      scale == "Full Scale (FSIQ)" ~ "",
       scale == "General Ability (GAI)" ~ "",
       scale == "Verbal Comprehension (VCI)" ~ "Untimed",
       scale == "Perceptual Reasoning (PRI)" ~ "Timed",
@@ -509,7 +509,7 @@ table1 <-
   dplyr::mutate(
     description = dplyr::case_when(
       scale ==
-        "Full Scale IQ (FSIQ)" ~
+        "Full Scale IQ" ~
         "General Intelligence (*G*)",
       scale ==
         "General Ability (GAI)" ~
@@ -538,7 +538,7 @@ table1 <-
   table1 |>
   dplyr::mutate(
     result = dplyr::case_when(
-      scale == "Full Scale IQ (FSIQ)" ~ glue::glue(
+      scale == "Full Scale (FSIQ)" ~ glue::glue(
         "{description} was {range} overall.\n"
       ),
       scale == "General Ability (GAI)" ~ glue::glue(

@@ -22,7 +22,7 @@ params:
       - "KTEA-3"
       - "NEPSY-2"
       - "WMS-IV"
-      - Cognitive Estimation Test
+      - "Cognitive Estimation Test"
       - "Raven's 2"
   test:
     label: "Test/Measure File Name:"
@@ -645,7 +645,7 @@ data <- data |> dplyr::select(-.z)
 table <- data
 test <- table$test
 scale <- snakecase::to_snake_case(table$scale)
-file_path <- here::here(patient, "pre_csv", paste0(test, "_", scale, ".csv"))
+file_path <- here::here("pre_csv", paste0(test, "_", scale, ".csv"))
 readr::write_excel_csv(
   table,
   file_path,
@@ -667,7 +667,7 @@ has_headers <- function(file_path) {
 ```{r writeout-test}
 table <- data
 test <- table$test
-file_path <- here::here(patient, "csv", paste0(test, ".csv"))
+file_path <- here::here("csv", paste0(test, ".csv"))
 
 readr::write_excel_csv(
   table,
@@ -679,8 +679,8 @@ readr::write_excel_csv(
 
 ```{r writeout-g}
 table <- data
-test <- "g"
-file_path <- here::here(patient, "csv", paste0(test, ".csv"))
+test <- "g3"
+file_path <- here::here("csv", paste0(test, ".csv"))
 
 readr::write_excel_csv(
   table,
