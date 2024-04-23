@@ -1,0 +1,683 @@
+---
+title: "Pluck Tables from CAARS2-2"
+params:
+  patient: Jemiel
+  test:
+    label: "CAARS 2:"
+    value: [caars2_sr]
+    input: select
+    multiple: no
+    choices:
+      - caars2_sr
+      - caars2_or
+  test_name:
+    label: "Test Name:"
+    value: [CAARS-2 Self-Report]
+    input: select
+    multiple: no
+    choices:
+      - CAARS-2 Self-Report
+      - CAARS-2 Observer-Report
+  file:
+    label: "No file selected"
+    value: file
+    input: file
+  pages: [4, 4, 4]
+output:
+  rmdformats::robobook:
+    highlight: kate
+---
+
+# CAARS2 Long Version SR/OR
+
+## Load libraries
+
+```{r setup, include=FALSE}
+Sys.setenv(
+  JAVA_HOME = "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home"
+)
+options(java.parameters = "-Xmx16000m")
+knitr::opts_chunk$set(
+  root.dir = normalizePath("./"),
+  echo = TRUE,
+  message = TRUE,
+  warning = FALSE,
+  error = TRUE
+)
+library(hablar)
+library(here)
+library(magrittr)
+library(readr)
+library(rJava)
+library(rmarkdown)
+library(rmdformats)
+library(shiny)
+library(tabulizer)
+library(tibble)
+library(tidyr)
+library(dplyr)
+library(bwu)
+```
+
+## Patient
+
+```{r patient}
+patient <- params$patient
+```
+
+## Test
+
+```{r test}
+test <- params$test
+```
+
+## Test Name
+
+```{r testname}
+test_name <- params$test_name
+```
+
+## Upload/attach PDF
+
+```{r file}
+# file <- file.choose()
+file <- file.path(params$file)
+```
+
+## Pages
+
+```{r pages}
+pages <- params$pages
+```
+
+```{r write-file}
+writeLines(
+  file, here::here("pre_csv", paste0(test, ".pdf"))
+)
+```
+
+```{r read-file}
+# test <- readLines(here::here(patient, "pre_csv", paste0(test, ".pdf")))
+```
+
+## Locate areas
+
+```{r area-known}
+if (params$test == "caars2_sr") {
+  area <- list(
+    c(120, 35, 252, 576),
+    c(318, 34, 420, 576),
+    c(571, 34, 616, 576)
+  )
+}
+if (params$test == "caars2_or") {
+  area <- list(
+    c(120, 35, 252, 576),
+    c(319, 35, 419, 576),
+    c(572, 35, 623, 576)
+  )
+}
+
+# SR
+# java -jar tabula-java.jar  -a 120.488,35.0,252.068,576.62 -p 4 "$1" 
+# java -jar tabula-java.jar  -a 318.623,34.043,419.603,575.663 -p 4 "$1" 
+# java -jar tabula-java.jar  -a 571.838,34.043,616.973,576.428 -p 4 "$1" 
+
+# OR
+# java -jar tabula-java.jar  -a 119.723,35.0,252.068,576.62 -p 4 "$1" 
+# java -jar tabula-java.jar  -a 319.388,35.573,418.838,574.898 -p 4 "$1" 
+# java -jar tabula-java.jar  -a 571.838,34.808,623.093,576.428 -p 4 "$1" 
+```
+
+```{r area-unknown, eval=FALSE}
+# area <- bwu::gpluck_locate_areas(
+#   file = file,
+#   pages = pages
+# )
+```
+
+```{r save-area}
+saveRDS(area, here::here("pre_csv", paste0(test, "_area.rds")))
+```
+
+```{r read-area}
+# area <- readRDS(here::here(patient, "pre_csv", paste0(test, "_area.rds")))
+```
+
+## Extract table
+
+```{r extract}
+plucked_tables <- bwu::gpluck_extract_tables(
+  file = file,
+  pages = pages,
+  area = area,
+  guess = NULL,
+  method = "stream",
+  output = "matrix"
+)
+```
+
+# Tidy Tables
+
+## Pluck individual data/columns
+
+### df1
+
+```{r pluck1}
+library(dplyr)
+library(tidyr)
+
+# Convert matrix to data frame and set proper column names
+df1 <- as.data.frame(plucked_tables[[1]])
+colnames(df1) <- c("scale", "raw_score", "score", "ci_95", "percentile", "guideline", "elevated_items")
+
+# Merge rows 1 and 3 by updating the first row and removing the third row
+df1[2, ] <- c("Inattention/Executive Dysfunction", df1[3, -1])
+df1 <- df1[-4, ]
+df1 <- df1[-3, ]
+df1 <- df1[-1, ]
+
+# Ensure the data frame is cleaned up if required, e.g., adjust row names
+row.names(df1) <- NULL
+
+# View the cleaned data frame
+df1
+```
+
+### df2
+
+```{r pluck2}
+library(dplyr)
+library(tidyr)
+
+# Convert matrix to data frame and set proper column names
+df2 <- as.data.frame(plucked_tables[[2]])
+colnames(df2) <- c("scale", "raw_score", "score", "ci_95", "percentile", "guideline", "symptom_count")
+
+# Merge rows 2 and 4 by updating the second row and removing the fourth row
+df2 <- df2[-1, ]
+df2[2, ] <- c("ADHD Hyperactive/Impulsive Symptoms", df2[3, -1])
+df2 <- df2[-4, ]
+df2 <- df2[-3, ]
+
+# Ensure the data frame is cleaned up if required, e.g., adjust row names
+row.names(df2) <- NULL
+
+# View the cleaned data frame
+df2
+```
+
+### df3
+
+```{r pluck3}
+library(dplyr)
+library(tidyr)
+
+# Convert matrix to data frame and set proper column names
+df3 <- as.data.frame(plucked_tables[[3]])
+colnames(df3) <- c("scale", "raw_score", "percentile", "guideline")
+
+# Remove row 1
+df3 <- df3[-2, ]
+df3 <- df3[-1, ]
+
+# Ensure the data frame is cleaned up if required, e.g., adjust row names
+row.names(df3) <- NULL
+
+# View the cleaned data frame
+df3
+```
+
+### transform data
+
+```{r}
+library(dplyr)
+library(stringr)
+
+# More robust function to remove ordinal suffixes and convert to numeric
+remove_ordinal_suffix <- function(x) {
+  # Attempt to extract numeric-only part of the string
+  cleaned = str_extract(str_trim(x), "\\d+")
+  if (is.na(cleaned) || cleaned == "") {
+    NA  # Return NA if no digits found
+  } else {
+    as.numeric(cleaned)  # Convert the cleaned string to numeric
+  }
+}
+
+# Updated function to apply transformations safely to data frames
+transform_data <- function(df) {
+  # Check and transform percentile if it exists
+  if ("percentile" %in% names(df)) {
+    df$percentile <- sapply(df$percentile, remove_ordinal_suffix)
+  }
+
+  # Convert raw_score to numeric if it exists
+  if ("raw_score" %in% names(df)) {
+    df$raw_score <- as.numeric(df$raw_score)
+  }
+
+  # Convert score to numeric if it exists
+  if ("score" %in% names(df)) {
+    df$score <- as.numeric(df$score)
+  }
+
+  # Diagnostic checks to alert about any NA values introduced
+  cols_to_transform <- c("percentile", "raw_score", "score")
+  for (col in cols_to_transform) {
+    if (col %in% names(df) && any(is.na(df[[col]]), na.rm = TRUE)) {
+      warning(paste("Some values in", col, "could not be converted and were set to NA."))
+    }
+  }
+
+  df
+}
+
+# Example usage (assuming df1, df2, df3 are defined as earlier):
+df1_transformed <- transform_data(df1)
+
+df2_transformed <- transform_data(df2)
+
+df3_transformed <- transform_data(df3)
+
+```
+
+```{r bind}
+combined_df <- dplyr::bind_rows(df1_transformed, df2_transformed, df3_transformed)
+```
+
+### row names
+
+```{r rownames}
+if (params$test == "caars2_sr") {
+  combined_df[1, 1] <- c("CAARS2-SR Inattention/Executive Dysfunction")
+  combined_df[2, 1] <- c("CAARS2-SR Hyperactivity")
+  combined_df[3, 1] <- c("CAARS2-SR Impulsivity")
+  combined_df[4, 1] <- c("CAARS2-SR Emotional Dysregulation")
+  combined_df[5, 1] <- c("CAARS2-SR Negative Self-Concept")
+  combined_df[6, 1] <- c("CAARS2-SR ADHD Inattentive Symptoms")
+  combined_df[7, 1] <- c("CAARS2-SR ADHD Hyperactive/Impulsive Symptoms")
+  combined_df[8, 1] <- c("CAARS2-SR Total ADHD Symptoms")
+  combined_df[9, 1] <- c("CAARS2-SR ADHD Index")
+  combined_df <- combined_df[1:9, ]
+} else if (params$test == "caars2_or") {
+  combined_df[1, 1] <- c("CAARS2-OR Inattention/Executive Dysfunction")
+  combined_df[2, 1] <- c("CAARS2-OR Hyperactivity")
+  combined_df[3, 1] <- c("CAARS2-OR Impulsivity")
+  combined_df[4, 1] <- c("CAARS2-OR Emotional Dysregulation")
+  combined_df[5, 1] <- c("CAARS2-OR Negative Self-Concept")
+  combined_df[6, 1] <- c("CAARS2-OR ADHD Inattentive Symptoms")
+  combined_df[7, 1] <- c("CAARS2-OR ADHD Hyperactive/Impulsive Symptoms")
+  combined_df[8, 1] <- c("CAARS2-OR Total ADHD Symptoms")
+  combined_df[9, 1] <- c("CAARS2-OR ADHD Index")
+  combined_df <- combined_df[1:9, ]
+}
+```
+
+## Mutate columns
+
+```{r mutate}
+table <- combined_df
+
+# df_gemini <- readr::read_csv(here::here("data", "caars2_or.csv")) |> 
+#   dplyr::slice(-6) |> 
+#   dplyr::select(-c(`Guideline`, `# of Elevated Items`))
+# colnames(df_gemini) <- c("scale", "raw_score", "score", "ci_95", "percentile")
+
+# library(readr)
+# library(dplyr)
+# 
+# process_and_save_csv <- function(input_path, output_path) {
+#   # Read CSV file
+#   caars2_data <- read_csv(input_path)
+#   
+#   # Perform the required operations
+#   tidy_caars2_data <- caars2_data |> 
+#     # Remove row 7 "DSM Symptom Scales" (assuming it is the 7th row)
+#     slice(-6) |>  
+#     # Remove "Guideline" and "# of Elevated Items" columns
+#     select(-c(`Guideline`, `# of Elevated Items`))
+#   
+#   # Save the tidy'd caars2_or.csv file
+#   write_csv(tidy_caars2_data, output_path)
+# }
+# 
+# # Set the path for the input and output CSV files
+# # Adjust the paths if they are in different directories
+# input_path <- "data/caars2_or.csv"
+# output_path <- "data/tidy_caars2_or.csv"
+# 
+# # Call the function
+# caars2_or <- process_and_save_csv(input_path, output_path)
+# 
+# table <- caars2_or
+
+table <- bwu::gpluck_make_columns(
+  table,
+  percentile = "",
+  range = "",
+  ci_95 = "",
+  test = params$test,
+  test_name = params$test_name,
+  domain = "ADHD",
+  subdomain = "",
+  narrow = "",
+  pass = "",
+  verbal = "",
+  timed = "",
+  test_type = "rating_scale",
+  score_type = "t_score",
+  description = "",
+  result = ""
+)
+```
+
+## Create percentile
+
+```{r percentile, eval=FALSE}
+table <- table |> 
+  dplyr::mutate(z = (score - 50) / 10) |>
+  dplyr::mutate(percentile = trunc(pnorm(z) * 100)) |>
+  dplyr::select(-z)
+```
+
+## Test score ranges
+
+```{r ranges}
+table <- bwu::gpluck_make_score_ranges(
+  table = table,
+  test_type = "rating_scale"
+)
+```
+
+## Subdomains
+
+```{r}
+subdomain_col <- which(colnames(table) == "subdomain")
+
+if (length(subdomain_col) > 0) {
+  table[1, subdomain_col] <- c("Attention/Executive")
+  table[2, subdomain_col] <- c("Hyperactivity")
+  table[3, subdomain_col] <- c("Impulsivity")
+  table[4, subdomain_col] <- c("Emotion/Mood")
+  table[5, subdomain_col] <- c("Self-Concept")
+  table[6, subdomain_col] <- c("Inattention")
+  table[7, subdomain_col] <- c("Hyperactivity/Impulsivity")
+  table[8, subdomain_col] <- c("Combined Symptoms")
+  table[9, subdomain_col] <- c("ADHD Index")
+} else {
+  warning("Column 'subdomain' not found in the table.")
+}
+```
+
+## Narrow subdomains
+
+```{r narrow}
+if (params$test == "caars2_sr") {
+  table <-
+    table |>
+    dplyr::mutate(
+      narrow = dplyr::case_when(
+        scale ==
+          "CAARS2-SR Inattention/Executive Dysfunction" ~ "Inattention Self-Report",
+        scale ==
+          "CAARS2-SR Hyperactivity" ~ "Hyperactivity Self-Report",
+        scale ==
+          "CAARS2-SR Impulsivity" ~ "Impulsivity Self-Report",
+        scale ==
+          "CAARS2-SR Emotional Dysregulation" ~ "Self-Concept Self-Report",
+        scale ==
+          "CAARS2-SR Negative Self-Concept" ~ "Self-Concept Self-Report",
+        scale ==
+          "CAARS2-SR ADHD Inattentive Symptoms" ~ "Inattention Self-Report",
+        scale ==
+          "CAARS2-SR ADHD Hyperactive/Impulsive Symptoms" ~ "Hyperactivity Self-Report",
+        scale ==
+          "CAARS2-SR Total ADHD Symptoms" ~ "Combined Symptoms Self-Report",
+        scale ==
+          "CAARS2-SR ADHD Index" ~ "ADHD Index Self-Report",
+        scale ==
+          "CAARS2-SR Inconsistency Index" ~ "Inconsistency Self-Report",
+        TRUE ~ as.character(narrow)
+      )
+    )
+} else if (params$test == "caars2_or") {
+  table <-
+    table |>
+    dplyr::mutate(
+      narrow = dplyr::case_when(
+        scale ==
+          "CAARS2-OR Inattention/Executive Dysfunction" ~ "Inattention Observer-Report",
+        scale ==
+          "CAARS2-OR Hyperactivity" ~ "Hyperactivity Observer-Report",
+        scale ==
+          "CAARS2-OR Impulsivity" ~ "Impulsivity Observer-Report",
+        scale ==
+          "CAARS2-OR Negative Self-Concept" ~ "Self-Concept Observer-Report",
+        scale ==
+          "CAARS2-OR Emotional Dysregulation" ~ "Emotion/Mood Observer-Report",
+        scale ==
+          "CAARS2-OR ADHD Inattentive Symptoms" ~ "Inattention Observer-Report",
+        scale ==
+          "CAARS2-OR ADHD Hyperactive/Impulsive Symptoms" ~ "Hyperactivity Observer-Report",
+        scale ==
+          "CAARS2-OR Total ADHD Symptoms" ~ "Combined Symptoms Observer-Report",
+        scale ==
+          "CAARS2-OR ADHD Index" ~ "ADHD Index Observer-Report",
+        TRUE ~ as.character(narrow)
+      )
+    )
+}
+```
+
+## Scale descriptions
+
+```{r description}
+if (params$test == "caars2_sr") {
+  table <-
+    table |>
+    dplyr::mutate(
+      description = dplyr::case_when(
+        scale == "CAARS2-SR Inattention/Executive Dysfunction" ~
+          "i.e., trouble concentrating, difficulty planning or completing tasks, forgetfulness, absent-mindedness, being disorganized",
+        scale == "CAARS2-SR Hyperactivity" ~
+          "i.e., problems with working at the same task for long periods of time, feeling more restless than others seem to be, fidgeting",
+        scale == "CAARS2-SR Impulsivity" ~
+          "i.e., engaging in more impulsive acts than others do, low frustration tolerance, quick and frequent mood changes, feeling easily angered and irritated by people",
+        scale == "CAARS2-SR Emotional Dysregulation" ~
+          "i.e., poor social relationships, low self-esteem and self confidence",
+        scale == "CAARS2-SR Negative Self-Concept" ~
+          "i.e., poor social relationships, low self-esteem and self confidence",
+        scale == "CAARS2-SR ADHD Inattentive Symptoms" ~
+          "i.e., behave in a manner consistent with the DSM-5 Inattentive Presentation of ADHD",
+        scale == "CAARS2-SR ADHD Hyperactive/Impulsive Symptoms" ~
+          "i.e., behave in a manner consistent with the DSM-5 Hyperactive-Impulsive Presentation of ADHD",
+        scale == "CAARS2-SR Total ADHD Symptoms" ~
+          "i.e., behave in a manner consistent with the DSM-5 diagnostic criteria for Combined Presentation of ADHD",
+        scale == "CAARS2-SR ADHD Index" ~
+          "composite indicator for identifying individuals 'at-risk' for ADHD (self-reported)",
+        TRUE ~ as.character(description)
+      )
+    )
+} else if (params$test == "caars2_or") {
+  table <-
+    table |>
+    dplyr::mutate(
+      description = dplyr::case_when(
+        scale == "CAARS2-OR Inattention/Executive Dysfunction" ~ "i.e., trouble concentrating, difficulty planning or completing tasks, forgetfulness, absent-mindedness, being disorganized",
+        scale == "CAARS2-OR Hyperactivity" ~ "i.e., problems with working at the same task for long periods of time, feeling more restless than others seem to be, fidgeting",
+        scale == "CAARS2-OR Impulsivity" ~
+          "i.e., engaging in more impulsive acts than others do, low frustration tolerance, quick and frequent mood changes, feeling easily angered and irritated by people",
+        scale == "CAARS2-OR Emotional Dysregulation" ~
+          "i.e., poor regulation of emotions",
+        scale == "CAARS2-OR Negative Self-Concept" ~
+          "i.e., poor social relationships, low self-esteem and self confidence",
+        scale ==
+          "CAARS2-OR ADHD Inattentive Symptoms" ~
+          "i.e., behave in a manner consistent with the DSM-5 Inattentive Presentation of ADHD",
+        scale ==
+          "CAARS2-OR ADHD Hyperactive/Impulsive Symptoms" ~ "i.e., behave in a manner consistent with the DSM-5 Hyperactive-Impulsive Presentation of ADHD",
+        scale == "CAARS2-OR Total ADHD Symptoms" ~ "i.e., behave in a manner consistent with the DSM-5 diagnostic criteria for Combined Presentation of ADHD",
+        scale == "CAARS2-OR ADHD Index" ~ "composite indicator for identifying individuals 'at-risk' for ADHD (observer reported)",
+        TRUE ~ as.character(description)
+      )
+    )
+}
+```
+
+## Glue results
+
+```{r result}
+if (params$test == "caars2_sr") {
+  table <-
+    table |>
+    dplyr::mutate(
+      result = dplyr::case_when(
+        scale == "CAARS2-SR Inattention/Executive Dysfunction" ~ glue::glue(
+          "- {scale} ({description}) was {range}.\n"
+        ),
+        scale == "CAARS2-SR Hyperactivity" ~ glue::glue(
+          "- {scale} ({description}) was {range}.\n"
+        ),
+        scale == "CAARS2-SR Impulsivity" ~ glue::glue(
+          "- {scale} ({description}) was {range}.\n"
+        ),
+        scale == "CAARS2-SR Emotional Dysregulation" ~ glue::glue(
+          "- {scale} ({description}) was {range}.\n"
+        ),
+        scale == "CAARS2-SR Negative Self-Concept" ~ glue::glue(
+          "- {scale} ({description}) was {range}.\n"
+        ),
+        scale == "CAARS2-SR ADHD Inattentive Symptoms" ~ glue::glue(
+          "- {scale} ({description}) was {range}.\n"
+        ),
+        scale == "CAARS2-SR ADHD Hyperactive/Impulsive Symptoms" ~ glue::glue(
+          "- {scale} ({description}) was {range}.\n"
+        ),
+        scale == "CAARS2-SR Total ADHD Symptoms" ~ glue::glue(
+          "- {scale} ({description}) was {range}.\n"
+        ),
+        scale == "CAARS2-SR ADHD Index" ~ glue::glue(
+          "- {patient}'s {description} was {range}.\n"
+        ),
+
+        TRUE ~ as.character(result)
+      )
+    )
+} else if (params$test == "caars2_or") {
+  table <-
+    table |>
+    dplyr::mutate(
+      result = dplyr::case_when(
+        scale == "CAARS2-OR Inattention/Executive Dysfunction" ~ glue::glue(
+          "- {scale} ({description}) was {range}.\n"
+        ),
+        scale == "CAARS2-OR Hyperactivity" ~ glue::glue(
+          "- {scale} ({description}) was {range}.\n"
+        ),
+        scale == "CAARS2-OR Impulsivity" ~ glue::glue(
+          "- {scale} ({description}) was {range}.\n"
+        ),
+        scale == "CAARS2-OR Emotional Dysregulation" ~ glue::glue(
+          "- {scale} ({description}) was {range}.\n"
+        ),
+        scale == "CAARS2-OR Negative Self-Concept" ~ glue::glue(
+          "- {scale} ({description}) was {range}.\n"
+        ),
+        scale == "CAARS2-OR ADHD Inattentive Symptoms" ~ glue::glue(
+          "- {scale} ({description}) was {range}.\n"
+        ),
+        scale == "CAARS2-OR ADHD Hyperactive/Impulsive Symptoms" ~ glue::glue(
+          "- {scale} ({description}) was {range}.\n"
+        ),
+        scale == "CAARS2-OR Total ADHD Symptoms" ~ glue::glue(
+          "- {scale} ({description}) was {range}.\n"
+        ),
+        scale == "CAARS2-OR ADHD Index" ~ glue::glue(
+          "- {patient}'s observer-rated {description} was {range}.\n"
+        ),
+        TRUE ~ as.character(result)
+      )
+    )
+}
+```
+
+# Finalize and save
+
+## Relocate variables
+
+```{r relocate}
+table <-
+  table |>
+  dplyr::relocate(
+    c(raw_score, score, percentile, range, ci_95),
+    .before = test
+  )
+
+table <- table |> dplyr::select(-c(guideline, elevated_items, symptom_count))
+```
+
+## Write out csv
+
+```{r write}
+file_path <- here::here("csv", paste0(params$test, ".csv"))
+readr::write_csv(table, file_path, col_names = TRUE, na = "")
+```
+
+# Pluck Text
+
+```{r text}
+# file <- fs::fs_path(params$file)
+
+if (params$test == "caars2_sr") {
+  ## extract text
+  get_text <- function(file) {
+    txt <- pdftools::pdf_text(file) |>
+      stringr::str_split("\n") |>
+      unlist()
+  }
+  caars2_sr_txt <- pdftools::pdf_text(file) |>
+    stringr::str_split("\n") |>
+    unlist()
+  caars2_sr_txt
+  
+  readr::write_lines(
+    caars2_sr_txt, here::here("caars2_sr_dirty.txt"), sep = "\n"
+    )
+
+  # Replace long spaces with a col break symbol
+
+  caars2_sr_squished <-
+    stringr::str_replace_all(caars2_sr_txt, "\\s{2,}", "- ") |>
+    stringr::str_remove_all(",")
+  caars2_sr_squished
+
+  readr::write_lines(caars2_sr_squished, here::here("caars2_sr_text.md"), sep = "\n")
+  readr::write_lines(caars2_sr_squished, here::here("caars2_sr_text.txt"), sep = "\n\n")
+  
+} else {
+  ## extract text
+  get_text <- function(file) {
+    txt <- pdftools::pdf_text(file) |>
+      stringr::str_split("\n") |>
+      unlist()
+  }
+  caars2_or_txt <- pdftools::pdf_text(file) |>
+    stringr::str_split("\n") |>
+    unlist()
+  caars2_or_txt
+  
+  readr::write_lines(
+    caars2_or_txt, here::here("caars2_or_dirty.txt"), sep = "\n"
+    )
+
+  # Replace long spaces with a col break symbol
+  caars2_or_squished <-
+    stringr::str_replace_all(caars2_or_txt, "\\s{2,}", "- ") |>
+    stringr::str_remove_all(",")
+  caars2_or_squished
+
+  readr::write_lines(caars2_or_squished, here::here("caars2_or_text.md"), sep = "\n")
+  readr::write_lines(caars2_or_squished, here::here("caars2_or_text.txt"), sep = "\n\n")
+}
+```

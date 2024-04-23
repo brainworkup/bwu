@@ -1,0 +1,408 @@
+---
+title: "Create table and csv for DKEFS"
+params:
+  patient: Jemiel
+  test:
+    label: "Test"
+    value: dkefs
+    input: select
+    multiple: no
+    choices:
+      - dkefs
+      - dkefs_cwi
+      - dkefs_tmt
+  test_name:
+    label: "Test Name"
+    value: D-KEFS
+    input: select
+    multiple: no
+    choices: [D-KEFS, D-KEFS Color-Word Interference, D-KEFS Trail Making Test]
+  file:
+    label: "No file selected"
+    value: file
+    input: file
+  eval: TRUE
+  mean:
+    label: "Mean:"
+    value: 10
+    input: radio
+    choices: [0, 10, 50, 100]
+  stdev:
+    label: "Standard Deviation:"
+    value: 3
+    input: radio
+    choices: [1, 3, 10, 15]
+  reliability:
+    label: "Reliability:"
+    value: 0.85
+    input: slider
+    min: 0
+    max: 1
+    step: 0.01  
+output:
+  rmdformats::robobook:
+    highlight: kate
+---
+
+# Data
+
+-   Export SLK and/or CSV file from Q-interactive
+
+# Setup
+
+```{r setup, include=F}
+# Set JAVA environment
+Sys.setenv(
+  JAVA_HOME =
+    "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home"
+)
+options(java.parameters = "-Xmx16000m")
+knitr::opts_chunk$set(
+  root.dir = normalizePath("./"),
+  echo = FALSE,
+  eval = TRUE,
+  include = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  error = TRUE
+)
+library(tidyverse)
+library(tabulizer)
+library(rJava)
+library(shiny)
+library(here)
+library(pdftools)
+library(fs)
+library(magrittr)
+library(hablar)
+library(googledrive)
+library(bwu)
+```
+
+## Patient
+
+```{r patient}
+patient <- params$patient
+```
+
+## Test
+
+Name of neuropsych test or rating scale.
+
+```{r test}
+test <- params$test
+test_name <- params$test_name
+```
+
+## Load text/csv file and save as file.path
+
+```{r file}
+# input_file_path <- file.choose()
+input_file_path <- file.path(params$file)
+```
+
+## DKEFS Color-Word Interference Scores from SLK file
+
+```{r}
+library(tidyverse)
+test_name_prefix <- "D-KEFS "
+output_file_path <- "data/processed_dkefs_cwi_data.csv"
+
+# function
+pluck_dkefs_cwi <- function(input_file_path,
+                            test_name_prefix,
+                            output_file_path = NULL) {
+  df <- read_csv(
+    input_file_path,
+    col_names = FALSE,
+    show_col_types = FALSE,
+    # locale = locale(encoding = "UTF-16LE"),
+    skip = 1
+  )
+  
+  # Rename the columns
+  names(df) <- c("Subtest",
+                 "Raw score",
+                 "Scaled score",
+                 "Percentile rank",
+                 "95% CI")
+  
+  # Remove the fifth column
+  df <- df |> select(Subtest, `Raw score`, `Scaled score`, `Percentile rank`)
+  
+  # Find the start of the "CWI" section
+  start_line <- which(df == "D-KEFS Color-Word Interference Test") + 1
+  
+  # Find the stop of the "CWI" section
+  stop_line <- which(df == "Inhibition/Switching Total Errors")
+  
+  # Read from the "CWI" section
+  df_cwi <- df |>
+    dplyr::slice(start_line:stop_line)
+  
+  # Keep only rows with the specified prefix in the first column
+  # df_raw <- df_raw |> filter(str_starts(Subtest, test_name_prefix))
+  
+  # Your new names stored in a character vector (ensure it matches the number of columns in `df`)
+  vars <- c("scale", "raw_score", "score", "percentile")
+  
+  # Use `set_names()` to rename the columns
+  df_cwi <- df_cwi |> set_names(vars)
+  df_cwi$scale <- as.character(df_cwi$scale)
+  df_cwi$raw_score <- as.numeric(df_cwi$raw_score)
+  df_cwi$score <- as.numeric(df_cwi$score)
+  df_cwi$percentile <- as.numeric(df_cwi$percentile)
+  
+  # Write the combined data to a CSV file
+  write_excel_csv(df_cwi, output_file_path, na = "")
+  
+  return(df_cwi)
+  
+}
+
+df_cwi <- pluck_dkefs_cwi(input_file_path, output_file_path = output_file_path, test_name_prefix)
+```
+
+# MUTATE
+
+## Create percentile
+
+```{r percentile, eval = TRUE}
+#TODO: Add percentile calculation ONLY if NA
+df_cwi <- df_cwi |> 
+  dplyr::mutate(z = (score - 10) / 3) |>
+  dplyr::mutate(percentile = ifelse(is.na(percentile), trunc(pnorm(z) * 100), percentile)) |>
+  dplyr::select(-z)
+
+# df_cwi <- df_cwi |> 
+#   dplyr::mutate(z = (score - 10) / 3) |>
+#   dplyr::mutate(percentile = trunc(pnorm(z) * 100)) |>
+#   dplyr::select(-z)
+```
+
+## Calculate CI 95%
+
+```{r ci, eval = FALSE, echo = TRUE}
+scale_score <- as.numeric(df_cwi$score)
+scale_mean <- as.numeric(params$mean)
+scale_sd <- as.numeric(params$stdev)
+scale_rel <- as.numeric(params$reliability)
+
+ci_values <- bwu::calc_ci_95(
+  ability_score = scale_score,
+  mean = scale_mean,
+  standard_deviation = scale_sd,
+  reliability = scale_rel
+)
+data <- df_cwi
+data$true_score <- ci_values["true_score"]
+data$ci_lo <- ci_values["lower_ci_95"]
+data$ci_hi <- ci_values["upper_ci_95"]
+data$ci_95 <- paste0(data$ci_lo, " - ", data$ci_hi)
+```
+
+```{r mutate}
+
+dkefs <- df_cwi
+
+dkefs <- bwu::gpluck_make_columns(
+  data = dkefs,
+  test = params$test,
+  test_name = params$test_name,
+  range = "",
+  # ci_95 = paste0(dkefs$ci_95_lower, "-", dkefs$ci_95_upper),
+  domain = "",
+  subdomain = "",
+  narrow = "",
+  pass = "",
+  verbal = "",
+  timed = "",
+  test_type = "npsych_test",
+  score_type = "scaled_score",
+  description = "",
+  result = ""
+)
+```
+
+## Test score ranges
+
+```{r ranges}
+dkefs <- bwu::gpluck_make_score_ranges(
+  table = dkefs,
+  test_type = "npsych_test"
+)
+```
+
+## Domain
+
+```{r domain}
+dkefs <-
+  dkefs |> 
+  dplyr::mutate(
+    domain = dplyr::case_when(
+      scale == "Color Naming" ~ "Verbal/Language",
+      scale == "Word Reading" ~ "Verbal/Language",
+      scale == "Inhibition" ~ "Attention/Executive",
+      scale == "Inhibition/Switching" ~ "Attention/Executive",
+      scale == "Color Naming Total Errors" ~ "Attention/Executive",
+      scale == "Word Reading Total Errors" ~ "Attention/Executive",
+      scale == "Inhibition Total Errors" ~ "Attention/Executive",
+      scale == "Inhibition/Switching Total Errors" ~ "Attention/Executive",
+      TRUE ~ domain
+    )
+  )
+```
+
+## Subdomain
+
+```{r}
+dkefs <-
+  dkefs |>
+  dplyr::mutate(
+    subdomain = dplyr::case_when(
+      scale == "Color Naming" ~ "Retrieval",
+      scale == "Word Reading" ~ "Retrieval",
+      scale == "Inhibition" ~ "Executive Functioning",
+      scale == "Inhibition/Switching" ~ "Executive Functioning",
+      scale == "Color Naming Total Errors" ~ "Attention",
+      scale == "Word Reading Total Errors" ~ "Attention",
+      scale == "Inhibition Total Errors" ~ "Attention",
+      scale == "Inhibition/Switching Total Errors" ~ "Attention",
+      TRUE ~ subdomain
+    )
+  )
+```
+
+## Narrow
+
+```{r}
+dkefs <-
+  dkefs |>
+  mutate(
+    narrow = case_when(
+      scale == "Color Naming" ~ "Naming Facility",
+      scale == "Word Reading" ~ "Naming Facility",
+      scale == "Inhibition" ~ "Inhibition",
+      scale == "Inhibition/Switching" ~ "Set-Shifting",
+      scale == "Color Naming Total Errors" ~ "Response Monitoring",
+      scale == "Word Reading Total Errors" ~ "Response Monitoring",
+      scale == "Inhibition Total Errors" ~ "Response Monitoring",
+      scale == "Inhibition/Switching Total Errors" ~ "Response Monitoring",
+      TRUE ~ narrow
+    )
+  )
+```
+
+## Timed/Untimed
+
+```{r}
+dkefs <-
+  dkefs |>
+  mutate(
+    timed = case_when(
+      scale == "Color Naming" ~ "Timed",
+      scale == "Word Reading" ~ "Timed",
+      scale == "Inhibition" ~ "Timed",
+      scale == "Inhibition/Switching" ~ "Timed",
+      scale == "Color Naming Total Errors" ~ "",
+      scale == "Word Reading Total Errors" ~ "",
+      scale == "Inhibition Total Errors" ~ "Timed",
+      scale == "Inhibition/Switching Total Errors" ~ "Timed",
+      TRUE ~ timed
+    )
+  )
+```
+
+## Verbal/Nonverbal
+
+```{r}
+dkefs <-
+  dkefs |>
+  mutate(
+    verbal = case_when(
+      scale == "Color Naming" ~ "Verbal",
+      scale == "Word Reading" ~ "Verbal",
+      scale == "Inhibition" ~ "Verbal",
+      scale == "Inhibition/Switching" ~ "Verbal",
+      scale == "Color Naming Total Errors" ~ "Verbal",
+      scale == "Word Reading Total Errors" ~ "Verbal",
+      scale == "Inhibition Total Errors" ~ "Verbal",
+      scale == "Inhibition/Switching Total Errors" ~ "Verbal",
+      TRUE ~ verbal
+    )
+  )
+```
+
+## PASS
+
+```{r pass}
+dkefs <-
+  dkefs |>
+  mutate(
+    pass = case_when(
+      scale == "Color Naming" ~ "Sequential",
+      scale == "Word Reading" ~ "Sequential",
+      scale == "Inhibition" ~ "Attention",
+      scale == "Inhibition/Switching" ~ "Attention",
+      scale == "Color Naming Total Errors" ~ "Attention",
+      scale == "Word Reading Total Errors" ~ "Attention",
+      scale == "Inhibition Total Errors" ~ "Attention",
+      scale == "Inhibition/Switching Total Errors" ~ "Attention",
+      TRUE ~ as.character(pass)
+    )
+  )
+```
+
+## Score type
+
+```{r score-type}
+dkefs <-
+  dkefs |>
+  mutate(
+    score_type = case_when(
+      scale == "Color Naming Total Errors" ~ "percentile",
+      scale == "Word Reading Total Errors" ~ "percentile",
+      TRUE ~ as.character(score_type)
+    )
+  )
+```
+
+## Descriptions
+
+```{r}
+dkefs <-
+  dkefs |>
+  mutate(
+    description = case_when(
+      scale == "Color Naming" ~ "Rapid color naming",
+      scale == "Word Reading" ~ "Rapid word reading",
+      scale == "Inhibition" ~ "Inhibition/cognitive control",
+      scale == "Inhibition/Switching" ~ "Set-shifting/cognitive flexibility",
+      scale == "Color Naming Total Errors" ~ "Color naming errors",
+      scale == "Word Reading Total Errors" ~ "Word reading errors",
+      scale == "Inhibition Total Errors" ~ "Inhibition errors",
+      scale == "Inhibition/Switching Total Errors" ~ "Switching errors",
+      TRUE ~ as.character(description)
+    )
+  )
+```
+
+## Glue results
+
+```{r}
+dkefs <-
+  dkefs |>
+  dplyr::mutate(
+    result = glue::glue("{patient}'s score on {.data$scale} ({.data$description}) was {.data$range}.")
+  )
+```
+
+# EXPORT
+
+```{r}
+readr::write_csv(dkefs, here::here("data", "dkefs.csv"), col_names = TRUE, na = "")
+```
+
+```{r}
+cat("Finished!")
+```

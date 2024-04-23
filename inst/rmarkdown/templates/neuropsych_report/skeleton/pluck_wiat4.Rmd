@@ -87,9 +87,9 @@ params:
       - Orthographic Processing Extended
       - Orthographic Choice
       - Math Fluency
-      - Math Fluency-Addition
-      - Math Fluency-Subtraction
-      - Math Fluency-Multiplication
+      - "Math Fluency-Addition"
+      - "Math Fluency-Subtraction"
+      - "Math Fluency-Multiplication"
       - Oral Language
       - Listening Comprehension
       - Oral Expression
