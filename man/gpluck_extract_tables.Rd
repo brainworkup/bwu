@@ -25,19 +25,19 @@ gpluck_extract_tables(
 
 \item{method}{Method to use for parsing. Default: c("decide", "lattice", "stream")}
 
-\item{output}{Output format (see \code{\link[tabulizer]{extract_tables}} for more details). Default: c("matrix", "data.frame", "character", "asis", "csv", "tsv", "json")}
+\item{output}{Output format (see \code{\link[tabulapdf]{extract_tables}} for more details). Default: c("matrix", "data.frame", "character", "asis", "csv", "tsv", "json")}
 
-\item{...}{Other arguments to \code{\link[tabulizer]{extract_tables}}}
+\item{...}{Other arguments to \code{\link[tabulapdf]{extract_tables}}}
 }
 \value{
 A parsed table in either matrix, data frame, character, asis, csv, tsv or json format.
 }
 \description{
-This function returns the tables in a PDF file as parsed by the tabulizer package.
+This function returns the tables in a PDF file as parsed by the tabulapdf package.
 }
 \details{
-This is a wrapper around the \code{\link[tabulizer]{extract_tables}} function that allows for easier access to the tables in a PDF document.
+This is a wrapper around the \code{\link[tabulapdf]{extract_tables}} function that allows for easier access to the tables in a PDF document.
 }
 \seealso{
-\code{\link[tabulizer]{extract_tables}}
+\code{\link[tabulapdf]{extract_tables}}
 }

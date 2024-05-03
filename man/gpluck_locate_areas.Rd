@@ -11,7 +11,7 @@ gpluck_locate_areas(file, pages = NULL, ...)
 
 \item{pages}{A vector of character strings specifying which pages to analyse, Default: NULL}
 
-\item{...}{Additional arguments passed to locate_areas() in the tabulizer package.}
+\item{...}{Additional arguments passed to locate_areas() in the tabulapdf package.}
 }
 \value{
 A list containing all areas found by area extraction algorithem.
@@ -23,5 +23,5 @@ This is a function to pluck and locate areas from file.
 Use this function with caution when handling sensitive PDFs as it involves rasterizing those documents. Also use this function if your PDF contains tables and you want to access those tables programmatically.
 }
 \seealso{
-\code{\link[tabulizer]{locate_areas}}
+\code{\link[tabulapdf]{locate_areas}}
 }

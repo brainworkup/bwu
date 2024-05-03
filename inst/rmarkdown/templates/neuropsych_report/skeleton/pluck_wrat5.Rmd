@@ -92,7 +92,7 @@ library(rmarkdown)
 library(rmdformats)
 library(shiny)
 library(snakecase)
-library(tabulizer)
+library(tabulapdf)
 library(tibble)
 library(tidyr)
 library(dplyr)
@@ -117,13 +117,13 @@ test_name <- params$test_name
 pages <- params$pages
 ```
 
-## Extract Areas and Tables with Tabulizer
+## Extract Areas and Tables with tabulapdf
 
 ```{r eval = FALSE}
 f <- file.path("/Users/joey/reports/Biggie/pdf/ADHD Young Adult Battery 2024-210a6756-acdd-488e-86e1-1446de4cb331.pdf")
 
 # locate areas and extract
-plucked_tables_wrat5 <- tabulizer::extract_areas(
+plucked_tables_wrat5 <- tabulapdf::extract_areas(
   file = f,
   pages = c(7),
   method = "stream",

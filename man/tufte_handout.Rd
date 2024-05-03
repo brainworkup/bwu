@@ -74,9 +74,9 @@ after \samp{\\hfill} for LaTeX output (to right-align text).
 }
 \examples{
 \dontrun{
-if(interactive()){
- #EXAMPLE1
- }
+if (interactive()) {
+  # EXAMPLE1
+}
 }
 newthought("In this section")
 }

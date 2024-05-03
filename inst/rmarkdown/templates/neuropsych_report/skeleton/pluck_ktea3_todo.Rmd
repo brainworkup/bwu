@@ -123,7 +123,7 @@ params:
 
 ```{r}
 # This works well so far
-ktea3 <- tabulizer::extract_tables(
+ktea3 <- tabulapdf::extract_tables(
   file = pdf_file,
   pages = pages,
   output = "matrix",
@@ -160,8 +160,8 @@ library(readr)
 library(rJava)
 library(rmarkdown)
 library(shiny)
-library(tabulizer)
-library(tabulizerjars)
+library(tabulapdf)
+library(tabulapdfjars)
 library(tibble)
 library(tidyr)
 library(vroom)
@@ -239,7 +239,7 @@ area <- readRDS(here::here(patient, "pre_csv", "area_wiat4.rds"))
 ```{r extract-table-pdf}
 #pdf_file <- file.choose()
 
-plucked_table <- tabulizer::extract_tables(
+plucked_table <- tabulapdf::extract_tables(
   file = pdf_file,
   pages = c(12, 13),
   method = "stream",
@@ -248,7 +248,7 @@ plucked_table <- tabulizer::extract_tables(
 
 ######
 ######## text works
-plucked_tables <- tabulizer::extract_text(
+plucked_tables <- tabulapdf::extract_text(
   file = file,
   pages = c(12, 13)
 )

@@ -9,9 +9,9 @@
 #' @details DETAILS
 #' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
 #' }
 #' @seealso
 #'  [render][rmarkdown::render]

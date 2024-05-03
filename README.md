@@ -130,8 +130,8 @@ pak::pak("brainworkup/bwu")
 #> + svglite                    2.1.1
 #> + sys                        3.4.2       ⬇ (51.52 kB)
 #> + systemfonts                1.0.4       ⬇ (6.85 MB)
-#> + tabulizer                  0.2.3      👷🏿‍♀️🔧 (GitHub: 08e3d76)
-#> + tabulizerjars              1.0.1      👷🏽‍♀️🔧 (GitHub: d1924e0)
+#> + tabulapdf                  0.2.3      👷🏿‍♀️🔧 (GitHub: 08e3d76)
+#> + tabulapdfjars              1.0.1      👷🏽‍♀️🔧 (GitHub: d1924e0)
 #> + tibble                     3.2.1       ⬇ (682.28 kB)
 #> + tidyr                      1.3.0
 #> + tidyselect                 1.2.0
@@ -374,9 +374,9 @@ pak::pak("brainworkup/bwu")
 #> ✔ Installed xts 0.13.1  (85ms)
 #> ✔ Installed yaml 2.3.7  (63ms)
 #> ✔ Installed zoo 1.8-12  (62ms)
-#> ✔ Installed tabulizer 0.2.3 (github::ropensci/tabulizer@08e3d76) (66ms)
+#> ✔ Installed tabulapdf 0.2.3 (github::ropensci/tabulapdf@08e3d76) (66ms)
 #> ✔ Installed rJava 1.0-6  (79ms)
-#> ✔ Installed tabulizerjars 1.0.1 (github::ropensci/tabulizerjars@d1924e0) (110ms)
+#> ✔ Installed tabulapdfjars 1.0.1 (github::ropensci/tabulapdfjars@d1924e0) (110ms)
 #> ✔ 1 pkg + 128 deps: kept 4, upd 1, added 123, dld 98 (110.65 MB) [29.8s]
 ```
 

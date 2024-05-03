@@ -6,6 +6,6 @@
 \alias{bwu-package}
 \title{bwu: BrainWorkUp Neuropsychological Report Writing Package}
 \description{
-This package stores the functions and normative datasets to use for neuropsychological assessments at the USC Keck School of Medicine Department of Psychiatry and Behavioral Sciences. Hopefully it works.
+This package stores the functions and normative datasets to use for neuropsychological assessments at the USC Keck School of Medicine Department of Psychiatry and the Behavioral Sciences. Hopefully it works.
 }
 \keyword{internal}

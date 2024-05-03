@@ -1,14 +1,14 @@
 Type: Package
 Package: bwu
 Title: BrainWorkUp Neuropsychological Report Writing Package
-Version: 0.0.1.9005
+Version: 0.0.2.9000
 Author: person("Joey", "Trampush", email = trampush@usc.edu,
       role = c("aut", "cre"))
 Maintainer: Joey Trampush <trampush@usc.edu>
 Description: This package stores the functions and normative
       datasets to use for neuropsychological assessments at
       the USC Keck School of Medicine Department of
-      Psychiatry and Behavioral Sciences. Hopefully it
+      Psychiatry and the Behavioral Sciences. Hopefully it
       works.
 License: GPL-3
 Depends: R (>= 3.10)
@@ -20,6 +20,7 @@ Imports:
     ggtext,
     ggthemes,
     glue,
+    googledrive,
     grDevices,
     gt,
     gtExtras,
@@ -38,7 +39,7 @@ Imports:
     rmarkdown,
     stats,
     stringr,
-    tabulizer,
+    tabulapdf,
     tibble,
     tidyr,
     tidyselect,
@@ -61,7 +62,7 @@ Suggests:
     vroom,
     xaringan
 Remotes:
-    ropensci/tabulizer
+    ropensci/tabulapdf
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-US

@@ -30,7 +30,7 @@ library(readr)
 library(rJava)
 library(rmarkdown)
 library(shiny)
-library(tabulizer)
+library(tabulapdf)
 library(tibble)
 library(tidyr)
 library(bwu)
@@ -463,7 +463,7 @@ text <- get_text(file)
 text
 
 get_table <- function(files, ...) {
-  L <- tabulizer::extract_tables(files, output = "data.frame")
+  L <- tabulapdf::extract_tables(files, output = "data.frame")
   i <- which.max(lengths(L))
   data.frame(L[[i]])
 }

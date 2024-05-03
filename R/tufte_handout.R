@@ -10,9 +10,9 @@
 #' @details DETAILS
 #' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
 #' }
 #' @rdname tufte_handout
 #' @export
@@ -32,9 +32,9 @@ tufte_handout <- function(fig_width = 4, fig_height = 2.5, fig_crop = TRUE, dev 
 #' @details DETAILS
 #' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
 #' }
 #' @rdname tufte_book
 #' @export
@@ -57,9 +57,9 @@ tufte_book <- function(fig_width = 4, fig_height = 2.5, fig_crop = TRUE, dev = "
 #' @details DETAILS
 #' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
 #' }
 #' @rdname tufte_pdf
 #' @export

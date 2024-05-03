@@ -25,18 +25,18 @@ pdf_02_filter_lines <- function(extracted_text, pdf_file, page = NULL, scale) {
 
 #' @title Locate PDF Areas
 #' @description This is a function to pluck and locate areas from file.
-#' @importFrom tabulizer locate_areas
+#' @importFrom tabulapdf locate_areas
 #' @param file The File name of the input PDF.
 #' @param pages A vector of character strings specifying which pages to analyse, Default: NULL
-#' @param ... Additional arguments passed to locate_areas() in the tabulizer package.
+#' @param ... Additional arguments passed to locate_areas() in the tabulapdf package.
 #' @return A list containing all areas found by area extraction algorithem.
 #' @details Use this function with caution when handling sensitive PDFs as it involves rasterizing those documents. Also use this function if your PDF contains tables and you want to access those tables programmatically.
 #' @seealso
-#'  \code{\link[tabulizer]{locate_areas}}
+#'  \code{\link[tabulapdf]{locate_areas}}
 #' @rdname gpluck_locate_areas
 #' @export
 gpluck_locate_areas <- function(file, pages = NULL, ...) {
-  tabulizer::locate_areas(
+  tabulapdf::locate_areas(
     file = file,
     pages = pages,
     ...
@@ -45,19 +45,19 @@ gpluck_locate_areas <- function(file, pages = NULL, ...) {
 
 
 #' @title gpluck_extract_tablevscode-file://vscode-app/Applications/Visual%20Studio%20Code.app/Contents/Resources/app/out/vs/code/electron-sandbox/workbench/workbench.html
-#' @description This function returns the tables in a PDF file as parsed by the tabulizer package.
-#' @importFrom tabulizer extract_tables
+#' @description This function returns the tables in a PDF file as parsed by the tabulapdf package.
+#' @importFrom tabulapdf extract_tables
 #' @param file The path to the PDF file.
 #' @param pages A single page number or vector of page numbers, Default: NULL
 #' @param area An area on the page given as c(x0, y0, x1, y1). Default: NULL
 #' @param guess Whether to attempt to detect tables when the coordinates are not given. Default: FALSE
 #' @param method Method to use for parsing. Default: c("decide", "lattice", "stream")
-#' @param output Output format (see \code{\link[tabulizer]{extract_tables}} for more details). Default: c("matrix", "data.frame", "character", "asis", "csv", "tsv", "json")
-#' @param ... Other arguments to \code{\link[tabulizer]{extract_tables}}
+#' @param output Output format (see \code{\link[tabulapdf]{extract_tables}} for more details). Default: c("matrix", "data.frame", "character", "asis", "csv", "tsv", "json")
+#' @param ... Other arguments to \code{\link[tabulapdf]{extract_tables}}
 #' @return A parsed table in either matrix, data frame, character, asis, csv, tsv or json format.
-#' @details This is a wrapper around the \code{\link[tabulizer]{extract_tables}} function that allows for easier access to the tables in a PDF document.
+#' @details This is a wrapper around the \code{\link[tabulapdf]{extract_tables}} function that allows for easier access to the tables in a PDF document.
 #' @seealso
-#'  \code{\link[tabulizer]{extract_tables}}
+#'  \code{\link[tabulapdf]{extract_tables}}
 #' @rdname gpluck_extract_tables
 #' @export
 gpluck_extract_tables <-
@@ -80,7 +80,7 @@ gpluck_extract_tables <-
              "json"
            ),
            ...) {
-    tabulizer::extract_tables(
+    tabulapdf::extract_tables(
       file = file,
       pages = pages,
       area = area,

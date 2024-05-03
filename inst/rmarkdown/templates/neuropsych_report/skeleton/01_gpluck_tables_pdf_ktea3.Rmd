@@ -36,8 +36,7 @@ knitr::opts_chunk$set(
   warning = FALSE,
   error = TRUE
 )
-library(tabulizer)
-library(tabulizerjars)
+library(tabulapdf)
 library(rJava)
 library(shiny)
 library(miniUI)
@@ -45,12 +44,9 @@ library(here)
 library(pdftools)
 library(tidyverse)
 library(fs)
-library(data.table)
 library(magrittr)
 library(kableExtra)
-library(formattable)
 library(DT)
-library(ggiraph)
 library(hablar)
 library(tibble)
 ```
@@ -64,7 +60,7 @@ source(file = here::here("R/gpluck_make_columns.R"), local = knitr::knit_global(
 source(file = here::here("R/gpluck_make_score_ranges.R"), local = knitr::knit_global())
 ```
 
-# TabulizeR
+# tabulapdf
 
 Need to check each PDF to see what page(s) tables are located on.
 Will be different for each individual.
@@ -591,6 +587,7 @@ table2 <-
     )
   )
 ```
+
 # Finalize
 
 ## Relocate variables
@@ -612,3 +609,4 @@ ktea3 <- rbind(table1, table2)
 ```{r write-csv}
 readr::write_csv(ktea3, here::here(patient, "csv", "ktea3.csv"), col_names = TRUE, na = "")
 ```
+

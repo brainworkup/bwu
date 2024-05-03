@@ -105,3 +105,6 @@ binary_storage/
 bwu.code-workspace
 .trunk/
 test_that_tmt.R
+.history
+.tmp.driveupload
+app_drilldown.R

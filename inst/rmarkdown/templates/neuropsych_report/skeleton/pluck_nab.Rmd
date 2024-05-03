@@ -37,8 +37,8 @@ knitr::opts_chunk$set(
 library(bwu)
 library(knitr)
 library(xfun)
-library(tabulizer)
-library(tabulizerjars)
+library(tabulapdf)
+library(tabulapdfjars)
 library(rJava)
 library(shiny)
 library(miniUI)
@@ -56,7 +56,7 @@ library(hablar)
 library(tibble)
 ```
 
-# TabulizeR
+# tabulapdf
 
 Need to check each PDF to see what page(s) tables are located on.
 

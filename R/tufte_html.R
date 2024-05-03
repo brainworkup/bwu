@@ -8,9 +8,9 @@
 #' @details DETAILS
 #' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
 #' }
 #' @rdname tufte_html
 #' @export
@@ -177,9 +177,9 @@ tufte_html <- function(..., tufte_features = c("fonts", "background", "italics")
 #' @details DETAILS
 #' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
 #' }
 #' @rdname tufte_html_dependency
 #' @export
@@ -204,9 +204,9 @@ tufte_html_dependency <- function(features, variant) {
 #' @details DETAILS
 #' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
 #' }
 #' @rdname parse_footnotes
 #' @export
@@ -237,9 +237,9 @@ parse_footnotes <- function(x, fn_label = "fn") {
 #' @details DETAILS
 #' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
 #' }
 #' @rdname margin_references
 #' @export
@@ -290,9 +290,9 @@ margin_references <- function(x) {
 #' @details DETAILS
 #' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
 #' }
 #' @rdname marginnote_html
 #' @export

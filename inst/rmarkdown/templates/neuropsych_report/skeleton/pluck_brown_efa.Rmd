@@ -46,7 +46,7 @@ library(readr)
 library(rJava)
 library(rmarkdown)
 library(shiny)
-library(tabulizer)
+library(tabulapdf)
 library(tibble)
 library(tidyr)
 library(bwu)
@@ -108,8 +108,8 @@ file <- readLines(here::here(patient, "pre_csv", paste0(test, ".pdf")))
 ## Locate areas or Extract areas
 
 ```{r areas}
-# areas <- tabulizer::locate_areas(file = pdf_file, pages = c(2))
-# df <- tabulizer::extract_areas(file = pdf_file, pages = c(2))
+# areas <- tabulapdf::locate_areas(file = pdf_file, pages = c(2))
+# df <- tabulapdf::extract_areas(file = pdf_file, pages = c(2))
 ```
 
 ```{r areas-known}

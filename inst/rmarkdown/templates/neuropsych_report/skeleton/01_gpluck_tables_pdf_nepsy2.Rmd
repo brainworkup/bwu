@@ -15,7 +15,7 @@ test <- "nepsy2"
 ## Patient initials
 
 ```{r patient}
-patient <- "NATHAN"
+patient <- "Biggie"
 ```
 
 ## Pages
@@ -41,8 +41,7 @@ knitr::opts_chunk$set(
   warning = FALSE,
   error = TRUE
 )
-library(tabulizer)
-library(tabulizerjars)
+library(tabulapdf)
 library(rJava)
 library(shiny)
 library(miniUI)
@@ -69,7 +68,7 @@ source(file = here::here("R/gpluck_make_columns.R"), local = knitr::knit_global(
 source(file = here::here("R/gpluck_make_score_ranges.R"), local = knitr::knit_global())
 ```
 
-# TabulizeR
+# tabulapdf
 
 ## Upload/attach PDF
 

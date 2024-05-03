@@ -52,7 +52,7 @@ knitr::opts_chunk$set(
   error = TRUE
 )
 library(tidyverse)
-library(tabulizer)
+library(tabulapdf)
 library(rJava)
 library(shiny)
 library(here)

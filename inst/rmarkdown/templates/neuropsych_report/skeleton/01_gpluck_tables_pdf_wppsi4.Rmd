@@ -15,7 +15,7 @@ Sys.setenv(DYLD_LIBRARY_PATH = "Library/Java/JavaVirtualMachines/temurin-11.jdk/
 ## Patient
 
 ```{r patient}
-patient <- "WJ"
+patient <- "Biggie"
 ```
 
 ## Load libraries
@@ -31,8 +31,7 @@ knitr::opts_chunk$set(
   warning = FALSE,
   error = TRUE
 )
-library(tabulizer)
-library(tabulizerjars)
+library(tabulapdf)
 library(rJava)
 library(shiny)
 library(miniUI)
@@ -40,7 +39,6 @@ library(here)
 library(pdftools)
 library(tidyverse)
 library(fs)
-library(data.table)
 library(magrittr)
 library(kableExtra)
 library(formattable)
@@ -74,7 +72,7 @@ source(file = here::here("R/gpluck_make_score_ranges.R"), local = knitr::knit_gl
 cognitive_pdf <- file.choose()
 ```
 
-# TabulizeR
+# tabulapdf
 
 Need to check each PDF to see what page(s) tables are located on.
 
