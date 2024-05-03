@@ -44,7 +44,7 @@ gpluck_locate_areas <- function(file, pages = NULL, ...) {
 }
 
 
-#' @title gpluck_extract_tablevscode-file://vscode-app/Applications/Visual%20Studio%20Code.app/Contents/Resources/app/out/vs/code/electron-sandbox/workbench/workbench.html
+#' @title Extract Tables from a PDF
 #' @description This function returns the tables in a PDF file as parsed by the tabulapdf package.
 #' @importFrom tabulapdf extract_tables
 #' @param file The path to the PDF file.

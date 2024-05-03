@@ -2,7 +2,7 @@
 % Please edit documentation in R/pdf.R
 \name{gpluck_extract_tables}
 \alias{gpluck_extract_tables}
-\title{gpluck_extract_tablevscode-file://vscode-app/Applications/Visual\%20Studio\%20Code.app/Contents/Resources/app/out/vs/code/electron-sandbox/workbench/workbench.html}
+\title{Extract Tables from a PDF}
 \usage{
 gpluck_extract_tables(
   file,
