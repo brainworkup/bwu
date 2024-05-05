@@ -3,11 +3,11 @@ title: "Plant CSV files of Neurocognitive Tests"
 params:
   patient:
     label: "Patient First Name:"
-    value: Biggie
+    value: Leo
     input: text
   test_name:
     label: "Full Name of Test/Test Battery:"
-    value: NIH EXAMINER
+    value: ""
     input: radio
     choices:
       - "NIH EXAMINER"
@@ -22,6 +22,7 @@ params:
       - "KTEA-3"
       - "NEPSY-2"
       - "WMS-IV"
+      - "BSRA-4"
       - "Cognitive Estimation Test"
       - "Raven's 2"
   test:
@@ -41,11 +42,12 @@ params:
       - pegboard
       - nepsy2
       - wms4
+      - bsra4
       - cet
       - ravens
   scale:
     label: "Scale/Subtest:"
-    value: Select Scale
+    value: ""
     input: select
     choices:
       Examiner:
@@ -93,6 +95,14 @@ params:
       WMS-IV:
         - "Symbol Span"
         - "Spatial Addition"
+      BSRA-4:
+        - "School Readiness Composite (SRC)"
+        - "Colors"
+        - "Letters"
+        - "Numbers/Counting"
+        - "Sizes/Comparisons"
+        - "Shapes"
+        - "Self-/Social Awareness"
       Grooved Pegboard:
         - "Dominant Hand Time"
         - "Nondominant Hand Time"
@@ -106,7 +116,7 @@ params:
         - "Raven's 2 Index Score"
   raw_score:
     label: "Raw score:"
-    value: 10
+    value: ""
     input: numeric
   score:
     label: "Standardized score:"
@@ -122,10 +132,12 @@ params:
       - t_score
       - standard_score
       - raw_score
+      - percentile
       - beta_coefficient
+      - percent_mastery
   domain:
     label: "Domain:"
-    value: Select domain
+    value: ""
     input: radio
     choices:
       - General Cognitive Ability
@@ -148,7 +160,7 @@ params:
       - Effort/Validity
   subdomain:
     label: "Subdomain:"
-    value: Select Subdomain
+    value: ""
     input: select
     choices:
       General Ability:
@@ -157,6 +169,13 @@ params:
         - Neuropsychological Functioning
         - Premorbid Ability
         - Fluid Reasoning
+      Academic Skills:
+        - Reading
+        - Math
+        - Writing
+        - Spelling
+        - Academic Achievement
+        - School Readiness
       Attention/Executive:
         - Attention
         - Executive Functioning
@@ -188,7 +207,7 @@ params:
         - Social Perception
   narrow:
     label: "Narrow Subdomain:"
-    value: Select Narrow Subdomain
+    value: ""
     input: select
     choices:
       General Cognition:
@@ -266,9 +285,16 @@ params:
         - Reading Comprehension
         - Reading Decoding
         - Reading Speed
+        - School Readiness
+        - Colors
+        - Letters
+        - Numbers/Couting
+        - Sizes/Comparisons
+        - Shapes
+        - Self/Social Awareness
   pass:
     label: "PASS:"
-    value: Planning
+    value: ""
     input: radio
     choices:
       - Planning
@@ -278,31 +304,31 @@ params:
       - Knowledge
   verbal:
     label: "Verbal or Nonverbal Test:"
-    value: Verbal
+    value: ""
     input: radio
     choices:
       - Verbal
       - Nonverbal
   timed:
     label: "Timed or Untimed Test:"
-    value: Timed
+    value: ""
     input: radio
     choices:
       - Timed
       - Untimed
   mean:
     label: "Mean:"
-    value: 50
+    value: ""
     input: radio
     choices: [0, 10, 50, 100]
   stdev:
     label: "Standard Deviation:"
-    value: 10
+    value: ""
     input: radio
     choices: [1, 3, 10, 15]
   reliability:
     label: "Reliability:"
-    value: 0.81
+    value: 0.90
     input: slider
     min: 0
     max: 1
@@ -340,12 +366,13 @@ library(magrittr)
 library(readr)
 library(rmarkdown)
 library(shiny)
+library(miniUI)
+library(vroom)
 library(snakecase)
 library(glue)
 library(tibble)
 library(tidyr)
 library(dplyr)
-library(tidytable)
 library(purrr)
 library(rlang)
 library(bwu)
@@ -357,13 +384,29 @@ library(bwu)
 patient <- params$patient
 ```
 
+## Merge with lookup table
+
+```{r}
+# make df
+data <- data.frame()
+
+# Read the lookup table
+lookup_csv_neurocog <- vroom::vroom("data/neuropsych_lookup_table.csv")
+
+# Add test column
+data$test <- "bsra4"
+
+# Merge the tables
+data <- data |> dplyr::left_join(lookup_csv_neurocog, by = c("test", "scale"))
+```
+
 ## Make data frame
 
 ```{r make-df}
 data <- data.frame(
   test = (params$test),
-  test_name = (params$test_name),
-  test_type = (params$test_type),
+  # test_name = (params$test_name),
+  # test_type = (params$test_type),
   scale = (params$scale),
   raw_score = as.numeric(params$raw_score),
   score = as.numeric(params$score),
@@ -375,20 +418,20 @@ data <- data.frame(
   range = NA,
   range_lower = NA,
   range_upper = NA,
-  score_type = (params$score_type),
-  domain = (params$domain),
-  subdomain = (params$subdomain),
-  narrow = (params$narrow),
-  pass = (params$pass),
-  verbal = (params$verbal),
-  timed = (params$timed),
+  # score_type = (params$score_type),
+  # domain = (params$domain),
+  # subdomain = (params$subdomain),
+  # narrow = (params$narrow),
+  # pass = (params$pass),
+  # verbal = (params$verbal),
+  # timed = (params$timed),
   absort =
     paste0(
       tolower(params$test),
       "_", tolower(params$scale),
       "_", seq_len(1)
     ),
-  description = NA,
+  # description = NA,
   result = NA
 )
 ```
@@ -575,7 +618,8 @@ glue_result <- function(data, scale, description, range, result) {
     "Decoding Fluency" = "fell within the",
     "Reading Comprehension" = "was",
     "Raven's 2 Index Score" = "fell within the",
-    "Deviation Score" = "was"
+    "Deviation Score" = "was",
+    "School Readiness Composite (SRC)" = "fell within the"
   )
 
   # Check if scale is in phrase_dict
@@ -639,6 +683,12 @@ data$ci_95 <- paste0(data$ci_lo, " - ", data$ci_hi)
 data <- data |> dplyr::select(-.z)
 ```
 
+## Relocate variables
+
+```{r, eval = T}
+data <- data |> relocate(c(raw_score, score, ci_95, percentile, range, test, test_name, domain, subdomain, narrow, pass, verbal, timed, test_type, score_type, description, result, absort, true_score, ci_lo, ci_hi), .after = scale)
+```
+
 ## Write csv files
 
 ```{r writeout-scale}
@@ -679,7 +729,7 @@ readr::write_excel_csv(
 
 ```{r writeout-g}
 table <- data
-test <- "g3"
+test <- "g2"
 file_path <- here::here("csv", paste0(test, ".csv"))
 
 readr::write_excel_csv(

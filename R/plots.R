@@ -418,6 +418,13 @@ drilldown <- function(data, patient, neuro_domain = c(
     }) %>% unlist(recursive = FALSE)
 
   # Create charts ----------------------------------
+  # Theme
+  theme <-
+    highcharter::hc_theme_merge(
+      highcharter::hc_theme_monokai(),
+      highcharter::hc_theme_darkunica()
+    )
+
   # Tooltip
   x <- c("Name", "Score", "Percentile", "Range")
   y <- c("{point.name}", "{point.y}", "{point.y2}", "{point.range}")

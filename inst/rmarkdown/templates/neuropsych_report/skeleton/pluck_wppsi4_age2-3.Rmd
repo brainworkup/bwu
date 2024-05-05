@@ -1,0 +1,447 @@
+---
+title: "Pluck Tables WPPSI-IV Ages 2-3"
+params:
+  patient: Leo
+  test: wppsi4
+  test_name: "WPPSI-IV"
+  version: "WPPSI-IV: Ages 2-3"
+  file:
+    label: "No file selected"
+    value: file
+    input: file
+  pages: [2, 3, 5]
+  table1:
+    label: "Scaled Score Summary"
+    value: [Receptive Vocabulary, Information, Picture Naming, Block Design, Object Assembly, Picture Memory, Zoo Locations]
+    input: select
+    multiple: yes
+    choices:
+      - Receptive Vocabulary
+      - Information
+      - Picture Naming
+      - Block Design
+      - Object Assembly
+      - Picture Memory
+      - Zoo Locations
+  table2:
+    label: "Composite Score Summary"
+    value: ["Verbal Comprehension (VCI)"]
+    input: select
+    multiple: yes
+    choices:
+      - Verbal Comprehension (VCI)
+      - Visual Spatial (VSI)
+      - Working Memory (WMI)
+      - Full Scale IQ (FSIQ)
+  table3:
+    label: "Composite Ancillary Summary"
+    value: ["Vocabulary Acquisition (VAI)"]
+    input: select
+    multiple: yes
+    choices:
+      - Vocabulary Acquisition (VAI)
+      - Nonverbal (NVI)
+      - General Ability (GAI)
+  names_df1:
+    label: "Table 1 Column Names"
+    value: [scale, abbrev, raw_score, score, percentile, age_equiv, sem]
+    input: select
+    multiple: yes
+    choices:
+      - scale
+      - abbrev
+      - raw_score
+      - score
+      - percentile
+      - age_equiv
+      - sem
+  names_df2:
+    label: "Tables 2 and 3 Column Names"
+    value: [scale, abbrev, raw_score, score, percentile, ci_95, category, sem]
+    input: select
+    multiple: yes
+    choices:
+      - scale
+      - abbrev
+      - raw_score
+      - score
+      - percentile
+      - ci_95
+      - category
+      - sem
+  keep2:
+    label: "Variables to Keep, Set 2"
+    value: [scale, raw_score, score, percentile, ci_95]
+    input: select
+    multiple: yes
+    choices:
+      - scale
+      - raw_score
+      - score
+      - percentile
+      - ci_95
+# data.frames to extract or not
+  eval_df1:
+    label: "Subtest Scores"
+    input: checkbox
+    value: TRUE
+  eval_df2:
+    label: "Primary Index Scores"
+    input: checkbox
+    value: TRUE
+  eval_df3:
+    label: "Supplemental Index Scores"
+    input: checkbox
+    value: TRUE
+  slice:
+    label: "Reorder rows"
+    input: checkbox
+    value: TRUE
+output:
+  rmdformats::robobook:
+    highlight: kate
+---
+
+# WPPSI-IV
+
+## Load libraries
+
+```{r setup, include = FALSE}
+Sys.setenv(
+  JAVA_HOME =
+    "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home"
+)
+# Sys.setenv(DYLD_LIBRARY_PATH = "Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home/lib/server")
+options(java.parameters = "-Xmx16000m")
+knitr::opts_chunk$set(
+  root.dir = normalizePath("./"),
+  echo = TRUE,
+  message = TRUE,
+  warning = FALSE,
+  error = TRUE
+)
+library(dplyr)
+library(hablar)
+library(here)
+library(knitr)
+library(magrittr)
+library(miniUI)
+library(readr)
+library(rmarkdown)
+library(rmdformats)
+library(shiny)
+library(snakecase)
+library(tabulapdf)
+library(tibble)
+library(tidyr)
+library(bwu)
+```
+
+## Patient
+
+```{r patient}
+patient <- params$patient
+```
+
+## Test
+
+```{r test}
+test <- params$test
+test_name <- params$test_name
+version <- params$version
+```
+
+## Upload/attach PDF
+
+```{r choose, eval = T}
+file <- file.path(params$file)
+# file <- file.path(file.choose(""))
+```
+
+## Pages
+
+```{r pages}
+pages <- params$pages
+eval_df1 <- params$eval_df1
+eval_df2 <- params$eval_df2
+eval_df3 <- params$eval_df3
+```
+
+## Extract Areas with tabulapdf
+
+```{r extract-areas, eval = FALSE}
+
+f <- file.path("/Users/joey/reports/Leo/pdf/Leo 3_8 yo ASD-2d0f9f88-433a-4fa7-8b39-5f6301683d09.pdf")
+
+#file <- file.path(file.choose(""))
+
+# using extract areas for now
+extracted_areas <- tabulapdf::extract_areas(
+  file = f,
+  pages = pages,
+  output = "matrix",
+  resolution = 96L,
+  copy = TRUE
+)
+```
+
+```{r loopdf, eval = F}
+# Loop over the list and write each matrix to a CSV file
+for (i in seq_along(extracted_areas)) {
+  write.csv(extracted_areas[[i]], file = paste0(test, "_", i, ".csv"), row.names = FALSE)
+}
+
+# Save the entire list to an R data file
+save(extracted_areas, file = "wppsi4_tables.RData")
+qs::qsave(extracted_areas, "wppsi4_tables2.rds")
+```
+
+```{r}
+# Load the entire list from an R data file
+load("wppsi4_tables.RData")
+qs::qread("wppsi4_tables2.rds")
+```
+
+## Areas
+
+```{r eval = FALSE}
+# locate areas
+areas_wppsi4 <- tabulapdf::locate_areas(
+  file = f,
+  pages = c(2, 3, 5),
+  resolution = 96L,
+)
+```
+
+```{r areas-known, eval = F}
+version <- params$version
+# if known
+# this is for wppsi4 ages 2-3, need to update for ages 4-7
+if (params$version == "WPPSI-IV: Ages 2-3") {
+  area <- list(
+    subtest = c(164, 52, 276, 558),
+    composite = c(176, 53, 237, 559),
+    ancillary = c(176, 53, 226, 559)
+  )
+} else if (params$version == "WPPSI-IV: Ages 4-7") {
+  area <- list(
+    vci = c(168, 50, 189, 560), # todo
+    pri = c(238, 50, 260, 560), # todo
+    wmi = c(308, 50, 329, 560), # todo
+    psi = c(376, 50, 402, 560) # todo
+  )
+}
+```
+
+## Extract tables
+
+```{r extract-tables, eval = F}
+plucked_tables <- bwu::gpluck_extract_tables(
+  file = file,
+  pages = pages,
+  area = area,
+  guess = FALSE,
+  method = "stream",
+  output = "matrix"
+)
+
+# plucked_tables <- tabulapdf::extract_tables(
+#   file = file,
+#   pages = pages,
+#   area = area,
+#   output = "matrix"
+# )
+```
+
+# WPPSI-IV Tables 1-3
+
+## Pluck and tidy tables
+
+```{r pluck1, eval = T}
+# Use this because it imports as a tibble
+table1 <- readr::read_csv("wppsi4_1.csv")
+table2 <- readr::read_csv("wppsi4_2.csv")
+table3 <- readr::read_csv("wppsi4_3.csv")
+
+# Rename columns
+colnames1 <- params[["names_df1"]]
+colnames(table1) <- colnames1
+
+colnames2 <- params[["names_df2"]]
+colnames(table2) <- colnames2
+
+colnames3 <- params[["names_df2"]]
+colnames(table3) <- colnames3
+
+# Create new scale column
+table2 <- table2 |>
+  mutate(scale = paste0(scale, " (", abbrev, ")"))
+
+table3 <- table3 |>
+  mutate(scale = paste0(scale, " (", abbrev, ")"))
+```
+
+## Merge tables
+
+```{r rbind}
+df <- bind_rows(table2, table3, table1) |>
+  dplyr::select(all_of(params$keep2))|>
+  dplyr::filter(!is.na(percentile))
+```
+
+## Merge with lookup table
+
+```{r}
+# Read the lookup table
+# lookup_wppsi4 <- vroom::vroom("data/lookup_wppsi4_ages2-3.csv")
+lookup_wppsi4 <- vroom::vroom("data/neuropsych_lookup_table.csv")
+
+# Add test column
+df$test <- "wppsi4"
+
+# Merge the tables
+df <- df |> dplyr::left_join(lookup_wppsi4, by = c("test", "scale"))
+```
+
+## Mutate columns
+
+```{r mutate, eval = T}
+df <- bwu::gpluck_make_columns(
+  df,
+  range = "",
+  result = ""
+)
+```
+
+## Test score ranges
+
+```{r range, eval = T}
+df <- bwu::gpluck_make_score_ranges(
+  table = df,
+  test_type = "npsych_test"
+  )
+```
+
+## Glue results
+
+```{r result, eval = TRUE}
+df <-
+  df |>
+  dplyr::mutate(
+    result = dplyr::case_when(
+      # composites
+      scale == "Full Scale IQ (FSIQ)" ~ glue::glue("{description} {score} ({ci_95}) was {range} overall.\n"),
+      scale == "Verbal Comprehension (VCI)" ~ glue::glue("{description} was classified as {range} and ranked at the {percentile}th percentile.\n"),
+      scale == "Visual Spatial (VSI)" ~ glue::glue("{description} was classified as {range} and ranked at the {percentile}th percentile.\n"),
+      scale == "Fluid Reasoning (FRI)" ~ glue::glue("{description} was classified as {range} and ranked at the {percentile}th percentile.\n"),
+      scale == "Working Memory (WMI)" ~ glue::glue("{description} fell in the {range} range.\n"),
+      scale == "Processing Speed (PSI)" ~ glue::glue("{description} was {range}.\n"),
+      scale == "Vocabulary Acquisition (VAI)" ~ glue::glue("{description} was {range}.\n"),
+      scale == "Nonverbal (NVI)" ~ glue::glue("{description} was {range}.\n"),
+      scale == "General Ability (GAI)" ~ glue::glue("{description} was {range} and ranked at the {percentile}th percentile, indicating performance as good as or better than {percentile}% of same-age peers from the general population.\n"),
+      scale == "Cognitive Proficiency (CPI)" ~ glue::glue("{description} was {range}.\n"),
+      # subtests
+      scale == "Receptive Vocabulary" ~ glue::glue("{description} fell within the {range}.\n"),
+      scale == "Information" ~ glue::glue("{description} fell within the {range}.\n"),
+      scale == "Picture Naming" ~ glue::glue("{description} fell within the {range}.\n"),
+      scale == "Similarities" ~ glue::glue("{description} was {range}.\n"),
+      scale == "Vocabulary" ~ glue::glue("{description} fell within the {range}.\n"),
+      scale == "Comprehension" ~ glue::glue("{description} was {range}.\n"),
+      scale == "Block Design" ~ glue::glue("{description} fell within the {range}.\n"),
+      scale == "Object Assembly" ~ glue::glue("{description} was {range}.\n"),
+      scale == "Matrix Reasoning" ~ glue::glue("{description} was {range}.\n"),
+      scale == "Picture Concepts" ~ glue::glue("{description} was {range}.\n"),
+      scale == "Picture Memory" ~ glue::glue("{description} fell within the {range}.\n"),
+      scale == "Zoo Locations" ~ glue::glue("{description} was {range}.\n"),
+      scale == "Bug Search" ~ glue::glue("{description} was {range}.\n"),
+      scale == "Cancellation" ~ glue::glue("{description} fell within the {range}.\n"),
+      scale == "Animal Coding" ~ glue::glue("{description} was {range}.\n"),      
+      TRUE ~ as.character(result)
+    )
+  )
+```
+
+## Compute CI 95%
+
+```{r ci, eval = FALSE}
+library(bwu)
+df$true_score <- ""
+df$ci_lo <- ""
+df$ci_hi <- ""
+df$ci <- ""
+
+# Assuming df is your dataframe and calc_ci_95 is your function
+for (i in 1:nrow(df)) {
+  if (df$score_type[i] == "scaled_score") {
+    ci_values <- calc_ci_95(
+      ability_score = df$score[i],
+      mean = 10,
+      standard_deviation = 3,
+      reliability = .85
+    )
+  } else if (df$score_type[i] == "standard_score") {
+    ci_values <- calc_ci_95(
+      ability_score = df$score[i],
+      mean = 100,
+      standard_deviation = 15,
+      reliability = .85
+    )
+  }
+  df$true_score[i] <- paste0(ci_values["true_score"])
+  df$ci_lo[i] <- paste0(ci_values["lower_ci_95"])
+  df$ci_hi[i] <- paste0(ci_values["upper_ci_95"])
+  df$ci[i] <- paste0(ci_values["lower_ci_95"], " -- ", ci_values["upper_ci_95"])
+}
+```
+
+## Relocate variables
+
+```{r, eval = T}
+df <- df |> relocate(c(raw_score, score, ci_95, percentile, range), .after = scale)
+```
+
+## Slice/Reorder table
+
+```{r reorder, eval = params$slice}
+# Concatenate the indices into a single vector
+row_indices <- c(4, 7, 1, 5, 8:10, 2, 6, 11:12, 3, 13:14)
+
+# Use slice to select the rows by these indices
+df <- df |>
+  dplyr::slice(row_indices)
+```
+
+# Export WPPSI-IV Ages 2-3 csv file
+
+```{r write-out}
+readr::write_excel_csv(df, here::here("csv", "wppsi4.csv"), col_names = TRUE, na = "")
+
+if (any(is.na(df$percentile))) {
+  stop("STOP!!! NA value found in percentile column. Please fill in missing values.")
+}
+```
+
+## Export "g" or "g2"
+
+```{r}
+has_headers <- function(file_path) {
+  if (!file.exists(file_path)) {
+    return(FALSE) # File doesn't exist, headers are needed
+  }
+  # Check if the file has at least one line (header)
+  return(length(readLines(file_path, n = 1)) > 0)
+}
+```
+
+```{r writeout-g}
+test <- "g2"
+file_path <- here::here("csv", paste0(test, ".csv"))
+
+readr::write_excel_csv(
+  df,
+  file_path,
+  append = TRUE,
+  col_names = !has_headers(file_path),
+  quote = "all"
+)
+```

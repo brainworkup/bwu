@@ -11,7 +11,10 @@
     "workbench.colorCustomizations": {
       "tab.activeBorder": "#fbed80",
       "editorGroup.border": "#fbed80",
-      "panel.border": "#fbed80"
+      "panel.border": "#fbed80",
+      "editorError.foreground": "#000000ff",
+      "editorInfo.foreground": "#000000ff",
+      "editorWarning.foreground": "#000000ff"
     },
     "peacock.color": "#f9e64f",
     "makefile.extensionOutputFolder": "./.vscode",
@@ -59,6 +62,11 @@
     "githubPullRequests.ignoredPullRequestBranches": [
       "main"
     ],
-    "editor.acceptSuggestionOnEnter": "on"
+    "editor.acceptSuggestionOnEnter": "on",
+    "typst-lsp.experimentalFormatterMode": "on",
+    "typst-preview.cursorIndicator": true,
+    "typst-preview.pinPreviewFile": true,
+    "typst-preview.showInActivityBar": true,
+    "pieces.autocomplete": true
   }
 }

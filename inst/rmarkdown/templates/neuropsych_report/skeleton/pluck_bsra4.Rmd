@@ -1,0 +1,336 @@
+---
+title: "Pluck Tables Bracken School Readiness 4th ed (BSRA-4)"
+params:
+  patient: Leo
+  test: bsra4
+  test_name: "BSRA-4"
+  version: "BSRA-4"
+  file:
+    label: "No file selected"
+    value: file
+    input: file
+  pages: [8, 9]
+  table1:
+    label: "Subtest Percent Mastery"
+    value: [Colors, Letters, Numbers/Counting, Sizes/Comparisons, Shapes, Self-/Social Awareness]
+    input: select
+    multiple: yes
+    choices:
+      - "Colors"
+      - "Letters"
+      - "Numbers/Counting"
+      - "Sizes/Comparisons"
+      - "Shapes"
+      - "Self-/Social Awareness"
+  table2:
+    label: "SRC"
+    value: ["School Readiness Composite (SRC)"]
+  names_df1:
+    label: "Table 1 Column Names"
+    value: [scale, raw_score, percent_mastery]
+    input: select
+    multiple: yes
+    choices:
+      - scale
+      - raw_score
+      - percent_mastery
+  names_df2:
+    label: "Tables 2 Column Names"
+    value: [scale, percent_mastery, score, ci_95, percentile, percentile_ci, age_equiv, category]
+    input: select
+    multiple: yes
+    choices:
+      - scale
+      - percent_mastery
+      - score
+      - ci_95
+      - percentile
+      - percentile_ci
+      - age_equiv
+      - category
+  keep:
+    label: "Variables to Keep, Set 2"
+    value: [scale, raw_score, percent_mastery, score, ci_95, percentile, percentile_ci, age_equiv]
+    input: select
+    multiple: yes
+    choices:
+      - scale
+      - raw_score
+      - score
+      - percentile
+      - ci_95
+# data.frames to extract or not
+  eval_df1:
+    label: "Percent Mastery"
+    input: checkbox
+    value: TRUE
+  eval_df2:
+    label: "Bracken SRC"
+    input: checkbox
+    value: TRUE
+output:
+  rmdformats::robobook:
+    highlight: kate
+---
+
+# BRSA-4
+
+## Load libraries
+
+```{r setup, include = FALSE}
+Sys.setenv(
+  JAVA_HOME =
+    "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home"
+)
+options(java.parameters = "-Xmx16000m")
+knitr::opts_chunk$set(
+  root.dir = normalizePath("./"),
+  echo = TRUE,
+  message = TRUE,
+  warning = FALSE,
+  error = TRUE
+)
+library(dplyr)
+library(hablar)
+library(here)
+library(knitr)
+library(magrittr)
+library(miniUI)
+library(readr)
+library(rmarkdown)
+library(rmdformats)
+library(shiny)
+library(snakecase)
+library(tabulapdf)
+library(tibble)
+library(tidyr)
+library(vroom)
+library(bwu)
+```
+
+## Patient
+
+```{r patient}
+patient <- params$patient
+```
+
+## Test
+
+```{r test}
+test <- params$test
+test_name <- params$test_name
+version <- params$version
+keep <- params$keep
+```
+
+## Upload/attach PDF
+
+```{r choose, eval = T}
+file <- file.path(params$file)
+# file <- file.path(file.choose(""))
+```
+
+## Pages
+
+```{r pages}
+pages <- params$pages
+eval_df1 <- params$eval_df1
+eval_df2 <- params$eval_df2
+```
+
+## Extract Areas with tabulapdf
+
+```{r extract-areas, eval = FALSE}
+
+f <- file.path("/Users/joey/reports/Leo/pdf/Leo 3_8 yo ASD-2d0f9f88-433a-4fa7-8b39-5f6301683d09.pdf")
+
+#file <- file.path(file.choose(""))
+
+# using extract areas for now
+extracted_areas <- tabulapdf::extract_areas(
+  file = f,
+  pages = pages,
+  output = "matrix",
+  resolution = 96L,
+  copy = TRUE
+)
+```
+
+```{r loopdf, eval = F}
+# Loop over the list and write each matrix to a CSV file
+for (i in seq_along(extracted_areas)) {
+  write.csv(extracted_areas[[i]], file = paste0(test, "_", i, ".csv"), row.names = FALSE)
+}
+
+# Save the entire list to an R data file
+save(extracted_areas, file = "bsra4_tables.RData")
+qs::qsave(extracted_areas, "bsra4_tables.rds")
+```
+
+```{r}
+# Load the entire list from an R data file
+load("bsra4_tables.RData")
+qs::qread("bsra4_tables.rds")
+```
+
+## Areas
+
+```{r eval = FALSE}
+# locate areas
+areas_bsra4 <- tabulapdf::locate_areas(
+  file = f,
+  pages = c(8, 9),
+  resolution = 96L,
+)
+```
+
+```{r areas-known, eval = F}
+# if known
+area <- list(
+    df1 = c(225, 55, 320, 277),
+    df2 = c(196.9, 54.1, 214.4, 572.8)
+  )
+```
+
+## Extract tables
+
+```{r extract-tables, eval = F}
+plucked_tables <- bwu::gpluck_extract_tables(
+  file = file,
+  pages = pages,
+  area = area,
+  guess = FALSE,
+  method = "stream",
+  output = "matrix"
+)
+
+plucked_tables <- tabulapdf::extract_tables(
+  file = file,
+  pages = pages,
+  area = area,
+  output = "matrix"
+)
+```
+
+# BRSA-4 Tables 1-2
+
+## Pluck and tidy tables
+
+```{r pluck1, eval = T}
+# Use this because it imports as a tibble
+table1 <- readr::read_csv("bsra4_1.csv")
+table2 <- readr::read_csv("bsra4_2.csv")
+
+# Rename columns
+colnames1 <- params[["names_df1"]]
+colnames(table1) <- colnames1
+
+colnames2 <- params[["names_df2"]]
+colnames(table2) <- colnames2
+
+#Create new scale column
+table2 <- table2 |>
+  mutate(scale = paste0(scale, " (", "SRC", ")")) |> 
+  slice(-2)
+```
+
+## Merge tables
+
+```{r rbind}
+df <- bind_rows(table2, table1) |>
+  dplyr::select(all_of(params$keep))
+```
+
+## Merge with lookup table
+
+```{r}
+# Read the lookup table
+lookup_bsra4 <- vroom::vroom("data/neuropsych_lookup_table.csv")
+
+# Add test column
+df$test <- "bsra4"
+
+# Merge the tables
+df <- df |> dplyr::left_join(lookup_bsra4, by = c("test", "scale"))
+```
+
+## Mutate columns
+
+```{r mutate, eval = T}
+df <- bwu::gpluck_make_columns(
+  df,
+  range = "",
+  result = ""
+)
+```
+
+## Test score ranges
+
+```{r range, eval = T}
+df <- bwu::gpluck_make_score_ranges(
+  table = df,
+  test_type = "npsych_test"
+  )
+```
+
+## Glue results
+
+```{r result, eval = TRUE}
+df <-
+  df |>
+  dplyr::mutate(
+    result = dplyr::case_when(
+      # composites
+      scale == "School Readiness Composite (SRC)" ~ glue::glue("{description} was {range} and ranked at the {percentile}th percentile, indicating performance as good as or better than {percentile}% of same-age peers from the general population.\n"),
+      scale == "Colors" ~ glue::glue("{test_name} {scale}, {description} was classified as {range} and ranked at the {percentile}th percentile.\n"),
+      scale == "Letters" ~ glue::glue("{test_name} {scale}, {description} was classified as {range} and ranked at the {percentile}th percentile.\n"),
+      scale == "Numbers/Counting" ~ glue::glue("{test_name} {scale}, {description} was classified as {range} and ranked at the {percentile}th percentile.\n"),
+      scale == "Sizes/Comparisons" ~ glue::glue("{test_name} {scale}, {description} fell in the {range} range.\n"),
+      scale == "Shapes" ~ glue::glue("{test_name} {scale}, {description} was {range}.\n"),
+      scale == "Self-/Social Awareness" ~ glue::glue("{test_name} {scale}, {description} was {range}.\n"),
+      scale == "Nonverbal (NVI)" ~ glue::glue("{test_name} {scale}, {description} was {range}.\n"),
+      TRUE ~ as.character(result)
+    )
+  )
+```
+
+## Relocate variables
+
+```{r, eval = T}
+df <- df |> 
+  relocate(c(raw_score, score, ci_95, percentile, range), .after = scale) |> 
+  relocate(c(description, result), .after = score_type)
+```
+
+# Export BRSA-4 csv file
+
+```{r write-out}
+readr::write_excel_csv(df, here::here("csv", "bsra4.csv"), col_names = TRUE, na = "")
+
+if (any(is.na(df$scale))) {
+  stop("STOP!!! NA value found in percentile column. Please fill in missing values.")
+}
+```
+
+## Export to "g3"
+
+```{r writeout-g}
+has_headers <- function(file_path) {
+  if (!file.exists(file_path)) {
+    return(FALSE) # File doesn't exist, headers are needed
+  }
+  # Check if the file has at least one line (header)
+  return(length(readLines(file_path, n = 1)) > 0)
+}
+
+test <- "g3"
+file_path <- here::here(paste0(test, ".csv"))
+
+readr::write_excel_csv(
+  df,
+  file_path,
+  append = TRUE,
+  col_names = !has_headers(file_path),
+  quote = "all"
+)
+```
