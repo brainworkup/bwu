@@ -127,7 +127,7 @@ gpluck_extract_tables <-
 #' @details This function adds new columns to a data frame by extracting numerical values from PDF tables.
 #' @rdname gpluck_make_columns
 #' @export
-gpluck_make_columns <- function(df,
+gpluck_make_columns <- function(data,
                                 test,
                                 test_name,
                                 scale = NULL,
@@ -200,7 +200,7 @@ gpluck_make_columns <- function(df,
                                 description = NULL,
                                 result = NULL,
                                 ...) {
-  df <- df |>
+  table <- data |>
     dplyr::mutate(
       test = test,
       test_name = test_name,
@@ -219,7 +219,7 @@ gpluck_make_columns <- function(df,
       score_type = score_type,
       test_type = test_type,
       absort = paste0(tolower(test), "_", seq_len(nrow(data))),
-      row_names = gsub(" ", "", paste(tolower(test), tolower(scale), sep = "_")),
+      # row_names = gsub(" ", "", paste(tolower(test), tolower(scale), sep = "_")),
       description = description,
       result = result,
       ...
@@ -248,7 +248,13 @@ gpluck_make_score_ranges <-
            percentile,
            range,
            subdomain = NULL,
-           test_type = c("npsych_test", "rating_scale", "performance_validity", "symptom_validity", "basc3"),
+           test_type = c(
+             "npsych_test",
+             "rating_scale",
+             "performance_validity",
+             "symptom_validity",
+             "basc3"
+           ),
            ...) {
     if (test_type == "npsych_test") {
       table <-
@@ -313,7 +319,7 @@ gpluck_make_score_ranges <-
         dplyr::mutate(
           range = dplyr::case_when(
             score >= 60 & subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Normative Strength",
-            score %in% 40:59 & subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Within Normal Limits",
+            score %in% 40:59 & subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Average",
             score %in% 30:39 &
               subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "At-Risk",
             score %in% 20:29 &
@@ -327,7 +333,7 @@ gpluck_make_score_ranges <-
             score %in% 60:69 &
               subdomain != c("Adaptive Skills", "Personal Adjustment") ~ "At-Risk",
             score %in% 40:59 &
-              subdomain != c("Adaptive Skills", "Personal Adjustment") ~ "Within Normal Limits",
+              subdomain != c("Adaptive Skills", "Personal Adjustment") ~ "Average",
             score <= 39 &
               subdomain != c("Adaptive Skills", "Personal Adjustment") ~ "Normative Strength",
             TRUE ~ as.character(range)

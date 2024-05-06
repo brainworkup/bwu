@@ -5,7 +5,7 @@
 \title{Insert Variables and Data from Tables into DF.}
 \usage{
 gpluck_make_columns(
-  df,
+  data,
   test,
   test_name,
   scale = NULL,
@@ -36,6 +36,8 @@ gpluck_make_columns(
 )
 }
 \arguments{
+\item{data}{Data frame to convert to table and then csv.}
+
 \item{test}{Name of test that information will be extracted from.}
 
 \item{test_name}{Test name as provided in test field.}
@@ -83,8 +85,6 @@ validity_indicator, item. Default: c("npsych_test", "rating_scale",
 \item{result}{Concatenate the results to include details of test performance. Default: NULL}
 
 \item{...}{Other parameters.}
-
-\item{data}{Data frame to convert to table and then csv.}
 }
 \value{
 A modified data frame with additional columns.
