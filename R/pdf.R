@@ -127,7 +127,7 @@ gpluck_extract_tables <-
 #' @details This function adds new columns to a data frame by extracting numerical values from PDF tables.
 #' @rdname gpluck_make_columns
 #' @export
-gpluck_make_columns <- function(data,
+gpluck_make_columns <- function(df,
                                 test,
                                 test_name,
                                 scale = NULL,
@@ -200,7 +200,7 @@ gpluck_make_columns <- function(data,
                                 description = NULL,
                                 result = NULL,
                                 ...) {
-  table <- data |>
+  df <- df |>
     dplyr::mutate(
       test = test,
       test_name = test_name,
@@ -312,24 +312,24 @@ gpluck_make_score_ranges <-
         table |>
         dplyr::mutate(
           range = dplyr::case_when(
-            score >= 60 & subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Strength",
-            score %in% 40:59 & subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "WNL",
+            score >= 60 & subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Normative Strength",
+            score %in% 40:59 & subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Within Normal Limits",
             score %in% 30:39 &
-              subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Mildly Elevated",
+              subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "At-Risk",
             score %in% 20:29 &
-              subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Significantly Elevated",
-            score <= 29 &
-              subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Markedly Elevated",
+              subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Clinically Significant",
+            score <= 20 &
+              subdomain %in% c("Adaptive Skills", "Personal Adjustment") ~ "Markedly Impaired",
             score >= 80 &
               subdomain != c("Adaptive Skills", "Personal Adjustment") ~ "Markedly Elevated",
             score %in% 70:79 &
-              subdomain != c("Adaptive Skills", "Personal Adjustment") ~ "Significantly Elevated",
+              subdomain != c("Adaptive Skills", "Personal Adjustment") ~ "Clinically Significant",
             score %in% 60:69 &
-              subdomain != c("Adaptive Skills", "Personal Adjustment") ~ "Mildly Elevated",
+              subdomain != c("Adaptive Skills", "Personal Adjustment") ~ "At-Risk",
             score %in% 40:59 &
-              subdomain != c("Adaptive Skills", "Personal Adjustment") ~ "WNL",
+              subdomain != c("Adaptive Skills", "Personal Adjustment") ~ "Within Normal Limits",
             score <= 39 &
-              subdomain != c("Adaptive Skills", "Personal Adjustment") ~ "Strength",
+              subdomain != c("Adaptive Skills", "Personal Adjustment") ~ "Normative Strength",
             TRUE ~ as.character(range)
           )
         )
