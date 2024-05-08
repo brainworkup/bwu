@@ -105,10 +105,10 @@ load_data <- function(patient) {
     dplyr::ungroup()
 
   # Write processed data to CSVs
-  readr::write_csv(neuropsych, here::here(patient, "neuropsych.csv"))
-  readr::write_csv(neurocog, here::here(patient, "neurocog.csv"))
-  readr::write_csv(neurobehav, here::here(patient, "neurobehav.csv"))
-  readr::write_csv(validity, here::here(patient, "validity.csv"))
+  readr::write_csv(neuropsych, here::here("neuropsych.csv"))
+  readr::write_csv(neurocog, here::here("neurocog.csv"))
+  readr::write_csv(neurobehav, here::here("neurobehav.csv"))
+  readr::write_csv(validity, here::here("validity.csv"))
 }
 
 #' Read Neuropsych Data for Subsetting
