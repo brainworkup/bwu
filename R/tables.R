@@ -20,10 +20,12 @@
 #' @param fn_standard_score Footnote for standard score.
 #' @param fn_t_score Footnote for t score.
 #' @param fn_z_score Footnote for z score.
+#' @param fn_raw_score Footnote for raw scores.
 #' @param grp_standard_score Groups for standard score.
 #' @param grp_t_score Groups for t score.
 #' @param grp_scaled_score Groups for scaled score.
 #' @param grp_z_score Groups for z score.
+#' @param grp_raw_score Groups for raw scores.
 #' @param dynamic_grp Generalized grouping parameter.
 #' @param vertical_padding Vertical padding.
 #' @param multiline Multiline footnotes, Default = TRUE.
@@ -44,10 +46,12 @@ tbl_gt <-
            fn_standard_score = NULL,
            fn_t_score = NULL,
            fn_z_score = NULL,
+           fn_raw_score = NULL,
            grp_scaled_score = NULL,
            grp_standard_score = NULL,
            grp_t_score = NULL,
            grp_z_score = NULL,
+           grp_raw_score = NULL,
            dynamic_grp,
            vertical_padding = NULL,
            multiline = TRUE,
@@ -97,6 +101,7 @@ tbl_gt <-
     grp_standard_score <- intersect(grp_standard_score, existing_row_groups)
     grp_t_score <- intersect(grp_t_score, existing_row_groups)
     grp_z_score <- intersect(grp_z_score, existing_row_groups)
+    grp_raw_score <- intersect(grp_raw_score, existing_row_groups)
 
     # Adding footnotes
     if (!is.null(fn_scaled_score) && any(grp_scaled_score %in% dynamic_grp[["scaled_score"]])) {
@@ -131,6 +136,15 @@ tbl_gt <-
         )
     }
 
+    if (!is.null(fn_raw_score) && any(grp_raw_score %in% dynamic_grp[["raw_score"]])) {
+      table <- table |>
+        tab_footnote(
+          footnote = fn_raw_score,
+          cells_row_groups(groups = grp_raw_score)
+        )
+    }
+
+    # Adding source note
     table <- table |>
       tab_style(
         style = cell_text(size = "small"),

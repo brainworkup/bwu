@@ -17,10 +17,12 @@ tbl_gt(
   fn_standard_score = NULL,
   fn_t_score = NULL,
   fn_z_score = NULL,
+  fn_raw_score = NULL,
   grp_scaled_score = NULL,
   grp_standard_score = NULL,
   grp_t_score = NULL,
   grp_z_score = NULL,
+  grp_raw_score = NULL,
   dynamic_grp,
   vertical_padding = NULL,
   multiline = TRUE,
@@ -52,6 +54,8 @@ tbl_gt(
 
 \item{fn_z_score}{Footnote for z score.}
 
+\item{fn_raw_score}{Footnote for raw scores.}
+
 \item{grp_scaled_score}{Groups for scaled score.}
 
 \item{grp_standard_score}{Groups for standard score.}
@@ -59,6 +63,8 @@ tbl_gt(
 \item{grp_t_score}{Groups for t score.}
 
 \item{grp_z_score}{Groups for z score.}
+
+\item{grp_raw_score}{Groups for raw scores.}
 
 \item{dynamic_grp}{Generalized grouping parameter.}
 
