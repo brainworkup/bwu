@@ -209,6 +209,10 @@ output:
 -   using bwu to write reports temporarily
 -   updated pluck_caars, pai
 
-## bwu 0.0.1.9000
+## bwu 0.0.2.9000
 
--   removed tabulapdf for tabulapdf
+-   removed `tabulizer` for `tabulapdf`
+
+## bwu 0.0.3.9000
+
+-   Many of the \_##\_domain.qmd files were poorly written syntatically

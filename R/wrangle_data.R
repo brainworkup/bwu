@@ -119,7 +119,7 @@ load_data <- function(patient) {
 #' @export
 read_data <- function(pheno) {
   # Check phenotype type and file path
-  if (pheno == "adhd" || pheno == "emotion") {
+  if (pheno == "adhd" || pheno == "emotion" || pheno == "adaptive") {
     csv <- "neurobehav.csv"
   } else {
     csv <- "neurocog.csv"

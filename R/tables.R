@@ -92,6 +92,7 @@ tbl_gt <-
     grp_scaled_score <- intersect(grp_scaled_score, existing_row_groups)
     grp_standard_score <- intersect(grp_standard_score, existing_row_groups)
     grp_t_score <- intersect(grp_t_score, existing_row_groups)
+    grp_z_score <- intersect(grp_z_score, existing_row_groups)
 
     # Adding footnotes
     if (!is.null(fn_scaled_score) && any(grp_scaled_score %in% dynamic_grp[["scaled_score"]])) {
@@ -115,6 +116,14 @@ tbl_gt <-
         tab_footnote(
           footnote = fn_t_score,
           cells_row_groups(groups = grp_t_score)
+        )
+    }
+
+    if (!is.null(fn_z_score) && any(grp_z_score %in% dynamic_grp[["z_score"]])) {
+      table <- table |>
+        tab_footnote(
+          footnote = fn_z_score,
+          cells_row_groups(groups = grp_z_score)
         )
     }
 
