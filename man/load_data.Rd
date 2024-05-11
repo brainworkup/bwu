@@ -2,23 +2,16 @@
 % Please edit documentation in R/wrangle_data.R
 \name{load_data}
 \alias{load_data}
-\alias{load_data2}
 \title{Read/Load Neuropsych Eval CSV Files}
 \usage{
-load_data(patient)
-
-load_data2()
+load_data(file_path)
 }
 \arguments{
-\item{patient}{character, Name of patient, e.g. "Biggie"}
+\item{file_path}{character, Name of patient file path}
 }
 \value{
 List with 4 elements, each element is a dataframe of patient data
-
-List with 4 elements, each element is a dataframe of patient data
 }
 \description{
-This function reads .csv files of patient data and writes four different files of the same data that are categorized by neuropsychological test type.
-
 This function reads .csv files of patient data and writes four different files of the same data that are categorized by neuropsychological test type.
 }
