@@ -6,7 +6,7 @@ data-raw/
 renv/.DS_Store
 .vscode
 .gitignore
-README.Rmd
+# README.Rmd
 renv/activate.R
 # Created by https://www.toptal.com/developers/gitignore/api/r
 # Edit at https://www.toptal.com/developers/gitignore?templates=r
