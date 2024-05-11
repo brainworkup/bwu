@@ -12,6 +12,7 @@
 #' @param pheno Phenotype name.
 #' @param table_name Name of the table to be saved.
 #' @param source_note Source note to be added to the table.
+#' @param names Names of the columns.
 #' @param title Title of the table.
 #' @param tab_stubhead Stubhead of the table.
 #' @param caption Caption of the table.
@@ -38,6 +39,7 @@ tbl_gt <-
            pheno = NULL,
            table_name = NULL,
            source_note = NULL,
+           names = NULL,
            title = NULL,
            tab_stubhead = NULL,
            caption = NULL,
@@ -160,8 +162,8 @@ tbl_gt <-
       ) |>
       opt_vertical_padding(scale = vertical_padding)
 
-    gtsave(table, glue("table_{pheno}.pdf"))
-    gtsave(table, glue("table_{pheno}.png"))
+    gt::gtsave(table, glue::glue("table_{pheno}.pdf"))
+    gt::gtsave(table, glue::glue("table_{pheno}.png"))
 
     table
   }

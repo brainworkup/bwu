@@ -9,6 +9,7 @@ tbl_gt(
   pheno = NULL,
   table_name = NULL,
   source_note = NULL,
+  names = NULL,
   title = NULL,
   tab_stubhead = NULL,
   caption = NULL,
@@ -37,6 +38,8 @@ tbl_gt(
 \item{table_name}{Name of the table to be saved.}
 
 \item{source_note}{Source note to be added to the table.}
+
+\item{names}{Names of the columns.}
 
 \item{title}{Title of the table.}
 
