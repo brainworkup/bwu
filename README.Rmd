@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/brainworkup/bwu/actions/workflows/r.yml/badge.svg)](https://github.com/brainworkup/bwu/actions/workflows/r.yml) [![R-CMD-check](https://github.com/brainworkup/bwu/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/brainworkup/bwu/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/brainworkup/bwu/actions/workflows/check-release.yaml/badge.svg)](https://github.com/brainworkup/bwu/actions/workflows/check-release.yaml)
 
 <!-- badges: end -->
 
