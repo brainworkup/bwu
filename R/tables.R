@@ -236,7 +236,7 @@ tbl_md_typ <- function(data, caption = NULL) {
 #' @param columns A character vector of column names to be included in the tibble, Default: c("scale", "score", "percentile", "range", "subdomain", "test_name")
 #' @param percentile A numeric vector indicating the percentile values to be truncated, Default: NULL
 #' @param round A numeric vector indicating the number of digits to round to, Default: 0
-#' @param names A character vector of column names to be set in the tibble, Default: c("Scale", "Score", "\u2030 Rank", "Range", "Subdomain", "Test")
+#' @param names A character vector of column names to be set in the tibble, Default: NULL
 #' @param ... Additional arguments to be passed to the function.
 #' @return A tibble with columns specified in 'columns', and set column names to 'names'.
 #' @rdname make_tibble

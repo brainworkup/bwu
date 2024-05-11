@@ -25,7 +25,7 @@ make_tibble(
 
 \item{round}{A numeric vector indicating the number of digits to round to, Default: 0}
 
-\item{names}{A character vector of column names to be set in the tibble, Default: c("Scale", "Score", "\\u2030 Rank", "Range", "Subdomain", "Test")}
+\item{names}{A character vector of column names to be set in the tibble, Default: NULL}
 
 \item{...}{Additional arguments to be passed to the function.}
 }
