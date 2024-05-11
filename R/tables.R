@@ -81,7 +81,7 @@ tbl_gt <-
         test_name = md("**Test**"),
         scale = md("**Scale**"),
         score = md("**Score**"),
-        percentile = md("**\u2030 Rank**"),
+        percentile = md("**\\u2030 Rank**"),
         range = md("**Range**")
       ) |>
       tab_header(title = title) |>
@@ -540,7 +540,8 @@ generate_g <- function(data, patient, scales, index_score_file) {
 }
 
 # footnotes
-fn_scaled_score <- gt::md("Scaled Score: Mean = 10 [50th\u2030], SD ± 3 [16th\u2030, 84th\u2030]")
-fn_standard_score <- gt::md("Standard Score: Mean = 100 [50th\u2030], SD ± 15 [16th\u2030, 84th\u2030]")
-fn_t_score <- gt::md("*T* Score: Mean = 50 [50th\u2030], SD ± 10 [16th\u2030, 84th\u2030]")
-fn_z_score <- gt::md("*z* Score: Mean = 0 [50th\u2030], SD ± 1 [16th\u2030, 84th\u2030]")
+fn_scaled_score <- gt::md("Scaled Score: Mean = 10 [50th\u2030], SD \u00B1 3 [16th\u2030, 84th\u2030]")
+fn_standard_score <- gt::md("Standard Score: Mean = 100 [50th\u2030], SD \u00B1 15 [16th\u2030, 84th\u2030]")
+fn_t_score <- gt::md("*T* Score: Mean = 50 [50th\u2030], SD \u00B1 10 [16th\u2030, 84th\u2030]")
+fn_z_score <- gt::md("*z* Score: Mean = 0 [50th\u2030], SD \u00B1 1 [16th\u2030, 84th\u2030]")
+fn_raw_score <- gt::md("Raw score: Range = 1-4")
