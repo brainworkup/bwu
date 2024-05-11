@@ -267,12 +267,12 @@ make_tibble <- function(data,
                         ...) {
   # Filter data based on the phenotype of interest
   tibb <-
-    dplyr::filter(data, domain == domain) %>%
-    dplyr::select(tidyselect::all_of(columns)) %>%
-    dplyr::mutate(percentile = round(percentile, digits = round)) %>%
+    dplyr::filter(data, domain == domain) |>
+    dplyr::select(tidyselect::all_of(columns)) |>
+    dplyr::mutate(percentile = round(percentile, digits = round)) |>
     purrr::set_names(names)
 
-  return(tibb)
+  tibb
 }
 
 #' @title Use Excel Index Scores to Create "g.csv"
