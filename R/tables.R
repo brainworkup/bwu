@@ -81,7 +81,7 @@ tbl_gt <-
         test_name = md("**Test**"),
         scale = md("**Scale**"),
         score = md("**Score**"),
-        percentile = md("**‰ Rank**"),
+        percentile = md("**\u2030 Rank**"),
         range = md("**Range**")
       ) |>
       tab_header(title = title) |>
@@ -163,7 +163,7 @@ tbl_gt <-
     gtsave(table, glue("table_{pheno}.pdf"))
     gtsave(table, glue("table_{pheno}.png"))
 
-    return(table)
+    table
   }
 
 #' @title Create Kable Table from Data
@@ -220,7 +220,7 @@ tbl_md_typ <- function(data, caption = NULL) {
       caption = caption
     )
 
-  return(data)
+  data
 }
 
 
