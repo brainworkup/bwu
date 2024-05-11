@@ -216,7 +216,12 @@ tbl_md_typ <- function(data, caption = NULL) {
       booktabs = TRUE,
       linesep = "",
       align = c("lccc"),
-      col.names = c("**Scale**", "**Score**", "**‰ Rank**", "**Range**"),
+      col.names = c(
+        "**Scale**",
+        "**Score**",
+        "**\u2030 Rank**",
+        "**Range**"
+      ),
       caption = caption
     )
 
@@ -231,7 +236,7 @@ tbl_md_typ <- function(data, caption = NULL) {
 #' @param columns A character vector of column names to be included in the tibble, Default: c("scale", "score", "percentile", "range", "subdomain", "test_name")
 #' @param percentile A numeric vector indicating the percentile values to be truncated, Default: NULL
 #' @param round A numeric vector indicating the number of digits to round to, Default: 0
-#' @param names A character vector of column names to be set in the tibble, Default: c("Scale", "Score", "‰ Rank", "Range", "Subdomain", "Test")
+#' @param names A character vector of column names to be set in the tibble, Default: c("Scale", "Score", "\u2030 Rank", "Range", "Subdomain", "Test")
 #' @param ... Additional arguments to be passed to the function.
 #' @return A tibble with columns specified in 'columns', and set column names to 'names'.
 #' @rdname make_tibble
@@ -254,7 +259,7 @@ make_tibble <- function(data,
                         names = c(
                           "Scale",
                           "Score",
-                          "‰ Rank",
+                          "\u2030 Rank",
                           "Range",
                           "Subdomain",
                           "Test"
@@ -535,7 +540,7 @@ generate_g <- function(data, patient, scales, index_score_file) {
 }
 
 # footnotes
-fn_scaled_score <- gt::md("Scaled Score: Mean = 10 [50th‰], SD ± 3 [16th‰, 84th‰]")
-fn_standard_score <- gt::md("Standard Score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰]")
-fn_t_score <- gt::md("*T* Score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
-fn_z_score <- gt::md("*z* Score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]")
+fn_scaled_score <- gt::md("Scaled Score: Mean = 10 [50th\u2030], SD ± 3 [16th\u2030, 84th\u2030]")
+fn_standard_score <- gt::md("Standard Score: Mean = 100 [50th\u2030], SD ± 15 [16th\u2030, 84th\u2030]")
+fn_t_score <- gt::md("*T* Score: Mean = 50 [50th\u2030], SD ± 10 [16th\u2030, 84th\u2030]")
+fn_z_score <- gt::md("*z* Score: Mean = 0 [50th\u2030], SD ± 1 [16th\u2030, 84th\u2030]")
