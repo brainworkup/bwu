@@ -2,7 +2,7 @@
 % Please edit documentation in R/render_report.R
 \name{render_report}
 \alias{render_report}
-\title{FUNCTION_TITLE}
+\title{Render REport}
 \usage{
 render_report(
   patient = "Biggie",
@@ -13,31 +13,21 @@ render_report(
 )
 }
 \arguments{
-\item{patient}{PARAM_DESCRIPTION}
+\item{patient}{Patient name.}
 
-\item{input}{PARAM_DESCRIPTION}
+\item{input}{Input.}
 
-\item{output_format}{adult or child}
+\item{output_format}{adult or child.}
 
-\item{params}{Parameters or "ask"}
+\item{params}{Parameters or "ask".}
 
-\item{...}{Patient name, etc}
+\item{...}{Patient name, etc.}
 }
 \value{
-OUTPUT_DESCRIPTION
+RMarkdown report
 }
 \description{
-FUNCTION_DESCRIPTION
-}
-\details{
-DETAILS
-}
-\examples{
-\dontrun{
-if (interactive()) {
-  # EXAMPLE1
-}
-}
+Not sure
 }
 \seealso{
 \link[rmarkdown:render]{render}

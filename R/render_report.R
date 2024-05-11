@@ -1,18 +1,11 @@
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
-#' @param input PARAM_DESCRIPTION
-#' @param patient PARAM_DESCRIPTION
-#' @param output_format adult or child
-#' @param params Parameters or "ask"
-#' @param ... Patient name, etc
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
-#' @examples
-#' \dontrun{
-#' if (interactive()) {
-#'   # EXAMPLE1
-#' }
-#' }
+#' @title Render REport
+#' @description Not sure
+#' @param input Input.
+#' @param patient Patient name.
+#' @param output_format adult or child.
+#' @param params Parameters or "ask".
+#' @param ... Patient name, etc.
+#' @return RMarkdown report
 #' @seealso
 #'  [render][rmarkdown::render]
 #'  [pdf_document2][bookdown::pdf_document2]

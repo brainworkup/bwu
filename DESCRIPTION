@@ -1,7 +1,7 @@
 Type: Package
 Package: bwu
 Title: BrainWorkUp Neuropsychological Report Writing Package
-Version: 0.0.3.9000
+Version: 0.0.1.9005
 Author: person("Joey", "Trampush", email = trampush@usc.edu,
       role = c("aut", "cre"))
 Maintainer: Joey Trampush <trampush@usc.edu>
@@ -20,8 +20,6 @@ Imports:
     ggtext,
     ggthemes,
     glue,
-    googledrive,
-    grDevices,
     gt,
     gtExtras,
     here,
@@ -43,12 +41,12 @@ Imports:
     tibble,
     tidyr,
     tidyselect,
-    utils,
     xfun
 Suggests:
     Cairo,
     fs,
     graphics,
+    grDevices,
     hablar,
     magick,
     png,
@@ -59,6 +57,7 @@ Suggests:
     tidytable,
     tufte,
     usethis (>= 1.5.0),
+    utils,
     vroom,
     xaringan
 Remotes:

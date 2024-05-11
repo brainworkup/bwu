@@ -72,3 +72,4 @@
 ^test\_that\_tmt\.R$
 ^\.tmp\.driveupload$
 ^app_drilldown\.R$
+^upload_to_drive\.R$
