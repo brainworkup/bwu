@@ -26,7 +26,7 @@ tbl_gt(
   grp_raw_score = NULL,
   dynamic_grp,
   vertical_padding = NULL,
-  multiline = FALSE,
+  multiline = TRUE,
   ...
 )
 }
@@ -73,7 +73,7 @@ tbl_gt(
 
 \item{vertical_padding}{Vertical padding.}
 
-\item{multiline}{Multiline footnotes, Default = FALSE.}
+\item{multiline}{Multiline footnotes, Default = TRUE.}
 
 \item{...}{Additional arguments to be passed to the function.}
 }
