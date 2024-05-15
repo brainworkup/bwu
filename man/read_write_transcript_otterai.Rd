@@ -4,12 +4,12 @@
 \alias{read_write_transcript_otterai}
 \title{Extract and Save NSE Transcript from Otter.ai}
 \usage{
-read_write_transcript_otterai(x, file, begin, end, eol = "\\\\n")
+read_write_transcript_otterai(input, output, begin, end, eol = "\\\\n")
 }
 \arguments{
-\item{x}{A character string specifying the path to the input file.}
+\item{input}{A character string specifying the path to the input file.}
 
-\item{file}{A character string specifying the path to the output file where the extracted transcript will be saved.}
+\item{output}{A character string specifying the path to the output file where the extracted transcript will be saved.}
 
 \item{begin}{A character string specifying the pattern that marks the beginning of the transcript in the input file.}
 

@@ -56,28 +56,29 @@ tbl_gt <-
            grp_raw_score = NULL,
            dynamic_grp,
            vertical_padding = NULL,
-           multiline = TRUE,
+           multiline = NULL,
            ...) {
     # create data counts
     data_counts <- data |>
-      select(test_name, scale, score, percentile, range) |>
-      mutate(across(c(score, percentile), ~ tidyr::replace_na(., replace = 0)))
+      dplyr::select(test_name, scale, score, percentile, range) |>
+      dplyr::mutate(across(c(score, percentile), ~ tidyr::replace_na(., replace = 0)))
 
     # create table
     table <- data_counts |>
-      mutate(
+      dplyr::mutate(
         score = if_else(score == 0, NA_integer_, score),
         percentile = if_else(percentile == 0, NA_integer_, percentile),
         test_name = as.character(paste0(test_name)),
         scale = as.character(scale)
       ) |>
       # gt table formatting
-      gt(
+      gt::gt(
         rowname_col = "scale",
         groupname_col = "test_name",
         process_md = process_md,
         caption = caption,
-        rownames_to_stub = FALSE
+        rownames_to_stub = FALSE,
+        id = paste0("table_", pheno)
       ) |>
       cols_label(
         test_name = md("**Test**"),
@@ -90,8 +91,10 @@ tbl_gt <-
       tab_stubhead(label = tab_stubhead) |>
       sub_missing(missing_text = "--") |>
       tab_stub_indent(rows = scale, indent = 2) |>
-      cols_align(align = "center",
-                 columns = c("score", "percentile", "range"))
+      cols_align(
+        align = "center",
+        columns = c("score", "percentile", "range")
+      )
 
     # Extract unique row groups from the data to check against the groups we want to apply footnotes to
     existing_row_groups <- unique(data$test_name)
@@ -105,38 +108,31 @@ tbl_gt <-
 
     # Adding footnotes
     if (!is.null(fn_scaled_score) &&
-        any(grp_scaled_score %in% dynamic_grp[["scaled_score"]])) {
+      any(grp_scaled_score %in% dynamic_grp[["scaled_score"]])) {
       table <- table |>
         tab_footnote(footnote = fn_scaled_score, cells_row_groups(groups = grp_scaled_score))
     }
 
     if (!is.null(fn_standard_score) &&
-        any(grp_standard_score %in% dynamic_grp[["standard_score"]])) {
+      any(grp_standard_score %in% dynamic_grp[["standard_score"]])) {
       table <- table |>
-        tab_footnote(
-          footnote = fn_standard_score,
-          locations = cells_body(columns = score, rows = scale == max(scale)),
-          placement = "left"
-        ) |>
-        opt_footnote_marks(marks = c("*", "+"))
-      cells_row_groups(groups = grp_standard_score)
-
+        tab_footnote(footnote = fn_standard_score, cells_row_groups(groups = grp_standard_score))
     }
 
     if (!is.null(fn_t_score) &&
-        any(grp_t_score %in% dynamic_grp[["t_score"]])) {
+      any(grp_t_score %in% dynamic_grp[["t_score"]])) {
       table <- table |>
         tab_footnote(footnote = fn_t_score, cells_row_groups(groups = grp_t_score))
     }
 
     if (!is.null(fn_z_score) &&
-        any(grp_z_score %in% dynamic_grp[["z_score"]])) {
+      any(grp_z_score %in% dynamic_grp[["z_score"]])) {
       table <- table |>
         tab_footnote(footnote = fn_z_score, cells_row_groups(groups = grp_z_score))
     }
 
     if (!is.null(fn_raw_score) &&
-        any(grp_raw_score %in% dynamic_grp[["raw_score"]])) {
+      any(grp_raw_score %in% dynamic_grp[["raw_score"]])) {
       table <- table |>
         tab_footnote(footnote = fn_raw_score, cells_row_groups(groups = grp_raw_score))
     }
@@ -146,14 +142,17 @@ tbl_gt <-
       tab_style(style = cell_text(size = "small"), locations = cells_source_notes()) |>
       tab_source_note(source_note = source_note) |>
       gtExtras::gt_theme_538() |>
-      tab_options(row_group.font.weight = "bold",
-                  footnotes.multiline = multiline) |>
+      tab_options(
+        row_group.font.weight = "bold",
+        footnotes.multiline = multiline,
+        footnotes.font.size = "small"
+      ) |>
       opt_vertical_padding(scale = vertical_padding)
 
     gt::gtsave(table, glue::glue("table_{pheno}.pdf"))
     gt::gtsave(table, glue::glue("table_{pheno}.png"))
 
-    table
+    return(table)
   }
 
 

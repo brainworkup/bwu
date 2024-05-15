@@ -26,7 +26,7 @@ tbl_gt(
   grp_raw_score = NULL,
   dynamic_grp,
   vertical_padding = NULL,
-  multiline = TRUE,
+  multiline = NULL,
   ...
 )
 }

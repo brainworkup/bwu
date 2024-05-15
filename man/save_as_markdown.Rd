@@ -2,7 +2,7 @@
 % Please edit documentation in R/text.R
 \name{save_as_markdown}
 \alias{save_as_markdown}
-\title{Save extracted text as markdown.}
+\title{Save Speech-to-Text As Markdown}
 \usage{
 save_as_markdown(text, output_path)
 }
@@ -12,18 +12,8 @@ save_as_markdown(text, output_path)
 \item{output_path}{Where to save outoput.}
 }
 \value{
-OUTPUT_DESCRIPTION
+Markdown text file
 }
 \description{
-FUNCTION_DESCRIPTION
-}
-\details{
-DETAILS
-}
-\examples{
-\dontrun{
-if (interactive()) {
-  # EXAMPLE1
-}
-}
+This function saves the extracted text from a speech-to-text as markdown.
 }
