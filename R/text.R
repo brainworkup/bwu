@@ -1,8 +1,8 @@
 #' @title Extract and Save NSE Transcript from Otter.ai
 #' @description This function extracts the text between given beginning and ending patterns from a file and saves the transcript to another file.
 #' @importFrom stringr str_match_all str_squish
-#' @param x A character string specifying the path to the input file.
-#' @param file A character string specifying the path to the output file where the extracted transcript will be saved.
+#' @param input A character string specifying the path to the input file.
+#' @param output A character string specifying the path to the output file where the extracted transcript will be saved.
 #' @param begin A character string specifying the pattern that marks the beginning of the transcript in the input file.
 #' @param end A character string specifying the pattern that marks the end of the transcript in the input file.
 #' @param eol A character string specifying the line ending to be used in the output file, default is '\\n'.
@@ -10,9 +10,9 @@
 #' @details This function uses regular expressions to extract text between specified patterns. It is useful for extracting structured text data, such as transcripts, from files.
 #' @rdname read_write_transcript_otterai
 #' @export
-read_write_transcript_otterai <- function(x, file, begin, end, eol = "\\n") {
+read_write_transcript_otterai <- function(input, output, begin, end, eol = "\\n") {
   # Read the entire file as a single string
-  content <- readChar(x, file.info(x)$size)
+  content <- readChar(input, file.info(input)$size)
 
   # Extract the text between the patterns
   transcript <- stringr::str_match_all(
@@ -25,8 +25,25 @@ read_write_transcript_otterai <- function(x, file, begin, end, eol = "\\n") {
   transcript <- paste(transcript, eol = "\n\n")
 
   # Write the formatted text to a markdown file
-  return(writeLines(transcript, file))
+  return(writeLines(transcript, output))
 }
+
+# Function to save extracted text as a markdown file
+#' @title Save Speech-to-Text As Markdown
+#' @description This function saves the extracted text from a speech-to-text as markdown.
+#' @param text Name of file.
+#' @param output_path Where to save outoput.
+#' @return Markdown text file
+#' @rdname save_as_markdown
+#' @export
+save_as_markdown <- function(text, output_path) {
+  # Add line breaks to separate paragraphs (optional)
+  formatted_text <- paste(text, collapse = "\n\n")
+
+  # Write the formatted text to a markdown file
+  writeLines(formatted_text, output_path)
+}
+
 
 #' @title Concatenate and Flatten Neuropsych Results by Scale
 #' @description This function sorts the data by percentile, removes duplicates and converts the data to text. Finally, it appends the converted data to a file.
@@ -115,27 +132,4 @@ concatenate_results <- function(df) {
     percentile_as_percentage <- paste0(row["percentile"], "%")
     glue("The patient's {row['scale']} score of {row['score']} ({row['ci_95']}) is classified as {row['range']} and is ranked at the {row['percentile']}th percentile, indicating performance as good as or better than {percentile_as_percentage} of same age peers from the general population. This estimate of {row['description']} is considered {sw}.")
   })
-}
-
-# Function to save extracted text as a markdown file
-#' @title Save extracted text as markdown.
-#' @description FUNCTION_DESCRIPTION
-#' @param text Name of file.
-#' @param output_path Where to save outoput.
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
-#' @examples
-#' \dontrun{
-#' if (interactive()) {
-#'   # EXAMPLE1
-#' }
-#' }
-#' @rdname save_as_markdown
-#' @export
-save_as_markdown <- function(text, output_path) {
-  # Add line breaks to separate paragraphs (optional)
-  formatted_text <- paste(text, collapse = "\n\n")
-
-  # Write the formatted text to a markdown file
-  writeLines(formatted_text, output_path)
 }
