@@ -106,36 +106,47 @@ tbl_gt <-
     grp_z_score <- intersect(grp_z_score, existing_row_groups)
     grp_raw_score <- intersect(grp_raw_score, existing_row_groups)
 
-    # Adding footnotes
-    if (!is.null(fn_scaled_score) &&
-      any(grp_scaled_score %in% dynamic_grp[["scaled_score"]])) {
+    # Adding footnotes (modified)
+    if (!is.null(fn_scaled_score) && any(grp_scaled_score %in% dynamic_grp[["scaled_score"]])) {
       table <- table |>
-        tab_footnote(footnote = fn_scaled_score, cells_row_groups(groups = grp_scaled_score))
+        tab_footnote(
+          footnote = fn_scaled_score,
+          locations = cells_row_groups(groups = grp_scaled_score, columns = "score") # Target the "score" column
+        )
     }
 
-    if (!is.null(fn_standard_score) &&
-      any(grp_standard_score %in% dynamic_grp[["standard_score"]])) {
+    if (!is.null(fn_standard_score) && any(grp_standard_score %in% dynamic_grp[["standard_score"]])) {
       table <- table |>
-        tab_footnote(footnote = fn_standard_score, cells_row_groups(groups = grp_standard_score))
+        tab_footnote(
+          footnote = fn_standard_score,
+          locations = cells_row_groups(groups = grp_standard_score, columns = "score")
+        )
     }
 
-    if (!is.null(fn_t_score) &&
-      any(grp_t_score %in% dynamic_grp[["t_score"]])) {
+    if (!is.null(fn_t_score) && any(grp_t_score %in% dynamic_grp[["t_score"]])) {
       table <- table |>
-        tab_footnote(footnote = fn_t_score, cells_row_groups(groups = grp_t_score))
+        tab_footnote(
+          footnote = fn_t_score,
+          locations = cells_row_groups(groups = grp_t_score, columns = "score")
+        )
     }
 
-    if (!is.null(fn_z_score) &&
-      any(grp_z_score %in% dynamic_grp[["z_score"]])) {
+    if (!is.null(fn_z_score) && any(grp_z_score %in% dynamic_grp[["z_score"]])) {
       table <- table |>
-        tab_footnote(footnote = fn_z_score, cells_row_groups(groups = grp_z_score))
+        tab_footnote(
+          footnote = fn_z_score,
+          locations = cells_row_groups(groups = grp_z_score, columns = "score")
+        )
     }
 
-    if (!is.null(fn_raw_score) &&
-      any(grp_raw_score %in% dynamic_grp[["raw_score"]])) {
+    if (!is.null(fn_raw_score) && any(grp_raw_score %in% dynamic_grp[["raw_score"]])) {
       table <- table |>
-        tab_footnote(footnote = fn_raw_score, cells_row_groups(groups = grp_raw_score))
+        tab_footnote(
+          footnote = fn_raw_score,
+          locations = cells_row_groups(groups = grp_raw_score, columns = "score")
+        )
     }
+
 
     # Adding source note
     table <- table |>
@@ -535,3 +546,128 @@ fn_standard_score <- gt::md("Standard Score: Mean = 100 [50th\u2030], SD \u00B1 
 fn_t_score <- gt::md("*T* Score: Mean = 50 [50th\u2030], SD \u00B1 10 [16th\u2030, 84th\u2030]")
 fn_z_score <- gt::md("*z* Score: Mean = 0 [50th\u2030], SD \u00B1 1 [16th\u2030, 84th\u2030]")
 fn_raw_score <- gt::md("Raw score: Range = 1-4")
+
+
+#' @title Make Table Using `gt` Package for Neurocognitive Domains v2
+#' @description Create a table of domain counts using dplyr and gt packages.
+#' @importFrom dplyr select mutate across if_else filter
+#' @importFrom tidyr replace_na
+#' @importFrom gt gt cols_label tab_stub_indent tab_header sub_missing
+#'   tab_options cols_align tab_source_note gtsave tab_style tab_stubhead
+#'   tab_caption tab_spanner cell_text cells_source_notes md tab_footnote
+#'   opt_vertical_padding cells_row_groups
+#' @importFrom gtExtras gt_theme_538
+#' @importFrom glue glue
+#' @param data File or path to data.
+#' @param pheno Phenotype name.
+#' @param table_name Name of the table to be saved.
+#' @param source_note Source note to be added to the table.
+#' @param names Names of the columns.
+#' @param title Title of the table.
+#' @param tab_stubhead Stubhead of the table.
+#' @param caption Caption of the table.
+#' @param process_md Process markdown.
+#' @param fn_scaled_score Footnote for scaled score.
+#' @param fn_standard_score Footnote for standard score.
+#' @param fn_t_score Footnote for t score.
+#' @param fn_z_score Footnote for z score.
+#' @param fn_raw_score Footnote for raw scores.
+#' @param grp_standard_score Groups for standard score.
+#' @param grp_t_score Groups for t score.
+#' @param grp_scaled_score Groups for scaled score.
+#' @param grp_z_score Groups for z score.
+#' @param grp_raw_score Groups for raw scores.
+#' @param dynamic_grp Generalized grouping parameter.
+#' @param vertical_padding Vertical padding.
+#' @param multiline Multiline footnotes, Default = TRUE.
+#' @param ... Additional arguments to be passed to the function.
+#' @return A formatted table with domain counts.
+#' @rdname tbl_gt2
+#' @export
+tbl_gt2 <- function(data,
+                    pheno = NULL,
+                    table_name = NULL,
+                    source_note = NULL,
+                    names = NULL,
+                    title = NULL,
+                    tab_stubhead = NULL,
+                    caption = NULL,
+                    process_md = FALSE,
+                    fn_scaled_score = NULL,
+                    fn_standard_score = NULL,
+                    fn_t_score = NULL,
+                    fn_z_score = NULL,
+                    fn_raw_score = NULL,
+                    grp_scaled_score = NULL,
+                    grp_standard_score = NULL,
+                    grp_t_score = NULL,
+                    grp_z_score = NULL,
+                    grp_raw_score = NULL,
+                    dynamic_grp,
+                    vertical_padding = NULL,
+                    multiline = TRUE,
+                    ...) {
+  # Prepare data
+  data_counts <- data |>
+    dplyr::select(test_name, scale, score, percentile, range) |>
+    dplyr::mutate(across(c(score, percentile), tidyr::replace_na, replace = 0)) |>
+    dplyr::mutate(
+      score = if_else(score == 0, NA_integer_, score),
+      percentile = if_else(percentile == 0, NA_integer_, percentile),
+      test_name = as.character(test_name),
+      scale = as.character(scale)
+    )
+
+  # Initialize gt table
+  table <- gt::gt(data_counts, rowname_col = "scale", groupname_col = "test_name", process_md = process_md, caption = caption, rownames_to_stub = FALSE, id = paste0("table_", pheno)) |>
+    gt::cols_label(
+      test_name = gt::md("**Test**"),
+      scale = gt::md("**Scale**"),
+      score = gt::md("**Score**"),
+      percentile = gt::md("**\u2030 Rank**"),
+      range = gt::md("**Range**")
+    ) |>
+    gt::tab_header(title = title) |>
+    gt::tab_stubhead(label = tab_stubhead) |>
+    gt::sub_missing(missing_text = "--") |>
+    gt::tab_stub_indent(rows = scale, indent = 2) |>
+    gt::cols_align(align = "center", columns = c("score", "percentile", "range"))
+
+  # Apply footnotes
+  footnote_groups <- list(
+    scaled_score = fn_scaled_score,
+    standard_score = fn_standard_score,
+    t_score = fn_t_score,
+    z_score = fn_z_score,
+    raw_score = fn_raw_score
+  )
+
+  for (grp in names(footnote_groups)) {
+    fn_text <- footnote_groups[[grp]]
+    if (!is.null(fn_text) && any(dynamic_grp[[grp]] %in% unique(data$test_name))) {
+      table <- table |>
+        gt::tab_footnote(
+          footnote = fn_text,
+          locations = gt::cells_row_groups(groups = intersect(dynamic_grp[[grp]], unique(data$test_name)), columns = "score")
+        )
+    }
+  }
+
+  # Finalize table styling
+  table <- table |>
+    gt::tab_style(style = gt::cell_text(size = "small"), locations = gt::cells_source_notes()) |>
+    gt::tab_source_note(source_note = source_note) |>
+    gtExtras::gt_theme_538() |>
+    gt::tab_options(
+      row_group.font.weight = "bold",
+      footnotes.multiline = multiline,
+      footnotes.font.size = "small"
+    ) |>
+    gt::opt_vertical_padding(scale = vertical_padding)
+
+  # Save table
+  gt::gtsave(table, filename = glue::glue("{table_name}_{pheno}.pdf"))
+  gt::gtsave(table, filename = glue::glue("{table_name}_{pheno}.png"))
+
+  return(table)
+}
