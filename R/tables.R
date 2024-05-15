@@ -29,7 +29,7 @@
 #' @param grp_raw_score Groups for raw scores.
 #' @param dynamic_grp Generalized grouping parameter.
 #' @param vertical_padding Vertical padding.
-#' @param multiline Multiline footnotes, Default = TRUE.
+#' @param multiline Multiline footnotes, Default = FALSE.
 #' @param ... Additional arguments to be passed to the function.
 #' @return A formatted table with domain counts.
 #' @rdname tbl_gt
@@ -56,7 +56,7 @@ tbl_gt <-
            grp_raw_score = NULL,
            dynamic_grp,
            vertical_padding = NULL,
-           multiline = NULL,
+           multiline = FALSE,
            ...) {
     # create data counts
     data_counts <- data |>
@@ -84,7 +84,7 @@ tbl_gt <-
         test_name = md("**Test**"),
         scale = md("**Scale**"),
         score = md("**Score**"),
-        percentile = md("**\u2030 Rank**"),
+        percentile = gt::md("**\u2030 Rank**"),
         range = md("**Range**")
       ) |>
       tab_header(title = title) |>
@@ -106,47 +106,36 @@ tbl_gt <-
     grp_z_score <- intersect(grp_z_score, existing_row_groups)
     grp_raw_score <- intersect(grp_raw_score, existing_row_groups)
 
-    # Adding footnotes (modified)
-    if (!is.null(fn_scaled_score) && any(grp_scaled_score %in% dynamic_grp[["scaled_score"]])) {
+    # Adding footnotes
+    if (!is.null(fn_scaled_score) &&
+      any(grp_scaled_score %in% dynamic_grp[["scaled_score"]])) {
       table <- table |>
-        tab_footnote(
-          footnote = fn_scaled_score,
-          locations = cells_row_groups(groups = grp_scaled_score, columns = "score") # Target the "score" column
-        )
+        tab_footnote(footnote = fn_scaled_score, cells_row_groups(groups = grp_scaled_score))
     }
 
-    if (!is.null(fn_standard_score) && any(grp_standard_score %in% dynamic_grp[["standard_score"]])) {
+    if (!is.null(fn_standard_score) &&
+      any(grp_standard_score %in% dynamic_grp[["standard_score"]])) {
       table <- table |>
-        tab_footnote(
-          footnote = fn_standard_score,
-          locations = cells_row_groups(groups = grp_standard_score, columns = "score")
-        )
+        tab_footnote(footnote = fn_standard_score, cells_row_groups(groups = grp_standard_score))
     }
 
-    if (!is.null(fn_t_score) && any(grp_t_score %in% dynamic_grp[["t_score"]])) {
+    if (!is.null(fn_t_score) &&
+      any(grp_t_score %in% dynamic_grp[["t_score"]])) {
       table <- table |>
-        tab_footnote(
-          footnote = fn_t_score,
-          locations = cells_row_groups(groups = grp_t_score, columns = "score")
-        )
+        tab_footnote(footnote = fn_t_score, cells_row_groups(groups = grp_t_score))
     }
 
-    if (!is.null(fn_z_score) && any(grp_z_score %in% dynamic_grp[["z_score"]])) {
+    if (!is.null(fn_z_score) &&
+      any(grp_z_score %in% dynamic_grp[["z_score"]])) {
       table <- table |>
-        tab_footnote(
-          footnote = fn_z_score,
-          locations = cells_row_groups(groups = grp_z_score, columns = "score")
-        )
+        tab_footnote(footnote = fn_z_score, cells_row_groups(groups = grp_z_score))
     }
 
-    if (!is.null(fn_raw_score) && any(grp_raw_score %in% dynamic_grp[["raw_score"]])) {
+    if (!is.null(fn_raw_score) &&
+      any(grp_raw_score %in% dynamic_grp[["raw_score"]])) {
       table <- table |>
-        tab_footnote(
-          footnote = fn_raw_score,
-          locations = cells_row_groups(groups = grp_raw_score, columns = "score")
-        )
+        tab_footnote(footnote = fn_raw_score, cells_row_groups(groups = grp_raw_score))
     }
-
 
     # Adding source note
     table <- table |>
@@ -165,6 +154,7 @@ tbl_gt <-
 
     return(table)
   }
+
 
 
 #' @title Create Kable Table from Data
@@ -579,7 +569,7 @@ fn_raw_score <- gt::md("Raw score: Range = 1-4")
 #' @param grp_raw_score Groups for raw scores.
 #' @param dynamic_grp Generalized grouping parameter.
 #' @param vertical_padding Vertical padding.
-#' @param multiline Multiline footnotes, Default = TRUE.
+#' @param multiline Multiline footnotes, Default = FALSE.
 #' @param ... Additional arguments to be passed to the function.
 #' @return A formatted table with domain counts.
 #' @rdname tbl_gt2
@@ -605,7 +595,7 @@ tbl_gt2 <- function(data,
                     grp_raw_score = NULL,
                     dynamic_grp,
                     vertical_padding = NULL,
-                    multiline = TRUE,
+                    multiline = FALSE,
                     ...) {
   # Prepare data
   data_counts <- data |>
