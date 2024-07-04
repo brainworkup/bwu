@@ -4,7 +4,7 @@
 \name{bwu-package}
 \alias{bwu}
 \alias{bwu-package}
-\title{bwu: BrainWorkUp Neuropsychological Report Writing Package}
+\title{bwu: BrainWorkup Neuropsychological Report Writing Package}
 \description{
 This package stores the functions and normative datasets to use for neuropsychological assessments at the USC Keck School of Medicine Department of Psychiatry and the Behavioral Sciences. Hopefully it works.
 }

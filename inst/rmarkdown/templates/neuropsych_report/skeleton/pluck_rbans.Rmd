@@ -1,7 +1,7 @@
 ---
 title: "Create table and csv for RBANS"
 params:
-  patient: Biggie
+  patient: Brooklyn
   test:
     label: "Test"
     value: rbans
@@ -23,6 +23,22 @@ params:
     label: "No file selected"
     value: file
     input: file
+  pct1:
+    label: "Percentile 1"
+    value: 44
+    input: numeric
+  pct2:
+    label: "Percentile 2"
+    value: 55
+    input: numeric
+  pct3:
+    label: "Percentile 3"
+    value: 66
+    input: numeric
+  pct4:
+    label: "Percentile 4"
+    value: 77
+    input: numeric
   eval: TRUE
 output:
   rmdformats::robobook:
@@ -31,17 +47,14 @@ output:
 
 # Data
 
--   Export CSV file from Q-interactive
+-   Export raw CSV file from Q-interactive using "download files" or whatever its callled
 
 # Setup
 
 ```{r setup, include=F}
 # Set JAVA environment
-Sys.setenv(
-  JAVA_HOME =
-    "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home"
-)
-options(java.parameters = "-Xmx16000m")
+Sys.setenv(JAVA_HOME = "/Library/Java/JavaVirtualMachines/graalvm-community-openjdk-22.0.1+8.1/Contents/Home")
+# options(java.parameters = "-Xmx16000m")
 knitr::opts_chunk$set(
   root.dir = normalizePath("./"),
   echo = FALSE,
@@ -82,32 +95,15 @@ test_name <- params$test_name
 ## Load text/csv file and save as file.path
 
 ```{r file}
-#input_file_path <- file.choose()
-input_file_path <- file.path(params$file)
-```
-
-## Google Drive
-
-```{r}
-library(googledrive)
-
-# Set the scope to allow viewing and managing files in Google Drive
-drive_scopes(scopes = "https://www.googleapis.com/auth/drive.file")
-
-# Authenticate and create a drive
-drive_auth()
-drive <- drive_get()
-
-# Upload a file to the drive
-file_path <- "/Users/joey/My Drive/004004907_3_10_2024.csv"
-drive_upload(media = file_path, name = "004004907_3_10_2024.csv")
+input_file_path <- file.path(file.choose())
+# input_file_path <- file.path(params$file)
 ```
 
 ## RAW SCORES
 
 ```{r}
 library(tidyverse)
-input_file_path <- "data/004004907_3_10_2024.csv"
+input_file_path <- "data/0099999_5_11_2024Brooklyn_S_FollowUp_ADHD-LD_Age14_scores.csv"
 test_name_prefix <- "RBANS Update Form A "
 output_file_path <- "data/processed_rbans_raw_data.csv"
 
@@ -365,10 +361,10 @@ process_and_save_rbans_data <- function(rbans_raw,
     left_join(rbans_time, by = "scale")
   
   # Update specific percentile values
-  df$percentile[df$scale == "RBANS Update Form A Line Orientation"] <- 20
-  df$percentile[df$scale == "RBANS Update Form A Picture Naming"] <- 20
-  df$percentile[df$scale == "RBANS Update Form A List Recall"] <- 70
-  df$percentile[df$scale == "RBANS Update Form A List Recognition"] <- 50
+  df$percentile[df$scale == "RBANS Update Form A Line Orientation"] <- (params$pct1)
+  df$percentile[df$scale == "RBANS Update Form A Picture Naming"] <- (params$pct2)
+  df$percentile[df$scale == "RBANS Update Form A List Recall"] <- (params$pct3)
+  df$percentile[df$scale == "RBANS Update Form A List Recognition"] <- (params$pct4)
   
   # Recalculate percentiles based on score
   df <- df |>

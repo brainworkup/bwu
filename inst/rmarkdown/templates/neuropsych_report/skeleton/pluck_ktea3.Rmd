@@ -1,0 +1,734 @@
+---
+title: "Pluck Tables from KTEA-3"
+params:
+  patient: Brooklyn
+  test:
+    label: "Test"
+    value: ktea3
+    input: select
+    multiple: no
+    choices:
+      - ktea3
+      - ktea3_form_a
+      - ktea3_form_b
+  test_name:
+    label: "Test Name"
+    value: "KTEA-3"
+    input: select
+    multiple: no
+    choices:
+      - "KTEA-3"
+  file:
+    label: "No file selected"
+    value: file
+    input: file
+  pages: [32, 33]
+  table1:
+    label: "Table 1: Core Composite Score Summary"
+    value: []
+    input: select
+    multiple: yes
+    choices:
+      ACADEMIC SKILLS:
+        - Academic Skills Battery (ASB)
+      READING:
+        - Reading Composite
+        - Letter & Word Recognition
+        - Reading Comprehension
+      MATH:
+        - Math Composite
+        - Math Concepts & Applications
+        - Math Computation
+      WRITING:
+        - Written Language Composite
+        - Written Expression
+        - Spelling
+  table2:
+    label: "Table 2: Supplemental Composite Score Summary"
+    value: ""
+    input: select
+    multiple: yes
+    choices:
+      Sound-Symbol Composite: #todo
+      - Basic Reading
+      - Pseudoword Decoding
+      - Phonemic Proficiency
+      - Word Reading
+      DECODING:
+      - Decoding
+      - Pseudoword Decoding
+      - Word Reading2
+      READING FLUENCY:
+      - Reading Fluency
+      - Oral Reading Fluency
+      - Orthographic Fluency
+      - Decoding Fluency
+      PHONOLOGICAL PROCESSING:
+      - Phonological Processing
+      - Pseudoword Decoding
+      - Phonemic Proficiency
+      ORTHOGRAPHIC PROCESSING:
+      - Orthographic Processing
+      - Orthographic Fluency2
+      - Spelling
+      DYSLEXIA INDEX:
+      - Dyslexia Index
+      - Word Reading3
+      - Pseudoword Decoding4
+      - Orthographic Fluency3
+      OTHER:
+      - Orthographic Processing Extended
+      - Orthographic Choice
+      - Math Fluency
+      - Math Fluency-Addition
+      - Math Fluency-Subtraction
+      - Math Fluency-Multiplication
+      - Oral Language
+      - Listening Comprehension
+      - Oral Expression
+  colnames:
+    label: "Column Names"
+    value: [scale, raw_score, ssss, score, ci_95, percentile, category, age_equiv, gsv]
+    input: select
+    multiple: yes
+    choices:
+      - scale
+      - raw_score
+      - ssss
+      - score
+      - ci_95
+      - percentile
+      - category
+      - age_equiv
+      - grade_equiv
+      - gsv
+  keep:
+    label: "Variables to Keep"
+    value: [scale, raw_score, score, percentile, ci_95, age_equiv]
+    input: select
+    multiple: yes
+    choices:
+      - scale
+      - raw_score
+      - score
+      - percentile
+      - ci_95
+      - age_equiv
+---
+
+# KTEA-3
+
+## Load libraries
+
+```{r setup, include=FALSE}
+# Sys.setenv(JAVA_HOME = "/Library/Java/JavaVirtualMachines/graalvm-community-openjdk-22.0.1+8.1/Contents/Home")
+# options(java.parameters = "-Xmx16000m")
+knitr::opts_chunk$set(
+  root.dir = normalizePath("./"),
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  error = TRUE
+)
+library(bwu)
+library(fs)
+library(glue)
+library(hablar)
+library(here)
+library(knitr)
+library(magrittr)
+library(miniUI)
+library(pdftools)
+library(rJava)
+library(rmarkdown)
+library(rmdformats)
+library(shiny)
+library(snakecase)
+library(tabulapdf)
+library(tidyverse)
+library(xfun)
+library(bwu)
+```
+
+## Test
+
+```{r test}
+test <- "ktea3"
+test_name <- "KTEA-3"
+```
+
+## Patient initials
+
+```{r patient}
+patient <- "Brooklyn"
+```
+
+## Pages
+
+```{r pages}
+pages <- c(32, 33)
+# pages <- params$pages
+```
+
+## File upload/attach PDF
+
+```{r}
+file <- file.path(file.choose())
+# saveRDS(file, "ktea3.rds")
+# file <- readRDS("ktea3.rds")
+# file <- file.path(params$file)
+```
+
+## UseThis - updated July 2024
+
+```{r}
+# This works well so far
+plucked_tables_ktea3 <- tabulapdf::extract_tables(
+  file = file,
+  pages = pages,
+  output = "matrix",
+  method = "stream",
+  guess = TRUE
+)
+
+
+# Save the entire list to an R data file
+save(plucked_tables_ktea3, file = "plucked_tables_ktea3.RData")
+
+# Load the entire list from an R data file
+load("plucked_tables_ktea3.RData")
+```
+
+### Function process_ktea3_tables as individual data.frames
+
+```{r}
+library(dplyr)
+library(purrr)
+
+process_ktea3_tables <- function(ktea3_data) {
+  table_list <- purrr::map(ktea3_data, as_tibble) %>%
+    set_names(paste0("table", 1:length(ktea3_data))) # Rename tables
+
+  list2env(table_list, .GlobalEnv) # Assign to global environment
+}
+
+# Example Usage:
+process_ktea3_tables(plucked_tables_ktea3)
+
+# Loop over the list and write each matrix to a CSV file
+for (i in seq_along(plucked_tables_ktea3)) {
+  write.csv(plucked_tables_ktea3[[i]], file = paste0(test, "_", i, ".csv"), row.names = FALSE)
+}
+
+```
+
+# Table 1
+
+```{r}
+library(tibble)
+table1 <- as.tibble(table1)
+table1 <- table1 |> slice(-1:-6)
+table1[1, 1] <- c("Academic Skills Battery (ASB) Composite")
+# names(table1) <- params$colnames
+names(table1) <- c("scale", "raw_score", "ssss", "score", "ci_95", "percentile", "category", "age_equiv", "gsv")
+df <- table1
+```
+
+## convert data types
+
+```{r}
+convert_columns <- function(df) {
+  # Identify numeric columns based on their class (more robust)
+  numeric_cols <- names(df)[sapply(df, is.numeric)]
+
+  # Convert numeric columns, handling NAs with na.rm = TRUE
+  df[numeric_cols] <- lapply(df[numeric_cols], as.numeric, na.rm = TRUE)
+
+  # Convert remaining columns to character
+  char_cols <- setdiff(names(df), numeric_cols)
+  df[char_cols] <- lapply(df[char_cols], as.character)
+
+  return(df)
+}
+
+# usage (assuming you have a dataframe named 'df')
+table1 <- convert_columns(df)
+```
+
+# Table 2
+
+```{r}
+table2 <- as.tibble(table2)
+table2 <- table2 |> slice(-1:-5)
+# names(table1) <- params$colnames
+names(table2) <- c("scale", "raw_score", "ssss", "score", "ci_95", "percentile", "category", "age_equiv", "gsv")
+df <- table2
+# usage (assuming you have a dataframe named 'df')
+table2 <- convert_columns(df)
+```
+
+## Select variables to keep
+
+```{r}
+keep <- c("scale", "raw_score", "score", "ci_95", "percentile", "age_equiv")
+table1 <- table1 |> dplyr::select(all_of(keep))
+table2 <- table2 |> dplyr::select(all_of(keep))
+```
+
+# Mutate
+
+## Extract rows with data
+
+```{r}
+library(dplyr)
+
+# Function to replace "-" with NA and filter out rows with no real data
+filter_real_data <- function(table, key_columns) {
+  table <- table %>%
+    mutate(across(all_of(key_columns), ~ if_else(. == "-", NA_character_, as.character(.)))) %>%
+    mutate(across(all_of(key_columns), as.numeric)) %>%
+    filter(rowSums(is.na(select(., all_of(key_columns)))) < length(key_columns))
+
+  return(table)
+}
+
+# Assuming key_columns are those columns which must have data
+key_columns <- c("raw_score", "score", "percentile")
+
+# Extract and filter table1
+table1_all_rows <- table1
+table1 <- filter_real_data(table1_all_rows, key_columns)
+
+table2_all_rows <- table2
+table2 <- filter_real_data(table2_all_rows, key_columns)
+
+# Print the filtered table
+print(table1)
+print(table2)
+
+```
+
+## Make columns
+
+```{r mutate1}
+table1 <- bwu::gpluck_make_columns(
+  table1,
+  range = "",
+  test = "ktea3",
+  test_name = "KTEA-3",
+  domain = "Academic Skills",
+  subdomain = "",
+  narrow = "",
+  pass = "",
+  verbal = "Verbal",
+  timed = "Untimed",
+  test_type = "npsych_test",
+  score_type = "standard_score",
+  description = "",
+  result = ""
+)
+
+table2 <- bwu::gpluck_make_columns(
+  table2,
+  range = "",
+  test = "ktea3",
+  test_name = "KTEA-3",
+  domain = "Academic Skills",
+  subdomain = "",
+  narrow = "",
+  pass = "",
+  verbal = "",
+  timed = "",
+  test_type = "npsych_test",
+  score_type = "standard_score",
+  description = "",
+  result = ""
+)
+```
+
+
+## Test score ranges
+
+```{r range}
+table1 <- bwu::gpluck_make_score_ranges(table = table1, test_type = "npsych_test")
+table2 <- bwu::gpluck_make_score_ranges(table = table2, test_type = "npsych_test")
+```
+
+## Domains for language tests
+
+```{r}
+table2 <-
+  table2 |>
+  mutate(
+    domain = case_when(
+      scale == "Oral Language Composite" ~ "Verbal/Language",
+      scale == "Associational Fluency" ~ "Verbal/Language",
+      scale == "Listening Comprehension" ~ "Verbal/Language",
+      scale == "Oral Expression" ~ "Verbal/Language",
+      scale == "Oral Fluency Composite" ~ "Verbal/Language",
+      scale == "Comprehension Composite" ~ "Verbal/Language",
+      scale == "Listening Comprehension" ~ "Verbal/Language",
+      scale == "Expression Composite" ~ "Verbal/Language",
+      TRUE ~ as.character(domain)
+    )
+  )
+```
+
+## Subdomains
+
+```{r}
+table1 <-
+  table1 |>
+  mutate(
+    subdomain = case_when(
+      scale == "Academic Skills Battery (ASB) Composite" ~ "Academic Achievement",
+      scale == "Reading Composite" ~ "Reading",
+      scale == "Math Composite" ~ "Math",
+      scale == "Written Language Composite" ~ "Writing",
+      scale == "Math Concepts & Applications" ~ "Math",
+      scale == "Letter & Word Recognition" ~ "Reading",
+      scale == "Written Expression" ~ "Writing",
+      scale == "Math Computation" ~ "Math",
+      scale == "Spelling" ~ "Writing",
+      scale == "Reading Comprehension" ~ "Reading",
+      TRUE ~ as.character(subdomain)
+    )
+  )
+
+table2 <-
+  table2 |>
+  mutate(
+    subdomain = case_when(
+      scale == "Sound-Symbol Composite" ~ "Reading",
+      scale == "Phonological Processing" ~ "Reading",
+      scale == "Nonsense Word Decoding" ~ "Reading",
+      scale == "Decoding Composite" ~ "Reading",
+      scale == "Reading Fluency Composite" ~ "Reading",
+      scale == "Silent Reading Fluency" ~ "Reading",
+      scale == "Word Recognition Fluency" ~ "Reading",
+      scale == "Decoding Fluency" ~ "Reading",
+      scale == "Reading Understanding Composite" ~ "Reading",
+      scale == "Reading Vocabulary" ~ "Reading",
+      scale == "Oral Language Composite" ~ "Language",
+      scale == "Associational Fluency" ~ "Expressive Language",
+      scale == "Listening Comprehension" ~ "Receptive Language",
+      scale == "Oral Expression" ~ "Expressive Language",
+      scale == "Oral Fluency Composite" ~ "Expressive Language",
+      scale == "Object Naming Facility" ~ "Reading",
+      scale == "Comprehension Composite" ~ "Receptive Language",
+      scale == "Listening Comprehension" ~ "Receptive Language",
+      scale == "Expression Composite" ~ "Expressive Language",
+      scale == "Orthographic Processing Composite" ~ "Reading",
+      scale == "Letter Naming Facility" ~ "Reading",
+      scale == "Academic Fluency Composite" ~ "Academic Fluency",
+      scale == "Writing Fluency" ~ "Writing",
+      scale == "Math Fluency" ~ "Math",
+      scale == "Math Concepts & Applications" ~ "Math",
+      scale == "Letter & Word Recognition" ~ "Reading",
+      scale == "Written Expression" ~ "Writing",
+      scale == "Math Computation" ~ "Math",
+      scale == "Spelling" ~ "Writing",
+      scale == "Reading Comprehension" ~ "Reading",
+      TRUE ~ as.character(subdomain)
+    )
+  )
+```
+
+## Narrow subdomains
+
+```{r}
+table1 <-
+  table1 |>
+  mutate(
+    narrow = case_when(
+      scale == "Academic Skills Battery (ASB) Composite" ~ "General Academic Achievement",
+      scale == "Math Concepts & Applications" ~ "Mathematical Knowledge",
+      scale == "Letter & Word Recognition" ~ "Reading Decoding",
+      scale == "Written Expression" ~ "Writing Ability",
+      scale == "Math Computation" ~ "Mathematical Achievement",
+      scale == "Spelling" ~ "Spelling Ability",
+      scale == "Reading Comprehension" ~ "Reading Comprehension",
+      scale == "Reading Composite" ~ "Reading Ability",
+      scale == "Math Composite" ~ "Quantitative Reasoning",
+      scale == "Written Language Composite" ~ "Written Language Ability",
+      TRUE ~ as.character(narrow)
+    )
+  )
+
+table2 <-
+  table2 |>
+  mutate(
+    narrow = case_when(
+      scale == "Academic Fluency Composite" ~ "Rate of Test-Taking",
+      scale == "Sound-Symbol Composite" ~ "Phonological Processing",
+      scale == "Decoding Composite" ~ "Reading Decoding",
+      scale == "Reading Fluency Composite" ~ "Reading Speed",
+      scale == "Reading Understanding Composite" ~ "Reading Comprehension",
+      scale == "Oral Language Composite" ~ "Comprehension-Knowledge",
+      scale == "Oral Fluency Composite" ~ "Communication Ability",
+      scale == "Comprehension Composite" ~ "Comprehension-Knowledge",
+      scale == "Expression Composite" ~ "Comprehension-Knowledge",
+      scale == "Orthographic Processing Composite" ~ "Reading and Writing",
+      scale == "Phonological Processing" ~ "Phonetic Coding",
+      scale == "Nonsense Word Decoding" ~ "Reading Decoding",
+      scale == "Silent Reading Fluency" ~ "Reading Speed",
+      scale == "Word Recognition Fluency" ~ "Reading Speed",
+      scale == "Decoding Fluency" ~ "Reading Speed",
+      scale == "Reading Vocabulary" ~ "Reading Comprehension",
+      scale == "Associational Fluency" ~ "Ideational Fluency",
+      scale == "Oral Expression" ~ "Communication Ability",
+      scale == "Object Naming Facility" ~ "Naming Facility",
+      scale == "Listening Comprehension" ~ "Listening Ability",
+      scale == "Letter Naming Facility" ~ "Naming Facility",
+      scale == "Writing Fluency" ~ "Writing Speed",
+      scale == "Math Fluency" ~ "Number Facility",
+
+      scale == "Math Concepts & Applications" ~ "Mathematical Knowledge",
+      scale == "Letter & Word Recognition" ~ "Reading Decoding",
+      scale == "Written Expression" ~ "Writing Ability",
+      scale == "Math Computation" ~ "Mathematical Achievement",
+      scale == "Spelling" ~ "Spelling Ability",
+      scale == "Reading Comprehension" ~ "Reading Comprehension",
+      TRUE ~ as.character(narrow)
+    )
+  )
+```
+
+## PASS model
+
+```{r}
+table1 <-
+  table1 |>
+  mutate(
+    pass = case_when(
+      scale == "Academic Skills Battery (ASB) Composite" ~ "",
+      scale == "Math Concepts & Applications" ~ "Simultaneous",
+      scale == "Letter & Word Recognition" ~ "Sequential",
+      scale == "Written Expression" ~ "Sequential",
+      scale == "Math Computation" ~ "Simultaneous",
+      scale == "Spelling" ~ "Sequential",
+      scale == "Reading Comprehension" ~ "Sequential",
+      scale == "Reading Composite" ~ "Sequential",
+      scale == "Math Composite" ~ "Simultaneous",
+      scale == "Written Language Composite" ~ "Sequential",
+      TRUE ~ as.character(pass)
+    )
+  )
+
+table2 <-
+  table2 |>
+  mutate(
+    pass = case_when(
+      scale == "Nonsense Word Decoding" ~ "Sequential",
+      scale == "Academic Fluency Composite" ~ "Sequential",
+      scale == "Writing Fluency" ~ "Sequential",
+      scale == "Math Fluency" ~ "Simultaneous",
+      scale == "Decoding Fluency" ~ "Sequential",
+      scale == "Sound-Symbol Composite" ~ "Sequential",
+      scale == "Phonological Processing" ~ "Simultaneous",
+      scale == "Decoding Composite" ~ "Sequential",
+      scale == "Reading Fluency Composite" ~ "Sequential",
+      scale == "Silent Reading Fluency" ~ "Sequential",
+      scale == "Word Recognition Fluency" ~ "Sequential",
+      scale == "Reading Understanding Composite" ~ "Sequential",
+      scale == "Reading Vocabulary" ~ "Sequential",
+      scale == "Oral Language Composite" ~ "Sequential",
+      scale == "Associational Fluency" ~ "Sequential",
+      scale == "Listening Comprehension" ~ "Sequential",
+      scale == "Oral Expression" ~ "Sequential",
+      scale == "Oral Fluency Composite" ~ "Sequential",
+      scale == "Object Naming Facility" ~ "Sequential",
+      scale == "Comprehension Composite" ~ "Sequential",
+      scale == "Listening Comprehension" ~ "Sequential",
+      scale == "Expression Composite" ~ "Sequential",
+      scale == "Letter Naming Facility" ~ "Sequential",
+      scale == "Orthographic Processing Composite" ~ "Sequential",
+      TRUE ~ as.character(pass)
+    )
+  )
+```
+
+## Verbal vs Nonverbal
+
+```{r}
+table1 <-
+  table1 |>
+  mutate(
+    verbal = case_when(
+      scale == "Academic Skills Battery (ASB) Composite" ~ "",
+      scale == "Math Concepts & Applications" ~ "",
+      scale == "Math Computation" ~ "Nonverbal",
+      scale == "Math Composite" ~ "",
+      TRUE ~ as.character(verbal)
+    )
+  )
+
+table2 <-
+  table2 |>
+  mutate(
+    verbal = case_when(
+      scale == "Academic Fluency Composite" ~ "",
+      scale == "Writing Fluency" ~ "",
+      scale == "Math Fluency" ~ "Nonverbal",
+      scale == "Silent Reading Fluency" ~ "",
+      TRUE ~ as.character(verbal)
+    )
+  )
+```
+
+## Timed vs Untimed
+
+```{r}
+table2 <-
+  table2 |>
+  mutate(
+    timed = case_when(
+      scale == "Nonsense Word Decoding" ~ "Untimed",
+      scale == "Academic Fluency Composite" ~ "Timed",
+      scale == "Writing Fluency" ~ "Timed",
+      scale == "Math Fluency" ~ "Timed",
+      scale == "Decoding Fluency" ~ "Timed",
+      scale == "Sound-Symbol Composite" ~ "Untimed",
+      scale == "Phonological Processing" ~ "Untimed",
+      scale == "Decoding Composite" ~ "Untimed",
+      scale == "Reading Fluency Composite" ~ "Timed",
+      scale == "Silent Reading Fluency" ~ "Timed",
+      scale == "Word Recognition Fluency" ~ "Timed",
+      scale == "Reading Understanding Composite" ~ "Untimed",
+      scale == "Reading Vocabulary" ~ "Untimed",
+      scale == "Oral Language Composite" ~ "Untimed",
+      scale == "Associational Fluency" ~ "Untimed",
+      scale == "Listening Comprehension" ~ "Untimed",
+      scale == "Oral Expression" ~ "Timed",
+      scale == "Oral Fluency Composite" ~ "Untimed",
+      scale == "Object Naming Facility" ~ "Timed",
+      scale == "Comprehension Composite" ~ "Untimed",
+      scale == "Listening Comprehension" ~ "Untimed",
+      scale == "Expression Composite" ~ "Untimed",
+      scale == "Letter Naming Facility" ~ "Timed",
+      scale == "Orthographic Processing Composite" ~ "Untimed",
+      TRUE ~ as.character(timed)
+    )
+  )
+```
+
+## Descriptions
+
+```{r}
+table1 <-
+  table1 |>
+  mutate(
+    description = case_when(
+      scale == "Academic Skills Battery (ASB) Composite" ~ "Overall academic achievement in the areas of reading, math, and writing",
+      scale == "Math Concepts & Applications" ~ "Applying mathematical principles to real-life situations, ranging from basic concepts, everyday applications, geometry, and algebra",
+      scale == "Letter & Word Recognition" ~ "Single word reading/decoding of a list of regular and irregular words",
+      scale == "Written Expression" ~ "Overall written expression skills including spelling and expository/contextual writing",
+      scale == "Math Computation" ~ "Paper and pencil math calculation skills, ranging from basic operations with integers to geometry, algebra, and calculus problems",
+      scale == "Spelling" ~ "Written spelling of words from dictations",
+      scale == "Reading Comprehension" ~ "Reading comprehension skills at the level of word, sentence, and passage",
+      scale == "Reading Composite" ~ "Composite score of decoding and comprehension that balances word-level and text-level reading skills",
+      scale == "Math Composite" ~ "Estimate of overall mathematics skills in the domains of math comprehension and problem solving and math computation",
+      scale == "Written Language Composite" ~ "Overall written expression skills including spelling and expository/contextual writing",
+      TRUE ~ as.character(description)
+    )
+  )
+
+
+table2 <-
+  table2 |>
+  mutate(
+    description = case_when(
+      scale == "Nonsense Word Decoding" ~ "Phonic decoding skills by reading aloud a list of pseudowords",
+      scale == "Academic Fluency Composite" ~ "Overall academic fluency in reading, math, and writing",
+      scale == "Writing Fluency" ~ "Sentence level writing fluency",
+      scale == "Math Fluency" ~ "Overall speed/fluency in solving fact-based addition, subtraction, and multiplication problems",
+      scale == "Decoding Fluency" ~ "Phonic decoding fluency",
+      scale == "Sound-Symbol Composite" ~ "Composite measure of reading and spelling skills??",
+      scale == "Phonological Processing" ~ "Auditory processing of phonemic proficiency and phonic decoding skills",
+      scale == "Decoding Composite" ~ "Composite estimate of decontextualized phonic decoding and word reading skills",
+      scale == "Reading Fluency Composite" ~ "General reading speed/fluncy",
+      scale == "Silent Reading Fluency" ~ "Non oral reading fluency",
+      scale == "Word Recognition Fluency" ~ "Orthographic lexicon, or sight vocabulary fluency",
+      scale == "Reading Understanding Composite" ~ "Reading comprehension skills at the level of word, sentence, and passage",
+      scale == "Reading Vocabulary" ~ "Vocabulary reading comprehension",
+      scale == "Oral Language Composite" ~ "Overall estimate of receptive and expressive language skills at the level of the word, sentence, passage, and discourse",
+      scale == "Associational Fluency" ~ "Semantic word fluency",
+      scale == "Listening Comprehension" ~ "Receptive language comprehension at the level of the word, sentence, and passage",
+      scale == "Oral Expression" ~ "Oral expression at the level of the word and sentence",
+      scale == "Oral Fluency Composite" ~ "General expressive language fluency",
+      scale == "Object Naming Facility" ~ "Rapid automatic naming (objects)",
+      scale == "Comprehension Composite" ~ "Estimate of general language comprehension skills",
+      scale == "Listening Comprehension" ~ "Receptive language comprehension at the level of the word, sentence, and passage",
+      scale == "Expression Composite" ~ "Estimate of oral language expression skills",
+      scale == "Letter Naming Facility" ~ "Rapid automatic naming (letters)",
+      scale == "Orthographic Processing Composite" ~ "Overall measure of orthographic processing, including the size of the examinees orthographic lexicon and the quality of orthographic representations",
+      TRUE ~ as.character(description)
+    )
+  )
+```
+
+## Glue results
+
+```{r}
+table1 <-
+  table1 %>%
+  tidytable::mutate(
+    result = glue::glue(
+      "{description} was {range}."
+    )
+  )
+
+table2 <-
+  table2 %>%
+  tidytable::mutate(
+    result = glue::glue(
+      "{description} was {range}."
+    )
+  )
+```
+
+# Finalize
+
+## Relocate variables
+
+```{r}
+table1 <- table1 |> dplyr::relocate(c(test, test_name), .before = scale)
+table2 <- table2 |> dplyr::relocate(c(test, test_name), .before = scale)
+```
+
+## Merge tables
+
+```{r}
+ktea3 <- rbind(table1, table2)
+```
+
+## Select vars for lookup table
+
+```{r}
+vars <- c("test", "test_name", "scale", "domain", "subdomain", "narrow", "pass", "verbal", "timed", "test_type", "score_type", "description")
+ktea3_lookup <- ktea3 |>
+  dplyr::select(all_of(vars))
+```
+
+## Add patient initials
+
+```{r}
+# ktea3$patient <- patient
+```
+
+## Remove rows with no data
+
+```{r}
+ktea3bk <- ktea3
+ktea3 <- ktea3 |>
+  dplyr::filter(!is.na(description) & description != "") |>
+  dplyr::filter(!is.na(score) & score != "") |>
+  dplyr::slice(-(2:7)) |>
+  dplyr::slice(-11,-17,-18)
+```
+
+## Write out final csv
+
+```{r}
+readr::write_csv(ktea3, here::here("data", "csv", "ktea3.csv"), col_names = TRUE, na = "")
+```

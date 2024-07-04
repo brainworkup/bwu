@@ -15,8 +15,7 @@ load_data <- function(file_path) {
     stop("Patient/file path must be specified.")
   }
 
-  data_path <- here::here("csv")
-  files <- dir(data_path, pattern = "*.csv", full.names = TRUE)
+  files <- dir(file_path, pattern = "*.csv", full.names = TRUE)
 
   neuropsych <-
     purrr::map_df(files, function(filename) {
@@ -26,16 +25,28 @@ load_data <- function(file_path) {
     }) |>
     dplyr::distinct() |>
     (\(df) {
-      df <- df |>
-        dplyr::mutate(
-          z = ifelse(!is.na(percentile), qnorm(percentile / 100), NA_real_),
-          domain = as.character(domain),
-          subdomain = as.character(subdomain),
-          narrow = as.character(narrow),
-          pass = as.character(pass),
-          verbal = forcats::as_factor(verbal),
-          timed = forcats::as_factor(timed)
-        )
+      if ("percentile" %in% names(df)) {
+        df <- df |>
+          dplyr::mutate(
+            z = ifelse(!is.na(percentile), qnorm(percentile / 100), NA_real_),
+            domain = as.character(domain),
+            subdomain = as.character(subdomain),
+            narrow = as.character(narrow),
+            pass = as.character(pass),
+            verbal = forcats::as_factor(verbal),
+            timed = forcats::as_factor(timed)
+          )
+      } else {
+        df <- df |>
+          dplyr::mutate(
+            domain = as.character(domain),
+            subdomain = as.character(subdomain),
+            narrow = as.character(narrow),
+            pass = as.character(pass),
+            verbal = forcats::as_factor(verbal),
+            timed = forcats::as_factor(timed)
+          )
+      }
       return(df)
     })()
 
@@ -110,28 +121,6 @@ load_data <- function(file_path) {
   readr::write_excel_csv(neurobehav, here::here("neurobehav.csv"))
   readr::write_excel_csv(validity, here::here("validity.csv"))
 }
-
-#' Read Neuropsych Data for Subsetting
-#' @description This function reads in the neuropsych data for subsetting.
-#' @param pheno Character vector for phenotype. Options are "adhd" or "emotion".
-#' @return A tibble containing various subsets of the data.
-#' @rdname read_data
-#' @export
-read_data <- function(pheno) {
-  # Check phenotype type and file path
-  if (pheno == "adhd" || pheno == "emotion" || pheno == "adaptive" || pheno == "asd") {
-    csv <- "neurobehav.csv"
-  } else {
-    csv <- "neurocog.csv"
-  }
-  file_path <- file.path(csv)
-
-  # Read in the CSV file
-  data <- readr::read_csv(file_path)
-
-  return(data)
-}
-
 
 #' @title Filters Data by Domain and Scale
 #' @description This function filters a dataframe by domain and scale.

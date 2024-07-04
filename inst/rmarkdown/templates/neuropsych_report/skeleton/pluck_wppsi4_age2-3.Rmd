@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables WPPSI-IV Ages 2-3"
 params:
-  patient: Leo
+  patient: Biggie
   test: wppsi4
   test_name: "WPPSI-IV"
   version: "WPPSI-IV: Ages 2-3"
@@ -171,7 +171,7 @@ eval_df3 <- params$eval_df3
 
 ```{r extract-areas, eval = FALSE}
 
-f <- file.path("/Users/joey/reports/Leo/pdf/Leo 3_8 yo ASD-2d0f9f88-433a-4fa7-8b39-5f6301683d09.pdf")
+f <- file.path("")
 
 #file <- file.path(file.choose(""))
 

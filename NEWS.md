@@ -13,6 +13,11 @@ output:
     keep_tex: yes
 ---
 
+## 2024-07-04
+
+- using Positron now
+- updated a few functions
+
 ## bwu 1.0.0.9000 (UNRELEASED)
 
 -   updated to R 4.2

@@ -1,0 +1,604 @@
+---
+title: "Pluck Tables from CEFI PDFs"
+params:
+  patient: Brooklyn
+  test:
+    label: "CEFI"
+    value: "cefi_or_5-18" #cefi_sr_12-18
+    input: select
+    multiple: no
+    choices:
+      - cefi_sr
+      - cefi_or
+      - cefi_sr_12-18
+      - cefi_or_5-18
+  test_name:
+    label: "Test Name:"
+    value: CEFI Observer-Report #CEFI Self-Report
+    input: select
+    multiple: no
+    choices:
+      - CEFI Self-Report
+      - CEFI Observer-Report
+  file:
+    label: "No file selected"
+    value: file
+    input: file
+    multiple: FALSE
+    accept: ".pdf"
+  pages: [3, 3]
+output:
+  rmdformats::robobook:
+    highlight: kate
+---
+
+# CEFI SR/OR
+
+## Setup
+
+```{r setup, include = FALSE}
+# Set JAVA environment
+Sys.setenv(
+  JAVA_HOME =
+    "/Library/Java/JavaVirtualMachines/graalvm-community-openjdk-22.0.1+8.1/Contents/Home"
+)
+options(java.parameters = "-Xmx16000m")
+# Set knitr options
+knitr::opts_chunk$set(
+  root.dir = normalizePath("./"),
+  echo = TRUE,
+  message = TRUE,
+  warning = FALSE,
+  error = TRUE
+)
+library(fs)
+library(glue)
+library(hablar)
+library(here)
+library(knitr)
+library(magrittr)
+library(miniUI)
+library(pdftools)
+library(rJava)
+library(rmarkdown)
+library(rmdformats)
+library(shiny)
+library(snakecase)
+library(tabulapdf)
+library(tidyverse)
+library(xfun)
+library(bwu)
+```
+
+```{r}
+patient <- params$patient
+test <- params$test
+test_name <- params$test_name
+pages <- params$pages
+file <- file.path(file.choose())
+# file <- file.path(params$file)
+# saveRDS(file, "cefi.rds")
+```
+
+```{r}
+if (params$test == "cefi_sr" || params$test == "cefi_or") {
+  areas <- list(
+    table1 = c(460, 34, 483, 578),
+    table2 = c(533, 34, 671, 578)
+  )
+} else if (params$test == "cefi_sr_12-18") {
+  areas <- list(
+    table1 = c(467.033, 53.0, 480.038, 557.9), 
+    table2 = c(536.648, 52.02, 667.463, 557.685)
+  )
+} else if (params$test == "cefi_or_5-18") {
+  areas <- list(
+    table1 = c(468.563, 53.0, 481.568, 557.9), 
+    table2 = c(493.043, 50.49, 669.758, 559.98)
+  )
+}
+```
+
+```{r}
+# This works well so far
+plucked_tables <- tabulapdf::extract_tables(
+  file = file,
+  pages = pages,
+  area = areas,
+  guess = NULL,
+  method = "stream",
+  output = "matrix"
+)
+
+local <- paste0("plucked_tables_", test, ".RData")
+
+# Save the plucked_tables object to a file
+save(plucked_tables, file = local)
+
+# Load the plucked_tables object from a file
+load(local)
+```
+
+```{r}
+library(dplyr)
+library(purrr)
+
+process_cefi_tables <- function(cefi_data) {
+  table_list <- purrr::map(cefi_data, as_tibble) %>%
+    set_names(paste0("table", 1:length(cefi_data))) # Rename tables
+
+  list2env(table_list, .GlobalEnv) # Assign to global environment
+}
+
+# Usage:
+process_cefi_tables(plucked_tables)
+
+# Loop over the list and write each matrix to a CSV file
+for (i in seq_along(plucked_tables)) {
+  write.csv(plucked_tables[[i]], file = paste0(test, "_", i, ".csv"), row.names = FALSE)
+}
+```
+
+# Table 1
+
+```{r}
+library(tibble)
+library(dplyr)
+
+# Convert to tibble
+table1 <- as_tibble(table1)
+# Ensure column names are correct
+names(table1) <- c("score", "ci_95", "percentile", "category")
+
+# Add 'scale' column with empty strings
+table1 <- table1 |> mutate(scale = "Full Scale")
+table1 <- table1[c("scale", "score", "ci_95", "percentile", "category")]
+```
+
+```{r}
+convert_columns <- function(df) {
+  # Specify the columns to be converted to numeric
+  numeric_cols <- c("score", "percentile")
+
+  # Convert specified columns to numeric
+  df[numeric_cols] <- lapply(df[numeric_cols], function(x) as.numeric(as.character(x)))
+
+  # Convert remaining columns to character
+  char_cols <- setdiff(names(df), numeric_cols)
+  df[char_cols] <- lapply(df[char_cols], as.character)
+
+  return(df)
+}
+
+# Usage (assuming you have a dataframe named 'df')
+table1 <- convert_columns(df = table1)
+```
+
+# Table 2
+
+```{r}
+# Convert to tibble
+table2 <- as_tibble(table2)
+
+# Remove empty columns from table2
+table2 <- table2 %>%
+  select_if(~ any(. != ""))
+
+# Display the modified table2
+print(table2)
+
+# Ensure column names are correct
+names(table2) <- c("scale", "score", "ci_95", "percentile", "category", "diff_from_avg", "stat", "strength")
+
+table2 <- table2 |> 
+  select(-c("diff_from_avg", "stat", "strength")) |>
+  slice(-1,-5)
+
+# Usage (assuming you have a dataframe named 'df')
+table2 <- convert_columns(df = table2)
+
+# Function to replace "-" with NA and filter out rows with no real data
+filter_real_data <- function(table, key_columns) {
+  table <- table %>%
+    mutate(across(all_of(key_columns), ~ if_else(. == "-", NA_character_, as.character(.)))) %>%
+    mutate(across(all_of(key_columns), as.numeric)) %>%
+    filter(rowSums(is.na(select(., all_of(key_columns)))) < length(key_columns))
+
+  return(table)
+}
+
+# Assuming key_columns are those columns which must have data
+key_columns <- c("score", "percentile")
+
+# Extract and filter table1
+# table1_all_rows <- table1
+# table1 <- filter_real_data(table1_all_rows, key_columns)
+
+table2_all_rows <- table2
+table2 <- filter_real_data(table2_all_rows, key_columns)
+
+# Print the filtered table
+print(table1)
+print(table2)
+```
+
+```{r}
+# table2 <- convert_columns(df = table2)
+
+table2[1, "scale"] <- "Attention"
+table2[2, "scale"] <- "Emotion Regulation"
+table2[3, "scale"] <- "Flexibility"
+table2[4, "scale"] <- "Inhibitory Control"
+table2[5, "scale"] <- "Initiation"
+table2[6, "scale"] <- "Organization"
+table2[7, "scale"] <- "Planning"
+table2[8, "scale"] <- "Self-Monitoring"
+table2[9, "scale"] <- "Working Memory"
+
+keep <- c("scale", "score", "ci_95", "percentile")
+
+# Selecting the columns in keep for both tables
+table1 <- table1[, keep, drop = FALSE]
+table2 <- table2[, keep, drop = FALSE]
+
+# Binding rows
+table <- rbind(table1, table2)
+```
+
+# Mutate
+
+```{r}
+table <- bwu::gpluck_make_columns(
+  data = table,
+  test = params$test,
+  test_name = params$test_name,
+  raw_score = NA,
+  range = NA,
+  domain = "ADHD",
+  subdomain = "Executive Function",
+  narrow = NA,
+  pass = NA,
+  verbal = NA,
+  timed = NA,
+  test_type = "rating_scale",
+  score_type = "standard_score",
+  description = NA,
+  result = NA
+)
+
+table <-
+  dplyr::relocate(table,
+                  c(test, test_name),
+                  .before = scale
+  ) |>
+  dplyr::relocate(c(raw_score), .before = score)
+```
+
+## Test score ranges
+
+```{r ranges}
+table <- bwu::gpluck_make_score_ranges(table, test_type = "rating_scale")
+```
+
+## Narrow subdomains
+
+```{r}
+  table <-
+    dplyr::mutate(table,
+      narrow = dplyr::case_when(
+        scale == "Full Scale" ~ "Overall Executive Function",
+        scale == "Attention" ~ "Attention",
+        scale == "Emotion Regulation" ~ "Emotion Regulation",
+        scale == "Flexibility" ~ "Flexibility",
+        scale == "Inhibitory Control" ~ "Inhibitory Control",
+        scale == "Initiation" ~ "Initiation",
+        scale == "Organization" ~ "Organization",
+        scale == "Planning" ~ "Planning",
+        scale == "Self-Monitoring" ~ "Self-Monitoring",
+        scale == "Working Memory" ~ "Working Memory",
+        TRUE ~ as.character(narrow)
+      )
+    )
+
+
+# if (params$test == "cefi_sr" ||
+#     params$test == "cefi_sr_12-18") {
+#   table <-
+#     dplyr::mutate(table,
+#       narrow = dplyr::case_when(
+#         scale == "CEFI-SR Full Scale" ~ "Overall Executive Function",
+#         scale == "CEFI-SR Attention" ~ "Attention",
+#         scale == "CEFI-SR Emotion Regulation" ~ "Emotion Regulation",
+#         scale == "CEFI-SR Flexibility" ~ "Flexibility",
+#         scale == "CEFI-SR Inhibitory Control" ~ "Inhibitory Control",
+#         scale == "CEFI-SR Initiation" ~ "Initiation",
+#         scale == "CEFI-SR Organization" ~ "Organization",
+#         scale == "CEFI-SR Planning" ~ "Planning",
+#         scale == "CEFI-SR Self-Monitoring" ~ "Self-Monitoring",
+#         scale == "CEFI-SR Working Memory" ~ "Working Memory",
+#         TRUE ~ as.character(narrow)
+#       )
+#     )
+# } else {
+#   table <-
+#     dplyr::mutate(table,
+#       narrow = dplyr::case_when(
+#         scale == "CEFI-OR Full Scale" ~ "Overall Executive Function",
+#         scale == "CEFI-OR Attention" ~ "Attention",
+#         scale == "CEFI-OR Emotion Regulation" ~ "Emotion Regulation",
+#         scale == "CEFI-OR Flexibility" ~ "Flexibility",
+#         scale == "CEFI-OR Inhibitory Control" ~ "Inhibitory Control",
+#         scale == "CEFI-OR Initiation" ~ "Initiation",
+#         scale == "CEFI-OR Organization" ~ "Organization",
+#         scale == "CEFI-OR Planning" ~ "Planning",
+#         scale == "CEFI-OR Self-Monitoring" ~ "Self-Monitoring",
+#         scale == "CEFI-OR Working Memory" ~ "Working Memory",
+#         TRUE ~ as.character(narrow)
+#       )
+#     )
+# }
+```
+
+## Scale descriptions
+
+```{r}
+  table <-
+    dplyr::mutate(table,
+      description = dplyr::case_when(
+        scale == "Full Scale" ~
+          "overall level of executive functioning",
+        scale == "Attention" ~
+          "i.e., avoid distractions, concentrate on tasks, and sustain attention",
+        scale == "Emotion Regulation" ~
+          "i.e., control and manage emotions, including staying calm when handling small problems and reacting with the right level of emotion",
+        scale == "Flexibility" ~
+          "i.e., adjust behavior to meet circumstances, including coming up with different ways to solve problems, changing behavior when needed, and being able to come up with new ways to reach a goal",
+        scale == "Inhibitory Control" ~
+          "i.e., control behavior or impulses, including thinking about consequences before acting, maintaining self-control, and thinking before speaking",
+        scale == "Initiation" ~
+          "i.e., begin tasks or projects on own, including starting tasks easily, being motivated, and taking the initiative when needed",
+        scale == "Organization" ~
+          "i.e., manage personal effects, work, or multiple tasks, including organizing tasks and thoughts well, managing time effectively, and working neatly",
+        scale == "Planning" ~
+          "i.e., develop and implement strategies to accomplish tasks, including planning ahead and making good decisions",
+        scale == "Self-Monitoring" ~
+          "i.e., evaluate own behavior in order to determine when a different approach is necessary, including noticing and fixing mistakes, knowing when help is required, and understanding when a task is completed",
+        scale == "Working Memory" ~
+          "i.e., keep information in mind that is important for knowing what to do and how to do it, including remembering important things, instructions, and steps",
+        TRUE ~ as.character(description)
+      )
+    )
+
+
+
+# if (params$test == "cefi_sr" ||
+#     params$test == "cefi_sr_12-18") {
+#   table <-
+#     dplyr::mutate(table,
+#       description = dplyr::case_when(
+#         scale == "CEFI-SR Full Scale" ~
+#           "overall level of executive functioning",
+#         scale == "CEFI-SR Attention" ~
+#           "i.e., avoid distractions, concentrate on tasks, and sustain attention",
+#         scale == "CEFI-SR Emotion Regulation" ~
+#           "i.e., control and manage emotions, including staying calm when handling small problems and reacting with the right level of emotion",
+#         scale == "CEFI-SR Flexibility" ~
+#           "i.e., adjust behavior to meet circumstances, including coming up with different ways to solve problems, changing behavior when needed, and being able to come up with new ways to reach a goal",
+#         scale == "CEFI-SR Inhibitory Control" ~
+#           "i.e., control behavior or impulses, including thinking about consequences before acting, maintaining self-control, and thinking before speaking",
+#         scale == "CEFI-SR Initiation" ~
+#           "i.e., begin tasks or projects on own, including starting tasks easily, being motivated, and taking the initiative when needed",
+#         scale == "CEFI-SR Organization" ~
+#           "i.e., manage personal effects, work, or multiple tasks, including organizing tasks and thoughts well, managing time effectively, and working neatly",
+#         scale == "CEFI-SR Planning" ~
+#           "i.e., develop and implement strategies to accomplish tasks, including planning ahead and making good decisions",
+#         scale == "CEFI-SR Self-Monitoring" ~
+#           "i.e., evaluate own behavior in order to determine when a different approach is necessary, including noticing and fixing mistakes, knowing when help is required, and understanding when a task is completed",
+#         scale == "CEFI-SR Working Memory" ~
+#           "i.e., keep information in mind that is important for knowing what to do and how to do it, including remembering important things, instructions, and steps",
+#         TRUE ~ as.character(description)
+#       )
+#     )
+# } else {
+#   table <-
+#     dplyr::mutate(table,
+#       description = dplyr::case_when(
+#         scale == "CEFI-OR Full Scale" ~
+#           "overall level of executive functioning",
+#         scale == "CEFI-OR Attention" ~
+#           "i.e., avoid distractions, concentrate on tasks, and sustain attention",
+#         scale == "CEFI-OR Emotion Regulation" ~
+#           "i.e., control and manage emotions, including staying calm when handling small problems and reacting with the right level of emotion",
+#         scale == "CEFI-OR Flexibility" ~
+#           "i.e., adjust behavior to meet circumstances, including coming up with different ways to solve problems, changing behavior when needed, and being able to come up with new ways to reach a goal",
+#         scale == "CEFI-OR Inhibitory Control" ~
+#           "i.e., control behavior or impulses, including thinking about consequences before acting, maintaining self-control, and thinking before speaking",
+#         scale == "CEFI-OR Initiation" ~
+#           "i.e., begin tasks or projects on own, including starting tasks easily, being motivated, and taking the initiative when needed",
+#         scale == "CEFI-OR Organization" ~
+#           "i.e., manage personal effects, work, or multiple tasks, including organizing tasks and thoughts well, managing time effectively, and working neatly",
+#         scale == "CEFI-OR Planning" ~
+#           "i.e., develop and implement strategies to accomplish tasks, including planning ahead and making good decisions",
+#         scale == "CEFI-OR Self-Monitoring" ~
+#           "i.e., evaluate own behavior in order to determine when a different approach is necessary, including noticing and fixing mistakes, knowing when help is required, and understanding when a task is completed",
+#         scale == "CEFI-OR Working Memory" ~
+#           "i.e., keep information in mind that is important for knowing what to do and how to do it, including remembering important things, instructions, and steps",
+#         TRUE ~ as.character(description)
+#       )
+#     )
+# }
+```
+
+## Glue results
+
+```{r}
+if (params$test == "cefi_sr" || params$test == "cefi_sr_12-18") {
+  table <-
+    dplyr::mutate(table,
+      result = dplyr::case_when(
+        scale == "Full Scale" ~ glue::glue(
+          "- {patient}'s self-reported {description} was {range}.\n"
+        ),
+        scale == "Attention" ~ glue::glue(
+          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Emotion Regulation" ~ glue::glue(
+          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Flexibility" ~ glue::glue(
+          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Inhibitory Control" ~ glue::glue(
+          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Initiation" ~ glue::glue(
+          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Organization" ~ glue::glue(
+          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Planning" ~ glue::glue(
+          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Self-Monitoring" ~ glue::glue(
+          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Working Memory" ~ glue::glue(
+          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
+        ),
+        TRUE ~ as.character(result)
+      )
+    )
+} else {
+  table <-
+    dplyr::mutate(table,
+      result = dplyr::case_when(
+        scale == "Full Scale" ~ glue::glue(
+          "- {patient}'s observer-reported {description} was {range}.\n"
+        ),
+        scale == "Attention" ~ glue::glue(
+          "- {patient}'s observer-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Emotion Regulation" ~ glue::glue(
+          "- {patient}'s observer-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Flexibility" ~ glue::glue(
+          "- {patient}'s observer-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Inhibitory Control" ~ glue::glue(
+          "- {patient}'s observer-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Initiation" ~ glue::glue(
+          "- {patient}'s observer-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Organization" ~ glue::glue(
+          "- {patient}'s observer-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Planning" ~ glue::glue(
+          "- {patient}'s observer-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Self-Monitoring" ~ glue::glue(
+          "- {patient}'s observer-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Working Memory" ~ glue::glue(
+          "- {patient}'s observer-reported {narrow} ({description}) was {range}.\n"
+        ),
+        TRUE ~ as.character(result)
+      )
+    )
+}
+```
+
+# Finalize and save
+
+## Write/save CEFI csv file
+
+```{r}
+test <- params$test
+vroom::vroom_write(
+  table,
+  here::here("data", "csv", paste0(test, ".csv")),
+  delim = ",",
+  col_names = TRUE,
+  na = ""
+)
+```
+
+# Pluck Text
+
+```{r text}
+# save file as path
+# file <- fs::as_fs_path(params$file)
+
+# Function to extract text from PDF
+get_text <- function(file) {
+  tryCatch({
+    txt <- pdftools::pdf_text(file) |> 
+      stringr::str_split("\n") |> 
+      unlist()
+    return(txt)
+  }, error = function(e) {
+    message("Error reading PDF: ", e)
+    return(NULL)
+  })
+}
+
+# CEFI Self-Report
+if (params$test == "cefi_sr" || params$test == "cefi_sr_12-18") {
+  ## extract text
+  cefi_sr_txt <- get_text(file)
+  if (!is.null(cefi_sr_txt)) {
+    # Replace long spaces with a col break symbol
+    cefi_sr_squished <- stringr::str_replace_all(cefi_sr_txt, "\\s{2,}", "- ") |>
+      stringr::str_remove_all(",")
+    
+    # save as markdown
+    readr::write_lines(
+      cefi_sr_squished,
+      here::here("cefi_sr_text.md"),
+      sep = "\n"
+    )
+    # save as quarto
+    readr::write_lines(
+      cefi_sr_squished,
+      here::here("cefi_sr_text.qmd"),
+      sep = "\n"
+    )
+    # save as text
+    readr::write_lines(
+      cefi_sr_squished,
+      here::here("cefi_sr_text.txt"),
+      sep = "\n"
+    )
+  }
+
+# CEFI Observer-Report
+} else if (params$test == "cefi_or" || params$test == "cefi_or_5-18") {
+  ## extract text
+  cefi_or_txt <- get_text(file)
+  if (!is.null(cefi_or_txt)) {
+    # Replace long spaces with a col break symbol
+    cefi_or_squished <- stringr::str_replace_all(cefi_or_txt, "\\s{2,}", "- ") |>
+      stringr::str_remove_all(",")
+    
+    # save as markdown
+    readr::write_lines(
+      cefi_or_squished,
+      here::here("cefi_or_textMOM.md"),
+      sep = "\n"
+    )
+    # save as quarto
+    readr::write_lines(
+      cefi_or_squished,
+      here::here("cefi_or_textMOM.qmd"),
+      sep = "\n"
+    )
+    # save as text
+    readr::write_lines(
+      cefi_or_squished,
+      here::here("cefi_or_textMOM.txt"),
+      sep = "\n"
+    )
+  }
+}
+```
