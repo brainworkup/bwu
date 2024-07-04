@@ -1,0 +1,226 @@
+---
+title: "Merge NEPSY-2 scores with lookup table"
+params:
+  patient: Leo
+  test: nepsy2
+  test_name: "NEPSY-2"
+  version: "NEPSY-2 Ages 2-3"
+  file:
+    label: "No file selected"
+    value: file
+    input: file
+  pages: [8, 9]
+output:
+  rmdformats::robobook:
+    highlight: kate
+---
+
+# NEPSY-2
+
+## Setup
+
+```{r setup, include = FALSE}
+library(dplyr)
+library(fs)
+library(hablar)
+library(glue)
+library(here)
+library(knitr)
+library(magrittr)
+library(miniUI)
+library(readr)
+library(rJava)
+library(rmarkdown)
+library(rmdformats)
+library(shiny)
+library(tabulapdf)
+library(tidyr)
+library(vroom)
+library(tibble)
+library(stringr)
+library(bwu)
+# Set JAVA environment
+options(java.parameters = "-Xmx16000m")
+Sys.setenv(JAVA_HOME="/Library/Java/JavaVirtualMachines/graalvm-community-openjdk-22.0.1+8.1/Contents/Home")
+# Set knitr options
+knitr::opts_chunk$set(
+  root.dir = normalizePath("./"),
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  error = TRUE
+)
+```
+
+## Patient
+
+```{r patient}
+patient <- params$patient
+```
+
+## Test
+
+Name of neuropsych test or rating scale.
+
+```{r test}
+test <- params$test
+test_name <- params$test_name
+```
+
+## Pages
+
+```{r pages}
+pages <- params$pages
+```
+
+## Load PDF file and save as file.path
+
+```{r file}
+# file <- file.path(file.choose())
+file <- params$file
+```
+
+## Extract Areas with tabulapdf
+
+```{r eval = FALSE}
+library(tabulapdf)
+## from basc3prs, not nepsy
+
+nepsy2 <- vroom::vroom("/Users/joey/reports/Leo/data/nepsy2_scores.csv")
+
+# f <- file.path(file.choose(""))
+
+# using extract areas for now
+extracted_areas <- tabulapdf::extract_areas(
+  file = f,
+  pages = c(4, 4),
+  method = "stream",
+  output = "matrix",
+  resolution = 96L,
+  copy = FALSE
+)
+```
+
+```{r loopdf, eval = F}
+# Loop over the list and write each matrix to a CSV file
+# make sure "data" works next time
+for (i in seq_along(extracted_areas)) {
+  write.csv(extracted_areas[[i]], file = here::here("data", paste0(test, "_", i, ".csv")), row.names = FALSE)
+}
+
+# Save the entire list to an R data file
+save(extracted_areas, file = "nepsy2_tables.RData")
+qs::qsave(extracted_areas, "nepsy2_tables.rds")
+```
+
+```{r}
+# Load the entire list from an R data file
+load("nepsy2_tables.RData")
+qs::qread("nepsy2_tables.rds")
+```
+
+## Locate areas
+
+```{r eval = FALSE}
+# locate areas
+areas <- tabulapdf::locate_areas(
+  file = f,
+  pages = c(4, 4),
+  resolution = 96L,
+)
+```
+
+```{r areas}
+# nepsy2 areas
+areas <- list(
+  table1 = c(17, 90, 226, 521),
+  table2 = c(375, 35, 530, 574)
+)
+```
+
+## Mutate columns
+
+```{r}
+# test to df
+df <- nepsy2
+
+# Add test column
+df <- df |> dplyr::relocate(c(test, test_name), .before = scale)
+
+df$patient <- patient 
+df <- df |> dplyr::relocate(c(patient), .before = test)
+```
+
+```{r mutate, eval = T}
+df <- df |> bwu::gpluck_make_columns(ci_95 = "", range = "")
+```
+
+## Test score ranges
+
+```{r range, eval = T}
+df <- bwu::gpluck_make_score_ranges(table = df, test_type = "npsych_test")
+```
+
+# Glue Results v2
+
+```{r}
+
+# version 2 of results
+concatenate_results <- function(result) {
+  df$result <- apply(df, 1, function(row) {
+    sw <- ifelse(row["range"] %in% c("Below Average"), "a relative neurocognitive weakness and moderate concern",
+           ifelse(row["range"] %in% c("Exceptionally Low"), "an extreme relative neurocognitive weakness and a clinically significant concern",
+           ifelse(row["range"] %in% c("Average", "Low Average", "High Average"), "an area of typical functioning",
+           ifelse(row["range"] %in% c("Above Average", "Exceptionally High"), "a relative neurocognitive strength",
+           "undefined")))) # Handle cases that do not match any specified category
+    
+    percentile_as_percentage <- paste0(row["percentile"], "%")
+    glue("{row['patient']}'s {row['scale']} score of {row['score']} ({row['ci_95']}) is classified as {row['range']} and is ranked at the {row['percentile']}th percentile, indicating performance as good as or better than {percentile_as_percentage} of same age peers from the general population. This estimate of {row['description']} is considered {sw}.")
+  })
+  return(df$result)
+}
+
+# add glued results to df
+df$result <- concatenate_results(result)
+```
+
+## Relocate variables
+
+```{r, eval = T}
+df <- df |> 
+  relocate(c(raw_score, score, ci_95, percentile, range), .after = scale) |> 
+  relocate(c(description, result), .after = absort)
+```
+
+# Export csv file
+
+```{r write-out}
+readr::write_excel_csv(df, here::here("csv", paste0(test, ".csv")), col_names = TRUE, na = "")
+
+if (any(is.na(df$scale))) {
+  stop("STOP!!! NA value found in percentile column. Please fill in missing values.")
+}
+```
+
+## Export to "g3"
+
+```{r writeout-g}
+has_headers <- function(file_path) {
+  if (!file.exists(file_path)) {
+    return(FALSE) # File doesn't exist, headers are needed
+  }
+  # Check if the file has at least one line (header)
+  return(length(readLines(file_path, n = 1)) > 0)
+}
+
+test <- "g3"
+file_path <- here::here(paste0(test, ".csv"))
+
+readr::write_excel_csv(
+  df,
+  file_path,
+  append = TRUE,
+  col_names = !has_headers(file_path),
+  quote = "all"
+)
+```
