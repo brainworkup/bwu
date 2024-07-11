@@ -109,3 +109,4 @@ test_that_tmt.R
 .tmp.driveupload
 app_drilldown.R
 upload_to_drive.R
+intellij.json
