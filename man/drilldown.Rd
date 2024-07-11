@@ -2,6 +2,7 @@
 % Please edit documentation in R/plots.R
 \name{drilldown}
 \alias{drilldown}
+\alias{drilldown6}
 \title{Drilldown on Neuropsych Domains}
 \usage{
 drilldown(
@@ -10,6 +11,17 @@ drilldown(
   neuro_domain = c("Neuropsychological Test Scores", "Behavioral Rating Scales",
     "Effort/Validity Test Scores"),
   theme
+)
+
+drilldown6(
+  data,
+  patient,
+  neuro_domain = c("Neuropsychological Test Scores", "Behavioral Rating Scales",
+    "Effort/Validity Test Scores"),
+  theme,
+  pass = FALSE,
+  verbal = FALSE,
+  timed = FALSE
 )
 }
 \arguments{
@@ -20,11 +32,23 @@ drilldown(
 \item{neuro_domain}{Name of neuropsych domain to add to HC series.}
 
 \item{theme}{The highcharter theme to use.}
+
+\item{pass}{Logical, whether to plot the pass variable.}
+
+\item{verbal}{Logical, whether to plot the verbal variable.}
+
+\item{timed}{Logical, whether to plot the timed variable.}
 }
 \value{
 A drilldown plot
+
+A drilldown plot
 }
 \description{
+This function uses the R Highcharter package and drilldown function to
+"drilldown" on neuropsychological domains and test scores. \code{drilldown}
+Creates a highcharter drilldown interactive plot.
+
 This function uses the R Highcharter package and drilldown function to
 "drilldown" on neuropsychological domains and test scores. \code{drilldown}
 Creates a highcharter drilldown interactive plot.
