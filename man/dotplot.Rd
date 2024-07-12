@@ -2,7 +2,9 @@
 % Please edit documentation in R/plots.R
 \name{dotplot}
 \alias{dotplot}
-\title{Create Dotplot for Neurocognitive Domains}
+\title{Create Dotplot for Neurocognitive Domains
+This function generates a dotplot for neurocognitive and neurobehavioral
+domains.}
 \usage{
 dotplot(
   data,
@@ -55,6 +57,7 @@ options include 'minimal' and 'classic'}
 An object of class 'ggplot' representing the dotplot.
 }
 \description{
+Create Dotplot for Neurocognitive Domains
 This function generates a dotplot for neurocognitive and neurobehavioral
 domains.
 }
