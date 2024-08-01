@@ -1,10 +1,7 @@
 #' @title Make Table Using `gt` Package for Neurocognitive Domains
 #' @description Create a table of domain counts using dplyr and gt packages.
 #' @importFrom dplyr across mutate group_by summarize arrange select if_else
-#' @importFrom gt gt cols_label tab_stub_indent tab_header sub_missing
-#'   tab_options cols_align tab_source_note gtsave tab_style tab_stubhead
-#'   tab_caption tab_spanner cell_text cells_source_notes md tab_footnote
-#'   opt_vertical_padding cells_row_groups
+#' @importFrom gt gt cols_label tab_stub_indent tab_header sub_missing tab_options cols_align tab_source_note gtsave tab_style tab_stubhead tab_caption tab_spanner cell_text cells_source_notes md tab_footnote opt_vertical_padding cells_row_groups
 #' @importFrom gtExtras gt_theme_538
 #' @importFrom tidyr replace_na
 #' @importFrom glue glue
@@ -80,18 +77,18 @@ tbl_gt <-
         rownames_to_stub = FALSE,
         id = paste0("table_", pheno)
       ) |>
-      cols_label(
+      gt::cols_label(
         test_name = md("**Test**"),
         scale = md("**Scale**"),
         score = md("**Score**"),
         percentile = md("**‰ Rank**"),
         range = md("**Range**")
       ) |>
-      tab_header(title = title) |>
-      tab_stubhead(label = tab_stubhead) |>
-      sub_missing(missing_text = "--") |>
-      tab_stub_indent(rows = scale, indent = 2) |>
-      cols_align(
+      gt::tab_header(title = title) |>
+      gt::tab_stubhead(label = tab_stubhead) |>
+      gt::sub_missing(missing_text = "--") |>
+      gt::tab_stub_indent(rows = scale, indent = 2) |>
+      gt::cols_align(
         align = "center",
         columns = c("score", "percentile", "range")
       )
@@ -130,15 +127,15 @@ tbl_gt <-
 
     # Adding source note
     table <- table |>
-      tab_style(style = cell_text(size = "small"), locations = cells_source_notes()) |>
-      tab_source_note(source_note = source_note) |>
+      gt::tab_style(style = cell_text(size = "small"), locations = cells_source_notes()) |>
+      gt::tab_source_note(source_note = source_note) |>
       gtExtras::gt_theme_538() |>
-      tab_options(
+      gt::tab_options(
         row_group.font.weight = "bold",
         footnotes.multiline = multiline,
         footnotes.font.size = "small"
       ) |>
-      opt_vertical_padding(scale = vertical_padding)
+      gt::opt_vertical_padding(scale = vertical_padding)
 
     gt::gtsave(table, glue::glue("table_{pheno}.png"))
     gt::gtsave(table, glue::glue("table_{pheno}.pdf"))
@@ -175,7 +172,6 @@ tbl_kbl <- function(data) {
     )
 }
 
-
 #' @title Create Markdown Table for Typst
 #' @description Create a markdown table from a data frame for Typst.
 #' @param data A data frame.
@@ -207,7 +203,6 @@ tbl_md_typ <- function(data, caption = NULL) {
 
   data
 }
-
 
 #' @title Make a Tibble for Plots
 #' @description Create a tibble with columns specified in 'columns', and set column names to 'names'.
@@ -252,7 +247,7 @@ make_tibble <- function(data,
     dplyr::mutate(percentile = round(percentile, digits = round)) |>
     purrr::set_names(names)
 
-  tibb
+  return(tibb)
 }
 
 #' @title Use Excel Index Scores to Create "g.csv"
@@ -325,10 +320,10 @@ generate_g <- function(data, patient, scales, index_score_file) {
   ## Mutate columns
   data <- gpluck_make_columns(
     data,
-    raw_score = "",
-    range = "",
     test = "index",
     test_name = "Composite Scores",
+    raw_score = "",
+    range = "",
     domain = "General Cognitive Ability",
     subdomain = "",
     narrow = "",
@@ -430,12 +425,8 @@ generate_g <- function(data, patient, scales, index_score_file) {
     data |>
     dplyr::mutate(
       description = dplyr::case_when(
-        scale ==
-          "General Ability" ~
-          "An estimate of higher cognitive reasoning and acquired knowledge (*g*)",
-        scale ==
-          "Crystallized Knowledge" ~
-          "Crystallized intelligence (*G*c)",
+        scale == "General Ability" ~ "An estimate of higher cognitive reasoning and acquired knowledge (*g*)",
+        scale == "Crystallized Knowledge" ~ "Crystallized intelligence (*G*c)",
         scale ==
           "Fluid Reasoning" ~
           "An estimate of fluid intelligence (*G*f)",
@@ -450,19 +441,19 @@ generate_g <- function(data, patient, scales, index_score_file) {
           "Collective performance across measures of processing speed and cognitive efficiency",
         scale ==
           "Full Scale IQ (FSIQ)" ~
-          "General Intelligence (*G*)",
+          "General Intelligence (*g*)",
         scale ==
           "General Ability (GAI)" ~
-          "General Intelligence (*G*)",
+          "General Intelligence (*g*)",
         scale ==
           "Verbal Comprehension (VCI)" ~
-          "An estimate of Crystallized Intelligence (*G*c)",
+          "An estimate of crystallized knowledge (*G*c)",
         scale ==
           "Perceptual Reasoning (PRI)" ~
           "An estimate of fluid intelligence (*G*f)",
         scale ==
           "Working Memory (WMI)" ~
-          "An estimate of verbal working memory",
+          "An estimate of working memory",
         scale ==
           "Processing Speed (PSI)" ~
           "Collective performance across measures of processing speed and cognitive efficiency",
@@ -493,8 +484,8 @@ generate_g <- function(data, patient, scales, index_score_file) {
 
   data <-
     dplyr::relocate(data,
-      c(raw_score, score, percentile, range, ci_95),
-      .before = test
+      c(raw_score, score, ci_95, percentile, range),
+      .after = scale
     ) |>
     dplyr::relocate(c(scaled_score, t_score, reliability, composition), .after = result) |>
     dplyr::filter(
@@ -512,7 +503,7 @@ generate_g <- function(data, patient, scales, index_score_file) {
 
   readr::write_csv(
     data,
-    here::here(patient, "csv", "g.csv"),
+    here::here(patient, "data", "csv", "g.csv"),
     append = FALSE,
     col_names = TRUE
   )
@@ -522,8 +513,6 @@ generate_g <- function(data, patient, scales, index_score_file) {
 # footnotes
 fn_scaled_score <- gt::md("Scaled score: Mean = 10 [50th\u2030], SD \u00B1 3 [16th\u2030, 84th\u2030]")
 fn_standard_score <- gt::md("Standard score: Mean = 100 [50th\u2030], SD \u00B1 15 [16th\u2030, 84th\u2030]")
-fn_t_score <- gt::md("*T* score: Mean = 50 [50th\u2030], SD \u00B1 10 [16th\u2030, 84th\u2030]")
-fn_z_score <- gt::md("*z* score: Mean = 0 [50th\u2030], SD \u00B1 1 [16th\u2030, 84th\u2030]")
+fn_t_score <- gt::md("_T_-score: Mean = 50 [50th\u2030], SD \u00B1 10 [16th\u2030, 84th\u2030]")
+fn_z_score <- gt::md("_z_-score: Mean = 0 [50th\u2030], SD \u00B1 1 [16th\u2030, 84th\u2030]")
 fn_raw_score <- gt::md("Raw score: Range = 1-4")
-
-
