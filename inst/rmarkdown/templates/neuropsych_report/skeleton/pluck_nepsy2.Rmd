@@ -1,7 +1,7 @@
 ---
 title: "Merge NEPSY-2 scores with lookup table"
 params:
-  patient: Leo
+  patient: Biggie
   test: nepsy2
   test_name: "NEPSY-2"
   version: "NEPSY-2 Ages 2-3"
@@ -86,7 +86,7 @@ file <- params$file
 library(tabulapdf)
 ## from basc3prs, not nepsy
 
-nepsy2 <- vroom::vroom("/Users/joey/reports/Leo/data/nepsy2_scores.csv")
+nepsy2 <- vroom::vroom("/Users/joey/reports/Biggie/data/nepsy2_scores.csv")
 
 # f <- file.path(file.choose(""))
 

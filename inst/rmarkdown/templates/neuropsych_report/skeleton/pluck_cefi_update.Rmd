@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from CEFI PDFs"
 params:
-  patient: Brooklyn
+  patient: Biggie
   test:
     label: "CEFI"
     value: "cefi_or_5-18" #cefi_sr_12-18
@@ -88,12 +88,12 @@ if (params$test == "cefi_sr" || params$test == "cefi_or") {
   )
 } else if (params$test == "cefi_sr_12-18") {
   areas <- list(
-    table1 = c(467.033, 53.0, 480.038, 557.9), 
+    table1 = c(467.033, 53.0, 480.038, 557.9),
     table2 = c(536.648, 52.02, 667.463, 557.685)
   )
 } else if (params$test == "cefi_or_5-18") {
   areas <- list(
-    table1 = c(468.563, 53.0, 481.568, 557.9), 
+    table1 = c(468.563, 53.0, 481.568, 557.9),
     table2 = c(493.043, 50.49, 669.758, 559.98)
   )
 }
@@ -190,9 +190,9 @@ print(table2)
 # Ensure column names are correct
 names(table2) <- c("scale", "score", "ci_95", "percentile", "category", "diff_from_avg", "stat", "strength")
 
-table2 <- table2 |> 
+table2 <- table2 |>
   select(-c("diff_from_avg", "stat", "strength")) |>
-  slice(-1,-5)
+  slice(-1, -5)
 
 # Usage (assuming you have a dataframe named 'df')
 table2 <- convert_columns(df = table2)
@@ -268,8 +268,8 @@ table <- bwu::gpluck_make_columns(
 
 table <-
   dplyr::relocate(table,
-                  c(test, test_name),
-                  .before = scale
+    c(test, test_name),
+    .before = scale
   ) |>
   dplyr::relocate(c(raw_score), .before = score)
 ```
@@ -283,22 +283,22 @@ table <- bwu::gpluck_make_score_ranges(table, test_type = "rating_scale")
 ## Narrow subdomains
 
 ```{r}
-  table <-
-    dplyr::mutate(table,
-      narrow = dplyr::case_when(
-        scale == "Full Scale" ~ "Overall Executive Function",
-        scale == "Attention" ~ "Attention",
-        scale == "Emotion Regulation" ~ "Emotion Regulation",
-        scale == "Flexibility" ~ "Flexibility",
-        scale == "Inhibitory Control" ~ "Inhibitory Control",
-        scale == "Initiation" ~ "Initiation",
-        scale == "Organization" ~ "Organization",
-        scale == "Planning" ~ "Planning",
-        scale == "Self-Monitoring" ~ "Self-Monitoring",
-        scale == "Working Memory" ~ "Working Memory",
-        TRUE ~ as.character(narrow)
-      )
+table <-
+  dplyr::mutate(table,
+    narrow = dplyr::case_when(
+      scale == "Full Scale" ~ "Overall Executive Function",
+      scale == "Attention" ~ "Attention",
+      scale == "Emotion Regulation" ~ "Emotion Regulation",
+      scale == "Flexibility" ~ "Flexibility",
+      scale == "Inhibitory Control" ~ "Inhibitory Control",
+      scale == "Initiation" ~ "Initiation",
+      scale == "Organization" ~ "Organization",
+      scale == "Planning" ~ "Planning",
+      scale == "Self-Monitoring" ~ "Self-Monitoring",
+      scale == "Working Memory" ~ "Working Memory",
+      TRUE ~ as.character(narrow)
     )
+  )
 
 
 # if (params$test == "cefi_sr" ||
@@ -342,32 +342,32 @@ table <- bwu::gpluck_make_score_ranges(table, test_type = "rating_scale")
 ## Scale descriptions
 
 ```{r}
-  table <-
-    dplyr::mutate(table,
-      description = dplyr::case_when(
-        scale == "Full Scale" ~
-          "overall level of executive functioning",
-        scale == "Attention" ~
-          "i.e., avoid distractions, concentrate on tasks, and sustain attention",
-        scale == "Emotion Regulation" ~
-          "i.e., control and manage emotions, including staying calm when handling small problems and reacting with the right level of emotion",
-        scale == "Flexibility" ~
-          "i.e., adjust behavior to meet circumstances, including coming up with different ways to solve problems, changing behavior when needed, and being able to come up with new ways to reach a goal",
-        scale == "Inhibitory Control" ~
-          "i.e., control behavior or impulses, including thinking about consequences before acting, maintaining self-control, and thinking before speaking",
-        scale == "Initiation" ~
-          "i.e., begin tasks or projects on own, including starting tasks easily, being motivated, and taking the initiative when needed",
-        scale == "Organization" ~
-          "i.e., manage personal effects, work, or multiple tasks, including organizing tasks and thoughts well, managing time effectively, and working neatly",
-        scale == "Planning" ~
-          "i.e., develop and implement strategies to accomplish tasks, including planning ahead and making good decisions",
-        scale == "Self-Monitoring" ~
-          "i.e., evaluate own behavior in order to determine when a different approach is necessary, including noticing and fixing mistakes, knowing when help is required, and understanding when a task is completed",
-        scale == "Working Memory" ~
-          "i.e., keep information in mind that is important for knowing what to do and how to do it, including remembering important things, instructions, and steps",
-        TRUE ~ as.character(description)
-      )
+table <-
+  dplyr::mutate(table,
+    description = dplyr::case_when(
+      scale == "Full Scale" ~
+        "overall level of executive functioning",
+      scale == "Attention" ~
+        "i.e., avoid distractions, concentrate on tasks, and sustain attention",
+      scale == "Emotion Regulation" ~
+        "i.e., control and manage emotions, including staying calm when handling small problems and reacting with the right level of emotion",
+      scale == "Flexibility" ~
+        "i.e., adjust behavior to meet circumstances, including coming up with different ways to solve problems, changing behavior when needed, and being able to come up with new ways to reach a goal",
+      scale == "Inhibitory Control" ~
+        "i.e., control behavior or impulses, including thinking about consequences before acting, maintaining self-control, and thinking before speaking",
+      scale == "Initiation" ~
+        "i.e., begin tasks or projects on own, including starting tasks easily, being motivated, and taking the initiative when needed",
+      scale == "Organization" ~
+        "i.e., manage personal effects, work, or multiple tasks, including organizing tasks and thoughts well, managing time effectively, and working neatly",
+      scale == "Planning" ~
+        "i.e., develop and implement strategies to accomplish tasks, including planning ahead and making good decisions",
+      scale == "Self-Monitoring" ~
+        "i.e., evaluate own behavior in order to determine when a different approach is necessary, including noticing and fixing mistakes, knowing when help is required, and understanding when a task is completed",
+      scale == "Working Memory" ~
+        "i.e., keep information in mind that is important for knowing what to do and how to do it, including remembering important things, instructions, and steps",
+      TRUE ~ as.character(description)
     )
+  )
 
 
 
@@ -532,15 +532,18 @@ vroom::vroom_write(
 
 # Function to extract text from PDF
 get_text <- function(file) {
-  tryCatch({
-    txt <- pdftools::pdf_text(file) |> 
-      stringr::str_split("\n") |> 
-      unlist()
-    return(txt)
-  }, error = function(e) {
-    message("Error reading PDF: ", e)
-    return(NULL)
-  })
+  tryCatch(
+    {
+      txt <- pdftools::pdf_text(file) |>
+        stringr::str_split("\n") |>
+        unlist()
+      return(txt)
+    },
+    error = function(e) {
+      message("Error reading PDF: ", e)
+      return(NULL)
+    }
+  )
 }
 
 # CEFI Self-Report
@@ -551,7 +554,7 @@ if (params$test == "cefi_sr" || params$test == "cefi_sr_12-18") {
     # Replace long spaces with a col break symbol
     cefi_sr_squished <- stringr::str_replace_all(cefi_sr_txt, "\\s{2,}", "- ") |>
       stringr::str_remove_all(",")
-    
+
     # save as markdown
     readr::write_lines(
       cefi_sr_squished,
@@ -572,7 +575,7 @@ if (params$test == "cefi_sr" || params$test == "cefi_sr_12-18") {
     )
   }
 
-# CEFI Observer-Report
+  # CEFI Observer-Report
 } else if (params$test == "cefi_or" || params$test == "cefi_or_5-18") {
   ## extract text
   cefi_or_txt <- get_text(file)
@@ -580,7 +583,7 @@ if (params$test == "cefi_sr" || params$test == "cefi_sr_12-18") {
     # Replace long spaces with a col break symbol
     cefi_or_squished <- stringr::str_replace_all(cefi_or_txt, "\\s{2,}", "- ") |>
       stringr::str_remove_all(",")
-    
+
     # save as markdown
     readr::write_lines(
       cefi_or_squished,

@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables Bracken School Readiness 4th ed (BSRA-4)"
 params:
-  patient: Leo
+  patient: Biggie
   test: bsra4
   test_name: "BSRA-4"
   version: "BSRA-4"
@@ -142,7 +142,7 @@ eval_df2 <- params$eval_df2
 
 ```{r extract-areas, eval = FALSE}
 
-f <- file.path("/Users/joey/reports/Leo/pdf/Leo 3_8 yo ASD-2d0f9f88-433a-4fa7-8b39-5f6301683d09.pdf")
+f <- file.path("/Users/joey/reports/Biggie/pdf/Biggie 3_8 yo ASD-2d0f9f88-433a-4fa7-8b39-5f6301683d09.pdf")
 
 #file <- file.path(file.choose(""))
 

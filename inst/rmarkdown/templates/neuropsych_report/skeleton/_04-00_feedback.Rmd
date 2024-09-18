@@ -1,6 +1,6 @@
 ---
 title: "Neuropsychological Evaluation Results"
-patient: Brooklyn
+patient: Biggie
 date: 2024-07-04
 author: "Joey Trampush, PhD"
 institute: "Department of Psychiatry and the Behavioral Sciences"
@@ -29,7 +29,7 @@ output:
 
 ```{r patient, include=FALSE}
 patient <- rmarkdown::metadata$patient
-patient <- "Brooklyn"
+patient <- "Biggie"
 ```
 
 ```{r setup, include=FALSE}
@@ -139,7 +139,20 @@ theme_merge <-
 )
 ```
 
+```{r drilldown-plot1, fig.cap = "Drilldown from broad to narrow neurocognitive domains.", fig.width = 12, fig.height = 8, fig.retina = 3, out.width = '100%'}
 
+data <- neurocog
+neuro_domain <- "Neuropsychological Test Scores"
+theme <- theme_merge
+plot1 <- 
+  bwu::drilldown(
+    data = data,
+    patient = patient,
+    neuro_domain = neuro_domain,
+    theme = theme
+  )
+plot1
+```
 ```{r drilldown-plot1, fig.cap = "Drilldown from broad to narrow neurocognitive domains.", fig.width = 12, fig.height = 8, fig.retina = 3, out.width = '100%'}
 
 data <- neurocog

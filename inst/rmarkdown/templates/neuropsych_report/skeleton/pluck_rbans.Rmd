@@ -1,7 +1,7 @@
 ---
 title: "Create table and csv for RBANS"
 params:
-  patient: Brooklyn
+  patient: Biggie
   test:
     label: "Test"
     value: rbans
@@ -103,7 +103,7 @@ input_file_path <- file.path(file.choose())
 
 ```{r}
 library(tidyverse)
-input_file_path <- "data/0099999_5_11_2024Brooklyn_S_FollowUp_ADHD-LD_Age14_scores.csv"
+input_file_path <- "data/0099999_5_11_2024Biggie_S_FollowUp_ADHD-LD_Age14_scores.csv"
 test_name_prefix <- "RBANS Update Form A "
 output_file_path <- "data/processed_rbans_raw_data.csv"
 
