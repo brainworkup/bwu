@@ -132,19 +132,18 @@ background-color: var(--usc-black)
 # if using single theme
 theme <- highcharter::hc_theme_sandsignika()
 # if merging themes
-theme_merge <- 
+theme_merge <-
   highcharter::hc_theme_merge(
     highcharter::hc_theme_monokai(),
     highcharter::hc_theme_darkunica()
-)
+  )
 ```
 
 ```{r drilldown-plot1, fig.cap = "Drilldown from broad to narrow neurocognitive domains.", fig.width = 12, fig.height = 8, fig.retina = 3, out.width = '100%'}
-
 data <- neurocog
 neuro_domain <- "Neuropsychological Test Scores"
 theme <- theme_merge
-plot1 <- 
+plot1 <-
   bwu::drilldown(
     data = data,
     patient = patient,
@@ -154,11 +153,10 @@ plot1 <-
 plot1
 ```
 ```{r drilldown-plot1, fig.cap = "Drilldown from broad to narrow neurocognitive domains.", fig.width = 12, fig.height = 8, fig.retina = 3, out.width = '100%'}
-
 data <- neurocog
 neuro_domain <- "Neuropsychological Test Scores"
 theme <- theme_merge
-plot1 <- 
+plot1 <-
   bwu::drilldown(
     data = data,
     patient = patient,
@@ -185,11 +183,10 @@ background-color: var(--usc-black)
 #### Summary of self-report and observer-report scales from the BASC-3 and CEFI
 
 ```{r drilldown-plot2, fig.cap = 'Drilldown from broad to narrow behavioral domains.', fig.width = 12, fig.height = 8, fig.retina = 3, out.width = '100%'}
-
 data <- neurobehav
 neuro_domain <- "Behavioral Rating Scales"
 theme <- theme_merge
-plot2 <- 
+plot2 <-
   bwu::drilldown(
     data = data,
     patient = patient,
@@ -215,11 +212,10 @@ background-color: var(--usc-black)
 #### Summary of cognitive performance validity and ratings of symptom validity
 
 ```{r drilldown-plot3, fig.cap = 'Drilldown from broad to narrow validity domains.', fig.width = 12, fig.height = 8, fig.retina = 3, out.width = '100%'}
-
 data <- validity
 neuro_domain <- "Effort/Validity Test Scores"
 theme <- theme_merge
-plot3 <- 
+plot3 <-
   bwu::drilldown(
     data = data,
     patient = patient,
