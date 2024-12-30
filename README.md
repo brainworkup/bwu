@@ -9,7 +9,6 @@
 
 [![R-CMD-check](https://github.com/brainworkup/bwu/actions/workflows/check-release.yaml/badge.svg)](https://github.com/brainworkup/bwu/actions/workflows/check-release.yaml)
 
-https://wakatime.com/badge/github/brainworkup/bwu.svg
 [![wakatime](https://wakatime.com/badge/github/brainworkup/bwu.svg)](https://wakatime.com/badge/github/brainworkup/bwu)
 
 <!-- badges: end -->
