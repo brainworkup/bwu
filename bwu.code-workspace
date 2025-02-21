@@ -56,6 +56,12 @@
     "typst-preview.cursorIndicator": true,
     "typst-preview.pinPreviewFile": true,
     "typst-preview.showInActivityBar": true,
-    "pieces.autocomplete": true
+    "pieces.autocomplete": true,
+    "workbench.colorCustomizations": {
+      "panel.border": "#dee2fc66",
+      "sash.hoverBorder": "#dee2fc66",
+      "sideBar.border": "#dee2fc66",
+      "tab.activeBorder": "#dee2fc66"
+    }
   }
 }
