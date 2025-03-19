@@ -178,30 +178,29 @@ tbl_gt <-
 #' @rdname tbl_gt2
 #' @export
 tbl_gt2 <-
-  function(
-      data,
-      pheno = NULL,
-      table_name = NULL,
-      source_note = NULL,
-      names = NULL,
-      title = NULL,
-      tab_stubhead = NULL,
-      caption = NULL,
-      process_md = FALSE,
-      fn_scaled_score = NULL,
-      fn_standard_score = NULL,
-      fn_t_score = NULL,
-      fn_z_score = NULL,
-      fn_raw_score = NULL,
-      grp_scaled_score = NULL,
-      grp_standard_score = NULL,
-      grp_t_score = NULL,
-      grp_z_score = NULL,
-      grp_raw_score = NULL,
-      dynamic_grp = NULL,
-      vertical_padding = NULL,
-      multiline = TRUE,
-      ...) {
+  function(data,
+           pheno = NULL,
+           table_name = NULL,
+           source_note = NULL,
+           names = NULL,
+           title = NULL,
+           tab_stubhead = NULL,
+           caption = NULL,
+           process_md = FALSE,
+           fn_scaled_score = NULL,
+           fn_standard_score = NULL,
+           fn_t_score = NULL,
+           fn_z_score = NULL,
+           fn_raw_score = NULL,
+           grp_scaled_score = NULL,
+           grp_standard_score = NULL,
+           grp_t_score = NULL,
+           grp_z_score = NULL,
+           grp_raw_score = NULL,
+           dynamic_grp = NULL,
+           vertical_padding = NULL,
+           multiline = TRUE,
+           ...) {
     # Create data counts
     data_counts <- data |>
       dplyr::select(test_name, scale, score, percentile, range) |>
@@ -236,17 +235,18 @@ tbl_gt2 <-
       gt::tab_header(title = title) |>
       gt::tab_stubhead(label = tab_stubhead) |>
       gt::sub_missing(missing_text = "--") |>
-      # Indent non-index rows
+      # Indent rows except the main index row
       gt::tab_stub_indent(
-        rows = !grepl("Index$", scale),
-        indent = 5
+        rows = !scale %in%
+          c("Attention Index (ATT)", "Executive Functions Index (EXE)", "Spatial Index (SPT)", "Language Index (LAN)"),
+        indent = 2
       ) |>
-      # Bold Scale column in Index rows
+      # Bold the index rows in the stub column
       gt::tab_style(
         style = gt::cell_text(weight = "bold"),
-        locations = gt::cells_body(
-          columns = "scale", # <-- Column name as string
-          rows = grepl("Index$", scale)
+        locations = gt::cells_stub(
+          rows = scale %in%
+            c("Attention Index (ATT)", "Executive Functions Index (EXE)", "Spatial Index (SPT)", "Language Index (LAN)")
         )
       ) |>
       gt::cols_align(
@@ -267,6 +267,13 @@ tbl_gt2 <-
         gt::tab_footnote(
           footnote = fn_standard_score,
           locations = gt::cells_row_groups(groups = grp_standard_score)
+        )
+    }
+    if (!is.null(fn_t_score)) {
+      table <- table |>
+        gt::tab_footnote(
+          footnote = fn_t_score,
+          locations = gt::cells_row_groups(groups = grp_t_score)
         )
     }
 

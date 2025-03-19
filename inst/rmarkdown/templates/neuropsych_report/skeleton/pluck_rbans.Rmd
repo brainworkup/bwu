@@ -53,7 +53,9 @@ output:
 
 ```{r setup, include=F}
 # Set JAVA environment
-Sys.setenv(JAVA_HOME = "/Library/Java/JavaVirtualMachines/graalvm-community-openjdk-22.0.1+8.1/Contents/Home")
+Sys.setenv(
+  JAVA_HOME = "/Library/Java/JavaVirtualMachines/graalvm-community-openjdk-22.0.1+8.1/Contents/Home"
+)
 # options(java.parameters = "-Xmx16000m")
 knitr::opts_chunk$set(
   root.dir = normalizePath("./"),
@@ -107,16 +109,19 @@ input_file_path <- "data/0099999_5_11_2024Biggie_S_FollowUp_ADHD-LD_Age14_scores
 test_name_prefix <- "RBANS Update Form A "
 output_file_path <- "data/processed_rbans_raw_data.csv"
 
-df <- read_csv(input_file_path,
-               col_names = FALSE,
-               show_col_types = FALSE,
-               locale = locale(encoding = "UTF-16LE")
+df <- read_csv(
+  input_file_path,
+  col_names = FALSE,
+  show_col_types = FALSE,
+  locale = locale(encoding = "UTF-16LE")
 )
 
 # function
-pluck_rbans_raw <- function(input_file_path,
-                            test_name_prefix,
-                            output_file_path = NULL) {
+pluck_rbans_raw <- function(
+  input_file_path,
+  test_name_prefix,
+  output_file_path = NULL
+) {
   df <- read_csv(
     input_file_path,
     col_names = FALSE,
@@ -155,9 +160,12 @@ pluck_rbans_raw <- function(input_file_path,
   write_csv(df_raw, output_file_path)
 
   return(df_raw)
-
 }
-rbans_raw <- pluck_rbans_raw(input_file_path, output_file_path = output_file_path, test_name_prefix)
+rbans_raw <- pluck_rbans_raw(
+  input_file_path,
+  output_file_path = output_file_path,
+  test_name_prefix
+)
 ```
 
 ## SCALED SCORES
@@ -168,9 +176,11 @@ rbans_raw <- pluck_rbans_raw(input_file_path, output_file_path = output_file_pat
 output_file_path <- "data/processed_rbans_scaled_data.csv"
 
 # function
-pluck_rbans_score <- function(input_file_path,
-                              test_name_prefix,
-                              output_file_path = NULL) {
+pluck_rbans_score <- function(
+  input_file_path,
+  test_name_prefix,
+  output_file_path = NULL
+) {
   df <- read_csv(
     input_file_path,
     col_names = FALSE,
@@ -210,7 +220,11 @@ pluck_rbans_score <- function(input_file_path,
 
   return(df_score)
 }
-rbans_score <- pluck_rbans_score(input_file_path, test_name_prefix, output_file_path = output_file_path)
+rbans_score <- pluck_rbans_score(
+  input_file_path,
+  test_name_prefix,
+  output_file_path = output_file_path
+)
 ```
 
 ## SUBTEST COMPLETION TIMES
@@ -221,9 +235,11 @@ rbans_score <- pluck_rbans_score(input_file_path, test_name_prefix, output_file_
 output_file_path <- "data/processed_rbans_completion_time_data.csv"
 
 # function
-pluck_rbans_completion_times <- function(input_file_path,
-                                         test_name_prefix,
-                                         output_file_path = NULL) {
+pluck_rbans_completion_times <- function(
+  input_file_path,
+  test_name_prefix,
+  output_file_path = NULL
+) {
   df <- read_csv(
     input_file_path,
     col_names = FALSE,
@@ -256,15 +272,20 @@ pluck_rbans_completion_times <- function(input_file_path,
   # Use `set_names()` to rename the columns
   df_times <- df_times |> set_names(vars)
   df_times$scale <- as.character(df_times$scale)
-  df_times$completion_time_seconds <- as.numeric(df_times$completion_time_seconds)
+  df_times$completion_time_seconds <- as.numeric(
+    df_times$completion_time_seconds
+  )
 
   # Write the combined data to a CSV file
   write_csv(df_times, output_file_path)
 
   return(df_times)
-
 }
-rbans_time <- pluck_rbans_completion_times(input_file_path, test_name_prefix, output_file_path = output_file_path)
+rbans_time <- pluck_rbans_completion_times(
+  input_file_path,
+  test_name_prefix,
+  output_file_path = output_file_path
+)
 ```
 
 ## COMPOSITE SCORES
@@ -275,9 +296,11 @@ rbans_time <- pluck_rbans_completion_times(input_file_path, test_name_prefix, ou
 output_file_path <- "data/processed_rbans_composite_data.csv"
 
 # function
-pluck_rbans_composite <- function(input_file_path,
-                                  test_name_prefix,
-                                  output_file_path = NULL) {
+pluck_rbans_composite <- function(
+  input_file_path,
+  test_name_prefix,
+  output_file_path = NULL
+) {
   df <- read_csv(
     input_file_path,
     col_names = FALSE,
@@ -323,10 +346,13 @@ pluck_rbans_composite <- function(input_file_path,
   }
 
   return(df_composite)
-
 }
 
-rbans_composite <- pluck_rbans_composite(input_file_path, test_name_prefix, output_file_path = output_file_path)
+rbans_composite <- pluck_rbans_composite(
+  input_file_path,
+  test_name_prefix,
+  output_file_path = output_file_path
+)
 ```
 
 ## MERGE
@@ -346,39 +372,49 @@ rbans_composite <- pluck_rbans_composite(input_file_path, test_name_prefix, outp
 #' @import dplyr
 #' @import stringr
 #' @export
-process_and_save_rbans_data <- function(rbans_raw,
-                                        rbans_score,
-                                        rbans_time,
-                                        rbans_composite,
-                                        test_name_prefix,
-                                        output_file_path) {
+process_and_save_rbans_data <- function(
+  rbans_raw,
+  rbans_score,
+  rbans_time,
+  rbans_composite,
+  test_name_prefix,
+  output_file_path
+) {
   library(dplyr)
   library(stringr)
-  
+
   # Join the data into one dataframe by the test name
   df <- left_join(rbans_raw, rbans_score, by = "scale") |>
     mutate(percentile = as.numeric(""), range = as.character("")) |>
     left_join(rbans_time, by = "scale")
-  
+
   # Update specific percentile values
-  df$percentile[df$scale == "RBANS Update Form A Line Orientation"] <- (params$pct1)
-  df$percentile[df$scale == "RBANS Update Form A Picture Naming"] <- (params$pct2)
+  df$percentile[
+    df$scale == "RBANS Update Form A Line Orientation"
+  ] <- (params$pct1)
+  df$percentile[
+    df$scale == "RBANS Update Form A Picture Naming"
+  ] <- (params$pct2)
   df$percentile[df$scale == "RBANS Update Form A List Recall"] <- (params$pct3)
-  df$percentile[df$scale == "RBANS Update Form A List Recognition"] <- (params$pct4)
-  
+  df$percentile[
+    df$scale == "RBANS Update Form A List Recognition"
+  ] <- (params$pct4)
+
   # Recalculate percentiles based on score
   df <- df |>
     mutate(z = ifelse(!is.na(score), (score - 10) / 3, NA)) |>
-    mutate(percentile = ifelse(is.na(percentile), trunc(pnorm(z) * 100), percentile)) |>
+    mutate(
+      percentile = ifelse(is.na(percentile), trunc(pnorm(z) * 100), percentile)
+    ) |>
     select(-z)
-  
+
   # Merge with composite scores
   df <- bind_rows(df, rbans_composite) |>
     relocate(completion_time_seconds, .after = ci_95_upper)
-  
+
   # Test score ranges (assuming bwu::gpluck_make_score_ranges is a predefined function)
   df <- bwu::gpluck_make_score_ranges(table = df, test_type = "npsych_test")
-  
+
   # Remove prefix from scale names
   df <- df |>
     mutate(scale = str_remove(scale, test_name_prefix))
@@ -391,21 +427,24 @@ process_and_save_rbans_data <- function(rbans_raw,
     "Delayed Memory Index (DRI)" = "Delayed Memory Index",
     "Total Scale (TOT)" = "RBANS Total Index"
   )
-  
-  df$scale <- map_chr(df$scale, ~ if_else(.x %in% names(scales_to_rename), scales_to_rename[.x], .x))
+
+  df$scale <- map_chr(
+    df$scale,
+    ~ if_else(.x %in% names(scales_to_rename), scales_to_rename[.x], .x)
+  )
 
   # Write the combined data to a CSV file
   return(write_csv(df, output_file_path))
 }
 
 df <- process_and_save_rbans_data(
-  rbans_raw = rbans_raw, 
+  rbans_raw = rbans_raw,
   rbans_score = rbans_score,
   rbans_time = rbans_time,
-  rbans_composite = rbans_composite, 
-  test_name_prefix = test_name_prefix, 
+  rbans_composite = rbans_composite,
+  test_name_prefix = test_name_prefix,
   output_file_path = output_file_path
-  )
+)
 
 # Write the combined data to a CSV file
 output_file_path <- "data/rbans.csv"
@@ -440,14 +479,15 @@ rbans <- bwu::gpluck_make_columns(
 
 ```{r domain}
 rbans <-
-  rbans |> 
+  rbans |>
   dplyr::mutate(
     domain = dplyr::case_when(
       scale == "RBANS Total Index" ~ "General Cognitive Ability",
       scale == "Immediate Memory Index" ~ "Memory",
       scale == "List Learning" ~ "Memory",
       scale == "Story Memory" ~ "Memory",
-      scale == "Visuospatial/Constructional Index" ~ "Visual Perception/Construction",
+      scale == "Visuospatial/Constructional Index" ~
+        "Visual Perception/Construction",
       scale == "Figure Copy" ~ "Visual Perception/Construction",
       scale == "Line Orientation" ~ "Visual Perception/Construction",
       scale == "Language Index" ~ "Verbal/Language",
@@ -477,7 +517,8 @@ rbans <-
       scale == "Immediate Memory Index" ~ "Neuropsychological Functioning",
       scale == "List Learning" ~ "Learning Efficiency",
       scale == "Story Memory" ~ "Learning Efficiency",
-      scale == "Visuospatial/Constructional Index" ~ "Neuropsychological Functioning",
+      scale == "Visuospatial/Constructional Index" ~
+        "Neuropsychological Functioning",
       scale == "Figure Copy" ~ "Organization",
       scale == "Line Orientation" ~ "Perception",
       scale == "Language Index" ~ "Neuropsychological Functioning",
@@ -507,7 +548,8 @@ rbans <-
       scale == "Immediate Memory Index" ~ "RBANS Memory Index",
       scale == "List Learning" ~ "Word-List Learning",
       scale == "Story Memory" ~ "Story Memory",
-      scale == "Visuospatial/Constructional Index" ~ "RBANS Visuospatial/Constructional Index",
+      scale == "Visuospatial/Constructional Index" ~
+        "RBANS Visuospatial/Constructional Index",
       scale == "Figure Copy" ~ "Figure Copy",
       scale == "Line Orientation" ~ "Visual Perception",
       scale == "Language Index" ~ "RBANS Language Index",
@@ -653,24 +695,30 @@ rbans <-
   rbans |>
   mutate(
     description = case_when(
-      scale == "RBANS Total Index" ~ "composite indicator of general cognitive functioning",
-      scale == "Immediate Memory Index" ~ "composite verbal learning of a word list and a logical story",
+      scale == "RBANS Total Index" ~
+        "composite indicator of general cognitive functioning",
+      scale == "Immediate Memory Index" ~
+        "composite verbal learning of a word list and a logical story",
       scale == "List Learning" ~ "word list learning",
       scale == "Story Memory" ~ "expository story learning",
-      scale == "Visuospatial/Constructional Index" ~ "broad visuospatial processing",
+      scale == "Visuospatial/Constructional Index" ~
+        "broad visuospatial processing",
       scale == "Figure Copy" ~ "copy of a complex abstract figure",
       scale == "Line Orientation" ~ "basic perception of visual stimuli",
       scale == "Language Index" ~ "general language processing",
       scale == "Picture Naming" ~ "confrontation naming/expressive vocabulary",
       scale == "Semantic Fluency" ~ "semantic word fluency/generativity",
-      scale == "Attention Index" ~ "general attentional and executive functioning",
+      scale == "Attention Index" ~
+        "general attentional and executive functioning",
       scale == "Digit Span" ~ "attention span and auditory attention",
       scale == "Coding" ~ "speed of information processing",
-      scale == "Delayed Memory Index" ~ "long-term recall of verbal information",
+      scale == "Delayed Memory Index" ~
+        "long-term recall of verbal information",
       scale == "List Recall" ~ "long-term recall of a word list",
       scale == "List Recognition" ~ "delayed recognition of a word list",
       scale == "Story Recall" ~ "long-term recall of a detailed story",
-      scale == "Figure Recall" ~ "long-term recall and reconstruction of a complex abstract figure",
+      scale == "Figure Recall" ~
+        "long-term recall and reconstruction of a complex abstract figure",
       TRUE ~ as.character(description)
     )
   )
@@ -691,7 +739,12 @@ rbans <-
 # EXPORT
 
 ```{r}
-readr::write_csv(rbans, here::here("data", "rbans.csv"), col_names = TRUE, na = "")
+readr::write_excel_csv(
+  rbans,
+  here::here("data", "csv", "rbans.csv"),
+  col_names = TRUE,
+  na = ""
+)
 ```
 
 ```{r}
