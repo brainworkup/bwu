@@ -24,7 +24,7 @@ child_report(
 
 \item{highlight}{Formatting of code chunks; default \code{"default"}}
 
-\item{...}{Other arguments to be passed to \code{\link[bookdown:html_document2]{bookdown::pdf_document2()}} or \code{\link[rmarkdown:html_document]{rmarkdown::html_document()}} (note you cannot use the \code{template} argument in \code{tufte_handout} or the \code{theme} argument in \code{tufte_html()}; these arguments have been set internally)}
+\item{...}{Other arguments to be passed to \code{\link[=pdf_document2]{pdf_document2()}} or \code{\link[=html_document]{html_document()}} (note you cannot use the \code{template} argument in \code{tufte_handout} or the \code{theme} argument in \code{tufte_html()}; these arguments have been set internally)}
 }
 \value{
 No formal returns, outputs neuropsychological report documents
