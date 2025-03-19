@@ -2,7 +2,7 @@
 % Please edit documentation in R/tables.R
 \name{tbl_gt}
 \alias{tbl_gt}
-\title{Make Table Using \code{gt} Package for Neurocognitive Domains}
+\title{Make Table Using gt Package for Neurocognitive Domains}
 \usage{
 tbl_gt(
   data,

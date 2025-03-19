@@ -1,150 +1,4 @@
-#' @title Make Table Using `gt` Package for Neurocognitive Domains
-#' @description Create a table of domain counts using dplyr and gt packages.
-#' @importFrom dplyr across mutate group_by summarize arrange select if_else
-#' @importFrom gt gt cols_label tab_stub_indent tab_header sub_missing tab_options cols_align tab_source_note gtsave tab_style tab_stubhead tab_caption tab_spanner cell_text cells_source_notes md tab_footnote opt_vertical_padding cells_row_groups
-#' @importFrom gtExtras gt_theme_538
-#' @importFrom tidyr replace_na
-#' @importFrom glue glue
-#' @param data File or path to data.
-#' @param pheno Phenotype name.
-#' @param table_name Name of the table to be saved.
-#' @param source_note Source note to be added to the table.
-#' @param names Names of the columns.
-#' @param title Title of the table.
-#' @param tab_stubhead Stubhead of the table.
-#' @param caption Caption of the table.
-#' @param process_md Process markdown.
-#' @param fn_scaled_score Footnote for scaled score.
-#' @param fn_standard_score Footnote for standard score.
-#' @param fn_t_score Footnote for t score.
-#' @param fn_z_score Footnote for z score.
-#' @param fn_raw_score Footnote for raw scores.
-#' @param grp_standard_score Groups for standard score.
-#' @param grp_t_score Groups for t score.
-#' @param grp_scaled_score Groups for scaled score.
-#' @param grp_z_score Groups for z score.
-#' @param grp_raw_score Groups for raw scores.
-#' @param dynamic_grp Generalized grouping parameter.
-#' @param vertical_padding Vertical padding.
-#' @param multiline Multiline footnotes, Default = TRUE.
-#' @param ... Additional arguments to be passed to the function.
-#' @return A formatted table with domain counts.
-#' @rdname tbl_gt
-#' @export
-tbl_gt <-
-  function(data,
-           pheno = NULL,
-           table_name = NULL,
-           source_note = NULL,
-           names = NULL,
-           title = NULL,
-           tab_stubhead = NULL,
-           caption = NULL,
-           process_md = FALSE,
-           fn_scaled_score = NULL,
-           fn_standard_score = NULL,
-           fn_t_score = NULL,
-           fn_z_score = NULL,
-           fn_raw_score = NULL,
-           grp_scaled_score = NULL,
-           grp_standard_score = NULL,
-           grp_t_score = NULL,
-           grp_z_score = NULL,
-           grp_raw_score = NULL,
-           dynamic_grp = NULL,
-           vertical_padding = NULL,
-           multiline = TRUE,
-           ...) {
-    # Create data counts
-    data_counts <- data |>
-      dplyr::select(test_name, scale, score, percentile, range) |>
-      dplyr::mutate(across(c(score, percentile), ~ tidyr::replace_na(., replace = 0)))
-
-    # Create table
-    table <- data_counts |>
-      dplyr::mutate(
-        score = if_else(score == 0, NA_integer_, score),
-        percentile = if_else(percentile == 0, NA_integer_, percentile),
-        test_name = as.character(paste0(test_name)),
-        scale = as.character(scale)
-      ) |>
-      # gt table formatting
-      gt::gt(
-        rowname_col = "scale",
-        groupname_col = "test_name",
-        process_md = process_md,
-        caption = caption,
-        rownames_to_stub = FALSE,
-        id = paste0("table_", pheno)
-      ) |>
-      gt::cols_label(
-        test_name = md("**Test**"),
-        scale = md("**Scale**"),
-        score = md("**Score**"),
-        percentile = md("**‰ Rank**"),
-        range = md("**Range**")
-      ) |>
-      gt::tab_header(title = title) |>
-      gt::tab_stubhead(label = tab_stubhead) |>
-      gt::sub_missing(missing_text = "--") |>
-      gt::tab_stub_indent(rows = scale, indent = 2) |>
-      gt::cols_align(
-        align = "center",
-        columns = c("score", "percentile", "range")
-      )
-
-    # Extract unique row groups from the data to check against the groups we want to apply footnotes to
-    existing_row_groups <- unique(data$test_name)
-
-    # Filter out non-existent groups
-    grp_scaled_score <- intersect(grp_scaled_score, existing_row_groups)
-    grp_standard_score <- intersect(grp_standard_score, existing_row_groups)
-    grp_t_score <- intersect(grp_t_score, existing_row_groups)
-    grp_z_score <- intersect(grp_z_score, existing_row_groups)
-    grp_raw_score <- intersect(grp_raw_score, existing_row_groups)
-
-    # Concatenate footnotes
-    fn_combined <- list(
-      scaled_score = fn_scaled_score,
-      standard_score = fn_standard_score,
-      t_score = fn_t_score,
-      z_score = fn_z_score,
-      raw_score = fn_raw_score
-    )
-
-    # Add footnotes
-    for (score_type in names(fn_combined)) {
-      fn <- fn_combined[[score_type]]
-      groups <- get(paste0("grp_", score_type))
-      if (!is.null(fn) && any(groups %in% dynamic_grp[[score_type]])) {
-        table <- table |>
-          tab_footnote(
-            footnote = glue::glue_collapse(fn, sep = " "),
-            locations = cells_row_groups(groups = groups)
-          )
-      }
-    }
-
-    # Adding source note
-    table <- table |>
-      gt::tab_style(style = cell_text(size = "small"), locations = cells_source_notes()) |>
-      gt::tab_source_note(source_note = source_note) |>
-      gtExtras::gt_theme_538() |>
-      gt::tab_options(
-        row_group.font.weight = "bold",
-        footnotes.multiline = multiline,
-        footnotes.font.size = "small"
-      ) |>
-      gt::opt_vertical_padding(scale = vertical_padding)
-
-    gt::gtsave(table, glue::glue("table_{pheno}.png"))
-    gt::gtsave(table, glue::glue("table_{pheno}.pdf"))
-
-    return(table)
-  }
-
-
-#' @title Make Table Using gt Package for Neurocognitive Domains v2
+#' @title Make Table Using gt Package for Neurocognitive Domains
 #' @description Create a table of domain counts using dplyr and gt packages.
 #' @importFrom dplyr across mutate group_by summarize arrange select if_else
 #' @importFrom gt gt cols_label tab_stub_indent tab_header sub_missing tab_options cols_align tab_source_note gtsave tab_style tab_stubhead tab_caption tab_spanner cell_text cells_body cells_row_groups md tab_footnote opt_vertical_padding
@@ -175,9 +29,9 @@ tbl_gt <-
 #' @param multiline Multiline footnotes, Default = TRUE.
 #' @param ... Additional arguments to be passed to the function.
 #' @return A formatted table with domain counts.
-#' @rdname tbl_gt2
+#' @rdname tbl_gt
 #' @export
-tbl_gt2 <-
+tbl_gt <-
   function(data,
            pheno = NULL,
            table_name = NULL,
@@ -238,15 +92,22 @@ tbl_gt2 <-
       # Indent rows except the main index row
       gt::tab_stub_indent(
         rows = !scale %in%
-          c("Attention Index (ATT)", "Executive Functions Index (EXE)", "Spatial Index (SPT)", "Language Index (LAN)"),
+          c("Attention Index (ATT)", "Executive Functions Index (EXE)", "Spatial Index (SPT)", "Language Index (LAN)", "Memory Index (MEM)"),
         indent = 2
       ) |>
       # Bold the index rows in the stub column
       gt::tab_style(
-        style = gt::cell_text(weight = "bold"),
+        style = gt::cell_text(
+          weight = "bold",
+          font = c(
+            gt::google_font(name = "Roboto Slab"),
+            gt::google_font(name = "IBM Plex Mono"),
+            gt::default_fonts()
+          )
+        ),
         locations = gt::cells_stub(
           rows = scale %in%
-            c("Attention Index (ATT)", "Executive Functions Index (EXE)", "Spatial Index (SPT)", "Language Index (LAN)")
+            c("Attention Index (ATT)", "Executive Functions Index (EXE)", "Spatial Index (SPT)", "Language Index (LAN)", "Memory Index (MEM)")
         )
       ) |>
       gt::cols_align(
@@ -299,6 +160,7 @@ tbl_gt2 <-
 
     return(table)
   }
+
 
 
 #' @title Create Kable Table from Data
