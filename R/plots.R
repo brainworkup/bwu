@@ -1,17 +1,18 @@
 dotplot <- function(
-    data,
-    x,
-    y,
-    linewidth = 0.5,
-    fill = x,
-    shape = 21,
-    point_size = 6,
-    line_color = "black",
-    colors = NULL,
-    theme = "fivethirtyeight",
-    return_plot = NULL,
-    filename = NULL,
-    ...) {
+  data,
+  x,
+  y,
+  linewidth = 0.5,
+  fill = x,
+  shape = 21,
+  point_size = 6,
+  line_color = "black",
+  colors = NULL,
+  theme = "fivethirtyeight",
+  return_plot = NULL,
+  filename = NULL,
+  ...
+) {
   # Define the color palette
   color_palette <- if (is.null(colors)) {
     c(
@@ -99,7 +100,8 @@ dotplot <- function(
 
   # Apply theme
   plot_object <- plot_object +
-    switch(theme,
+    switch(
+      theme,
       "fivethirtyeight" = ggthemes::theme_fivethirtyeight(),
       "minimal" = ggplot2::theme_minimal(),
       "classic" = ggplot2::theme_classic(),
@@ -182,11 +184,16 @@ dotplot <- function(
 #' @return A drilldown plot
 #' @rdname drilldown
 #' @export
-drilldown <- function(data, patient, neuro_domain = c(
-                        "Neuropsychological Test Scores",
-                        "Behavioral Rating Scales",
-                        "Effort/Validity Test Scores"
-                      ), theme) {
+drilldown <- function(
+  data,
+  patient,
+  neuro_domain = c(
+    "Neuropsychological Test Scores",
+    "Behavioral Rating Scales",
+    "Effort/Validity Test Scores"
+  ),
+  theme
+) {
   # Create 4 levels of dataframes for drilldown ----------------------------------
   ## Level 1 -------------------------------------------------------
   ## Domain scores
@@ -199,7 +206,6 @@ drilldown <- function(data, patient, neuro_domain = c(
     ) %>%
     dplyr::mutate(range = NA) |>
     ungroup() # NOTE this is new
-
 
   df1$zMean <- round(df1$zMean, 2L)
   df1$zPct <- round(df1$zPct, 0L)
@@ -341,7 +347,8 @@ drilldown <- function(data, patient, neuro_domain = c(
           data = list_parse(df_level3_status)
         )
       })
-    }) %>% unlist(recursive = FALSE)
+    }) %>%
+    unlist(recursive = FALSE)
 
   ## Level 4 -------------------------------------------------------
   ## Scale scores
@@ -399,8 +406,10 @@ drilldown <- function(data, patient, neuro_domain = c(
             data = list_parse(df_level4_status)
           )
         })
-      }) %>% unlist(recursive = FALSE)
-    }) %>% unlist(recursive = FALSE)
+      }) %>%
+        unlist(recursive = FALSE)
+    }) %>%
+    unlist(recursive = FALSE)
 
   # Create charts ----------------------------------
   # Theme
@@ -422,7 +431,8 @@ drilldown <- function(data, patient, neuro_domain = c(
       text = patient,
       style = list(fontSize = "15px")
     ) %>%
-    highcharter::hc_add_series(df_level1_status,
+    highcharter::hc_add_series(
+      df_level1_status,
       type = "bar",
       name = neuro_domain,
       highcharter::hcaes(x = name, y = y)
@@ -487,11 +497,16 @@ drilldown <- function(data, patient, neuro_domain = c(
 #' @return A drilldown plot
 #' @rdname pass
 #' @export
-pass <- function(data, patient, neuro_domain = c(
-                   "Neuropsychological Test Scores",
-                   "Behavioral Rating Scales",
-                   "Effort/Validity Test Scores"
-                 ), theme) {
+pass <- function(
+  data,
+  patient,
+  neuro_domain = c(
+    "Neuropsychological Test Scores",
+    "Behavioral Rating Scales",
+    "Effort/Validity Test Scores"
+  ),
+  theme
+) {
   # Create 4 levels of dataframes for drilldown ----------------------------------
   ## Level 1 -------------------------------------------------------
   ## Domain scores
@@ -504,7 +519,6 @@ pass <- function(data, patient, neuro_domain = c(
     ) |>
     dplyr::mutate(range = NA) |>
     ungroup() # NOTE this is new
-
 
   df1$zMean <- round(df1$zMean, 2L)
   df1$zPct <- round(df1$zPct, 0L)
@@ -534,8 +548,6 @@ pass <- function(data, patient, neuro_domain = c(
     range = df1$range,
     drilldown = tolower(name)
   )
-
-
 
   ## Level 2 -------------------------------------------------------
   ## Scale scores
@@ -605,7 +617,8 @@ pass <- function(data, patient, neuro_domain = c(
       text = patient,
       style = list(fontSize = "15px")
     ) |>
-    highcharter::hc_add_series(df_pass_status,
+    highcharter::hc_add_series(
+      df_pass_status,
       type = "bar",
       name = neuro_domain,
       highcharter::hcaes(x = name, y = y)

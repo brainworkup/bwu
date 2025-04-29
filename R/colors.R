@@ -236,7 +236,9 @@ plot_colors <- function(colors) {
   ggplot2::ggplot(
     plot_data,
     ggplot2::aes(
-      x = .data$Color, y = 1, fill = .data$Color,
+      x = .data$Color,
+      y = 1,
+      fill = .data$Color,
       label = .data$Color
     )
   ) +
@@ -264,7 +266,9 @@ plot_colors <- function(colors) {
 scico_palette <- function(n, palette = c("roma", "hawaii", "tokyo", "vik")) {
   # If n is greater than the length of roma, return the full palette
   if (n > length(palette)) {
-    warning("Requested more colors than available in the palette. Returning the full palette.")
+    warning(
+      "Requested more colors than available in the palette. Returning the full palette."
+    )
     return(palette)
   }
 

@@ -50,13 +50,10 @@
       }
     ],
     "peacock.surpriseMeOnStartup": false,
-    "githubPullRequests.ignoredPullRequestBranches": ["main"],
+    "githubPullRequests.ignoredPullRequestBranches": [
+      "main"
+    ],
     "editor.acceptSuggestionOnEnter": "on",
-    "typst-lsp.experimentalFormatterMode": "on",
-    "typst-preview.cursorIndicator": true,
-    "typst-preview.pinPreviewFile": true,
-    "typst-preview.showInActivityBar": true,
-    "pieces.autocomplete": true,
     "workbench.colorCustomizations": {
       "panel.border": "#dee2fc66",
       "sash.hoverBorder": "#dee2fc66",
