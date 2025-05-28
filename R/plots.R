@@ -1,3 +1,32 @@
+#' Create Dotplot for Neurocognitive Domains
+#' This function generates a dotplot for neurocognitive and neurobehavioral
+#' domains.
+#' @param data The dataset or df containing the data for the dotplot.
+#' @param x The column name in the data frame for the x-axis variable, typically
+#'   the mean z-score for a cognitive domain.
+#' @param y The column name in the data frame for the y-axis variable, typically
+#'   the cognitive domain to plot.
+#' @param linewidth The width of the line, Default: 0.5
+#' @param fill The fill color for the points, Default: x-axis variable
+#' @param shape The shape of the points, Default: 21
+#' @param point_size The size of the points, Default: 6
+#' @param line_color The color of the lines, Default: 'black'
+#' @param colors A vector of colors for fill gradient, Default: NULL (uses
+#'   pre-defined color palette)
+#' @param theme The ggplot theme to be used, Default: 'fivethirtyeight'. Other
+#'   options include 'minimal' and 'classic'
+#' @param return_plot Whether to return the plot object, Default: TRUE
+#' @param filename The filename to save the plot to, Default: NULL
+#' @param ... Additional arguments to be passed to the function.
+#' @return An object of class 'ggplot' representing the dotplot.
+#' @importFrom stats reorder
+#' @importFrom ggplot2 ggplot geom_segment aes geom_point scale_fill_gradientn theme element_rect ggsave
+#' @importFrom ggthemes theme_fivethirtyeight
+#' @importFrom ggtext element_markdown
+#' @importFrom tibble tibble
+#' @importFrom highcharter list_parse
+#' @rdname dotplot
+#' @export
 dotplot <- function(
   data,
   x,
@@ -13,6 +42,15 @@ dotplot <- function(
   filename = NULL,
   ...
 ) {
+  # Check if required packages are installed
+  if (!requireNamespace("ggplot2", quietly = TRUE)) {
+    stop("Package 'ggplot2' must be installed to use this function.")
+  }
+  if (
+    theme == "fivethirtyeight" && !requireNamespace("ggthemes", quietly = TRUE)
+  ) {
+    stop("Package 'ggthemes' must be installed to use theme_fivethirtyeight.")
+  }
   # Define the color palette
   color_palette <- if (is.null(colors)) {
     c(
@@ -108,20 +146,13 @@ dotplot <- function(
       ggplot2::theme_minimal()
     )
 
-  # Add margins and turn off clipping
+  # Apply theme elements
   plot_object <- plot_object +
-    ggplot2::coord_cartesian(clip = "off") +
     ggplot2::theme(
       panel.background = ggplot2::element_rect(fill = "white"),
       plot.background = ggplot2::element_rect(fill = "white"),
-      panel.border = ggplot2::element_rect(color = "white"),
-      # Add this line to increase the left margin
-      plot.margin = ggplot2::margin(t = 5, r = 5, b = 5, l = 10)
+      panel.border = ggplot2::element_rect(color = "white")
     )
-
-  # Add this after creating your plot object
-  plot_object <- plot_object +
-    ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0.2, 0.1)))
 
   # Save the plot to a file if filename is provided
   if (!is.null(filename)) {
@@ -132,19 +163,13 @@ dotplot <- function(
       ggplot2::ggsave(
         filename = filename,
         plot = plot_object,
-        device = "pdf",
-        width = 10, # Try a wider width
-        height = 6,
-        dpi = 300
+        device = "pdf"
       )
     } else if (ext == "png") {
       ggplot2::ggsave(
         filename = filename,
         plot = plot_object,
-        device = "png",
-        width = 10, # Try a wider width
-        height = 6,
-        dpi = 300
+        device = "png"
       )
     } else if (ext == "svg") {
       ggplot2::ggsave(
@@ -155,7 +180,7 @@ dotplot <- function(
     } else {
       warning(
         "File extension not recognized.
-              Supported extensions are 'pdf', 'png', and 'svg'."
+Supported extensions are 'pdf', 'png', and 'svg'."
       )
     }
   }
@@ -166,7 +191,6 @@ dotplot <- function(
   }
 }
 
-
 #' Drilldown on Neuropsych Domains
 #' This function uses the R Highcharter package and drilldown function to
 #' "drilldown" on neuropsychological domains and test scores. \code{drilldown}
@@ -175,12 +199,6 @@ dotplot <- function(
 #' @param patient Name of patient.
 #' @param neuro_domain Name of neuropsych domain to add to HC series.
 #' @param theme The highcharter theme to use.
-#' @importFrom dplyr group_by summarize mutate case_when arrange ungroup
-#' @importFrom highcharter tooltip_table highchart hc_title hc_add_series hcaes
-#'   hc_xAxis hc_yAxis hc_tooltip hc_plotOptions hc_drilldown hc_add_theme
-#'   hc_theme_merge hc_theme_sandsignika hc_theme_darkunica hc_theme_monokai
-#'   list_parse hc_colorAxis hc_chart
-#' @importFrom tibble tibble
 #' @return A drilldown plot
 #' @rdname drilldown
 #' @export
@@ -194,23 +212,33 @@ drilldown <- function(
   ),
   theme
 ) {
+  # Check if required packages are installed
+  if (!requireNamespace("dplyr", quietly = TRUE)) {
+    stop("Package 'dplyr' must be installed to use this function.")
+  }
+  if (!requireNamespace("highcharter", quietly = TRUE)) {
+    stop("Package 'highcharter' must be installed to use this function.")
+  }
+  if (!requireNamespace("tibble", quietly = TRUE)) {
+    stop("Package 'tibble' must be installed to use this function.")
+  }
   # Create 4 levels of dataframes for drilldown ----------------------------------
   ## Level 1 -------------------------------------------------------
   ## Domain scores
   # 1. create mean z-scores for domain
-  df1 <- data %>%
-    dplyr::group_by(domain) %>%
+  df1 <- data |>
+    dplyr::group_by(domain) |>
     dplyr::summarize(
       zMean = mean(z, na.rm = TRUE),
       zPct = mean(percentile, na.rm = TRUE)
-    ) %>%
+    ) |>
     dplyr::mutate(range = NA) |>
     ungroup() # NOTE this is new
 
   df1$zMean <- round(df1$zMean, 2L)
   df1$zPct <- round(df1$zPct, 0L)
   df1 <-
-    df1 %>%
+    df1 |>
     dplyr::mutate(
       range = dplyr::case_when(
         zPct >= 98 ~ "Exceptionally High",
@@ -245,12 +273,12 @@ drilldown <- function(
 
       # same as above
       df2 <-
-        df2 %>%
-        dplyr::group_by(subdomain) %>%
+        df2 |>
+        dplyr::group_by(subdomain) |>
         dplyr::summarize(
           zMean = mean(z, na.rm = TRUE),
           zPct = mean(percentile, na.rm = TRUE)
-        ) %>%
+        ) |>
         dplyr::mutate(range = NA) |>
         dplyr::ungroup() # NOTE this is new
 
@@ -258,7 +286,7 @@ drilldown <- function(
       df2$zMean <- round(df2$zMean, 2L)
       df2$zPct <- round(df2$zPct, 0L)
       df2 <-
-        df2 %>%
+        df2 |>
         dplyr::mutate(
           range = dplyr::case_when(
             zPct >= 98 ~ "Exceptionally High",
@@ -304,12 +332,12 @@ drilldown <- function(
         # df3 becomes pronoun for domain
         df3 <- subset(df2, df2$subdomain %in% y_level)
 
-        df3 <- df3 %>%
-          dplyr::group_by(narrow) %>%
+        df3 <- df3 |>
+          dplyr::group_by(narrow) |>
           dplyr::summarize(
             zMean = mean(z, na.rm = TRUE),
             zPct = mean(percentile, na.rm = TRUE)
-          ) %>%
+          ) |>
           dplyr::mutate(range = NA) |>
           ungroup() # NOTE this is new
 
@@ -317,7 +345,7 @@ drilldown <- function(
         df3$zMean <- round(df3$zMean, 2L)
         df3$zPct <- round(df3$zPct, 0L)
         df3 <-
-          df3 %>%
+          df3 |>
           dplyr::mutate(
             range = dplyr::case_when(
               zPct >= 98 ~ "Exceptionally High",
@@ -347,7 +375,7 @@ drilldown <- function(
           data = list_parse(df_level3_status)
         )
       })
-    }) %>%
+    }) |>
     unlist(recursive = FALSE)
 
   ## Level 4 -------------------------------------------------------
@@ -364,12 +392,12 @@ drilldown <- function(
           df4 <- subset(df3, df3$narrow %in% z_level)
 
           df4 <-
-            df4 %>%
-            dplyr::group_by(scale) %>%
+            df4 |>
+            dplyr::group_by(scale) |>
             dplyr::summarize(
               zMean = mean(z, na.rm = TRUE),
               zPct = mean(percentile, na.rm = TRUE)
-            ) %>%
+            ) |>
             dplyr::mutate(range = NA) |>
             dplyr::ungroup() # NOTE this is new
 
@@ -377,7 +405,7 @@ drilldown <- function(
           df4$zMean <- round(df4$zMean, 2L)
           df4$zPct <- round(df4$zPct, 0L)
           df4 <-
-            df4 %>%
+            df4 |>
             dplyr::mutate(
               range = dplyr::case_when(
                 zPct >= 98 ~ "Exceptionally High",
@@ -406,9 +434,9 @@ drilldown <- function(
             data = list_parse(df_level4_status)
           )
         })
-      }) %>%
+      }) |>
         unlist(recursive = FALSE)
-    }) %>%
+    }) |>
     unlist(recursive = FALSE)
 
   # Create charts ----------------------------------
@@ -426,38 +454,38 @@ drilldown <- function(
 
   ## Create drilldown bar plot zscores
   plot <-
-    highcharter::highchart() %>%
+    highcharter::highchart() |>
     highcharter::hc_title(
       text = patient,
       style = list(fontSize = "15px")
-    ) %>%
+    ) |>
     highcharter::hc_add_series(
       df_level1_status,
       type = "bar",
       name = neuro_domain,
       highcharter::hcaes(x = name, y = y)
-    ) %>%
+    ) |>
     highcharter::hc_xAxis(
       type = "category",
       title = list(text = "Domain"),
       categories = .$name
-    ) %>%
+    ) |>
     highcharter::hc_yAxis(
       title = list(text = "z-Score (Mean = 0, SD = 1)"),
       labels = list(format = "{value}")
-    ) %>%
+    ) |>
     highcharter::hc_tooltip(
       pointFormat = tt,
       useHTML = TRUE,
       valueDecimals = 1
-    ) %>%
+    ) |>
     highcharter::hc_plotOptions(
       series = list(
         colorByPoint = TRUE,
         allowPointSelect = TRUE,
         dataLabels = TRUE
       )
-    ) %>%
+    ) |>
     highcharter::hc_drilldown(
       allowPointDrilldown = TRUE,
       series = c(
@@ -465,12 +493,12 @@ drilldown <- function(
         df_level3_drill,
         df_level4_drill
       )
-    ) %>%
+    ) |>
     highcharter::hc_colorAxis(
       minColor = "red",
       maxColor = "blue"
-    ) %>%
-    highcharter::hc_add_theme(theme) %>%
+    ) |>
+    highcharter::hc_add_theme(theme) |>
     highcharter::hc_chart(
       style = list(fontFamily = "Cabin"),
       backgroundColor = list("gray")
@@ -488,12 +516,6 @@ drilldown <- function(
 #' @param patient Name of patient.
 #' @param neuro_domain Name of neuropsych domain to add to HC series.
 #' @param theme The highcharter theme to use.
-#' @importFrom dplyr group_by summarize mutate case_when arrange ungroup
-#' @importFrom highcharter tooltip_table highchart hc_title hc_add_series hcaes
-#'   hc_xAxis hc_yAxis hc_tooltip hc_plotOptions hc_drilldown hc_add_theme
-#'   hc_theme_merge hc_theme_sandsignika hc_theme_darkunica hc_theme_monokai
-#'   list_parse hc_colorAxis hc_chart
-#' @importFrom tibble tibble
 #' @return A drilldown plot
 #' @rdname pass
 #' @export
@@ -507,6 +529,16 @@ pass <- function(
   ),
   theme
 ) {
+  # Check if required packages are installed
+  if (!requireNamespace("dplyr", quietly = TRUE)) {
+    stop("Package 'dplyr' must be installed to use this function.")
+  }
+  if (!requireNamespace("highcharter", quietly = TRUE)) {
+    stop("Package 'highcharter' must be installed to use this function.")
+  }
+  if (!requireNamespace("tibble", quietly = TRUE)) {
+    stop("Package 'tibble' must be installed to use this function.")
+  }
   # Create 4 levels of dataframes for drilldown ----------------------------------
   ## Level 1 -------------------------------------------------------
   ## Domain scores
