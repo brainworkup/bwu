@@ -202,6 +202,17 @@ Supported extensions are 'pdf', 'png', and 'svg'."
 #' @return A drilldown plot
 #' @rdname drilldown
 #' @export
+#' Drilldown on Neuropsych Domains
+#' This function uses the R Highcharter package and drilldown function to
+#' "drilldown" on neuropsychological domains and test scores. \code{drilldown}
+#' Creates a highcharter drilldown interactive plot.
+#' @param data Dataset to use.
+#' @param patient Name of patient.
+#' @param neuro_domain Name of neuropsych domain to add to HC series.
+#' @param theme The highcharter theme to use.
+#' @return A drilldown plot
+#' @rdname drilldown
+#' @export
 drilldown <- function(
   data,
   patient,
@@ -233,7 +244,7 @@ drilldown <- function(
       zPct = mean(percentile, na.rm = TRUE)
     ) |>
     dplyr::mutate(range = NA) |>
-    ungroup() # NOTE this is new
+    dplyr::ungroup() # Fixed: added dplyr:: prefix
 
   df1$zMean <- round(df1$zMean, 2L)
   df1$zPct <- round(df1$zPct, 0L)
@@ -253,7 +264,7 @@ drilldown <- function(
     )
 
   # 2. sort hi to lo
-  df1 <- dplyr::arrange(df1, desc(zPct)) # NOTE this is new
+  df1 <- dplyr::arrange(df1, dplyr::desc(zPct)) # Fixed: added dplyr:: prefix to desc
 
   # 3. create tibble with new column with domain name lowercase
   df_level1_status <- tibble(
@@ -280,7 +291,7 @@ drilldown <- function(
           zPct = mean(percentile, na.rm = TRUE)
         ) |>
         dplyr::mutate(range = NA) |>
-        dplyr::ungroup() # NOTE this is new
+        dplyr::ungroup() # Fixed: added dplyr:: prefix
 
       # round z-score to 1 decimal
       df2$zMean <- round(df2$zMean, 2L)
@@ -301,7 +312,7 @@ drilldown <- function(
         )
 
       # 2. sort hi to lo
-      df2 <- dplyr::arrange(df2, desc(zPct)) # NOTE this is new
+      df2 <- dplyr::arrange(df2, dplyr::desc(zPct)) # Fixed: added dplyr:: prefix to desc
 
       # 3. create tibble with new column with domain name lowercase
       df_level2_status <- tibble(
@@ -315,7 +326,7 @@ drilldown <- function(
       list(
         id = tolower(x_level),
         type = "column",
-        data = list_parse(df_level2_status)
+        data = highcharter::list_parse(df_level2_status) # Fixed: added highcharter:: prefix
       )
     })
 
@@ -339,7 +350,7 @@ drilldown <- function(
             zPct = mean(percentile, na.rm = TRUE)
           ) |>
           dplyr::mutate(range = NA) |>
-          ungroup() # NOTE this is new
+          dplyr::ungroup() # Fixed: added dplyr:: prefix
 
         # round z-score to 1 decimal
         df3$zMean <- round(df3$zMean, 2L)
@@ -359,7 +370,7 @@ drilldown <- function(
             )
           )
 
-        df3 <- dplyr::arrange(df3, desc(zPct))
+        df3 <- dplyr::arrange(df3, dplyr::desc(zPct)) # Fixed: added dplyr:: prefix to desc
 
         df_level3_status <- tibble(
           name = df3$narrow,
@@ -372,7 +383,7 @@ drilldown <- function(
         list(
           id = tolower(paste(x_level, y_level, sep = "_")),
           type = "column",
-          data = list_parse(df_level3_status)
+          data = highcharter::list_parse(df_level3_status) # Fixed: added highcharter:: prefix
         )
       })
     }) |>
@@ -399,7 +410,7 @@ drilldown <- function(
               zPct = mean(percentile, na.rm = TRUE)
             ) |>
             dplyr::mutate(range = NA) |>
-            dplyr::ungroup() # NOTE this is new
+            dplyr::ungroup() # Fixed: added dplyr:: prefix
 
           # round z-score to 1 decimal
           df4$zMean <- round(df4$zMean, 2L)
@@ -419,7 +430,7 @@ drilldown <- function(
               )
             )
 
-          df4 <- dplyr::arrange(df4, desc(zMean))
+          df4 <- dplyr::arrange(df4, dplyr::desc(zMean)) # Fixed: added dplyr:: prefix to desc
 
           df_level4_status <- tibble(
             name = df4$scale,
@@ -431,7 +442,7 @@ drilldown <- function(
           list(
             id = tolower(paste(x_level, y_level, z_level, sep = "_")),
             type = "column",
-            data = list_parse(df_level4_status)
+            data = highcharter::list_parse(df_level4_status) # Fixed: added highcharter:: prefix
           )
         })
       }) |>
@@ -467,8 +478,8 @@ drilldown <- function(
     ) |>
     highcharter::hc_xAxis(
       type = "category",
-      title = list(text = "Domain"),
-      categories = .$name
+      title = list(text = "Domain")
+      # Removed: categories = .$name (this was causing the error)
     ) |>
     highcharter::hc_yAxis(
       title = list(text = "z-Score (Mean = 0, SD = 1)"),

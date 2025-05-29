@@ -51,6 +51,22 @@
     ],
     "peacock.surpriseMeOnStartup": false,
     "githubPullRequests.ignoredPullRequestBranches": ["main"],
-    "editor.acceptSuggestionOnEnter": "on"
+    "editor.acceptSuggestionOnEnter": "on",
+    "workbench.colorCustomizations": {
+      "activityBar.activeBackground": "#dee2fc66",
+      "activityBar.background": "#dee2fc66",
+      "activityBar.foreground": "#000000",
+      "activityBar.inactiveForeground": "#00000099",
+      "activityBarBadge.background": "#f26d7f",
+      "activityBarBadge.foreground": "#000000",
+      "panel.border": "#dee2fc66",
+      "sash.hoverBorder": "#dee2fc66",
+      "statusBar.background": "#b0b8f766",
+      "statusBar.foreground": "#000000",
+      "statusBarItem.hoverBackground": "#828ef266",
+      "statusBarItem.remoteBackground": "#b0b8f766",
+      "statusBarItem.remoteForeground": "#000000",
+      "tab.activeBorder": "#dee2fc66"
+    }
   }
 }
