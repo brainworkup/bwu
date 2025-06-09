@@ -4,14 +4,14 @@
 \alias{filter_data}
 \title{Filters Data by Domain and Scale}
 \usage{
-filter_data(data, domain, scale)
+filter_data(data, domains = NULL, scales = NULL)
 }
 \arguments{
 \item{data}{A dataframe or tibble}
 
-\item{domain}{The domain name that the user wants to filter by}
+\item{domains}{Character vector of domain names to filter by}
 
-\item{scale}{A text file containing a list of scales}
+\item{scales}{Character vector of scale names to filter by}
 }
 \value{
 Returns a filtered data frame

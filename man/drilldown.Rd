@@ -2,12 +2,21 @@
 % Please edit documentation in R/plots.R
 \name{drilldown}
 \alias{drilldown}
+\alias{drilldown2}
 \title{Drilldown on Neuropsych Domains
 This function uses the R Highcharter package and drilldown function to
 "drilldown" on neuropsychological domains and test scores. \code{drilldown}
 Creates a highcharter drilldown interactive plot.}
 \usage{
 drilldown(
+  data,
+  patient,
+  neuro_domain = c("Neuropsychological Test Scores", "Behavioral Rating Scales",
+    "Effort/Validity Test Scores"),
+  theme
+)
+
+drilldown2(
   data,
   patient,
   neuro_domain = c("Neuropsychological Test Scores", "Behavioral Rating Scales",
@@ -26,9 +35,16 @@ drilldown(
 }
 \value{
 A drilldown plot
+
+A drilldown plot
 }
 \description{
 Drilldown on Neuropsych Domains
+This function uses the R Highcharter package and drilldown function to
+"drilldown" on neuropsychological domains and test scores. \code{drilldown}
+Creates a highcharter drilldown interactive plot.
+
+Drilldown on Neuropsych Domains Extended (PASS, timed, verbal)
 This function uses the R Highcharter package and drilldown function to
 "drilldown" on neuropsychological domains and test scores. \code{drilldown}
 Creates a highcharter drilldown interactive plot.

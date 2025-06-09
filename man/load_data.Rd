@@ -4,13 +4,17 @@
 \alias{load_data}
 \title{Read/Load Neuropsych Eval CSV Files}
 \usage{
-load_data(file_path)
+load_data(file_path, output_dir = here::here(), return_data = FALSE)
 }
 \arguments{
 \item{file_path}{character, Name of patient file path}
+
+\item{output_dir}{character, Directory to write output files (default: current working directory)}
+
+\item{return_data}{logical, Whether to return the processed data as a list (default: FALSE)}
 }
 \value{
-List with 4 elements, each element is a dataframe of patient data
+If return_data is TRUE, returns a list with 4 elements (neuropsych, neurocog, neurobehav, validity). Otherwise, returns NULL and writes CSV files.
 }
 \description{
 This function reads .csv files of patient data and writes four different files of the same data that are categorized by neuropsychological test type.
